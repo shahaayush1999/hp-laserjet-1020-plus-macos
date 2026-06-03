@@ -230,3 +230,17 @@ DelayMgr -> timed callbacks back into engine/status queues
 ```
 
 The next narrow target is queue `8`, because it is the least resolved active queue in the print/video path.
+
+## Queue Worker Note
+
+The descriptor/function pointer near `0x100066f4` points at `0x100136d8`. A forced decompile shows this is not the queue table initializer. It is another queue-consuming worker that waits on `PTR_DAT_100066f8` and handles messages `0x40`, `0x41`, and `0x11`.
+
+Nearby rodata includes the string/table region:
+
+- `0x10005408`: `tx_queue_send() failed, MSG LOST !!`
+- `0x10005434`: `Cal`
+- `0x10005440`: switch-table-looking entries for code around `0x100136d8`
+
+Working label:
+
+- `0x100136d8` `hp1020_calibration_control_queue_worker_candidate`
