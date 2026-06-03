@@ -1,0 +1,8 @@
+#!/bin/zsh
+set -euo pipefail
+
+if [[ $# -ge 6 && -n "${6:-}" ]]; then
+  cat "$6"
+else
+  cat
+fi

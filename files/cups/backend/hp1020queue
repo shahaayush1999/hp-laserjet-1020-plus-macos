@@ -1,0 +1,33 @@
+#!/bin/zsh
+set -euo pipefail
+
+QUEUE_DIR="/private/var/spool/cups/tmp/hp1020queue"
+
+if [[ $# -eq 0 ]]; then
+  print 'direct hp1020queue://localhost "HP LaserJet 1020 Plus" "HP LaserJet 1020 Plus" "MFG:Hewlett-Packard;MDL:HP LaserJet 1020;CMD:ACL;DES:HP LaserJet 1020;"'
+  exit 0
+fi
+
+if [[ $# -lt 5 ]]; then
+  print "ERROR: hp1020queue expects CUPS backend arguments" >&2
+  exit 1
+fi
+
+job_id="$1"
+job_user="$2"
+job_title="$3"
+input="${6:-}"
+mkdir -p "$QUEUE_DIR"
+
+safe_title="$(print -r -- "$job_title" | tr -cs '[:alnum:]._- ' '_' | cut -c 1-80)"
+stamp="$(date +%Y%m%d%H%M%S)"
+job_path="$QUEUE_DIR/${stamp}-${job_id}-${safe_title}"
+
+if [[ -z "$input" ]]; then
+  cat > "$job_path"
+else
+  cat "$input" > "$job_path"
+fi
+
+chmod 664 "$job_path"
+print "INFO: Queued HP 1020 job $job_id for $job_user at $job_path" >&2
