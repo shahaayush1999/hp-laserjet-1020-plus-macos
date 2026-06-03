@@ -49,6 +49,7 @@ Bundled source/assets:
 - `vendor/foo2zjs-source/` has the source snapshot used to build the runtime.
 - `MANIFEST.md` has dependency versions and checksums.
 - `REDISTRIBUTION.md` explains the public/private redistribution posture.
+- `OPEN_SOURCE_OPTIONS.md` explains existing open source options and the firmware boundary.
 
 ## Normal Debug Loop
 
