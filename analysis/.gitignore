@@ -5,3 +5,5 @@ labeled/early-text-disasm.txt
 usb-path/usb-path-run.txt
 usb-path/internal-blocks-run.txt
 usb-path/get-descriptor-handlers-disasm.txt
+identity/identity-run.txt
+call-clusters/call-clusters-run.txt
