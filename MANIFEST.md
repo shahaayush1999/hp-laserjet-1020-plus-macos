@@ -1,6 +1,6 @@
 # Bundle Manifest
 
-Generated from the working local setup on 2026-06-04 01:43:10 IST.
+Generated from the working local setup on 2026-06-04 01:52:27 IST.
 
 ## Runtime Dependencies Observed
 
@@ -19,9 +19,11 @@ Generated from the working local setup on 2026-06-04 01:43:10 IST.
 
 ```text
 b7554d076f380efa6ce84656908ed5709d55569436fd84858b1eb68602860726  ./.gitignore
-13f030aa6ae780f04fc23cc8acfe5d98f34909293efddb607fe90335f27367ae  ./AGENTS.md
+1925f238a22c85bedcaddd2c03d0a9af19a29d8ce330777fb3c81836039d4755  ./AGENTS.md
+5dc88b6ae0b33bb522f6bf84d0e79fca31c1cbe75714a64444f43b4172847f78  ./MANIFEST.md.dbutjw
 d0ca266c06d14eff25c5d69243e0a9cf5729fd03c7ab2af41229dd92b427b666  ./NOTICE.md
-aec07475a1c2e13ce1d02eb19221a741e48bf9d5bcd32897ba497deb1823e5d7  ./README.md
+6ff03ff84970b5c2d9d201f6ab3640a4aa7e34f47a8829af3ced31633ee408e9  ./README.md
+e11c2df3184f53b810e6b237e5a816c814b10290708c498c60995e82a686e79e  ./REDISTRIBUTION.md
 133b21fe0cb24bfe53e2eff2f00a82cce4beb970749049661ade7a6801f22663  ./assets/firmware-source/sihp1020.dl
 9d10d8e84a9577f268aac6336ed18cf9235e6f732c1f68e8913c787db60106ce  ./assets/firmware-source/sihp1020.img
 ec4665c6704c2db3cfaeb71bb06f1bbc9449c030504b04f533a84bdfae89f966  ./assets/firmware-source/sihp1020.tar.gz

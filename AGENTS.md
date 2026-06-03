@@ -48,6 +48,7 @@ Bundled source/assets:
 - `assets/firmware-source/` has the firmware artifacts produced while getting the printer working.
 - `vendor/foo2zjs-source/` has the source snapshot used to build the runtime.
 - `MANIFEST.md` has dependency versions and checksums.
+- `REDISTRIBUTION.md` explains the public/private redistribution posture.
 
 ## Normal Debug Loop
 

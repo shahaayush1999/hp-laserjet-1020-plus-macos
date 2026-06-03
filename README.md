@@ -107,6 +107,7 @@ This removes:
 - `scripts/diagnose.sh`: state/log inspection
 - `scripts/print-test.sh`: one-page test print
 - `scripts/rebuild-runtime-from-vendor.sh`: rebuilds `assets/runtime/` from `vendor/foo2zjs-source/`
+- `REDISTRIBUTION.md`: practical notes on private vs public redistribution risk
 
 ## Rebuild Runtime
 
