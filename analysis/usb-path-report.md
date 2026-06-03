@@ -10,6 +10,7 @@ Generated output:
 
 ```text
 analysis/usb-path/usb-path-map.md
+analysis/usb-path/internal-blocks.md
 analysis/usb-path/decompiled-neighbors/
 ```
 
@@ -95,6 +96,49 @@ There is also a seven-entry jump table at `0x10003500` used from the `0x8006` ha
 ```
 
 Those are likely individual descriptor/request blocks, but Ghidra currently treats them as internal labels inside `USB2Thread`, not standalone functions. A forced function split at those addresses mislabels the containing `USB2Thread` function, so the next pass should analyze them as basic blocks inside `0x10008ff0`, not as separate functions.
+
+The internal-block extractor confirms the useful shape:
+
+```text
+10009476 reads b3000408 and gates on mask 0x00006000
+100095b3 reads b3000408 and gates on mask 0x00006000
+100095f6 reads setup byte at 0x9002134a
+10009859 is a tiny block that sets a response length/status value to 1
+100096af writes response pointer 0x1001bbd0 and caps wLength at 0x000a
+100096e5 writes response pointer 0x1001bc20 and caps wLength at 0x0020
+```
+
+That strongly suggests the jump-table entries are `GET_DESCRIPTOR` response blocks keyed by descriptor index/type.
+
+Two descriptor payloads are now identified:
+
+```text
+1001bbd0: 0a 06 00 02 00 00 00 40 01 00
+```
+
+This is a 10-byte USB device-qualifier descriptor shape:
+
+- `bLength = 0x0a`
+- `bDescriptorType = 0x06`
+- `bcdUSB = 0x0200`
+- `bMaxPacketSize0 = 0x40`
+- `bNumConfigurations = 1`
+
+```text
+1001bc20: 09 07 20 00 01 01 00 c0 31
+          09 04 00 00 02 07 01 02 00
+          07 05 01 02 40 00 00
+          07 05 81 02 40 00 00
+```
+
+This is a 32-byte USB configuration descriptor tree:
+
+- configuration descriptor: total length 0x20, one interface, self-powered-ish attributes `0xc0`, max power `0x31`
+- interface descriptor: class `0x07`, subclass `0x01`, protocol `0x02` which matches USB printer-class style
+- endpoint `0x01`: bulk OUT, 64-byte packet
+- endpoint `0x81`: bulk IN, 64-byte packet
+
+So this printer firmware exposes a USB printer-class interface with bulk IN/OUT endpoints, and `USB2Thread` handles at least the control endpoint descriptor traffic.
 
 ## MMIO/Register Candidates
 
@@ -194,3 +238,38 @@ Analyze the seven jump-table target blocks inside `USB2Thread`:
 ```
 
 Then label which USB descriptor or request each block serves. Do not force-create them as standalone functions unless the function boundary problem is fixed first.
+
+Known so far:
+
+- `100096af`: device-qualifier descriptor response.
+- `100096e5`: configuration/interface/endpoint descriptor response.
+- `10009476`: descriptor response path that writes either `0x9001bbe0` or `0x9001bc00` into the response-data pointer, depending on USB controller state. These look like runtime descriptor buffers, not static `.data` payloads.
+- `100095b3`: similar runtime-buffer descriptor response path; needs one more pass to separate the exact descriptor type.
+- `100095f6`: reads setup byte 2, then branches into string/config-like descriptor handling. It writes response pointers including `0x10021380` and `0x10022b70`, which are RAM/BSS-region buffers.
+- `10009859`: short one-byte response path.
+
+Static descriptor data now identified:
+
+```text
+1001bc00: 12 01 00 02 00 00 00 40 f0 03 17 2b 00 01 01 02 03 01
+```
+
+This is a USB device descriptor:
+
+- USB 2.0
+- max packet size 64
+- vendor ID `0x03f0` HP
+- product ID `0x2b17`
+- manufacturer string index 1
+- product string index 2
+- serial/config string index 3/1 depending on field
+
+Plain ASCII identity strings are also present in `.data`:
+
+```text
+1001bf70 Hewlett-Packard
+1001bf8c HP LaserJet 1020
+1001bfb0 HP LaserJet 1020
+1001bfd4 ACL.PRINTER
+```
+- remaining blocks need the same block-level treatment and pointer/length extraction.

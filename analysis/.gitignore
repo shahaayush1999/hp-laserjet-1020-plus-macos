@@ -3,4 +3,5 @@ sihp1020.elf
 labeled/label-pass-run.txt
 labeled/early-text-disasm.txt
 usb-path/usb-path-run.txt
+usb-path/internal-blocks-run.txt
 usb-path/get-descriptor-handlers-disasm.txt
