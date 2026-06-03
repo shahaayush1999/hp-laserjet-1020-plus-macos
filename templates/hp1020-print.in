@@ -39,7 +39,7 @@ esac
 tmp_zjs="$(mktemp -t hp1020.XXXXXX.zjs)"
 trap 'rm -f "$tmp_zjs"' EXIT
 
-export PATH="$DRIVER_DIR:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="$DRIVER_DIR:@@BREW_PREFIX@@/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export DEVICE_URI
 
 job_user="${USER:-@@USER_NAME@@}"

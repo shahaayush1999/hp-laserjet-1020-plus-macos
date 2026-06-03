@@ -42,6 +42,13 @@ Logs:
 - `/Library/Printers/hp1020/launchd.out.log`
 - `/Library/Printers/hp1020/launchd.err.log`
 
+Bundled source/assets:
+
+- `assets/runtime/` has the known-good runtime currently used on the machine.
+- `assets/firmware-source/` has the firmware artifacts produced while getting the printer working.
+- `vendor/foo2zjs-source/` has the source snapshot used to build the runtime.
+- `MANIFEST.md` has dependency versions and checksums.
+
 ## Normal Debug Loop
 
 1. `scripts/diagnose.sh`
@@ -63,5 +70,7 @@ Use:
 
 - `scripts/install.sh`
 - `scripts/uninstall.sh`
+
+Use `scripts/rebuild-runtime-from-vendor.sh` only if you need to rebuild the foo2zjs runtime. The normal install path does not require rebuilding.
 
 Do not manually delete random CUPS files unless the uninstall script fails and you know which installed path you are removing.

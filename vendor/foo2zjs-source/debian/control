@@ -1,0 +1,82 @@
+Source: foo2zjs
+Maintainer: Debian Printing Team <debian-printing@lists.debian.org>
+Uploaders: Thorsten Alteholz <debian@alteholz.de>
+Section: text
+Priority: optional
+Build-Depends:
+ cups-filters | foomatic-filters,
+ dc,
+ debhelper-compat (= 13),
+ foomatic-db-engine,
+ ghostscript,
+ libcups2-dev,
+ libjbig-dev,
+ liblcms2-utils,
+ pyppd,
+ time,
+Standards-Version: 4.7.0
+Vcs-Browser: https://salsa.debian.org/printing-team/foo2zjs
+Vcs-Git: https://salsa.debian.org/printing-team/foo2zjs.git
+Homepage: http://foo2zjs.rkkda.com/
+
+Package: printer-driver-foo2zjs
+Architecture: any
+Depends:
+ cups-filters | foomatic-filters,
+ dc,
+ liblcms2-utils,
+ printer-driver-foo2zjs-common (>= ${source:Version}),
+ ${misc:Depends},
+ ${shlibs:Depends},
+ ${ubuntu:mscompress},
+Recommends:
+ cups,
+ cups-client,
+ unzip,
+ wget,
+ ${debian:mscompress},
+Suggests:
+ hannah-foo2zjs,
+ psutils,
+Breaks:
+ foo2zjs (<< 20111023dfsg0-1~),
+Replaces:
+ foo2zjs (<< 20111023dfsg0-1~),
+Description: printer driver for ZjStream-based printers
+ foo2zjs is an open source printer driver for printers that use the
+ Zenographics ZjStream wire protocol for their print data, such as the
+ Minolta magicolor 2200/2300/2430 DL, Minolta Color PageWorks/Pro L and
+ HP LaserJet 1000/1005/1018/1020/1022. These printers are often
+ erroneously referred to as "winprinters" or "GDI printers".
+ .
+ This package provides the following drivers: foo2hblp2, foo2hiperc,
+ foo2hp, foo2lava, foo2oak, foo2qpdl, foo2slx, foo2xqx, foo2zjs.
+ .
+ The psutils package is needed to enable n-up printing support.
+
+Package: printer-driver-foo2zjs-common
+Architecture: all
+Depends:
+ ${misc:Depends},
+Recommends:
+ printer-driver-foo2zjs (>= ${source:Version}),
+ ${debian:tix},
+ ${debian:tk},
+Suggests:
+ ${ubuntu:tix},
+ ${ubuntu:tk},
+Enhances:
+ printer-driver-foo2zjs (>= ${source:Version}),
+Breaks:
+ foo2zjs (<< 20111023dfsg0-1~),
+Replaces:
+ foo2zjs (<< 20111023dfsg0-1~),
+Description: printer driver for ZjStream-based printers - common files
+ foo2zjs is an open source printer driver for printers that use the
+ Zenographics ZjStream wire protocol for their print data, such as the
+ Minolta magicolor 2200/2300/2430 DL, Minolta Color PageWorks/Pro L and
+ HP LaserJet 1000/1005/1018/1020/1022. These printers are often
+ erroneously referred to as "winprinters" or "GDI printers".
+ .
+ This package contains the architecture-independent files for
+ printer-driver-foo2zjs.

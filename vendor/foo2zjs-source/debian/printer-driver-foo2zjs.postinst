@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = configure ]; then
+    # begin-remove-after: released:trixie
+    # Mitigate empty directory loss in upgrade DEP17 P6.
+    mkdir -p /usr/lib/firmware/hp
+    # end-remove-after
+    # Move user-downloaded firmware files
+    if ls /usr/share/foo2zjs/firmware/*.dl >/dev/null 2>/dev/null; then
+	mv /usr/share/foo2zjs/firmware/*.dl /usr/lib/firmware/hp/ 2>/dev/null
+    fi
+fi
+
+#DEBHELPER#

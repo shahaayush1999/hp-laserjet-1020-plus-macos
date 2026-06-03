@@ -43,11 +43,23 @@ if (( ${#missing[@]} > 0 )); then
   exit 1
 fi
 
-if [[ ! -x /opt/homebrew/bin/gs || ! -x /opt/homebrew/bin/gsed ]]; then
-  print "Missing runtime dependencies." >&2
-  print "Install them with: brew install ghostscript gnu-sed" >&2
+if ! command -v gs >/dev/null 2>&1 || ! command -v gsed >/dev/null 2>&1; then
+  if command -v brew >/dev/null 2>&1 && [[ "${HP1020_SKIP_BREW:-0}" != "1" ]]; then
+    print "Installing missing runtime dependencies with Homebrew..."
+    brew install ghostscript gnu-sed
+  else
+    print "Missing runtime dependencies." >&2
+    print "Install them with: brew install ghostscript gnu-sed" >&2
+    exit 1
+  fi
+fi
+
+if ! command -v gs >/dev/null 2>&1 || ! command -v gsed >/dev/null 2>&1; then
+  print "Runtime dependency install did not make gs and gsed available on PATH." >&2
   exit 1
 fi
+
+BREW_PREFIX="$(brew --prefix 2>/dev/null || printf '/opt/homebrew')"
 
 escape_sed_replacement() {
   printf '%s' "$1" | sed 's/[&|\\]/\\&/g'
@@ -60,11 +72,13 @@ user_home_sed="$(escape_sed_replacement "$USER_HOME")"
 user_name_sed="$(escape_sed_replacement "$USER_NAME")"
 device_uri_sed="$(escape_sed_replacement "$DEVICE_URI")"
 label_sed="$(escape_sed_replacement "$LABEL")"
+brew_prefix_sed="$(escape_sed_replacement "$BREW_PREFIX")"
 
 sed \
   -e "s|@@USER_HOME@@|$user_home_sed|g" \
   -e "s|@@USER_NAME@@|$user_name_sed|g" \
   -e "s|@@DEVICE_URI@@|$device_uri_sed|g" \
+  -e "s|@@BREW_PREFIX@@|$brew_prefix_sed|g" \
   "$ROOT/templates/hp1020-print.in" > "$render_dir/hp1020-print"
 
 sed \

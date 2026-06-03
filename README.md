@@ -30,7 +30,7 @@ This is a compatibility workaround, not an official HP driver. It is intentional
 Requirements:
 
 - macOS with CUPS
-- Homebrew Ghostscript and GNU sed:
+- Homebrew Ghostscript and GNU sed. The installer will try to install these automatically if Homebrew is available:
 
 ```sh
 brew install ghostscript gnu-sed
@@ -95,6 +95,9 @@ This removes:
 ## Repo Contents
 
 - `assets/runtime/`: working local foo2zjs runtime files and `sihp1020.dl` firmware
+- `assets/firmware-source/`: firmware artifacts used while getting this working
+- `vendor/foo2zjs-source/`: source snapshot used to build the bundled foo2zjs runtime
+- `MANIFEST.md`: dependency versions, bundle sizes, and SHA-256 checksums
 - `files/cups/backend/hp1020queue`: CUPS backend that hands jobs to the worker spool
 - `files/cups/filter/hp1020passthrough`: CUPS filter that preserves the original PDF/PS
 - `files/ppd/`: PPD used by the macOS queue
@@ -103,9 +106,19 @@ This removes:
 - `scripts/uninstall.sh`: remove everything installed by this repo
 - `scripts/diagnose.sh`: state/log inspection
 - `scripts/print-test.sh`: one-page test print
+- `scripts/rebuild-runtime-from-vendor.sh`: rebuilds `assets/runtime/` from `vendor/foo2zjs-source/`
+
+## Rebuild Runtime
+
+The normal installer uses the bundled known-good runtime. If a future agent wants to rebuild it:
+
+```sh
+brew install ghostscript gnu-sed jbigkit
+./scripts/rebuild-runtime-from-vendor.sh
+```
 
 ## Licensing Note
 
 The foo2zjs code is GPLv2; see `assets/licenses/foo2zjs-COPYING`.
 
-The HP firmware blob `assets/runtime/sihp1020.dl` is included here so this local repo is self-contained for this machine. Do not publish this repo publicly without reviewing the firmware redistribution terms. A private repo or local handoff repo is the safer default.
+The HP firmware blob `assets/runtime/sihp1020.dl` and firmware artifacts under `assets/firmware-source/` are included so this personal repo is self-contained. Do not publish this repo publicly without reviewing the firmware redistribution terms. A private repo or local handoff repo is the safer default.
