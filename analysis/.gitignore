@@ -1,0 +1,4 @@
+*.txt
+sihp1020.elf
+labeled/label-pass-run.txt
+labeled/early-text-disasm.txt

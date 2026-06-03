@@ -1,0 +1,27 @@
+/*
+Function: 1001223c hp1020_threadx_diag_1001223c
+Strings:
+- TX_READY
+- TX_COMPLETED
+- TX_TERMINATED
+- TX_SUSPENDED
+- TX_SLEEP
+- TX_QUEUE_SUSP
+- TX_SEMAPHORE_SUSP
+- TX_EVENT_FLAG
+- TX_BLOCK_MEMORY
+- TX_BYTE_MEMORY
+- TX_IO_DRIVER
+- TX_FILE
+- TX_TCP_IP
+- TX_MUTEX_SUSP
+*/
+
+
+void hp1020_threadx_diag_1001223c(void)
+
+{
+  return;
+}
+
+
