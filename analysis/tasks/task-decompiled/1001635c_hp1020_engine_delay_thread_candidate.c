@@ -1,0 +1,25 @@
+/* Function: 1001635c hp1020_engine_delay_thread_candidate */
+
+
+void hp1020_engine_delay_thread_candidate(void)
+
+{
+  undefined *puVar1;
+  int iVar2;
+  int aiStack_30 [12];
+  
+  FUN_1001214c();
+  puVar1 = PTR_DAT_10006920;
+  iVar2 = *(int *)(PTR_DAT_10006920 + 0x24);
+  while (iVar2 == 0) {
+    iVar2 = FUN_1001809c(PTR_DAT_1000699c,aiStack_30,0xffffffff);
+    if ((((iVar2 == 0) && (aiStack_30[0] == 0x11)) && (puVar1[0x28] != '\x01')) &&
+       (FUN_1001766c(0x9b), puVar1[0x28] != '\x01')) {
+      FUN_10013620(1,aiStack_30);
+    }
+    iVar2 = *(int *)(puVar1 + 0x24);
+  }
+  return;
+}
+
+
