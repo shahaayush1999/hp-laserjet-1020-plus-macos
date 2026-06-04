@@ -83,4 +83,6 @@ Queue receive search currently supports only one `engMsgQ` receiver:
 
 So the likely unresolved point is inside or immediately around the engine-thread dispatch path, not a second obvious queue consumer.
 
+The generated consumer scan is saved in `analysis/engine-event-consumer/engine-event-consumer.md`.
+
 The event names are still conservative. The next useful step is to trace queue `1` consumers and all references to message word `0x17`, then connect these event codes to outward PJL/status strings like `PAPERLESS`, `TONEREXP`, `FUSER`, and `JAM`.
