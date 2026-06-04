@@ -16,12 +16,13 @@ Start here:
 10. `message-map-report.md` - consolidated queue/message dictionary
 11. `engine-event-report.md` - engine queue `0x17` payload/event-code map
 12. `engine-event-consumer/engine-event-consumer.md` - scan for the unresolved engine `0x17` consumer path
-13. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
-14. `mmio-semantics-report.md` - first behavioral names for hardware registers
-15. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
-16. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
-17. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
-18. `prototype-roadmap.md` - practical prototype options and safety gates
+13. `engine-dispatch-cfg/engine-dispatch-cfg.md` - raw CFG and exact engine dispatch switch table
+14. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
+15. `mmio-semantics-report.md` - first behavioral names for hardware registers
+16. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
+17. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
+18. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
+19. `prototype-roadmap.md` - practical prototype options and safety gates
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -32,6 +33,7 @@ Generated decompilation/report folders include:
 - `descriptor-refs/`
 - `dispatch-mmio/`
 - `engine/`
+- `engine-dispatch-cfg/`
 - `engine-event-consumer/`
 - `engine-events/`
 - `firmware-layout/`
@@ -60,5 +62,5 @@ Useful current conclusions:
 - Queue `8` is strongly supported as `Video Queue`, but the exact runtime table write has not been found.
 - Message numbers are queue-relative; use `analysis/message-map/queue-message-map.tsv` as the current `(queue, message)` dictionary.
 - Engine message `0x17` carries a second-word event/status code; use `analysis/engine-events/engine-0x17-events.tsv` as the current code map.
-- The engine `0x17` consumer branch is still unresolved; `analysis/engine-event-consumer/engine-event-consumer.md` supports a missing/non-obvious engine dispatch path rather than a second obvious queue consumer.
+- The exact engine dispatch table maps `0x17` to the default return/no-op block; `0x17` is produced and received but not consumed as a normal engine command.
 - Engine/video MMIO has first behavioral names, but register semantics are not complete.

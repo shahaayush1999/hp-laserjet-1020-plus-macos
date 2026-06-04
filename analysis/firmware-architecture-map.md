@@ -121,7 +121,8 @@ The consolidated `(queue, message)` dictionary is in `analysis/message-map-repor
 `analysis/message-map/queue-message-map.tsv`.
 
 Engine queue message `0x17` is a status/event family with a second-word payload. The current
-event-code map is in `analysis/engine-event-report.md`.
+event-code map is in `analysis/engine-event-report.md`. The exact engine dispatch table maps
+`0x17` to the default return/no-op block, so it is not a normal consumed engine command.
 
 ## High-Level Data Flow
 
