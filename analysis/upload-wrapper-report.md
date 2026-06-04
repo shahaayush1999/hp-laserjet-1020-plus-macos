@@ -99,3 +99,16 @@ Open questions before trying a prototype upload:
 - whether the boot ROM accepts any valid Xtensa ELF or expects HP-specific sections/interface tables
 
 This is enough to build a packaging tool later without rediscovering the wrapper format.
+
+## Utility
+
+`scripts/wrap-firmware-acl.py` implements this wrapper.
+
+Verified behavior:
+
+```sh
+scripts/wrap-firmware-acl.py assets/firmware-source/sihp1020.img /tmp/sihp1020-test.dl
+cmp -s /tmp/sihp1020-test.dl assets/runtime/sihp1020.dl
+```
+
+The generated upload file matches the bundled HP `.dl` byte-for-byte for the known image.
