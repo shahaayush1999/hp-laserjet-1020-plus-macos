@@ -15,17 +15,18 @@ Start here:
 9. `message-producers-report.md` - message producers by subsystem
 10. `message-map-report.md` - consolidated queue/message dictionary
 11. `engine-event-report.md` - engine queue `0x17` payload/event-code map
-12. `engine-event-consumer/engine-event-consumer.md` - scan for the unresolved engine `0x17` consumer path
-13. `engine-dispatch-cfg/engine-dispatch-cfg.md` - raw CFG and exact engine dispatch switch table
-14. `status-path-report.md` - PJL-visible status/fault string table and bridging functions
-15. `status-mask-report.md` - literal masks/constants used by status-state and engine-status paths
-16. `status-state-report.md` - status-state object layout and transition rules
-17. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
-18. `mmio-semantics-report.md` - first behavioral names for hardware registers
-19. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
-20. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
-21. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
-22. `prototype-roadmap.md` - practical prototype options and safety gates
+12. `engine-status-poll-report.md` - branch conditions that select engine status event words
+13. `engine-event-consumer/engine-event-consumer.md` - scan for the unresolved engine `0x17` consumer path
+14. `engine-dispatch-cfg/engine-dispatch-cfg.md` - raw CFG and exact engine dispatch switch table
+15. `status-path-report.md` - PJL-visible status/fault string table and bridging functions
+16. `status-mask-report.md` - literal masks/constants used by status-state and engine-status paths
+17. `status-state-report.md` - status-state object layout and transition rules
+18. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
+19. `mmio-semantics-report.md` - first behavioral names for hardware registers
+20. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
+21. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
+22. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
+23. `prototype-roadmap.md` - practical prototype options and safety gates
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -67,6 +68,7 @@ Useful current conclusions:
 - Queue `8` is strongly supported as `Video Queue`, but the exact runtime table write has not been found.
 - Message numbers are queue-relative; use `analysis/message-map/queue-message-map.tsv` as the current `(queue, message)` dictionary.
 - Engine message `0x17` carries a second-word event/status code; use `analysis/engine-events/engine-0x17-events.tsv` as the current code map.
+- `analysis/engine-status-poll-report.md` maps the branch conditions that choose event words such as `0xe6100a01`, `0xf6000300`, and `0xe6000d03`.
 - The exact engine dispatch table maps `0x17` to the default return/no-op block; `0x17` is produced and received but not consumed as a normal engine command.
 - PJL-visible words such as `PAPERLESS`, `FUSER`, `TONEREXP`, and `JAMRECOVERY` are entries in a status command table at `0x10003c8c`, not direct engine dispatch cases.
 - `0x10010838` is the current bridge from internal status words to StatusMgr/PJL-visible notifications; `0x1000a2a4` converts status words into PJL `CODE=` values.

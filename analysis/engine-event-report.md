@@ -86,5 +86,6 @@ So the likely unresolved point is inside or immediately around the engine-thread
 
 The generated consumer scan is saved in `analysis/engine-event-consumer/engine-event-consumer.md`.
 The raw dispatch CFG and exact switch table are saved in `analysis/engine-dispatch-cfg/engine-dispatch-cfg.md`.
+The engine poller branch conditions are saved in `analysis/engine-status-poll-report.md`.
 
 The event names are still conservative. The next useful step is to connect these event codes to outward PJL/status strings like `PAPERLESS`, `TONEREXP`, `FUSER`, and `JAM`, rather than looking for a normal engine-dispatch `0x17` command branch.

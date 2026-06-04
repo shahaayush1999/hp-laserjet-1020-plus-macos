@@ -123,6 +123,7 @@ The consolidated `(queue, message)` dictionary is in `analysis/message-map-repor
 Engine queue message `0x17` is a status/event family with a second-word payload. The current
 event-code map is in `analysis/engine-event-report.md`. The exact engine dispatch table maps
 `0x17` to the default return/no-op block, so it is not a normal consumed engine command.
+The branch conditions that select the poller event words are in `analysis/engine-status-poll-report.md`.
 
 The PJL-visible status/fault vocabulary is separate from engine dispatch. Strings such as
 `PAPERLESS`, `FUSER`, `TONEREXP`, and `JAMRECOVERY` are rows in a status command table at
