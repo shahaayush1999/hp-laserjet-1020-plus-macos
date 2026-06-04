@@ -58,9 +58,9 @@ public class MapHp1020PrintMgrFallout extends GhidraScript {
         labels.put(0x10010fd0L, "hp1020_datastore_write_notify_unlock_candidate");
         labels.put(0x100111b4L, "hp1020_datastore_lock_entry_candidate");
         labels.put(0x100111d8L, "hp1020_datastore_unlock_entry_candidate");
-        labels.put(0x100130bcL, "hp1020_list_peek_candidate");
-        labels.put(0x10013050L, "hp1020_list_pop_candidate");
-        labels.put(0x10013000L, "hp1020_list_push_candidate");
+        labels.put(0x100130bcL, "hp1020_list_peek_head_candidate");
+        labels.put(0x10013050L, "hp1020_list_pop_head_candidate");
+        labels.put(0x10013000L, "hp1020_list_append_tail_candidate");
         labels.put(0x100100a8L, "hp1020_print_mgr_status_aux_candidate");
         labels.put(0x10010318L, "hp1020_print_mgr_mark_work_candidate");
         labels.put(0x100048f0L, "hp1020_print_mgr_dispatch_table");

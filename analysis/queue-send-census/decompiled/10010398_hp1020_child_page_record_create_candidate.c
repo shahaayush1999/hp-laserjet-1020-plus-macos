@@ -1,7 +1,9 @@
-/* Function: 10010398 FUN_10010398 */
+/* Function: 10010398 hp1020_child_page_record_create_candidate */
 
 
-void FUN_10010398(undefined4 *param_1)
+/* medium confidence: Allocates 0x50-byte child/page-ish record and sends JobMgr messages 3 and 5 */
+
+void hp1020_child_page_record_create_candidate(undefined4 *param_1)
 
 {
   undefined4 *puVar1;
@@ -9,7 +11,7 @@ void FUN_10010398(undefined4 *param_1)
   undefined4 local_30 [3];
   undefined4 *puStack_24;
 
-  puVar1 = (undefined4 *)FUN_10013140(0x50,1);
+  puVar1 = (undefined4 *)hp1020_alloc_with_retry_candidate(0x50,1);
   FUN_1000f204();
   puVar1[0x13] = 0;
   puVar1[0x12] = 0;

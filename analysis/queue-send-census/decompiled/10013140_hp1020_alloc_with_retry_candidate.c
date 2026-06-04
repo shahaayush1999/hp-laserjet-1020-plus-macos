@@ -1,7 +1,9 @@
-/* Function: 10013140 FUN_10013140 */
+/* Function: 10013140 hp1020_alloc_with_retry_candidate */
 
 
-void FUN_10013140(undefined4 param_1,undefined4 param_2)
+/* medium confidence: Allocator wrapper retries and sends JobMgr message 0x21 on allocation stall */
+
+void hp1020_alloc_with_retry_candidate(undefined4 param_1,undefined4 param_2)
 
 {
   uint uVar1;

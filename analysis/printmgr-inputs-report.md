@@ -39,5 +39,7 @@ case.
 
 ## Next Target
 
-The next good static pass is to split the `0x0b` and `0x11` handlers into named blocks and connect
-their list operations to the job records created by JobMgr.
+The first list/object pass is now in `analysis/job-object-flow-report.md`.
+
+The next good static pass is to name the fields in the `0x78`-byte job record and `0x50`-byte
+child/page record used by JobMgr cases `0x11`, `0x21`, and `0x25`.

@@ -1,14 +1,16 @@
-/* Function: 10010338 FUN_10010338 */
+/* Function: 10010338 hp1020_job_record_create_and_enqueue_candidate */
 
 
-void FUN_10010338(undefined4 *param_1,int param_2)
+/* medium confidence: Allocates 0x78-byte job/work record and sends JobMgr message 1 */
+
+void hp1020_job_record_create_and_enqueue_candidate(undefined4 *param_1,int param_2)
 
 {
   int iVar1;
   undefined4 local_30 [3];
   int iStack_24;
 
-  iVar1 = FUN_10013140(0x78,1);
+  iVar1 = hp1020_alloc_with_retry_candidate(0x78,1);
   FUN_1000f204();
   *(undefined4 *)(iVar1 + 0x70) = 0;
   *(undefined4 *)(iVar1 + 0x74) = 0;

@@ -36,7 +36,7 @@ void hp1020_print_mgr_schedule_or_advance_candidate(int *param_1)
   if (*hp1020_print_mgr_state_ptr_word != '\0') {
     bVar4 = *(int *)(hp1020_print_mgr_state_ptr_word + 0xc) == 3;
   }
-  iVar8 = hp1020_list_peek_candidate(PTR_DAT_10006328);
+  iVar8 = hp1020_list_peek_head_candidate(PTR_DAT_10006328);
   bVar3 = iVar8 != 0;
   iVar8 = hp1020_print_mgr_datastore_notify_state_candidate(param_1);
   bVar11 = false;
@@ -57,7 +57,7 @@ LAB_1000f5eb:
   if (!bVar11) {
     bVar11 = false;
     do {
-      iVar8 = hp1020_list_peek_candidate(PTR_DAT_10006324);
+      iVar8 = hp1020_list_peek_head_candidate(PTR_DAT_10006324);
       bVar5 = bVar2;
       if (iVar8 == 0) goto switchD_1000f611_caseD_1;
       uVar10 = *(undefined4 *)(iVar8 + 0xc);
@@ -80,7 +80,7 @@ LAB_1000f6a0:
             else {
               iVar9 = hp1020_print_mgr_media_select_candidate(uVar10,0);
               if (iVar9 != 0) {
-                iVar9 = hp1020_list_peek_candidate(PTR_DAT_10006328);
+                iVar9 = hp1020_list_peek_head_candidate(PTR_DAT_10006328);
                 if (iVar9 == 0) {
                   *(undefined4 *)(hp1020_print_mgr_state_ptr_word + 0xc) = 2;
                   hp1020_print_mgr_emit_media_status_candidate();
@@ -116,8 +116,8 @@ LAB_1000f6a8:
         break;
       case 4:
         if (((!bVar2) && (!bVar4)) || (*(int *)(iVar8 + 8) != 1)) break;
-        iVar8 = hp1020_list_pop_candidate(PTR_DAT_10006324);
-        hp1020_list_push_candidate(PTR_DAT_10006328,iVar8);
+        iVar8 = hp1020_list_pop_head_candidate(PTR_DAT_10006324);
+        hp1020_list_append_tail_candidate(PTR_DAT_10006328,iVar8);
         *(undefined4 *)(iVar8 + 4) = 5;
         hp1020_queue_send_message4_candidate(0,0xb,0,0,uVar10);
         cVar1 = hp1020_print_mgr_state_ptr_word[2];
@@ -128,7 +128,7 @@ LAB_1000f6a8:
         bVar3 = true;
         goto LAB_1000f80e;
       case 7:
-        iVar9 = hp1020_list_peek_candidate(PTR_DAT_10006328);
+        iVar9 = hp1020_list_peek_head_candidate(PTR_DAT_10006328);
         if (((*param_1 == 0x11) && (*(int *)(hp1020_print_mgr_state_ptr_word + 0xc) == 1)) &&
            (iVar9 == 0)) {
           *(undefined4 *)(hp1020_print_mgr_state_ptr_word + 0xc) = 2;

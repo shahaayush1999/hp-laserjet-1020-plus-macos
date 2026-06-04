@@ -42,7 +42,7 @@ void FUN_1000eeb8(int param_1)
     hp1020_datastore_write_notify_unlock_candidate(&local_50);
     puVar1 = PTR_DAT_100062e4;
     hp1020_runtime_service_2_candidate(*(undefined4 *)(*(int *)PTR_DAT_100062e4 + 0xc));
-    FUN_10013050(puVar1);
+    hp1020_list_pop_head_candidate(puVar1);
     hp1020_runtime_service_2_candidate();
     iVar2 = *(int *)puVar1;
     if (iVar2 != 0) {

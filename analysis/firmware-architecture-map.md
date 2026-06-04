@@ -177,6 +177,11 @@ USB/PJL/ZjStream input
 
 This is not one monolithic parser. It is a set of cooperating state machines connected through queues.
 
+`analysis/job-object-flow-report.md` now maps the first work-object flow: JobMgr allocates a
+`0x78`-byte job/work record and `0x50`-byte child/page-ish records; PrintMgr moves list nodes from
+pending list `0x10006324` to active list `0x10006328`; PrintMgr `0x11` returns active work to
+JobMgr queue `3`.
+
 ## Status/PJL Fault Path
 
 The status path now has a concrete bridge from hardware-ish engine words to user-visible PJL text:

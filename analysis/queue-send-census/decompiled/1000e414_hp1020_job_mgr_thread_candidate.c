@@ -68,11 +68,11 @@ switchD_1000e461_caseD_4:
         hp1020_print_mgr_message_helper_candidate(iStack_84);
       }
       uVar16 = uVar16 & 0xffffcfff;
-      iVar8 = FUN_10013140(0x10,1);
+      iVar8 = hp1020_alloc_with_retry_candidate(0x10,1);
       puVar4 = PTR_DAT_100062e4;
       *(int *)(iVar8 + 0xc) = iStack_84;
       uVar16 = uVar16 & 0xffffcfff;
-      FUN_10013000(puVar4,iVar8);
+      hp1020_list_append_tail_candidate(puVar4,iVar8);
       *(undefined1 *)(iVar9 + 0x68) = 0;
       *(undefined1 *)(iVar9 + 0x6a) = 0;
       *(undefined4 *)(iVar9 + 0x70) = 0;
@@ -98,10 +98,10 @@ switchD_1000e461_caseD_4:
     if (*PTR_DAT_100062fc == '\0') {
       iVar8 = *(int *)(*(int *)(PTR_DAT_100062e4 + 4) + 0xc);
       uVar16 = uVar16 & 0xffffcfff;
-      iVar9 = FUN_10013140(0x10,1);
+      iVar9 = hp1020_alloc_with_retry_candidate(0x10,1);
       *(int *)(iVar9 + 0xc) = iStack_84;
       uVar16 = uVar16 & 0xffffcfff;
-      FUN_10013000(iVar8 + 0x70,iVar9);
+      hp1020_list_append_tail_candidate(iVar8 + 0x70,iVar9);
       goto switchD_1000e461_caseD_4;
     }
     break;
@@ -181,7 +181,7 @@ switchD_1000e461_caseD_9:
         }
         if (uStack_8c == 3) {
           uVar16 = uVar16 & 0xffffcfff;
-          FUN_10013000(iVar9 + 0x50,iStack_84);
+          hp1020_list_append_tail_candidate(iVar9 + 0x50,iStack_84);
           puVar4 = PTR_DAT_10006304;
           if (*(short *)(iVar9 + 0x36) == 0) {
             *(undefined4 *)(iVar9 + 0x84) = *(undefined4 *)(PTR_DAT_10006304 + 4);
@@ -305,7 +305,7 @@ switchD_1000e461_caseD_9:
 LAB_1000e856:
       if (*(int *)(iVar8 + 0x4c) == 0) {
         uVar16 = uVar16 & 0xffffcfff;
-        FUN_10013050(*(int *)(*(int *)PTR_DAT_100062e4 + 0xc) + 0x70);
+        hp1020_list_pop_head_candidate(*(int *)(*(int *)PTR_DAT_100062e4 + 0xc) + 0x70);
         uVar16 = uVar16 & 0xffffcfff;
         hp1020_runtime_service_2_candidate();
         uVar16 = uVar16 & 0xffffcfff;
@@ -412,7 +412,7 @@ joined_r0x1000ea5e:
           piVar12 = (int *)*piVar12;
           if ((*(int *)(iVar9 + 0x48) == 0) && (*(int *)(iVar9 + 0x4c) == 0)) {
             uVar16 = uVar16 & 0xffffcfff;
-            FUN_10013050(piVar3[3] + 0x70);
+            hp1020_list_pop_head_candidate(piVar3[3] + 0x70);
             uVar16 = uVar16 & 0xffffcfff;
             hp1020_runtime_service_2_candidate();
             bVar2 = true;
@@ -425,7 +425,7 @@ joined_r0x1000ea5e:
           uVar16 = uVar16 & 0xffffcfff;
           FUN_1000efd8(*(undefined4 *)(iVar9 + 0xc));
           uVar16 = uVar16 & 0xffffcfff;
-          FUN_10013050(*(int *)(*piVar12 + 0xc) + 0x70);
+          hp1020_list_pop_head_candidate(*(int *)(*piVar12 + 0xc) + 0x70);
           uVar16 = uVar16 & 0xffffcfff;
           hp1020_runtime_service_2_candidate();
         }
@@ -452,12 +452,12 @@ joined_r0x1000ea5e:
           uVar16 = uVar16 & 0xffffcfff;
           hp1020_runtime_service_2_candidate(uVar14);
           uVar16 = uVar16 & 0xffffcfff;
-          FUN_10013050(*(int *)(*(int *)PTR_DAT_100062e4 + 0xc) + 0x70);
+          hp1020_list_pop_head_candidate(*(int *)(*(int *)PTR_DAT_100062e4 + 0xc) + 0x70);
           uVar16 = uVar16 & 0xffffcfff;
           hp1020_runtime_service_2_candidate();
         }
         uVar16 = uVar16 & 0xffffcfff;
-        FUN_10013050(PTR_DAT_100062e4);
+        hp1020_list_pop_head_candidate(PTR_DAT_100062e4);
         uVar16 = uVar16 & 0xffffcfff;
         hp1020_runtime_service_2_candidate();
         puVar4 = PTR_DAT_100062e8;
@@ -472,7 +472,7 @@ joined_r0x1000ea5e:
             FUN_1000efd8(piVar12[3]);
             piVar12 = (int *)*piVar12;
             uVar16 = uVar16 & 0xffffcfff;
-            FUN_10013050(*(int *)(*(int *)PTR_DAT_100062e4 + 0xc) + 0x70);
+            hp1020_list_pop_head_candidate(*(int *)(*(int *)PTR_DAT_100062e4 + 0xc) + 0x70);
             uVar16 = uVar16 & 0xffffcfff;
             hp1020_runtime_service_2_candidate();
           }
@@ -585,7 +585,7 @@ LAB_1000ead8:
       FUN_1000ed4c(piVar3);
     }
     uVar16 = uVar16 & 0xffffcfff;
-    FUN_10013050(PTR_DAT_100062e4);
+    hp1020_list_pop_head_candidate(PTR_DAT_100062e4);
     uVar16 = uVar16 & 0xffffcfff;
     hp1020_runtime_service_2_candidate();
     bVar2 = true;
