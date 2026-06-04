@@ -16,7 +16,8 @@ Start here:
 10. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
 11. `mmio-semantics-report.md` - first behavioral names for hardware registers
 12. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
-13. `prototype-roadmap.md` - practical prototype options and safety gates
+13. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
+14. `prototype-roadmap.md` - practical prototype options and safety gates
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -34,6 +35,7 @@ Generated decompilation/report folders include:
 - `object-creation/`
 - `queue-routing/`
 - `queue-table-init/`
+- `symbols/`
 - `tasks/`
 - `usb-path/`
 
@@ -43,6 +45,7 @@ Useful current conclusions:
 - The upload/image/ELF layout is checkable with `scripts/inspect-firmware-layout.py`.
 - The firmware is a date-prefixed Xtensa big-endian ELF inside an HP ACL/PJL envelope.
 - Ghidra can analyze it when forced to `Xtensa:BE:32:default`.
+- Current labels are portable via `analysis/symbols/hp1020-labels.tsv` and `analysis/ghidra-scripts/ApplyHp1020LabelsFromTsv.java`.
 - The firmware uses ThreadX-style RTOS objects with magic values such as `QUEU` and `THRD`.
 - Queue send-by-ID reads from runtime table `0x1002c918`.
 - Queue `8` is strongly supported as `Video Queue`, but the exact runtime table write has not been found.

@@ -1,0 +1,99 @@
+# address	name	kind	confidence	note
+0x100167a8	hp1020_elf_entry	function	high	ELF entry clears interrupts and jumps through early boot pointer
+0x10006cd0	hp1020_cpu_tlb_init_candidate	function	medium	Early CPU and TLB initialization target reached from entry path
+0x10016d6f	hp1020_interrupt_dispatcher_candidate	function	medium	Interrupt dispatcher region; Ghidra accepted odd Xtensa entry
+0x1001861c	hp1020_interrupt_context_save_dispatch_candidate	function	medium	Saves CPU context before first interrupt dispatch
+0x100188f0	hp1020_thread_context_restore_candidate	function	medium	Restores thread context and returns from exception
+0x1001788c	hp1020_system_timer_thread_candidate	function	medium	System Timer Thread descriptor handler
+0x10017f18	threadx_queue_create_candidate	function	high	Queue create wrapper
+0x100199a4	threadx_queue_create_core_candidate	function	high	Queue create core writes QUEU object signature
+0x1001809c	threadx_queue_receive_wait_candidate	function	high	Queue receive wrapper
+0x100180dc	threadx_queue_send_candidate	function	high	Queue send wrapper
+0x10018274	threadx_thread_create_candidate	function	high	Thread create wrapper
+0x1001a610	threadx_thread_create_core_candidate	function	medium	Thread create core; decompiler has trouble with body
+0x100181a4	threadx_memory_or_copy_candidate	function	medium	System-interface table memory/block service
+0x1001766c	threadx_sleep_candidate	function	medium	System-interface table sleep service
+0x100131b8	hp1020_runtime_service_candidate	function	medium	Runtime allocator/service from system-interface table
+0x10013408	hp1020_runtime_service_2_candidate	function	low	Runtime service from system-interface table
+0x100116ec	hp1020_system_service_candidate	function	low	System service from system-interface table
+0x10010f54	hp1020_event_flag_get_candidate	function	medium	Event flag get from system-interface table
+0x10010fd0	hp1020_event_flag_set_candidate	function	medium	Event flag set from system-interface table
+0x10011258	hp1020_register_event_handler_candidate	function	medium	Register event handler from system-interface table
+0x1001135c	hp1020_register_or_signal_message_candidate	function	medium	Register/signal message service from system-interface table
+0x10013620	hp1020_send_or_raise_engine_msg_candidate	function	medium	Wrapper around indexed queue send path
+0x10013658	hp1020_queue_send_candidate	function	high	Firmware queue send wrapper used across subsystems
+0x10013668	hp1020_queue_send_indexed_candidate	function	high	Reads queue table at 0x1002c918 plus queue_id * 4
+0x1000e414	hp1020_job_mgr_thread_candidate	function	high	Job Mgr Queue consumer
+0x1000f324	hp1020_print_mgr_thread_candidate	function	high	PrintMgrQueue consumer and print-manager dispatcher
+0x10010590	hp1020_status_mgr_thread_candidate	function	high	StatusMgrQueue consumer
+0x10010b0c	hp1020_delay_mgr_receive_thread_candidate	function	high	DelayMgr Msg Queue receive thread
+0x1001146c	hp1020_data_store_thread_candidate	function	medium	Data-store descriptor region thread candidate
+0x100139e4	hp1020_control_panel_thread_candidate	function	medium	Control-panel descriptor region thread candidate
+0x10013c18	hp1020_video_thread_candidate	function	high	Video Queue consumer
+0x1001635c	hp1020_engine_delay_thread_candidate	function	high	Engine delay queue consumer
+0x100163b0	hp1020_engine_thread_candidate	function	high	Engine queue consumer
+0x10007c00	hp1020_usb_register_transfer_candidate	function	medium	USB transfer registration/setup
+0x10007c70	hp1020_usb_transfer_setup_candidate	function	low	USB2 thread callee near transfer registration
+0x10007cd0	hp1020_usb_parser_event_flags_init_candidate	function	low	References SysParserEventFlags
+0x10008034	hp1020_usb_transfer_helper_candidate	function	low	USB transfer helper called by registration path
+0x100086f4	hp1020_usb_mmio_setup_candidate	function	low	Touches USB MMIO/SRAM range
+0x1000899c	hp1020_usb_mmio_status_candidate	function	low	Touches USB MMIO/SRAM range
+0x10008b78	hp1020_usb_queue_or_transfer_helper_candidate	function	low	USB helper near control transfer path
+0x10008c24	hp1020_usb_control_tx_data_stage_candidate	function	medium	USB control TX data-stage candidate
+0x10008fb0	hp1020_usb_drain_pending_queue_candidate	function	medium	USB2 thread pending-queue drain helper
+0x10008ff0	hp1020_usb2_thread	function	high	USB2Thread descriptor handler
+0x10009934	hp1020_usb2_idle_thread	function	high	USB2IdleThread descriptor handler
+0x10009a10	hp1020_usb_mmio_control_candidate	function	low	Touches USB MMIO control registers
+0x10009ac4	hp1020_usb2_thread_helper_candidate	function	low	Small USB2 thread callee
+0x1000ad44	hp1020_acl_download	function	high	agiACLDownload descriptor handler
+0x1000b3f8	hp1020_pjl_ustatus_result_builder	function	high	Builds PJL USTATUS-style result strings
+0x1000bd04	hp1020_pjl_info_capabilities_builder	function	high	Builds printer information/capabilities text
+0x1000c568	hp1020_pjl_config_response_candidate	function	medium	CONFIG path caller of capabilities builder
+0x1000cdb0	hp1020_pjl_echo_matcher	function	high	References @PJL ECHO and scans input
+0x1000d2a8	hp1020_pjl_command_dispatch_candidate	function	low	Caller of PJL echo matcher
+0x1000d6b0	hp1020_pjl_read_or_poll_candidate	function	high	Used by PJL ECHO scanning loop
+0x1000d700	hp1020_pjl_aux_command_candidate	function	medium	Handles AUXINIT/AUXSAVE strings
+0x10007430	hp1020_format_into_buffer_candidate	function	high	Format-like helper used in response construction
+0x1000dc00	hp1020_alloc_buffer_candidate	function	high	Allocates output buffers before response construction
+0x10011178	hp1020_get_config_value_candidate	function	medium	Get config value helper from USB/PJL paths
+0x1001693c	hp1020_copy_string_candidate	function	high	Copy string helper
+0x100169d4	hp1020_strlen_like	function	high	String length helper
+0x1001b544	hp1020_append_string_to_buffer_candidate	function	high	Append literal string to response buffer
+0x1000f164	hp1020_print_mgr_message_helper_candidate	function	low	Print-manager helper from message-producer pass
+0x10016164	hp1020_engine_message_dispatch_candidate	function	high	Central engine message dispatch
+0x10015c68	hp1020_engine_status_io_candidate	function	high	Engine status/control MMIO path
+0x10015df8	hp1020_engine_status_poll_candidate	function	high	Engine status polling path
+0x10016024	hp1020_engine_init_step_candidate	function	medium	Engine initialization step
+0x100160a8	hp1020_engine_preflight_candidate	function	medium	Engine preflight/status refresh path
+0x100165a4	hp1020_engine_register_handlers_candidate	function	medium	Registers engine event handlers
+0x10013d4c	hp1020_video_reset_dispatch_candidate	function	high	Video reset/event dispatch table consumer
+0x10014910	hp1020_video_prepare_page_candidate	function	high	Video page preparation and raster setup
+0x10015214	hp1020_video_render_or_dma_candidate	function	high	Video transfer/DMA-like register path
+0x10015438	hp1020_video_alt_render_candidate	function	medium	Alternate video render path
+0x10015458	hp1020_video_reset_or_flush_candidate	function	high	Video reset/flush MMIO path
+0x10000370	hp1020_sys_interface_table	data	high	System-interface table, 75 entries
+0x100048f0	hp1020_print_mgr_dispatch_table	data	high	Print manager dispatch table for messages 0x0b through 0x43
+0x10005710	hp1020_video_reset_dispatch_table	data	high	Video reset dispatch table, cases 0 through 7
+0x10005d88	hp1020_descriptor_dprintf_mutex	data	medium	Descriptor/string table anchor for dprintf mutex
+0x10005f14	hp1020_descriptor_usb2_idle_thread	data	high	USB2IdleThread descriptor block
+0x10005fc4	hp1020_descriptor_usb2_thread	data	high	USB2Thread descriptor block
+0x10006054	hp1020_descriptor_acl_download	data	high	agiACLDownload descriptor block
+0x100062d4	hp1020_descriptor_job_mgr_queue	data	high	Job Mgr Queue descriptor block
+0x10006330	hp1020_descriptor_print_mgr_queue	data	high	PrintMgrQueue descriptor block
+0x100063b8	hp1020_descriptor_status_mgr_queue	data	high	StatusMgrQueue descriptor block
+0x10006434	hp1020_descriptor_delay_mgr_semaphore	data	medium	DelayMgr Semaphore descriptor block
+0x1000643c	hp1020_descriptor_delay_mgr_msg_queue	data	high	DelayMgr Msg Queue descriptor block
+0x1000676c	hp1020_video_queue_object_ptr_word	data	high	Descriptor word points at video queue object 0x1002ee38
+0x10006778	hp1020_video_queue_name_region	data	medium	Region containing Video Queue string evidence
+0x10006784	hp1020_video_thread_name_ptr_word	data	medium	Descriptor word points at tVideo string
+0x10006788	hp1020_video_thread_entry_word	data	high	Descriptor word points at video thread entry 0x10013c18
+0x1000691c	hp1020_engine_status_reg_table_word	data	medium	Literal table word for 0xb050000c status/ready candidate
+0x10006928	hp1020_engine_command_reg_table_word	data	medium	Literal table word for 0xb0500004 command/control candidate
+0x10006aec	hp1020_descriptor_system_timer_thread	data	medium	System Timer Thread descriptor block
+0x1002c918	hp1020_queue_table_candidate	data	high	Runtime queue table base read by indexed queue send
+0x10028a74	hp1020_print_mgr_queue_object_candidate	data	medium	PrintMgrQueue object candidate
+0x1002f134	hp1020_engine_queue_object_candidate	data	medium	Engine queue object candidate
+0x1002386c	hp1020_job_mgr_queue_object_candidate	data	medium	Job manager queue object candidate
+0x1002ee38	hp1020_video_queue_object_candidate	data	high	Video Queue object candidate
+0x10028adc	hp1020_status_mgr_queue_object_candidate	data	medium	StatusMgrQueue object candidate
+0x1001d694	hp1020_delay_mgr_queue_object_candidate	data	medium	DelayMgr queue object candidate
