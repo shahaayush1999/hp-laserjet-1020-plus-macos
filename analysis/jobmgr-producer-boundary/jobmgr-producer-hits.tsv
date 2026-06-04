@@ -1,0 +1,26 @@
+function_address	function_name	line	kind	code
+10009b4c	FUN_10009b4c	73	possible_msg_9_constant	case 9:
+1000aec0	FUN_1000aec0	35	possible_msg_9_constant	local_50 = 9;
+1000b870	FUN_1000b870	59	possible_msg_9_constant	case 9:
+1000c8fc	FUN_1000c8fc	85	possible_msg_9_constant	local_b0 = 9;
+1000c8fc	FUN_1000c8fc	139	possible_msg_9_constant	case 9:
+1000ded8	FUN_1000ded8	61	possible_msg_9_constant	*(undefined4 *)(puVar6 + 0xac) = 9;
+1000f814	hp1020_print_mgr_return_work_to_jobmgr_candidate	14	queue_id_3_send	hp1020_queue_send_candidate(3,param_1);
+1000fcb0	FUN_1000fcb0	66	possible_msg_9_constant	uVar4 = 9;
+1000fcb0	FUN_1000fcb0	86	possible_msg_9_constant	uVar4 = 9;
+10010338	hp1020_job_record_create_and_enqueue_candidate	26	queue_id_3_send	hp1020_queue_send_candidate(3,local_30);
+10010398	hp1020_child_page_record_create_candidate	17	queue_id_3_send	hp1020_queue_send_candidate(3,local_30);
+10010398	hp1020_child_page_record_create_candidate	25	queue_id_3_send	hp1020_queue_send_candidate(3,local_30);
+100103f8	hp1020_jobmgr_send_case_6_candidate	8	queue_id_3_send	hp1020_queue_send_candidate(3,local_30);
+1001040c	hp1020_jobmgr_send_case_2_candidate	8	queue_id_3_send	hp1020_queue_send_candidate(3,local_30);
+10010838	hp1020_status_state_update_candidate	130	queue_id_3_send	hp1020_queue_send_candidate(3,&uStack_40);
+10013140	FUN_10013140	38	queue_id_3_send	hp1020_queue_send_candidate(3,local_30);
+10013d4c	hp1020_video_reset_dispatch_candidate	0	direct_jobmgr_scalar_send_function	function references JobMgr queue object and scalar queue-send helper
+10013d4c	hp1020_video_reset_dispatch_candidate	73	jobmgr_queue_object_ref	puVar1 = hp1020_job_mgr_queue_object_ptr_word;
+100144d0	hp1020_video_irq_or_band_done_candidate	0	direct_jobmgr_scalar_send_function	function references JobMgr queue object and scalar queue-send helper
+100144d0	hp1020_video_irq_or_band_done_candidate	36	jobmgr_queue_object_ref	puVar1 = hp1020_job_mgr_queue_object_ptr_word;
+100165a4	FUN_100165a4	80	possible_msg_9_constant	*puVar6 = 9;
+10016ef8	FUN_10016ef8	61	possible_msg_9_constant	iVar12 = 9;
+10016ef8	FUN_10016ef8	104	possible_msg_9_constant	case 9:
+10016ef8	FUN_10016ef8	183	possible_msg_9_constant	case 9:
+10018eac	FUN_10018eac	49	possible_msg_9_constant	*(undefined4 *)(iVar5 + 0x30) = 9;

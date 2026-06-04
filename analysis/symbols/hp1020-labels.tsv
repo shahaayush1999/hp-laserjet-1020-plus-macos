@@ -106,11 +106,15 @@
 0x1000f204	hp1020_work_common_init_candidate	function	medium	Common initializer for job/work objects
 0x1000f228	hp1020_video_work_create_candidate	function	high	Allocates and initializes 0x94-byte video/page work object
 0x1000f280	hp1020_work_mode_normalize_candidate	function	low	Normalizes work mode field 0x200 to 0x100
+0x100103f8	hp1020_jobmgr_send_case_6_candidate	function	medium	Small helper sends JobMgr message 6
+0x1001040c	hp1020_jobmgr_send_case_2_candidate	function	medium	Small helper sends JobMgr message 2
 0x100104c8	hp1020_work_populate_from_page_params_candidate	function	high	Copies selected page-parameter fields into video/page work object
 0x10014910	hp1020_video_prepare_page_candidate	function	high	Video page preparation and raster setup
 0x10015214	hp1020_video_render_or_dma_candidate	function	high	Video transfer/DMA-like register path
 0x10015438	hp1020_video_alt_render_candidate	function	medium	Alternate video render path
 0x10015458	hp1020_video_reset_or_flush_candidate	function	high	Video reset/flush MMIO path
+0x100144d0	hp1020_video_irq_or_band_done_candidate	function	medium	Video interrupt/band-done-looking path that can send scalar message 8 to JobMgr
+0x10017dac	threadx_queue_send_scalar_candidate	function	medium	ThreadX-style scalar queue-send wrapper used by direct JobMgr message 8 paths
 0x10000370	hp1020_sys_interface_table	data	high	System-interface table, 75 entries
 0x100048f0	hp1020_print_mgr_dispatch_table	data	high	Print manager dispatch table for messages 0x0b through 0x43
 0x10005710	hp1020_video_reset_dispatch_table	data	high	Video reset dispatch table, cases 0 through 7

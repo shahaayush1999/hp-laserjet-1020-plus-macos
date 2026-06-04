@@ -1,0 +1,169 @@
+/* Function: 10009b4c FUN_10009b4c */
+
+
+undefined4 FUN_10009b4c(int param_1,uint *param_2,int param_3,uint param_4)
+
+{
+  undefined *puVar1;
+  undefined *puVar2;
+  undefined2 uVar3;
+  uint uVar4;
+  short sVar7;
+  uint uVar5;
+  uint *puVar6;
+  uint *puVar8;
+
+  if (param_3 == 0) {
+    return 0;
+  }
+  FUN_1000f204(param_1);
+  uVar4 = 0;
+  *(undefined4 *)PTR_DAT_10005fe8 = 0;
+  puVar2 = PTR_DAT_10005ff4;
+  if (param_4 != 0) {
+    do {
+      puVar1 = PTR_DAT_10005ff0;
+      puVar6 = (uint *)PTR_DAT_10005fec;
+      if (*(char *)((int)param_2 + 6) != '\x01') {
+        if ((*(char *)((int)param_2 + 6) == '\x04') && (*(short *)(param_2 + 1) == 0x66)) {
+          uVar5 = 0;
+          if (param_2[2] >> 2 != 0) {
+            puVar8 = param_2 + 3;
+            puVar6 = (uint *)puVar2;
+            do {
+              uVar5 = uVar5 + 1;
+              *puVar6 = *puVar8;
+              puVar6 = puVar6 + 1;
+              puVar8 = puVar8 + 1;
+            } while (uVar5 < param_2[2] >> 2);
+          }
+          goto LAB_10009d1c;
+        }
+        goto switchD_10009b99_caseD_f;
+      }
+      switch(*(undefined2 *)(param_2 + 1)) {
+      case 0:
+        *(undefined2 *)(param_1 + 4) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 1:
+      case 0xe:
+        *(undefined2 *)(param_1 + 6) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 2:
+        *(undefined2 *)(param_1 + 8) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 3:
+        *(undefined2 *)(param_1 + 10) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 4:
+        *(undefined2 *)(param_1 + 0xc) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 5:
+        uVar3 = FUN_1000f1c4(param_2[2]);
+        *(undefined2 *)(param_1 + 0xe) = uVar3;
+        break;
+      case 6:
+        *(undefined2 *)(param_1 + 0x10) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 7:
+        *(undefined2 *)(param_1 + 0x12) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 8:
+        *(undefined2 *)(param_1 + 0x14) = *(undefined2 *)((int)param_2 + 10);
+        uVar5 = (uint)*(ushort *)(param_1 + 0x14);
+        goto LAB_10009d21;
+      case 9:
+        *(undefined2 *)(param_1 + 0x16) = *(undefined2 *)((int)param_2 + 10);
+        uVar5 = (uint)*(ushort *)(param_1 + 0x16);
+        puVar6 = (uint *)puVar1;
+        goto LAB_10009d21;
+      case 10:
+        *(undefined2 *)(param_1 + 0x18) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 0xb:
+        *(undefined2 *)(param_1 + 0x1c) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 0xc:
+      case 0x68:
+        *(undefined2 *)(param_1 + 0x1e) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 0xd:
+      case 0x69:
+        *(undefined2 *)(param_1 + 0x20) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 0x10:
+switchD_10009b99_caseD_10:
+        *(undefined2 *)(param_1 + 0x22) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 0x11:
+        *(undefined2 *)(param_1 + 0x24) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 0x12:
+        *(undefined2 *)(param_1 + 0x26) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 0x13:
+        *(undefined2 *)(param_1 + 0x2a) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 0x14:
+        sVar7 = *(short *)((int)param_2 + 10) + -1;
+        *(short *)(param_1 + 0x34) = sVar7;
+        *(undefined2 *)(param_1 + 0x2e) = *(undefined2 *)((int)param_2 + 10);
+        if (sVar7 == 1) {
+          *(undefined2 *)(param_1 + 0x34) = 2;
+        }
+        else if (sVar7 == 2) {
+          *(undefined2 *)(param_1 + 0x34) = 1;
+        }
+        break;
+      case 0x16:
+        *(undefined2 *)(param_1 + 0x30) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 0x17:
+        *(undefined2 *)(param_1 + 0x32) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 0x18:
+        *(undefined2 *)(param_1 + 0x3e) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 0x19:
+        *(undefined2 *)(param_1 + 0x40) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 0x1a:
+        *(uint *)(param_1 + 0x44) = param_2[2];
+        break;
+      case 0x65:
+        if (param_2[2] == 0) {
+          *(undefined2 *)(param_1 + 0x36) = 1;
+        }
+        break;
+      case 0x66:
+        uVar5 = 0;
+        puVar6 = (uint *)puVar2;
+        if (*param_2 >> 2 != 0) {
+          do {
+            uVar5 = uVar5 + 1;
+            *puVar6 = param_2[2];
+            puVar6 = puVar6 + 1;
+          } while (uVar5 < *param_2 >> 2);
+        }
+LAB_10009d1c:
+        uVar5 = 1;
+        puVar6 = (uint *)PTR_DAT_10005fe8;
+LAB_10009d21:
+        *puVar6 = uVar5;
+        break;
+      case 0x67:
+        *(undefined2 *)(param_1 + 0x2c) = *(undefined2 *)((int)param_2 + 10);
+        break;
+      case 0x6a:
+        if (*(short *)(param_1 + 0x22) == 0) goto switchD_10009b99_caseD_10;
+        break;
+      case 0x6b:
+        *(undefined2 *)(param_1 + 0x38) = *(undefined2 *)((int)param_2 + 10);
+      }
+switchD_10009b99_caseD_f:
+      uVar4 = uVar4 + 1;
+      param_2 = (uint *)((int)param_2 + *param_2);
+    } while (uVar4 < param_4);
+  }
+  return 0;
+}

@@ -309,7 +309,9 @@ video/page work object:
 - carries late video hardware fields at `+0x84`, `+0x88`, `+0x8c`, and `+0x90`
 
 Those late hardware fields are copied from runtime block `0x10023e28`, which JobMgr case `0x29`
-fills from a 20-byte incoming payload. The producer of JobMgr `0x29` is not yet proven.
+fills from a 20-byte incoming payload. `analysis/jobmgr-producer-boundary-report.md` confirms that
+the producer of JobMgr `0x29` is not yet proven by the current static queue scans; the next target
+is the parser side that builds raster/ZjStream payloads.
 
 ### Engine
 

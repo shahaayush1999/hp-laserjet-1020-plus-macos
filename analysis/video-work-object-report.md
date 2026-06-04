@@ -109,8 +109,8 @@ Later, JobMgr copies that runtime block into the active `0x94` work object:
 | `0x10023e28 + 0x0c` | `+0x8c` | written to video/MMIO register path |
 | `0x10023e28 + 0x13` | `+0x90` | bit flags used by video hardware setup |
 
-The queue-send census does not currently prove who emits JobMgr message `0x29`. That is now the
-next parser-side boundary to map.
+The queue-send census and `analysis/jobmgr-producer-boundary-report.md` do not currently prove who
+emits JobMgr message `0x29`. That is now a parser-side boundary, not a PrintMgr boundary.
 
 ## Raster List At `+0x50`
 
@@ -143,5 +143,6 @@ The normal print path is now narrowed to a concrete object:
 - send video `0x0b`
 - video consumes dimensions, raster list, and MMIO payload fields
 
-The next useful static target is the producer side of JobMgr messages `0x29` and `9`, because
-those appear to carry the rendered raster chunks and the late hardware setup block.
+The next useful static target is the host raster/ZjStream parser side, because JobMgr messages
+`0x29` and `9` appear to carry the rendered raster chunks and the late hardware setup block but are
+not produced by the normal queue-id wrapper paths.
