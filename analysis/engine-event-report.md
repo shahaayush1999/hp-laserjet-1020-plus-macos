@@ -74,4 +74,13 @@ So `0x17` is a proven produced message, but its direct consumer is not yet prove
 
 The adjacent event registry at `0x10006490` is separate. It registers event IDs such as `0x0f` through `0x14` and emits callback/`0x2d` style notifications, but it does not by itself explain the engine queue `0x17` path.
 
+Queue receive search currently supports only one `engMsgQ` receiver:
+
+```text
+0x100163b0 hp1020_engine_thread_candidate
+  threadx_queue_receive_wait_candidate(PTR_DAT_100069bc, &message, 0x32)
+```
+
+So the likely unresolved point is inside or immediately around the engine-thread dispatch path, not a second obvious queue consumer.
+
 The event names are still conservative. The next useful step is to trace queue `1` consumers and all references to message word `0x17`, then connect these event codes to outward PJL/status strings like `PAPERLESS`, `TONEREXP`, `FUSER`, and `JAM`.
