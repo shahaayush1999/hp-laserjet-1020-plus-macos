@@ -15,6 +15,7 @@ Start here:
 9. `message-producers-report.md` - message producers by subsystem
 10. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
 11. `mmio-semantics-report.md` - first behavioral names for hardware registers
+12. `prototype-roadmap.md` - practical prototype options and safety gates
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -43,4 +44,3 @@ Useful current conclusions:
 - Queue send-by-ID reads from runtime table `0x1002c918`.
 - Queue `8` is strongly supported as `Video Queue`, but the exact runtime table write has not been found.
 - Engine/video MMIO has first behavioral names, but register semantics are not complete.
-
