@@ -17,7 +17,8 @@ Start here:
 11. `mmio-semantics-report.md` - first behavioral names for hardware registers
 12. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
 13. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
-14. `prototype-roadmap.md` - practical prototype options and safety gates
+14. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
+15. `prototype-roadmap.md` - practical prototype options and safety gates
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -36,6 +37,7 @@ Generated decompilation/report folders include:
 - `queue-routing/`
 - `queue-table-init/`
 - `symbols/`
+- `toolchain-probe/`
 - `tasks/`
 - `usb-path/`
 
@@ -46,6 +48,7 @@ Useful current conclusions:
 - The firmware is a date-prefixed Xtensa big-endian ELF inside an HP ACL/PJL envelope.
 - Ghidra can analyze it when forced to `Xtensa:BE:32:default`.
 - Current labels are portable via `analysis/symbols/hp1020-labels.tsv` and `analysis/ghidra-scripts/ApplyHp1020LabelsFromTsv.java`.
+- Local binutils can inspect `elf32-xtensa-be`, but no local Xtensa compiler/assembler/linker is installed.
 - The firmware uses ThreadX-style RTOS objects with magic values such as `QUEU` and `THRD`.
 - Queue send-by-ID reads from runtime table `0x1002c918`.
 - Queue `8` is strongly supported as `Video Queue`, but the exact runtime table write has not been found.
