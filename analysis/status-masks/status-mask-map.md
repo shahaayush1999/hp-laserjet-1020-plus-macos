@@ -5,6 +5,7 @@ status manager, status-state updater, and engine status poller.
 
 ## Target Functions
 
+- `1000a280` `hp1020_status_code_offset_lookup_candidate`
 - `1000a2a4` `hp1020_status_word_to_pjl_code_candidate`
 - `10010590` `hp1020_status_mgr_thread_candidate`
 - `10010838` `hp1020_status_state_update_candidate`
@@ -18,6 +19,7 @@ status manager, status-state updater, and engine status poller.
 
 | Function | Instruction | Data Ref | Symbol | Value | Classification |
 |---|---:|---:|---|---:|---|
+| `hp1020_status_code_offset_lookup_candidate` | `1000a283` `l32r a3,0x10006014` | `10006014` | `hp1020_status_code_offset_table_ptr` | `0x1001be40` | status mask/constant |
 | `hp1020_status_word_to_pjl_code_candidate` | `1000a2b6` `l32r a8,0x10005f74` | `10005f74` | `DAT_10005f74` | `0xff00` |  |
 | `hp1020_status_word_to_pjl_code_candidate` | `1000a2c2` `l32r a8,0x10005e74` | `10005e74` | `DAT_10005e74` | `0x20000` | single-bit mask |
 | `hp1020_status_word_to_pjl_code_candidate` | `1000a2c8` `l32r a8,0x10005e34` | `10005e34` | `DAT_10005e34` | `0x80000000` | engine/status event word |
@@ -163,6 +165,9 @@ status manager, status-state updater, and engine status poller.
 
 | Function | Instruction | Value | Classification |
 |---|---:|---:|---|
+| `hp1020_status_code_offset_lookup_candidate` | `1000a280` `entry a1,0x20` | `0x20` | single-bit mask |
+| `hp1020_status_code_offset_lookup_candidate` | `1000a286` `addi.n a5,a3,0x2` | `0x2` | single-bit mask |
+| `hp1020_status_code_offset_lookup_candidate` | `1000a28a` `movi a3,0x28` | `0x28` | small message/config/status id |
 | `hp1020_status_word_to_pjl_code_candidate` | `1000a2a4` `entry a1,0x20` | `0x20` | single-bit mask |
 | `hp1020_status_word_to_pjl_code_candidate` | `1000a2a9` `movi.n a2,0x0` | `0x0` | small message/config/status id |
 | `hp1020_status_word_to_pjl_code_candidate` | `1000a2ab` `movi a10,0x1f` | `0x1f` | small message/config/status id |

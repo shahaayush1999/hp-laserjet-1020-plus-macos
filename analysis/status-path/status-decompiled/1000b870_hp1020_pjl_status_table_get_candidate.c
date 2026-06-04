@@ -1,6 +1,8 @@
 /* Function: 1000b870 hp1020_pjl_status_table_get_candidate */
 
 
+/* high confidence: Reads values from PJL/status command table */
+
 undefined4 hp1020_pjl_status_table_get_candidate(char param_1,ushort param_2)
 
 {

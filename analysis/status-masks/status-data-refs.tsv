@@ -1,4 +1,5 @@
 # function	instruction	data_ref	symbol	value	classification	instruction_text
+1000a280 hp1020_status_code_offset_lookup_candidate	1000a283	10006014	hp1020_status_code_offset_table_ptr	0x1001be40	status mask/constant	l32r a3,0x10006014
 1000a2a4 hp1020_status_word_to_pjl_code_candidate	1000a2b6	10005f74	DAT_10005f74	0xff00		l32r a8,0x10005f74
 1000a2a4 hp1020_status_word_to_pjl_code_candidate	1000a2c2	10005e74	DAT_10005e74	0x20000	single-bit mask	l32r a8,0x10005e74
 1000a2a4 hp1020_status_word_to_pjl_code_candidate	1000a2c8	10005e34	DAT_10005e34	0x80000000	engine/status event word	l32r a8,0x10005e34

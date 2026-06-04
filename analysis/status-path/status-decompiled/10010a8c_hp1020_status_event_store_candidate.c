@@ -1,6 +1,8 @@
 /* Function: 10010a8c hp1020_status_event_store_candidate */
 
 
+/* medium confidence: Stores status words in event buffer */
+
 void hp1020_status_event_store_candidate(undefined4 param_1)
 
 {

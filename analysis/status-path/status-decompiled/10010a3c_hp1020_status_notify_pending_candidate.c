@@ -1,6 +1,8 @@
 /* Function: 10010a3c hp1020_status_notify_pending_candidate */
 
 
+/* medium confidence: Notifies subscribed clients of pending status words */
+
 void hp1020_status_notify_pending_candidate(undefined4 param_1)
 
 {

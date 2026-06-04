@@ -2,6 +2,7 @@
 
 
 /* WARNING: Control flow encountered bad instruction data */
+/* high confidence: Converts internal status word to PJL CODE value */
 
 int hp1020_status_word_to_pjl_code_candidate(uint param_1)
 
@@ -18,7 +19,7 @@ int hp1020_status_word_to_pjl_code_candidate(uint param_1)
                     /* WARNING: Bad instruction - Truncating control flow here */
       halt_baddata();
     }
-    iVar2 = FUN_1000a280(*puVar1);
+    iVar2 = hp1020_status_code_offset_lookup_candidate(*puVar1);
     iVar3 = iVar2 + DAT_1000601c;
     if (puVar1[2] != 0) {
       iVar3 = (puVar1[2] + 1) * 100 + iVar2 + DAT_1000601c;

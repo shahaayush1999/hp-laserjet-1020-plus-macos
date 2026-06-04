@@ -1,6 +1,8 @@
 /* Function: 10010838 hp1020_status_state_update_candidate */
 
 
+/* high confidence: Normalizes status words and triggers StatusMgr/PJL notifications */
+
 void hp1020_status_state_update_candidate(uint param_1,int param_2)
 
 {

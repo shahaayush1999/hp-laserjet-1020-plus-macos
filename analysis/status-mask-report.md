@@ -26,6 +26,7 @@ stores masked status words before triggering StatusMgr/PJL notifications.
 | `0x10005e74` | `0x00020000` | status updater, preflight | suppress/filter mask in notification path |
 | `0x10006018` | `0x2711` | status word to PJL code | default PJL code base/value |
 | `0x1000601c` | `0xa028` | status word to PJL code | PJL code base for mapped fault/status values |
+| `0x10006014` | `0x1001be40` | status code offset lookup | pointer to 20-entry halfword-pair table |
 
 The engine poller still emits full event/status words such as `0xe6100a01`, `0xe6101100`,
 `0xfe001401`, `0xf6000300`, and `0xf6000400`. The status updater then folds selected words into
@@ -36,6 +37,9 @@ the PJL-facing status state.
 This pass reduced the next naming problem from "the whole firmware" to a compact status vocabulary:
 `0xff00`, `0x1600`, `0x160a`, `0x1100`, `0x7c000000`, `0x80000000`, and the PJL code bases
 `0x2711` / `0xa028`.
+
+The PJL code path is now more concrete: mapped fault/status values use `0xa028` plus an offset
+from the table at `0x1001be40`, producing codes such as `41000`, `41002`, `41009`, and `41034`.
 
 The remaining hard part is not finding the functions anymore; it is proving which physical
 condition each mask represents.

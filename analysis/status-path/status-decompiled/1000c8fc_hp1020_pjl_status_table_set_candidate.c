@@ -1,6 +1,8 @@
 /* Function: 1000c8fc hp1020_pjl_status_table_set_candidate */
 
 
+/* high confidence: Parses PJL/status table names and updates stored values */
+
 undefined4
 hp1020_pjl_status_table_set_candidate
           (char param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4)

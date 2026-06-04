@@ -33,6 +33,36 @@ and the functions that bridge firmware state into status responses.
 | `19` | `10003f38` | `0x13` | `0x10003f88` | `ASCIIHEX` | `0x13 0x10003f88 0x4 0x0 0x2 0x2 0x0 0x0 0x10003c4c` |
 | `20` | `10003f5c` | `0x14` | `0x10003f80` | `XXXXXX` | `0x14 0x10003f80 0x2 0x0 0x0 0x6 0x0 0x0 0x0` |
 
+## Status Code Offset Table
+
+- Table pointer word: `10006014`
+- Table base: `1001be40`
+- Entry shape: two big-endian halfwords: input/status index, PJL-code offset
+- Code base used by `hp1020_status_word_to_pjl_code_candidate`: `0xa028`
+
+| Index | Entry | Input Value | Offset | Base `0xa028` + Offset |
+|---:|---:|---:|---:|---:|
+| `0` | `1001be40` | `0x0` | `0x0` | `41000` |
+| `1` | `1001be44` | `0x1` | `0x2` | `41002` |
+| `2` | `1001be48` | `0x5` | `0x3` | `41003` |
+| `3` | `1001be4c` | `0x9` | `0x4` | `41004` |
+| `4` | `1001be50` | `0x7` | `0x5` | `41005` |
+| `5` | `1001be54` | `0x14` | `0x8` | `41008` |
+| `6` | `1001be58` | `0x25` | `0x9` | `41009` |
+| `7` | `1001be5c` | `0x1c` | `0xa` | `41010` |
+| `8` | `1001be60` | `0x1b` | `0xb` | `41011` |
+| `9` | `1001be64` | `0xc` | `0xc` | `41012` |
+| `10` | `1001be68` | `0x103` | `0x1f` | `41031` |
+| `11` | `1001be6c` | `0x22` | `0xe` | `41014` |
+| `12` | `1001be70` | `0xd` | `0xd` | `41013` |
+| `13` | `1001be74` | `0x104` | `0x10` | `41016` |
+| `14` | `1001be78` | `0x105` | `0x11` | `41017` |
+| `15` | `1001be7c` | `0xb` | `0x12` | `41018` |
+| `16` | `1001be80` | `0x101` | `0x20` | `41032` |
+| `17` | `1001be84` | `0x102` | `0x21` | `41033` |
+| `18` | `1001be88` | `0x106` | `0x22` | `41034` |
+| `19` | `1001be8c` | `0x100` | `0xf` | `41015` |
+
 ## Status/Fault Strings
 
 | Address | String | Direct Refs | Pointer Refs |
@@ -55,6 +85,7 @@ and the functions that bridge firmware state into status responses.
 
 ## Related Functions
 
+- `1000a280` `hp1020_status_code_offset_lookup_candidate`
 - `1000a2a4` `hp1020_status_word_to_pjl_code_candidate`
 - `1000b1d4` `FUN_1000b1d4`
 - `1000b2a8` `hp1020_pjl_status_notify_builder_candidate`
@@ -87,5 +118,5 @@ and the functions that bridge firmware state into status responses.
 - `hp1020_pjl_status_table_get_candidate` reads the same table and converts rows into stored status/config values.
 - `hp1020_status_mgr_thread_candidate` consumes `StatusMgrQueue` messages and calls USTATUS/result builders after state transitions.
 - `hp1020_status_state_update_candidate` is the current bridge between numeric firmware state words and StatusMgr/PJL-visible notifications.
-- `hp1020_status_word_to_pjl_code_candidate` converts an internal status word into the numeric PJL `CODE=` value used by USTATUS DEVICE messages.
+- `hp1020_status_word_to_pjl_code_candidate` converts an internal status word into the numeric PJL `CODE=` value used by USTATUS DEVICE messages; mapped fault/status values use base `0xa028` plus the offset table above.
 - The next useful connection is to name the bit masks used by `hp1020_status_state_update_candidate` and the engine poller, then map those masks to the table rows above.

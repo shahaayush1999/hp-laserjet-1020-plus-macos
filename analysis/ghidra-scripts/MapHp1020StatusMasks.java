@@ -24,6 +24,7 @@ import java.util.Set;
 
 public class MapHp1020StatusMasks extends GhidraScript {
     private static final long[] TARGET_FUNCTIONS = {
+        0x1000a280L,
         0x1000a2a4L,
         0x10010590L,
         0x10010838L,
@@ -60,6 +61,7 @@ public class MapHp1020StatusMasks extends GhidraScript {
     }
 
     private void applyLabels() {
+        label(0x1000a280L, "hp1020_status_code_offset_lookup_candidate");
         label(0x1000a2a4L, "hp1020_status_word_to_pjl_code_candidate");
         label(0x10010590L, "hp1020_status_mgr_thread_candidate");
         label(0x10010838L, "hp1020_status_state_update_candidate");

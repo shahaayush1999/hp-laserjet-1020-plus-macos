@@ -1,6 +1,8 @@
 /* Function: 1000b2a8 hp1020_pjl_status_notify_builder_candidate */
 
 
+/* medium confidence: Builds PJL USTATUS notification */
+
 void hp1020_pjl_status_notify_builder_candidate(undefined4 param_1,undefined4 param_2)
 
 {

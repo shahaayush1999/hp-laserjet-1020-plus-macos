@@ -27,6 +27,7 @@ import java.util.Set;
 
 public class MapHp1020StatusPath extends GhidraScript {
     private static final long STATUS_TABLE_PTR_WORD = 0x10006148L;
+    private static final long STATUS_CODE_TABLE_PTR_WORD = 0x10006014L;
 
     private static final String[] STATUS_NEEDLES = {
         "FUSER",
@@ -45,6 +46,7 @@ public class MapHp1020StatusPath extends GhidraScript {
     };
 
     private static final long[] SEED_FUNCTIONS = {
+        0x1000a280L,
         0x1000a2a4L,
         0x1000b2a8L,
         0x1000b3f8L,
@@ -86,16 +88,19 @@ public class MapHp1020StatusPath extends GhidraScript {
         List<StringRecord> strings = collectStatusStrings();
         Map<Address, List<Address>> pointerRefs = scanPointerReferences(strings);
         List<TableEntry> statusTable = readStatusTable();
+        List<CodeOffsetEntry> codeTable = readStatusCodeOffsetTable();
         Set<Function> functions = collectRelatedFunctions(strings, pointerRefs);
         decompile(functions, decompDir);
 
         writeStatusTableTsv(statusTable, new File(outDir, "status-command-table.tsv"));
+        writeStatusCodeTableTsv(codeTable, new File(outDir, "status-code-offset-table.tsv"));
         try (PrintWriter out = new PrintWriter(new FileWriter(new File(outDir, "status-path.md")))) {
-            writeReport(out, strings, pointerRefs, statusTable, functions);
+            writeReport(out, strings, pointerRefs, statusTable, codeTable, functions);
         }
     }
 
     private void applyLabels() {
+        label(0x1000a280L, "hp1020_status_code_offset_lookup_candidate");
         label(0x1000a2a4L, "hp1020_status_word_to_pjl_code_candidate");
         label(0x1000b2a8L, "hp1020_pjl_status_notify_builder_candidate");
         label(0x1000b3f8L, "hp1020_pjl_ustatus_result_builder");
@@ -229,6 +234,23 @@ public class MapHp1020StatusPath extends GhidraScript {
         return entries;
     }
 
+    private List<CodeOffsetEntry> readStatusCodeOffsetTable() throws Exception {
+        List<CodeOffsetEntry> entries = new ArrayList<>();
+        Address ptrWord = addr(STATUS_CODE_TABLE_PTR_WORD);
+        long tableBaseRaw = Integer.toUnsignedLong(currentProgram.getMemory().getInt(ptrWord));
+        Address tableBase = addr(tableBaseRaw);
+        for (int i = 0; i < 20; i++) {
+            Address entryAddress = tableBase.add(i * 4L);
+            if (!currentProgram.getMemory().contains(entryAddress.add(3))) {
+                break;
+            }
+            int input = Short.toUnsignedInt(currentProgram.getMemory().getShort(entryAddress));
+            int offset = Short.toUnsignedInt(currentProgram.getMemory().getShort(entryAddress.add(2)));
+            entries.add(new CodeOffsetEntry(i, entryAddress, input, offset, 0xa028 + offset));
+        }
+        return entries;
+    }
+
     private String safeAscii(long rawAddress) {
         Address address = addr(rawAddress);
         if (!currentProgram.getMemory().contains(address)) {
@@ -343,8 +365,25 @@ public class MapHp1020StatusPath extends GhidraScript {
         }
     }
 
+    private void writeStatusCodeTableTsv(List<CodeOffsetEntry> entries, File file) throws Exception {
+        try (PrintWriter out = new PrintWriter(new FileWriter(file))) {
+            out.println("# index\tentry_address\tinput_value\toffset\tpjl_code_base_0xa028_plus_offset");
+            for (CodeOffsetEntry entry : entries) {
+                out.printf(
+                    "%d\t%s\t0x%x\t0x%x\t%d%n",
+                    entry.index,
+                    entry.address,
+                    entry.inputValue,
+                    entry.offset,
+                    entry.pjlCode
+                );
+            }
+        }
+    }
+
     private void writeReport(PrintWriter out, List<StringRecord> strings,
-        Map<Address, List<Address>> pointerRefs, List<TableEntry> statusTable, Set<Function> functions) {
+        Map<Address, List<Address>> pointerRefs, List<TableEntry> statusTable,
+        List<CodeOffsetEntry> codeTable, Set<Function> functions) {
         out.println("# HP 1020 Status And PJL Fault Path");
         out.println();
         out.println("This report maps PJL-visible status/fault strings, the status command table,");
@@ -370,6 +409,29 @@ public class MapHp1020StatusPath extends GhidraScript {
                 entry.namePointer,
                 compact(entry.name),
                 formatWords(entry.words)
+            );
+        }
+        out.println();
+
+        out.println("## Status Code Offset Table");
+        out.println();
+        out.printf("- Table pointer word: `%s`%n", addr(STATUS_CODE_TABLE_PTR_WORD));
+        if (!codeTable.isEmpty()) {
+            out.printf("- Table base: `%s`%n", codeTable.get(0).address);
+        }
+        out.println("- Entry shape: two big-endian halfwords: input/status index, PJL-code offset");
+        out.println("- Code base used by `hp1020_status_word_to_pjl_code_candidate`: `0xa028`");
+        out.println();
+        out.println("| Index | Entry | Input Value | Offset | Base `0xa028` + Offset |");
+        out.println("|---:|---:|---:|---:|---:|");
+        for (CodeOffsetEntry entry : codeTable) {
+            out.printf(
+                "| `%d` | `%s` | `0x%x` | `0x%x` | `%d` |%n",
+                entry.index,
+                entry.address,
+                entry.inputValue,
+                entry.offset,
+                entry.pjlCode
             );
         }
         out.println();
@@ -405,7 +467,7 @@ public class MapHp1020StatusPath extends GhidraScript {
         out.println("- `hp1020_pjl_status_table_get_candidate` reads the same table and converts rows into stored status/config values.");
         out.println("- `hp1020_status_mgr_thread_candidate` consumes `StatusMgrQueue` messages and calls USTATUS/result builders after state transitions.");
         out.println("- `hp1020_status_state_update_candidate` is the current bridge between numeric firmware state words and StatusMgr/PJL-visible notifications.");
-        out.println("- `hp1020_status_word_to_pjl_code_candidate` converts an internal status word into the numeric PJL `CODE=` value used by USTATUS DEVICE messages.");
+        out.println("- `hp1020_status_word_to_pjl_code_candidate` converts an internal status word into the numeric PJL `CODE=` value used by USTATUS DEVICE messages; mapped fault/status values use base `0xa028` plus the offset table above.");
         out.println("- The next useful connection is to name the bit masks used by `hp1020_status_state_update_candidate` and the engine poller, then map those masks to the table rows above.");
     }
 
@@ -476,6 +538,22 @@ public class MapHp1020StatusPath extends GhidraScript {
             this.namePointer = namePointer;
             this.name = name;
             this.words = words;
+        }
+    }
+
+    private static class CodeOffsetEntry {
+        final int index;
+        final Address address;
+        final int inputValue;
+        final int offset;
+        final int pjlCode;
+
+        CodeOffsetEntry(int index, Address address, int inputValue, int offset, int pjlCode) {
+            this.index = index;
+            this.address = address;
+            this.inputValue = inputValue;
+            this.offset = offset;
+            this.pjlCode = pjlCode;
         }
     }
 }

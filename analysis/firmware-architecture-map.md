@@ -169,6 +169,10 @@ Important status functions:
 The status table lives at `0x10003c8c` through pointer word `0x10006148`, with `0x24`-byte entries.
 Important rows include `JAMRECOVERY`, `TONEREXP`, `SETERROR`, `PAPERLESS`, and `FUSER`.
 
+The PJL `CODE=` path has a second table at `0x1001be40` through pointer word `0x10006014`.
+It contains 20 halfword-pair entries that map an internal input/status index to an offset added to
+base `0xa028`, producing codes such as `41000`, `41002`, `41009`, and `41034`.
+
 Key constants currently worth naming:
 
 | Address | Value | Current note |
@@ -180,6 +184,7 @@ Key constants currently worth naming:
 | `0x10006378` | `0x7c000000` | high-bit severity/category mask |
 | `0x10006018` | `0x2711` | default PJL code base/value |
 | `0x1000601c` | `0xa028` | PJL code base for mapped fault/status values |
+| `0x10006014` | `0x1001be40` | pointer to PJL status-code offset table |
 
 ## Print Path
 

@@ -1,6 +1,8 @@
 /* Function: 1000b520 hp1020_pjl_ustatus_cancel_builder_candidate */
 
 
+/* medium confidence: Builds PJL USTATUS cancel/result response */
+
 void hp1020_pjl_ustatus_cancel_builder_candidate(undefined4 param_1,int param_2,undefined4 param_3)
 
 {
