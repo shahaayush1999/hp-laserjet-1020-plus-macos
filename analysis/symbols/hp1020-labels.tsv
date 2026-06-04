@@ -18,8 +18,8 @@
 0x100116ec	hp1020_system_service_candidate	function	low	System service from system-interface table
 0x10010f54	hp1020_datastore_read_locked_candidate	function	high	Copies indexed data-store entry into caller storage after locking entry
 0x10010fd0	hp1020_datastore_write_notify_unlock_candidate	function	high	Writes indexed data-store entry, notifies subscribers, then unlocks entry
-0x10011258	hp1020_register_event_handler_candidate	function	medium	Register event handler from system-interface table
-0x1001135c	hp1020_register_or_signal_message_candidate	function	medium	Register/signal message service from system-interface table
+0x10011258	hp1020_datastore_register_callback_subscriber_candidate	function	medium	Register direct callback subscriber for indexed data-store entry changes
+0x1001135c	hp1020_datastore_register_queue_subscriber_candidate	function	medium	Register queue subscriber for indexed data-store entry changes
 0x10013620	hp1020_send_or_raise_engine_msg_candidate	function	medium	Wrapper around indexed queue send path
 0x10013658	hp1020_queue_send_candidate	function	high	Firmware queue send wrapper used across subsystems
 0x10013668	hp1020_queue_send_indexed_candidate	function	high	Reads queue table at 0x1002c918 plus queue_id * 4
@@ -32,6 +32,9 @@
 0x10013c18	hp1020_video_thread_candidate	function	high	Video Queue consumer
 0x1001635c	hp1020_engine_delay_thread_candidate	function	high	Engine delay queue consumer
 0x100163b0	hp1020_engine_thread_candidate	function	high	Engine queue consumer
+0x10013764	hp1020_control_panel_datastore_callback_candidate	function	medium	Callback for data-store entries 0x18 and 0x19, updating control-panel state bytes
+0x100162cc	hp1020_engine_datastore_media_callback_candidate	function	medium	Callback for data-store entries 0x10..0x14, mapping to engine media/status ids 0x200..0x204
+0x10016318	hp1020_engine_event_0x0f_config_callback_candidate	function	medium	Callback for data-store entry 0x0f, mapping DENSITY to engine state
 0x10007c00	hp1020_usb_register_transfer_candidate	function	medium	USB transfer registration/setup
 0x10007c70	hp1020_usb_transfer_setup_candidate	function	low	USB2 thread callee near transfer registration
 0x10007cd0	hp1020_usb_parser_event_flags_init_candidate	function	low	References SysParserEventFlags
@@ -95,6 +98,7 @@
 0x100063d8	hp1020_status_state_object_ptr	data	high	Pointer to status state object at 0x1002adb4
 0x10006464	hp1020_datastore_lock_table_ptr	data	high	Pointer to data-store per-entry lock table at 0x1002c0b0
 0x1000647c	hp1020_datastore_descriptor_table_ptr	data	high	Pointer to indexed data-store descriptor table at 0x1001ce14
+0x10006490	hp1020_datastore_subscriber_table_ptr_word	data	high	Pointer word to indexed data-store subscriber table
 0x10006434	hp1020_descriptor_delay_mgr_semaphore	data	medium	DelayMgr Semaphore descriptor block
 0x1000643c	hp1020_descriptor_delay_mgr_msg_queue	data	high	DelayMgr Msg Queue descriptor block
 0x1000676c	hp1020_video_queue_object_ptr_word	data	high	Descriptor word points at video queue object 0x1002ee38
@@ -107,6 +111,10 @@
 0x1001be40	hp1020_status_code_offset_table	data	high	Status code offset halfword-pair table used by PJL CODE conversion
 0x1001ce14	hp1020_datastore_descriptor_table	data	high	Indexed data-store descriptor table, entry size 0x18
 0x1002c0b0	hp1020_datastore_lock_table	data	high	Indexed data-store lock table, entry size 0x1c
+0x1002c56c	hp1020_datastore_subscriber_table_candidate	data	medium	Indexed data-store subscriber list table
+0x10006738	hp1020_control_panel_datastore_callback_ptr_word	data	medium	Pointer word to control-panel data-store callback 0x10013764
+0x100069b4	hp1020_engine_density_callback_ptr_word	data	medium	Pointer word to engine DENSITY callback 0x10016318
+0x100069b8	hp1020_engine_media_callback_ptr_word	data	medium	Pointer word to engine media/status callback 0x100162cc
 0x10006aec	hp1020_descriptor_system_timer_thread	data	medium	System Timer Thread descriptor block
 0x1002c918	hp1020_queue_table_candidate	data	high	Runtime queue table base read by indexed queue send
 0x10028a74	hp1020_print_mgr_queue_object_candidate	data	medium	PrintMgrQueue object candidate

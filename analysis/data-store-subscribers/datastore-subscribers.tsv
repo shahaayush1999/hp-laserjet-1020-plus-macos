@@ -1,0 +1,11 @@
+entry_index	subscriber_kind	queue_id	callback	registrar	registrar_name	note
+0x01	queue	1		0x1000f324	hp1020_print_mgr_thread_candidate	Print manager registers queue notification
+0x18	queue	1		0x1000f324	hp1020_print_mgr_thread_candidate	Print manager registers queue notification for ONLINE changes
+0x18	callback		0x10013764	0x100139e4	hp1020_control_panel_thread_candidate	Control-panel path updates LED/state bytes for ONLINE
+0x19	callback		0x10013764	0x100139e4	hp1020_control_panel_thread_candidate	Control-panel path translates status-notify bits into LED/state bytes
+0x0f	callback		0x10016318	0x100163b0	hp1020_engine_thread_candidate	Engine maps DENSITY value into engine state byte at offset 0x59
+0x10	callback		0x100162cc	0x100163b0	hp1020_engine_thread_candidate	Engine callback maps entry to id 0x200 and copies media/status record field
+0x11	callback		0x100162cc	0x100163b0	hp1020_engine_thread_candidate	Engine callback maps entry to id 0x201 and copies media/status record field
+0x12	callback		0x100162cc	0x100163b0	hp1020_engine_thread_candidate	Engine callback maps entry to id 0x202 and copies media/status record field
+0x13	callback		0x100162cc	0x100163b0	hp1020_engine_thread_candidate	Engine callback maps entry to id 0x203 and copies media/status record field
+0x14	callback		0x100162cc	0x100163b0	hp1020_engine_thread_candidate	Engine callback maps entry to id 0x204 and copies media/status record field

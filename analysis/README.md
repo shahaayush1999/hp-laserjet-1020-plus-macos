@@ -22,13 +22,14 @@ Start here:
 16. `status-mask-report.md` - literal masks/constants used by status-state and engine-status paths
 17. `status-state-report.md` - status-state object layout and transition rules
 18. `data-store-report.md` - indexed firmware state/config table used by PJL/status paths
-19. `pjl-status-code-reference.md` - external HP PJL status-code mapping for generated `CODE=` values
-20. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
-21. `mmio-semantics-report.md` - first behavioral names for hardware registers
-22. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
-23. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
-24. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
-25. `prototype-roadmap.md` - practical prototype options and safety gates
+19. `data-store-subscriber-report.md` - data-store publish/subscribe wiring and known callbacks
+20. `pjl-status-code-reference.md` - external HP PJL status-code mapping for generated `CODE=` values
+21. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
+22. `mmio-semantics-report.md` - first behavioral names for hardware registers
+23. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
+24. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
+25. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
+26. `prototype-roadmap.md` - practical prototype options and safety gates
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -38,6 +39,7 @@ Generated decompilation/report folders include:
 - `call-clusters/`
 - `descriptor-refs/`
 - `data-store/`
+- `data-store-subscribers/`
 - `dispatch-mmio/`
 - `engine/`
 - `engine-dispatch-cfg/`
@@ -77,6 +79,8 @@ Useful current conclusions:
 - `0x10010838` is the current bridge from internal status words to StatusMgr/PJL-visible notifications; `0x1000a2a4` converts status words into PJL `CODE=` values.
 - `0x10011178`, `0x100111b4`, and `0x100111d8` are the scalar get/lock/unlock API for an indexed data-store table at `0x1001ce14`; `0x10010f54` and `0x10010fd0` are its read/write-notify path.
 - USTATUS `DISPLAY=` uses data-store entry `0x1a`, while `ONLINE=` uses entry `0x18`.
+- Data-store subscribers are reached through `0x10006490 -> 0x1002c56c`; writes can notify queue subscribers with message `0x2d` or call direct callbacks.
+- Known live subscriptions include ONLINE/status entries `0x18`/`0x19` into the control-panel path and engine entries `0x0f..0x14` into engine callbacks.
 - The status-state object is currently mapped through pointer `0x100063d8 -> 0x1002adb4`, with current status at offset `0x08`, transition status at `0x10`, and source/reason at `0x14`.
 - HP's PJL reference anchors firmware-generated `410xx` codes as foreground paper-loading status codes; see `analysis/pjl-status-code-reference.md`.
 - Engine/video MMIO has first behavioral names, but register semantics are not complete.

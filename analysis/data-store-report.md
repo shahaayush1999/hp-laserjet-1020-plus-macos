@@ -27,8 +27,10 @@ The descriptor pointers are now concrete:
 |---:|---:|---|
 | `0x1000647c` | `0x1001ce14` | data descriptor table, entry size `0x18` |
 | `0x10006464` | `0x1002c0b0` | per-entry mutex/lock table, entry size `0x1c` |
+| `0x10006490` | `0x1002c56c` | per-entry subscriber list table |
 
 The data descriptor table currently maps entries `0x00` through `0x25`.
+The subscriber side is mapped separately in `analysis/data-store-subscriber-report.md`.
 
 ## Status-Relevant Entries
 

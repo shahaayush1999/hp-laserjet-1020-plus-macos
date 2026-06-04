@@ -140,9 +140,16 @@ Several PJL/status, USB, video, and job paths read state through a shared indexe
 | `0x10011178` | `hp1020_datastore_get_value_candidate` | reads byte/halfword/word values by entry index |
 | `0x100111b4` | `hp1020_datastore_lock_entry_candidate` | locks the indexed entry and returns its value pointer |
 | `0x100111d8` | `hp1020_datastore_unlock_entry_candidate` | unlocks the indexed entry |
+| `0x10011258` | `hp1020_datastore_register_callback_subscriber_candidate` | registers callback subscribers for data-store entry changes |
+| `0x1001135c` | `hp1020_datastore_register_queue_subscriber_candidate` | registers queue subscribers for data-store entry changes |
+| `0x10013764` | `hp1020_control_panel_datastore_callback_candidate` | callback for entries `0x18`/`0x19`; updates control-panel/LED-ish state bytes |
+| `0x100162cc` | `hp1020_engine_datastore_media_callback_candidate` | callback for entries `0x10..0x14`; maps them to internal ids `0x200..0x204` |
+| `0x10016318` | `hp1020_engine_event_0x0f_config_callback_candidate` | callback for entry `0x0f`; maps DENSITY into engine state |
 
 The data descriptor table is reached through `0x1000647c -> 0x1001ce14`, with `0x18`-byte entries.
 The matching lock table is reached through `0x10006464 -> 0x1002c0b0`, with `0x1c`-byte entries.
+The subscriber table is reached through `0x10006490 -> 0x1002c56c`; queue subscribers receive
+message `0x2d`, while callback subscribers are called as `callback(entry_id, new_value)`.
 
 Important status-facing slots:
 
