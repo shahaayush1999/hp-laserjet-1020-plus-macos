@@ -68,6 +68,17 @@ Key queue primitive labels:
 | `0x1001809c` | `threadx_queue_receive_wait_candidate` |
 | `0x100180dc` | lower ThreadX queue send candidate |
 
+RTOS object signatures now confirmed:
+
+| Magic | Meaning |
+|---|---|
+| `SEMA` | semaphore |
+| `MUTE` | mutex |
+| `QUEU` | queue |
+| `BLOC` | block pool / block object |
+| `BYTE` | byte pool |
+| `THRD` | thread |
+
 The lower wrapper at `0x10013668` computes queue control blocks like this:
 
 ```text
