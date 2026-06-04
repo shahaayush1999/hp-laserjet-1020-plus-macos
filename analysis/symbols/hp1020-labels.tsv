@@ -121,6 +121,7 @@
 0x10006434	hp1020_descriptor_delay_mgr_semaphore	data	medium	DelayMgr Semaphore descriptor block
 0x1000643c	hp1020_descriptor_delay_mgr_msg_queue	data	high	DelayMgr Msg Queue descriptor block
 0x1000676c	hp1020_video_queue_object_ptr_word	data	high	Descriptor word points at video queue object 0x1002ee38
+0x10006770	hp1020_video_state_ptr_word	data	high	Pointer word to video state object at 0x1002efc0
 0x10006778	hp1020_video_queue_name_region	data	medium	Region containing Video Queue string evidence
 0x10006784	hp1020_video_thread_name_ptr_word	data	medium	Descriptor word points at tVideo string
 0x10006788	hp1020_video_thread_entry_word	data	high	Descriptor word points at video thread entry 0x10013c18
@@ -140,6 +141,7 @@
 0x1002f134	hp1020_engine_queue_object_candidate	data	medium	Engine queue object candidate
 0x1002386c	hp1020_job_mgr_queue_object_candidate	data	medium	Job manager queue object candidate
 0x1002ee38	hp1020_video_queue_object_candidate	data	high	Video Queue object candidate
+0x1002efc0	hp1020_video_state_object	data	high	Video state object used by VideoThread prepare/render/reset paths
 0x10028adc	hp1020_status_mgr_queue_object_candidate	data	medium	StatusMgrQueue object candidate
 0x1002adb4	hp1020_status_state_object	data	high	Status state object used by status updater
 0x1001d694	hp1020_delay_mgr_queue_object_candidate	data	medium	DelayMgr queue object candidate

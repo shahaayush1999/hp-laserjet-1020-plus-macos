@@ -1,6 +1,8 @@
 /* Function: 10015214 hp1020_video_render_or_dma_candidate */
 
 
+/* high confidence: Video transfer/DMA-like register path */
+
 undefined4 hp1020_video_render_or_dma_candidate(int param_1)
 
 {
@@ -16,8 +18,8 @@ undefined4 hp1020_video_render_or_dma_candidate(int param_1)
   uint uVar10;
   undefined4 uVar11;
   
-  puVar1 = PTR_DAT_10006770;
-  uVar7 = *(int *)(PTR_DAT_10006770 + 0x98) + 1U & 3;
+  puVar1 = hp1020_video_state_ptr_word;
+  uVar7 = *(int *)(hp1020_video_state_ptr_word + 0x98) + 1U & 3;
   uVar6 = FUN_1001b770(1);
   iVar8 = *(int *)(param_1 + 0x50);
   *(int *)(puVar1 + 0x9c) = iVar8;
@@ -113,8 +115,9 @@ undefined4 hp1020_video_render_or_dma_candidate(int param_1)
     memw();
     *puVar2 = uVar10 | 0x400;
   }
-  puVar1 = PTR_DAT_10006770;
-  if (*(int *)(PTR_DAT_10006770 + 0x98) == *(int *)(PTR_DAT_10006770 + 0x94)) {
+  puVar1 = hp1020_video_state_ptr_word;
+  if (*(int *)(hp1020_video_state_ptr_word + 0x98) == *(int *)(hp1020_video_state_ptr_word + 0x94))
+  {
     FUN_10017414(uVar9,iVar8);
     piVar4 = DAT_100067f8;
     memw();
@@ -134,7 +137,7 @@ undefined4 hp1020_video_render_or_dma_candidate(int param_1)
     memw();
     *DAT_10006790 = *DAT_10006790 | 1;
     FUN_10017184(0x13);
-    *(undefined4 *)(PTR_DAT_10006770 + 0x6c) = 2;
+    *(undefined4 *)(hp1020_video_state_ptr_word + 0x6c) = 2;
   }
   FUN_1001b770(uVar6);
   return 0;

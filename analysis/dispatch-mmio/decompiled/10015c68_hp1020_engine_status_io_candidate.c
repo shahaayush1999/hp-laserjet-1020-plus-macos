@@ -1,6 +1,8 @@
 /* Function: 10015c68 hp1020_engine_status_io_candidate */
 
 
+/* high confidence: Engine status/control MMIO path */
+
 uint hp1020_engine_status_io_candidate(undefined2 param_1)
 
 {
@@ -18,10 +20,10 @@ uint hp1020_engine_status_io_candidate(undefined2 param_1)
   int iStack_28;
   int iStack_24;
   
-  puVar6 = DAT_10006928;
+  puVar6 = hp1020_engine_command_reg_table_word;
   uVar5 = DAT_10006924;
   puVar4 = PTR_DAT_10006920;
-  puVar3 = DAT_1000691c;
+  puVar3 = hp1020_engine_status_reg_table_word;
   uVar2 = DAT_10005f20;
   uVar1 = DAT_10005d04;
   iVar8 = 4;
@@ -31,8 +33,8 @@ uint hp1020_engine_status_io_candidate(undefined2 param_1)
   *puVar3 = *puVar3 & uVar5;
   do {
     memw();
-    if ((*DAT_1000691c & uVar2) == 0) {
-      FUN_1001766c(1);
+    if ((*hp1020_engine_status_reg_table_word & uVar2) == 0) {
+      threadx_sleep_candidate(1);
     }
     else {
       memw();

@@ -25,7 +25,7 @@ void hp1020_video_thread_candidate(void)
   *puVar2 = *puVar2 | 8;
   uVar6 = 0;
   FUN_1001214c();
-  puVar1 = PTR_DAT_10006770;
+  puVar1 = hp1020_video_state_ptr_word;
   do {
     while( true ) {
       while( true ) {

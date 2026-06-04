@@ -186,6 +186,10 @@ JobMgr queue `3`.
 ones for print flow are job `+0x70`/`+0x74` child-list head/tail and child/page `+0x48`/`+0x4c`
 active work slots.
 
+`analysis/video-handoff-report.md` maps the next bridge: PrintMgr sends `queue 8, message 0x0b`
+with the video work pointer in payload word 3; VideoThread stores that pointer in video state
+`+0x60` or `+0x64`, then calls prepare/render and sends engine queue `0x10` when done.
+
 ## Status/PJL Fault Path
 
 The status path now has a concrete bridge from hardware-ish engine words to user-visible PJL text:

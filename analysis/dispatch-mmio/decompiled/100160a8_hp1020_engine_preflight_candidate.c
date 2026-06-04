@@ -1,6 +1,8 @@
 /* Function: 100160a8 hp1020_engine_preflight_candidate */
 
 
+/* medium confidence: Engine preflight/status refresh path */
+
 void hp1020_engine_preflight_candidate(void)
 
 {
@@ -24,33 +26,33 @@ void hp1020_engine_preflight_candidate(void)
   uStack_34 = 0;
   uStack_3c = DAT_100063dc;
   hp1020_queue_send_candidate(1,&local_40);
-  puVar3 = DAT_10006928;
+  puVar3 = hp1020_engine_command_reg_table_word;
   uVar1 = DAT_10005e74;
   iVar6 = 0;
   memw();
   memw();
-  *DAT_10006928 = *DAT_10006928 | DAT_10005e74;
+  *hp1020_engine_command_reg_table_word = *hp1020_engine_command_reg_table_word | DAT_10005e74;
   memw();
   uVar1 = *puVar3 & uVar1;
   while( true ) {
     if (uVar1 == 0) {
-      FUN_1001766c(0x3c);
+      threadx_sleep_candidate(0x3c);
       puVar4 = PTR_DAT_10006998;
       puVar2 = PTR_DAT_10006920;
       *(undefined **)(PTR_DAT_10006920 + 0x48) = PTR_DAT_10006994;
       *(undefined **)(puVar2 + 0x4c) = puVar4;
       *(undefined4 *)(puVar2 + 0x54) = 0;
       puVar2[0x58] = 0xff;
-      uVar5 = FUN_10011178(0xf);
+      uVar5 = hp1020_datastore_get_value_candidate(0xf);
       hp1020_engine_queue_send_0x18_candidate(0xf,uVar5);
       FUN_10015d14();
       return;
     }
-    FUN_1001766c(0x14);
+    threadx_sleep_candidate(0x14);
     iVar6 = iVar6 + 1;
     if ((*(int *)(PTR_DAT_10006920 + 0x24) != 0) || (iVar6 == 0x1e)) break;
     memw();
-    uVar1 = *DAT_10006928 & DAT_10005e74;
+    uVar1 = *hp1020_engine_command_reg_table_word & DAT_10005e74;
   }
   uStack_30 = 0x17;
   uStack_28 = 0;

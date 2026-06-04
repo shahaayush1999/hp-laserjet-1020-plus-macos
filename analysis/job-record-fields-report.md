@@ -61,5 +61,7 @@ For a future runtime trace, these offsets are the ones to watch first. If a prin
 changes around job `+0x70`/`+0x74` and child `+0x48`/`+0x4c` should correspond to page work being
 queued, started, completed, or cleaned up.
 
-The next useful static target is to connect these records to the video queue payload at
-`queue 8, message 0x0b`, because that is where the record turns into raster/video work.
+The PrintMgr-to-video queue handoff is now mapped in `analysis/video-handoff-report.md`.
+
+The next useful static target is the lower video work pointer object: where offsets `+0x84`,
+`+0x88`, `+0x8c`, `+0x90`, and `+0x50` are filled before Video Queue message `0x0b`.

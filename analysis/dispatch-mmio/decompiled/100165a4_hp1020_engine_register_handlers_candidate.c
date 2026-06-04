@@ -1,6 +1,8 @@
 /* Function: 100165a4 hp1020_engine_register_handlers_candidate */
 
 
+/* medium confidence: Registers engine event handlers */
+
 void hp1020_engine_register_handlers_candidate(void)
 
 {
@@ -51,7 +53,7 @@ void hp1020_engine_register_handlers_candidate(void)
   
   puStack_4c = (undefined1 *)&local_100;
   uStack_50 = 0x1d;
-  FUN_10010f54(&uStack_50);
+  hp1020_datastore_read_locked_candidate(&uStack_50);
   local_100 = 4;
   uStack_fc = 0;
   uStack_f4 = 100;
@@ -113,7 +115,7 @@ void hp1020_engine_register_handlers_candidate(void)
   uStack_5c = 1;
   uStack_64 = 1;
   uStack_60 = 0;
-  FUN_10010fd0(&uStack_50);
+  hp1020_datastore_write_notify_unlock_candidate(&uStack_50);
   return;
 }
 

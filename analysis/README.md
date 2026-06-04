@@ -28,13 +28,14 @@ Start here:
 22. `printmgr-inputs-report.md` - proven PrintMgr queue inputs and handler targets
 23. `job-object-flow-report.md` - JobMgr/PrintMgr list nodes and work-object handoff
 24. `job-record-fields-report.md` - first field map for job and child/page records
-25. `pjl-status-code-reference.md` - external HP PJL status-code mapping for generated `CODE=` values
-26. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
-27. `mmio-semantics-report.md` - first behavioral names for hardware registers
-28. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
-29. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
-30. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
-31. `prototype-roadmap.md` - practical prototype options and safety gates
+25. `video-handoff-report.md` - PrintMgr to Video Queue `0x0b` payload and video state slots
+26. `pjl-status-code-reference.md` - external HP PJL status-code mapping for generated `CODE=` values
+27. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
+28. `mmio-semantics-report.md` - first behavioral names for hardware registers
+29. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
+30. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
+31. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
+32. `prototype-roadmap.md` - practical prototype options and safety gates
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -94,6 +95,7 @@ Useful current conclusions:
 - Proven PrintMgr queue-0 inputs are now summarized in `analysis/printmgr-inputs-report.md`; `0x4a` is sent to queue 0 but falls outside the PrintMgr dispatch range and is treated as a wake/retry/no-op style message.
 - Job/work records now have a first flow map in `analysis/job-object-flow-report.md`; JobMgr creates records, PrintMgr moves list nodes from pending to active, and PrintMgr `0x11` returns active work to JobMgr.
 - `analysis/job-record-fields-report.md` maps the first useful offsets in the `0x78`-byte job record and `0x50`-byte child/page record.
+- `analysis/video-handoff-report.md` maps the PrintMgr-to-video handoff: `queue 8, message 0x0b` carries the work pointer in payload word 4, and the video thread stores it in video state slots `+0x60`/`+0x64`.
 - The status-state object is currently mapped through pointer `0x100063d8 -> 0x1002adb4`, with current status at offset `0x08`, transition status at `0x10`, and source/reason at `0x14`.
 - HP's PJL reference anchors firmware-generated `410xx` codes as foreground paper-loading status codes; see `analysis/pjl-status-code-reference.md`.
 - Engine/video MMIO has first behavioral names, but register semantics are not complete.

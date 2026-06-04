@@ -40,9 +40,9 @@ function	function_name	line	helper	queue_arg	queue_name	message_arg	confidence	c
 10010fd0	hp1020_datastore_write_notify_unlock_candidate	92	hp1020_queue_send_candidate	(uint)*(byte *)((int)piVar3 + -5) | (uint)*(byte *)((int)piVar3 + -6) << 8 | (uint)*(byte *)((int)piVar3 + -7) << 0x10 | (uint)*(byte *)(piVar3 + -2) << 0x18	dynamic	0x2d	low_dynamic_queue_known_message	hp1020_queue_send_candidate ((uint)*(byte *)((int)piVar3 + -5) | (uint)*(byte *)((int)piVar3 + -6) << 8 | (uint)*(byte *)((int)piVar3 + -7) << 0x10 | (uint)*(byte *)(piVar3 + -2) << 0x18,&local_30);
 10013140	hp1020_alloc_with_retry_candidate	40	hp1020_queue_send_candidate	3	Job Mgr Queue	0x21	medium_payload_history	hp1020_queue_send_candidate(3,local_30);
 10013c18	hp1020_video_thread_candidate	72	hp1020_queue_send_candidate	1	engMsgQ	0x10	medium_payload_history	hp1020_queue_send_candidate(1,aiStack_30);
-10013d4c	hp1020_video_reset_dispatch_candidate	86	hp1020_send_or_raise_engine_msg_candidate	0	PrintMgrQueue	0x11	medium_payload_history	hp1020_send_or_raise_engine_msg_candidate(0,&local_30);
-10013d4c	hp1020_video_reset_dispatch_candidate	92	hp1020_send_or_raise_engine_msg_candidate	8	Video Queue	0xb	medium_payload_history	hp1020_send_or_raise_engine_msg_candidate(8,&local_30);
-10013d4c	hp1020_video_reset_dispatch_candidate	122	hp1020_send_or_raise_engine_msg_candidate	1	engMsgQ	0x17	medium_payload_history	hp1020_send_or_raise_engine_msg_candidate(1,&local_30);
+10013d4c	hp1020_video_reset_dispatch_candidate	87	hp1020_send_or_raise_engine_msg_candidate	0	PrintMgrQueue	0x11	medium_payload_history	hp1020_send_or_raise_engine_msg_candidate(0,&local_30);
+10013d4c	hp1020_video_reset_dispatch_candidate	93	hp1020_send_or_raise_engine_msg_candidate	8	Video Queue	0xb	medium_payload_history	hp1020_send_or_raise_engine_msg_candidate(8,&local_30);
+10013d4c	hp1020_video_reset_dispatch_candidate	123	hp1020_send_or_raise_engine_msg_candidate	1	engMsgQ	0x17	medium_payload_history	hp1020_send_or_raise_engine_msg_candidate(1,&local_30);
 10015c68	hp1020_engine_status_io_candidate	58	hp1020_queue_send_candidate	1	engMsgQ	0x17	medium_payload_history	hp1020_queue_send_candidate(1,&uStack_30);
 10015df8	hp1020_engine_status_poll_candidate	103	hp1020_queue_send_candidate	1	engMsgQ	0x17	medium_payload_history	hp1020_queue_send_candidate(1,&local_40);
 10015df8	hp1020_engine_status_poll_candidate	118	hp1020_queue_send_candidate	1	engMsgQ	0x17	medium_payload_history	hp1020_queue_send_candidate(1,&local_40);

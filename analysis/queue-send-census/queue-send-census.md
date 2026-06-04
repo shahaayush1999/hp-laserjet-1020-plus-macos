@@ -19,7 +19,7 @@ This pass decompiles every recovered function and extracts calls to the firmware
 | `100100a8` `hp1020_print_mgr_status_aux_candidate` | 17 | `0x1a` | high_direct_wrapper | `hp1020_queue_send_message4_candidate(0,0x1a,0,0);` |
 | `10010230` `hp1020_print_mgr_idle_or_restart_candidate` | 18 | `0x4a` | high_direct_wrapper | `hp1020_queue_send_message4_candidate(0,0x4a,0,0);` |
 | `10010230` `hp1020_print_mgr_idle_or_restart_candidate` | 26 | `0x18` | high_direct_wrapper | `hp1020_queue_send_message4_candidate(0,0x18,0,0);` |
-| `10013d4c` `hp1020_video_reset_dispatch_candidate` | 86 | `0x11` | medium_payload_history | `hp1020_send_or_raise_engine_msg_candidate(0,&local_30);` |
+| `10013d4c` `hp1020_video_reset_dispatch_candidate` | 87 | `0x11` | medium_payload_history | `hp1020_send_or_raise_engine_msg_candidate(0,&local_30);` |
 | `10016164` `hp1020_engine_message_dispatch_candidate` | 45 | `0xb` | medium_payload_history | `hp1020_send_or_raise_engine_msg_candidate(0,&local_40);` |
 
 ## Message 0x2d Sites

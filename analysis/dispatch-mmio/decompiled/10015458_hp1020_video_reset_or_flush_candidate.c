@@ -1,6 +1,8 @@
 /* Function: 10015458 hp1020_video_reset_or_flush_candidate */
 
 
+/* high confidence: Video reset/flush MMIO path */
+
 undefined4 hp1020_video_reset_or_flush_candidate(void)
 
 {
@@ -43,8 +45,8 @@ undefined4 hp1020_video_reset_or_flush_candidate(void)
   }
   uVar6 = 0;
   hp1020_video_reset_dispatch_candidate(1);
-  puVar1 = PTR_DAT_10006770;
-  if (*(int *)(PTR_DAT_10006770 + 0x70) == 1) {
+  puVar1 = hp1020_video_state_ptr_word;
+  if (*(int *)(hp1020_video_state_ptr_word + 0x70) == 1) {
     FUN_10018214(PTR_DAT_10006810);
     *(undefined4 *)(puVar1 + 0x70) = 0;
   }
