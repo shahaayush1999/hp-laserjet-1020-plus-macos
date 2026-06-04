@@ -26,6 +26,7 @@
 0x1000e414	hp1020_job_mgr_thread_candidate	function	high	Job Mgr Queue consumer
 0x1000f324	hp1020_print_mgr_thread_candidate	function	high	PrintMgrQueue consumer and print-manager dispatcher
 0x1000f574	hp1020_print_mgr_schedule_or_advance_candidate	function	medium	Advances PrintMgr queued page/media work and calls notification-state helper
+0x1000f814	hp1020_print_mgr_return_work_to_jobmgr_candidate	function	medium	PrintMgr 0x11 continuation helper; pops active work and sends onward to JobMgr queue
 0x1000f84c	hp1020_print_mgr_media_select_candidate	function	medium	Locks data-store entries 0x1d and 0x01, chooses/updates media fields
 0x1000fcb0	hp1020_print_mgr_datastore_notify_state_candidate	function	medium	Handles PrintMgr notification/completion messages including 0x2d entry 1
 0x10010158	hp1020_print_mgr_clear_pending_media_candidate	function	medium	Clears pending PrintMgr media/status state

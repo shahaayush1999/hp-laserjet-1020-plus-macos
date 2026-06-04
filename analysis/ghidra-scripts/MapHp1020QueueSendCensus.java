@@ -66,6 +66,7 @@ public class MapHp1020QueueSendCensus extends GhidraScript {
         labels.put(0x1000e414L, "hp1020_job_mgr_thread_candidate");
         labels.put(0x1000f324L, "hp1020_print_mgr_thread_candidate");
         labels.put(0x1000f574L, "hp1020_print_mgr_schedule_or_advance_candidate");
+        labels.put(0x1000f814L, "hp1020_print_mgr_return_work_to_jobmgr_candidate");
         labels.put(0x1000fcb0L, "hp1020_print_mgr_datastore_notify_state_candidate");
         labels.put(0x100100a8L, "hp1020_print_mgr_status_aux_candidate");
         labels.put(0x10010230L, "hp1020_print_mgr_idle_or_restart_candidate");

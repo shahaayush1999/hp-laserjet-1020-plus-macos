@@ -1,7 +1,10 @@
-/* Function: 1000f814 FUN_1000f814 */
+/* Function: 1000f814 hp1020_print_mgr_return_work_to_jobmgr_candidate */
 
 
-void FUN_1000f814(undefined4 param_1)
+/* medium confidence: PrintMgr 0x11 continuation helper; pops active work and sends onward to JobMgr
+   queue */
+
+void hp1020_print_mgr_return_work_to_jobmgr_candidate(undefined4 param_1)
 
 {
   undefined4 *puVar1;

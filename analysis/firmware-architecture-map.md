@@ -252,6 +252,7 @@ Behavior:
 - dispatches message IDs `0x0b` through `0x43`
 - has a real `0x2d` dispatch case, but the queue-send census found no direct static `queue 0, message 0x2d` producer
 - proven queue-0 inputs include `0x18`, `0x0d`, `0x0b`, `0x1a`, `0x4a`, and `0x11`
+- among those, `0x0b` and `0x11` are the strongest normal print-path messages; `0x4a` is sent to queue 0 but is outside the dispatch range
 - calls `0x1000f574` to advance page/media work; that path can call `0x1000fcb0`, which handles `0x2d`/entry `1`
 
 Switch table:
