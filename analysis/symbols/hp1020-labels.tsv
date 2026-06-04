@@ -46,8 +46,13 @@
 0x10009a10	hp1020_usb_mmio_control_candidate	function	low	Touches USB MMIO control registers
 0x10009ac4	hp1020_usb2_thread_helper_candidate	function	low	Small USB2 thread callee
 0x1000ad44	hp1020_acl_download	function	high	agiACLDownload descriptor handler
+0x1000a2a4	hp1020_status_word_to_pjl_code_candidate	function	high	Converts internal status word to PJL CODE value
+0x1000b2a8	hp1020_pjl_status_notify_builder_candidate	function	medium	Builds PJL USTATUS notification
 0x1000b3f8	hp1020_pjl_ustatus_result_builder	function	high	Builds PJL USTATUS-style result strings
+0x1000b520	hp1020_pjl_ustatus_cancel_builder_candidate	function	medium	Builds PJL USTATUS cancel/result response
+0x1000b870	hp1020_pjl_status_table_get_candidate	function	high	Reads values from PJL/status command table
 0x1000bd04	hp1020_pjl_info_capabilities_builder	function	high	Builds printer information/capabilities text
+0x1000c8fc	hp1020_pjl_status_table_set_candidate	function	high	Parses PJL/status table names and updates stored values
 0x1000c568	hp1020_pjl_config_response_candidate	function	medium	CONFIG path caller of capabilities builder
 0x1000cdb0	hp1020_pjl_echo_matcher	function	high	References @PJL ECHO and scans input
 0x1000d2a8	hp1020_pjl_command_dispatch_candidate	function	low	Caller of PJL echo matcher
@@ -60,6 +65,9 @@
 0x100169d4	hp1020_strlen_like	function	high	String length helper
 0x1001b544	hp1020_append_string_to_buffer_candidate	function	high	Append literal string to response buffer
 0x1000f164	hp1020_print_mgr_message_helper_candidate	function	low	Print-manager helper from message-producer pass
+0x10010838	hp1020_status_state_update_candidate	function	high	Normalizes status words and triggers StatusMgr/PJL notifications
+0x10010a3c	hp1020_status_notify_pending_candidate	function	medium	Notifies subscribed clients of pending status words
+0x10010a8c	hp1020_status_event_store_candidate	function	medium	Stores status words in event buffer
 0x10016164	hp1020_engine_message_dispatch_candidate	function	high	Central engine message dispatch
 0x10015c68	hp1020_engine_status_io_candidate	function	high	Engine status/control MMIO path
 0x10015df8	hp1020_engine_status_poll_candidate	function	high	Engine status polling path

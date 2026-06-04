@@ -1,0 +1,141 @@
+# function	instruction	data_ref	symbol	value	classification	instruction_text
+1000a2a4 hp1020_status_word_to_pjl_code_candidate	1000a2b6	10005f74	DAT_10005f74	0xff00		l32r a8,0x10005f74
+1000a2a4 hp1020_status_word_to_pjl_code_candidate	1000a2c2	10005e74	DAT_10005e74	0x20000	single-bit mask	l32r a8,0x10005e74
+1000a2a4 hp1020_status_word_to_pjl_code_candidate	1000a2c8	10005e34	DAT_10005e34	0x80000000	engine/status event word	l32r a8,0x10005e34
+1000a2a4 hp1020_status_word_to_pjl_code_candidate	1000a2ce	10006018	DAT_10006018	0x2711		l32r a2,0x10006018
+1000a2a4 hp1020_status_word_to_pjl_code_candidate	1000a2d4	10005f70	DAT_10005f70	0x1001		l32r a8,0x10005f70
+1000a2a4 hp1020_status_word_to_pjl_code_candidate	1000a2e0	1000601c	DAT_1000601c	0xa028		l32r a8,0x1000601c
+1000a2a4 hp1020_status_word_to_pjl_code_candidate	1000a301	10006020	PTR_DAT_10006020	0x1001bc84	status mask/constant	l32r a12,0x10006020
+10010590 hp1020_status_mgr_thread_candidate	10010599	100063dc	DAT_100063dc	0xe6101100	engine/status event word	l32r a10,0x100063dc
+10010590 hp1020_status_mgr_thread_candidate	100105a4	100063d8	PTR_DAT_100063d8	0x1002adb4	status mask/constant	l32r a5,0x100063d8
+10010590 hp1020_status_mgr_thread_candidate	100105a7	100063b0	PTR_DAT_100063b0	0x1002aca4	status mask/constant	l32r a3,0x100063b0
+10010590 hp1020_status_mgr_thread_candidate	100105aa	10006408	PTR_DAT_10006408	0x1001bf3c	status mask/constant	l32r a4,0x10006408
+10010590 hp1020_status_mgr_thread_candidate	100105ad	100063b4	PTR_hp1020_status_mgr_queue_object_candidate_100063b4	0x10028adc	status mask/constant	l32r a10,0x100063b4
+10010590 hp1020_status_mgr_thread_candidate	100105c5	10006414	PTR_switchdataD_10004a50_10006414	0x10004a50	status mask/constant	l32r a8,0x10006414
+10010590 hp1020_status_mgr_thread_candidate	100105cb	10004a50	switchdataD_10004a50	0x100106fe	status mask/constant	l32i.n a8,a8,0x0
+10010590 hp1020_status_mgr_thread_candidate	100105e0	100063e0	PTR_DAT_100063e0	0x1001bf38	status mask/constant	l32r a11,0x100063e0
+10010590 hp1020_status_mgr_thread_candidate	100105e6	1001bf38	DAT_1001bf38	0x0	small message/config/status id	l32i.n a9,a11,0x0
+10010590 hp1020_status_mgr_thread_candidate	100105ef	1001bf38	DAT_1001bf38	0x0	small message/config/status id	s32i.n a9,a11,0x0
+10010590 hp1020_status_mgr_thread_candidate	100105fc	10006404	PTR_switchdataD_10004b30_10006404	0x10004b30	status mask/constant	l32r a8,0x10006404
+10010590 hp1020_status_mgr_thread_candidate	10010602	10004b30	switchdataD_10004b30	0x10010608	status mask/constant	l32i a8,a8,0x0
+10010590 hp1020_status_mgr_thread_candidate	10010608	100063e4	DAT_100063e4	0x20001601	engine/status event word	l32r a10,0x100063e4
+10010590 hp1020_status_mgr_thread_candidate	1001060e	100063e8	DAT_100063e8	0x20001608	engine/status event word	l32r a10,0x100063e8
+10010590 hp1020_status_mgr_thread_candidate	10010614	100063ec	DAT_100063ec	0x20001607	engine/status event word	l32r a10,0x100063ec
+10010590 hp1020_status_mgr_thread_candidate	1001061a	100063f0	DAT_100063f0	0x20001603	engine/status event word	l32r a10,0x100063f0
+10010590 hp1020_status_mgr_thread_candidate	10010620	100063f4	DAT_100063f4	0x20001604	engine/status event word	l32r a10,0x100063f4
+10010590 hp1020_status_mgr_thread_candidate	10010626	100063f8	DAT_100063f8	0x20001605	engine/status event word	l32r a10,0x100063f8
+10010590 hp1020_status_mgr_thread_candidate	1001062c	100063fc	DAT_100063fc	0x20001606	engine/status event word	l32r a10,0x100063fc
+10010590 hp1020_status_mgr_thread_candidate	10010632	10006400	DAT_10006400	0x20001602	engine/status event word	l32r a10,0x10006400
+10010590 hp1020_status_mgr_thread_candidate	1001065c	1001bf3c	DAT_1001bf3c	0x0	small message/config/status id	l32i.n a9,a4,0x0
+10010590 hp1020_status_mgr_thread_candidate	10010665	1001bf3c	DAT_1001bf3c	0x0	small message/config/status id	s32i a9,a4,0x0
+10010590 hp1020_status_mgr_thread_candidate	1001069d	1000604c	DAT_1000604c	0x4800100	status mask/constant	l32r a10,0x1000604c
+10010590 hp1020_status_mgr_thread_candidate	100106b0	1001bf3c	DAT_1001bf3c	0x0	small message/config/status id	l32i.n a8,a4,0x0
+10010590 hp1020_status_mgr_thread_candidate	100106b9	1001bf3c	DAT_1001bf3c	0x0	small message/config/status id	s32i a8,a4,0x0
+10010590 hp1020_status_mgr_thread_candidate	100106bc	1000604c	DAT_1000604c	0x4800100	status mask/constant	l32r a10,0x1000604c
+10010590 hp1020_status_mgr_thread_candidate	1001070f	1000640c	DAT_1000640c	0x20001611	engine/status event word	l32r a10,0x1000640c
+10010590 hp1020_status_mgr_thread_candidate	10010715	10006410	DAT_10006410	0x20001612	engine/status event word	l32r a10,0x10006410
+10010590 hp1020_status_mgr_thread_candidate	10010727	10005c88	DAT_10005c88	0x1000000	single-bit mask	l32r a8,0x10005c88
+10010590 hp1020_status_mgr_thread_candidate	1001072d	10006358	DAT_10006358	0x70000000	status mask/constant	l32r a8,0x10006358
+10010590 hp1020_status_mgr_thread_candidate	10010736	1000635c	DAT_1000635c	0x60000000	status mask/constant	l32r a8,0x1000635c
+10010590 hp1020_status_mgr_thread_candidate	1001074e	100063d0	PTR_DAT_100063d0	0x1002acf4	status mask/constant	l32r a10,0x100063d0
+10010590 hp1020_status_mgr_thread_candidate	10010790	100063d0	PTR_DAT_100063d0	0x1002acf4	status mask/constant	l32r a10,0x100063d0
+10010838 hp1020_status_state_update_candidate	1001083f	100063d8	PTR_DAT_100063d8	0x1002adb4	status mask/constant	l32r a12,0x100063d8
+10010838 hp1020_status_state_update_candidate	1001085f	10005f74	DAT_10005f74	0xff00		l32r a11,0x10005f74
+10010838 hp1020_status_state_update_candidate	10010877	10006048	DAT_10006048	0x2000160a	engine/status event word	l32r a8,0x10006048
+10010838 hp1020_status_state_update_candidate	1001087d	10006418	DAT_10006418	0x1600		l32r a8,0x10006418
+10010838 hp1020_status_state_update_candidate	10010890	10005e34	DAT_10005e34	0x80000000	engine/status event word	l32r a8,0x10005e34
+10010838 hp1020_status_state_update_candidate	100108a1	10006378	DAT_10006378	0x7c000000	status mask/constant	l32r a8,0x10006378
+10010838 hp1020_status_state_update_candidate	100108b5	10005f74	DAT_10005f74	0xff00		l32r a8,0x10005f74
+10010838 hp1020_status_state_update_candidate	100108cc	1000641c	DAT_1000641c	0x160a		l32r a9,0x1000641c
+10010838 hp1020_status_state_update_candidate	100108d5	10005e34	DAT_10005e34	0x80000000	engine/status event word	l32r a8,0x10005e34
+10010838 hp1020_status_state_update_candidate	100108e9	10006418	DAT_10006418	0x1600		l32r a8,0x10006418
+10010838 hp1020_status_state_update_candidate	100108f8	10006378	DAT_10006378	0x7c000000	status mask/constant	l32r a8,0x10006378
+10010838 hp1020_status_state_update_candidate	10010910	10005f74	DAT_10005f74	0xff00		l32r a11,0x10005f74
+10010838 hp1020_status_state_update_candidate	1001091b	10005e34	DAT_10005e34	0x80000000	engine/status event word	l32r a8,0x10005e34
+10010838 hp1020_status_state_update_candidate	10010948	10006418	DAT_10006418	0x1600		l32r a8,0x10006418
+10010838 hp1020_status_state_update_candidate	10010968	10006420	DAT_10006420	0x1100		l32r a8,0x10006420
+10010838 hp1020_status_state_update_candidate	10010971	10006378	DAT_10006378	0x7c000000	status mask/constant	l32r a8,0x10006378
+10010838 hp1020_status_state_update_candidate	100109a1	100063d8	PTR_DAT_100063d8	0x1002adb4	status mask/constant	l32r a8,0x100063d8
+10010838 hp1020_status_state_update_candidate	100109b1	100063d8	PTR_DAT_100063d8	0x1002adb4	status mask/constant	l32r a9,0x100063d8
+10010838 hp1020_status_state_update_candidate	100109bf	10005c84	DAT_10005c84	0x2000000	single-bit mask	l32r a8,0x10005c84
+10010838 hp1020_status_state_update_candidate	100109cd	10005f74	DAT_10005f74	0xff00		l32r a8,0x10005f74
+10010838 hp1020_status_state_update_candidate	100109d0	10005f78	DAT_10005f78	0xa00		l32r a9,0x10005f78
+10010838 hp1020_status_state_update_candidate	100109d9	10006424	DAT_10006424	0x1c01		l32r a9,0x10006424
+10010838 hp1020_status_state_update_candidate	100109e8	10006380	DAT_10006380	0x100000	single-bit mask	l32r a8,0x10006380
+10010838 hp1020_status_state_update_candidate	10010a27	10005e74	DAT_10005e74	0x20000	single-bit mask	l32r a8,0x10005e74
+10010a3c hp1020_status_notify_pending_candidate	10010a43	100063d0	PTR_DAT_100063d0	0x1002acf4	status mask/constant	l32r a10,0x100063d0
+10010a3c hp1020_status_notify_pending_candidate	10010a52	100063b0	PTR_DAT_100063b0	0x1002aca4	status mask/constant	l32r a5,0x100063b0
+10010a3c hp1020_status_notify_pending_candidate	10010a80	100063d0	PTR_DAT_100063d0	0x1002acf4	status mask/constant	l32r a10,0x100063d0
+10010a8c hp1020_status_event_store_candidate	10010a8f	1000642c	PTR_DAT_1000642c	0x1001bf40	status mask/constant	l32r a5,0x1000642c
+10010a8c hp1020_status_event_store_candidate	10010a92	10006428	PTR_DAT_10006428	0x1002add0	status mask/constant	l32r a3,0x10006428
+10010a8c hp1020_status_event_store_candidate	10010a95	1001bf40	DAT_1001bf40	0x0	small message/config/status id	l32i.n a4,a5,0x0
+10010a8c hp1020_status_event_store_candidate	10010a9e	1001bf40	DAT_1001bf40	0x0	small message/config/status id	s32i.n a4,a5,0x0
+10010a8c hp1020_status_event_store_candidate	10010aa8	1001bf40	DAT_1001bf40	0x0	small message/config/status id	s32i.n a3,a5,0x0
+10015c68 hp1020_engine_status_io_candidate	10015c6d	10005f20	DAT_10005f20	0x10000	single-bit mask	l32r a5,0x10005f20
+10015c68 hp1020_engine_status_io_candidate	10015c70	10006928	hp1020_engine_command_reg_table_word	0xb0500004	status mask/constant	l32r a6,0x10006928
+10015c68 hp1020_engine_status_io_candidate	10015c73	10005d04	DAT_10005d04	0xffff0000	status mask/constant	l32r a4,0x10005d04
+10015c68 hp1020_engine_status_io_candidate	10015c76	10006920	PTR_DAT_10006920	0x1002f0c4	status mask/constant	l32r a10,0x10006920
+10015c68 hp1020_engine_status_io_candidate	10015c79	1000691c	hp1020_engine_status_reg_table_word	0xb050000c	status mask/constant	l32r a11,0x1000691c
+10015c68 hp1020_engine_status_io_candidate	10015c7c	10006924	DAT_10006924	0xfeffffff	engine/status event word	l32r a9,0x10006924
+10015c68 hp1020_engine_status_io_candidate	10015c91	1000691c	hp1020_engine_status_reg_table_word	0xb050000c	status mask/constant	l32r a8,0x1000691c
+10015c68 hp1020_engine_status_io_candidate	10015cf9	1000692c	DAT_1000692c	0xfe001401	engine/status event word	l32r a8,0x1000692c
+10015c68 hp1020_engine_status_io_candidate	10015d07	100068e4	DAT_100068e4	0xffff		l32r a2,0x100068e4
+10015c68 hp1020_engine_status_io_candidate	10015d0c	10006920	PTR_DAT_10006920	0x1002f0c4	status mask/constant	l32r a8,0x10006920
+10015df8 hp1020_engine_status_poll_candidate	10015dfd	10005e34	DAT_10005e34	0x80000000	engine/status event word	l32r a2,0x10005e34
+10015df8 hp1020_engine_status_poll_candidate	10015e0c	100068e4	DAT_100068e4	0xffff		l32r a9,0x100068e4
+10015df8 hp1020_engine_status_poll_candidate	10015e19	10006940	DAT_10006940	0x4040		l32r a8,0x10006940
+10015df8 hp1020_engine_status_poll_candidate	10015e2c	10005ddc	DAT_10005ddc	0x800	single-bit mask	l32r a8,0x10005ddc
+10015df8 hp1020_engine_status_poll_candidate	10015e32	10006944	DAT_10006944	0xf6000300	engine/status event word	l32r a2,0x10006944
+10015df8 hp1020_engine_status_poll_candidate	10015e3b	10006948	DAT_10006948	0xf6000400	engine/status event word	l32r a2,0x10006948
+10015df8 hp1020_engine_status_poll_candidate	10015e5c	10006954	PTR_switchdataD_100059c0_10006954	0x100059c0	status mask/constant	l32r a8,0x10006954
+10015df8 hp1020_engine_status_poll_candidate	10015e62	100059c0	switchdataD_100059c0	0x10015e6e	status mask/constant	l32i a8,a8,0x0
+10015df8 hp1020_engine_status_poll_candidate	10015e68	10006950	DAT_10006950	0xe6100b0b	engine/status event word	l32r a2,0x10006950
+10015df8 hp1020_engine_status_poll_candidate	10015e6e	1000694c	DAT_1000694c	0xe6100b0a	engine/status event word	l32r a2,0x1000694c
+10015df8 hp1020_engine_status_poll_candidate	10015e8b	10006958	DAT_10006958	0xe6100a01	engine/status event word	l32r a2,0x10006958
+10015df8 hp1020_engine_status_poll_candidate	10015e97	1000695c	DAT_1000695c	0xe6000d03	engine/status event word	l32r a2,0x1000695c
+10015df8 hp1020_engine_status_poll_candidate	10015ea0	10006960	DAT_10006960	0xe6000d06	engine/status event word	l32r a2,0x10006960
+10015df8 hp1020_engine_status_poll_candidate	10015ea9	10006964	DAT_10006964	0xe6000d04	engine/status event word	l32r a2,0x10006964
+10015df8 hp1020_engine_status_poll_candidate	10015eb2	10006968	DAT_10006968	0x501a		l32r a10,0x10006968
+10015df8 hp1020_engine_status_poll_candidate	10015ebe	10005f5c	DAT_10005f5c	0x4000	single-bit mask	l32r a8,0x10005f5c
+10015df8 hp1020_engine_status_poll_candidate	10015ec4	10006968	DAT_10006968	0x501a		l32r a10,0x10006968
+10015df8 hp1020_engine_status_poll_candidate	10015ec7	1000696c	DAT_1000696c	0xe6100800	engine/status event word	l32r a2,0x1000696c
+10015df8 hp1020_engine_status_poll_candidate	10015ed0	10005f5c	DAT_10005f5c	0x4000	single-bit mask	l32r a8,0x10005f5c
+10015df8 hp1020_engine_status_poll_candidate	10015ed6	1000696c	DAT_1000696c	0xe6100800	engine/status event word	l32r a2,0x1000696c
+10015df8 hp1020_engine_status_poll_candidate	10015ee2	100063ec	DAT_100063ec	0x20001607	engine/status event word	l32r a2,0x100063ec
+10015df8 hp1020_engine_status_poll_candidate	10015ee8	1000605c	DAT_1000605c	0x1000	single-bit mask	l32r a8,0x1000605c
+10015df8 hp1020_engine_status_poll_candidate	10015eee	100063dc	DAT_100063dc	0xe6101100	engine/status event word	l32r a2,0x100063dc
+10015df8 hp1020_engine_status_poll_candidate	10015ef4	10005dc8	DAT_10005dc8	0x2000	single-bit mask	l32r a8,0x10005dc8
+10015df8 hp1020_engine_status_poll_candidate	10015efa	10006970	DAT_10006970	0xe6100e00	engine/status event word	l32r a2,0x10006970
+10015df8 hp1020_engine_status_poll_candidate	10015f06	10006958	DAT_10006958	0xe6100a01	engine/status event word	l32r a2,0x10006958
+10015df8 hp1020_engine_status_poll_candidate	10015f0e	1000604c	DAT_1000604c	0x4800100	status mask/constant	l32r a2,0x1000604c
+10015df8 hp1020_engine_status_poll_candidate	10015f14	10006974	DAT_10006974	0xa01		l32r a10,0x10006974
+10015df8 hp1020_engine_status_poll_candidate	10015f17	10006978	DAT_10006978	0x14000a04	status mask/constant	l32r a11,0x10006978
+10015df8 hp1020_engine_status_poll_candidate	10015f1a	10006920	PTR_DAT_10006920	0x1002f0c4	status mask/constant	l32r a9,0x10006920
+10015df8 hp1020_engine_status_poll_candidate	10015f2f	10006364	DAT_10006364	0xa04		l32r a9,0x10006364
+10015df8 hp1020_engine_status_poll_candidate	10015f4a	10006958	DAT_10006958	0xe6100a01	engine/status event word	l32r a8,0x10006958
+10015df8 hp1020_engine_status_poll_candidate	10015f58	10006920	PTR_DAT_10006920	0x1002f0c4	status mask/constant	l32r a8,0x10006920
+10015df8 hp1020_engine_status_poll_candidate	10015f5e	1000696c	DAT_1000696c	0xe6100800	engine/status event word	l32r a8,0x1000696c
+10015df8 hp1020_engine_status_poll_candidate	10015f6d	1000697c	DAT_1000697c	0x5043		l32r a10,0x1000697c
+10015df8 hp1020_engine_status_poll_candidate	10015f78	10006920	PTR_DAT_10006920	0x1002f0c4	status mask/constant	l32r a8,0x10006920
+10015df8 hp1020_engine_status_poll_candidate	10015fa7	10006920	PTR_DAT_10006920	0x1002f0c4	status mask/constant	l32r a11,0x10006920
+10015df8 hp1020_engine_status_poll_candidate	10015fae	10006980	DAT_10006980	0x2e00		l32r a8,0x10006980
+10015df8 hp1020_engine_status_poll_candidate	10015fcb	10006920	PTR_DAT_10006920	0x1002f0c4	status mask/constant	l32r a9,0x10006920
+10015df8 hp1020_engine_status_poll_candidate	10015fd9	10006920	PTR_DAT_10006920	0x1002f0c4	status mask/constant	l32r a9,0x10006920
+10015df8 hp1020_engine_status_poll_candidate	10015fe0	10005dc8	DAT_10005dc8	0x2000	single-bit mask	l32r a8,0x10005dc8
+10015df8 hp1020_engine_status_poll_candidate	10015ff8	10006980	DAT_10006980	0x2e00		l32r a8,0x10006980
+10015df8 hp1020_engine_status_poll_candidate	10016000	10006920	PTR_DAT_10006920	0x1002f0c4	status mask/constant	l32r a10,0x10006920
+10015df8 hp1020_engine_status_poll_candidate	10016009	10006920	PTR_DAT_10006920	0x1002f0c4	status mask/constant	l32r a10,0x10006920
+10015df8 hp1020_engine_status_poll_candidate	1001600c	10006980	DAT_10006980	0x2e00		l32r a9,0x10006980
+100160a8 hp1020_engine_preflight_candidate	100160b7	100063dc	DAT_100063dc	0xe6101100	engine/status event word	l32r a8,0x100063dc
+100160a8 hp1020_engine_preflight_candidate	100160c4	10006928	hp1020_engine_command_reg_table_word	0xb0500004	status mask/constant	l32r a9,0x10006928
+100160a8 hp1020_engine_preflight_candidate	100160c7	10005e74	DAT_10005e74	0x20000	single-bit mask	l32r a10,0x10005e74
+100160a8 hp1020_engine_preflight_candidate	100160eb	10006920	PTR_DAT_10006920	0x1002f0c4	status mask/constant	l32r a8,0x10006920
+100160a8 hp1020_engine_preflight_candidate	10016103	1000692c	DAT_1000692c	0xfe001401	engine/status event word	l32r a8,0x1000692c
+100160a8 hp1020_engine_preflight_candidate	10016114	10006928	hp1020_engine_command_reg_table_word	0xb0500004	status mask/constant	l32r a8,0x10006928
+100160a8 hp1020_engine_preflight_candidate	1001611c	10005e74	DAT_10005e74	0x20000	single-bit mask	l32r a8,0x10005e74
+100160a8 hp1020_engine_preflight_candidate	1001612f	10006920	PTR_DAT_10006920	0x1002f0c4	status mask/constant	l32r a9,0x10006920
+100160a8 hp1020_engine_preflight_candidate	10016132	10006994	PTR_DAT_10006994	0x1001cd34	status mask/constant	l32r a8,0x10006994
+100160a8 hp1020_engine_preflight_candidate	10016135	10006998	PTR_DAT_10006998	0x1001cd3c	status mask/constant	l32r a11,0x10006998
+100160a8 hp1020_engine_preflight_candidate	10016138	1001cd34	DAT_1001cd34	0x1	single-bit mask	s32i a8,a9,0x48
+100160a8 hp1020_engine_preflight_candidate	1001613b	1001cd3c	DAT_1001cd3c	0x2	single-bit mask	s32i a11,a9,0x4c
+100160a8 hp1020_engine_preflight_candidate	1001614c	1001cd3c	DAT_1001cd3c	0x2	single-bit mask	call8 0x10011178

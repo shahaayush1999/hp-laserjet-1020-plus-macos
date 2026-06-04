@@ -17,12 +17,14 @@ Start here:
 11. `engine-event-report.md` - engine queue `0x17` payload/event-code map
 12. `engine-event-consumer/engine-event-consumer.md` - scan for the unresolved engine `0x17` consumer path
 13. `engine-dispatch-cfg/engine-dispatch-cfg.md` - raw CFG and exact engine dispatch switch table
-14. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
-15. `mmio-semantics-report.md` - first behavioral names for hardware registers
-16. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
-17. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
-18. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
-19. `prototype-roadmap.md` - practical prototype options and safety gates
+14. `status-path-report.md` - PJL-visible status/fault string table and bridging functions
+15. `status-mask-report.md` - literal masks/constants used by status-state and engine-status paths
+16. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
+17. `mmio-semantics-report.md` - first behavioral names for hardware registers
+18. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
+19. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
+20. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
+21. `prototype-roadmap.md` - practical prototype options and safety gates
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -44,6 +46,8 @@ Generated decompilation/report folders include:
 - `object-creation/`
 - `queue-routing/`
 - `queue-table-init/`
+- `status-masks/`
+- `status-path/`
 - `symbols/`
 - `toolchain-probe/`
 - `tasks/`
@@ -63,4 +67,6 @@ Useful current conclusions:
 - Message numbers are queue-relative; use `analysis/message-map/queue-message-map.tsv` as the current `(queue, message)` dictionary.
 - Engine message `0x17` carries a second-word event/status code; use `analysis/engine-events/engine-0x17-events.tsv` as the current code map.
 - The exact engine dispatch table maps `0x17` to the default return/no-op block; `0x17` is produced and received but not consumed as a normal engine command.
+- PJL-visible words such as `PAPERLESS`, `FUSER`, `TONEREXP`, and `JAMRECOVERY` are entries in a status command table at `0x10003c8c`, not direct engine dispatch cases.
+- `0x10010838` is the current bridge from internal status words to StatusMgr/PJL-visible notifications; `0x1000a2a4` converts status words into PJL `CODE=` values.
 - Engine/video MMIO has first behavioral names, but register semantics are not complete.

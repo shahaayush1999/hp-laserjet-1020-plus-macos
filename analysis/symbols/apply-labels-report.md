@@ -5,8 +5,8 @@ This report records an offline label replay against the HP 1020 firmware Ghidra 
 - Program: `sihp1020.elf`
 - Language: `Xtensa:BE:32:default`
 - Label file: `analysis/symbols/hp1020-labels.tsv`
-- Labels read: `98`
-- Function labels applied: `72`
+- Labels read: `106`
+- Function labels applied: `80`
 - Data labels applied: `26`
 - Warnings: `0`
 
@@ -14,4 +14,3 @@ This report records an offline label replay against the HP 1020 firmware Ghidra 
 
 The TSV file is the portable label source of truth. The Java script lets a fresh Ghidra project
 recover the current function/data names before running deeper manual analysis.
-

@@ -124,6 +124,10 @@ Engine queue message `0x17` is a status/event family with a second-word payload.
 event-code map is in `analysis/engine-event-report.md`. The exact engine dispatch table maps
 `0x17` to the default return/no-op block, so it is not a normal consumed engine command.
 
+The PJL-visible status/fault vocabulary is separate from engine dispatch. Strings such as
+`PAPERLESS`, `FUSER`, `TONEREXP`, and `JAMRECOVERY` are rows in a status command table at
+`0x10003c8c`, reached through the PJL/status parser and response builders.
+
 ## High-Level Data Flow
 
 ```text
@@ -138,6 +142,44 @@ USB/PJL/ZjStream input
 ```
 
 This is not one monolithic parser. It is a set of cooperating state machines connected through queues.
+
+## Status/PJL Fault Path
+
+The status path now has a concrete bridge from hardware-ish engine words to user-visible PJL text:
+
+```text
+engine status polling / preflight
+  -> internal status/event word
+  -> 0x10010838 status-state update
+  -> StatusMgrQueue / status event storage
+  -> USTATUS DEVICE builders
+  -> PJL CODE= / DISPLAY= response text
+```
+
+Important status functions:
+
+| Address | Label | Role |
+|---:|---|---|
+| `0x1000a2a4` | `hp1020_status_word_to_pjl_code_candidate` | converts an internal status word into a numeric PJL `CODE=` value |
+| `0x1000b870` | `hp1020_pjl_status_table_get_candidate` | reads values by PJL/status table row |
+| `0x1000c8fc` | `hp1020_pjl_status_table_set_candidate` | parses string names and updates stored status/config values |
+| `0x10010590` | `hp1020_status_mgr_thread_candidate` | consumes `StatusMgrQueue` messages |
+| `0x10010838` | `hp1020_status_state_update_candidate` | normalizes status words and triggers notification paths |
+
+The status table lives at `0x10003c8c` through pointer word `0x10006148`, with `0x24`-byte entries.
+Important rows include `JAMRECOVERY`, `TONEREXP`, `SETERROR`, `PAPERLESS`, and `FUSER`.
+
+Key constants currently worth naming:
+
+| Address | Value | Current note |
+|---:|---:|---|
+| `0x10005f74` | `0xff00` | low/mid status field mask |
+| `0x10006418` | `0x1600` | status subfamily value |
+| `0x1000641c` | `0x160a` | status subfamily equality value |
+| `0x10005e34` | `0x80000000` | generic high-bit/error/fallback status word |
+| `0x10006378` | `0x7c000000` | high-bit severity/category mask |
+| `0x10006018` | `0x2711` | default PJL code base/value |
+| `0x1000601c` | `0xa028` | PJL code base for mapped fault/status values |
 
 ## Print Path
 
