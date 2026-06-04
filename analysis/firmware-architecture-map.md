@@ -219,6 +219,15 @@ Current likely MMIO families:
 
 Register names are not known yet. The family grouping is useful; exact semantics still require focused analysis or hardware observation.
 
+First behavioral names:
+
+- `0xb050000c`: engine status/ready register candidate
+- `0xb0500004`: engine command/control register candidate
+- `0xb1000000` / `0xb1000004`: video reset/control-status pair A
+- `0xb1000100` / `0xb1000104`: video reset/control-status pair B
+- `0xb200....`: video transfer control/descriptors
+- `0xb204....` and `0xb208....`: paired video transfer channels
+
 ## What Is Actually Known Now
 
 Known with high confidence:
