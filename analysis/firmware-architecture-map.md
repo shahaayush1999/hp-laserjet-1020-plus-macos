@@ -47,6 +47,17 @@ The decompiler is good enough for useful structure, but some indirect jumps and 
 
 The firmware appears to use ThreadX-style queues, tasks, and synchronization.
 
+Startup now appears layered:
+
+```text
+ELF entry 0x100167a8
+  -> pointer at 0x10006a14
+  -> 0x10006cd0 CPU/TLB init candidate
+  -> interrupt/scheduler/runtime region
+  -> task descriptors
+  -> queue-driven printer subsystems
+```
+
 Key queue primitive labels:
 
 | Address | Label |
@@ -219,6 +230,8 @@ Known with medium confidence:
 
 Still unknown:
 
+- exact boot ROM validation rules for the ELF/interface table
+- exact transition from low-level CPU init into scheduler start
 - exact hardware meaning of each engine/video register
 - exact raster band format expected by video hardware
 - exact event semantics for engine handler IDs `0x0f` through `0x14`
@@ -229,9 +242,8 @@ Still unknown:
 
 Best next reverse-engineering steps:
 
-1. Map PrintMgr switch table entries to handler blocks and outgoing queue sends.
-2. Resolve queue `8` by finding the table initialization path or all consumers of `0x1002ee38`.
-3. Produce an engine/video MMIO table: register address, read/write sites, constants written, and surrounding function.
-4. Identify the boot/runtime ABI: reset vector, entry path, initialized data copy, BSS clear, ThreadX startup, and hardware init order.
+1. Label RTOS primitives around `0x100175c0` through `0x1001a590`.
+2. Resolve the scheduler/task creation path from startup into the named task descriptors.
+3. Resolve queue `8` by finding the queue table initialization path or all consumers of `0x1002ee38`.
+4. Build a register-semantics table for `0xb100`, `0xb200`, `0xb204`, `0xb208`, `0xb020`, and `0xb050`.
 5. Only after those: consider a minimal firmware experiment that packages a harmless ELF and validates boot/upload behavior.
-
