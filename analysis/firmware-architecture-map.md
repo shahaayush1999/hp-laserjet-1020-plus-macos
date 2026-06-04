@@ -185,6 +185,8 @@ Important rows include `JAMRECOVERY`, `TONEREXP`, `SETERROR`, `PAPERLESS`, and `
 The PJL `CODE=` path has a second table at `0x1001be40` through pointer word `0x10006014`.
 It contains 20 halfword-pair entries that map an internal input/status index to an offset added to
 base `0xa028`, producing codes such as `41000`, `41002`, `41009`, and `41034`.
+HP's PJL reference defines `41xyy` as foreground paper loading, so these generated `410xx` codes
+are currently best interpreted as paper/media loading state.
 
 Key constants currently worth naming:
 

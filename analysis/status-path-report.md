@@ -46,6 +46,8 @@ input/status index -> PJL CODE offset
 ```
 
 Mapped fault/status values use base `0xa028` (`41000`) plus the table offset.
+HP's PJL reference defines `41xyy` as foreground paper loading, so this table is now best read as
+a paper/media loading code path rather than a generic fuser/toner/jam path.
 Examples:
 
 | Input | Offset | PJL CODE |
@@ -75,4 +77,4 @@ handlers in the engine dispatch table. They are PJL-visible names in a table use
 parser/response path.
 
 The next narrow task is to finish naming the masks in `hp1020_status_state_update_candidate` and
-connect those masks to the status table rows and offset-table inputs.
+connect those masks to the paper/media offset-table inputs.
