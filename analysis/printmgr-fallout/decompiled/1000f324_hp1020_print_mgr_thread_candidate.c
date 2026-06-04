@@ -1,7 +1,7 @@
 /* Function: 1000f324 hp1020_print_mgr_thread_candidate */
 
 
-/* data-store subscriber mapping candidate */
+/* print-manager fallout mapping candidate */
 
 void hp1020_print_mgr_thread_candidate(undefined4 param_1,undefined4 param_2)
 

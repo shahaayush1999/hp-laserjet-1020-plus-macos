@@ -60,3 +60,8 @@ state/config write
 That is a better route than trying to understand every firmware function equally. For print/status
 analysis, the next high-value static target is the callback/queue fallout from entries with
 subscribers, especially `0x18`, `0x19`, and `0x0f..0x14`.
+
+One correction from the follow-up PrintMgr pass: the known queue subscribers registered by PrintMgr
+use queue id `1`. The current queue map labels queue id `1` as `engMsgQ`, where message `0x2d`
+currently dispatches to the default/no-op block. So this subscriber path should not be assumed to
+land in PrintMgr until the queue-id mapping or a queue-0 `0x2d` producer is proven.

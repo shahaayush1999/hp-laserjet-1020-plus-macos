@@ -39,6 +39,7 @@ Callback subscribers are called directly as `callback(entry_id, new_value)`.
 ## Current Interpretation
 
 - Data-store entries `0x18` and `0x19` are not just PJL status fields; they also drive the control-panel/LED-ish state path.
+- The known queue subscribers registered by PrintMgr use queue id `1`; the current queue map labels queue id `1` as `engMsgQ`, where message `0x2d` currently dispatches to the default/no-op block.
 - Engine entries `0x0f..0x14` are live configuration/status inputs, because the engine thread registers direct callbacks before entering its receive loop.
 - The shared engine callback at `0x100162cc` maps entries `0x10..0x14` to internal ids `0x200..0x204`, looks up both records through `0x100162b0`, then copies record field `+4` from the new value record to the mapped entry record.
 - This gives a practical pruning method: for a print/status trace, prioritize entries with subscribers and then follow their callback/queue targets.

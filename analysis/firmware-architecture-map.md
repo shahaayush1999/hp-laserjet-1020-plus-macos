@@ -250,11 +250,14 @@ Behavior:
 - sends startup message `0x18` to queue `0`
 - receives from `PrintMgrQueue`
 - dispatches message IDs `0x0b` through `0x43`
+- has a real `0x2d` dispatch case, but the queue-0 producer for that case is unresolved
+- calls `0x1000f574` to advance page/media work; that path can call `0x1000fcb0`, which handles `0x2d`/entry `1`
 
 Switch table:
 
 - table address: `0x100048f0`
 - first useful entries map `0x0b` through `0x11` to non-default blocks
+- `0x2d` maps to target `0x1000f497`, a notification-looking handler inside PrintMgr
 - many later IDs currently point at a default/no-op/error block
 
 ### Video/Raster

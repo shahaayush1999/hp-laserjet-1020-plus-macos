@@ -25,6 +25,14 @@
 0x10013668	hp1020_queue_send_indexed_candidate	function	high	Reads queue table at 0x1002c918 plus queue_id * 4
 0x1000e414	hp1020_job_mgr_thread_candidate	function	high	Job Mgr Queue consumer
 0x1000f324	hp1020_print_mgr_thread_candidate	function	high	PrintMgrQueue consumer and print-manager dispatcher
+0x1000f574	hp1020_print_mgr_schedule_or_advance_candidate	function	medium	Advances PrintMgr queued page/media work and calls notification-state helper
+0x1000f84c	hp1020_print_mgr_media_select_candidate	function	medium	Locks data-store entries 0x1d and 0x01, chooses/updates media fields
+0x1000fcb0	hp1020_print_mgr_datastore_notify_state_candidate	function	medium	Handles PrintMgr notification/completion messages including 0x2d entry 1
+0x10010158	hp1020_print_mgr_clear_pending_media_candidate	function	medium	Clears pending PrintMgr media/status state
+0x10010170	hp1020_print_mgr_emit_media_status_candidate	function	medium	Writes media/status state through data-store entry 0x1f and notifies StatusMgrQueue
+0x10010218	hp1020_queue_send_message4_candidate	function	medium	Small wrapper that sends a 4-word message to a queue
+0x100100a8	hp1020_print_mgr_status_aux_candidate	function	low	PrintMgr helper used when handling completion/status path
+0x10010318	hp1020_print_mgr_mark_work_candidate	function	low	PrintMgr helper used by completion/status path
 0x10010590	hp1020_status_mgr_thread_candidate	function	high	StatusMgrQueue consumer
 0x10010b0c	hp1020_delay_mgr_receive_thread_candidate	function	high	DelayMgr Msg Queue receive thread
 0x1001146c	hp1020_data_store_thread_candidate	function	medium	Data-store descriptor region thread candidate
@@ -94,6 +102,9 @@
 0x10006054	hp1020_descriptor_acl_download	data	high	agiACLDownload descriptor block
 0x100062d4	hp1020_descriptor_job_mgr_queue	data	high	Job Mgr Queue descriptor block
 0x10006330	hp1020_descriptor_print_mgr_queue	data	high	PrintMgrQueue descriptor block
+0x10006338	hp1020_print_mgr_state_ptr_word	data	medium	PrintMgr state pointer word
+0x10006340	hp1020_print_mgr_notify_state_ptr_word	data	medium	PrintMgr notification-state pointer word
+0x10006344	hp1020_print_mgr_pending_media_ptr_word	data	medium	PrintMgr pending media/status pointer word
 0x100063b8	hp1020_descriptor_status_mgr_queue	data	high	StatusMgrQueue descriptor block
 0x100063d8	hp1020_status_state_object_ptr	data	high	Pointer to status state object at 0x1002adb4
 0x10006464	hp1020_datastore_lock_table_ptr	data	high	Pointer to data-store per-entry lock table at 0x1002c0b0
