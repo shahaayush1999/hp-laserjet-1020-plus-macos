@@ -1,0 +1,88 @@
+function_address	function_name	line	kind	important	code
+10008034	FUN_10008034	9	parser_alloc	false	uVar3 = hp1020_alloc_with_retry_candidate(0x400,1);
+10008b78	FUN_10008b78	11	parser_or_queue_free	false	hp1020_free_candidate(*(undefined4 *)(*(int *)(iVar2 + 0xc) + 4));
+10008b78	FUN_10008b78	13	parser_or_queue_free	false	hp1020_free_candidate();
+10008fb0	FUN_10008fb0	11	parser_or_queue_free	false	hp1020_free_candidate(*(undefined4 *)(*(int *)(iVar2 + 0xc) + 4));
+10008fb0	FUN_10008fb0	13	parser_or_queue_free	false	hp1020_free_candidate();
+10009d34	hp1020_zjs_parser_entry_candidate	22	zjs_magic_ref	true	puVar3 = PTR_hp1020_zjs_magic_jzjz_10005fe0;
+10009d34	hp1020_zjs_parser_entry_candidate	28	zjs_magic_ref	true	uStack_70 = hp1020_strlen_like(PTR_hp1020_zjs_magic_jzjz_10005fe0);
+10009d34	hp1020_zjs_parser_entry_candidate	29	zjs_header_buffer_ref	true	puVar8 = hp1020_zjs_header_buffer_ptr_word;
+10009d34	hp1020_zjs_parser_entry_candidate	30	zjs_header_buffer_ref	true	iVar1 = (**(code **)(param_1 + 0xc))(param_1,hp1020_zjs_header_buffer_ptr_word,uStack_70,0);
+10009d34	hp1020_zjs_parser_entry_candidate	54	zjs_header_buffer_ref	true	uStack_34 = (uint)*(ushort *)(hp1020_zjs_header_buffer_ptr_word + 0xc);
+10009d34	hp1020_zjs_parser_entry_candidate	55	zjs_header_buffer_ref	true	uVar6 = (*(int *)hp1020_zjs_header_buffer_ptr_word + -0x10) - uStack_34;
+10009d34	hp1020_zjs_parser_entry_candidate	57	parser_alloc	false	puStack_3c = (undefined *)hp1020_alloc_with_retry_candidate(uStack_34,2);
+10009d34	hp1020_zjs_parser_entry_candidate	61	parser_alloc	false	puVar3 = (undefined *)hp1020_alloc_with_retry_candidate(uVar6,0);
+10009d34	hp1020_zjs_parser_entry_candidate	64	zjs_item_or_reserved_size_read	true	(uVar2 = (**(code **)(param_1 + 0xc))(param_1,puStack_3c,uStack_34,0), uVar2 != uStack_34
+10009d34	hp1020_zjs_parser_entry_candidate	79	zjs_header_buffer_ref	true	uVar2 = *(uint *)(hp1020_zjs_header_buffer_ptr_word + 4);
+10009d34	hp1020_zjs_parser_entry_candidate	80	zjs_header_buffer_ref	true	uVar5 = *(undefined4 *)(hp1020_zjs_header_buffer_ptr_word + 8);
+10009d34	hp1020_zjs_parser_entry_candidate	83	zjs_header_buffer_ref	true	(param_1,hp1020_zjs_header_buffer_ptr_word,uStack_70,0);
+10009d34	hp1020_zjs_parser_entry_candidate	88	zjs_header_buffer_ref	true	(*pcVar7)(param_1,hp1020_zjs_header_buffer_ptr_word,uVar4);
+10009d34	hp1020_zjs_parser_entry_candidate	96	zjs_header_buffer_ref	true	if (*(ushort *)(hp1020_zjs_header_buffer_ptr_word + 0xe) !=
+10009d34	hp1020_zjs_parser_entry_candidate	103	zjs_type_bounds_check	true	if (uVar2 < 0xd) {
+10009d34	hp1020_zjs_parser_entry_candidate	110	parser_or_queue_free	false	hp1020_free_candidate(puStack_3c);
+10009d34	hp1020_zjs_parser_entry_candidate	125	parser_or_queue_free	false	hp1020_free_candidate(puStack_3c);
+10009d34	hp1020_zjs_parser_entry_candidate	128	parser_or_queue_free	false	hp1020_free_candidate(puVar3);
+10009d34	hp1020_zjs_parser_entry_candidate	132	jobmgr_queue_send	true	hp1020_queue_send_candidate(3,auStack_1d0);
+1000a334	hp1020_acl_or_peer_parser_entry_candidate	127	parser_or_queue_free	false	hp1020_free_candidate(iVar13);
+1000a334	hp1020_acl_or_peer_parser_entry_candidate	175	parser_or_queue_free	false	hp1020_free_candidate(iVar11);
+1000a334	hp1020_acl_or_peer_parser_entry_candidate	205	parser_or_queue_free	false	hp1020_free_candidate(iVar11);
+1000a334	hp1020_acl_or_peer_parser_entry_candidate	231	parser_or_queue_free	false	hp1020_free_candidate(iStack_3c);
+1000a334	hp1020_acl_or_peer_parser_entry_candidate	272	parser_or_queue_free	false	hp1020_free_candidate(iStack_3c);
+1000a334	hp1020_acl_or_peer_parser_entry_candidate	353	parser_or_queue_free	false	hp1020_free_candidate(puVar16);
+1000a334	hp1020_acl_or_peer_parser_entry_candidate	518	parser_or_queue_free	false	hp1020_free_candidate(iVar13);
+1000b128	FUN_1000b128	11	parser_or_queue_free	false	hp1020_free_candidate();
+1000b174	FUN_1000b174	14	parser_or_queue_free	false	hp1020_free_candidate();
+1000dc24	FUN_1000dc24	5	parser_or_queue_free	false	hp1020_free_candidate(param_1);
+1000e414	hp1020_job_mgr_thread_candidate	45	jobmgr_video_runtime_block	true	puVar6 = PTR_DAT_10006304;
+1000e414	hp1020_job_mgr_thread_candidate	67	parser_alloc	false	iVar8 = hp1020_alloc_with_retry_candidate(0x10,1);
+1000e414	hp1020_job_mgr_thread_candidate	97	parser_alloc	false	iVar9 = hp1020_alloc_with_retry_candidate(0x10,1);
+1000e414	hp1020_job_mgr_thread_candidate	181	jobmgr_video_runtime_block	true	puVar4 = PTR_DAT_10006304;
+1000e414	hp1020_job_mgr_thread_candidate	183	jobmgr_video_runtime_block	true	*(undefined4 *)(iVar9 + 0x84) = *(undefined4 *)(PTR_DAT_10006304 + 4);
+1000e414	hp1020_job_mgr_thread_candidate	197	parser_or_queue_free	false	hp1020_free_candidate(*(undefined4 *)(iStack_84 + 0x54));
+1000e414	hp1020_job_mgr_thread_candidate	202	parser_or_queue_free	false	hp1020_free_candidate(*(undefined4 *)(*(int *)(iStack_84 + 0xc) + 0x54));
+1000e414	hp1020_job_mgr_thread_candidate	251	jobmgr_queue_send	true	hp1020_queue_send_candidate(3,&uStack_80);
+1000e414	hp1020_job_mgr_thread_candidate	296	parser_or_queue_free	false	hp1020_free_candidate();
+1000e414	hp1020_job_mgr_thread_candidate	306	parser_or_queue_free	false	hp1020_free_candidate();
+1000e414	hp1020_job_mgr_thread_candidate	308	parser_or_queue_free	false	hp1020_free_candidate(iVar8);
+1000e414	hp1020_job_mgr_thread_candidate	321	parser_or_queue_free	false	hp1020_free_candidate();
+1000e414	hp1020_job_mgr_thread_candidate	413	parser_or_queue_free	false	hp1020_free_candidate();
+1000e414	hp1020_job_mgr_thread_candidate	426	parser_or_queue_free	false	hp1020_free_candidate();
+1000e414	hp1020_job_mgr_thread_candidate	449	parser_or_queue_free	false	hp1020_free_candidate(uVar14);
+1000e414	hp1020_job_mgr_thread_candidate	453	parser_or_queue_free	false	hp1020_free_candidate();
+1000e414	hp1020_job_mgr_thread_candidate	458	parser_or_queue_free	false	hp1020_free_candidate();
+1000e414	hp1020_job_mgr_thread_candidate	473	parser_or_queue_free	false	hp1020_free_candidate();
+1000e414	hp1020_job_mgr_thread_candidate	501	jobmgr_video_runtime_block	true	hp1020_memcpy_candidate(PTR_DAT_10006304,iStack_84,0x14);
+1000e414	hp1020_job_mgr_thread_candidate	508	jobmgr_video_runtime_block	true	*(undefined4 *)(iVar9 + 0x84) = *(undefined4 *)(PTR_DAT_10006304 + 4);
+1000e414	hp1020_job_mgr_thread_candidate	515	parser_or_queue_free	false	hp1020_free_candidate(*(undefined4 *)(*(int *)(iStack_84 + 0xc) + 0x54));
+1000e414	hp1020_job_mgr_thread_candidate	543	parser_or_queue_free	false	hp1020_free_candidate();
+1000e414	hp1020_job_mgr_thread_candidate	555	parser_or_queue_free	false	hp1020_free_candidate();
+1000e414	hp1020_job_mgr_thread_candidate	571	parser_or_queue_free	false	hp1020_free_candidate(iStack_84);
+1000e414	hp1020_job_mgr_thread_candidate	586	parser_or_queue_free	false	hp1020_free_candidate();
+1000ed90	FUN_1000ed90	27	zjs_item_or_reserved_size_read	true	((*(ushort *)(iVar7 + 0x48) != *(ushort *)(iVar7 + 0xc) &&
+1000ed90	FUN_1000ed90	29	zjs_item_or_reserved_size_read	true	uVar1 = *(ushort *)(iVar7 + 0xc);
+1000ed90	FUN_1000ed90	45	zjs_item_or_reserved_size_read	true	if (((iVar7 != 0) && (*(ushort *)(iVar7 + 0x48) != *(ushort *)(iVar7 + 0xc))) &&
+1000ed90	FUN_1000ed90	47	zjs_item_or_reserved_size_read	true	uVar1 = *(ushort *)(iVar7 + 0xc);
+1000eeb8	FUN_1000eeb8	42	parser_or_queue_free	false	hp1020_free_candidate(*(undefined4 *)(*(int *)PTR_DAT_100062e4 + 0xc));
+1000eeb8	FUN_1000eeb8	44	parser_or_queue_free	false	hp1020_free_candidate();
+1000efbc	FUN_1000efbc	6	parser_or_queue_free	false	hp1020_free_candidate(param_1);
+1000eff8	FUN_1000eff8	15	parser_or_queue_free	false	hp1020_free_candidate();
+1000f030	FUN_1000f030	10	parser_or_queue_free	false	hp1020_free_candidate(param_1);
+1000f0a8	FUN_1000f0a8	42	parser_or_queue_free	false	hp1020_free_candidate(*(undefined4 *)(iVar4 + 0x54));
+1000f0a8	FUN_1000f0a8	46	parser_or_queue_free	false	hp1020_free_candidate(puVar3);
+1000f228	FUN_1000f228	7	parser_alloc	false	iVar1 = hp1020_alloc_with_retry_candidate(0x94,1);
+1000f814	FUN_1000f814	13	parser_or_queue_free	false	hp1020_free_candidate();
+1000f814	FUN_1000f814	14	jobmgr_queue_send	true	hp1020_queue_send_candidate(3,param_1);
+1000f84c	FUN_1000f84c	157	zjs_item_or_reserved_size_read	true	*(uint *)(puVar3 + 0xc) = (uint)*(ushort *)(param_1 + 0xe);
+10010338	FUN_10010338	9	parser_alloc	false	iVar1 = hp1020_alloc_with_retry_candidate(0x78,1);
+10010338	FUN_10010338	26	jobmgr_queue_send	true	hp1020_queue_send_candidate(3,local_30);
+10010398	FUN_10010398	10	parser_alloc	false	puVar1 = (undefined4 *)hp1020_alloc_with_retry_candidate(0x50,1);
+10010398	FUN_10010398	17	jobmgr_queue_send	true	hp1020_queue_send_candidate(3,local_30);
+10010398	FUN_10010398	25	jobmgr_queue_send	true	hp1020_queue_send_candidate(3,local_30);
+100103f8	FUN_100103f8	8	jobmgr_queue_send	true	hp1020_queue_send_candidate(3,local_30);
+1001040c	FUN_1001040c	8	jobmgr_queue_send	true	hp1020_queue_send_candidate(3,local_30);
+10010838	FUN_10010838	130	jobmgr_queue_send	true	hp1020_queue_send_candidate(3,&uStack_40);
+10013140	hp1020_alloc_with_retry_candidate	2	parser_alloc	false	void hp1020_alloc_with_retry_candidate(undefined4 param_1,undefined4 param_2)
+10013140	hp1020_alloc_with_retry_candidate	38	jobmgr_queue_send	true	hp1020_queue_send_candidate(3,local_30);
+10013408	hp1020_free_candidate	2	parser_or_queue_free	false	void hp1020_free_candidate(uint *param_1)
+100140f8	hp1020_video_refresh_raw_bands_candidate	22	raw_band_video_consumer	true	FUN_10006f00(DAT_10005e74,PTR_s_refreshRawBands__ic_pBidBlock_0x_100067e0,
+10016d23	FUN_10016d23	105	zjs_type_bounds_check	true	if (uVar2 < 0xd) {

@@ -309,9 +309,14 @@ video/page work object:
 - carries late video hardware fields at `+0x84`, `+0x88`, `+0x8c`, and `+0x90`
 
 Those late hardware fields are copied from runtime block `0x10023e28`, which JobMgr case `0x29`
-fills from a 20-byte incoming payload. `analysis/jobmgr-producer-boundary-report.md` confirms that
-the producer of JobMgr `0x29` is not yet proven by the current static queue scans; the next target
-is the parser side that builds raster/ZjStream payloads.
+fills from a 20-byte incoming payload. `analysis/zjs-parser-boundary/zjs-parser-boundary.md` and
+`analysis/jobmgr-raster-message-flow-report.md` now identify the producer: ZjStream parser case
+`ZJT_JBIG_BIH` at `0x1000a006` sends JobMgr `0x29` with the JBIG BIH payload pointer.
+
+Compressed raster chunks are produced by parser case `ZJT_JBIG_BID` at `0x1000a014`, which sends
+JobMgr `0x2a`. JobMgr `0x2a` copies the BIH-derived hardware fields into the active work object and
+then appends the raster/list node to the work object's `+0x50` list through the same append path as
+JobMgr case `9`.
 
 ### Engine
 

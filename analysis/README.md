@@ -30,14 +30,16 @@ Start here:
 24. `job-record-fields-report.md` - first field map for job and child/page records
 25. `video-handoff-report.md` - PrintMgr to Video Queue `0x0b` payload and video state slots
 26. `video-work-object-report.md` - `0x94` video/page work object lifecycle and fields
-27. `jobmgr-producer-boundary-report.md` - proven JobMgr producers and unresolved `9`/`0x29` producer boundary
-28. `pjl-status-code-reference.md` - external HP PJL status-code mapping for generated `CODE=` values
-29. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
-30. `mmio-semantics-report.md` - first behavioral names for hardware registers
-31. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
-32. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
-33. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
-34. `prototype-roadmap.md` - practical prototype options and safety gates
+27. `zjs-parser-boundary/zjs-parser-boundary.md` - USB/ZjStream parser entry and chunk switch table
+28. `jobmgr-raster-message-flow-report.md` - parser-to-JobMgr raster flow for `0x29`/`0x2a`/`0x2b`
+29. `jobmgr-producer-boundary-report.md` - earlier JobMgr producer scan, now superseded for `0x29`
+30. `pjl-status-code-reference.md` - external HP PJL status-code mapping for generated `CODE=` values
+31. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
+32. `mmio-semantics-report.md` - first behavioral names for hardware registers
+33. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
+34. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
+35. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
+36. `prototype-roadmap.md` - practical prototype options and safety gates
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -71,6 +73,7 @@ Generated decompilation/report folders include:
 - `tasks/`
 - `usb-path/`
 - `video-work-object/`
+- `zjs-parser-boundary/`
 
 Useful current conclusions:
 
@@ -101,8 +104,9 @@ Useful current conclusions:
 - `analysis/job-record-fields-report.md` maps the first useful offsets in the `0x78`-byte job record and `0x50`-byte child/page record.
 - `analysis/video-handoff-report.md` maps the PrintMgr-to-video handoff: `queue 8, message 0x0b` carries the work pointer in payload word 4, and the video thread stores it in video state slots `+0x60`/`+0x64`.
 - `analysis/video-work-object-report.md` maps that pointer as a `0x94`-byte video/page work object. It is created by `0x1000f228`, populated by `0x100104c8`, stored in a child/page slot, and later consumed by Engine/PrintMgr/Video.
-- `analysis/jobmgr-producer-boundary-report.md` records proven JobMgr producers and confirms that messages `9` and `0x29` are still not statically traced to a producer.
-- The next unresolved page-path boundary is parser-side: find where the host raster/ZjStream path builds the 20-byte block copied into `0x10023e28` and the list nodes appended by JobMgr case `9`.
+- `analysis/zjs-parser-boundary/zjs-parser-boundary.md` identifies `0x10009d34` as the ZjStream parser entry wired from the USB2Thread descriptor and maps chunk types `0..12`.
+- `analysis/jobmgr-raster-message-flow-report.md` closes the parser-to-JobMgr raster path: `ZJT_JBIG_BIH -> JobMgr 0x29 -> 0x10023e28 -> work +0x84/+0x88/+0x8c/+0x90`, and `ZJT_JBIG_BID -> JobMgr 0x2a -> work +0x50` raster list.
+- `analysis/jobmgr-producer-boundary-report.md` is now superseded for message `0x29`; it remains useful as the pre-parser checkpoint showing why the producer was missed by broad queue-send scans.
 - The status-state object is currently mapped through pointer `0x100063d8 -> 0x1002adb4`, with current status at offset `0x08`, transition status at `0x10`, and source/reason at `0x14`.
 - HP's PJL reference anchors firmware-generated `410xx` codes as foreground paper-loading status codes; see `analysis/pjl-status-code-reference.md`.
 - Engine/video MMIO has first behavioral names, but register semantics are not complete.

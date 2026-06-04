@@ -1,11 +1,16 @@
 # HP 1020 JobMgr Producer Boundary
 
-This report records the current static boundary around JobMgr message producers, especially the
-unresolved messages `9` and `0x29`.
+This report records the earlier static boundary around JobMgr message producers, especially the
+then-unresolved messages `9` and `0x29`.
+
+**Superseded note:** `analysis/zjs-parser-boundary/zjs-parser-boundary.md` and
+`analysis/jobmgr-raster-message-flow-report.md` now identify the parser-side producers. `ZJT_JBIG_BIH`
+sends JobMgr `0x29`, and `ZJT_JBIG_BID` sends JobMgr `0x2a`.
 
 ## Main Result
 
-The current scans do not prove a normal static producer for JobMgr message `0x29`.
+The current scans did not prove a normal static producer for JobMgr message `0x29`; the later
+parser-boundary pass resolved it.
 
 This matters because JobMgr case `0x29` copies a 20-byte incoming payload into runtime block
 `0x10023e28`; later JobMgr copies that block into the `0x94` video/page work object fields
@@ -60,14 +65,14 @@ JobMgr case `0x29` is the late hardware setup block copy:
 memcpy(0x10023e28, incoming_payload_pointer, 0x14)
 ```
 
-No static producer was found by:
+No static producer was found by this older scan:
 
 - the queue-send census
 - the JobMgr producer-boundary scan
 - direct JobMgr queue-object send search
 
-The likely explanation is that the producer sits behind a parser-side callback or indirect queue
-path that the current wrapper scanner does not classify yet.
+That explanation was correct: the producer sits inside the parser-side ZjStream switch body, which
+the broad function-level queue scans did not classify cleanly.
 
 ## Generated Evidence
 
