@@ -324,6 +324,11 @@ payload `+0x54` as the raster buffer pointer and payload `+0x48` as a transfer-l
 `0x100140f8` walks the same video-state list and writes raster pointers/derived flags into
 MMIO-looking video registers.
 
+The static path is now ready for controlled connected-printer testing. The prepared test checkpoint
+is `analysis/printer-test-readiness-report.md`; it uses `analysis/samples/minimal-page.ps` and the
+helper scripts `scripts/generate-zjs-sample.sh`, `scripts/inspect-zjs-stream.py`, and
+`scripts/run-printer-readiness-test.sh`.
+
 ### Engine
 
 Entry:
