@@ -32,14 +32,15 @@ Start here:
 26. `video-work-object-report.md` - `0x94` video/page work object lifecycle and fields
 27. `zjs-parser-boundary/zjs-parser-boundary.md` - USB/ZjStream parser entry and chunk switch table
 28. `jobmgr-raster-message-flow-report.md` - parser-to-JobMgr raster flow for `0x29`/`0x2a`/`0x2b`
-29. `jobmgr-producer-boundary-report.md` - earlier JobMgr producer scan, now superseded for `0x29`
-30. `pjl-status-code-reference.md` - external HP PJL status-code mapping for generated `CODE=` values
-31. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
-32. `mmio-semantics-report.md` - first behavioral names for hardware registers
-33. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
-34. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
-35. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
-36. `prototype-roadmap.md` - practical prototype options and safety gates
+29. `video-raster-consumer-report.md` - video-side consumer for `work +0x50` raster list nodes
+30. `jobmgr-producer-boundary-report.md` - earlier JobMgr producer scan, now superseded for `0x29`
+31. `pjl-status-code-reference.md` - external HP PJL status-code mapping for generated `CODE=` values
+32. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
+33. `mmio-semantics-report.md` - first behavioral names for hardware registers
+34. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
+35. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
+36. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
+37. `prototype-roadmap.md` - practical prototype options and safety gates
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -106,6 +107,7 @@ Useful current conclusions:
 - `analysis/video-work-object-report.md` maps that pointer as a `0x94`-byte video/page work object. It is created by `0x1000f228`, populated by `0x100104c8`, stored in a child/page slot, and later consumed by Engine/PrintMgr/Video.
 - `analysis/zjs-parser-boundary/zjs-parser-boundary.md` identifies `0x10009d34` as the ZjStream parser entry wired from the USB2Thread descriptor and maps chunk types `0..12`.
 - `analysis/jobmgr-raster-message-flow-report.md` closes the parser-to-JobMgr raster path: `ZJT_JBIG_BIH -> JobMgr 0x29 -> 0x10023e28 -> work +0x84/+0x88/+0x8c/+0x90`, and `ZJT_JBIG_BID -> JobMgr 0x2a -> work +0x50` raster list.
+- `analysis/video-raster-consumer-report.md` maps the video consumer side: `work +0x50` list nodes carry payload `+0x54` raster buffer pointers and `+0x48` byte-count/transfer-length candidates into VideoThread/raw-band hardware setup.
 - `analysis/jobmgr-producer-boundary-report.md` is now superseded for message `0x29`; it remains useful as the pre-parser checkpoint showing why the producer was missed by broad queue-send scans.
 - The status-state object is currently mapped through pointer `0x100063d8 -> 0x1002adb4`, with current status at offset `0x08`, transition status at `0x10`, and source/reason at `0x14`.
 - HP's PJL reference anchors firmware-generated `410xx` codes as foreground paper-loading status codes; see `analysis/pjl-status-code-reference.md`.

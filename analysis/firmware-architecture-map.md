@@ -318,6 +318,12 @@ JobMgr `0x2a`. JobMgr `0x2a` copies the BIH-derived hardware fields into the act
 then appends the raster/list node to the work object's `+0x50` list through the same append path as
 JobMgr case `9`.
 
+`analysis/video-raster-consumer-report.md` maps the consumer side of that list. `0x10015214` stores
+`work +0x50` into video state `+0x9c`, reads the first node's payload at node `+0x0c`, then uses
+payload `+0x54` as the raster buffer pointer and payload `+0x48` as a transfer-length candidate.
+`0x100140f8` walks the same video-state list and writes raster pointers/derived flags into
+MMIO-looking video registers.
+
 ### Engine
 
 Entry:
