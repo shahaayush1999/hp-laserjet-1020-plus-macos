@@ -19,12 +19,13 @@ Start here:
 13. `engine-dispatch-cfg/engine-dispatch-cfg.md` - raw CFG and exact engine dispatch switch table
 14. `status-path-report.md` - PJL-visible status/fault string table and bridging functions
 15. `status-mask-report.md` - literal masks/constants used by status-state and engine-status paths
-16. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
-17. `mmio-semantics-report.md` - first behavioral names for hardware registers
-18. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
-19. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
-20. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
-21. `prototype-roadmap.md` - practical prototype options and safety gates
+16. `status-state-report.md` - status-state object layout and transition rules
+17. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
+18. `mmio-semantics-report.md` - first behavioral names for hardware registers
+19. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
+20. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
+21. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
+22. `prototype-roadmap.md` - practical prototype options and safety gates
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -69,4 +70,5 @@ Useful current conclusions:
 - The exact engine dispatch table maps `0x17` to the default return/no-op block; `0x17` is produced and received but not consumed as a normal engine command.
 - PJL-visible words such as `PAPERLESS`, `FUSER`, `TONEREXP`, and `JAMRECOVERY` are entries in a status command table at `0x10003c8c`, not direct engine dispatch cases.
 - `0x10010838` is the current bridge from internal status words to StatusMgr/PJL-visible notifications; `0x1000a2a4` converts status words into PJL `CODE=` values.
+- The status-state object is currently mapped through pointer `0x100063d8 -> 0x1002adb4`, with current status at offset `0x08`, transition status at `0x10`, and source/reason at `0x14`.
 - Engine/video MMIO has first behavioral names, but register semantics are not complete.

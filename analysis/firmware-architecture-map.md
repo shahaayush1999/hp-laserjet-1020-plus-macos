@@ -166,6 +166,18 @@ Important status functions:
 | `0x10010590` | `hp1020_status_mgr_thread_candidate` | consumes `StatusMgrQueue` messages |
 | `0x10010838` | `hp1020_status_state_update_candidate` | normalizes status words and triggers notification paths |
 
+The status-state object is reached through `0x100063d8 -> 0x1002adb4`.
+Useful offsets:
+
+| Offset | Working field |
+|---:|---|
+| `0x04` | phase/state (`2`, `3`, `4`) |
+| `0x08` | current status word |
+| `0x0c` | pending/highest category status word |
+| `0x10` | transition status word |
+| `0x14` | source/reason parameter |
+| `0x18` | pending/subscriber depth |
+
 The status table lives at `0x10003c8c` through pointer word `0x10006148`, with `0x24`-byte entries.
 Important rows include `JAMRECOVERY`, `TONEREXP`, `SETERROR`, `PAPERLESS`, and `FUSER`.
 
@@ -185,6 +197,7 @@ Key constants currently worth naming:
 | `0x10006018` | `0x2711` | default PJL code base/value |
 | `0x1000601c` | `0xa028` | PJL code base for mapped fault/status values |
 | `0x10006014` | `0x1001be40` | pointer to PJL status-code offset table |
+| `0x100063d8` | `0x1002adb4` | pointer to status-state object |
 
 ## Print Path
 
