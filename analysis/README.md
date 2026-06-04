@@ -15,7 +15,8 @@ Start here:
 9. `message-producers-report.md` - message producers by subsystem
 10. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
 11. `mmio-semantics-report.md` - first behavioral names for hardware registers
-12. `prototype-roadmap.md` - practical prototype options and safety gates
+12. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
+13. `prototype-roadmap.md` - practical prototype options and safety gates
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -26,6 +27,7 @@ Generated decompilation/report folders include:
 - `descriptor-refs/`
 - `dispatch-mmio/`
 - `engine/`
+- `firmware-layout/`
 - `identity/`
 - `labeled/`
 - `message-producers/`
@@ -38,6 +40,7 @@ Generated decompilation/report folders include:
 Useful current conclusions:
 
 - The upload wrapper is known and reproducible with `scripts/wrap-firmware-acl.py`.
+- The upload/image/ELF layout is checkable with `scripts/inspect-firmware-layout.py`.
 - The firmware is a date-prefixed Xtensa big-endian ELF inside an HP ACL/PJL envelope.
 - Ghidra can analyze it when forced to `Xtensa:BE:32:default`.
 - The firmware uses ThreadX-style RTOS objects with magic values such as `QUEU` and `THRD`.
