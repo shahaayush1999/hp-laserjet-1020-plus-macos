@@ -61,7 +61,9 @@
 0x1000d700	hp1020_pjl_aux_command_candidate	function	medium	Handles AUXINIT/AUXSAVE strings
 0x10007430	hp1020_format_into_buffer_candidate	function	high	Format-like helper used in response construction
 0x1000dc00	hp1020_alloc_buffer_candidate	function	high	Allocates output buffers before response construction
-0x10011178	hp1020_get_config_value_candidate	function	medium	Get config value helper from USB/PJL paths
+0x10011178	hp1020_datastore_get_value_candidate	function	high	Get byte/halfword/word value from indexed firmware data-store entry
+0x100111b4	hp1020_datastore_lock_entry_candidate	function	high	Locks indexed data-store entry and returns its value pointer
+0x100111d8	hp1020_datastore_unlock_entry_candidate	function	high	Unlocks indexed data-store entry
 0x1001693c	hp1020_copy_string_candidate	function	high	Copy string helper
 0x100169d4	hp1020_strlen_like	function	high	String length helper
 0x1001b544	hp1020_append_string_to_buffer_candidate	function	high	Append literal string to response buffer
@@ -91,6 +93,8 @@
 0x10006330	hp1020_descriptor_print_mgr_queue	data	high	PrintMgrQueue descriptor block
 0x100063b8	hp1020_descriptor_status_mgr_queue	data	high	StatusMgrQueue descriptor block
 0x100063d8	hp1020_status_state_object_ptr	data	high	Pointer to status state object at 0x1002adb4
+0x10006464	hp1020_datastore_lock_table_ptr	data	high	Pointer to data-store per-entry lock table at 0x1002c0b0
+0x1000647c	hp1020_datastore_descriptor_table_ptr	data	high	Pointer to indexed data-store descriptor table at 0x1001ce14
 0x10006434	hp1020_descriptor_delay_mgr_semaphore	data	medium	DelayMgr Semaphore descriptor block
 0x1000643c	hp1020_descriptor_delay_mgr_msg_queue	data	high	DelayMgr Msg Queue descriptor block
 0x1000676c	hp1020_video_queue_object_ptr_word	data	high	Descriptor word points at video queue object 0x1002ee38
@@ -101,6 +105,8 @@
 0x10006928	hp1020_engine_command_reg_table_word	data	medium	Literal table word for 0xb0500004 command/control candidate
 0x10006014	hp1020_status_code_offset_table_ptr	data	high	Pointer to status code offset halfword-pair table
 0x1001be40	hp1020_status_code_offset_table	data	high	Status code offset halfword-pair table used by PJL CODE conversion
+0x1001ce14	hp1020_datastore_descriptor_table	data	high	Indexed data-store descriptor table, entry size 0x18
+0x1002c0b0	hp1020_datastore_lock_table	data	high	Indexed data-store lock table, entry size 0x1c
 0x10006aec	hp1020_descriptor_system_timer_thread	data	medium	System Timer Thread descriptor block
 0x1002c918	hp1020_queue_table_candidate	data	high	Runtime queue table base read by indexed queue send
 0x10028a74	hp1020_print_mgr_queue_object_candidate	data	medium	PrintMgrQueue object candidate

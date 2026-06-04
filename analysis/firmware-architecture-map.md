@@ -129,6 +129,30 @@ The PJL-visible status/fault vocabulary is separate from engine dispatch. String
 `PAPERLESS`, `FUSER`, `TONEREXP`, and `JAMRECOVERY` are rows in a status command table at
 `0x10003c8c`, reached through the PJL/status parser and response builders.
 
+## Indexed Data Store
+
+Several PJL/status, USB, video, and job paths read state through a shared indexed data-store API:
+
+| Address | Label | Role |
+|---:|---|---|
+| `0x10011178` | `hp1020_datastore_get_value_candidate` | reads byte/halfword/word values by entry index |
+| `0x100111b4` | `hp1020_datastore_lock_entry_candidate` | locks the indexed entry and returns its value pointer |
+| `0x100111d8` | `hp1020_datastore_unlock_entry_candidate` | unlocks the indexed entry |
+
+The data descriptor table is reached through `0x1000647c -> 0x1001ce14`, with `0x18`-byte entries.
+The matching lock table is reached through `0x10006464 -> 0x1002c0b0`, with `0x1c`-byte entries.
+
+Important status-facing slots:
+
+| Index | Current meaning |
+|---:|---|
+| `0x18` | `ONLINE=` boolean used by USTATUS DEVICE |
+| `0x1a` | `DISPLAY="..."` string pointer used by USTATUS DEVICE |
+| `0x1b` | StatusMgr USTATUS timing/enable slot |
+| `0x1f` | status-code lookup state object pointer |
+| `0x24` | JAMRECOVERY/status alternate backing slot |
+| `0x25` | PAPERLESS/status variable backing slot |
+
 ## High-Level Data Flow
 
 ```text

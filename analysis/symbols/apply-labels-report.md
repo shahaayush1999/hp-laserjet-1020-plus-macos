@@ -5,9 +5,9 @@ This report records an offline label replay against the HP 1020 firmware Ghidra 
 - Program: `sihp1020.elf`
 - Language: `Xtensa:BE:32:default`
 - Label file: `analysis/symbols/hp1020-labels.tsv`
-- Labels read: `111`
-- Function labels applied: `81`
-- Data labels applied: `30`
+- Labels read: `117`
+- Function labels applied: `83`
+- Data labels applied: `34`
 - Warnings: `0`
 
 ## Meaning

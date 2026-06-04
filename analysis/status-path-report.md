@@ -7,6 +7,7 @@ Generated artifacts:
 - `analysis/status-path/status-command-table.tsv`
 - `analysis/status-path/status-code-offset-table.tsv`
 - `analysis/status-path/status-decompiled/`
+- `analysis/data-store-report.md` covers the indexed data-store backing several status values.
 
 ## Main Finding
 
@@ -35,6 +36,9 @@ Each entry is `0x24` bytes. Important rows:
 | `0x10010590` | `hp1020_status_mgr_thread_candidate` | consumes `StatusMgrQueue` messages and calls USTATUS builders |
 | `0x10010838` | `hp1020_status_state_update_candidate` | normalizes status words and triggers StatusMgr/PJL-visible notification paths |
 | `0x10010a8c` | `hp1020_status_event_store_candidate` | stores status words in a ring-like event buffer |
+| `0x10011178` | `hp1020_datastore_get_value_candidate` | reads byte/halfword/word values from indexed state/config entries |
+| `0x100111b4` | `hp1020_datastore_lock_entry_candidate` | locks an indexed state/config entry and returns its value pointer |
+| `0x100111d8` | `hp1020_datastore_unlock_entry_candidate` | unlocks an indexed state/config entry |
 
 ## PJL Code Offset Table
 
@@ -76,5 +80,5 @@ This means `PAPERLESS`, `FUSER`, `TONEREXP`, and `JAMRECOVERY` should not be tre
 handlers in the engine dispatch table. They are PJL-visible names in a table used by the status
 parser/response path.
 
-The next narrow task is to finish naming the masks in `hp1020_status_state_update_candidate` and
-connect those masks to the paper/media offset-table inputs.
+The USTATUS DEVICE builder separates numeric code and display text: `0x1000a2a4` produces `CODE=`,
+while data-store entry `0x1a` supplies `DISPLAY="..."` and entry `0x18` supplies `ONLINE=`.

@@ -21,13 +21,14 @@ Start here:
 15. `status-path-report.md` - PJL-visible status/fault string table and bridging functions
 16. `status-mask-report.md` - literal masks/constants used by status-state and engine-status paths
 17. `status-state-report.md` - status-state object layout and transition rules
-18. `pjl-status-code-reference.md` - external HP PJL status-code mapping for generated `CODE=` values
-19. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
-20. `mmio-semantics-report.md` - first behavioral names for hardware registers
-21. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
-22. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
-23. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
-24. `prototype-roadmap.md` - practical prototype options and safety gates
+18. `data-store-report.md` - indexed firmware state/config table used by PJL/status paths
+19. `pjl-status-code-reference.md` - external HP PJL status-code mapping for generated `CODE=` values
+20. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
+21. `mmio-semantics-report.md` - first behavioral names for hardware registers
+22. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
+23. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
+24. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
+25. `prototype-roadmap.md` - practical prototype options and safety gates
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -36,6 +37,7 @@ Generated decompilation/report folders include:
 - `boot-abi/`
 - `call-clusters/`
 - `descriptor-refs/`
+- `data-store/`
 - `dispatch-mmio/`
 - `engine/`
 - `engine-dispatch-cfg/`
@@ -73,6 +75,7 @@ Useful current conclusions:
 - The exact engine dispatch table maps `0x17` to the default return/no-op block; `0x17` is produced and received but not consumed as a normal engine command.
 - PJL-visible words such as `PAPERLESS`, `FUSER`, `TONEREXP`, and `JAMRECOVERY` are entries in a status command table at `0x10003c8c`, not direct engine dispatch cases.
 - `0x10010838` is the current bridge from internal status words to StatusMgr/PJL-visible notifications; `0x1000a2a4` converts status words into PJL `CODE=` values.
+- `0x10011178`, `0x100111b4`, and `0x100111d8` are the get/lock/unlock API for an indexed data-store table at `0x1001ce14`; USTATUS `DISPLAY=` uses entry `0x1a`, while `ONLINE=` uses entry `0x18`.
 - The status-state object is currently mapped through pointer `0x100063d8 -> 0x1002adb4`, with current status at offset `0x08`, transition status at `0x10`, and source/reason at `0x14`.
 - HP's PJL reference anchors firmware-generated `410xx` codes as foreground paper-loading status codes; see `analysis/pjl-status-code-reference.md`.
 - Engine/video MMIO has first behavioral names, but register semantics are not complete.
