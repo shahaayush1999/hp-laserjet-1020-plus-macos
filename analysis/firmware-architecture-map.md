@@ -182,6 +182,10 @@ This is not one monolithic parser. It is a set of cooperating state machines con
 pending list `0x10006324` to active list `0x10006328`; PrintMgr `0x11` returns active work to
 JobMgr queue `3`.
 
+`analysis/job-record-fields-report.md` maps the first useful fields in those records. The important
+ones for print flow are job `+0x70`/`+0x74` child-list head/tail and child/page `+0x48`/`+0x4c`
+active work slots.
+
 ## Status/PJL Fault Path
 
 The status path now has a concrete bridge from hardware-ish engine words to user-visible PJL text:

@@ -86,6 +86,7 @@ That makes queue-0 `0x11` the clearest currently proven PrintMgr-to-JobMgr compl
 
 ## Practical Next Target
 
-The next useful static step is to name the fields in the `0x78`-byte job record and the `0x50`-byte
-child/page record by following offsets `+0x48`, `+0x4c`, `+0x50`, `+0x54`, `+0x58`, `+0x5c`,
-`+0x60`, `+0x64`, `+0x70`, and `+0x74` through JobMgr cases `0x11`, `0x21`, and `0x25`.
+The first field map is now in `analysis/job-record-fields-report.md`.
+
+The next useful static target is to connect these records to the video queue payload at
+`queue 8, message 0x0b`, because that is where the record turns into raster/video work.
