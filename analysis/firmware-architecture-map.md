@@ -117,6 +117,9 @@ That means queue IDs in send calls are meaningful firmware-level routing numbers
 
 Queue `8` remains the least resolved active print-path queue.
 
+The consolidated `(queue, message)` dictionary is in `analysis/message-map-report.md` and
+`analysis/message-map/queue-message-map.tsv`.
+
 ## High-Level Data Flow
 
 ```text

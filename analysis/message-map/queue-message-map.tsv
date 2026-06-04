@@ -1,0 +1,55 @@
+# queue_id	queue_name	message_id	working_meaning	producer_or_source	consumer_or_handler	confidence	evidence
+0	PrintMgrQueue	0x18	print-manager startup/initial poll	hp1020_print_mgr_thread_candidate	hp1020_print_mgr_thread_candidate	high	Print manager seeds message 0x18 to queue 0 and then receives from PrintMgrQueue
+0	PrintMgrQueue	0x11	video reset/high-level continuation	hp1020_video_reset_dispatch_candidate	hp1020_print_mgr_thread_candidate	medium	Video reset case 0 sends 0x11 to queue 0
+0	PrintMgrQueue	0x0b	print manager active dispatch case	unknown	hp1020_print_mgr_thread_candidate	low	PrintMgr dispatch table has active 0x0b case; producer not resolved
+0	PrintMgrQueue	0x0c	print manager active dispatch case	unknown	hp1020_print_mgr_thread_candidate	low	PrintMgr dispatch table has active 0x0c case; producer not resolved
+0	PrintMgrQueue	0x0e	print manager active dispatch case	unknown	hp1020_print_mgr_thread_candidate	low	PrintMgr dispatch table has active 0x0e case; producer not resolved
+0	PrintMgrQueue	0x0f	print manager active dispatch case	unknown	hp1020_print_mgr_thread_candidate	low	PrintMgr dispatch table has active 0x0f case; producer not resolved
+0	PrintMgrQueue	0x10	print manager active dispatch case	unknown	hp1020_print_mgr_thread_candidate	low	PrintMgr dispatch table has active 0x10 case; producer not resolved
+0	PrintMgrQueue	0x14	print manager active dispatch case	unknown	hp1020_print_mgr_thread_candidate	low	PrintMgr dispatch table has active 0x14 case; producer not resolved
+0	PrintMgrQueue	0x15	print manager active dispatch case	unknown	hp1020_print_mgr_thread_candidate	low	PrintMgr dispatch table has active 0x15 case; producer not resolved
+0	PrintMgrQueue	0x16	print manager active dispatch case	unknown	hp1020_print_mgr_thread_candidate	low	PrintMgr dispatch table has active 0x16 case; producer not resolved
+0	PrintMgrQueue	0x17	print manager active dispatch case	unknown	hp1020_print_mgr_thread_candidate	low	PrintMgr dispatch table has active 0x17 case; producer not resolved
+0	PrintMgrQueue	0x25	print manager completion/error-looking dispatch case	unknown	hp1020_print_mgr_thread_candidate	low	PrintMgr dispatch table has active 0x25 case; producer not resolved
+0	PrintMgrQueue	0x2d	print manager active dispatch case	unknown	hp1020_print_mgr_thread_candidate	low	PrintMgr dispatch table has active 0x2d case; producer not resolved
+0	PrintMgrQueue	0x32	print manager active dispatch case	unknown	hp1020_print_mgr_thread_candidate	low	PrintMgr dispatch table has active 0x32 case; producer not resolved
+0	PrintMgrQueue	0x34	print manager active dispatch case	unknown	hp1020_print_mgr_thread_candidate	low	PrintMgr dispatch table has active 0x34 case; producer not resolved
+0	PrintMgrQueue	0x43	print manager active dispatch case	unknown	hp1020_print_mgr_thread_candidate	low	PrintMgr dispatch table has active 0x43 case; producer not resolved
+1	engMsgQ	0x16	engine startup/ready event	hp1020_engine_thread_candidate	hp1020_engine_message_dispatch_candidate	medium	Engine thread seeds startup message 0x16; engine dispatch does not yet expose a named 0x16 case
+1	engMsgQ	0x0b	main page/engine work	hp1020_job_mgr_thread_candidate; hp1020_engine_message_dispatch_candidate	hp1020_engine_message_dispatch_candidate	high	Job case 0x21 sends 0x0b to queue 1; engine dispatch 0x0b is main page path
+1	engMsgQ	0x0d	engine message rewritten to 0x0e	unknown	hp1020_engine_message_dispatch_candidate	medium	Engine dispatch case 0x0d rewrites message to 0x0e
+1	engMsgQ	0x0e	derived engine message	hp1020_engine_message_dispatch_candidate	hp1020_engine_message_dispatch_candidate	medium	Generated from 0x0d path; registered handler setup also references 0x0e
+1	engMsgQ	0x0f	engine reset/clear path	hp1020_job_mgr_thread_candidate; hp1020_engine_register_handlers_candidate	hp1020_engine_message_dispatch_candidate	medium	Job case 0x0f sends 0x0f to queue 1; engine dispatch case 0x0f sends 0x25 and clears state
+1	engMsgQ	0x10	video finished / engine can advance	hp1020_video_thread_candidate	hp1020_engine_message_dispatch_candidate	high	Video thread sends 0x10 to queue 1 after page/video work
+1	engMsgQ	0x11	engine deferred drain / continuation	hp1020_engine_message_dispatch_candidate	hp1020_engine_message_dispatch_candidate	medium	Engine dispatch case 0x11 may send 0x11 or 0x0b back into engine queue
+1	engMsgQ	0x17	engine status/event update	hp1020_engine_status_poll_candidate; hp1020_engine_status_io_candidate; hp1020_video_reset_dispatch_candidate	hp1020_engine_message_dispatch_candidate	high	Engine status paths and video reset cases 2-7 send 0x17 to queue 1
+1	engMsgQ	0x18	engine status poll	hp1020_engine_preflight_candidate	hp1020_engine_message_dispatch_candidate	medium	Engine dispatch has 0x18 status poll case; producer evidence exists in preflight/status neighborhood
+1	engMsgQ	0x19	engine event that emits 0x16	unknown	hp1020_engine_message_dispatch_candidate	medium	Engine dispatch case 0x19 sends 0x16
+1	engMsgQ	0x1a	engine preflight/status refresh	hp1020_pjl_or_status_helper_candidate	hp1020_engine_message_dispatch_candidate	low	Assignment observed in 0x1000fcb0; engine dispatch has 0x1a case
+1	engMsgQ	0x25	engine completion/error-looking event	hp1020_engine_message_dispatch_candidate; hp1020_engine_register_handlers_candidate	hp1020_engine_message_dispatch_candidate	medium	Engine dispatch 0x0f sends 0x25; handler setup references 0x25
+1	engMsgQ	0x40	force/start page path	unknown	hp1020_engine_message_dispatch_candidate	medium	Engine dispatch 0x40 sets state and falls through to 0x0b
+3	Job Mgr Queue	0x01	job manager dispatch case	unknown	hp1020_job_mgr_thread_candidate	medium	Job manager switch handles case 1
+3	Job Mgr Queue	0x02	job manager dispatch case	unknown	hp1020_job_mgr_thread_candidate	medium	Job manager switch handles case 2
+3	Job Mgr Queue	0x03	job manager dispatch case	unknown	hp1020_job_mgr_thread_candidate	medium	Job manager switch handles case 3
+3	Job Mgr Queue	0x05	job manager dispatch case	unknown	hp1020_job_mgr_thread_candidate	medium	Job manager switch handles case 5
+3	Job Mgr Queue	0x06	job manager dispatch case	unknown	hp1020_job_mgr_thread_candidate	medium	Job manager switch handles case 6
+3	Job Mgr Queue	0x08	job manager dispatch case	unknown	hp1020_job_mgr_thread_candidate	low	Job manager switch handles case 8
+3	Job Mgr Queue	0x09	job manager dispatch case	unknown	hp1020_job_mgr_thread_candidate	low	Job manager switch handles case 9
+3	Job Mgr Queue	0x0f	job manager lifecycle/status event	unknown	hp1020_job_mgr_thread_candidate	medium	Job manager handles case 0x0f and forwards related 0x0f to engine queue
+3	Job Mgr Queue	0x11	job manager dispatch case	unknown	hp1020_job_mgr_thread_candidate	low	Job manager switch handles case 0x11
+3	Job Mgr Queue	0x21	job manager starts engine page work	unknown	hp1020_job_mgr_thread_candidate	high	Job case 0x21 sends 0x0b to queue 1
+3	Job Mgr Queue	0x25	job manager completion/error-looking event	hp1020_job_mgr_thread_candidate	hp1020_job_mgr_thread_candidate	medium	Job case 0x0f sends 0x25 to queue 3 when counter/state reaches zero
+3	Job Mgr Queue	0x29	job manager dispatch case	unknown	hp1020_job_mgr_thread_candidate	low	Job manager switch handles case 0x29
+3	Job Mgr Queue	0x2a	job manager dispatch case	unknown	hp1020_job_mgr_thread_candidate	low	Job manager switch handles case 0x2a
+3	Job Mgr Queue	0x2b	job manager dispatch case	unknown	hp1020_job_mgr_thread_candidate	low	Job manager switch handles case 0x2b
+3	Job Mgr Queue	0x33	job manager dispatch case	unknown	hp1020_job_mgr_thread_candidate	low	Job manager switch handles case 0x33
+8	Video Queue	0x0b	video/page work item	hp1020_video_reset_dispatch_candidate	hp1020_video_thread_candidate	high	Video reset case 0 sends 0x0b to queue 8; video thread treats 0x0b as page/video work
+8	Video Queue	0x0f	video reset/flush	unknown	hp1020_video_thread_candidate	medium	Video thread recognizes 0x0f as reset/flush
+10	StatusMgrQueue	0x2c	status manager case	unknown	hp1020_status_mgr_thread_candidate	medium	Status manager switch handles 0x2c
+10	StatusMgrQueue	0x2e	status manager case	unknown	hp1020_status_mgr_thread_candidate	medium	Status manager switch handles 0x2e
+10	StatusMgrQueue	0x2f	status manager case	unknown	hp1020_status_mgr_thread_candidate	low	Status manager switch handles 0x2f
+10	StatusMgrQueue	0x30	status manager status-like event	hp1020_job_mgr_thread_candidate	hp1020_status_mgr_thread_candidate	medium	Job/status functions send status-like 0x30 to queue 10; status manager handles 0x30
+10	StatusMgrQueue	0x31	status manager status-like event	hp1020_job_mgr_thread_candidate	hp1020_status_mgr_thread_candidate	medium	Job/status functions send status-like 0x31 to queue 10; status manager handles 0x31
+10	StatusMgrQueue	0x32	status manager case	unknown	hp1020_status_mgr_thread_candidate	low	Status manager switch handles 0x32
+10	StatusMgrQueue	0x43	status manager case	unknown	hp1020_status_mgr_thread_candidate	low	Status manager switch handles 0x43
+15	DelayMgr Msg Queue	0x44	delay callback/timer message	delay manager helper functions	hp1020_delay_mgr_receive_thread_candidate	medium	Delay manager helpers enqueue 0x44 to queue 0x0f
