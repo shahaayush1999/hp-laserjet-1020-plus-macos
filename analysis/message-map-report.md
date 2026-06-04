@@ -23,7 +23,7 @@ The important rule: the same message number can mean different things on differe
 | `0` | `0x11` | video reset/high-level continuation | Video reset dispatch | PrintMgr | medium |
 | `1` | `0x0b` | main page/engine work | JobMgr / engine continuation | Engine dispatch | high |
 | `1` | `0x10` | video finished / engine can advance | Video thread | Engine dispatch | high |
-| `1` | `0x17` | engine status/event update | Engine status paths / video reset cases | Engine dispatch | high |
+| `1` | `0x17` | engine status/event update | Engine status paths / video reset cases | unresolved consumer branch | high producer, low consumer |
 | `1` | `0x40` | force/start page path | unresolved | Engine dispatch | medium |
 | `3` | `0x21` | job starts engine page work | unresolved | JobMgr | high |
 | `3` | `0x25` | job completion/error-looking event | JobMgr | JobMgr | medium |
@@ -37,6 +37,9 @@ The complete working table is in `analysis/message-map/queue-message-map.tsv`.
 
 Engine message `0x17` has its own payload map in `analysis/engine-event-report.md` and
 `analysis/engine-events/engine-0x17-events.tsv`.
+
+The direct consumer for engine message `0x17` is not recovered yet; the current engine dispatch
+switch does not show a `0x17` case.
 
 ## Current Interpretation
 

@@ -50,4 +50,28 @@ The complete event-code table is in `analysis/engine-events/engine-0x17-events.t
 
 This turns engine message `0x17` from "some status event" into a structured event family. That matters because `0x17` is emitted by both the engine hardware polling path and the video reset path, so it is probably the bridge between hardware state and the rest of the print pipeline.
 
-The event names are still conservative. The next useful step is to trace how `hp1020_engine_message_dispatch_candidate` consumes word 1 for message `0x17`, then connect these event codes to outward PJL/status strings like `PAPERLESS`, `TONEREXP`, `FUSER`, and `JAM`.
+## Consumer Status
+
+Important negative finding: the recovered `hp1020_engine_message_dispatch_candidate` switch does not currently show a `case 0x17`.
+
+Confirmed engine dispatch cases remain:
+
+- `0x0b`
+- `0x0d`
+- `0x0f`
+- `0x11`
+- `0x18`
+- `0x19`
+- `0x1a`
+- `0x40`
+
+So `0x17` is a proven produced message, but its direct consumer is not yet proven. Current possibilities:
+
+- Ghidra missed or simplified an Xtensa switch branch.
+- `0x17` intentionally wakes the engine queue and falls through a default/no-op path after side effects elsewhere.
+- Queue `1` has an additional consumer/dispatch path not yet mapped.
+- Some `0x17` events should actually be interpreted as event-registry payloads and not ordinary engine dispatch work.
+
+The adjacent event registry at `0x10006490` is separate. It registers event IDs such as `0x0f` through `0x14` and emits callback/`0x2d` style notifications, but it does not by itself explain the engine queue `0x17` path.
+
+The event names are still conservative. The next useful step is to trace queue `1` consumers and all references to message word `0x17`, then connect these event codes to outward PJL/status strings like `PAPERLESS`, `TONEREXP`, `FUSER`, and `JAM`.
