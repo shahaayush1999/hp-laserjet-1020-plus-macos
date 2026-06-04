@@ -24,13 +24,14 @@ Start here:
 18. `data-store-report.md` - indexed firmware state/config table used by PJL/status paths
 19. `data-store-subscriber-report.md` - data-store publish/subscribe wiring and known callbacks
 20. `printmgr-fallout-report.md` - PrintMgr `0x2d` notification handler and unresolved producer boundary
-21. `pjl-status-code-reference.md` - external HP PJL status-code mapping for generated `CODE=` values
-22. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
-23. `mmio-semantics-report.md` - first behavioral names for hardware registers
-24. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
-25. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
-26. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
-27. `prototype-roadmap.md` - practical prototype options and safety gates
+21. `queue-send-census-report.md` - global queue-send census and PrintMgr `0x2d` producer check
+22. `pjl-status-code-reference.md` - external HP PJL status-code mapping for generated `CODE=` values
+23. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
+24. `mmio-semantics-report.md` - first behavioral names for hardware registers
+25. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
+26. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
+27. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
+28. `prototype-roadmap.md` - practical prototype options and safety gates
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -53,6 +54,7 @@ Generated decompilation/report folders include:
 - `message-producers/`
 - `object-creation/`
 - `printmgr-fallout/`
+- `queue-send-census/`
 - `queue-routing/`
 - `queue-table-init/`
 - `status-masks/`
@@ -84,7 +86,8 @@ Useful current conclusions:
 - Data-store subscribers are reached through `0x10006490 -> 0x1002c56c`; writes can notify queue subscribers with message `0x2d` or call direct callbacks.
 - Known live subscriptions include ONLINE/status entries `0x18`/`0x19` into the control-panel path and engine entries `0x0f..0x14` into engine callbacks.
 - Known queue subscribers from PrintMgr use queue id `1`; the current map labels queue id `1` as `engMsgQ`, where `0x2d` currently dispatches to default/no-op.
-- PrintMgr has its own real `0x2d` dispatch case, but the queue-0 producer for that case remains unresolved.
+- PrintMgr has its own real `0x2d` dispatch case, but the queue-send census found `0` direct static sends of `queue 0, message 0x2d`.
+- The only proven queue-send `0x2d` producer remains the data-store writer at `0x10010fd0`, where the queue id is read from each subscriber record.
 - The status-state object is currently mapped through pointer `0x100063d8 -> 0x1002adb4`, with current status at offset `0x08`, transition status at `0x10`, and source/reason at `0x14`.
 - HP's PJL reference anchors firmware-generated `410xx` codes as foreground paper-loading status codes; see `analysis/pjl-status-code-reference.md`.
 - Engine/video MMIO has first behavioral names, but register semantics are not complete.

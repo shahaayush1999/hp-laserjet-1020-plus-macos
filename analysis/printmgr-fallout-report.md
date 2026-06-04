@@ -49,6 +49,10 @@ PrintMgrQueue message 0x2d
 
 That means the PrintMgr `0x2d` handler is real, but its queue-0 producer is unresolved.
 
+The follow-up queue-send census in `analysis/queue-send-census-report.md` found no direct static
+`queue 0, message 0x2d` send site. It did confirm the data-store writer's subscriber-driven
+`0x2d` send, where the queue id comes from the subscriber record.
+
 ## Why This Matters
 
 This prevents a bad shortcut: we should not assume every `0x2d` datastore notification reaches

@@ -59,7 +59,7 @@ The engine side is the highest-risk area. The engine queue receives both page-pr
 ## Remaining Gaps
 
 - The queue table write that assigns `Video Queue` to slot `8` still has not been directly found.
-- Many PrintMgr active dispatch cases have known table targets but unresolved producers.
+- Many PrintMgr active dispatch cases have known table targets but unresolved producers; the queue-send census found no direct static `queue 0, message 0x2d` producer.
 - StatusMgr messages are known numerically, but the PJL-visible status semantics still need branch-level naming.
 - PJL-visible status strings are now table-mapped, but the physical meaning of each status mask is not fully proven.
 - Engine message `0x17` clearly carries status/event detail, but the payload fields are not fully decoded into paper/fuser/toner conditions.
