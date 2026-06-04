@@ -105,8 +105,8 @@ The `.sys_interface_table` is a boot/runtime ABI-looking function pointer table.
 | `59` | `0x1000045c` | `0x100131b8` | `hp1020_runtime_service_candidate` |
 | `60` | `0x10000460` | `0x10013408` | `hp1020_runtime_service_2_candidate` |
 | `61` | `0x10000464` | `0x100116ec` | `hp1020_system_service_candidate` |
-| `62` | `0x10000468` | `0x10010f54` | `hp1020_event_flag_get_candidate` |
-| `63` | `0x1000046c` | `0x10010fd0` | `hp1020_event_flag_set_candidate` |
+| `62` | `0x10000468` | `0x10010f54` | `hp1020_datastore_read_locked_candidate` |
+| `63` | `0x1000046c` | `0x10010fd0` | `hp1020_datastore_write_notify_unlock_candidate` |
 | `64` | `0x10000470` | `0x10010f44` | `hp1020_sys_interface_64_candidate` |
 | `65` | `0x10000474` | `0x10011178` | `hp1020_sys_interface_65_candidate` |
 | `66` | `0x10000478` | `0x100111b4` | `hp1020_sys_interface_66_candidate` |
@@ -124,10 +124,10 @@ The `.sys_interface_table` is a boot/runtime ABI-looking function pointer table.
 | Function | Size | Calls | Referenced strings / MMIO |
 |---:|---:|---|---|
 | `0x10100020` `hp1020_reset_vector_candidate` | `1` |  |  |
-| `0x100167a8` `hp1020_elf_entry_candidate` | `25` | `0x10006cd0` `FUN_10006cd0` | program `0x10006a14` block `.text`<br>program `0x10006cd0` `FUN_10006cd0` |
+| `0x100167a8` `hp1020_elf_entry_candidate` | `25` | `0x10006cd0` `hp1020_cpu_tlb_init_candidate` | program `0x10006a14` block `.text`<br>program `0x10006cd0` `hp1020_cpu_tlb_init_candidate` |
 | `0x10006bb0` `hp1020_early_boot_or_init_candidate` | `205` |  | program `0x10005c80` block `.text`<br>MMIO `0xb0800008`<br>program `0x10006bf0` inside `hp1020_early_boot_or_init_candidate` + `0x40`<br>program `0x10006bea` inside `hp1020_early_boot_or_init_candidate` + `0x3a`<br>pr... |
-| `0x10010f54` `hp1020_event_flag_get_candidate` | `122` | `0x100111b4` `hp1020_sys_interface_66_candidate`<br>`0x10016a38` `FUN_10016a38`<br>`0x1001b38c` `FUN_1001b38c` | program `0x1000647c` block `.text`<br>program `0x100111b4` `hp1020_sys_interface_66_candidate`<br>program `0x10010fcc` inside `hp1020_event_flag_get_candidate` + `0x78`<br>program `0x1001ce1c` block `.data`<br>program... |
-| `0x10010fd0` `hp1020_event_flag_set_candidate` | `403` | `0x10017e64` `hp1020_sys_interface_34_candidate`<br>`0x10016a38` `FUN_10016a38`<br>`0x1001b38c` `FUN_1001b38c`<br>`0x10017dac` `hp1020_sys_interface_16_candidate`<br>`0x10017ed8` `hp1020_sys_interface_37_candidate`<br... | program `0x1000647c` block `.text`<br>program `0x1001ce28` block `.data`<br>program `0x10011031` inside `hp1020_event_flag_set_candidate` + `0x61`<br>program `0x1001ce1c` block `.data`<br>program `0x100064a8` block `.... |
+| `0x10010f54` `hp1020_datastore_read_locked_candidate` | `122` | `0x100111b4` `hp1020_sys_interface_66_candidate`<br>`0x10016a38` `FUN_10016a38`<br>`0x1001b38c` `FUN_1001b38c` | program `0x1000647c` block `.text`<br>program `0x100111b4` `hp1020_sys_interface_66_candidate`<br>program `0x10010fcc` inside `hp1020_datastore_read_locked_candidate` + `0x78`<br>program `0x1001ce1c` block `.data`<br>... |
+| `0x10010fd0` `hp1020_datastore_write_notify_unlock_candidate` | `403` | `0x10017e64` `hp1020_sys_interface_34_candidate`<br>`0x10016a38` `FUN_10016a38`<br>`0x1001b38c` `FUN_1001b38c`<br>`0x10017dac` `hp1020_sys_interface_16_candidate`<br>`0x10017ed8` `hp1020_sys_interface_37_candidate`<br... | program `0x1000647c` block `.text`<br>program `0x1001ce28` block `.data`<br>program `0x10011031` inside `hp1020_datastore_write_notify_unlock_candidate` + `0x61`<br>program `0x1001ce1c` block `.data`<br>program `0x100... |
 | `0x10011258` `hp1020_register_event_handler_candidate` | `124` | `0x100131b8` `hp1020_runtime_service_candidate`<br>`0x1001766c` `threadx_sleep_candidate`<br>`0x100111b4` `hp1020_sys_interface_66_candidate`<br>`0x1001b290` `FUN_1001b290`<br>`0x1001b2c4` `FUN_1001b2c4`<br>`0x100111d... | program `0x100131b8` `hp1020_runtime_service_candidate`<br>program `0x10011277` inside `hp1020_register_event_handler_candidate` + `0x1f`<br>program `0x1001766c` `threadx_sleep_candidate`<br>program `0x1001125d` insid... |
 | `0x1001135c` `hp1020_register_or_signal_message_candidate` | `136` | `0x100131b8` `hp1020_runtime_service_candidate`<br>`0x1001766c` `threadx_sleep_candidate`<br>`0x100111b4` `hp1020_sys_interface_66_candidate`<br>`0x1001b290` `FUN_1001b290`<br>`0x1001b2c4` `FUN_1001b2c4`<br>`0x100111d... | program `0x100131b8` `hp1020_runtime_service_candidate`<br>program `0x1001137b` inside `hp1020_register_or_signal_message_candidate` + `0x1f`<br>program `0x1001766c` `threadx_sleep_candidate`<br>program `0x10011361` i... |
 | `0x100116ec` `hp1020_system_service_candidate` | `68` | `0x1001bb5c` `FUN_1001bb5c` | program `0x1001bb5c` `FUN_1001bb5c`<br>program `0x10005dfc` block `.text`<br>program `0x1001bff0` block `.data`<br>program `0x1001171c` inside `hp1020_system_service_candidate` + `0x30`<br>program `0x10011707` inside ... |
@@ -148,7 +148,7 @@ Direct references found from the reset vector and ELF entry candidates:
 | Function | References |
 |---:|---|
 | `0x10100020` `hp1020_reset_vector_candidate` |  |
-| `0x100167a8` `hp1020_elf_entry_candidate` | program `0x10006a14` block `.text`<br>program `0x10006cd0` `FUN_10006cd0` |
+| `0x100167a8` `hp1020_elf_entry_candidate` | program `0x10006a14` block `.text`<br>program `0x10006cd0` `hp1020_cpu_tlb_init_candidate` |
 
 ## Interpretation
 

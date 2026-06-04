@@ -135,6 +135,8 @@ Several PJL/status, USB, video, and job paths read state through a shared indexe
 
 | Address | Label | Role |
 |---:|---|---|
+| `0x10010f54` | `hp1020_datastore_read_locked_candidate` | copies indexed entry values into caller buffers after locking |
+| `0x10010fd0` | `hp1020_datastore_write_notify_unlock_candidate` | writes indexed entry values, notifies subscribers, then unlocks |
 | `0x10011178` | `hp1020_datastore_get_value_candidate` | reads byte/halfword/word values by entry index |
 | `0x100111b4` | `hp1020_datastore_lock_entry_candidate` | locks the indexed entry and returns its value pointer |
 | `0x100111d8` | `hp1020_datastore_unlock_entry_candidate` | unlocks the indexed entry |

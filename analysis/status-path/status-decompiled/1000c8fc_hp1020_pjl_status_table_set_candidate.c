@@ -72,7 +72,7 @@ hp1020_pjl_status_table_set_candidate
     }
     local_b0 = 10;
     puStack_ac = (undefined2 *)auStack_38;
-    hp1020_event_flag_get_candidate(&local_b0);
+    hp1020_datastore_read_locked_candidate(&local_b0);
     auStack_38[0] = uStack_39;
     break;
   case 1:
@@ -90,7 +90,7 @@ hp1020_pjl_status_table_set_candidate
     }
     local_b0 = 9;
     puStack_ac = (undefined2 *)auStack_38;
-    hp1020_event_flag_get_candidate(&local_b0);
+    hp1020_datastore_read_locked_candidate(&local_b0);
     auStack_38[0] = (undefined1)uStack_34;
     break;
   case 2:
@@ -101,20 +101,20 @@ hp1020_pjl_status_table_set_candidate
     if (cVar4 == '\0') {
       local_b0 = 0x25;
       puStack_ac = (undefined2 *)auStack_9c;
-      hp1020_event_flag_get_candidate(&local_b0);
+      hp1020_datastore_read_locked_candidate(&local_b0);
       auStack_9c[0] = uStack_9d;
-      hp1020_event_flag_set_candidate(&local_b0);
+      hp1020_datastore_write_notify_unlock_candidate(&local_b0);
       return uStack_24;
     }
     return 1;
   case 4:
     local_b0 = 4;
     puStack_ac = (undefined2 *)auStack_90;
-    hp1020_event_flag_get_candidate(&local_b0);
+    hp1020_datastore_read_locked_candidate(&local_b0);
     uVar7 = hp1020_strlen_like(param_4);
     if (uVar7 < 7) {
       hp1020_copy_string_candidate(auStack_90,param_4);
-      hp1020_event_flag_set_candidate(&local_b0);
+      hp1020_datastore_write_notify_unlock_candidate(&local_b0);
       return uStack_24;
     }
     return 1;
@@ -128,9 +128,9 @@ hp1020_pjl_status_table_set_candidate
         local_b0 = 0xd;
       }
       puStack_ac = (undefined2 *)auStack_7c;
-      hp1020_event_flag_get_candidate(&local_b0);
+      hp1020_datastore_read_locked_candidate(&local_b0);
       auStack_7c[0] = uStack_7d;
-      hp1020_event_flag_set_candidate(&local_b0);
+      hp1020_datastore_write_notify_unlock_candidate(&local_b0);
       return uStack_24;
     }
     return 1;
@@ -165,10 +165,10 @@ hp1020_pjl_status_table_set_candidate
       local_b0 = 0x14;
     }
     puStack_ac = auStack_74;
-    hp1020_event_flag_get_candidate(&local_b0);
+    hp1020_datastore_read_locked_candidate(&local_b0);
     FUN_1000c850(param_4,bVar5,auStack_70);
     auStack_74[0] = uStack_6e;
-    hp1020_event_flag_set_candidate(&local_b0);
+    hp1020_datastore_write_notify_unlock_candidate(&local_b0);
     return uStack_24;
   case 0xc:
     FUN_1000d5b0(param_4,&uStack_5c);
@@ -180,9 +180,9 @@ hp1020_pjl_status_table_set_candidate
     }
     local_b0 = 0x22;
     puStack_ac = (undefined2 *)auStack_58;
-    hp1020_event_flag_get_candidate(&local_b0);
+    hp1020_datastore_read_locked_candidate(&local_b0);
     auStack_58[0] = (undefined1)uStack_5c;
-    hp1020_event_flag_set_candidate(&local_b0);
+    hp1020_datastore_write_notify_unlock_candidate(&local_b0);
     return uStack_24;
   case 0xd:
     FUN_1000d5b0(param_4,&uStack_6c);
@@ -194,9 +194,9 @@ hp1020_pjl_status_table_set_candidate
     }
     local_b0 = 0x21;
     puStack_ac = (undefined2 *)auStack_68;
-    hp1020_event_flag_get_candidate(&local_b0);
+    hp1020_datastore_read_locked_candidate(&local_b0);
     auStack_68[0] = (undefined1)uStack_6c;
-    hp1020_event_flag_set_candidate(&local_b0);
+    hp1020_datastore_write_notify_unlock_candidate(&local_b0);
     return uStack_24;
   case 0xe:
     FUN_1000d5b0(param_4,&uStack_64);
@@ -208,9 +208,9 @@ hp1020_pjl_status_table_set_candidate
     }
     local_b0 = 0x23;
     puStack_ac = (undefined2 *)auStack_60;
-    hp1020_event_flag_get_candidate(&local_b0);
+    hp1020_datastore_read_locked_candidate(&local_b0);
     auStack_60[0] = (undefined1)uStack_64;
-    hp1020_event_flag_set_candidate(&local_b0);
+    hp1020_datastore_write_notify_unlock_candidate(&local_b0);
     return uStack_24;
   case 0xf:
     FUN_1000d5b0(param_4,&iStack_54);
@@ -269,7 +269,7 @@ hp1020_pjl_status_table_set_candidate
   default:
     return uStack_24;
   }
-  hp1020_event_flag_set_candidate(&local_b0);
+  hp1020_datastore_write_notify_unlock_candidate(&local_b0);
   return uStack_24;
 }
 

@@ -36,6 +36,8 @@ Each entry is `0x24` bytes. Important rows:
 | `0x10010590` | `hp1020_status_mgr_thread_candidate` | consumes `StatusMgrQueue` messages and calls USTATUS builders |
 | `0x10010838` | `hp1020_status_state_update_candidate` | normalizes status words and triggers StatusMgr/PJL-visible notification paths |
 | `0x10010a8c` | `hp1020_status_event_store_candidate` | stores status words in a ring-like event buffer |
+| `0x10010f54` | `hp1020_datastore_read_locked_candidate` | copies an indexed state/config entry into caller storage after locking it |
+| `0x10010fd0` | `hp1020_datastore_write_notify_unlock_candidate` | writes an indexed state/config entry, notifies subscribers, then unlocks it |
 | `0x10011178` | `hp1020_datastore_get_value_candidate` | reads byte/halfword/word values from indexed state/config entries |
 | `0x100111b4` | `hp1020_datastore_lock_entry_candidate` | locks an indexed state/config entry and returns its value pointer |
 | `0x100111d8` | `hp1020_datastore_unlock_entry_candidate` | unlocks an indexed state/config entry |

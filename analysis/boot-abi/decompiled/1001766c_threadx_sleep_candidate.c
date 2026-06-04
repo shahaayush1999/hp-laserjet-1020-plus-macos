@@ -1,6 +1,8 @@
 /* Function: 1001766c threadx_sleep_candidate */
 
 
+/* medium confidence: System-interface table sleep service */
+
 undefined4 threadx_sleep_candidate(int param_1)
 
 {

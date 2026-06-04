@@ -114,9 +114,9 @@ public class MapHp1020StatusPath extends GhidraScript {
         label(0x10010838L, "hp1020_status_state_update_candidate");
         label(0x10010a3cL, "hp1020_status_notify_pending_candidate");
         label(0x10010a8cL, "hp1020_status_event_store_candidate");
-        label(0x10010f54L, "hp1020_event_flag_get_candidate");
-        label(0x10010fd0L, "hp1020_event_flag_set_candidate");
-        label(0x10011178L, "hp1020_get_config_value_candidate");
+        label(0x10010f54L, "hp1020_datastore_read_locked_candidate");
+        label(0x10010fd0L, "hp1020_datastore_write_notify_unlock_candidate");
+        label(0x10011178L, "hp1020_datastore_get_value_candidate");
         label(0x10015c68L, "hp1020_engine_status_io_candidate");
         label(0x10015df8L, "hp1020_engine_status_poll_candidate");
         label(0x100160a8L, "hp1020_engine_preflight_candidate");

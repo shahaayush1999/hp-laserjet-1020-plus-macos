@@ -11,7 +11,7 @@ int hp1020_status_word_to_pjl_code_candidate(uint param_1)
   int iVar2;
   int iVar3;
   
-  puVar1 = (undefined4 *)FUN_100111b4(0x1f);
+  puVar1 = (undefined4 *)hp1020_datastore_lock_entry_candidate(0x1f);
   iVar3 = DAT_10006018;
   if (((param_1 & 0xffff & DAT_10005f74) != 0x100) &&
      (((param_1 & DAT_10005e74) == 0 || ((param_1 & DAT_10005e34) != 0)))) {
@@ -25,7 +25,7 @@ int hp1020_status_word_to_pjl_code_candidate(uint param_1)
       iVar3 = (puVar1[2] + 1) * 100 + iVar2 + DAT_1000601c;
     }
   }
-  FUN_100111d8(0x1f);
+  hp1020_datastore_unlock_entry_candidate(0x1f);
   return iVar3;
 }
 

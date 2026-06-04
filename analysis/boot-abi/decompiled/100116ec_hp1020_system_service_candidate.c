@@ -1,6 +1,8 @@
 /* Function: 100116ec hp1020_system_service_candidate */
 
 
+/* low confidence: System service from system-interface table */
+
 void hp1020_system_service_candidate(int param_1)
 
 {

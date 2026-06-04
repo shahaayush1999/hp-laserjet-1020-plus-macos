@@ -16,13 +16,13 @@ void FUN_1000b624(int param_1,undefined4 param_2)
   puVar4 = PTR_DAT_100060ec;
   hp1020_append_string_to_buffer_candidate(param_1,PTR_DAT_100060ec);
   hp1020_append_string_to_buffer_candidate(param_1,PTR_s_DISPLAY___1000612c);
-  uVar1 = FUN_100111b4(0x1a);
+  uVar1 = hp1020_datastore_lock_entry_candidate(0x1a);
   hp1020_append_string_to_buffer_candidate(param_1,uVar1);
   hp1020_append_string_to_buffer_candidate(param_1,PTR_DAT_10006130);
   hp1020_append_string_to_buffer_candidate(param_1,puVar4);
-  FUN_100111d8(0x1a);
+  hp1020_datastore_unlock_entry_candidate(0x1a);
   hp1020_append_string_to_buffer_candidate(param_1,PTR_s_ONLINE__10006134);
-  cVar3 = hp1020_get_config_value_candidate(0x18);
+  cVar3 = hp1020_datastore_get_value_candidate(0x18);
   puVar4 = DAT_1000613c;
   if (cVar3 == '\0') {
     puVar4 = PTR_s_FALSE_10006138;

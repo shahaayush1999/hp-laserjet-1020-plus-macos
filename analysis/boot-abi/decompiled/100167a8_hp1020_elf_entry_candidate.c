@@ -1,7 +1,9 @@
 /* Function: 100167a8 hp1020_elf_entry_candidate */
 
 
-void entry(void)
+/* high confidence: ELF entry clears interrupts and jumps through early boot pointer */
+
+void hp1020_elf_entry(void)
 
 {
   undefined1 in_INTENABLE;

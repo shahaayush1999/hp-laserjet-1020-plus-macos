@@ -787,7 +787,7 @@ This is a coarse automated clustering pass over Ghidra functions. It is intended
 - size: `75` bytes/addresses
 - callers: `15`; calls: `0`
 
-### `10011178` `hp1020_get_config_value_candidate`
+### `10011178` `hp1020_datastore_get_value_candidate`
 
 - size: `60` bytes/addresses
 - callers: `6`; calls: `0`
@@ -796,7 +796,7 @@ This is a coarse automated clustering pass over Ghidra functions. It is intended
 
 - size: `2305` bytes/addresses
 - callers: `0`; calls: `6`
-- calls: `hp1020_get_config_value_candidate@10011178`, `FUN_100181a4@100181a4`, `FUN_100171b0@100171b0`, `FUN_1001b668@1001b668`, `FUN_1001b4c8@1001b4c8`, `FUN_1001718...`
+- calls: `hp1020_datastore_get_value_candidate@10011178`, `FUN_100181a4@100181a4`, `FUN_100171b0@100171b0`, `FUN_1001b668@1001b668`, `FUN_1001b4c8@1001b4c8`, `FUN_1001718...`
 
 ### `100117e8` `FUN_100117e8`
 
@@ -910,7 +910,7 @@ This is a coarse automated clustering pass over Ghidra functions. It is intended
 
 - size: `360` bytes/addresses
 - callers: `2`; calls: `4`
-- calls: `hp1020_get_config_value_candidate@10011178`, `FUN_10010f54@10010f54`, `FUN_100111d8@100111d8`, `FUN_100167f4@100167f4`
+- calls: `hp1020_datastore_get_value_candidate@10011178`, `FUN_10010f54@10010f54`, `FUN_100111d8@100111d8`, `FUN_100167f4@100167f4`
 
 ### `1000da5c` `FUN_1000da5c`
 

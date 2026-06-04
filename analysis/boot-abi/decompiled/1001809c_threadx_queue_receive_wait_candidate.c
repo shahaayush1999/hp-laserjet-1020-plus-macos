@@ -1,6 +1,8 @@
 /* Function: 1001809c threadx_queue_receive_wait_candidate */
 
 
+/* high confidence: Queue receive wrapper */
+
 undefined4 threadx_queue_receive_wait_candidate(int *param_1,int param_2,int param_3)
 
 {

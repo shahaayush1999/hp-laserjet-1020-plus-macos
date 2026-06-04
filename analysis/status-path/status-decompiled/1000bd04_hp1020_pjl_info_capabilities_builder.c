@@ -13,7 +13,7 @@ undefined4 hp1020_pjl_info_capabilities_builder(undefined4 param_1)
   char local_40 [16];
   undefined1 auStack_30 [48];
   
-  iVar3 = FUN_100111b4(0x1d);
+  iVar3 = hp1020_datastore_lock_entry_candidate(0x1d);
   hp1020_append_string_to_buffer_candidate(param_1,PTR_s_IN_TRAYS___100061a4);
   local_40[0] = (*(int *)(iVar3 + 0x38) == 1) + '0';
   local_40[1] = 0;
@@ -38,7 +38,7 @@ undefined4 hp1020_pjl_info_capabilities_builder(undefined4 param_1)
     hp1020_append_string_to_buffer_candidate(param_1,PTR_s_INTRAY3_PAPERTRAY_100061b8);
     hp1020_append_string_to_buffer_candidate(param_1,PTR_DAT_100060ec);
   }
-  FUN_100111d8(0x1d);
+  hp1020_datastore_unlock_entry_candidate(0x1d);
   hp1020_append_string_to_buffer_candidate(param_1,PTR_s_PAPERS__17_ENUMERATED__100061bc);
   puVar2 = PTR_DAT_100060ec;
   hp1020_append_string_to_buffer_candidate(param_1,PTR_DAT_100060ec);

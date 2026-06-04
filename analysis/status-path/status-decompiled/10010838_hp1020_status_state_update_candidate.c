@@ -17,10 +17,10 @@ void hp1020_status_state_update_candidate(uint param_1,int param_2)
   undefined4 uStack_3c;
   uint auStack_30 [12];
   
-  puVar3 = PTR_DAT_100063d8;
+  puVar3 = hp1020_status_state_object_ptr;
   bVar2 = false;
   bVar5 = false;
-  uVar4 = *(uint *)(PTR_DAT_100063d8 + 4);
+  uVar4 = *(uint *)(hp1020_status_state_object_ptr + 4);
   bVar1 = false;
   auStack_30[0] = param_1;
   if (uVar4 == 3) {
@@ -35,16 +35,17 @@ LAB_10010941:
       if ((param_1 & DAT_10005e34) == 0) {
         if ((param_1 & DAT_10005f74) == DAT_10006418) {
           bVar1 = true;
-          *(uint *)(PTR_DAT_100063d8 + 0x10) = param_1;
+          *(uint *)(hp1020_status_state_object_ptr + 0x10) = param_1;
         }
-        else if ((*(uint *)(PTR_DAT_100063d8 + 0xc) & DAT_10006378) < (param_1 & DAT_10006378)) {
-          *(uint *)(PTR_DAT_100063d8 + 0xc) = param_1;
+        else if ((*(uint *)(hp1020_status_state_object_ptr + 0xc) & DAT_10006378) <
+                 (param_1 & DAT_10006378)) {
+          *(uint *)(hp1020_status_state_object_ptr + 0xc) = param_1;
           bVar2 = true;
         }
         goto LAB_1001098d;
       }
 LAB_100108db:
-      *PTR_DAT_100063d8 = 0;
+      *hp1020_status_state_object_ptr = 0;
       bVar1 = true;
       bVar5 = true;
       *(undefined4 *)(puVar3 + 4) = 4;
@@ -54,38 +55,39 @@ LAB_100108db:
   else if (uVar4 < 4) {
     if ((uVar4 != 2) ||
        ((uVar4 = param_1 & DAT_10005f74, uVar4 == 0x100 &&
-        ((*(uint *)(PTR_DAT_100063d8 + 8) & DAT_10005f74) == 0x100)))) goto LAB_1001098d;
+        ((*(uint *)(hp1020_status_state_object_ptr + 8) & DAT_10005f74) == 0x100))))
+    goto LAB_1001098d;
     if (param_1 != DAT_10006048) {
       if (uVar4 == DAT_10006418) {
         bVar1 = true;
-        *(undefined4 *)(PTR_DAT_100063d8 + 4) = 3;
+        *(undefined4 *)(hp1020_status_state_object_ptr + 4) = 3;
         *(undefined4 *)(puVar3 + 0xc) = 0;
         *(uint *)(puVar3 + 0x10) = param_1;
         goto LAB_1001098d;
       }
       if ((param_1 & DAT_10005e34) != 0) goto LAB_100108db;
-      if ((param_1 == *(uint *)(PTR_DAT_100063d8 + 8)) ||
+      if ((param_1 == *(uint *)(hp1020_status_state_object_ptr + 8)) ||
          ((uVar4 != 0x100 &&
-          ((param_1 & DAT_10006378) < (*(uint *)(PTR_DAT_100063d8 + 8) & DAT_10006378)))))
-      goto LAB_1001098d;
+          ((param_1 & DAT_10006378) < (*(uint *)(hp1020_status_state_object_ptr + 8) & DAT_10006378)
+          )))) goto LAB_1001098d;
     }
   }
   else {
     if (uVar4 != 4) goto LAB_1001098d;
     uVar4 = param_1 & DAT_10005f74;
     if ((uVar4 == 0x100) || ((param_1 & DAT_10005e34) == 0)) {
-      if (param_2 != *(int *)(PTR_DAT_100063d8 + 0x14)) {
+      if (param_2 != *(int *)(hp1020_status_state_object_ptr + 0x14)) {
         if (uVar4 == DAT_10006418) {
           if ((param_1 & 0x10) == 0) {
-            *(uint *)(PTR_DAT_100063d8 + 0x10) = param_1;
+            *(uint *)(hp1020_status_state_object_ptr + 0x10) = param_1;
           }
           else {
-            bVar1 = (*(uint *)(PTR_DAT_100063d8 + 8) & DAT_10005f74) == 0x1000;
+            bVar1 = (*(uint *)(hp1020_status_state_object_ptr + 8) & DAT_10005f74) == 0x1000;
           }
         }
         goto LAB_1001098d;
       }
-      *PTR_DAT_100063d8 = 1;
+      *hp1020_status_state_object_ptr = 1;
       bVar1 = true;
       bVar5 = true;
       if (puVar3[0x18] != '\0') {
@@ -97,8 +99,10 @@ LAB_100108db:
       goto LAB_10010941;
     }
     if (uVar4 != DAT_10006420) {
-      if (((*(uint *)(PTR_DAT_100063d8 + 8) & DAT_10006378) <= (param_1 & DAT_10006378)) &&
-         (bVar1 = true, (param_1 & 0xffff) == (*(uint *)(PTR_DAT_100063d8 + 8) & 0xffff))) {
+      if (((*(uint *)(hp1020_status_state_object_ptr + 8) & DAT_10006378) <=
+           (param_1 & DAT_10006378)) &&
+         (bVar1 = true,
+         (param_1 & 0xffff) == (*(uint *)(hp1020_status_state_object_ptr + 8) & 0xffff))) {
         bVar1 = false;
       }
       goto LAB_1001098d;
@@ -109,14 +113,14 @@ LAB_1001098d:
   if (bVar5) {
     local_50 = 0x18;
     puStack_4c = (uint *)0x0;
-    hp1020_event_flag_get_candidate(&local_50);
-    puStack_4c = (uint *)PTR_DAT_100063d8;
-    hp1020_event_flag_set_candidate(&local_50);
+    hp1020_datastore_read_locked_candidate(&local_50);
+    puStack_4c = (uint *)hp1020_status_state_object_ptr;
+    hp1020_datastore_write_notify_unlock_candidate(&local_50);
     bVar2 = true;
   }
-  puVar3 = PTR_DAT_100063d8;
-  if ((bVar1) && (auStack_30[0] != *(uint *)(PTR_DAT_100063d8 + 8))) {
-    *(uint *)(PTR_DAT_100063d8 + 8) = auStack_30[0];
+  puVar3 = hp1020_status_state_object_ptr;
+  if ((bVar1) && (auStack_30[0] != *(uint *)(hp1020_status_state_object_ptr + 8))) {
+    *(uint *)(hp1020_status_state_object_ptr + 8) = auStack_30[0];
     uVar4 = DAT_10005c84;
     *(int *)(puVar3 + 0x14) = param_2;
     if ((auStack_30[0] & uVar4) != 0) {
@@ -136,9 +140,9 @@ LAB_1001098d:
     hp1020_status_event_store_candidate(auStack_30[0]);
     local_50 = 0x19;
     puStack_4c = (uint *)0x0;
-    hp1020_event_flag_get_candidate(&local_50);
+    hp1020_datastore_read_locked_candidate(&local_50);
     puStack_4c = auStack_30;
-    hp1020_event_flag_set_candidate(&local_50);
+    hp1020_datastore_write_notify_unlock_candidate(&local_50);
     bVar2 = true;
   }
   if ((auStack_30[0] & DAT_10005e74) != 0) {

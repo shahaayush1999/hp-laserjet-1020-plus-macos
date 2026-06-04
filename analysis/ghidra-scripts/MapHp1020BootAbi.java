@@ -79,8 +79,8 @@ public class MapHp1020BootAbi extends GhidraScript {
         label(RESET_VECTOR, "hp1020_reset_vector_candidate");
         label(ELF_ENTRY, "hp1020_elf_entry_candidate");
         label(0x10006bb0L, "hp1020_early_boot_or_init_candidate");
-        label(0x10010f54L, "hp1020_event_flag_get_candidate");
-        label(0x10010fd0L, "hp1020_event_flag_set_candidate");
+        label(0x10010f54L, "hp1020_datastore_read_locked_candidate");
+        label(0x10010fd0L, "hp1020_datastore_write_notify_unlock_candidate");
         label(0x10011258L, "hp1020_register_event_handler_candidate");
         label(0x1001135cL, "hp1020_register_or_signal_message_candidate");
         label(0x100116ecL, "hp1020_system_service_candidate");

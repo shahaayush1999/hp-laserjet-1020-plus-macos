@@ -22,7 +22,7 @@ void hp1020_status_mgr_thread_candidate(void)
   FUN_1001214c();
   hp1020_status_state_update_candidate(DAT_100063dc,1);
   puVar4 = PTR_DAT_10006408;
-  puVar2 = PTR_DAT_100063d8;
+  puVar2 = hp1020_status_state_object_ptr;
   puVar1 = PTR_DAT_100063b0;
 switchD_100105cd_caseD_10:
   threadx_queue_receive_wait_candidate
@@ -31,7 +31,7 @@ switchD_100105cd_caseD_10:
   switch(uStack_30) {
   case 0xf:
     if (puVar2[0x18] == '\0') goto switchD_100105cd_caseD_10;
-    iVar7 = hp1020_get_config_value_candidate(0x1b);
+    iVar7 = hp1020_datastore_get_value_candidate(0x1b);
     uVar5 = DAT_10006410;
     if (iVar7 == 1) {
       uVar5 = DAT_1000640c;
@@ -48,7 +48,7 @@ switchD_100105cd_caseD_10:
     iVar7 = *(int *)PTR_DAT_100063e0;
     puVar2[0x18] = puVar2[0x18] + '\x01';
     *(int *)puVar3 = iVar7 + 1;
-    iVar7 = hp1020_get_config_value_candidate(0x1b);
+    iVar7 = hp1020_datastore_get_value_candidate(0x1b);
     if (iVar7 - 1U < 7) {
                     /* WARNING: Could not recover jumptable at 0x10010605. Too many branches */
                     /* WARNING: Treating indirect jump as call */
@@ -115,7 +115,7 @@ switchD_100105cd_caseD_43:
     iVar7 = *(int *)(puVar1 + uVar8 * 4);
     if (((iVar7 != 0) && ((*(uint *)(iVar7 + 0x40) >> 0x13 & 0x1ff) != 0)) && (iVar7 == iStack_2c))
     {
-      uVar5 = hp1020_get_config_value_candidate(0x19);
+      uVar5 = hp1020_datastore_get_value_candidate(0x19);
       FUN_1000b774(*(int *)(puVar1 + uVar8 * 4),uVar5);
     }
     uVar6 = uVar6 + 1;

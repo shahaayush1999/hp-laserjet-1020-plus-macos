@@ -80,7 +80,7 @@ public class MapHp1020UsbPath extends GhidraScript {
         label(0x10008c24L, "hp1020_usb_control_tx_data_stage_candidate");
         label(0x10007c00L, "hp1020_usb_register_transfer_candidate");
         label(0x10008fb0L, "hp1020_usb_drain_pending_queue_candidate");
-        label(0x10011178L, "hp1020_get_config_value_candidate");
+        label(0x10011178L, "hp1020_datastore_get_value_candidate");
         label(0x10017d28L, "threadx_queue_receive_candidate");
         label(0x10018274L, "threadx_thread_create_candidate");
     }

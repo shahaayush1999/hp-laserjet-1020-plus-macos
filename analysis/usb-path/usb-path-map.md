@@ -17,7 +17,7 @@ Direct callees:
 - `10008c24` `hp1020_usb_control_tx_data_stage_candidate` score=222
 - `10008fb0` `hp1020_usb_drain_pending_queue_candidate` score=11
 - `10009ac4` `FUN_10009ac4` score=2
-- `10011178` `hp1020_get_config_value_candidate` score=16
+- `10011178` `hp1020_datastore_get_value_candidate` score=16
 - `1001214c` `FUN_1001214c` score=1
 - `10013658` `FUN_10013658` score=1
 - `100169d4` `hp1020_strlen_like` score=4
@@ -104,7 +104,7 @@ Global/pointer symbols seen in decompiler output:
 - `1000cdb0` `hp1020_pjl_echo_matcher` score=12
 - `1000d2a8` `FUN_1000d2a8` score=38
 - `1000d6b0` `hp1020_pjl_read_or_poll_candidate` score=26
-- `10011178` `hp1020_get_config_value_candidate` score=16
+- `10011178` `hp1020_datastore_get_value_candidate` score=16
 - `1001214c` `FUN_1001214c` score=1
 - `1001215c` `FUN_1001215c` score=5
 - `10013050` `FUN_10013050` score=1

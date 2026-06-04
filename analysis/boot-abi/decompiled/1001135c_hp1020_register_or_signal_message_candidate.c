@@ -1,6 +1,8 @@
 /* Function: 1001135c hp1020_register_or_signal_message_candidate */
 
 
+/* medium confidence: Register/signal message service from system-interface table */
+
 void hp1020_register_or_signal_message_candidate(int param_1,undefined4 param_2)
 
 {
@@ -12,7 +14,7 @@ void hp1020_register_or_signal_message_candidate(int param_1,undefined4 param_2)
         puVar2 == (undefined1 *)0x0) {
     threadx_sleep_candidate(0x14);
   }
-  hp1020_sys_interface_66_candidate(param_1);
+  hp1020_datastore_lock_entry_candidate(param_1);
   if (puVar2 != (undefined1 *)0x0) {
     puVar2[8] = 0;
     puVar2[9] = 0;
@@ -36,7 +38,7 @@ void hp1020_register_or_signal_message_candidate(int param_1,undefined4 param_2)
       FUN_1001b2c4(iVar3 + 0xc,puVar2 + 0xc);
     }
   }
-  hp1020_sys_interface_67_candidate(param_1);
+  hp1020_datastore_unlock_entry_candidate(param_1);
   return;
 }
 

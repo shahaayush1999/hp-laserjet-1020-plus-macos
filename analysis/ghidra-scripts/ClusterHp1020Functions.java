@@ -65,7 +65,7 @@ public class ClusterHp1020Functions extends GhidraScript {
         label(0x1000cdb0L, "hp1020_pjl_echo_matcher");
         label(0x1000d6b0L, "hp1020_pjl_read_or_poll_candidate");
         label(0x1000dc00L, "hp1020_alloc_buffer_candidate");
-        label(0x10011178L, "hp1020_get_config_value_candidate");
+        label(0x10011178L, "hp1020_datastore_get_value_candidate");
         label(0x1001693cL, "hp1020_copy_string_candidate");
         label(0x100169d4L, "hp1020_strlen_like");
         label(0x10017d28L, "threadx_queue_receive_candidate");

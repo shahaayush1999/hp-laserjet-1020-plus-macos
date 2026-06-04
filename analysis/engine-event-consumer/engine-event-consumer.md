@@ -17,7 +17,7 @@ This pass scans for engine queue/event evidence that the normal decompile did no
 | `10007468` `FUN_10007468` | `literal_0x17` |
 | `1000e1dc` `FUN_1000e1dc` | `literal_0x17` |
 | `10010230` `FUN_10010230` | `literal_0x17` |
-| `10010fd0` `hp1020_event_flag_set_candidate` | `call_hp1020_queue_send_candidate`, `ref_hp1020_event_handler_table_ptr_word`, `ref_hp1020_queue_send_candidate` |
+| `10010fd0` `hp1020_datastore_write_notify_unlock_candidate` | `call_hp1020_queue_send_candidate`, `ref_hp1020_event_handler_table_ptr_word`, `ref_hp1020_queue_send_candidate` |
 | `10011258` `hp1020_register_event_handler_candidate` | `ref_hp1020_event_handler_table_ptr_word` |
 | `1001135c` `hp1020_register_or_signal_message_candidate` | `ref_hp1020_event_handler_table_ptr_word` |
 | `10013d4c` `hp1020_video_reset_dispatch_candidate` | `call_hp1020_send_or_raise_engine_msg_candidate`, `literal_0x17`, `ref_hp1020_send_or_raise_engine_msg_candidate` |
@@ -48,7 +48,7 @@ This pass scans for engine queue/event evidence that the normal decompile did no
 
 - `10010235` `movi.n` `movi.n a8,0x17` -> `literal_0x17`
 
-### `10010fd0` `hp1020_event_flag_set_candidate`
+### `10010fd0` `hp1020_datastore_write_notify_unlock_candidate`
 
 - `100110d6` `l32r` `l32r a8,0x10006490` -> `ref_hp1020_event_handler_table_ptr_word`
 - `10011100` `l32r` `l32r a8,0x10006490` -> `ref_hp1020_event_handler_table_ptr_word`

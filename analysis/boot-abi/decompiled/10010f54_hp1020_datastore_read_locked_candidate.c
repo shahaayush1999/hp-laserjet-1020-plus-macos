@@ -1,17 +1,17 @@
-/* Function: 10010f54 hp1020_event_flag_get_candidate */
+/* Function: 10010f54 hp1020_datastore_read_locked_candidate */
 
 
-/* medium confidence: Event flag get from system-interface table */
+/* high confidence: Copies indexed data-store entry into caller storage after locking entry */
 
-void hp1020_event_flag_get_candidate(int *param_1)
+void hp1020_datastore_read_locked_candidate(int *param_1)
 
 {
   undefined *puVar1;
   int iVar2;
   
-  puVar1 = PTR_DAT_1000647c;
+  puVar1 = hp1020_datastore_descriptor_table_ptr;
   iVar2 = *param_1;
-  FUN_100111b4(iVar2);
+  hp1020_datastore_lock_entry_candidate(iVar2);
   if (param_1[1] != 0) {
     switch(*(undefined4 *)(puVar1 + *param_1 * 0x18 + 8)) {
     case 0:

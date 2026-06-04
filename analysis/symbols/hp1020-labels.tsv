@@ -16,8 +16,8 @@
 0x100131b8	hp1020_runtime_service_candidate	function	medium	Runtime allocator/service from system-interface table
 0x10013408	hp1020_runtime_service_2_candidate	function	low	Runtime service from system-interface table
 0x100116ec	hp1020_system_service_candidate	function	low	System service from system-interface table
-0x10010f54	hp1020_event_flag_get_candidate	function	medium	Event flag get from system-interface table
-0x10010fd0	hp1020_event_flag_set_candidate	function	medium	Event flag set from system-interface table
+0x10010f54	hp1020_datastore_read_locked_candidate	function	high	Copies indexed data-store entry into caller storage after locking entry
+0x10010fd0	hp1020_datastore_write_notify_unlock_candidate	function	high	Writes indexed data-store entry, notifies subscribers, then unlocks entry
 0x10011258	hp1020_register_event_handler_candidate	function	medium	Register event handler from system-interface table
 0x1001135c	hp1020_register_or_signal_message_candidate	function	medium	Register/signal message service from system-interface table
 0x10013620	hp1020_send_or_raise_engine_msg_candidate	function	medium	Wrapper around indexed queue send path

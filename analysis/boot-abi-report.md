@@ -86,8 +86,8 @@ Known entries now include:
 | `59` | `0x100131b8` | `hp1020_runtime_service_candidate` |
 | `60` | `0x10013408` | `hp1020_runtime_service_2_candidate` |
 | `61` | `0x100116ec` | `hp1020_system_service_candidate` |
-| `62` | `0x10010f54` | `hp1020_event_flag_get_candidate` |
-| `63` | `0x10010fd0` | `hp1020_event_flag_set_candidate` |
+| `62` | `0x10010f54` | `hp1020_datastore_read_locked_candidate` |
+| `63` | `0x10010fd0` | `hp1020_datastore_write_notify_unlock_candidate` |
 | `71` | `0x10011258` | `hp1020_register_event_handler_candidate` |
 | `73` | `0x1001135c` | `hp1020_register_or_signal_message_candidate` |
 
@@ -119,4 +119,3 @@ For a minimal custom firmware experiment, the current best guess is:
 5. Do not touch print-engine MMIO until the register semantics are better understood.
 
 The next reverse-engineering step is to trace what the pointer at/near `0x10006a14` actually targets and how early boot transitions into ThreadX/task startup.
-

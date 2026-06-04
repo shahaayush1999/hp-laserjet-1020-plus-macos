@@ -10,14 +10,16 @@ Generated artifacts:
 
 ## Main Finding
 
-The helper trio around `0x10011178` is a central indexed firmware state/config API, not just a
-small PJL helper:
+The helper group around `0x10011178` and `0x10010f54` is a central indexed firmware state/config
+API, not just a small PJL helper:
 
 | Address | Working label | Meaning |
 |---:|---|---|
 | `0x10011178` | `hp1020_datastore_get_value_candidate` | returns byte/halfword/word values from indexed data-store entries |
 | `0x100111b4` | `hp1020_datastore_lock_entry_candidate` | locks the indexed mutex entry and returns the entry value pointer |
 | `0x100111d8` | `hp1020_datastore_unlock_entry_candidate` | unlocks the indexed mutex entry |
+| `0x10010f54` | `hp1020_datastore_read_locked_candidate` | copies an indexed entry into caller storage after locking it |
+| `0x10010fd0` | `hp1020_datastore_write_notify_unlock_candidate` | writes an indexed entry, notifies subscribers, then unlocks it |
 
 The descriptor pointers are now concrete:
 
@@ -39,6 +41,9 @@ The data descriptor table currently maps entries `0x00` through `0x25`.
 | `0x1d` | `4` | pointer/string slot | PJL INFO capability/state aggregate |
 | `0x1e` | `3` | `HP LaserJet 1020` | PJL command/config response string aggregate |
 | `0x1f` | `4` | pointer/string slot | status-code lookup state object pointer |
+| `0x21` | `0` | runtime byte slot | TONEREXP/status writable backing slot |
+| `0x22` | `2` | runtime word slot | PQENHANCE/status writable backing slot |
+| `0x23` | `0` | runtime byte slot | LINEAUGMENT/status writable backing slot |
 | `0x24` | `0` | runtime byte slot | JAMRECOVERY/status alternate backing slot |
 | `0x25` | `0` | runtime byte slot | PAPERLESS/status variable backing slot |
 

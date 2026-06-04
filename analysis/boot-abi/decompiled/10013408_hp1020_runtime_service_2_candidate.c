@@ -1,6 +1,8 @@
 /* Function: 10013408 hp1020_runtime_service_2_candidate */
 
 
+/* low confidence: Runtime service from system-interface table */
+
 void hp1020_runtime_service_2_candidate(uint *param_1)
 
 {

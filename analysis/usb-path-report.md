@@ -28,7 +28,7 @@ High-confidence or useful working labels:
 10008c24 hp1020_usb_control_tx_data_stage_candidate
 10007c00 hp1020_usb_register_transfer_candidate
 10008fb0 hp1020_usb_drain_pending_queue_candidate
-10011178 hp1020_get_config_value_candidate
+10011178 hp1020_datastore_get_value_candidate
 10017d28 threadx_queue_receive_candidate
 10018274 threadx_thread_create_candidate
 ```

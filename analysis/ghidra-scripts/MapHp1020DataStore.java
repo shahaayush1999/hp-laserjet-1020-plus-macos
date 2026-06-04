@@ -30,6 +30,8 @@ public class MapHp1020DataStore extends GhidraScript {
     private static final long GET_VALUE = 0x10011178L;
     private static final long LOCK_ENTRY = 0x100111b4L;
     private static final long UNLOCK_ENTRY = 0x100111d8L;
+    private static final long READ_LOCKED = 0x10010f54L;
+    private static final long WRITE_NOTIFY_UNLOCK = 0x10010fd0L;
 
     private static final Map<Integer, String> WORKING_NAMES = new LinkedHashMap<>();
     static {
@@ -51,6 +53,9 @@ public class MapHp1020DataStore extends GhidraScript {
         WORKING_NAMES.put(0x1e, "PJL command parser writable aggregate");
         WORKING_NAMES.put(0x1f, "status-code lookup state object pointer");
         WORKING_NAMES.put(0x20, "video/page preparation config value");
+        WORKING_NAMES.put(0x21, "TONEREXP/status writable backing slot");
+        WORKING_NAMES.put(0x22, "PQENHANCE/status writable backing slot");
+        WORKING_NAMES.put(0x23, "LINEAUGMENT/status writable backing slot");
         WORKING_NAMES.put(0x24, "JAMRECOVERY/status alternate backing slot");
         WORKING_NAMES.put(0x25, "PAPERLESS/status variable backing slot");
     }
@@ -79,6 +84,8 @@ public class MapHp1020DataStore extends GhidraScript {
         decompile(functionAt(GET_VALUE), new File(decompDir, "10011178_hp1020_datastore_get_value_candidate.c"));
         decompile(functionAt(LOCK_ENTRY), new File(decompDir, "100111b4_hp1020_datastore_lock_entry_candidate.c"));
         decompile(functionAt(UNLOCK_ENTRY), new File(decompDir, "100111d8_hp1020_datastore_unlock_entry_candidate.c"));
+        decompile(functionAt(READ_LOCKED), new File(decompDir, "10010f54_hp1020_datastore_read_locked_candidate.c"));
+        decompile(functionAt(WRITE_NOTIFY_UNLOCK), new File(decompDir, "10010fd0_hp1020_datastore_write_notify_unlock_candidate.c"));
 
         writeEntriesTsv(entries, new File(outDir, "data-store-table.tsv"));
         writeUsesTsv(uses, new File(outDir, "data-store-helper-uses.tsv"));
@@ -89,6 +96,8 @@ public class MapHp1020DataStore extends GhidraScript {
         label(GET_VALUE, "hp1020_datastore_get_value_candidate");
         label(LOCK_ENTRY, "hp1020_datastore_lock_entry_candidate");
         label(UNLOCK_ENTRY, "hp1020_datastore_unlock_entry_candidate");
+        label(READ_LOCKED, "hp1020_datastore_read_locked_candidate");
+        label(WRITE_NOTIFY_UNLOCK, "hp1020_datastore_write_notify_unlock_candidate");
     }
 
     private void label(long rawAddress, String name) {
@@ -289,6 +298,8 @@ public class MapHp1020DataStore extends GhidraScript {
             out.println("| `0x10011178` | `hp1020_datastore_get_value_candidate` | reads an indexed entry and returns an integer value for byte/halfword/word entries |");
             out.println("| `0x100111b4` | `hp1020_datastore_lock_entry_candidate` | locks the matching mutex entry and returns the entry's value pointer |");
             out.println("| `0x100111d8` | `hp1020_datastore_unlock_entry_candidate` | unlocks the matching mutex entry |");
+            out.println("| `0x10010f54` | `hp1020_datastore_read_locked_candidate` | copies the indexed entry value into caller storage after locking the entry; callers must release or write back |");
+            out.println("| `0x10010fd0` | `hp1020_datastore_write_notify_unlock_candidate` | writes caller storage into the indexed entry, notifies subscribers, then unlocks the entry |");
             out.println();
             out.printf("- data descriptor table pointer word: `0x%x -> 0x%x`%n", DATA_TABLE_PTR_WORD, dataBaseRaw);
             out.printf("- lock/mutex table pointer word: `0x%x -> 0x%x`%n", LOCK_TABLE_PTR_WORD, lockBaseRaw);
@@ -312,6 +323,7 @@ public class MapHp1020DataStore extends GhidraScript {
             out.println("- `DISPLAY=\"...\"` in USTATUS DEVICE is built from data-store entry `0x1a`, not from the numeric `CODE=` conversion table.");
             out.println("- `ONLINE=` in the same response is read through entry `0x18`.");
             out.println("- Status command-table rows such as `PAPERLESS`, `TONEREXP`, and media variables read backing values through this table.");
+            out.println("- `0x10010f54` / `0x10010fd0` are the main read-modify-write path for mutable PJL/status backing slots.");
             out.println("- The helper trio is therefore a central firmware state/config API, not just PJL parsing glue.");
         }
     }

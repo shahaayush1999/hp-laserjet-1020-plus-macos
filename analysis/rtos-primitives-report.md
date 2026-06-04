@@ -28,8 +28,8 @@ Known useful `.sys_interface_table` slots:
 | `28` | `0x100181a4` | `0x1001a478` | memory/block service |
 | `46` | `0x1001766c` | `0x1001a590`, `0x100176c8` | sleep / timed suspend |
 | `59` | `0x100131b8` | `0x100181a4`, `0x10018214` | allocator / runtime memory service |
-| `62` | `0x10010f54` | event-related helpers | event flag get candidate |
-| `63` | `0x10010fd0` | event-related helpers | event flag set candidate |
+| `62` | `0x10010f54` | data-store helpers | indexed data-store read/lock candidate |
+| `63` | `0x10010fd0` | data-store helpers | indexed data-store write/notify/unlock candidate |
 
 ## Queue Receive
 
@@ -145,4 +145,3 @@ The next pass should map task creation and queue creation:
 - find where `THRD` object headers are initialized
 - connect those creation calls to the descriptor blocks for `USB2Thread`, `PrintMgrQueue`, `Job Mgr Queue`, `Video Queue`, `engMsgQ`, and `StatusMgrQueue`
 - resolve queue `8` from creation/registration rather than inference
-

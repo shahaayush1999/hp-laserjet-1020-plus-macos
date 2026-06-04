@@ -1,9 +1,10 @@
-/* Function: 10010fd0 hp1020_event_flag_set_candidate */
+/* Function: 10010fd0 hp1020_datastore_write_notify_unlock_candidate */
 
 
 /* WARNING: Control flow encountered bad instruction data */
+/* high confidence: Writes indexed data-store entry, notifies subscribers, then unlocks entry */
 
-void hp1020_event_flag_set_candidate(uint *param_1)
+void hp1020_datastore_write_notify_unlock_candidate(uint *param_1)
 
 {
   bool bVar1;
@@ -18,7 +19,7 @@ void hp1020_event_flag_set_candidate(uint *param_1)
   undefined4 uStack_24;
   
   bVar1 = true;
-  piVar3 = (int *)(PTR_DAT_1000647c + *param_1 * 0x18);
+  piVar3 = (int *)(hp1020_datastore_descriptor_table_ptr + *param_1 * 0x18);
   if (piVar3[5] != 1) goto switchD_10010ff5_default;
   switch(piVar3[2]) {
   case 0:
@@ -42,7 +43,7 @@ void hp1020_event_flag_set_candidate(uint *param_1)
   bVar1 = uVar2 == 0;
 switchD_10010ff5_default:
   if (bVar1) {
-    hp1020_sys_interface_34_candidate(PTR_DAT_10006474,0xffffffff);
+    FUN_10017e64(PTR_DAT_10006474,0xffffffff);
     uVar2 = 0;
     switch(piVar3[2]) {
     case 0:
@@ -68,9 +69,9 @@ switchD_10010ff5_default:
     if (((*(char *)(piVar3 + 3) != '\0') && (*param_1 < 0x17)) &&
        (*(char *)((int)piVar3 + 0xd) = *(char *)((int)piVar3 + 0xd) + '\x01',
        (int)(*(byte *)(piVar3 + 3) - 1) < (int)(uint)*(byte *)((int)piVar3 + 0xd))) {
-      hp1020_sys_interface_16_candidate(PTR_DAT_1000646c,1,0);
+      FUN_10017dac(PTR_DAT_1000646c,1,0);
     }
-    hp1020_sys_interface_37_candidate(PTR_DAT_10006474);
+    FUN_10017ed8(PTR_DAT_10006474);
     iVar6 = *piVar3;
     if (*(int *)(PTR_DAT_10006490 + iVar6 * 4) != 0) {
       local_30 = 0x2d;
@@ -90,10 +91,11 @@ switchD_10010ff5_default:
                          (uint)*(byte *)((int)piVar3 + -3) << 0x10 |
                          (uint)*(byte *)(piVar3 + -1) << 0x18);
         if (pcVar5 == (code *)0x0) {
-          FUN_10013658((uint)*(byte *)((int)piVar3 + -5) |
-                       (uint)*(byte *)((int)piVar3 + -6) << 8 |
-                       (uint)*(byte *)((int)piVar3 + -7) << 0x10 |
-                       (uint)*(byte *)(piVar3 + -2) << 0x18,&local_30);
+          hp1020_queue_send_candidate
+                    ((uint)*(byte *)((int)piVar3 + -5) |
+                     (uint)*(byte *)((int)piVar3 + -6) << 8 |
+                     (uint)*(byte *)((int)piVar3 + -7) << 0x10 |
+                     (uint)*(byte *)(piVar3 + -2) << 0x18,&local_30);
         }
         else {
           (*pcVar5)(iVar6,uVar2);
@@ -102,7 +104,7 @@ switchD_10010ff5_default:
       } while (piVar3 != (int *)(*piVar4 + 0xc));
     }
   }
-  hp1020_sys_interface_67_candidate(*param_1);
+  hp1020_datastore_unlock_entry_candidate(*param_1);
   return;
 }
 

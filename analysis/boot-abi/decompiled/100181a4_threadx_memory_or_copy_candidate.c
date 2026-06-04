@@ -1,6 +1,8 @@
 /* Function: 100181a4 threadx_memory_or_copy_candidate */
 
 
+/* medium confidence: System-interface table memory/block service */
+
 undefined4 threadx_memory_or_copy_candidate(int *param_1,int param_2)
 
 {

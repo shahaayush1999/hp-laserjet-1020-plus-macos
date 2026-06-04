@@ -1,6 +1,8 @@
 /* Function: 100180dc threadx_queue_send_candidate */
 
 
+/* high confidence: Queue send wrapper */
+
 undefined4 threadx_queue_send_candidate(int *param_1,int param_2,int param_3)
 
 {

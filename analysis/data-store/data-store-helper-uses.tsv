@@ -1,5 +1,5 @@
 index	helper	call_address	function_address	function_name
-0x00	unlock	10011170	10010fd0	hp1020_event_flag_set_candidate
+0x00	unlock	10011170	10010fd0	hp1020_datastore_write_notify_unlock_candidate
 0x01	lock	1000f874	1000f84c	FUN_1000f84c
 0x01	unlock	1000fab5	1000f84c	FUN_1000f84c
 0x09	get	1000b8c9	1000b870	hp1020_pjl_status_table_get_candidate

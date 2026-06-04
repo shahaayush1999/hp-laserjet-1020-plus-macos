@@ -28,7 +28,7 @@ status manager, status-state updater, and engine status poller.
 | `hp1020_status_word_to_pjl_code_candidate` | `1000a2e0` `l32r a8,0x1000601c` | `1000601c` | `DAT_1000601c` | `0xa028` |  |
 | `hp1020_status_word_to_pjl_code_candidate` | `1000a301` `l32r a12,0x10006020` | `10006020` | `PTR_DAT_10006020` | `0x1001bc84` | status mask/constant |
 | `hp1020_status_mgr_thread_candidate` | `10010599` `l32r a10,0x100063dc` | `100063dc` | `DAT_100063dc` | `0xe6101100` | engine/status event word |
-| `hp1020_status_mgr_thread_candidate` | `100105a4` `l32r a5,0x100063d8` | `100063d8` | `PTR_DAT_100063d8` | `0x1002adb4` | status mask/constant |
+| `hp1020_status_mgr_thread_candidate` | `100105a4` `l32r a5,0x100063d8` | `100063d8` | `hp1020_status_state_object_ptr` | `0x1002adb4` | status mask/constant |
 | `hp1020_status_mgr_thread_candidate` | `100105a7` `l32r a3,0x100063b0` | `100063b0` | `PTR_DAT_100063b0` | `0x1002aca4` | status mask/constant |
 | `hp1020_status_mgr_thread_candidate` | `100105aa` `l32r a4,0x10006408` | `10006408` | `PTR_DAT_10006408` | `0x1001bf3c` | status mask/constant |
 | `hp1020_status_mgr_thread_candidate` | `100105ad` `l32r a10,0x100063b4` | `100063b4` | `PTR_hp1020_status_mgr_queue_object_candidate_100063b4` | `0x10028adc` | status mask/constant |
@@ -60,7 +60,7 @@ status manager, status-state updater, and engine status poller.
 | `hp1020_status_mgr_thread_candidate` | `10010736` `l32r a8,0x1000635c` | `1000635c` | `DAT_1000635c` | `0x60000000` | status mask/constant |
 | `hp1020_status_mgr_thread_candidate` | `1001074e` `l32r a10,0x100063d0` | `100063d0` | `PTR_DAT_100063d0` | `0x1002acf4` | status mask/constant |
 | `hp1020_status_mgr_thread_candidate` | `10010790` `l32r a10,0x100063d0` | `100063d0` | `PTR_DAT_100063d0` | `0x1002acf4` | status mask/constant |
-| `hp1020_status_state_update_candidate` | `1001083f` `l32r a12,0x100063d8` | `100063d8` | `PTR_DAT_100063d8` | `0x1002adb4` | status mask/constant |
+| `hp1020_status_state_update_candidate` | `1001083f` `l32r a12,0x100063d8` | `100063d8` | `hp1020_status_state_object_ptr` | `0x1002adb4` | status mask/constant |
 | `hp1020_status_state_update_candidate` | `1001085f` `l32r a11,0x10005f74` | `10005f74` | `DAT_10005f74` | `0xff00` |  |
 | `hp1020_status_state_update_candidate` | `10010877` `l32r a8,0x10006048` | `10006048` | `DAT_10006048` | `0x2000160a` | engine/status event word |
 | `hp1020_status_state_update_candidate` | `1001087d` `l32r a8,0x10006418` | `10006418` | `DAT_10006418` | `0x1600` |  |
@@ -76,8 +76,8 @@ status manager, status-state updater, and engine status poller.
 | `hp1020_status_state_update_candidate` | `10010948` `l32r a8,0x10006418` | `10006418` | `DAT_10006418` | `0x1600` |  |
 | `hp1020_status_state_update_candidate` | `10010968` `l32r a8,0x10006420` | `10006420` | `DAT_10006420` | `0x1100` |  |
 | `hp1020_status_state_update_candidate` | `10010971` `l32r a8,0x10006378` | `10006378` | `DAT_10006378` | `0x7c000000` | status mask/constant |
-| `hp1020_status_state_update_candidate` | `100109a1` `l32r a8,0x100063d8` | `100063d8` | `PTR_DAT_100063d8` | `0x1002adb4` | status mask/constant |
-| `hp1020_status_state_update_candidate` | `100109b1` `l32r a9,0x100063d8` | `100063d8` | `PTR_DAT_100063d8` | `0x1002adb4` | status mask/constant |
+| `hp1020_status_state_update_candidate` | `100109a1` `l32r a8,0x100063d8` | `100063d8` | `hp1020_status_state_object_ptr` | `0x1002adb4` | status mask/constant |
+| `hp1020_status_state_update_candidate` | `100109b1` `l32r a9,0x100063d8` | `100063d8` | `hp1020_status_state_object_ptr` | `0x1002adb4` | status mask/constant |
 | `hp1020_status_state_update_candidate` | `100109bf` `l32r a8,0x10005c84` | `10005c84` | `DAT_10005c84` | `0x2000000` | single-bit mask |
 | `hp1020_status_state_update_candidate` | `100109cd` `l32r a8,0x10005f74` | `10005f74` | `DAT_10005f74` | `0xff00` |  |
 | `hp1020_status_state_update_candidate` | `100109d0` `l32r a9,0x10005f78` | `10005f78` | `DAT_10005f78` | `0xa00` |  |

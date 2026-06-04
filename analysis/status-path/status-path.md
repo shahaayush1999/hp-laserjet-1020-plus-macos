@@ -104,9 +104,9 @@ and the functions that bridge firmware state into status responses.
 - `10010838` `hp1020_status_state_update_candidate`
 - `10010a3c` `hp1020_status_notify_pending_candidate`
 - `10010a8c` `hp1020_status_event_store_candidate`
-- `10010f54` `hp1020_event_flag_get_candidate`
-- `10010fd0` `hp1020_event_flag_set_candidate`
-- `10011178` `hp1020_get_config_value_candidate`
+- `10010f54` `hp1020_datastore_read_locked_candidate`
+- `10010fd0` `hp1020_datastore_write_notify_unlock_candidate`
+- `10011178` `hp1020_datastore_get_value_candidate`
 - `10015c68` `hp1020_engine_status_io_candidate`
 - `10015df8` `hp1020_engine_status_poll_candidate`
 - `100160a8` `hp1020_engine_preflight_candidate`

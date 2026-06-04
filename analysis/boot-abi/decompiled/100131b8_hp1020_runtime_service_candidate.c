@@ -2,6 +2,7 @@
 
 
 /* WARNING: Control flow encountered bad instruction data */
+/* medium confidence: Runtime allocator/service from system-interface table */
 
 undefined4 * hp1020_runtime_service_candidate(uint param_1,int param_2)
 

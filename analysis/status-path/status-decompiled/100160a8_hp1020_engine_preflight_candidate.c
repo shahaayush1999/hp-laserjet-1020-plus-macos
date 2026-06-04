@@ -43,7 +43,7 @@ void hp1020_engine_preflight_candidate(void)
       *(undefined **)(puVar2 + 0x4c) = puVar4;
       *(undefined4 *)(puVar2 + 0x54) = 0;
       puVar2[0x58] = 0xff;
-      uVar5 = hp1020_get_config_value_candidate(0xf);
+      uVar5 = hp1020_datastore_get_value_candidate(0xf);
       FUN_10016318(0xf,uVar5);
       FUN_10015d14();
       return;
