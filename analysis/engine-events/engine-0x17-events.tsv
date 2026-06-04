@@ -1,0 +1,22 @@
+# message_word0	event_word1	source_function	path_or_condition	confidence	note
+0x17	0xfe001401	hp1020_engine_status_io_candidate	status command timeout/failure	high	Sent when status I/O retry loop exhausts
+0x17	0xfe001401	hp1020_engine_preflight_candidate	preflight wait timeout/failure	high	Sent after preflight waits 0x1e iterations without expected hardware state
+0x17	0xe6101100	hp1020_engine_preflight_candidate	preflight start/status transition	medium	Sent before setting engine control bit and waiting
+0x17	0xe6100a01	hp1020_engine_status_poll_candidate	ready/ok-looking status transition	medium	Used when status checks settle into the apparent normal state
+0x17	0xf6000300	hp1020_engine_status_poll_candidate	status register 0x20 path, bitmask branch	low	Selected when (DAT_10005ddc & status_0x20) is nonzero
+0x17	0xf6000400	hp1020_engine_status_poll_candidate	status register 0x20 path, bit 0x400 branch	low	Selected when status_0x20 has bit 0x400
+0x17	0xe6100800	hp1020_engine_status_poll_candidate	engine status register 2 mask branch	medium	Also used as mask/state compare for transition side effects
+0x17	0x20001607	hp1020_engine_status_poll_candidate	engine status register 2 bits 0x424 branch	low	Selected on one status-bit family
+0x17	0xe6101100	hp1020_engine_status_poll_candidate	engine status register 2 DAT_1000605c branch	medium	Same code as preflight start/status transition
+0x17	0xe6100e00	hp1020_engine_status_poll_candidate	engine status register 2 DAT_10005dc8 branch	low	Selected on another status-bit family
+0x17	0x80000000	hp1020_engine_status_poll_candidate	status fallback under uVar4/uVar5 condition	low	Loaded from DAT_10005e34; likely generic/error/fallback state
+0x17	0xe6000d03	hp1020_engine_status_poll_candidate	engine substatus 0x16 bit 0x10 branch	low	Selected when substatus is not 0x40 and bit 0x10 is set/cleared path
+0x17	0xe6000d06	hp1020_engine_status_poll_candidate	engine substatus 0x16 bit 0x08 branch	low	Selected from nested substatus bit test
+0x17	0xe6000d04	hp1020_engine_status_poll_candidate	engine substatus 0x16 bit 0x04 branch	low	Selected from nested substatus bit test
+0x17	0xe6100b0a	hp1020_engine_status_poll_candidate	engine register 0x13 default subcase	low	Default for switch(status_0x13 >> 1 & 0x3f)
+0x17	0xe6100b0b	hp1020_engine_status_poll_candidate	engine register 0x13 cases 0x10/0x14/0x18	medium	Selected for recognized status subcases
+0x17	0xe6e01201	hp1020_video_reset_dispatch_candidate	video reset case 3	medium	Sent to engine queue from video reset dispatch
+0x17	0xe6e01202	hp1020_video_reset_dispatch_candidate	video reset case 4	medium	Sent to engine queue from video reset dispatch
+0x17	0xeee01b02	hp1020_video_reset_dispatch_candidate	video reset case 5	medium	Sent to engine queue from video reset dispatch
+0x17	0xeee01b04	hp1020_video_reset_dispatch_candidate	video reset case 6	medium	Sent to engine queue from video reset dispatch
+0x17	0xeee01b01	hp1020_video_reset_dispatch_candidate	video reset cases 2 and 7	medium	Sent to engine queue from video reset dispatch

@@ -35,6 +35,9 @@ The important rule: the same message number can mean different things on differe
 
 The complete working table is in `analysis/message-map/queue-message-map.tsv`.
 
+Engine message `0x17` has its own payload map in `analysis/engine-event-report.md` and
+`analysis/engine-events/engine-0x17-events.tsv`.
+
 ## Current Interpretation
 
 The print path is now a set of cooperating queue state machines:

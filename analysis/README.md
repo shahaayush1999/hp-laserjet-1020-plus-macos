@@ -14,12 +14,13 @@ Start here:
 8. `queue-resolution-report.md` - queue IDs and consumers
 9. `message-producers-report.md` - message producers by subsystem
 10. `message-map-report.md` - consolidated queue/message dictionary
-11. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
-12. `mmio-semantics-report.md` - first behavioral names for hardware registers
-13. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
-14. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
-15. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
-16. `prototype-roadmap.md` - practical prototype options and safety gates
+11. `engine-event-report.md` - engine queue `0x17` payload/event-code map
+12. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
+13. `mmio-semantics-report.md` - first behavioral names for hardware registers
+14. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
+15. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
+16. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
+17. `prototype-roadmap.md` - practical prototype options and safety gates
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -30,6 +31,7 @@ Generated decompilation/report folders include:
 - `descriptor-refs/`
 - `dispatch-mmio/`
 - `engine/`
+- `engine-events/`
 - `firmware-layout/`
 - `identity/`
 - `labeled/`
@@ -55,4 +57,5 @@ Useful current conclusions:
 - Queue send-by-ID reads from runtime table `0x1002c918`.
 - Queue `8` is strongly supported as `Video Queue`, but the exact runtime table write has not been found.
 - Message numbers are queue-relative; use `analysis/message-map/queue-message-map.tsv` as the current `(queue, message)` dictionary.
+- Engine message `0x17` carries a second-word event/status code; use `analysis/engine-events/engine-0x17-events.tsv` as the current code map.
 - Engine/video MMIO has first behavioral names, but register semantics are not complete.

@@ -120,6 +120,9 @@ Queue `8` remains the least resolved active print-path queue.
 The consolidated `(queue, message)` dictionary is in `analysis/message-map-report.md` and
 `analysis/message-map/queue-message-map.tsv`.
 
+Engine queue message `0x17` is a status/event family with a second-word payload. The current
+event-code map is in `analysis/engine-event-report.md`.
+
 ## High-Level Data Flow
 
 ```text
