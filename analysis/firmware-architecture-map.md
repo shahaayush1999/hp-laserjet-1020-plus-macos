@@ -299,6 +299,18 @@ After page/video processing, the video thread sends message `0x10` to queue `1`,
 
 The string `refreshRawBands, ic.pBidBlock=0x%08x, nBackloggedBands=%u` strongly suggests this firmware processes raster bands, not a single full-page framebuffer.
 
+The work pointer carried by Engine/PrintMgr/Video `0x0b` is now mapped as a `0x94`-byte
+video/page work object:
+
+- created by `0x1000f228` `hp1020_video_work_create_candidate`
+- populated by `0x100104c8` `hp1020_work_populate_from_page_params_candidate`
+- linked from the `0x50` child/page container through active slot `+0x48`
+- carries raster/chunk list nodes at `+0x50`
+- carries late video hardware fields at `+0x84`, `+0x88`, `+0x8c`, and `+0x90`
+
+Those late hardware fields are copied from runtime block `0x10023e28`, which JobMgr case `0x29`
+fills from a 20-byte incoming payload. The producer of JobMgr `0x29` is not yet proven.
+
 ### Engine
 
 Entry:

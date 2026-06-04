@@ -41,8 +41,9 @@ offset `+0x0c`.
 | `+0x50` | sub-list head | JobMgr appends list nodes here in case `9`; cleanup walks/removes it |
 | `+0x54` | sub-list tail or owned allocation pointer | freed/released in JobMgr cleanup paths when state is not `2` |
 
-There is also a byte at `+0x76` on a related work object. It is initialized by `0x10010398` and
-read by PrintMgr media selection, but the exact owning record boundary is still not fully proven.
+The related work object is now mapped separately in `analysis/video-work-object-report.md`. It is a
+`0x94`-byte video/page work object created by `0x1000f228`; its `+0x76` byte is initialized by
+`0x10010398` and read by PrintMgr media selection.
 
 ## Message Case Anchors
 
@@ -61,7 +62,9 @@ For a future runtime trace, these offsets are the ones to watch first. If a prin
 changes around job `+0x70`/`+0x74` and child `+0x48`/`+0x4c` should correspond to page work being
 queued, started, completed, or cleaned up.
 
-The PrintMgr-to-video queue handoff is now mapped in `analysis/video-handoff-report.md`.
+The PrintMgr-to-video queue handoff is now mapped in `analysis/video-handoff-report.md`, and the
+work pointer object itself is mapped in `analysis/video-work-object-report.md`.
 
-The next useful static target is the lower video work pointer object: where offsets `+0x84`,
-`+0x88`, `+0x8c`, `+0x90`, and `+0x50` are filled before Video Queue message `0x0b`.
+The next useful static target is the producer side of JobMgr messages `0x29` and `9`, which appear
+to populate the late hardware setup block and raster/chunk list nodes before Video Queue message
+`0x0b`.

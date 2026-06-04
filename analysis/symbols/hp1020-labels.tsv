@@ -97,6 +97,16 @@
 0x100160a8	hp1020_engine_preflight_candidate	function	medium	Engine preflight/status refresh path
 0x100165a4	hp1020_engine_register_handlers_candidate	function	medium	Registers engine event handlers
 0x10013d4c	hp1020_video_reset_dispatch_candidate	function	high	Video reset/event dispatch table consumer
+0x1000ed90	hp1020_job_try_start_or_continue_candidate	function	medium	Walks active jobs and sends engine queue 0x0b for ready work objects
+0x1000eeb8	hp1020_job_resume_or_enqueue_candidate	function	medium	Cleans up completed job and emits status/data-store notifications
+0x1000efbc	hp1020_work_release_raster_list_candidate	function	medium	Releases raster list at work +0x50 and frees the work object
+0x1000f030	hp1020_work_finalize_raster_list_candidate	function	medium	Finalizes or releases raster list based on work flags
+0x1000f0a8	hp1020_work_list_mark_or_send_candidate	function	medium	Walks work +0x50 raster/chunk list, updates counts, and releases nodes
+0x1000f128	hp1020_work_mark_page_done_candidate	function	medium	Marks a video/page work object done and updates raster-list counts
+0x1000f204	hp1020_work_common_init_candidate	function	medium	Common initializer for job/work objects
+0x1000f228	hp1020_video_work_create_candidate	function	high	Allocates and initializes 0x94-byte video/page work object
+0x1000f280	hp1020_work_mode_normalize_candidate	function	low	Normalizes work mode field 0x200 to 0x100
+0x100104c8	hp1020_work_populate_from_page_params_candidate	function	high	Copies selected page-parameter fields into video/page work object
 0x10014910	hp1020_video_prepare_page_candidate	function	high	Video page preparation and raster setup
 0x10015214	hp1020_video_render_or_dma_candidate	function	high	Video transfer/DMA-like register path
 0x10015438	hp1020_video_alt_render_candidate	function	medium	Alternate video render path
@@ -142,6 +152,7 @@
 0x1002386c	hp1020_job_mgr_queue_object_candidate	data	medium	Job manager queue object candidate
 0x1002ee38	hp1020_video_queue_object_candidate	data	high	Video Queue object candidate
 0x1002efc0	hp1020_video_state_object	data	high	Video state object used by VideoThread prepare/render/reset paths
+0x10023e28	hp1020_jobmgr_video_hw_runtime_block	data	medium	Runtime 20-byte block copied by JobMgr 0x29 into work +0x84/+0x88/+0x8c/+0x90
 0x10028adc	hp1020_status_mgr_queue_object_candidate	data	medium	StatusMgrQueue object candidate
 0x1002adb4	hp1020_status_state_object	data	high	Status state object used by status updater
 0x1001d694	hp1020_delay_mgr_queue_object_candidate	data	medium	DelayMgr queue object candidate

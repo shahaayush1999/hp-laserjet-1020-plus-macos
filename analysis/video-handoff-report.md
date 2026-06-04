@@ -76,8 +76,9 @@ offsets:
 | `+0x88`/`+0x8c` | hardware/DMA register payloads |
 | `+0x90` | bit flags for video hardware setup |
 
-This work pointer is not yet fully tied to the earlier `0x78` and `0x50` records. It is likely one
-of the lower page/raster work objects reachable from the JobMgr child/page chain.
+This work pointer is now mapped in `analysis/video-work-object-report.md` as a `0x94`-byte
+video/page work object. It is created by `0x1000f228`, populated by `0x100104c8`, stored in the
+child/page container, and later passed through Engine/PrintMgr into VideoThread.
 
 ## Why This Matters
 
@@ -87,6 +88,6 @@ the earlier `0x2d` notification path.
 
 ## Next Target
 
-The next static pass should map the work pointer object that video consumes: where it is allocated,
-where offsets `+0x84`, `+0x88`, `+0x8c`, `+0x90`, and `+0x50` are filled, and how that object
-connects back to JobMgr child/page records.
+The next static pass should map the producer side of JobMgr messages `0x29` and `9`, because those
+appear to carry the late hardware setup block and raster/chunk list nodes used by the video work
+object.
