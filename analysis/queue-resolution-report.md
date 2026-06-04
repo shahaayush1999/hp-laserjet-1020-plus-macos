@@ -97,6 +97,15 @@ Task descriptor map:
 - nearby queue/control object: `0x1002ee38`
 - thread entry: `0x10013c18`
 
+Object-creation evidence:
+
+- `0x10017f18` is the queue-create wrapper.
+- `0x100199a4` is the queue-create core and writes the `QUEU` object signature.
+- descriptor word `0x1000676c` points at queue object `0x1002ee38`.
+- descriptor word `0x10006778` points at the string region containing `Video Queue`.
+- descriptor word `0x10006784` points at `tVideo`.
+- descriptor word `0x10006788` points at video thread entry `0x10013c18`.
+
 ### Status Manager
 
 `0x10010590` receives from:
@@ -191,7 +200,7 @@ Producer:
 
 Likely consumer:
 
-- video queue path, but this needs one more pass because queue `8` is less directly obvious than queues `0`, `1`, `3`, `10`, and `0x0f`.
+- video queue path. The descriptor cluster ties `Video Queue` to object `0x1002ee38` and thread `0x10013c18`; the remaining missing proof is the runtime write that places `0x1002ee38` into queue table slot `8`.
 
 ### Queue `10`: Status Manager
 
@@ -229,7 +238,7 @@ StatusMgr -> PJL-visible status builders
 DelayMgr -> timed callbacks back into engine/status queues
 ```
 
-The next narrow target is queue `8`, because it is the least resolved active queue in the print/video path.
+The next narrow target is the queue table initializer at `0x1002c918`, because that is what would prove queue `8` from a table write rather than from producer/consumer inference.
 
 ## Queue Worker Note
 
