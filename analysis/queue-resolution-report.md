@@ -238,7 +238,14 @@ StatusMgr -> PJL-visible status builders
 DelayMgr -> timed callbacks back into engine/status queues
 ```
 
-The next narrow target is the queue table initializer at `0x1002c918`, because that is what would prove queue `8` from a table write rather than from producer/consumer inference.
+The queue table initializer search did not find a direct static write to `0x1002c918`.
+
+Current interpretation:
+
+- `0x10013668` directly reads `0x1002c918 + queue_id * 4`.
+- queue creation is known: `0x10017f18` wrapper, `0x100199a4` core.
+- queue `8` is strongly supported as `Video Queue`, but not yet table-write-proven.
+- the next proof likely requires descriptor-loop mapping rather than another direct immediate scan.
 
 ## Queue Worker Note
 
