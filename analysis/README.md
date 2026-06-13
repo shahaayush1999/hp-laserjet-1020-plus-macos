@@ -45,6 +45,8 @@ Start here:
 39. `open-firmware-model-report.md` - executable offline model of the normal ZjStream-to-work-object path
 40. `hardware-boundary/hardware-boundary.md` - concrete safe/unsafe MMIO boundary for custom firmware work
 41. `hardware-boundary/video-register-projection.md` - projection from modeled work fields to first unsafe video registers
+42. `non-printing-usb-probe-spec.md` - narrow custom-firmware boot/USB probe target and hard safety gate
+43. `hardware-boundary/safety-scanner-known-unsafe-report.md` - validation that the safety scanner flags known unsafe firmware paths
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -119,6 +121,8 @@ Useful current conclusions:
 - `analysis/open-firmware-model/variant-matrix.md` runs that model against A4, letter, legal, resolution, and copy-count variants to show which fields are host-controlled.
 - `analysis/hardware-boundary/hardware-boundary.md` converts the hardware side into a do-not-touch map: USB `0xb300` is the only plausible early custom-firmware target; video/engine families `0xb100`, `0xb200`, `0xb204`, `0xb208`, `0xb050`, and `0xb020` are unsafe for a first custom probe.
 - `analysis/hardware-boundary/video-register-projection.md` projects modeled work fields onto the first unsafe video writes, proving host-controlled BIH fields would reach `0xb2000008`, `0xb200000c`, `0xb2000024`, and `0xb2000000` if the firmware crossed the safe stop boundary.
+- `analysis/non-printing-usb-probe-spec.md` defines the only custom-firmware experiment that is currently defensible: boot/USB identity only, no video/engine MMIO.
+- `scripts/check-hp1020-safety-boundary.py` is a pre-upload safety scanner for future candidate source/disassembly; it fails on known unsafe video/engine functions and MMIO families.
 - `analysis/printer-test-readiness-report.md` records the controlled connected-printer test path using `analysis/samples/minimal-page.ps` and `scripts/run-printer-readiness-test.sh --send`; that test has printed successfully once on hardware.
 - `analysis/jobmgr-producer-boundary-report.md` is now superseded for message `0x29`; it remains useful as the pre-parser checkpoint showing why the producer was missed by broad queue-send scans.
 - The status-state object is currently mapped through pointer `0x100063d8 -> 0x1002adb4`, with current status at offset `0x08`, transition status at `0x10`, and source/reason at `0x14`.

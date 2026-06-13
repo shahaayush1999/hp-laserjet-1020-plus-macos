@@ -63,3 +63,5 @@ The unsafe line is now concrete: do not touch the `0xb100`, `0xb200`, `0xb204`, 
 
 The previous print-path model hands off at `work +0x50`. This map explains why that is the correct stop point: the next firmware functions program raw raster buffers, transfer channels, and engine handshakes.
 
+For the narrow custom-firmware target, see `analysis/non-printing-usb-probe-spec.md`.
+
