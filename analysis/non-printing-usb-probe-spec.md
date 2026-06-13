@@ -78,7 +78,7 @@ paper feed, fuser warmup, motor/scanner/laser activity, repeated mechanical nois
 
 ## Current Blockers
 
-- No local old/big-endian Xtensa compiler/linker is installed.
+- Big-endian Xtensa binutils are now available from the crosstool-NG spike; full GCC/newlib is still not complete.
 - The exact Xtensa core/ABI is not confirmed beyond the existing `elf32-xtensa-be` container.
 - The boot ROM may require the HP `.sys_interface_table`, vector layout, or hidden ABI details.
 - The ACL download handoff appears to pass through a resident bootcode/interface table, so replacing the payload may not be as simple as wrapping any ELF.
@@ -101,9 +101,9 @@ against known unsafe firmware code.
 
 ## Practical Next Offline Work
 
-1. Build or locate a compatible big-endian Xtensa toolchain.
-2. Produce a structurally valid ELF-shaped dummy payload without uploading it.
-3. Validate the wrapper/image/ELF shape locally with `scripts/inspect-firmware-layout.py`.
-4. Run the safety scanner against the candidate source/disassembly.
-5. Only then decide whether a printer-connected boot/USB probe is worth the physical risk.
-
+1. Continue from `open-firmware/minimal-idle/`, which now builds a structurally valid idle payload without uploading it.
+2. Replace the zeroed `.sys_interface_table` placeholder with the minimum boot-ROM-safe table shape, if needed.
+3. Decide whether the first hardware test should be idle-only or add USB descriptor handling first.
+4. Validate the wrapper/image/ELF shape locally with `scripts/inspect-firmware-layout.py --profile boot-probe`.
+5. Run the safety scanner against the candidate source/disassembly.
+6. Only then decide whether a printer-connected boot/USB probe is worth the physical risk.

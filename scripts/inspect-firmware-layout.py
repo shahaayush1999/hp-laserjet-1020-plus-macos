@@ -49,6 +49,37 @@ EXPECTED_SYMBOLS = {
     "print_mgr_thread_candidate": 0x1000F324,
 }
 
+EXPECTED_PROFILES = {
+    "original": {
+        "elf": EXPECTED_ELF,
+        "sections": EXPECTED_SECTIONS,
+        "symbols": EXPECTED_SYMBOLS,
+        "strict_section_sizes": True,
+    },
+    "boot-probe": {
+        "elf": {
+            "class": 1,
+            "data": 2,
+            "type": 2,
+            "machine": 0xABC7,
+            "entry": 0x100167A8,
+        },
+        "sections": {
+            ".WindowVectors.text": {"addr": 0x10000000, "size": None},
+            ".sys_interface_table": {"addr": 0x10000370, "size": None},
+            ".rodata": {"addr": 0x10003000, "size": None},
+            ".text": {"addr": 0x10005C80, "size": None},
+            ".ResetVector.text": {"addr": 0x10100020, "size": None},
+        },
+        "symbols": {
+            "elf_entry": 0x100167A8,
+            "reset_vector": 0x10100020,
+            "sys_interface_table": 0x10000370,
+        },
+        "strict_section_sizes": False,
+    },
+}
+
 SECTION_TYPE = {
     0: "NULL",
     1: "PROGBITS",
@@ -268,9 +299,10 @@ def addr_in_layout(addr: int, sections: list[dict[str, Any]]) -> str | None:
     return None
 
 
-def validate(loaded: LoadedFirmware, elf_info: dict[str, Any]) -> tuple[list[str], list[str]]:
+def validate(loaded: LoadedFirmware, elf_info: dict[str, Any], profile: str) -> tuple[list[str], list[str]]:
     failures = []
     warnings = []
+    expected = EXPECTED_PROFILES[profile]
 
     image = loaded.image
     if len(image) < DATE_PREFIX_LEN + 4:
@@ -293,24 +325,24 @@ def validate(loaded: LoadedFirmware, elf_info: dict[str, Any]) -> tuple[list[str
             failures.append("UEL trailer mismatch")
 
     header = elf_info["header"]
-    for field, expected in EXPECTED_ELF.items():
-        if header[field] != expected:
-            failures.append(f"ELF {field} is 0x{header[field]:x}, expected 0x{expected:x}")
+    for field, expected_value in expected["elf"].items():
+        if header[field] != expected_value:
+            failures.append(f"ELF {field} is 0x{header[field]:x}, expected 0x{expected_value:x}")
 
     sections_by_name = {section["name"]: section for section in elf_info["sections"]}
-    for name, expected in EXPECTED_SECTIONS.items():
+    for name, expected_section in expected["sections"].items():
         section = sections_by_name.get(name)
         if section is None:
             failures.append(f"missing expected section {name}")
             continue
-        if section["addr"] != expected["addr"]:
+        if section["addr"] != expected_section["addr"]:
             failures.append(
-                f"{name} address is 0x{section['addr']:08x}, expected 0x{expected['addr']:08x}"
+                f"{name} address is 0x{section['addr']:08x}, expected 0x{expected_section['addr']:08x}"
             )
-        if section["size"] != expected["size"]:
-            failures.append(f"{name} size is 0x{section['size']:x}, expected 0x{expected['size']:x}")
+        if expected["strict_section_sizes"] and section["size"] != expected_section["size"]:
+            failures.append(f"{name} size is 0x{section['size']:x}, expected 0x{expected_section['size']:x}")
 
-    for name, addr in EXPECTED_SYMBOLS.items():
+    for name, addr in expected["symbols"].items():
         section_name = addr_in_layout(addr, elf_info["sections"])
         if section_name is None:
             warnings.append(f"{name} 0x{addr:08x} is not inside any section")
@@ -324,8 +356,9 @@ def validate(loaded: LoadedFirmware, elf_info: dict[str, Any]) -> tuple[list[str
     return failures, warnings
 
 
-def build_report(path: Path, loaded: LoadedFirmware, elf_info: dict[str, Any]) -> dict[str, Any]:
-    failures, warnings = validate(loaded, elf_info)
+def build_report(path: Path, loaded: LoadedFirmware, elf_info: dict[str, Any], profile: str) -> dict[str, Any]:
+    failures, warnings = validate(loaded, elf_info, profile)
+    expected = EXPECTED_PROFILES[profile]
     header = elf_info["header"]
     date_prefix = loaded.image[:DATE_PREFIX_LEN].decode("ascii", errors="replace")
     symbols = {
@@ -333,10 +366,11 @@ def build_report(path: Path, loaded: LoadedFirmware, elf_info: dict[str, Any]) -
             "addr": addr,
             "section": addr_in_layout(addr, elf_info["sections"]),
         }
-        for name, addr in EXPECTED_SYMBOLS.items()
+        for name, addr in expected["symbols"].items()
     }
     return {
         "input": str(path),
+        "profile": profile,
         "source_kind": loaded.source_kind,
         "source_bytes": loaded.source_bytes,
         "image_bytes": len(loaded.image),
@@ -365,6 +399,7 @@ def render_markdown(report: dict[str, Any]) -> str:
     header = report["elf"]["header"]
     summary = report["elf"]["summary"]
     validation = report["validation"]
+    expected = EXPECTED_PROFILES[report["profile"]]
     lines = [
         "# Firmware Layout Report",
         "",
@@ -374,6 +409,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         "## Result",
         "",
         f"- Input: `{report['input']}`",
+        f"- Profile: `{report['profile']}`",
         f"- Source kind: `{report['source_kind']}`",
         f"- Validation: `{'PASS' if validation['ok'] else 'FAIL'}`",
         f"- Source bytes: `{report['source_bytes']}`",
@@ -422,7 +458,7 @@ def render_markdown(report: dict[str, Any]) -> str:
     )
 
     sections_by_name = {section["name"]: section for section in report["elf"]["sections"]}
-    for name in EXPECTED_SECTIONS:
+    for name in expected["sections"]:
         section = sections_by_name.get(name)
         if section is None:
             lines.append(f"| `{name}` | missing | missing | missing |")
@@ -485,6 +521,12 @@ def render_markdown(report: dict[str, Any]) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input", type=Path, help=".dl upload, date-prefixed .img, or raw ELF")
+    parser.add_argument(
+        "--profile",
+        choices=sorted(EXPECTED_PROFILES),
+        default="original",
+        help="validation profile: exact stock HP firmware or relaxed custom boot-probe layout",
+    )
     parser.add_argument("--json-output", type=Path, help="write full JSON report")
     parser.add_argument("--markdown-output", type=Path, help="write Markdown summary report")
     parser.add_argument("--sections", action="store_true", help="print all section headers")
@@ -493,7 +535,7 @@ def main() -> int:
     try:
         loaded = load_firmware(args.input)
         elf_info = parse_elf(loaded.elf)
-        report = build_report(args.input, loaded, elf_info)
+        report = build_report(args.input, loaded, elf_info, args.profile)
     except FirmwareError as exc:
         print(f"error: {exc}")
         return 2
