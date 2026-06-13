@@ -13,7 +13,9 @@ find_tool() {
   fi
   for candidate in \
     "/opt/homebrew/opt/binutils/bin/$tool" \
+    "/opt/homebrew/opt/llvm/bin/$tool" \
     "/usr/local/opt/binutils/bin/$tool" \
+    "/usr/local/opt/llvm/bin/$tool" \
     "/opt/homebrew/bin/$tool" \
     "/usr/local/bin/$tool"
   do
@@ -65,6 +67,13 @@ printf '## Build Tools\n'
 printf '\n'
 printf '| Tool | Present | Path |\n'
 printf '| --- | --- | --- |\n'
+ctng_prefix="${XTENSA_PREFIX:-/tmp/hp1020-ctng-mnt/x-tools/xtensa-fsf-elf/bin/xtensa-fsf-elf}"
+if [[ -x "${ctng_prefix}-as" ]]; then
+  printf '| `%s` | `%s` | `%s` |\n' "xtensa-fsf-elf-as" "yes" "${ctng_prefix}-as"
+  printf '| `%s` | `%s` | `%s` |\n' "xtensa-fsf-elf-ld" "yes" "${ctng_prefix}-ld"
+  printf '| `%s` | `%s` | `%s` |\n' "xtensa-fsf-elf-readelf" "yes" "${ctng_prefix}-readelf"
+  printf '| `%s` | `%s` | `%s` |\n' "xtensa-fsf-elf-objdump" "yes" "${ctng_prefix}-objdump"
+fi
 for tool in \
   xtensa-lx106-elf-gcc \
   xtensa-lx106-elf-as \
@@ -76,10 +85,31 @@ for tool in \
   llvm-objcopy \
   llvm-readobj \
   llvm-objdump \
-  clang
+  clang \
+  ct-ng
 do
   printf '| `%s` | `%s` | `%s` |\n' "$tool" "$(have_tool "$tool")" "$(find_tool "$tool")"
 done
+
+printf '\n'
+printf '## Compiler Target Support\n'
+printf '\n'
+homebrew_clang="$(find_tool clang)"
+if [[ -x /opt/homebrew/opt/llvm/bin/clang ]]; then
+  homebrew_clang=/opt/homebrew/opt/llvm/bin/clang
+elif [[ -x /usr/local/opt/llvm/bin/clang ]]; then
+  homebrew_clang=/usr/local/opt/llvm/bin/clang
+fi
+if [[ -n "$homebrew_clang" ]]; then
+  printf 'clang target probe: `%s`\n\n' "$homebrew_clang"
+  if "$homebrew_clang" --print-targets 2>/dev/null | grep -qi xtensa; then
+    printf '%s\n' '- clang/LLVM Xtensa target: present'
+  else
+    printf '%s\n' '- clang/LLVM Xtensa target: missing'
+  fi
+else
+  printf 'No clang found.\n'
+fi
 
 printf '\n'
 printf '## Xtensa ELF Format Support\n'
@@ -108,4 +138,15 @@ if command -v brew >/dev/null 2>&1; then
   brew search xtensa 2>/dev/null | sed 's/^/- /'
 else
   printf 'Homebrew not found.\n'
+fi
+
+printf '\n'
+printf '## crosstool-NG Samples\n'
+printf '\n'
+ct_ng="$(find_tool ct-ng)"
+if [[ -n "$ct_ng" ]]; then
+  printf 'ct-ng used: `%s`\n\n' "$ct_ng"
+  "$ct_ng" list-samples 2>/dev/null | grep -Ei 'xtensa|lx106|esp' | sed 's/^/- /' || true
+else
+  printf 'ct-ng not found.\n'
 fi
