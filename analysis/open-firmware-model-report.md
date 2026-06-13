@@ -12,6 +12,9 @@ Generated model outputs:
 
 - `analysis/open-firmware-model/print-path-model.md`
 - `analysis/open-firmware-model/print-path-model.json`
+- `analysis/open-firmware-model/variant-matrix.md`
+- `analysis/open-firmware-model/variants/*/print-path-model.md`
+- `analysis/open-firmware-model/variants/*/print-path-model.json`
 
 The script parses a host-side HP 1020 ZjStream file and builds firmware-shaped objects/messages:
 
@@ -98,6 +101,13 @@ registers that can drive paper motion, laser/scanner timing, and fuser-related s
 
 The input side of the printing path is no longer just notes from Ghidra. It is now a replayable
 host-side model that can be run against any generated HP 1020 ZjStream file.
+
+The variant matrix confirms the model is not only hard-coded to one A4 sample:
+
+- A4, letter, and legal change page geometry and the BIH-derived work fields.
+- 600x600 and 2400x600 change the horizontal raster/video fields.
+- copy count changes `ZJI_DMCOPIES` and the modeled work `+0x0c` count candidate.
+- all tested cases retain the same JobMgr message skeleton through the safe handoff boundary.
 
 The remaining open-firmware work is concentrated on the hardware side:
 
