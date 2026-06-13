@@ -47,6 +47,9 @@ Start here:
 41. `hardware-boundary/video-register-projection.md` - projection from modeled work fields to first unsafe video registers
 42. `non-printing-usb-probe-spec.md` - narrow custom-firmware boot/USB probe target and hard safety gate
 43. `hardware-boundary/safety-scanner-known-unsafe-report.md` - validation that the safety scanner flags known unsafe firmware paths
+44. `toolchain-probe/xtensa-toolchain-checkpoint.md` - crosstool-NG/Xtensa binutils checkpoint
+45. `open-firmware-probes/minimal-idle/summary.md` - generated open idle firmware probe and static validation
+46. `boot-handoff/boot-handoff.md` - stock-vs-open boot/upload handoff comparison
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -70,6 +73,7 @@ Generated decompilation/report folders include:
 - `message-map/`
 - `message-producers/`
 - `open-firmware-model/`
+- `open-firmware-probes/`
 - `object-creation/`
 - `printmgr-fallout/`
 - `queue-send-census/`
@@ -92,7 +96,10 @@ Useful current conclusions:
 - The firmware is a date-prefixed Xtensa big-endian ELF inside an HP ACL/PJL envelope.
 - Ghidra can analyze it when forced to `Xtensa:BE:32:default`.
 - Current labels are portable via `analysis/symbols/hp1020-labels.tsv` and `analysis/ghidra-scripts/ApplyHp1020LabelsFromTsv.java`.
-- Local binutils can inspect `elf32-xtensa-be`, but no local Xtensa compiler/assembler/linker is installed.
+- Local crosstool-NG binutils can assemble/link/inspect `elf32-xtensa-be`; full GCC/newlib is not complete.
+- `open-firmware/minimal-idle/` now builds an open-code, non-printing idle firmware probe with HP-style `.elf`, date-prefixed `.img`, and PJL/ACL `.dl` outputs.
+- `analysis/open-firmware-probes/minimal-idle/summary.md` records the current generated probe. It passes the boot-probe layout profile and safety scan, and it has trap-safe system-interface/runtime-vector placeholders.
+- `analysis/boot-handoff/boot-handoff.md` compares the stock HP firmware and open idle probe. The core packaging/shape question is mostly answered; the next decisive question is whether hardware accepts and branches into the open payload.
 - The firmware uses ThreadX-style RTOS objects with magic values such as `QUEU` and `THRD`.
 - Queue send-by-ID reads from runtime table `0x1002c918`.
 - Queue `8` is strongly supported as `Video Queue`, but the exact runtime table write has not been found.

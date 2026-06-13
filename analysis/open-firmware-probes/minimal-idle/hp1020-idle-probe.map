@@ -2,7 +2,7 @@
 Discarded input sections
 
  .xtensa.info   0x0000000000000000       0x38 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.o
- .xt.prop       0x0000000000000000      0x204 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.o
+ .xt.prop       0x0000000000000000      0x234 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.o
 
 Memory Configuration
 
@@ -76,6 +76,22 @@ Linker script and memory map
                 0x0000000010005c88                hp1020_probe_trap_loop
  *(.text)
  .text          0x0000000010005c8d        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.o
+                0x0000000010006a14                . = 0x10006a14
+
+.runtime_vector.entry
+                0x0000000010006a14        0xc
+ *(.runtime_vector.entry)
+ .runtime_vector.entry
+                0x0000000010006a14        0xc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.o
+                0x0000000010006a14                hp1020_probe_entry_vector
+                0x0000000010006a58                . = 0x10006a58
+
+.runtime_vector.interrupt
+                0x0000000010006a58       0x14
+ *(.runtime_vector.interrupt)
+ .runtime_vector.interrupt
+                0x0000000010006a58       0x14 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.o
+                0x0000000010006a58                hp1020_probe_interrupt_vector
                 0x00000000100167a8                . = 0x100167a8
 
 .text.entry     0x00000000100167a8        0xe
@@ -87,6 +103,21 @@ Linker script and memory map
 .data           0x000000001001bb90        0x0
  *(.data*)
  .data          0x000000001001bb90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.o
+                0x000000001001d498                . = 0x1001d498
+
+.runtime_state  0x000000001001d498       0x14
+ *(.runtime_state)
+ .runtime_state
+                0x000000001001d498       0x14 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.o
+                0x000000001001d498                hp1020_probe_runtime_state
+                0x000000001001d4ac                . = 0x1001d4ac
+
+.interrupt_table
+                0x000000001001d4ac       0x80
+ *(.interrupt_table)
+ .interrupt_table
+                0x000000001001d4ac       0x80 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.o
+                0x000000001001d4ac                hp1020_probe_interrupt_table
                 0x000000001001d640                . = 0x1001d640
 
 .bss            0x000000001001d640        0x0

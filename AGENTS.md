@@ -51,6 +51,15 @@ Bundled source/assets:
 - `REDISTRIBUTION.md` explains the public/private redistribution posture.
 - `OPEN_SOURCE_OPTIONS.md` explains existing open source options and the firmware boundary.
 
+Open firmware analysis state:
+
+- `open-firmware/minimal-idle/` builds the current open-code, non-printing idle firmware probe.
+- `analysis/open-firmware-probes/minimal-idle/` contains the generated `.elf`, `.img`, `.dl`, map, disassembly, layout report, safety scan, and hardware test plan.
+- `analysis/boot-handoff/boot-handoff.md` is the current stock-vs-open upload/boot handoff report.
+- `scripts/build-open-firmware-idle-probe.sh` rebuilds the probe.
+- `scripts/run-idle-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_CUSTOM_FIRMWARE_UPLOAD=1`.
+- Do not run the hardware upload script unless Aayush has the printer connected, freshly power-cycled, and explicitly asks for that test.
+
 ## Normal Debug Loop
 
 1. `scripts/diagnose.sh`

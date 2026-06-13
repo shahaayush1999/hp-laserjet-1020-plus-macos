@@ -1,0 +1,2112 @@
+{
+  "probe": {
+    "acl_descriptor_at_1001be90": [
+      {
+        "addr": 268549776,
+        "index": 0,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549780,
+        "index": 1,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549784,
+        "index": 2,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549788,
+        "index": 3,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549792,
+        "index": 4,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549796,
+        "index": 5,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549800,
+        "index": 6,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549804,
+        "index": 7,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549808,
+        "index": 8,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549812,
+        "index": 9,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549816,
+        "index": 10,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549820,
+        "index": 11,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549824,
+        "index": 12,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549828,
+        "index": 13,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549832,
+        "index": 14,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549836,
+        "index": 15,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549840,
+        "index": 16,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549844,
+        "index": 17,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549848,
+        "index": 18,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549852,
+        "index": 19,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549856,
+        "index": 20,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549860,
+        "index": 21,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549864,
+        "index": 22,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549868,
+        "index": 23,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549872,
+        "index": 24,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549876,
+        "index": 25,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549880,
+        "index": 26,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549884,
+        "index": 27,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      }
+    ],
+    "elf": {
+      "entry": 268527528,
+      "flags": 768,
+      "machine": 43975,
+      "program_header_count": 11,
+      "section_header_count": 21,
+      "type": 2
+    },
+    "entry_vector": [
+      {
+        "addr": 268462612,
+        "description": "",
+        "label": "",
+        "section": ".text",
+        "value": 268459144
+      },
+      {
+        "addr": 268462616,
+        "description": "",
+        "label": "",
+        "section": ".runtime_state",
+        "value": 268555416
+      },
+      {
+        "addr": 268462620,
+        "description": "",
+        "label": "",
+        "section": ".text",
+        "value": 268459144
+      },
+      {
+        "addr": 268462680,
+        "description": "",
+        "label": "",
+        "section": ".text",
+        "value": 268459144
+      },
+      {
+        "addr": 268462688,
+        "description": "",
+        "label": "",
+        "section": ".interrupt_table",
+        "value": 268555436
+      },
+      {
+        "addr": 268462692,
+        "description": "",
+        "label": "",
+        "section": ".text",
+        "value": 268459144
+      }
+    ],
+    "path": "analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.dl",
+    "sections": [
+      {
+        "addr": 268435456,
+        "flags": "AX",
+        "name": ".WindowVectors.text",
+        "size": 384
+      },
+      {
+        "addr": 268435840,
+        "flags": "AX",
+        "name": ".KernelExceptionVector.literal",
+        "size": 4
+      },
+      {
+        "addr": 268435968,
+        "flags": "AX",
+        "name": ".KernelExceptionVector.text",
+        "size": 28
+      },
+      {
+        "addr": 268435996,
+        "flags": "AX",
+        "name": ".UserExceptionVector.literal",
+        "size": 4
+      },
+      {
+        "addr": 268436000,
+        "flags": "AX",
+        "name": ".UserExceptionVector.text",
+        "size": 28
+      },
+      {
+        "addr": 268436080,
+        "flags": "AX",
+        "name": ".DoubleExceptionVector.text",
+        "size": 224
+      },
+      {
+        "addr": 268436336,
+        "flags": "WA",
+        "name": ".sys_interface_table",
+        "size": 300
+      },
+      {
+        "addr": 268447744,
+        "flags": "A",
+        "name": ".rodata",
+        "size": 32
+      },
+      {
+        "addr": 268459136,
+        "flags": "AX",
+        "name": ".text",
+        "size": 13
+      },
+      {
+        "addr": 268462612,
+        "flags": "A",
+        "name": ".runtime_vector.entry",
+        "size": 12
+      },
+      {
+        "addr": 268462680,
+        "flags": "A",
+        "name": ".runtime_vector.interrupt",
+        "size": 20
+      },
+      {
+        "addr": 268527528,
+        "flags": "AX",
+        "name": ".text.entry",
+        "size": 14
+      },
+      {
+        "addr": 268555416,
+        "flags": "WA",
+        "name": ".runtime_state",
+        "size": 20
+      },
+      {
+        "addr": 268555436,
+        "flags": "WA",
+        "name": ".interrupt_table",
+        "size": 128
+      },
+      {
+        "addr": 269484064,
+        "flags": "AX",
+        "name": ".ResetVector.text",
+        "size": 736
+      },
+      {
+        "addr": 269484800,
+        "flags": "AX",
+        "name": ".DebugExceptionVector.literal",
+        "size": 4
+      },
+      {
+        "addr": 269484832,
+        "flags": "AX",
+        "name": ".DebugExceptionVector.text",
+        "size": 12
+      }
+    ],
+    "special_addresses": [
+      {
+        "addr": 268436304,
+        "bytes": "",
+        "section": null
+      },
+      {
+        "addr": 268436336,
+        "bytes": "10 00 5c 88 10 00 5c 88 10 00 5c 88 10 00 5c 88",
+        "section": ".sys_interface_table"
+      },
+      {
+        "addr": 268459136,
+        "bytes": "0c 02 06 ff ff 00 00 00 0c 12 06 ff ff 00 00 00",
+        "section": ".text"
+      },
+      {
+        "addr": 268527528,
+        "bytes": "06 01 00 00 10 00 5c 80 21 ff ff a0 02 00 00 00",
+        "section": ".text.entry"
+      },
+      {
+        "addr": 269484064,
+        "bytes": "06 01 00 00 10 01 67 a8 21 ff ff a0 02 00 00 00",
+        "section": ".ResetVector.text"
+      }
+    ],
+    "system_interface_table": [
+      {
+        "description": "",
+        "index": 0,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436336
+      },
+      {
+        "description": "",
+        "index": 1,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436340
+      },
+      {
+        "description": "",
+        "index": 2,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436344
+      },
+      {
+        "description": "",
+        "index": 3,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436348
+      },
+      {
+        "description": "",
+        "index": 4,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436352
+      },
+      {
+        "description": "",
+        "index": 5,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436356
+      },
+      {
+        "description": "",
+        "index": 6,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436360
+      },
+      {
+        "description": "",
+        "index": 7,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436364
+      },
+      {
+        "description": "",
+        "index": 8,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436368
+      },
+      {
+        "description": "",
+        "index": 9,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436372
+      },
+      {
+        "description": "",
+        "index": 10,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436376
+      },
+      {
+        "description": "",
+        "index": 11,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436380
+      },
+      {
+        "description": "",
+        "index": 12,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436384
+      },
+      {
+        "description": "",
+        "index": 13,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436388
+      },
+      {
+        "description": "",
+        "index": 14,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436392
+      },
+      {
+        "description": "",
+        "index": 15,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436396
+      },
+      {
+        "description": "",
+        "index": 16,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436400
+      },
+      {
+        "description": "",
+        "index": 17,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436404
+      },
+      {
+        "description": "",
+        "index": 18,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436408
+      },
+      {
+        "description": "",
+        "index": 19,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436412
+      },
+      {
+        "description": "",
+        "index": 20,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436416
+      },
+      {
+        "description": "",
+        "index": 21,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436420
+      },
+      {
+        "description": "",
+        "index": 22,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436424
+      },
+      {
+        "description": "",
+        "index": 23,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436428
+      },
+      {
+        "description": "",
+        "index": 24,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436432
+      },
+      {
+        "description": "",
+        "index": 25,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436436
+      },
+      {
+        "description": "",
+        "index": 26,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436440
+      },
+      {
+        "description": "",
+        "index": 27,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436444
+      },
+      {
+        "description": "",
+        "index": 28,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436448
+      },
+      {
+        "description": "",
+        "index": 29,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436452
+      },
+      {
+        "description": "",
+        "index": 30,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436456
+      },
+      {
+        "description": "",
+        "index": 31,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436460
+      },
+      {
+        "description": "",
+        "index": 32,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436464
+      },
+      {
+        "description": "",
+        "index": 33,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436468
+      },
+      {
+        "description": "",
+        "index": 34,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436472
+      },
+      {
+        "description": "",
+        "index": 35,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436476
+      },
+      {
+        "description": "",
+        "index": 36,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436480
+      },
+      {
+        "description": "",
+        "index": 37,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436484
+      },
+      {
+        "description": "",
+        "index": 38,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436488
+      },
+      {
+        "description": "",
+        "index": 39,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436492
+      },
+      {
+        "description": "",
+        "index": 40,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436496
+      },
+      {
+        "description": "",
+        "index": 41,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436500
+      },
+      {
+        "description": "",
+        "index": 42,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436504
+      },
+      {
+        "description": "",
+        "index": 43,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436508
+      },
+      {
+        "description": "",
+        "index": 44,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436512
+      },
+      {
+        "description": "",
+        "index": 45,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436516
+      },
+      {
+        "description": "",
+        "index": 46,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436520
+      },
+      {
+        "description": "",
+        "index": 47,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436524
+      },
+      {
+        "description": "",
+        "index": 48,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436528
+      },
+      {
+        "description": "",
+        "index": 49,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436532
+      },
+      {
+        "description": "",
+        "index": 50,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436536
+      },
+      {
+        "description": "",
+        "index": 51,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436540
+      },
+      {
+        "description": "",
+        "index": 52,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436544
+      },
+      {
+        "description": "",
+        "index": 53,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436548
+      },
+      {
+        "description": "",
+        "index": 54,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436552
+      },
+      {
+        "description": "",
+        "index": 55,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436556
+      },
+      {
+        "description": "",
+        "index": 56,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436560
+      },
+      {
+        "description": "",
+        "index": 57,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436564
+      },
+      {
+        "description": "",
+        "index": 58,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436568
+      },
+      {
+        "description": "",
+        "index": 59,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436572
+      },
+      {
+        "description": "",
+        "index": 60,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436576
+      },
+      {
+        "description": "",
+        "index": 61,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436580
+      },
+      {
+        "description": "",
+        "index": 62,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436584
+      },
+      {
+        "description": "",
+        "index": 63,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436588
+      },
+      {
+        "description": "",
+        "index": 64,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436592
+      },
+      {
+        "description": "",
+        "index": 65,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436596
+      },
+      {
+        "description": "",
+        "index": 66,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436600
+      },
+      {
+        "description": "",
+        "index": 67,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436604
+      },
+      {
+        "description": "",
+        "index": 68,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436608
+      },
+      {
+        "description": "",
+        "index": 69,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436612
+      },
+      {
+        "description": "",
+        "index": 70,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436616
+      },
+      {
+        "description": "",
+        "index": 71,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436620
+      },
+      {
+        "description": "",
+        "index": 72,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436624
+      },
+      {
+        "description": "",
+        "index": 73,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436628
+      },
+      {
+        "description": "",
+        "index": 74,
+        "label": "",
+        "ptr": 268459144,
+        "section": ".text",
+        "table_addr": 268436632
+      }
+    ],
+    "system_interface_unique_targets": [
+      268459144
+    ],
+    "upload": {
+      "acl_elf_length": 121872,
+      "acl_magic": "00acc0de",
+      "date_prefix": "20260613",
+      "image_bytes": 121880,
+      "image_offset": 42,
+      "kind": "dl",
+      "source_bytes": 121931,
+      "trailer": "1b252d313233343558"
+    }
+  },
+  "stock": {
+    "acl_descriptor_at_1001be90": [
+      {
+        "addr": 268549776,
+        "index": 0,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 268436304
+      },
+      {
+        "addr": 268549780,
+        "index": 1,
+        "label": "",
+        "section": null,
+        "text": "ACL",
+        "value": 1094929408
+      },
+      {
+        "addr": 268549784,
+        "index": 2,
+        "label": "",
+        "section": ".rodata",
+        "text": "ID",
+        "value": 268452036
+      },
+      {
+        "addr": 268549788,
+        "index": 3,
+        "label": "",
+        "section": ".rodata",
+        "text": "CONFIG",
+        "value": 268452028
+      },
+      {
+        "addr": 268549792,
+        "index": 4,
+        "label": "",
+        "section": ".rodata",
+        "text": "MEMORY",
+        "value": 268452020
+      },
+      {
+        "addr": 268549796,
+        "index": 5,
+        "label": "",
+        "section": ".rodata",
+        "text": "STATUS",
+        "value": 268452012
+      },
+      {
+        "addr": 268549800,
+        "index": 6,
+        "label": "",
+        "section": ".rodata",
+        "text": "VARIABLES",
+        "value": 268452000
+      },
+      {
+        "addr": 268549804,
+        "index": 7,
+        "label": "",
+        "section": ".rodata",
+        "text": "USTATUS",
+        "value": 268451992
+      },
+      {
+        "addr": 268549808,
+        "index": 8,
+        "label": "",
+        "section": ".rodata",
+        "text": "DENSITYLUT",
+        "value": 268451980
+      },
+      {
+        "addr": 268549812,
+        "index": 9,
+        "label": "",
+        "section": ".rodata",
+        "text": "PAGECOUNT",
+        "value": 268451968
+      },
+      {
+        "addr": 268549816,
+        "index": 10,
+        "label": "",
+        "section": ".rodata",
+        "text": "SERVICEID",
+        "value": 268451912
+      },
+      {
+        "addr": 268549820,
+        "index": 11,
+        "label": "",
+        "section": ".rodata",
+        "text": "COLORMETRICS",
+        "value": 268451952
+      },
+      {
+        "addr": 268549824,
+        "index": 12,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549828,
+        "index": 13,
+        "label": "",
+        "section": null,
+        "text": "@PJL",
+        "value": 1079003724
+      },
+      {
+        "addr": 268549832,
+        "index": 14,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549836,
+        "index": 15,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 455421233
+      },
+      {
+        "addr": 268549840,
+        "index": 16,
+        "label": "",
+        "section": null,
+        "text": "2345",
+        "value": 842216501
+      },
+      {
+        "addr": 268549844,
+        "index": 17,
+        "label": "",
+        "section": null,
+        "text": "X",
+        "value": 1476395008
+      },
+      {
+        "addr": 268549848,
+        "index": 18,
+        "label": "",
+        "section": null,
+        "text": "PJL",
+        "value": 1347046400
+      },
+      {
+        "addr": 268549852,
+        "index": 19,
+        "label": "",
+        "section": ".rodata",
+        "text": "@PJL USTATUS DEVICE\r\nCODE=35031\r\nDISPLAY=INVALID PERSONALITY\r\n\f",
+        "value": 268453056
+      },
+      {
+        "addr": 268549856,
+        "index": 20,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549860,
+        "index": 21,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549864,
+        "index": 22,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549868,
+        "index": 23,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549872,
+        "index": 24,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549876,
+        "index": 25,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549880,
+        "index": 26,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 0
+      },
+      {
+        "addr": 268549884,
+        "index": 27,
+        "label": "",
+        "section": null,
+        "text": "",
+        "value": 4
+      }
+    ],
+    "elf": {
+      "entry": 268527528,
+      "flags": 768,
+      "machine": 43975,
+      "program_header_count": 11,
+      "section_header_count": 39,
+      "type": 2
+    },
+    "entry_vector": [
+      {
+        "addr": 268462612,
+        "description": "Early CPU and TLB initialization target reached from entry path",
+        "label": "hp1020_cpu_tlb_init_candidate",
+        "section": ".text",
+        "value": 268463312
+      },
+      {
+        "addr": 268462616,
+        "description": "",
+        "label": "",
+        "section": ".data",
+        "value": 268555416
+      },
+      {
+        "addr": 268462620,
+        "description": "",
+        "label": "",
+        "section": ".text",
+        "value": 268528732
+      },
+      {
+        "addr": 268462680,
+        "description": "Saves CPU context before first interrupt dispatch",
+        "label": "hp1020_interrupt_context_save_dispatch_candidate",
+        "section": ".text",
+        "value": 268535324
+      },
+      {
+        "addr": 268462688,
+        "description": "",
+        "label": "",
+        "section": ".data",
+        "value": 268555436
+      },
+      {
+        "addr": 268462692,
+        "description": "",
+        "label": "",
+        "section": ".text",
+        "value": 268535776
+      }
+    ],
+    "path": "assets/runtime/sihp1020.dl",
+    "sections": [
+      {
+        "addr": 268435456,
+        "flags": "AX",
+        "name": ".WindowVectors.text",
+        "size": 384
+      },
+      {
+        "addr": 268435840,
+        "flags": "AX",
+        "name": ".KernelExceptionVector.literal",
+        "size": 4
+      },
+      {
+        "addr": 268435968,
+        "flags": "AX",
+        "name": ".KernelExceptionVector.text",
+        "size": 28
+      },
+      {
+        "addr": 268435996,
+        "flags": "AX",
+        "name": ".UserExceptionVector.literal",
+        "size": 4
+      },
+      {
+        "addr": 268436000,
+        "flags": "AX",
+        "name": ".UserExceptionVector.text",
+        "size": 28
+      },
+      {
+        "addr": 268436080,
+        "flags": "AX",
+        "name": ".DoubleExceptionVector.text",
+        "size": 224
+      },
+      {
+        "addr": 268436336,
+        "flags": "WA",
+        "name": ".sys_interface_table",
+        "size": 300
+      },
+      {
+        "addr": 268447744,
+        "flags": "A",
+        "name": ".rodata",
+        "size": 11392
+      },
+      {
+        "addr": 268459136,
+        "flags": "AX",
+        "name": ".text",
+        "size": 89871
+      },
+      {
+        "addr": 268549008,
+        "flags": "WA",
+        "name": ".data",
+        "size": 6832
+      },
+      {
+        "addr": 268555840,
+        "flags": "WA",
+        "name": ".bss",
+        "size": 97184
+      },
+      {
+        "addr": 269484064,
+        "flags": "AX",
+        "name": ".ResetVector.text",
+        "size": 736
+      },
+      {
+        "addr": 269484800,
+        "flags": "AX",
+        "name": ".DebugExceptionVector.literal",
+        "size": 4
+      },
+      {
+        "addr": 269484832,
+        "flags": "AX",
+        "name": ".DebugExceptionVector.text",
+        "size": 12
+      }
+    ],
+    "special_addresses": [
+      {
+        "addr": 268436304,
+        "bytes": "",
+        "section": null
+      },
+      {
+        "addr": 268436336,
+        "bytes": "10 01 7a f4 10 01 7b 64 10 01 7b c8 10 01 7c 00",
+        "section": ".sys_interface_table"
+      },
+      {
+        "addr": 268459136,
+        "bytes": "b0 80 00 08 02 00 00 00 01 00 00 00 00 80 00 00",
+        "section": ".text"
+      },
+      {
+        "addr": 268527528,
+        "bytes": "6c 10 02 02 16 00 c0 20 02 e4 31 c1 21 02 e6 31",
+        "section": ".text"
+      },
+      {
+        "addr": 269484064,
+        "bytes": "60 00 48 00 73 40 00 08 f0 00 00 00 08 00 00 0c",
+        "section": ".ResetVector.text"
+      }
+    ],
+    "system_interface_table": [
+      {
+        "description": "",
+        "index": 0,
+        "label": "",
+        "ptr": 268532468,
+        "section": ".text",
+        "table_addr": 268436336
+      },
+      {
+        "description": "",
+        "index": 1,
+        "label": "",
+        "ptr": 268532580,
+        "section": ".text",
+        "table_addr": 268436340
+      },
+      {
+        "description": "",
+        "index": 2,
+        "label": "",
+        "ptr": 268532680,
+        "section": ".text",
+        "table_addr": 268436344
+      },
+      {
+        "description": "",
+        "index": 3,
+        "label": "",
+        "ptr": 268532736,
+        "section": ".text",
+        "table_addr": 268436348
+      },
+      {
+        "description": "",
+        "index": 4,
+        "label": "",
+        "ptr": 268532796,
+        "section": ".text",
+        "table_addr": 268436352
+      },
+      {
+        "description": "",
+        "index": 5,
+        "label": "",
+        "ptr": 268532828,
+        "section": ".text",
+        "table_addr": 268436356
+      },
+      {
+        "description": "",
+        "index": 6,
+        "label": "",
+        "ptr": 268532104,
+        "section": ".text",
+        "table_addr": 268436360
+      },
+      {
+        "description": "",
+        "index": 7,
+        "label": "",
+        "ptr": 268532168,
+        "section": ".text",
+        "table_addr": 268436364
+      },
+      {
+        "description": "",
+        "index": 8,
+        "label": "",
+        "ptr": 268532280,
+        "section": ".text",
+        "table_addr": 268436368
+      },
+      {
+        "description": "",
+        "index": 9,
+        "label": "",
+        "ptr": 268532336,
+        "section": ".text",
+        "table_addr": 268436372
+      },
+      {
+        "description": "",
+        "index": 10,
+        "label": "",
+        "ptr": 268532396,
+        "section": ".text",
+        "table_addr": 268436376
+      },
+      {
+        "description": "",
+        "index": 11,
+        "label": "",
+        "ptr": 268532428,
+        "section": ".text",
+        "table_addr": 268436380
+      },
+      {
+        "description": "",
+        "index": 12,
+        "label": "",
+        "ptr": 268532896,
+        "section": ".text",
+        "table_addr": 268436384
+      },
+      {
+        "description": "",
+        "index": 13,
+        "label": "",
+        "ptr": 268532976,
+        "section": ".text",
+        "table_addr": 268436388
+      },
+      {
+        "description": "",
+        "index": 14,
+        "label": "",
+        "ptr": 268533032,
+        "section": ".text",
+        "table_addr": 268436392
+      },
+      {
+        "description": "",
+        "index": 15,
+        "label": "",
+        "ptr": 268533108,
+        "section": ".text",
+        "table_addr": 268436396
+      },
+      {
+        "description": "ThreadX-style scalar queue-send wrapper used by direct JobMgr message 8 paths",
+        "index": 16,
+        "label": "threadx_queue_send_scalar_candidate",
+        "ptr": 268533164,
+        "section": ".text",
+        "table_addr": 268436400
+      },
+      {
+        "description": "",
+        "index": 17,
+        "label": "",
+        "ptr": 268547952,
+        "section": ".text",
+        "table_addr": 268436404
+      },
+      {
+        "description": "Queue create wrapper",
+        "index": 18,
+        "label": "threadx_queue_create_candidate",
+        "ptr": 268533528,
+        "section": ".text",
+        "table_addr": 268436408
+      },
+      {
+        "description": "",
+        "index": 19,
+        "label": "",
+        "ptr": 268533648,
+        "section": ".text",
+        "table_addr": 268436412
+      },
+      {
+        "description": "",
+        "index": 20,
+        "label": "",
+        "ptr": 268533704,
+        "section": ".text",
+        "table_addr": 268436416
+      },
+      {
+        "description": "",
+        "index": 21,
+        "label": "",
+        "ptr": 268533824,
+        "section": ".text",
+        "table_addr": 268436420
+      },
+      {
+        "description": "Queue receive wrapper",
+        "index": 22,
+        "label": "threadx_queue_receive_wait_candidate",
+        "ptr": 268533916,
+        "section": ".text",
+        "table_addr": 268436424
+      },
+      {
+        "description": "Queue send wrapper",
+        "index": 23,
+        "label": "threadx_queue_send_candidate",
+        "ptr": 268533980,
+        "section": ".text",
+        "table_addr": 268436428
+      },
+      {
+        "description": "",
+        "index": 24,
+        "label": "",
+        "ptr": 268533760,
+        "section": ".text",
+        "table_addr": 268436432
+      },
+      {
+        "description": "",
+        "index": 25,
+        "label": "",
+        "ptr": 268533884,
+        "section": ".text",
+        "table_addr": 268436436
+      },
+      {
+        "description": "",
+        "index": 26,
+        "label": "",
+        "ptr": 268534044,
+        "section": ".text",
+        "table_addr": 268436440
+      },
+      {
+        "description": "",
+        "index": 27,
+        "label": "",
+        "ptr": 268534124,
+        "section": ".text",
+        "table_addr": 268436444
+      },
+      {
+        "description": "System-interface table memory/block service",
+        "index": 28,
+        "label": "threadx_memory_or_copy_candidate",
+        "ptr": 268534180,
+        "section": ".text",
+        "table_addr": 268436448
+      },
+      {
+        "description": "",
+        "index": 29,
+        "label": "",
+        "ptr": 268534236,
+        "section": ".text",
+        "table_addr": 268436452
+      },
+      {
+        "description": "",
+        "index": 30,
+        "label": "",
+        "ptr": 268534324,
+        "section": ".text",
+        "table_addr": 268436456
+      },
+      {
+        "description": "",
+        "index": 31,
+        "label": "",
+        "ptr": 268534292,
+        "section": ".text",
+        "table_addr": 268436460
+      },
+      {
+        "description": "",
+        "index": 32,
+        "label": "",
+        "ptr": 268533208,
+        "section": ".text",
+        "table_addr": 268436464
+      },
+      {
+        "description": "",
+        "index": 33,
+        "label": "",
+        "ptr": 268533292,
+        "section": ".text",
+        "table_addr": 268436468
+      },
+      {
+        "description": "",
+        "index": 34,
+        "label": "",
+        "ptr": 268533348,
+        "section": ".text",
+        "table_addr": 268436472
+      },
+      {
+        "description": "",
+        "index": 35,
+        "label": "",
+        "ptr": 268533404,
+        "section": ".text",
+        "table_addr": 268436476
+      },
+      {
+        "description": "",
+        "index": 36,
+        "label": "",
+        "ptr": 268533496,
+        "section": ".text",
+        "table_addr": 268436480
+      },
+      {
+        "description": "",
+        "index": 37,
+        "label": "",
+        "ptr": 268533464,
+        "section": ".text",
+        "table_addr": 268436484
+      },
+      {
+        "description": "Thread create wrapper",
+        "index": 38,
+        "label": "threadx_thread_create_candidate",
+        "ptr": 268534388,
+        "section": ".text",
+        "table_addr": 268436488
+      },
+      {
+        "description": "",
+        "index": 39,
+        "label": "",
+        "ptr": 268534564,
+        "section": ".text",
+        "table_addr": 268436492
+      },
+      {
+        "description": "",
+        "index": 40,
+        "label": "",
+        "ptr": 268531136,
+        "section": ".text",
+        "table_addr": 268436496
+      },
+      {
+        "description": "",
+        "index": 41,
+        "label": "",
+        "ptr": 268534612,
+        "section": ".text",
+        "table_addr": 268436500
+      },
+      {
+        "description": "",
+        "index": 42,
+        "label": "",
+        "ptr": 268534956,
+        "section": ".text",
+        "table_addr": 268436504
+      },
+      {
+        "description": "",
+        "index": 43,
+        "label": "",
+        "ptr": 268535076,
+        "section": ".text",
+        "table_addr": 268436508
+      },
+      {
+        "description": "",
+        "index": 44,
+        "label": "",
+        "ptr": 268535048,
+        "section": ".text",
+        "table_addr": 268436512
+      },
+      {
+        "description": "",
+        "index": 45,
+        "label": "",
+        "ptr": 268535016,
+        "section": ".text",
+        "table_addr": 268436516
+      },
+      {
+        "description": "System-interface table sleep service",
+        "index": 46,
+        "label": "threadx_sleep_candidate",
+        "ptr": 268531308,
+        "section": ".text",
+        "table_addr": 268436520
+      },
+      {
+        "description": "",
+        "index": 47,
+        "label": "",
+        "ptr": 268535136,
+        "section": ".text",
+        "table_addr": 268436524
+      },
+      {
+        "description": "",
+        "index": 48,
+        "label": "",
+        "ptr": 268535184,
+        "section": ".text",
+        "table_addr": 268436528
+      },
+      {
+        "description": "",
+        "index": 49,
+        "label": "",
+        "ptr": 268535232,
+        "section": ".text",
+        "table_addr": 268436532
+      },
+      {
+        "description": "",
+        "index": 50,
+        "label": "",
+        "ptr": 268535292,
+        "section": ".text",
+        "table_addr": 268436536
+      },
+      {
+        "description": "",
+        "index": 51,
+        "label": "",
+        "ptr": 268531148,
+        "section": ".text",
+        "table_addr": 268436540
+      },
+      {
+        "description": "",
+        "index": 52,
+        "label": "",
+        "ptr": 268531168,
+        "section": ".text",
+        "table_addr": 268436544
+      },
+      {
+        "description": "",
+        "index": 53,
+        "label": "",
+        "ptr": 268534356,
+        "section": ".text",
+        "table_addr": 268436548
+      },
+      {
+        "description": "",
+        "index": 54,
+        "label": "",
+        "ptr": 268534796,
+        "section": ".text",
+        "table_addr": 268436552
+      },
+      {
+        "description": "",
+        "index": 55,
+        "label": "",
+        "ptr": 268534852,
+        "section": ".text",
+        "table_addr": 268436556
+      },
+      {
+        "description": "",
+        "index": 56,
+        "label": "",
+        "ptr": 268534532,
+        "section": ".text",
+        "table_addr": 268436560
+      },
+      {
+        "description": "",
+        "index": 57,
+        "label": "",
+        "ptr": 268534684,
+        "section": ".text",
+        "table_addr": 268436564
+      },
+      {
+        "description": "",
+        "index": 58,
+        "label": "",
+        "ptr": 268534740,
+        "section": ".text",
+        "table_addr": 268436568
+      },
+      {
+        "description": "Runtime allocator/service from system-interface table",
+        "index": 59,
+        "label": "hp1020_runtime_service_candidate",
+        "ptr": 268513720,
+        "section": ".text",
+        "table_addr": 268436572
+      },
+      {
+        "description": "Runtime service from system-interface table",
+        "index": 60,
+        "label": "hp1020_runtime_service_2_candidate",
+        "ptr": 268514312,
+        "section": ".text",
+        "table_addr": 268436576
+      },
+      {
+        "description": "System service from system-interface table",
+        "index": 61,
+        "label": "hp1020_system_service_candidate",
+        "ptr": 268506860,
+        "section": ".text",
+        "table_addr": 268436580
+      },
+      {
+        "description": "Copies indexed data-store entry into caller storage after locking entry",
+        "index": 62,
+        "label": "hp1020_datastore_read_locked_candidate",
+        "ptr": 268504916,
+        "section": ".text",
+        "table_addr": 268436584
+      },
+      {
+        "description": "Writes indexed data-store entry, notifies subscribers, then unlocks entry",
+        "index": 63,
+        "label": "hp1020_datastore_write_notify_unlock_candidate",
+        "ptr": 268505040,
+        "section": ".text",
+        "table_addr": 268436588
+      },
+      {
+        "description": "",
+        "index": 64,
+        "label": "",
+        "ptr": 268504900,
+        "section": ".text",
+        "table_addr": 268436592
+      },
+      {
+        "description": "Get byte/halfword/word value from indexed firmware data-store entry",
+        "index": 65,
+        "label": "hp1020_datastore_get_value_candidate",
+        "ptr": 268505464,
+        "section": ".text",
+        "table_addr": 268436596
+      },
+      {
+        "description": "Locks indexed data-store entry and returns its value pointer",
+        "index": 66,
+        "label": "hp1020_datastore_lock_entry_candidate",
+        "ptr": 268505524,
+        "section": ".text",
+        "table_addr": 268436600
+      },
+      {
+        "description": "Unlocks indexed data-store entry",
+        "index": 67,
+        "label": "hp1020_datastore_unlock_entry_candidate",
+        "ptr": 268505560,
+        "section": ".text",
+        "table_addr": 268436604
+      },
+      {
+        "description": "",
+        "index": 68,
+        "label": "",
+        "ptr": 268505580,
+        "section": ".text",
+        "table_addr": 268436608
+      },
+      {
+        "description": "",
+        "index": 69,
+        "label": "",
+        "ptr": 268505604,
+        "section": ".text",
+        "table_addr": 268436612
+      },
+      {
+        "description": "",
+        "index": 70,
+        "label": "",
+        "ptr": 268505624,
+        "section": ".text",
+        "table_addr": 268436616
+      },
+      {
+        "description": "Register direct callback subscriber for indexed data-store entry changes",
+        "index": 71,
+        "label": "hp1020_datastore_register_callback_subscriber_candidate",
+        "ptr": 268505688,
+        "section": ".text",
+        "table_addr": 268436620
+      },
+      {
+        "description": "",
+        "index": 72,
+        "label": "",
+        "ptr": 268505812,
+        "section": ".text",
+        "table_addr": 268436624
+      },
+      {
+        "description": "Register queue subscriber for indexed data-store entry changes",
+        "index": 73,
+        "label": "hp1020_datastore_register_queue_subscriber_candidate",
+        "ptr": 268505948,
+        "section": ".text",
+        "table_addr": 268436628
+      },
+      {
+        "description": "",
+        "index": 74,
+        "label": "",
+        "ptr": 268506084,
+        "section": ".text",
+        "table_addr": 268436632
+      }
+    ],
+    "system_interface_unique_targets": [
+      268504900,
+      268504916,
+      268505040,
+      268505464,
+      268505524,
+      268505560,
+      268505580,
+      268505604,
+      268505624,
+      268505688,
+      268505812,
+      268505948,
+      268506084,
+      268506860,
+      268513720,
+      268514312,
+      268531136,
+      268531148,
+      268531168,
+      268531308,
+      268532104,
+      268532168,
+      268532280,
+      268532336,
+      268532396,
+      268532428,
+      268532468,
+      268532580,
+      268532680,
+      268532736,
+      268532796,
+      268532828,
+      268532896,
+      268532976,
+      268533032,
+      268533108,
+      268533164,
+      268533208,
+      268533292,
+      268533348,
+      268533404,
+      268533464,
+      268533496,
+      268533528,
+      268533648,
+      268533704,
+      268533760,
+      268533824,
+      268533884,
+      268533916,
+      268533980,
+      268534044,
+      268534124,
+      268534180,
+      268534236,
+      268534292,
+      268534324,
+      268534356,
+      268534388,
+      268534532,
+      268534564,
+      268534612,
+      268534684,
+      268534740,
+      268534796,
+      268534852,
+      268534956,
+      268535016,
+      268535048,
+      268535076,
+      268535136,
+      268535184,
+      268535232,
+      268535292,
+      268547952
+    ],
+    "upload": {
+      "acl_elf_length": 128372,
+      "acl_magic": "00acc0de",
+      "date_prefix": "20050309",
+      "image_bytes": 128380,
+      "image_offset": 42,
+      "kind": "dl",
+      "source_bytes": 128431,
+      "trailer": "1b252d313233343558"
+    }
+  }
+}

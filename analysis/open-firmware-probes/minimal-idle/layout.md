@@ -9,18 +9,18 @@ It does not upload anything to the printer.
 - Profile: `boot-probe`
 - Source kind: `dl_upload`
 - Validation: `PASS`
-- Source bytes: `92779`
-- Date-prefixed image bytes: `92728`
-- Raw ELF bytes: `92720`
+- Source bytes: `121931`
+- Date-prefixed image bytes: `121880`
+- Raw ELF bytes: `121872`
 - Date prefix: `20260613`
 
 ## Upload Envelope
 
 - PJL/ACL prefix bytes: `34`
 - ACL magic: `00acc0de`
-- ACL ELF length: `92720`
+- ACL ELF length: `121872`
 - Embedded image offset: `42`
-- Embedded image length: `92728`
+- Embedded image length: `121880`
 - UEL trailer: `1b252d313233343558`
 
 ## ELF Header
@@ -30,10 +30,10 @@ It does not upload anything to the printer.
 - Machine: `0xabc7`
 - Entry point: `0x100167a8`
 - Program headers: `11`
-- Section headers: `17`
-- LOAD segment file bytes: `81522`
-- LOAD segment memory bytes: `81522`
-- Allocated section bytes: `1783`
+- Section headers: `21`
+- LOAD segment file bytes: `109544`
+- LOAD segment memory bytes: `109544`
+- Allocated section bytes: `1963`
 - Executable section bytes: `1451`
 
 ## Critical Sections
@@ -65,10 +65,10 @@ It does not upload anything to the printer.
 | 4 | `LOAD` | `0x1220` | `0x10000220` | `0x1c` | `0x1c` | `0x5` | `0x1000` |
 | 5 | `LOAD` | `0x1270` | `0x10000270` | `0xe0` | `0xe0` | `0x5` | `0x1000` |
 | 6 | `LOAD` | `0x1370` | `0x10000370` | `0x12c` | `0x12c` | `0x6` | `0x1000` |
-| 7 | `LOAD` | `0x2000` | `0x10003000` | `0x137b6` | `0x137b6` | `0x7` | `0x1000` |
-| 8 | `LOAD` | `0x16020` | `0x10100020` | `0x2e0` | `0x2e0` | `0x5` | `0x1000` |
-| 9 | `LOAD` | `0x16300` | `0x10100300` | `0x4` | `0x4` | `0x5` | `0x1000` |
-| 10 | `LOAD` | `0x16320` | `0x10100320` | `0xc` | `0xc` | `0x5` | `0x1000` |
+| 7 | `LOAD` | `0x2000` | `0x10003000` | `0x1a52c` | `0x1a52c` | `0x7` | `0x1000` |
+| 8 | `LOAD` | `0x1d020` | `0x10100020` | `0x2e0` | `0x2e0` | `0x5` | `0x1000` |
+| 9 | `LOAD` | `0x1d300` | `0x10100300` | `0x4` | `0x4` | `0x5` | `0x1000` |
+| 10 | `LOAD` | `0x1d320` | `0x10100320` | `0xc` | `0xc` | `0x5` | `0x1000` |
 
 ## Practical Meaning
 

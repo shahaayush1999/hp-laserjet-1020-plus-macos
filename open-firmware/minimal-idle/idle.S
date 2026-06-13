@@ -68,6 +68,24 @@ hp1020_probe_trap_loop:
 1:
     j 1b
 
+    .section .runtime_vector.entry, "a", @progbits
+    .align 4
+    .global hp1020_probe_entry_vector
+hp1020_probe_entry_vector:
+    .word hp1020_probe_trap_loop
+    .word hp1020_probe_runtime_state
+    .word hp1020_probe_trap_loop
+
+    .section .runtime_vector.interrupt, "a", @progbits
+    .align 4
+    .global hp1020_probe_interrupt_vector
+hp1020_probe_interrupt_vector:
+    .word hp1020_probe_trap_loop
+    .word 0x00040001
+    .word hp1020_probe_interrupt_table
+    .word hp1020_probe_trap_loop
+    .word hp1020_probe_runtime_state
+
     .section .text.entry, "ax", @progbits
     .align 4
     .global _start
@@ -80,6 +98,20 @@ _start:
 hp1020_reset_vector:
     jump_abs _start
     .space 0x2e0 - (. - hp1020_reset_vector), 0
+
+    .section .runtime_state, "aw", @progbits
+    .align 4
+    .global hp1020_probe_runtime_state
+hp1020_probe_runtime_state:
+    .space 0x14, 0
+
+    .section .interrupt_table, "aw", @progbits
+    .align 4
+    .global hp1020_probe_interrupt_table
+hp1020_probe_interrupt_table:
+    .rept 32
+    .word hp1020_probe_trap_loop
+    .endr
 
     .section .DebugExceptionVector.literal, "ax", @progbits
     .align 4

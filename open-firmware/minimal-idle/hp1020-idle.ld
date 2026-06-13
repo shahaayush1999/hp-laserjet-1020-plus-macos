@@ -49,11 +49,23 @@ SECTIONS
     *(.text)
   } :main
 
+  . = 0x10006a14;
+  .runtime_vector.entry : { KEEP(*(.runtime_vector.entry)) } :main
+
+  . = 0x10006a58;
+  .runtime_vector.interrupt : { KEEP(*(.runtime_vector.interrupt)) } :main
+
   . = 0x100167a8;
   .text.entry : { KEEP(*(.text.entry)) } :main
 
   . = 0x1001bb90;
   .data : { *(.data*) } :main
+
+  . = 0x1001d498;
+  .runtime_state : { KEEP(*(.runtime_state)) } :main
+
+  . = 0x1001d4ac;
+  .interrupt_table : { KEEP(*(.interrupt_table)) } :main
 
   . = 0x1001d640;
   .bss (NOLOAD) : { *(.bss*) *(COMMON) } :main
