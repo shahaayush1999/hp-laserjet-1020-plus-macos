@@ -45,7 +45,9 @@ hp1020_double_exception_vector:
     .align 4
     .global hp1020_sys_interface_table
 hp1020_sys_interface_table:
-    .space 0x12c, 0
+    .rept 75
+    .word hp1020_probe_trap_loop
+    .endr
 
     .section .rodata.probe, "a", @progbits
     .align 4
@@ -56,6 +58,13 @@ hp1020_probe_banner:
     .align 4
 hp1020_probe_idle_loop:
     movi a2, 0
+1:
+    j 1b
+
+    .align 4
+    .global hp1020_probe_trap_loop
+hp1020_probe_trap_loop:
+    movi a2, 1
 1:
     j 1b
 

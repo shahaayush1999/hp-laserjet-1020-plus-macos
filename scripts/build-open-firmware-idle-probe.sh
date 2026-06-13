@@ -95,6 +95,7 @@ rm -f "$obj" "$toolchain_elf"
   printf '```\n\n'
   printf '## Meaning\n\n'
   printf 'The build proves we can generate an HP-shaped, old-Xtensa, date-prefixed firmware upload candidate from our own assembly.\n'
+  printf 'The system interface table is open-code only: all 75 slots point to the local trap loop, not copied HP routines.\n'
   printf 'It does not prove the printer boot ROM will accept it, and it does not attempt printing.\n'
 } > "$summary_md"
 

@@ -2,7 +2,7 @@
 Discarded input sections
 
  .xtensa.info   0x0000000000000000       0x38 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.o
- .xt.prop       0x0000000000000000      0x1ec /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.o
+ .xt.prop       0x0000000000000000      0x204 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.o
 
 Memory Configuration
 
@@ -70,11 +70,12 @@ Linker script and memory map
  *(.rodata*)
                 0x0000000010005c80                . = 0x10005c80
 
-.text           0x0000000010005c80        0x5
+.text           0x0000000010005c80        0xd
  *(.text.probe)
- .text.probe    0x0000000010005c80        0x5 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.o
+ .text.probe    0x0000000010005c80        0xd /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.o
+                0x0000000010005c88                hp1020_probe_trap_loop
  *(.text)
- .text          0x0000000010005c85        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.o
+ .text          0x0000000010005c8d        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.o
                 0x00000000100167a8                . = 0x100167a8
 
 .text.entry     0x00000000100167a8        0xe

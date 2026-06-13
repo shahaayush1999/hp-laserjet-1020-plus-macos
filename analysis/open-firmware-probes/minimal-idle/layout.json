@@ -14,7 +14,7 @@
       "program_header_offset": 52,
       "section_header_count": 17,
       "section_header_entry_size": 40,
-      "section_header_offset": 92000,
+      "section_header_offset": 92040,
       "section_name_string_table_index": 16,
       "type": 2,
       "version": 1
@@ -310,7 +310,7 @@
         "name": ".text",
         "name_offset": 183,
         "offset": 19584,
-        "size": 5,
+        "size": 13,
         "type": 1,
         "type_name": "PROGBITS"
       },
@@ -390,7 +390,7 @@
         "name": ".symtab",
         "name_offset": 1,
         "offset": 90924,
-        "size": 400,
+        "size": 416,
         "type": 2,
         "type_name": "SYMTAB"
       },
@@ -405,8 +405,8 @@
         "link": 0,
         "name": ".strtab",
         "name_offset": 9,
-        "offset": 91324,
-        "size": 371,
+        "offset": 91340,
+        "size": 394,
         "type": 3,
         "type_name": "STRTAB"
       },
@@ -421,16 +421,16 @@
         "link": 0,
         "name": ".shstrtab",
         "name_offset": 17,
-        "offset": 91695,
+        "offset": 91734,
         "size": 305,
         "type": 3,
         "type_name": "STRTAB"
       }
     ],
     "summary": {
-      "alloc_section_bytes": 1775,
-      "elf_bytes": 92680,
-      "executable_section_bytes": 1443,
+      "alloc_section_bytes": 1783,
+      "elf_bytes": 92720,
+      "executable_section_bytes": 1451,
       "load_segment_file_bytes": 81522,
       "load_segment_memory_bytes": 81522
     }
@@ -449,15 +449,15 @@
       "section": ".sys_interface_table"
     }
   },
-  "image_bytes": 92688,
+  "image_bytes": 92728,
   "input": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.dl",
   "profile": "boot-probe",
-  "source_bytes": 92739,
+  "source_bytes": 92779,
   "source_kind": "dl_upload",
   "upload": {
-    "acl_elf_length": 92680,
+    "acl_elf_length": 92720,
     "acl_magic": "00acc0de",
-    "image_length": 92688,
+    "image_length": 92728,
     "image_offset": 42,
     "prefix_bytes": 34,
     "trailer": "1b252d313233343558"

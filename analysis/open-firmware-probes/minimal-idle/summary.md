@@ -14,7 +14,7 @@ This artifact is offline only. It was not uploaded to the printer.
 
 ```text
 PASS /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.dl
-kind=dl_upload image_bytes=92688 elf_bytes=92680
+kind=dl_upload image_bytes=92728 elf_bytes=92720
 entry=0x100167a8 machine=0xabc7 phnum=11 shnum=17
 ```
 
@@ -27,4 +27,5 @@ entry=0x100167a8 machine=0xabc7 phnum=11 shnum=17
 ## Meaning
 
 The build proves we can generate an HP-shaped, old-Xtensa, date-prefixed firmware upload candidate from our own assembly.
+The system interface table is open-code only: all 75 slots point to the local trap loop, not copied HP routines.
 It does not prove the printer boot ROM will accept it, and it does not attempt printing.
