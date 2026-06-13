@@ -1,7 +1,7 @@
 # HP 1020 Printer Test Readiness
 
-This checkpoint records why the reverse-engineering work is now ready to move from offline static
-analysis to controlled printer-side testing when the printer is connected.
+This checkpoint records why the reverse-engineering work became ready to move from offline static
+analysis to controlled printer-side testing when the printer was connected.
 
 ## What Is Now Known
 
@@ -92,6 +92,24 @@ That means the printer test exercises the real deployed macOS path:
 firmware preload -> foo2zjs conversion -> CUPS USB backend send
 ```
 
+## Hardware Test Result
+
+On `2026-06-13`, the controlled sample was sent through the installed path and printed successfully
+once on the physical printer.
+
+Observed result:
+
+- firmware upload path completed
+- controlled sample page printed
+- a later paper-out condition was caused by the tray having no second sheet, not by a conversion or
+  firmware-path failure
+
+Important scope note:
+
+- this test used the stock HP firmware blob and the existing macOS glue
+- it validated that the reverse-engineered parser/raster path corresponds to the real print path
+- it did not test open replacement firmware
+
 ## What To Look For During Printer Testing
 
 Use the worker log as source of truth:
@@ -108,8 +126,9 @@ Expected high-level result:
 - CUPS queue does not stay paused
 - worker log does not show a failed conversion or failed USB backend send
 
-If the page prints, the static parser/video mapping has enough coverage for the real path. The next
-experiments should then mutate one variable at a time in the generated stream or wrapper options:
+Because the page printed, the static parser/video mapping has enough coverage for the real path. Any
+future print-stream experiments should mutate one variable at a time in the generated stream or
+wrapper options:
 
 - A4 versus letter
 - 600 dpi versus 1200x600

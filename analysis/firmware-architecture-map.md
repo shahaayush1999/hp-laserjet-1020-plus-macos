@@ -324,10 +324,13 @@ payload `+0x54` as the raster buffer pointer and payload `+0x48` as a transfer-l
 `0x100140f8` walks the same video-state list and writes raster pointers/derived flags into
 MMIO-looking video registers.
 
-The static path is now ready for controlled connected-printer testing. The prepared test checkpoint
-is `analysis/printer-test-readiness-report.md`; it uses `analysis/samples/minimal-page.ps` and the
-helper scripts `scripts/generate-zjs-sample.sh`, `scripts/inspect-zjs-stream.py`, and
-`scripts/run-printer-readiness-test.sh`.
+The static path was validated with one controlled connected-printer test, recorded in
+`analysis/printer-test-readiness-report.md`. That test still used the stock HP firmware blob plus the
+working macOS glue, so it validated the mapped path rather than replacing the firmware.
+
+`analysis/open-firmware-model-report.md` adds the next offline step: `scripts/model-hp1020-print-path.py`
+parses the controlled ZjStream file into firmware-shaped document/page/work/raster objects. The model
+reaches the `work +0x50` handoff and deliberately stops before video/engine MMIO.
 
 ### Engine
 
@@ -390,6 +393,7 @@ Known with high confidence:
 - main queue IDs for print/job/status/video/engine
 - major print/video/engine entry points
 - broad MMIO address families
+- the host ZjStream input path through JobMgr into the `0x94` video work object, now backed by a runnable offline model
 
 Known with medium confidence:
 
@@ -413,8 +417,8 @@ Still unknown:
 
 Best next reverse-engineering steps:
 
-1. Label RTOS primitives around `0x100175c0` through `0x1001a590`.
-2. Resolve the scheduler/task creation path from startup into the named task descriptors.
-3. Resolve queue `8` by finding the queue table initialization path or all consumers of `0x1002ee38`.
-4. Build a register-semantics table for `0xb100`, `0xb200`, `0xb204`, `0xb208`, `0xb020`, and `0xb050`.
-5. Only after those: consider a minimal firmware experiment that packages a harmless ELF and validates boot/upload behavior.
+1. Extend the offline print-path model across more generated samples: paper size, resolution, and multiple pages.
+2. Build a register-semantics table for `0xb100`, `0xb200`, `0xb204`, `0xb208`, `0xb020`, and `0xb050`.
+3. Label safe versus unsafe video/engine paths before any custom upload.
+4. Resolve the minimal non-printing boot/USB path if custom firmware is attempted.
+5. Only after those: consider a harmless custom ELF upload that avoids video/engine MMIO.

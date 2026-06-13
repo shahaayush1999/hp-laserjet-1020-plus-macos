@@ -42,6 +42,7 @@ Start here:
 36. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
 37. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
 38. `prototype-roadmap.md` - practical prototype options and safety gates
+39. `open-firmware-model-report.md` - executable offline model of the normal ZjStream-to-work-object path
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -63,6 +64,7 @@ Generated decompilation/report folders include:
 - `labeled/`
 - `message-map/`
 - `message-producers/`
+- `open-firmware-model/`
 - `object-creation/`
 - `printmgr-fallout/`
 - `queue-send-census/`
@@ -110,7 +112,8 @@ Useful current conclusions:
 - `analysis/zjs-parser-boundary/zjs-parser-boundary.md` identifies `0x10009d34` as the ZjStream parser entry wired from the USB2Thread descriptor and maps chunk types `0..12`.
 - `analysis/jobmgr-raster-message-flow-report.md` closes the parser-to-JobMgr raster path: `ZJT_JBIG_BIH -> JobMgr 0x29 -> 0x10023e28 -> work +0x84/+0x88/+0x8c/+0x90`, and `ZJT_JBIG_BID -> JobMgr 0x2a -> work +0x50` raster list.
 - `analysis/video-raster-consumer-report.md` maps the video consumer side: `work +0x50` list nodes carry payload `+0x54` raster buffer pointers and `+0x48` byte-count/transfer-length candidates into VideoThread/raw-band hardware setup.
-- `analysis/printer-test-readiness-report.md` defines the next connected-printer test using `analysis/samples/minimal-page.ps` and `scripts/run-printer-readiness-test.sh --send`.
+- `analysis/open-firmware-model-report.md` adds a runnable offline model: `scripts/model-hp1020-print-path.py` parses the controlled ZjStream sample into document/page/work/raster objects and stops at the video/engine MMIO boundary.
+- `analysis/printer-test-readiness-report.md` records the controlled connected-printer test path using `analysis/samples/minimal-page.ps` and `scripts/run-printer-readiness-test.sh --send`; that test has printed successfully once on hardware.
 - `analysis/jobmgr-producer-boundary-report.md` is now superseded for message `0x29`; it remains useful as the pre-parser checkpoint showing why the producer was missed by broad queue-send scans.
 - The status-state object is currently mapped through pointer `0x100063d8 -> 0x1002adb4`, with current status at offset `0x08`, transition status at `0x10`, and source/reason at `0x14`.
 - HP's PJL reference anchors firmware-generated `410xx` codes as foreground paper-loading status codes; see `analysis/pjl-status-code-reference.md`.
