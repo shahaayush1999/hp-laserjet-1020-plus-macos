@@ -109,6 +109,11 @@ The variant matrix confirms the model is not only hard-coded to one A4 sample:
 - copy count changes `ZJI_DMCOPIES` and the modeled work `+0x0c` count candidate.
 - all tested cases retain the same JobMgr message skeleton through the safe handoff boundary.
 
+`analysis/hardware-boundary/video-register-projection.md` then projects those modeled fields into the
+first unsafe video-register writes. For example, the controlled A4 sample's `work +0x84/+0x88/+0x8c`
+would become writes to `0xb2000008`, `0xb200000c`, and `0xb2000024` if the original firmware crossed
+into `0x10015214`.
+
 The remaining open-firmware work is concentrated on the hardware side:
 
 1. label the video/engine register writes enough to name the safe and unsafe paths

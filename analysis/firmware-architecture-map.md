@@ -332,6 +332,13 @@ working macOS glue, so it validated the mapped path rather than replacing the fi
 parses the controlled ZjStream file into firmware-shaped document/page/work/raster objects. The model
 reaches the `work +0x50` handoff and deliberately stops before video/engine MMIO.
 
+`analysis/hardware-boundary/hardware-boundary.md` now names that MMIO boundary as a safety gate. A
+first custom firmware probe should stay on CPU/runtime/USB only and avoid writes to `0xb100`,
+`0xb200`, `0xb204`, `0xb208`, `0xb050`, and `0xb020`. `analysis/hardware-boundary/video-register-projection.md`
+connects the offline print-path model to the first unsafe writes: work `+0x84/+0x88/+0x8c/+0x90`
+would feed `0xb2000008`, `0xb200000c`, `0xb2000024`, and `0xb2000000` inside
+`0x10015214`.
+
 ### Engine
 
 Entry:
@@ -394,6 +401,7 @@ Known with high confidence:
 - major print/video/engine entry points
 - broad MMIO address families
 - the host ZjStream input path through JobMgr into the `0x94` video work object, now backed by a runnable offline model
+- the first hard safety boundary for custom firmware: video/engine MMIO must be avoided until register semantics are clearer
 
 Known with medium confidence:
 
@@ -417,8 +425,8 @@ Still unknown:
 
 Best next reverse-engineering steps:
 
-1. Extend the offline print-path model across more generated samples: paper size, resolution, and multiple pages.
-2. Build a register-semantics table for `0xb100`, `0xb200`, `0xb204`, `0xb208`, `0xb020`, and `0xb050`.
-3. Label safe versus unsafe video/engine paths before any custom upload.
-4. Resolve the minimal non-printing boot/USB path if custom firmware is attempted.
+1. Resolve the minimal non-printing boot/USB path for a custom firmware probe.
+2. Identify the smallest CPU/runtime/USB init subset that avoids `0xb100`, `0xb200`, `0xb204`, `0xb208`, `0xb050`, and `0xb020`.
+3. Extend the offline print-path model across multiple-page samples.
+4. Deepen register semantics for the unsafe video/engine families.
 5. Only after those: consider a harmless custom ELF upload that avoids video/engine MMIO.
