@@ -56,6 +56,7 @@ Open firmware analysis state:
 - `open-firmware/minimal-idle/` builds the current open-code, non-printing idle firmware probe.
 - `analysis/open-firmware-probes/minimal-idle/` contains the generated `.elf`, `.img`, `.dl`, map, disassembly, layout report, safety scan, and hardware test plan.
 - `analysis/boot-handoff/boot-handoff.md` is the current stock-vs-open upload/boot handoff report.
+- `analysis/open-firmware-probes/minimal-idle/hardware-test-result-2026-06-15.md` records the first connected-printer idle-probe upload. The backend sent all bytes and the printer stayed green/quiet with no movement; this is safe but not proof of execution.
 - `scripts/build-open-firmware-idle-probe.sh` rebuilds the probe.
 - `scripts/run-idle-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_CUSTOM_FIRMWARE_UPLOAD=1`.
 - Do not run the hardware upload script unless Aayush has the printer connected, freshly power-cycled, and explicitly asks for that test.
