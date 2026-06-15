@@ -51,6 +51,8 @@ Start here:
 45. `open-firmware-probes/minimal-idle/summary.md` - generated open idle firmware probe and static validation
 46. `boot-handoff/boot-handoff.md` - stock-vs-open boot/upload handoff comparison
 47. `open-firmware-probes/minimal-idle/hardware-test-result-2026-06-15.md` - first connected-printer idle-probe upload result
+48. `non-printing-status-probe/status-query-plan.md` - guarded PJL/back-channel query plan for the next non-mechanical hardware discriminator
+49. `non-printing-status-probe/pjl-backchannel-map.md` - firmware and CUPS evidence behind the PJL/status query path
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -102,6 +104,7 @@ Useful current conclusions:
 - `analysis/open-firmware-probes/minimal-idle/summary.md` records the current generated probe. It passes the boot-probe layout profile and safety scan, and it has trap-safe system-interface/runtime-vector placeholders.
 - `analysis/boot-handoff/boot-handoff.md` compares the stock HP firmware and open idle probe. The core packaging/shape question is mostly answered; the next decisive question is whether hardware accepts and branches into the open payload.
 - `analysis/open-firmware-probes/minimal-idle/hardware-test-result-2026-06-15.md` records the first hardware upload: USB backend sent all `121931` bytes, printer stayed green/quiet with no paper movement, and macOS still saw the HP USB identity. This is a good safety result but not proof that `_start` executed.
+- `scripts/query-hp1020-pjl-status.sh` is the next guarded hardware probe. It sends tiny non-printing PJL/status payloads through the direct USB backend, captures CUPS back-channel fd 3 bytes, and can calibrate stock HP firmware response before comparing against the open idle probe.
 - The firmware uses ThreadX-style RTOS objects with magic values such as `QUEU` and `THRD`.
 - Queue send-by-ID reads from runtime table `0x1002c918`.
 - Queue `8` is strongly supported as `Video Queue`, but the exact runtime table write has not been found.
