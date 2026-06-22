@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `28`
+- checks: `29`
 - failures: `0`
 - meaning: Offline analysis is internally consistent; the next decisive evidence is a guarded non-printing printer-side probe.
 
@@ -23,6 +23,7 @@ It does not contact the printer.
 | `minimal_print_scope_keeps_parser_mapped_and_hardware_blocked` | `watch` | The generated narrow-scope report must preserve the current split: parser/object path mapped, video/engine hardware still high risk. | `analysis/open-firmware-model/minimal-print-scope.json` |
 | `hardware_boundary_keeps_engine_video_unsafe` | `watch` | The do-not-touch boundary for early custom firmware must still include video and engine paths. | `analysis/hardware-boundary/hardware-boundary.json` |
 | `first_page_sequence_keeps_video_engine_registers_ordered` | `watch` | The first-page hardware sequence must preserve the ordered engine/video/raw-band risk boundary. | `analysis/hardware-boundary/first-page-hardware-sequence.json` |
+| `video_engine_register_semantics_resolved` | `watch` | The video/engine register-semantics report must keep the key engine, video, channel, and raw-band roles resolved. | `analysis/hardware-boundary/video-engine-register-semantics.json` |
 | `usb_family_remains_only_low_risk_target` | `watch` | USB 0xb300 must remain the only plausible early open-firmware hardware target. | `analysis/hardware-boundary/hardware-boundary.json` |
 | `pjl_first_query_is_echo` | `watch` | The first stock/open comparison must remain the non-printing PJL ECHO probe. | `analysis/non-printing-status-probe/pjl-status-contract.json` |
 | `pjl_contract_is_non_printing` | `watch` | The status query contract must stay outside print/video/engine execution. | `analysis/non-printing-status-probe/pjl-status-contract.json` |

@@ -1,0 +1,532 @@
+{
+  "checks": [
+    {
+      "detail": "engine status register is cleared with the clear mask before command submission",
+      "name": "engine_status_clear",
+      "needle": "*puVar3 = *puVar3 & uVar5",
+      "source": "analysis/dispatch-mmio/decompiled/10015c68_hp1020_engine_status_io_candidate.c",
+      "status": "present"
+    },
+    {
+      "detail": "engine status register is polled for the ready/submit bit",
+      "name": "engine_wait_ready_bit",
+      "needle": "(*hp1020_engine_status_reg_table_word & uVar2) == 0",
+      "source": "analysis/dispatch-mmio/decompiled/10015c68_hp1020_engine_status_io_candidate.c",
+      "status": "present"
+    },
+    {
+      "detail": "engine command register preserves upper bits and inserts the 16-bit command",
+      "name": "engine_command_write_preserve_upper",
+      "needle": "*puVar6 = *puVar6 & uVar1 | (uint)*(ushort *)(puVar4 + 0x5a)",
+      "source": "analysis/dispatch-mmio/decompiled/10015c68_hp1020_engine_status_io_candidate.c",
+      "status": "present"
+    },
+    {
+      "detail": "engine command register sets the ready/submit bit after command write",
+      "name": "engine_command_submit_bit",
+      "needle": "*puVar6 = *puVar6 | uVar2",
+      "source": "analysis/dispatch-mmio/decompiled/10015c68_hp1020_engine_status_io_candidate.c",
+      "status": "present"
+    },
+    {
+      "detail": "video prepare enables or releases video block A with bit 0x100",
+      "name": "video_prepare_block_a_enable",
+      "needle": "*puVar1 = *puVar1 | 0x100",
+      "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+      "status": "present"
+    },
+    {
+      "detail": "video prepare waits while the block busy bit 0x200 remains set",
+      "name": "video_prepare_block_busy_wait",
+      "needle": "while ((uVar19 & 0x200) != 0)",
+      "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+      "status": "present"
+    },
+    {
+      "detail": "video render waits for channel status bit 0x2",
+      "name": "video_render_channel_a_wait",
+      "needle": "while ((uVar10 & 2) == 0)",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "detail": "video render writes work-derived descriptor words",
+      "name": "video_render_descriptor_width",
+      "needle": "*puVar5 = uVar11",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "detail": "video render writes the start/control word with bit 0x400 set",
+      "name": "video_render_start_control",
+      "needle": "*puVar2 = uVar10 | 0x400",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "detail": "raw-band feed writes the raster payload pointer",
+      "name": "raw_band_pointer_write",
+      "needle": "*DAT_100067cc = iVar8",
+      "source": "analysis/zjs-parser-boundary/decompiled/100140f8_hp1020_video_refresh_raw_bands_candidate.c",
+      "status": "present"
+    },
+    {
+      "detail": "raw-band feed writes count and flag bits",
+      "name": "raw_band_flags_write",
+      "needle": "*DAT_100067d4 =",
+      "source": "analysis/zjs-parser-boundary/decompiled/100140f8_hp1020_video_refresh_raw_bands_candidate.c",
+      "status": "present"
+    },
+    {
+      "detail": "engine status polling can trigger video reset dispatch",
+      "name": "engine_poll_can_reset_video",
+      "needle": "hp1020_video_reset_dispatch_candidate()",
+      "source": "analysis/dispatch-mmio/decompiled/10015df8_hp1020_engine_status_poll_candidate.c",
+      "status": "present"
+    }
+  ],
+  "manual_literal_cells": {
+    "engine_clear_mask": {
+      "literal_cell": "0x10006924",
+      "source": "analysis/status-masks/status-mask-map.md",
+      "value": "0xfeffffff"
+    },
+    "engine_command_preserve_mask": {
+      "literal_cell": "0x10005d04",
+      "source": "analysis/status-masks/status-mask-map.md",
+      "value": "0xffff0000"
+    },
+    "engine_command_reg": {
+      "literal_cell": "0x10006928",
+      "register": "0xb0500004",
+      "source": "analysis/status-masks/status-mask-map.md"
+    },
+    "engine_failure_event": {
+      "literal_cell": "0x1000692c",
+      "source": "analysis/status-masks/status-mask-map.md",
+      "value": "0xfe001401"
+    },
+    "engine_ready_submit_bit": {
+      "literal_cell": "0x10005f20",
+      "source": "analysis/status-masks/status-mask-map.md",
+      "value": "0x00010000"
+    },
+    "engine_status_reg": {
+      "literal_cell": "0x1000691c",
+      "register": "0xb050000c",
+      "source": "analysis/status-masks/status-mask-map.md"
+    }
+  },
+  "mmio_literals": [
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x100067c0",
+      "register": "0xb1000004",
+      "role": "video block A status/busy/readiness register",
+      "source": "raw_band",
+      "source_file": "analysis/zjs-parser-boundary/decompiled/100140f8_hp1020_video_refresh_raw_bands_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x100067cc",
+      "register": "0xb1000008",
+      "role": "raw-band A raster pointer register",
+      "source": "raw_band",
+      "source_file": "analysis/zjs-parser-boundary/decompiled/100140f8_hp1020_video_refresh_raw_bands_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x100067d4",
+      "register": "0xb100000c",
+      "role": "raw-band A count/flag register",
+      "source": "raw_band",
+      "source_file": "analysis/zjs-parser-boundary/decompiled/100140f8_hp1020_video_refresh_raw_bands_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x100067d8",
+      "register": "0xb1000104",
+      "role": "video block B status/busy/readiness register",
+      "source": "raw_band",
+      "source_file": "analysis/zjs-parser-boundary/decompiled/100140f8_hp1020_video_refresh_raw_bands_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x100067d0",
+      "register": "0xb1000108",
+      "role": "raw-band B raster window/pointer register",
+      "source": "raw_band",
+      "source_file": "analysis/zjs-parser-boundary/decompiled/100140f8_hp1020_video_refresh_raw_bands_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x100067dc",
+      "register": "0xb100010c",
+      "role": "raw-band B count/flag register",
+      "source": "raw_band",
+      "source_file": "analysis/zjs-parser-boundary/decompiled/100140f8_hp1020_video_refresh_raw_bands_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x10006808",
+      "register": "0xb1000000",
+      "role": "video block A control/reset/enable register",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x100067c0",
+      "register": "0xb1000004",
+      "role": "video block A status/busy/readiness register",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x100068d8",
+      "register": "0xb1000010",
+      "role": "video setup A vertical/offset packed register",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x100068e0",
+      "register": "0xb1000014",
+      "role": "video setup A stride/window mask register",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x10006884",
+      "register": "0xb100001c",
+      "role": "video setup A mode/timing register",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x10006854",
+      "register": "0xb1000020",
+      "role": "video timing/setup A table register",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x10006868",
+      "register": "0xb1000024",
+      "role": "video timing/setup A constant register",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x1000680c",
+      "register": "0xb1000100",
+      "role": "video block B control/reset/enable register",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x100067d8",
+      "register": "0xb1000104",
+      "role": "video block B status/busy/readiness register",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x100068dc",
+      "register": "0xb1000110",
+      "role": "video setup B vertical/offset packed register",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x100068e8",
+      "register": "0xb1000114",
+      "role": "video setup B stride/window mask register",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x1000688c",
+      "register": "0xb100011c",
+      "role": "video setup B mode/timing register",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x10006874",
+      "register": "0xb1000120",
+      "role": "video timing/setup B table register",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x10006880",
+      "register": "0xb1000124",
+      "role": "video timing/setup B constant register",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x10006894",
+      "register": "0xb1000400",
+      "role": "video timing table register 0",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x100068a4",
+      "register": "0xb1000410",
+      "role": "video timing table register 1",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x100068b0",
+      "register": "0xb1000420",
+      "role": "video timing table register 2",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x100068b4",
+      "register": "0xb1000430",
+      "role": "video timing table register 3",
+      "source": "video_prepare",
+      "source_file": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c"
+    },
+    {
+      "family": "0xb200....",
+      "literal_cell": "0x10006900",
+      "register": "0xb2000000",
+      "role": "video transfer start/control register",
+      "source": "video_render",
+      "source_file": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c"
+    },
+    {
+      "family": "0xb200....",
+      "literal_cell": "0x100068f0",
+      "register": "0xb2000008",
+      "role": "video transfer descriptor field from work +0x84",
+      "source": "video_render",
+      "source_file": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c"
+    },
+    {
+      "family": "0xb200....",
+      "literal_cell": "0x100068f4",
+      "register": "0xb200000c",
+      "role": "video transfer descriptor field from work +0x88",
+      "source": "video_render",
+      "source_file": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c"
+    },
+    {
+      "family": "0xb200....",
+      "literal_cell": "0x10006790",
+      "register": "0xb2000010",
+      "role": "video transfer status/control register",
+      "source": "video_render",
+      "source_file": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c"
+    },
+    {
+      "family": "0xb200....",
+      "literal_cell": "0x100068f8",
+      "register": "0xb2000024",
+      "role": "video transfer descriptor field from work +0x8c",
+      "source": "video_render",
+      "source_file": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c"
+    },
+    {
+      "family": "0xb204....",
+      "literal_cell": "0x10006798",
+      "register": "0xb2040000",
+      "role": "video transfer channel A control register",
+      "source": "video_render",
+      "source_file": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c"
+    },
+    {
+      "family": "0xb204....",
+      "literal_cell": "0x100067f4",
+      "register": "0xb2040004",
+      "role": "video channel A raster pointer register",
+      "source": "video_render",
+      "source_file": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c"
+    },
+    {
+      "family": "0xb204....",
+      "literal_cell": "0x100067f8",
+      "register": "0xb2040008",
+      "role": "video channel A transfer length/progress register",
+      "source": "video_render",
+      "source_file": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c"
+    },
+    {
+      "family": "0xb204....",
+      "literal_cell": "0x1000679c",
+      "register": "0xb204000c",
+      "role": "video transfer channel A status register",
+      "source": "video_render",
+      "source_file": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c"
+    },
+    {
+      "family": "0xb208....",
+      "literal_cell": "0x10006794",
+      "register": "0xb2080000",
+      "role": "video transfer channel B control register",
+      "source": "video_render",
+      "source_file": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c"
+    },
+    {
+      "family": "0xb208....",
+      "literal_cell": "0x100067a0",
+      "register": "0xb208000c",
+      "role": "video transfer channel B status register",
+      "source": "video_render",
+      "source_file": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x10006808",
+      "register": "0xb1000000",
+      "role": "video block A control/reset/enable register",
+      "source": "video_reset",
+      "source_file": "analysis/dispatch-mmio/decompiled/10015458_hp1020_video_reset_or_flush_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x100067c0",
+      "register": "0xb1000004",
+      "role": "video block A status/busy/readiness register",
+      "source": "video_reset",
+      "source_file": "analysis/dispatch-mmio/decompiled/10015458_hp1020_video_reset_or_flush_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x1000680c",
+      "register": "0xb1000100",
+      "role": "video block B control/reset/enable register",
+      "source": "video_reset",
+      "source_file": "analysis/dispatch-mmio/decompiled/10015458_hp1020_video_reset_or_flush_candidate.c"
+    },
+    {
+      "family": "0xb100....",
+      "literal_cell": "0x100067d8",
+      "register": "0xb1000104",
+      "role": "video block B status/busy/readiness register",
+      "source": "video_reset",
+      "source_file": "analysis/dispatch-mmio/decompiled/10015458_hp1020_video_reset_or_flush_candidate.c"
+    }
+  ],
+  "open_firmware_implication": [
+    "USB-only probes remain the correct next hardware tests.",
+    "A printing firmware cannot jump straight from the parsed raster list to these registers without reproducing engine and video state-machine ordering.",
+    "The most useful next offline target is extracting exact bit semantics and timing for the 0xb100 setup path and the 0xb050 engine command set."
+  ],
+  "semantic_sequences": [
+    {
+      "function": "0x10015c68 hp1020_engine_status_io_candidate",
+      "meaning": "This is the mechanical engine command door. An open printer path cannot safely fake it without knowing command meanings and response timing.",
+      "name": "engine_command_status_handshake",
+      "registers": [
+        "0xb050000c",
+        "0xb0500004"
+      ],
+      "steps": [
+        "store requested 16-bit engine command in firmware state +0x5a",
+        "clear status register with mask 0xfeffffff",
+        "wait until status register bit 0x00010000 is set",
+        "write command into low 16 bits of command register while preserving upper 16 bits",
+        "set command register bit 0x00010000 to submit",
+        "wait for event response; timeout sends engine queue message 0x17 with event 0xfe001401"
+      ]
+    },
+    {
+      "function": "0x10014910 hp1020_video_prepare_page_candidate",
+      "meaning": "This is video hardware setup before transfer. It is register-heavy and timing-sensitive.",
+      "name": "video_block_prepare_and_enable",
+      "registers": [
+        "0xb1000000",
+        "0xb1000004",
+        "0xb1000100",
+        "0xb1000104"
+      ],
+      "steps": [
+        "clear block control bit 0x100 on both video blocks",
+        "wait while status bit 0x200 remains set",
+        "program mode/timing registers from resolution, planes, and work fields",
+        "set block control bit 0x100 to enable/release the prepared block"
+      ]
+    },
+    {
+      "function": "0x10015214 hp1020_video_render_or_dma_candidate",
+      "meaning": "The two transfer channels have a handshake before descriptor registers are started.",
+      "name": "video_transfer_channel_arm",
+      "registers": [
+        "0xb2040000",
+        "0xb204000c",
+        "0xb2080000",
+        "0xb208000c"
+      ],
+      "steps": [
+        "toggle channel A control bit 0x2 and wait for channel A status bit 0x2",
+        "set channel A control bit 0x1 and high/control bit 0x80000000",
+        "repeat the same arm/wait pattern for channel B"
+      ]
+    },
+    {
+      "function": "0x10015214 hp1020_video_render_or_dma_candidate",
+      "meaning": "This is the first direct path from host-controlled BIH fields into video transfer hardware.",
+      "name": "video_descriptor_start",
+      "registers": [
+        "0xb2000008",
+        "0xb200000c",
+        "0xb2000024",
+        "0xb2000000",
+        "0xb2000010"
+      ],
+      "steps": [
+        "clear transfer-control bit 0 in 0xb2000010",
+        "write work +0x84 to 0xb2000008",
+        "write work +0x88 to 0xb200000c",
+        "write work +0x8c to 0xb2000024",
+        "derive a control word from work +0x90, then set bit 0x400 and write 0xb2000000",
+        "later set bit 0 in 0xb2000010 after transfer-progress checks"
+      ]
+    },
+    {
+      "function": "0x100140f8 hp1020_video_refresh_raw_bands_candidate",
+      "meaning": "This path feeds compressed raster payload pointers and flags into the raw-band side of the video block.",
+      "name": "raw_band_feed",
+      "registers": [
+        "0xb1000008",
+        "0xb100000c",
+        "0xb1000108",
+        "0xb100010c"
+      ],
+      "steps": [
+        "walk video_state +0x9c raster-list nodes",
+        "write payload +0x54 raster pointer to 0xb1000008",
+        "in two-lane mode write pointer + video_state +0xbc to 0xb1000108",
+        "derive count from payload +0x20 and video_state +0xc4",
+        "OR flag bits from payload +0x4c, payload +0x50, and video_state +0xec",
+        "write count/flags to 0xb100000c and 0xb100010c"
+      ]
+    }
+  ],
+  "status": "pass",
+  "summary": "Focused model of dangerous video/engine register roles used by first-page printing."
+}

@@ -1,5 +1,5 @@
 {
-  "check_count": 28,
+  "check_count": 29,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -53,6 +53,12 @@
       "detail": "The first-page hardware sequence must preserve the ordered engine/video/raw-band risk boundary.",
       "evidence": "analysis/hardware-boundary/first-page-hardware-sequence.json",
       "name": "first_page_sequence_keeps_video_engine_registers_ordered",
+      "severity": "watch"
+    },
+    {
+      "detail": "The video/engine register-semantics report must keep the key engine, video, channel, and raw-band roles resolved.",
+      "evidence": "analysis/hardware-boundary/video-engine-register-semantics.json",
+      "name": "video_engine_register_semantics_resolved",
       "severity": "watch"
     },
     {

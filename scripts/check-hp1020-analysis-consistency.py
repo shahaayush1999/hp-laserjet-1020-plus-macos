@@ -167,6 +167,7 @@ def build_report() -> dict[str, Any]:
     )
 
     first_page = read_json("analysis/hardware-boundary/first-page-hardware-sequence.json")
+    register_semantics = read_json("analysis/hardware-boundary/video-engine-register-semantics.json")
     sequence_by_step = {
         item.get("step"): item
         for item in first_page.get("sequence", [])
@@ -183,6 +184,35 @@ def build_report() -> dict[str, Any]:
             and len(first_page.get("remaining_unknowns", [])) >= 4,
             "The first-page hardware sequence must preserve the ordered engine/video/raw-band risk boundary.",
             evidence="analysis/hardware-boundary/first-page-hardware-sequence.json",
+        )
+    )
+    semantic_sequences = {
+        item.get("name"): item
+        for item in register_semantics.get("semantic_sequences", [])
+        if isinstance(item, dict)
+    }
+    semantic_registers = {
+        item.get("register")
+        for item in register_semantics.get("mmio_literals", [])
+        if isinstance(item, dict)
+    }
+    semantic_registers.update(
+        item.get("register")
+        for item in register_semantics.get("manual_literal_cells", {}).values()
+        if isinstance(item, dict) and item.get("register")
+    )
+    checks.append(
+        check(
+            "video_engine_register_semantics_resolved",
+            register_semantics.get("status") == "pass"
+            and {"0xb050000c", "0xb0500004", "0xb1000008", "0xb100010c", "0xb2000000", "0xb2040000", "0xb2080000"}.issubset(
+                semantic_registers
+            )
+            and "engine_command_status_handshake" in semantic_sequences
+            and "raw_band_feed" in semantic_sequences
+            and all(check.get("status") == "present" for check in register_semantics.get("checks", [])),
+            "The video/engine register-semantics report must keep the key engine, video, channel, and raw-band roles resolved.",
+            evidence="analysis/hardware-boundary/video-engine-register-semantics.json",
         )
     )
     checks.append(

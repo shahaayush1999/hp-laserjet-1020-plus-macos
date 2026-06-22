@@ -81,6 +81,7 @@ Open firmware analysis state:
 - `analysis/open-firmware-model/model-invariants.md` validates the offline print-path model across generated ZjStream variants, including BIH-to-work-field propagation and raster-list linkage.
 - `analysis/open-firmware-model/minimal-print-scope.md` is the generated narrow-scope report for a printing-only open replacement. It says the parser/object model is mapped for the current foo2zjs path, while USB live proof and video/engine hardware sequencing remain the main blockers.
 - `analysis/hardware-boundary/first-page-hardware-sequence.md` is the generated ordered sequence for the first real page after parser handoff: engine accepts work, PrintMgr sends Video Queue `0x0b`, video setup/render/raw-band feed touch `0xb100/0xb200/0xb204/0xb208`, then video completion wakes engine.
+- `analysis/hardware-boundary/video-engine-register-semantics.md` is the generated register-role report for the dangerous first-page hardware boundary: `0xb050` engine command/status, `0xb100` video setup/raw-band feed, `0xb200` transfer descriptor/control, and `0xb204`/`0xb208` paired transfer channels.
 - `analysis/status-path/status-code-correlation.md` records that engine queue `0x17` event words are correlated with status output but are not themselves final PJL `CODE=` values.
 - `analysis/offline-consistency/offline-consistency.md` is the cross-report consistency gate for the current offline conclusions. It should pass before doing more hardware work.
 - `scripts/build-open-firmware-idle-probe.sh` rebuilds the probe.
@@ -90,6 +91,7 @@ Open firmware analysis state:
 - `scripts/validate-hp1020-offline-analysis.sh` regenerates the print-path matrix, model invariants, video-register projection, hardware-boundary model, and open endpoint-0 model without contacting the printer.
 - `scripts/model-hp1020-minimal-print-scope.py` regenerates the narrow printing-only replacement scope from current generated analysis reports.
 - `scripts/model-hp1020-first-page-hardware-sequence.py` regenerates the ordered first-page hardware sequence from current generated analysis reports.
+- `scripts/model-hp1020-video-engine-register-semantics.py` regenerates the dangerous video/engine register-role report from the stock ELF and decompiled source.
 - `scripts/run-idle-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_CUSTOM_FIRMWARE_UPLOAD=1`.
 - `scripts/run-usb-snapshot-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_USB_SNAPSHOT_UPLOAD=1`.
 - `scripts/run-usb-marker-draft-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1`. Do not run it before the safer stock/idle/read-only checks.
