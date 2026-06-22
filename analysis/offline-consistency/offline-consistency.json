@@ -1,5 +1,5 @@
 {
-  "check_count": 33,
+  "check_count": 34,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -83,6 +83,12 @@
       "detail": "The video-to-engine feedback model must preserve normal completion, reset/flush, requeue, and video event-word behavior.",
       "evidence": "analysis/hardware-boundary/video-engine-feedback.json",
       "name": "video_engine_feedback_model_resolved",
+      "severity": "watch"
+    },
+    {
+      "detail": "The video transfer ring model must preserve producer/consumer collision behavior, channel A/B descriptors, and IRQ refill evidence.",
+      "evidence": "analysis/hardware-boundary/video-transfer-ring.json",
+      "name": "video_transfer_ring_model_resolved",
       "severity": "watch"
     },
     {

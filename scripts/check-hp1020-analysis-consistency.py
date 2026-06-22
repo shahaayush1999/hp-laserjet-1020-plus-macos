@@ -353,6 +353,40 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/hardware-boundary/video-engine-feedback.json",
         )
     )
+    video_ring = read_json("analysis/hardware-boundary/video-transfer-ring.json")
+    ring_literals = video_ring.get("literal_values", {})
+    ring_sequences = {
+        item.get("name")
+        for item in video_ring.get("ownership_sequences", [])
+        if isinstance(item, dict)
+    }
+    ring_scenarios = {
+        item.get("name"): item
+        for item in video_ring.get("ring_scenarios", [])
+        if isinstance(item, dict)
+    }
+    checks.append(
+        check(
+            "video_transfer_ring_model_resolved",
+            video_ring.get("status") == "pass"
+            and ring_literals.get("video_state_base") == "0x1002efc0"
+            and ring_literals.get("ring_descriptor_base") == "0x1002efe0"
+            and ring_literals.get("channel_a_pointer") == "0xb2040004"
+            and ring_literals.get("channel_b_pointer") == "0xb2080004"
+            and {
+                "prepare_initializes_ring",
+                "render_claims_next_slot",
+                "render_starts_first_transfer",
+                "band_helper_refills_channel_b",
+                "irq_band_done_advances_or_refills",
+            }.issubset(ring_sequences)
+            and ring_scenarios.get("producer_0_consumer_1", {}).get("render_result") == "busy_error_0x1003"
+            and ring_scenarios.get("producer_0_consumer_0", {}).get("producer_after") == 1
+            and all(check.get("status") == "present" for check in video_ring.get("checks", [])),
+            "The video transfer ring model must preserve producer/consumer collision behavior, channel A/B descriptors, and IRQ refill evidence.",
+            evidence="analysis/hardware-boundary/video-transfer-ring.json",
+        )
+    )
     checks.append(
         check(
             "usb_family_remains_only_low_risk_target",

@@ -1,0 +1,443 @@
+{
+  "checks": [
+    {
+      "name": "prepare_clears_ring_slots",
+      "needle": "*(undefined4 *)(puVar15 + iVar8 * 4 + 0xa4) = 0",
+      "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "prepare_clears_transfer_indices",
+      "needle": "*(undefined4 *)(puVar9 + 0x98) = 0",
+      "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "prepare_clears_consumer_index",
+      "needle": "*(undefined4 *)(puVar9 + 0x94) = 0",
+      "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "prepare_clears_done_index",
+      "needle": "*(undefined4 *)(puVar9 + 0xd8) = 0",
+      "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "prepare_initializes_ring_records",
+      "needle": "*(undefined4 *)(puVar9 + *puVar1 * 0xc + 0x20) = 0",
+      "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "render_next_index_mod4",
+      "needle": "uVar7 = *(int *)(hp1020_video_state_ptr_word + 0x98) + 1U & 3",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "render_stores_raster_list",
+      "needle": "*(int *)(puVar1 + 0x9c) = iVar8",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "render_clears_a0",
+      "needle": "*(undefined4 *)(puVar1 + 0xa0) = 0",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "render_rejects_full_ring",
+      "needle": "if (*(uint *)(puVar1 + 0x94) == uVar7)",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "render_descriptor_width",
+      "needle": "*puVar5 = uVar11",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "render_descriptor_height",
+      "needle": "*DAT_100068f4 = *(undefined4 *)(param_1 + 0x88)",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "render_descriptor_band_height",
+      "needle": "uVar11 = *(undefined4 *)(param_1 + 0x8c)",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "render_start_bit_0x400",
+      "needle": "*puVar2 = uVar10 | 0x400",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "render_channel_a_pointer",
+      "needle": "*DAT_100067f4 = uVar9",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "render_channel_a_progress",
+      "needle": "*piVar4 = iVar8",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "render_saves_raster_pointer",
+      "needle": "*(undefined4 *)(puVar1 + 0xa4) = uVar9",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "render_advances_producer_index",
+      "needle": "*(uint *)(puVar1 + 0x98) = uVar7",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "render_calls_band_helper",
+      "needle": "FUN_10014244()",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "render_waits_channel_a_progress",
+      "needle": "} while ((uint)(iVar8 - *DAT_100067f8) < 8);",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "render_sets_transfer_go",
+      "needle": "*DAT_10006790 = *DAT_10006790 | 1",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "render_sets_state_running",
+      "needle": "*(undefined4 *)(hp1020_video_state_ptr_word + 0x6c) = 2",
+      "source": "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "band_helper_uses_e0_slot",
+      "needle": "*(int *)(PTR_DAT_10006770 + 0xe0) * 0xc",
+      "source": "analysis/zjs-parser-boundary/decompiled/10014244_hp1020_video_band_done_or_irq_helper_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "band_helper_caps_chunk",
+      "needle": "if (*(uint *)(PTR_DAT_10006770 + 0xcc) < uVar3)",
+      "source": "analysis/zjs-parser-boundary/decompiled/10014244_hp1020_video_band_done_or_irq_helper_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "band_helper_decrements_remaining",
+      "needle": "*(uint *)(puVar1 + 0xd0) = iVar4 - uVar3",
+      "source": "analysis/zjs-parser-boundary/decompiled/10014244_hp1020_video_band_done_or_irq_helper_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "band_helper_marks_descriptor_busy",
+      "needle": "*piVar6 = 1",
+      "source": "analysis/zjs-parser-boundary/decompiled/10014244_hp1020_video_band_done_or_irq_helper_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "band_helper_writes_channel_b_pointer",
+      "needle": "*DAT_100067e4 = uVar7",
+      "source": "analysis/zjs-parser-boundary/decompiled/10014244_hp1020_video_band_done_or_irq_helper_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "band_helper_writes_channel_b_length",
+      "needle": "*piVar2 = iVar4 * iVar5",
+      "source": "analysis/zjs-parser-boundary/decompiled/10014244_hp1020_video_band_done_or_irq_helper_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "irq_ack_0x20",
+      "needle": "*puVar2 = 0xffffffdf",
+      "source": "analysis/zjs-parser-boundary/decompiled/100144d0_hp1020_video_irq_or_band_done_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "irq_counts_band_done",
+      "needle": "*(int *)(PTR_DAT_10006770 + 0xf8) = *(int *)(PTR_DAT_10006770 + 0xf8) + 1",
+      "source": "analysis/zjs-parser-boundary/decompiled/100144d0_hp1020_video_irq_or_band_done_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "irq_clears_ring_record",
+      "needle": "*(undefined4 *)(puVar1 + *(int *)(puVar1 + 0xd8) * 0xc + 0x20) = 0",
+      "source": "analysis/zjs-parser-boundary/decompiled/100144d0_hp1020_video_irq_or_band_done_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "irq_advances_done_index",
+      "needle": "*(uint *)(puVar1 + 0xd8) = *(int *)(puVar1 + 0xd8) + 1U & 3",
+      "source": "analysis/zjs-parser-boundary/decompiled/100144d0_hp1020_video_irq_or_band_done_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "irq_refills_band_helper",
+      "needle": "hp1020_video_band_done_or_irq_helper_candidate()",
+      "source": "analysis/zjs-parser-boundary/decompiled/100144d0_hp1020_video_irq_or_band_done_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "irq_refreshes_raw_bands",
+      "needle": "hp1020_video_refresh_raw_bands_candidate()",
+      "source": "analysis/zjs-parser-boundary/decompiled/100144d0_hp1020_video_irq_or_band_done_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "irq_reset_case_7",
+      "needle": "FUN_10013d4c(7)",
+      "source": "analysis/zjs-parser-boundary/decompiled/100144d0_hp1020_video_irq_or_band_done_candidate.c",
+      "status": "present"
+    }
+  ],
+  "literal_values": {
+    "block_a_status": "0xb1000004",
+    "block_b_status": "0xb1000104",
+    "channel_a_control": "0xb2040000",
+    "channel_a_pointer": "0xb2040004",
+    "channel_a_progress": "0xb2040008",
+    "channel_a_status": "0xb204000c",
+    "channel_b_control": "0xb2080000",
+    "channel_b_length": "0xb2080008",
+    "channel_b_pointer": "0xb2080004",
+    "channel_b_status": "0xb208000c",
+    "clear_0x2000_mask": "0xffffdfff",
+    "descriptor_band_height": "0xb2000024",
+    "descriptor_height": "0xb200000c",
+    "descriptor_width": "0xb2000008",
+    "ring_descriptor_base": "0x1002efe0",
+    "scratch_control_word": "0x1002ee34",
+    "transfer_start_control": "0xb2000000",
+    "transfer_status_control": "0xb2000010",
+    "video_error_busy": "0x00001003",
+    "video_state_base": "0x1002efc0"
+  },
+  "open_firmware_implication": [
+    "A printing replacement needs the ring ownership rules, not just the 0xb200 descriptor writes.",
+    "The normal render path protects a modulo-4 producer/consumer ring and returns 0x1003 when the next slot would collide with the consumer index.",
+    "The interrupt/band-done path is responsible for clearing completed ring records and refilling channel-B descriptors.",
+    "The remaining hard unknown is the exact interrupt/event timing that advances the consumer side under live hardware."
+  ],
+  "ownership_sequences": [
+    {
+      "function": "0x10014910 hp1020_video_prepare_page_candidate",
+      "name": "prepare_initializes_ring",
+      "registers": [],
+      "steps": [
+        "clear five saved pointer slots beginning at video_state +0xa4",
+        "clear producer index +0x98, consumer index +0x94, IRQ done index +0xd8, and latch +0xdc",
+        "clear four 0x0c-byte ring records beginning at video_state +0x20",
+        "derive stride +0xb8 from work +0x84 and derive maximum chunk +0xcc"
+      ]
+    },
+    {
+      "function": "0x10015214 hp1020_video_render_or_dma_candidate",
+      "name": "render_claims_next_slot",
+      "registers": [
+        "0xb2000008",
+        "0xb200000c",
+        "0xb2000024",
+        "0xb2000000"
+      ],
+      "steps": [
+        "compute next producer slot as `(video_state +0x98 + 1) & 3`",
+        "return busy/error 0x1003 if state +0x6c is outside the accepted range or next slot equals +0x94",
+        "store work +0x50 raster list at +0x9c and clear +0xa0",
+        "arm channel A/B if not already in running state +0x6c == 2",
+        "write work +0x84/+0x88/+0x8c/+0x90 into 0xb200 descriptor/control registers",
+        "advance +0x98 to the claimed next slot"
+      ]
+    },
+    {
+      "function": "0x10015214 hp1020_video_render_or_dma_candidate",
+      "name": "render_starts_first_transfer",
+      "registers": [
+        "0xb2040004",
+        "0xb2040008",
+        "0xb2080004",
+        "0xb2080008",
+        "0xb2000010"
+      ],
+      "steps": [
+        "when producer and consumer indices are equal, snapshot raster pointer/length into channel-A registers",
+        "call 0x10014244 helper to fill channel-B descriptor from remaining units",
+        "wait until `raster_end - 0xb2040008 >= 8` before setting transfer status/control bit 0",
+        "raise internal event 0x13 and set video state +0x6c to 2"
+      ]
+    },
+    {
+      "function": "0x10014244 hp1020_video_band_done_or_irq_helper_candidate",
+      "name": "band_helper_refills_channel_b",
+      "registers": [
+        "0xb2080004",
+        "0xb2080008"
+      ],
+      "steps": [
+        "select descriptor record at `0x1002efe0 + (video_state +0xe0) * 0x0c`",
+        "if the descriptor record is free and +0xd0 remaining is nonzero, choose `min(+0xcc, +0xd0)` units",
+        "decrement +0xd0, mark whether this was the final chunk, and mark the descriptor busy",
+        "write source pointer to 0xb2080004 and transfer length `chunk * stride(+0xb8)` to 0xb2080008"
+      ]
+    },
+    {
+      "function": "0x100144d0 hp1020_video_irq_or_band_done_candidate",
+      "name": "irq_band_done_advances_or_refills",
+      "registers": [
+        "0xb1000004",
+        "0xb1000104"
+      ],
+      "steps": [
+        "status bit 0x20 on either video block is acknowledged and increments +0xf8",
+        "if +0xfc is negative, walk +0xa0, decrement child/page counters, advance +0xa0, then refresh raw bands",
+        "otherwise clear ring record at `+0x20 + (+0xd8 * 0x0c)`, advance +0xd8 modulo 4, refill helper, and queue/list the next band",
+        "set +0xf0 after handling the band-done status"
+      ]
+    }
+  ],
+  "ring_scenarios": [
+    {
+      "consumer": 0,
+      "meaning": "render may claim the next modulo-4 slot",
+      "name": "producer_0_consumer_0",
+      "next_slot": 1,
+      "producer_after": 1,
+      "producer_before": 0,
+      "render_result": "slot_claimed"
+    },
+    {
+      "consumer": 1,
+      "meaning": "render refuses to overrun consumer",
+      "name": "producer_0_consumer_1",
+      "next_slot": 1,
+      "producer_after": 0,
+      "producer_before": 0,
+      "render_result": "busy_error_0x1003"
+    },
+    {
+      "consumer": 2,
+      "meaning": "render refuses to overrun consumer",
+      "name": "producer_1_consumer_2",
+      "next_slot": 2,
+      "producer_after": 1,
+      "producer_before": 1,
+      "render_result": "busy_error_0x1003"
+    },
+    {
+      "consumer": 3,
+      "meaning": "render refuses to overrun consumer",
+      "name": "producer_2_consumer_3",
+      "next_slot": 3,
+      "producer_after": 2,
+      "producer_before": 2,
+      "render_result": "busy_error_0x1003"
+    },
+    {
+      "consumer": 0,
+      "meaning": "render refuses to overrun consumer",
+      "name": "producer_3_consumer_0",
+      "next_slot": 0,
+      "producer_after": 3,
+      "producer_before": 3,
+      "render_result": "busy_error_0x1003"
+    }
+  ],
+  "state_fields": [
+    {
+      "field": "ring descriptor busy flag",
+      "meaning": "cleared by IRQ path; helper sets related descriptor record busy",
+      "offset": "+0x20 + slot*0x0c"
+    },
+    {
+      "field": "ring descriptor secondary field",
+      "meaning": "initialized by prepare; exact ownership still unresolved",
+      "offset": "+0x24 + slot*0x0c"
+    },
+    {
+      "field": "consumer/read index candidate",
+      "meaning": "render treats equality with next producer index as ring full",
+      "offset": "+0x94"
+    },
+    {
+      "field": "producer/write index candidate",
+      "meaning": "render advances `(value + 1) & 3` after descriptor setup",
+      "offset": "+0x98"
+    },
+    {
+      "field": "active raster-list pointer",
+      "meaning": "set from work +0x50 and walked by raw-band refresh",
+      "offset": "+0x9c"
+    },
+    {
+      "field": "pending/active raster node pointer",
+      "meaning": "cleared by render, walked by reset/IRQ paths when +0xfc is negative",
+      "offset": "+0xa0"
+    },
+    {
+      "field": "saved raster pointer for current transfer",
+      "meaning": "set when render snapshots channel-A pointer/progress",
+      "offset": "+0xa4"
+    },
+    {
+      "field": "stride bytes candidate",
+      "meaning": "used by band helper as transfer length multiplier",
+      "offset": "+0xb8"
+    },
+    {
+      "field": "maximum chunk lines/units",
+      "meaning": "caps helper chunk size",
+      "offset": "+0xcc"
+    },
+    {
+      "field": "remaining transfer units",
+      "meaning": "helper decrements this by the chosen chunk",
+      "offset": "+0xd0"
+    },
+    {
+      "field": "IRQ done index candidate",
+      "meaning": "advanced `(value + 1) & 3` when band-done bit 0x20 arrives",
+      "offset": "+0xd8"
+    },
+    {
+      "field": "reset/rearm latch",
+      "meaning": "cleared on one block-status recovery branch",
+      "offset": "+0xdc"
+    },
+    {
+      "field": "helper descriptor slot selector",
+      "meaning": "chooses `descriptor_base + slot*0x0c` and source pointer at state + slot*4",
+      "offset": "+0xe0"
+    },
+    {
+      "field": "band-done happened flag",
+      "meaning": "set by IRQ path after handling block status",
+      "offset": "+0xf0"
+    },
+    {
+      "field": "band-done counter",
+      "meaning": "incremented when block status bit 0x20 is seen",
+      "offset": "+0xf8"
+    },
+    {
+      "field": "raw-band/reset mode sign field",
+      "meaning": "negative path drains +0xa0 and refreshes raw bands; nonnegative path advances descriptor ring",
+      "offset": "+0xfc"
+    }
+  ],
+  "status": "pass",
+  "summary": "Video transfer ring ownership and descriptor handoff model."
+}
