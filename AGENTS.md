@@ -62,6 +62,7 @@ Open firmware analysis state:
 - `open-firmware/usb-marker-draft/` builds the current write-capable, USB-only endpoint-0 marker draft. It is offline-only for now and has not been uploaded.
 - `analysis/open-firmware-probes/usb-marker-draft/summary.md` records the generated marker draft. It recognizes a product-string `GET_DESCRIPTOR` shape and writes only the stock-mapped endpoint-0 USB register sequences; it does not touch engine/video/mechanical MMIO.
 - `analysis/open-firmware-probes/usb-marker-draft/hardware-test-plan.md` records the guarded future hardware test order. Do not start with this draft; run safer stock/idle/read-only probes first.
+- `analysis/open-firmware-probes/hardware-test-ladder.md` records the staged non-printing hardware test order across stock calibration, idle, USB snapshot, and USB marker stages.
 - `analysis/boot-handoff/boot-handoff.md` is the current stock-vs-open upload/boot handoff report.
 - `analysis/open-firmware-probes/minimal-idle/hardware-test-result-2026-06-15.md` records the first connected-printer idle-probe upload. The backend sent all bytes and the printer stayed green/quiet with no movement; this is safe but not proof of execution.
 - `analysis/non-printing-status-probe/status-query-plan.md` documents the next discriminator: tiny non-printing PJL/status queries with CUPS back-channel capture.
@@ -79,6 +80,7 @@ Open firmware analysis state:
 - `scripts/run-idle-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_CUSTOM_FIRMWARE_UPLOAD=1`.
 - `scripts/run-usb-snapshot-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_USB_SNAPSHOT_UPLOAD=1`.
 - `scripts/run-usb-marker-draft-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1`. Do not run it before the safer stock/idle/read-only checks.
+- `scripts/run-open-firmware-usb-test-ladder.sh` is the one-stage wrapper for future printer-attached tests. Dry-run validates everything offline. Upload mode captures USB identity before/after and requires `HP1020_ALLOW_OPEN_FIRMWARE_LADDER_UPLOAD=1`.
 - `scripts/capture-hp1020-usb-identity.sh` captures host-side `lpinfo`, `system_profiler`, and `ioreg` USB identity evidence without sending bytes to the printer. Use it before/after marker tests to look for `HP1020 OPEN MARKER` or stock HP identity.
 - `scripts/query-hp1020-pjl-status.sh` is dry-run by default. Real USB send requires a direct `usb://` URI and `HP1020_ALLOW_NONPRINTING_USB_QUERY=1`; `--preload-stock-firmware` can calibrate the HP firmware PJL/back-channel response without printing.
 - `scripts/extract-hp1020-usb-descriptors.py` is offline-only; it parses the firmware ELF and regenerates the stock USB descriptor extraction report.

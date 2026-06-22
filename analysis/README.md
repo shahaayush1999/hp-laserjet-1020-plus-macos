@@ -73,6 +73,7 @@ Start here:
 67. `open-firmware-probes/usb-marker-draft/marker-descriptor-check.md` - embedded marker descriptor bytes, length, and hardware alias verification
 68. `open-firmware-probes/usb-marker-draft/marker-length-flow-check.md` - source-level guard that clipped host length reaches endpoint-0
 69. `open-firmware-probes/usb-marker-draft/behavior-model.md` - host-side model of marker setup/gate decisions and response-length clipping
+70. `open-firmware-probes/hardware-test-ladder.md` - staged non-printing hardware test order and one-stage harness usage
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -172,6 +173,7 @@ Useful current conclusions:
 - `scripts/check-hp1020-marker-length-flow.py` verifies the marker draft preserves the clipped host `wLength` register into the endpoint-0 response-length write.
 - `scripts/model-hp1020-usb-marker-draft.py` models the USB marker draft's setup/gate behavior and verifies response length clipping at the decision level.
 - `scripts/run-usb-marker-draft-hardware-test.sh` is the guarded dry-run/default harness for the marker draft. It re-runs the static gates before any upload and requires `HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1`.
+- `scripts/run-open-firmware-usb-test-ladder.sh` wraps the staged hardware path. Dry-run validates all probes offline; upload mode runs one selected non-printing stage with before/after USB identity capture.
 - `scripts/run-usb-snapshot-probe-hardware-test.sh` is the guarded dry-run/default harness for the read-only USB snapshot probe. It re-runs the static gates before any upload and requires `HP1020_ALLOW_USB_SNAPSHOT_UPLOAD=1`.
 - `scripts/capture-hp1020-usb-identity.sh` captures host-side USB identity evidence without sending bytes. Use it before/after marker tests to compare stock identity, disappearance, or `HP1020 OPEN MARKER`.
 - `scripts/check-hp1020-safety-boundary.py` is a pre-upload safety scanner for future candidate source/disassembly; it fails on known unsafe video/engine functions and MMIO families.
