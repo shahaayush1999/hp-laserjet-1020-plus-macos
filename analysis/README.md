@@ -87,6 +87,7 @@ Start here:
 81. `hardware-boundary/video-engine-register-semantics.md` - generated register-role model for engine handshake, video setup, video transfer, and raw-band feed
 82. `hardware-boundary/video-prepare-modes.md` - generated branch/table model for `0xb100` video prepare timing and mode setup
 83. `hardware-boundary/engine-command-status.md` - generated command/status model for the stock `0xb050` engine register pair, status reads, side-effect commands, and event decisions
+84. `hardware-boundary/engine-status-decisions.md` - generated executable branch model for `hp1020_engine_status_poll_candidate` scenarios and side effects
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -177,6 +178,7 @@ Useful current conclusions:
 - `analysis/hardware-boundary/video-engine-register-semantics.md` extracts literal-cell-to-register mappings from the stock ELF and decompiled functions. It names the current dangerous roles: `0xb050` engine command/status, `0xb100` video setup/raw-band feed, `0xb200` transfer descriptors/control, and `0xb204`/`0xb208` paired transfer channels.
 - `analysis/hardware-boundary/video-prepare-modes.md` narrows the `0xb100` setup path: it records mode-dependent writes for `0xb1000020/0x24`, `0xb1000120/0x24`, `0xb100001c/0x11c`, and the `0xb1000400..0x0430` timing table blocks.
 - `analysis/hardware-boundary/engine-command-status.md` narrows the `0xb050` engine path: stock status reads use command IDs `1`, `0x20`, `2`, `0x16`, and `0x13`; side-effect/start commands include `0x501a`, `0x5043`, `0x3a13`, and `0x6012`; selected event words are stored at engine state `+0x60` and sent as queue `1` message `0x17`.
+- `analysis/hardware-boundary/engine-status-decisions.md` turns the nested engine poller into an executable scenario model. It covers the `0x14000a04` ready rewrite, `0x501a`/`0x5043` side effects, `0x13` and `0x16` substatus branches, and previous-event extra emit behavior.
 - `analysis/non-printing-usb-probe-spec.md` defines the only custom-firmware experiment that is currently defensible: boot/USB identity only, no video/engine MMIO.
 - `analysis/non-printing-status-probe/pjl-status-contract.md` defines the exact tiny PJL/status payloads to use when calibrating stock back-channel responses or future open USB/PJL echo behavior.
 - `analysis/offline-consistency/offline-consistency.md` now cross-checks the main offline conclusions against generated reports: engine `0x17` dispatch, status-code correlation, print-path model invariants, hardware boundary, PJL query contract, and USB marker draft safety.
@@ -205,6 +207,7 @@ Useful current conclusions:
 - `scripts/model-hp1020-video-engine-register-semantics.py` regenerates the dangerous video/engine register-role model from the stock ELF and decompiled source.
 - `scripts/model-hp1020-video-prepare-modes.py` regenerates the branch/table model for the `0xb100` video prepare setup path.
 - `scripts/model-hp1020-engine-command-status.py` regenerates the `0xb050` engine command/status model, including stock command IDs, state offsets, and event decisions.
+- `scripts/model-hp1020-engine-status-decisions.py` regenerates the executable engine poller branch/scenario model from the command/status report and decompiled source.
 - `scripts/model-hp1020-first-page-hardware-sequence.py` regenerates the ordered first-page hardware sequence from the current print-path and hardware-boundary reports.
 - `scripts/model-hp1020-minimal-print-scope.py` regenerates the current minimum printing-only replacement scope from the generated print-path, USB, and hardware-boundary reports.
 - `scripts/analyze-hp1020-pjl-status-capture.py` classifies PJL/status back-channel captures against the generated contract, including expected-marker, no-response, and unexpected-byte outcomes.

@@ -1,5 +1,5 @@
 {
-  "check_count": 31,
+  "check_count": 32,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -71,6 +71,12 @@
       "detail": "The engine command/status model must preserve the stock 0xb050 register pair, command IDs, state fields, and event branches.",
       "evidence": "analysis/hardware-boundary/engine-command-status.json",
       "name": "engine_command_status_model_resolved",
+      "severity": "watch"
+    },
+    {
+      "detail": "The executable engine status decision model must preserve ready rewrite, 0x501a/0x5043 side effects, and previous-event extra emit behavior.",
+      "evidence": "analysis/hardware-boundary/engine-status-decisions.json",
+      "name": "engine_status_decision_model_resolved",
       "severity": "watch"
     },
     {

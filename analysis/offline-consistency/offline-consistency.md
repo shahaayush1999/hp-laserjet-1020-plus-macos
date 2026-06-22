@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `31`
+- checks: `32`
 - failures: `0`
 - meaning: Offline analysis is internally consistent; the next decisive evidence is a guarded non-printing printer-side probe.
 
@@ -26,6 +26,7 @@ It does not contact the printer.
 | `video_engine_register_semantics_resolved` | `watch` | The video/engine register-semantics report must keep the key engine, video, channel, and raw-band roles resolved. | `analysis/hardware-boundary/video-engine-register-semantics.json` |
 | `video_prepare_modes_keep_timing_tables` | `watch` | The video-prepare mode model must preserve the branch-dependent 0xb100 timing/setup table evidence. | `analysis/hardware-boundary/video-prepare-modes.json` |
 | `engine_command_status_model_resolved` | `watch` | The engine command/status model must preserve the stock 0xb050 register pair, command IDs, state fields, and event branches. | `analysis/hardware-boundary/engine-command-status.json` |
+| `engine_status_decision_model_resolved` | `watch` | The executable engine status decision model must preserve ready rewrite, 0x501a/0x5043 side effects, and previous-event extra emit behavior. | `analysis/hardware-boundary/engine-status-decisions.json` |
 | `usb_family_remains_only_low_risk_target` | `watch` | USB 0xb300 must remain the only plausible early open-firmware hardware target. | `analysis/hardware-boundary/hardware-boundary.json` |
 | `pjl_first_query_is_echo` | `watch` | The first stock/open comparison must remain the non-printing PJL ECHO probe. | `analysis/non-printing-status-probe/pjl-status-contract.json` |
 | `pjl_contract_is_non_printing` | `watch` | The status query contract must stay outside print/video/engine execution. | `analysis/non-printing-status-probe/pjl-status-contract.json` |

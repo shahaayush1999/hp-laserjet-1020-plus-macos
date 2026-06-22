@@ -288,6 +288,34 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/hardware-boundary/engine-command-status.json",
         )
     )
+    engine_decisions = read_json("analysis/hardware-boundary/engine-status-decisions.json")
+    decision_scenarios = {
+        item.get("name"): item
+        for item in engine_decisions.get("scenarios", [])
+        if isinstance(item, dict)
+    }
+    checks.append(
+        check(
+            "engine_status_decision_model_resolved",
+            engine_decisions.get("status") == "pass"
+            and engine_decisions.get("scenario_count") == 21
+            and engine_decisions.get("scenario_failures") == 0
+            and decision_scenarios.get("ready_rewrite", {}).get("result", {}).get("stored_event") == "0x14000a04"
+            and decision_scenarios.get("substatus_0x16_ready_0x40_with_status_2_0x4040", {})
+            .get("result", {})
+            .get("side_effect_commands")
+            == ["0x0000501a"]
+            and decision_scenarios.get("leave_e6100800_sends_0x5043", {}).get("result", {}).get("side_effect_commands")
+            == ["0x00005043"]
+            and decision_scenarios.get("previous_0x0100_to_ready_extra_emit", {}).get("result", {}).get(
+                "extra_emitted_events"
+            )
+            == ["0xe6100a01"]
+            and all(check.get("status") == "present" for check in engine_decisions.get("checks", [])),
+            "The executable engine status decision model must preserve ready rewrite, 0x501a/0x5043 side effects, and previous-event extra emit behavior.",
+            evidence="analysis/hardware-boundary/engine-status-decisions.json",
+        )
+    )
     checks.append(
         check(
             "usb_family_remains_only_low_risk_target",

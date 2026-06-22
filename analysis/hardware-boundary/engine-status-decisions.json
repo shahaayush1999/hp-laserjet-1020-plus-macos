@@ -1,0 +1,830 @@
+{
+  "checks": [
+    {
+      "name": "primary_read",
+      "needle": "uVar4 = hp1020_engine_status_io_candidate(1)",
+      "status": "present"
+    },
+    {
+      "name": "status_0x20_read",
+      "needle": "uVar5 = hp1020_engine_status_io_candidate(0x20)",
+      "status": "present"
+    },
+    {
+      "name": "status_2_read",
+      "needle": "uVar5 = hp1020_engine_status_io_candidate(2)",
+      "status": "present"
+    },
+    {
+      "name": "substatus_0x16_read",
+      "needle": "uVar7 = hp1020_engine_status_io_candidate(0x16)",
+      "status": "present"
+    },
+    {
+      "name": "substatus_0x13_read",
+      "needle": "uVar9 = hp1020_engine_status_io_candidate(0x13)",
+      "status": "present"
+    },
+    {
+      "name": "ready_rewrite",
+      "needle": "if ((uVar6 & 0xffff) == DAT_10006974)",
+      "status": "present"
+    },
+    {
+      "name": "previous_low16_transition",
+      "needle": "((*(uint *)(PTR_DAT_10006920 + 0x60) & 0xffff) == 0x100)",
+      "status": "present"
+    },
+    {
+      "name": "leave_e6100800_side_effect",
+      "needle": "hp1020_engine_status_io_candidate(DAT_1000697c)",
+      "status": "present"
+    },
+    {
+      "name": "substatus_side_effect",
+      "needle": "hp1020_engine_status_io_candidate(DAT_10006968)",
+      "status": "present"
+    },
+    {
+      "name": "video_reset_latch",
+      "needle": "hp1020_video_reset_dispatch_candidate()",
+      "status": "present"
+    }
+  ],
+  "constants_source": "analysis/hardware-boundary/engine-command-status.json",
+  "open_firmware_implication": [
+    "Later raw status captures can be fed into this model to classify the exact stock branch without rereading Ghidra output.",
+    "This model predicts stock event words and side-effect commands only; physical labels still require printer-side calibration.",
+    "The safe offline conclusion is that a printing replacement needs this branch behavior before it can reliably decide when to start, wait, recover, or surface errors."
+  ],
+  "scenario_count": 21,
+  "scenario_failures": 0,
+  "scenarios": [
+    {
+      "expected_stored": null,
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0xffff",
+        "status_2": "0x0000",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0000"
+      },
+      "name": "primary_all_ones_no_update",
+      "result": {
+        "emits_queue_0x17": false,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1"
+        ],
+        "reason": "primary command 1 returned 0xffff",
+        "selected_event": null,
+        "side_effect_commands": [],
+        "status": "no_update",
+        "stored_event": null,
+        "trace": [
+          "primary_0xffff_short_circuit"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0x04800100",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x4040",
+        "status_2": "0x0000",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0000"
+      },
+      "name": "primary_0x4040_default",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1"
+        ],
+        "ready_branch": false,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0x04800100",
+        "side_effect_commands": [],
+        "status": "selected",
+        "stored_event": "0x04800100",
+        "trace": [
+          "primary_valid_default_0x04800100"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0xf6000300",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x0000",
+        "status_2": "0x0000",
+        "status_20": "0x0800",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0000"
+      },
+      "name": "status_0x20_0x800",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1",
+          "0x20"
+        ],
+        "ready_branch": false,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0xf6000300",
+        "side_effect_commands": [],
+        "status": "selected",
+        "stored_event": "0xf6000300",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0xf6000400",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x0000",
+        "status_2": "0x0000",
+        "status_20": "0x0400",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0000"
+      },
+      "name": "status_0x20_0x400",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1",
+          "0x20"
+        ],
+        "ready_branch": false,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0xf6000400",
+        "side_effect_commands": [],
+        "status": "selected",
+        "stored_event": "0xf6000400",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20",
+          "status_0x20_no_0x800"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0xe6100800",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x0000",
+        "status_2": "0x4000",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0000"
+      },
+      "name": "status_2_0x4000",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1",
+          "0x20",
+          "0x2"
+        ],
+        "ready_branch": false,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0xe6100800",
+        "side_effect_commands": [],
+        "status": "selected",
+        "stored_event": "0xe6100800",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20",
+          "status_0x20_no_0x800",
+          "status_0x20_no_0x400_read_0x2",
+          "status_2_no_0x100_no_0xc0_default_e6100800"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0x20001607",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x0000",
+        "status_2": "0x0004",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0000"
+      },
+      "name": "status_2_0x424",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1",
+          "0x20",
+          "0x2"
+        ],
+        "ready_branch": false,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0x20001607",
+        "side_effect_commands": [],
+        "status": "selected",
+        "stored_event": "0x20001607",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20",
+          "status_0x20_no_0x800",
+          "status_0x20_no_0x400_read_0x2",
+          "status_2_no_0x100_no_0xc0_default_e6100800",
+          "status_2_no_0x4000"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0xe6101100",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x0000",
+        "status_2": "0x1000",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0000"
+      },
+      "name": "status_2_0x1000",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1",
+          "0x20",
+          "0x2"
+        ],
+        "ready_branch": false,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0xe6101100",
+        "side_effect_commands": [],
+        "status": "selected",
+        "stored_event": "0xe6101100",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20",
+          "status_0x20_no_0x800",
+          "status_0x20_no_0x400_read_0x2",
+          "status_2_no_0x100_no_0xc0_default_e6100800",
+          "status_2_no_0x4000",
+          "status_2_no_0x424"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0xe6100e00",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x0000",
+        "status_2": "0x2000",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0000"
+      },
+      "name": "status_2_0x2000",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1",
+          "0x20",
+          "0x2"
+        ],
+        "ready_branch": false,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0xe6100e00",
+        "side_effect_commands": [],
+        "status": "selected",
+        "stored_event": "0xe6100e00",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20",
+          "status_0x20_no_0x800",
+          "status_0x20_no_0x400_read_0x2",
+          "status_2_no_0x100_no_0xc0_default_e6100800",
+          "status_2_no_0x4000",
+          "status_2_no_0x424",
+          "status_2_no_0x1000"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0x14000a04",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x0000",
+        "status_2": "0x0000",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0000"
+      },
+      "name": "ready_rewrite",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1",
+          "0x20",
+          "0x2"
+        ],
+        "ready_branch": true,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0xe6100a01",
+        "side_effect_commands": [],
+        "status": "selected",
+        "stored_event": "0x14000a04",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20",
+          "status_0x20_no_0x800",
+          "status_0x20_no_0x400_read_0x2",
+          "status_2_no_0x100_no_0xc0_default_e6100800",
+          "status_2_no_0x4000",
+          "status_2_no_0x424",
+          "status_2_no_0x1000",
+          "ready_ok_from_status_2",
+          "rewrite_low16_0x0a01_to_0x14000a04"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0x80000000",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x0040",
+        "status_2": "0x0000",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0000"
+      },
+      "name": "primary_0x40_fallback_error",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1",
+          "0x20",
+          "0x2"
+        ],
+        "ready_branch": false,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0x80000000",
+        "side_effect_commands": [],
+        "status": "selected",
+        "stored_event": "0x80000000",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20",
+          "status_0x20_no_0x800",
+          "status_0x20_no_0x400_read_0x2",
+          "status_2_no_0x100_no_0xc0_default_e6100800",
+          "status_2_no_0x4000",
+          "status_2_no_0x424",
+          "status_2_no_0x1000",
+          "fallback_error_primary_0x40_without_status_2_0x200"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0x14000a04",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x0040",
+        "status_2": "0x0200",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0000"
+      },
+      "name": "primary_0x40_status_2_0x200_ready",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1",
+          "0x20",
+          "0x2"
+        ],
+        "ready_branch": true,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0xe6100a01",
+        "side_effect_commands": [],
+        "status": "selected",
+        "stored_event": "0x14000a04",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20",
+          "status_0x20_no_0x800",
+          "status_0x20_no_0x400_read_0x2",
+          "status_2_no_0x100_no_0xc0_default_e6100800",
+          "status_2_no_0x4000",
+          "status_2_no_0x424",
+          "status_2_no_0x1000",
+          "ready_ok_from_status_2",
+          "rewrite_low16_0x0a01_to_0x14000a04"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0x14000a04",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x0000",
+        "status_2": "0x0040",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0040"
+      },
+      "name": "substatus_0x16_ready_0x40_with_status_2_0x40",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1",
+          "0x20",
+          "0x2",
+          "0x16"
+        ],
+        "ready_branch": true,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0xe6100a01",
+        "side_effect_commands": [],
+        "status": "selected",
+        "stored_event": "0x14000a04",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20",
+          "status_0x20_no_0x800",
+          "status_0x20_no_0x400_read_0x2",
+          "status_2_has_0xc0_read_0x16",
+          "substatus_0x16_exact_0x40_ready",
+          "rewrite_low16_0x0a01_to_0x14000a04"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0xe6100800",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x0000",
+        "status_2": "0x4040",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0040"
+      },
+      "name": "substatus_0x16_ready_0x40_with_status_2_0x4040",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1",
+          "0x20",
+          "0x2",
+          "0x16"
+        ],
+        "ready_branch": true,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0xe6100800",
+        "side_effect_commands": [
+          "0x0000501a"
+        ],
+        "status": "selected",
+        "stored_event": "0xe6100800",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20",
+          "status_0x20_no_0x800",
+          "status_0x20_no_0x400_read_0x2",
+          "status_2_has_0xc0_read_0x16",
+          "substatus_0x16_exact_0x40_ready",
+          "send_0x501a_and_force_e6100800"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0x80000000",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x0000",
+        "status_2": "0x0040",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0000"
+      },
+      "name": "substatus_0x16_low_clear_sends_0x501a",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1",
+          "0x20",
+          "0x2",
+          "0x16"
+        ],
+        "ready_branch": false,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0x80000000",
+        "side_effect_commands": [
+          "0x0000501a"
+        ],
+        "status": "selected",
+        "stored_event": "0x80000000",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20",
+          "status_0x20_no_0x800",
+          "status_0x20_no_0x400_read_0x2",
+          "status_2_has_0xc0_read_0x16",
+          "substatus_0x16_bits_0x0000",
+          "send_0x501a_substatus_low_bits_clear"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0xe6000d03",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x0000",
+        "status_2": "0x0040",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0010"
+      },
+      "name": "substatus_0x16_bit_0x10",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1",
+          "0x20",
+          "0x2",
+          "0x16"
+        ],
+        "ready_branch": false,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0xe6000d03",
+        "side_effect_commands": [],
+        "status": "selected",
+        "stored_event": "0xe6000d03",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20",
+          "status_0x20_no_0x800",
+          "status_0x20_no_0x400_read_0x2",
+          "status_2_has_0xc0_read_0x16",
+          "substatus_0x16_bits_0x0010"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0xe6000d06",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x0000",
+        "status_2": "0x0040",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0008"
+      },
+      "name": "substatus_0x16_bit_0x08",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1",
+          "0x20",
+          "0x2",
+          "0x16"
+        ],
+        "ready_branch": false,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0xe6000d06",
+        "side_effect_commands": [],
+        "status": "selected",
+        "stored_event": "0xe6000d06",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20",
+          "status_0x20_no_0x800",
+          "status_0x20_no_0x400_read_0x2",
+          "status_2_has_0xc0_read_0x16",
+          "substatus_0x16_bits_0x0008"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0xe6000d04",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x0000",
+        "status_2": "0x0040",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0004"
+      },
+      "name": "substatus_0x16_bit_0x04",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1",
+          "0x20",
+          "0x2",
+          "0x16"
+        ],
+        "ready_branch": false,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0xe6000d04",
+        "side_effect_commands": [],
+        "status": "selected",
+        "stored_event": "0xe6000d04",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20",
+          "status_0x20_no_0x800",
+          "status_0x20_no_0x400_read_0x2",
+          "status_2_has_0xc0_read_0x16",
+          "substatus_0x16_bits_0x0004"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0xe6100b0a",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x0000",
+        "status_2": "0x0100",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0000"
+      },
+      "name": "status_0x13_default",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1",
+          "0x20",
+          "0x2",
+          "0x13",
+          "0x16"
+        ],
+        "ready_branch": false,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0xe6100b0a",
+        "side_effect_commands": [],
+        "status": "selected",
+        "stored_event": "0xe6100b0a",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20",
+          "status_0x20_no_0x800",
+          "status_0x20_no_0x400_read_0x2",
+          "status_0x13_default_subcase_0x0"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0xe6100b0b",
+      "inputs": {
+        "previous_event": "0x00000000",
+        "primary": "0x0000",
+        "status_2": "0x0100",
+        "status_20": "0x0000",
+        "substatus_13": "0x0020",
+        "substatus_16": "0x0000"
+      },
+      "name": "status_0x13_case_0x10",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1",
+          "0x20",
+          "0x2",
+          "0x13",
+          "0x16"
+        ],
+        "ready_branch": false,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0xe6100b0b",
+        "side_effect_commands": [],
+        "status": "selected",
+        "stored_event": "0xe6100b0b",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20",
+          "status_0x20_no_0x800",
+          "status_0x20_no_0x400_read_0x2",
+          "status_0x13_special_subcase_0x10"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0x14000a04",
+      "inputs": {
+        "previous_event": "0x00000100",
+        "primary": "0x0000",
+        "status_2": "0x0000",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0000"
+      },
+      "name": "previous_0x0100_to_ready_extra_emit",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [
+          "0xe6100a01"
+        ],
+        "reads": [
+          "0x1",
+          "0x20",
+          "0x2"
+        ],
+        "ready_branch": true,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0xe6100a01",
+        "side_effect_commands": [],
+        "status": "selected",
+        "stored_event": "0x14000a04",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "primary_missing_0x4040_read_0x20",
+          "status_0x20_no_0x800",
+          "status_0x20_no_0x400_read_0x2",
+          "status_2_no_0x100_no_0xc0_default_e6100800",
+          "status_2_no_0x4000",
+          "status_2_no_0x424",
+          "status_2_no_0x1000",
+          "ready_ok_from_status_2",
+          "rewrite_low16_0x0a01_to_0x14000a04",
+          "previous_0x0100_to_0x0a04_extra_ready_emit"
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected_stored": "0x04800100",
+      "inputs": {
+        "previous_event": "0xe6100800",
+        "primary": "0x4040",
+        "status_2": "0x0000",
+        "status_20": "0x0000",
+        "substatus_13": "0x0000",
+        "substatus_16": "0x0000"
+      },
+      "name": "leave_e6100800_sends_0x5043",
+      "result": {
+        "emits_queue_0x17": true,
+        "extra_emitted_events": [],
+        "reads": [
+          "0x1"
+        ],
+        "ready_branch": false,
+        "reason": "engine status branch selected an event",
+        "selected_event": "0x04800100",
+        "side_effect_commands": [
+          "0x00005043"
+        ],
+        "status": "selected",
+        "stored_event": "0x04800100",
+        "trace": [
+          "primary_valid_default_0x04800100",
+          "leave_e6100800_family_send_0x5043"
+        ]
+      },
+      "status": "pass"
+    }
+  ],
+  "source_function": "0x10015df8 hp1020_engine_status_poll_candidate",
+  "status": "pass",
+  "summary": "Executable offline model of hp1020_engine_status_poll_candidate branch decisions."
+}
