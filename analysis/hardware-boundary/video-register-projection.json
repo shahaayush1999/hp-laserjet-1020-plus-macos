@@ -91,6 +91,50 @@
       "video_y": 6824
     },
     {
+      "case": "a4_cardstock_media",
+      "copies": 1,
+      "file_bytes": 6987,
+      "paper": 9,
+      "projected_registers": {
+        "0xb1000008/0xb1000108": {
+          "consumer": "0x100140f8 hp1020_video_refresh_raw_bands_candidate",
+          "source": "payload +0x54 points at 6364 compressed bytes",
+          "value": "raster payload pointer plus video_state +0xbc window"
+        },
+        "0xb100000c/0xb100010c": {
+          "consumer": "0x100140f8 hp1020_video_refresh_raw_bands_candidate",
+          "source": "raster payload node under work +0x50",
+          "value": "flags/count from payload +0x20/+0x4c/+0x50"
+        },
+        "0xb2000000": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x90 from BIH runtime block +0x13",
+          "value": "control derived from work +0x90=0x5c, then OR 0x400"
+        },
+        "0xb2000008": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x84 from BIH runtime block +0x04",
+          "value": 9600
+        },
+        "0xb200000c": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x88 from BIH runtime block +0x08",
+          "value": 6824
+        },
+        "0xb2000024": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x8c from BIH runtime block +0x0c",
+          "value": 128
+        }
+      },
+      "raster_x": 9536,
+      "raster_y": 6824,
+      "resolution": "600x600",
+      "source": "analysis/samples/generated/matrix-a4_cardstock_media.zjs",
+      "video_x": 4768,
+      "video_y": 6824
+    },
+    {
       "case": "a4_default",
       "copies": 1,
       "file_bytes": 6987,
@@ -131,6 +175,138 @@
       "raster_y": 6824,
       "resolution": "600x600",
       "source": "analysis/samples/generated/matrix-a4_default.zjs",
+      "video_x": 4768,
+      "video_y": 6824
+    },
+    {
+      "case": "a4_draft",
+      "copies": 1,
+      "file_bytes": 6986,
+      "paper": 9,
+      "projected_registers": {
+        "0xb1000008/0xb1000108": {
+          "consumer": "0x100140f8 hp1020_video_refresh_raw_bands_candidate",
+          "source": "payload +0x54 points at 6364 compressed bytes",
+          "value": "raster payload pointer plus video_state +0xbc window"
+        },
+        "0xb100000c/0xb100010c": {
+          "consumer": "0x100140f8 hp1020_video_refresh_raw_bands_candidate",
+          "source": "raster payload node under work +0x50",
+          "value": "flags/count from payload +0x20/+0x4c/+0x50"
+        },
+        "0xb2000000": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x90 from BIH runtime block +0x13",
+          "value": "control derived from work +0x90=0x5c, then OR 0x400"
+        },
+        "0xb2000008": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x84 from BIH runtime block +0x04",
+          "value": 9600
+        },
+        "0xb200000c": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x88 from BIH runtime block +0x08",
+          "value": 6824
+        },
+        "0xb2000024": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x8c from BIH runtime block +0x0c",
+          "value": 128
+        }
+      },
+      "raster_x": 9536,
+      "raster_y": 6824,
+      "resolution": "600x600",
+      "source": "analysis/samples/generated/matrix-a4_draft.zjs",
+      "video_x": 4768,
+      "video_y": 6824
+    },
+    {
+      "case": "a4_logical_clip",
+      "copies": 1,
+      "file_bytes": 7011,
+      "paper": 9,
+      "projected_registers": {
+        "0xb1000008/0xb1000108": {
+          "consumer": "0x100140f8 hp1020_video_refresh_raw_bands_candidate",
+          "source": "payload +0x54 points at 6364 compressed bytes",
+          "value": "raster payload pointer plus video_state +0xbc window"
+        },
+        "0xb100000c/0xb100010c": {
+          "consumer": "0x100140f8 hp1020_video_refresh_raw_bands_candidate",
+          "source": "raster payload node under work +0x50",
+          "value": "flags/count from payload +0x20/+0x4c/+0x50"
+        },
+        "0xb2000000": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x90 from BIH runtime block +0x13",
+          "value": "control derived from work +0x90=0x5c, then OR 0x400"
+        },
+        "0xb2000008": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x84 from BIH runtime block +0x04",
+          "value": 9600
+        },
+        "0xb200000c": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x88 from BIH runtime block +0x08",
+          "value": 6824
+        },
+        "0xb2000024": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x8c from BIH runtime block +0x0c",
+          "value": 128
+        }
+      },
+      "raster_x": 9536,
+      "raster_y": 6824,
+      "resolution": "600x600",
+      "source": "analysis/samples/generated/matrix-a4_logical_clip.zjs",
+      "video_x": 4768,
+      "video_y": 6824
+    },
+    {
+      "case": "a4_manual_feed",
+      "copies": 1,
+      "file_bytes": 6987,
+      "paper": 9,
+      "projected_registers": {
+        "0xb1000008/0xb1000108": {
+          "consumer": "0x100140f8 hp1020_video_refresh_raw_bands_candidate",
+          "source": "payload +0x54 points at 6364 compressed bytes",
+          "value": "raster payload pointer plus video_state +0xbc window"
+        },
+        "0xb100000c/0xb100010c": {
+          "consumer": "0x100140f8 hp1020_video_refresh_raw_bands_candidate",
+          "source": "raster payload node under work +0x50",
+          "value": "flags/count from payload +0x20/+0x4c/+0x50"
+        },
+        "0xb2000000": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x90 from BIH runtime block +0x13",
+          "value": "control derived from work +0x90=0x5c, then OR 0x400"
+        },
+        "0xb2000008": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x84 from BIH runtime block +0x04",
+          "value": 9600
+        },
+        "0xb200000c": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x88 from BIH runtime block +0x08",
+          "value": 6824
+        },
+        "0xb2000024": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x8c from BIH runtime block +0x0c",
+          "value": 128
+        }
+      },
+      "raster_x": 9536,
+      "raster_y": 6824,
+      "resolution": "600x600",
+      "source": "analysis/samples/generated/matrix-a4_manual_feed.zjs",
       "video_x": 4768,
       "video_y": 6824
     },

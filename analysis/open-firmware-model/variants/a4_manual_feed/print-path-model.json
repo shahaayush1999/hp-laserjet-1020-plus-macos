@@ -1,0 +1,279 @@
+{
+  "file_bytes": 6987,
+  "hardware_boundary": {
+    "boundary": "VideoThread consumes work +0x50 and writes video/engine MMIO registers",
+    "next_firmware_functions": [
+      "0x10015214 hp1020_video_render_or_dma_candidate",
+      "0x100140f8 hp1020_video_refresh_raw_bands_candidate",
+      "0x10015c68 hp1020_engine_status_io_candidate"
+    ],
+    "raster_nodes_ready_for_video": [
+      "raster0"
+    ],
+    "reason_to_stop": "From this point the original firmware touches motor/fuser/video hardware registers.",
+    "status": "offline model stops before MMIO"
+  },
+  "jobmgr_queue": 3,
+  "magic_offset": 268,
+  "objects": {
+    "documents": [
+      {
+        "firmware_source": "ZJT_START_DOC parser case 0x10009efe",
+        "id": "doc0",
+        "zjs_items": {
+          "ZJI_DMCOLLATE": 0,
+          "ZJI_DMDUPLEX": 1,
+          "ZJI_PAGECOUNT": 0
+        }
+      }
+    ],
+    "pages": [
+      {
+        "firmware_source": "ZJT_START_PAGE parser case 0x10009f86",
+        "id": "page0",
+        "size": "0x50",
+        "work_object": "work0",
+        "zjs_items": {
+          "ZJI_DMCOPIES": 1,
+          "ZJI_DMDEFAULTSOURCE": 4,
+          "ZJI_DMMEDIATYPE": 1,
+          "ZJI_DMPAPER": 9,
+          "ZJI_ECONOMODE": 0,
+          "ZJI_NBIE": 1,
+          "ZJI_RASTER_X": 9536,
+          "ZJI_RASTER_Y": 6824,
+          "ZJI_RESOLUTION_X": 600,
+          "ZJI_RESOLUTION_Y": 600,
+          "ZJI_VIDEO_BPP": 2,
+          "ZJI_VIDEO_X": 4768,
+          "ZJI_VIDEO_Y": 6824
+        }
+      }
+    ],
+    "raster_nodes": [
+      {
+        "firmware_source": "ZJT_JBIG_BID parser case 0x1000a014",
+        "id": "raster0",
+        "node_fields": {
+          "+0x00": null,
+          "+0x0c": "embedded payload at node +0x10"
+        },
+        "node_size": "0x78",
+        "owner_work": "work0",
+        "payload_fields": {
+          "+0x20": "unknown band/unit count candidate",
+          "+0x48": 6364,
+          "+0x4c": "copied marker/ref flag candidate",
+          "+0x4e": 1,
+          "+0x50": 0,
+          "+0x54": {
+            "byte_count": 6364,
+            "sha256_hint": "not stored; payload bytes are kept in the source .zjs",
+            "source": "ZJT_JBIG_BID payload",
+            "zjs_payload_offset": "0x224"
+          }
+        }
+      }
+    ],
+    "work_objects": [
+      {
+        "fields": {
+          "+0x0c": 1,
+          "+0x22": 1,
+          "+0x50": [
+            "raster0"
+          ],
+          "+0x84": 9600,
+          "+0x88": 6824,
+          "+0x8c": 128,
+          "+0x90": 92
+        },
+        "firmware_source": "0x1000f228 hp1020_video_work_create_candidate",
+        "host_page_items": {
+          "ZJI_DMCOPIES": 1,
+          "ZJI_DMDEFAULTSOURCE": 4,
+          "ZJI_DMMEDIATYPE": 1,
+          "ZJI_DMPAPER": 9,
+          "ZJI_ECONOMODE": 0,
+          "ZJI_NBIE": 1,
+          "ZJI_RASTER_X": 9536,
+          "ZJI_RASTER_Y": 6824,
+          "ZJI_RESOLUTION_X": 600,
+          "ZJI_RESOLUTION_Y": 600,
+          "ZJI_VIDEO_BPP": 2,
+          "ZJI_VIDEO_X": 4768,
+          "ZJI_VIDEO_Y": 6824
+        },
+        "id": "work0",
+        "owner_page": "page0",
+        "size": "0x94"
+      }
+    ]
+  },
+  "parser_entry": "0x10009d34",
+  "runtime_blocks": {
+    "0x10023e28": {
+      "+0x04": 9600,
+      "+0x08": 6824,
+      "+0x0c": 128,
+      "+0x13": 92,
+      "bytes": "00 00 01 00 00 00 25 80 00 00 1a a8 00 00 00 80 10 00 03 5c",
+      "decoded_bih": {
+        "d": 0,
+        "dl": 0,
+        "hex": "00 00 01 00 00 00 25 80 00 00 1a a8 00 00 00 80 10 00 03 5c",
+        "l0": 128,
+        "layers": 0,
+        "mx": 16,
+        "my": 0,
+        "options": 92,
+        "order": 3,
+        "p": 1,
+        "planes": 1,
+        "stripes": 54,
+        "unknown_3": 0,
+        "xd": 9600,
+        "yd": 6824
+      },
+      "source_chunk": 2,
+      "source_offset": "0x200"
+    }
+  },
+  "source": "analysis/samples/generated/matrix-a4_manual_feed.zjs",
+  "trace": [
+    {
+      "action": "ZJT_START_DOC handled by parser target 0x10009efe",
+      "chunk_index": 0,
+      "chunk_name": "ZJT_START_DOC",
+      "chunk_offset": "0x110",
+      "chunk_type": "0x00",
+      "effects": [
+        "created document object doc0 from 3 ZjStream items"
+      ],
+      "jobmgr_messages": [
+        {
+          "meaning": "start document",
+          "message": 1,
+          "queue": 3
+        }
+      ],
+      "parser_target": "0x10009efe"
+    },
+    {
+      "action": "ZJT_START_PAGE handled by parser target 0x10009f86",
+      "chunk_index": 1,
+      "chunk_name": "ZJT_START_PAGE",
+      "chunk_offset": "0x144",
+      "chunk_type": "0x02",
+      "effects": [
+        "created page object page0 and work object work0"
+      ],
+      "jobmgr_messages": [
+        {
+          "meaning": "start page / child page object",
+          "message": 3,
+          "queue": 3
+        },
+        {
+          "meaning": "video work object ready",
+          "message": 5,
+          "queue": 3
+        }
+      ],
+      "parser_target": "0x10009f86"
+    },
+    {
+      "action": "ZJT_JBIG_BIH handled by parser target 0x1000a006",
+      "chunk_index": 2,
+      "chunk_name": "ZJT_JBIG_BIH",
+      "chunk_offset": "0x1f0",
+      "chunk_type": "0x04",
+      "effects": [
+        "copied 20-byte BIH into runtime block 0x10023e28",
+        "seeded late video fields on work0 at +0x84/+0x88/+0x8c/+0x90"
+      ],
+      "jobmgr_messages": [
+        {
+          "meaning": "JBIG BIH runtime setup",
+          "message": "0x29",
+          "queue": 3
+        }
+      ],
+      "parser_target": "0x1000a006"
+    },
+    {
+      "action": "ZJT_JBIG_BID handled by parser target 0x1000a014",
+      "chunk_index": 3,
+      "chunk_name": "ZJT_JBIG_BID",
+      "chunk_offset": "0x214",
+      "chunk_type": "0x05",
+      "effects": [
+        "created raster list node raster0 for 6364 compressed bytes",
+        "appended raster0 to work0 field +0x50"
+      ],
+      "jobmgr_messages": [
+        {
+          "meaning": "append raster/list node to active work +0x50",
+          "message": "0x2a",
+          "queue": 3
+        }
+      ],
+      "parser_target": "0x1000a014"
+    },
+    {
+      "action": "ZJT_END_JBIG handled by parser target 0x1000a053",
+      "chunk_index": 4,
+      "chunk_name": "ZJT_END_JBIG",
+      "chunk_offset": "0x1b00",
+      "chunk_type": "0x06",
+      "effects": [
+        "closed current JBIG stream"
+      ],
+      "jobmgr_messages": [
+        {
+          "meaning": "end JBIG stream",
+          "message": "0x2b",
+          "queue": 3
+        }
+      ],
+      "parser_target": "0x1000a053"
+    },
+    {
+      "action": "ZJT_END_PAGE handled by parser target 0x1000a19e",
+      "chunk_index": 5,
+      "chunk_name": "ZJT_END_PAGE",
+      "chunk_offset": "0x1b10",
+      "chunk_type": "0x03",
+      "effects": [
+        "marked active page complete"
+      ],
+      "jobmgr_messages": [
+        {
+          "meaning": "end page",
+          "message": 6,
+          "queue": 3
+        }
+      ],
+      "parser_target": "0x1000a19e"
+    },
+    {
+      "action": "ZJT_END_DOC handled by parser target 0x1000a1b3",
+      "chunk_index": 6,
+      "chunk_name": "ZJT_END_DOC",
+      "chunk_offset": "0x1b20",
+      "chunk_type": "0x01",
+      "effects": [
+        "closed active document"
+      ],
+      "jobmgr_messages": [
+        {
+          "meaning": "end document",
+          "message": 2,
+          "queue": 3
+        }
+      ],
+      "parser_target": "0x1000a1b3"
+    }
+  ],
+  "trailing_bytes": 27
+}

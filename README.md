@@ -108,6 +108,7 @@ This removes:
 - `scripts/print-test.sh`: one-page test print
 - `scripts/rebuild-runtime-from-vendor.sh`: rebuilds `assets/runtime/` from `vendor/foo2zjs-source/`
 - `scripts/query-hp1020-pjl-status.sh`: guarded non-printing PJL/status query harness for firmware analysis
+- `scripts/validate-hp1020-offline-analysis.sh`: regenerates and validates offline firmware/print-path analysis without contacting the printer
 - `REDISTRIBUTION.md`: practical notes on private vs public redistribution risk
 - `OPEN_SOURCE_OPTIONS.md`: explains existing open source options and why firmware loading is unavoidable
 

@@ -10,7 +10,11 @@ It does not contact the printer. It answers: if the original firmware continued 
 |---|---:|---:|---|---|---:|---:|---:|---|
 | `a4_2400x600` | `9` | `1` | `600x600` | `19072`/`6824` | `19072` | `6824` | `128` | `control derived from work +0x90=0x5c, then OR 0x400` |
 | `a4_600x600` | `9` | `1` | `600x600` | `4768`/`6824` | `4864` | `6824` | `128` | `control derived from work +0x90=0x5c, then OR 0x400` |
+| `a4_cardstock_media` | `9` | `1` | `600x600` | `9536`/`6824` | `9600` | `6824` | `128` | `control derived from work +0x90=0x5c, then OR 0x400` |
 | `a4_default` | `9` | `1` | `600x600` | `9536`/`6824` | `9600` | `6824` | `128` | `control derived from work +0x90=0x5c, then OR 0x400` |
+| `a4_draft` | `9` | `1` | `600x600` | `9536`/`6824` | `9600` | `6824` | `128` | `control derived from work +0x90=0x5c, then OR 0x400` |
+| `a4_logical_clip` | `9` | `1` | `600x600` | `9536`/`6824` | `9600` | `6824` | `128` | `control derived from work +0x90=0x5c, then OR 0x400` |
+| `a4_manual_feed` | `9` | `1` | `600x600` | `9536`/`6824` | `9600` | `6824` | `128` | `control derived from work +0x90=0x5c, then OR 0x400` |
 | `a4_two_copies` | `9` | `2` | `600x600` | `9536`/`6824` | `9600` | `6824` | `128` | `control derived from work +0x90=0x5c, then OR 0x400` |
 | `legal_default` | `5` | `1` | `600x600` | `9816`/`8208` | `9856` | `8208` | `128` | `control derived from work +0x90=0x5c, then OR 0x400` |
 | `letter_default` | `1` | `1` | `600x600` | `9816`/`6408` | `9856` | `6408` | `128` | `control derived from work +0x90=0x5c, then OR 0x400` |

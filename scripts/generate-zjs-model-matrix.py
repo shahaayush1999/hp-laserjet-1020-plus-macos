@@ -46,6 +46,26 @@ CASES = [
         "label": "A4 with two host-requested copies",
         "args": ["-p9", "-n2"],
     },
+    {
+        "id": "a4_draft",
+        "label": "A4 draft/economode",
+        "args": ["-p9", "-t"],
+    },
+    {
+        "id": "a4_manual_feed",
+        "label": "A4 manual-feed source",
+        "args": ["-p9", "-s4"],
+    },
+    {
+        "id": "a4_cardstock_media",
+        "label": "A4 cardstock media type",
+        "args": ["-p9", "-m261"],
+    },
+    {
+        "id": "a4_logical_clip",
+        "label": "A4 logical X/Y clipping fields",
+        "args": ["-p9", "-L3"],
+    },
 ]
 
 
@@ -72,6 +92,7 @@ def generate_case(case: dict[str, object]) -> dict[str, object]:
     model = json.loads((model_dir / "print-path-model.json").read_text())
     work = model["objects"]["work_objects"][0]["fields"]
     page_items = model["objects"]["pages"][0]["zjs_items"]
+    doc_items = model["objects"]["documents"][0]["zjs_items"]
     raster = model["objects"]["raster_nodes"][0]["payload_fields"]["+0x54"]
     return {
         "id": case_id,
@@ -81,6 +102,12 @@ def generate_case(case: dict[str, object]) -> dict[str, object]:
         "magic_offset": model["magic_offset"],
         "paper": page_items.get("ZJI_DMPAPER"),
         "copies": page_items.get("ZJI_DMCOPIES"),
+        "duplex": doc_items.get("ZJI_DMDUPLEX"),
+        "source": page_items.get("ZJI_DMDEFAULTSOURCE"),
+        "media": page_items.get("ZJI_DMMEDIATYPE"),
+        "economode": page_items.get("ZJI_ECONOMODE"),
+        "offset_x": page_items.get("ZJI_OFFSET_X", ""),
+        "offset_y": page_items.get("ZJI_OFFSET_Y", ""),
         "resolution_x": page_items.get("ZJI_RESOLUTION_X"),
         "resolution_y": page_items.get("ZJI_RESOLUTION_Y"),
         "video_x": page_items.get("ZJI_VIDEO_X"),
@@ -122,11 +149,28 @@ def render_summary(rows: list[dict[str, object]]) -> str:
     lines.extend(
         [
             "",
+            "## Non-Geometry Fields",
+            "",
+            "| Case | Source | Media | Econo | Duplex | Offset X/Y |",
+            "|---|---:|---:|---:|---:|---|",
+        ]
+    )
+    for row in rows:
+        lines.append(
+            "| `{id}` | `{source}` | `{media}` | `{economode}` | `{duplex}` | `{offset_x}`/`{offset_y}` |".format(
+                **row
+            )
+        )
+
+    lines.extend(
+        [
+            "",
             "## Readout",
             "",
             "- Paper-size changes move the page item dimensions and the BIH-derived work fields.",
             "- Resolution changes mostly move horizontal raster/video fields; vertical fields stay tied to paper height for this sample.",
             "- Copy-count changes move `ZJI_DMCOPIES` and the modeled work `+0x0c` reference/count candidate without changing the BIH geometry.",
+            "- Source, media, draft/economode, and logical clip options change host-visible page items without moving the modeled video work geometry for this one-page sample.",
             "- Every case still follows the same firmware message skeleton: `1`, `3`, `5`, `0x29`, `0x2a`, `0x2b`, `6`, `2` on JobMgr queue `3`.",
             "",
             "## Generated Model Directories",

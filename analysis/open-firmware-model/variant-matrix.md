@@ -14,12 +14,32 @@ No printer is contacted. The `.zjs` files are generated locally from `analysis/s
 | `a4_600x600` | `-p9 -r600x600` | `5071` | `9` | `1` | `600x600` | `4768`/`6824` | `4768`/`6824` | `4864`/`6824`/`128`/`0x5c` | `4448` |
 | `a4_2400x600` | `-p9 -r2400x600` | `9703` | `9` | `1` | `600x600` | `4768`/`6824` | `19072`/`6824` | `19072`/`6824`/`128`/`0x5c` | `9080` |
 | `a4_two_copies` | `-p9 -n2` | `6987` | `9` | `2` | `600x600` | `4768`/`6824` | `9536`/`6824` | `9600`/`6824`/`128`/`0x5c` | `6364` |
+| `a4_draft` | `-p9 -t` | `6986` | `9` | `1` | `600x600` | `4768`/`6824` | `9536`/`6824` | `9600`/`6824`/`128`/`0x5c` | `6364` |
+| `a4_manual_feed` | `-p9 -s4` | `6987` | `9` | `1` | `600x600` | `4768`/`6824` | `9536`/`6824` | `9600`/`6824`/`128`/`0x5c` | `6364` |
+| `a4_cardstock_media` | `-p9 -m261` | `6987` | `9` | `1` | `600x600` | `4768`/`6824` | `9536`/`6824` | `9600`/`6824`/`128`/`0x5c` | `6364` |
+| `a4_logical_clip` | `-p9 -L3` | `7011` | `9` | `1` | `600x600` | `4768`/`6824` | `9536`/`6824` | `9600`/`6824`/`128`/`0x5c` | `6364` |
+
+## Non-Geometry Fields
+
+| Case | Source | Media | Econo | Duplex | Offset X/Y |
+|---|---:|---:|---:|---:|---|
+| `a4_default` | `7` | `1` | `0` | `1` | ``/`` |
+| `letter_default` | `7` | `1` | `0` | `1` | ``/`` |
+| `legal_default` | `7` | `1` | `0` | `1` | ``/`` |
+| `a4_600x600` | `7` | `1` | `0` | `1` | ``/`` |
+| `a4_2400x600` | `7` | `1` | `0` | `1` | ``/`` |
+| `a4_two_copies` | `7` | `1` | `0` | `1` | ``/`` |
+| `a4_draft` | `7` | `1` | `1` | `1` | ``/`` |
+| `a4_manual_feed` | `4` | `1` | `0` | `1` | ``/`` |
+| `a4_cardstock_media` | `7` | `261` | `0` | `1` | ``/`` |
+| `a4_logical_clip` | `7` | `1` | `0` | `1` | `192`/`96` |
 
 ## Readout
 
 - Paper-size changes move the page item dimensions and the BIH-derived work fields.
 - Resolution changes mostly move horizontal raster/video fields; vertical fields stay tied to paper height for this sample.
 - Copy-count changes move `ZJI_DMCOPIES` and the modeled work `+0x0c` reference/count candidate without changing the BIH geometry.
+- Source, media, draft/economode, and logical clip options change host-visible page items without moving the modeled video work geometry for this one-page sample.
 - Every case still follows the same firmware message skeleton: `1`, `3`, `5`, `0x29`, `0x2a`, `0x2b`, `6`, `2` on JobMgr queue `3`.
 
 ## Generated Model Directories
@@ -30,6 +50,10 @@ No printer is contacted. The `.zjs` files are generated locally from `analysis/s
 - `a4_600x600`: `analysis/open-firmware-model/variants/a4_600x600`
 - `a4_2400x600`: `analysis/open-firmware-model/variants/a4_2400x600`
 - `a4_two_copies`: `analysis/open-firmware-model/variants/a4_two_copies`
+- `a4_draft`: `analysis/open-firmware-model/variants/a4_draft`
+- `a4_manual_feed`: `analysis/open-firmware-model/variants/a4_manual_feed`
+- `a4_cardstock_media`: `analysis/open-firmware-model/variants/a4_cardstock_media`
+- `a4_logical_clip`: `analysis/open-firmware-model/variants/a4_logical_clip`
 
 ## Practical Meaning
 

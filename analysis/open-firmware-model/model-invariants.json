@@ -1,0 +1,1256 @@
+[
+  {
+    "case": "base",
+    "detail": "parser must follow the daily print-path skeleton",
+    "name": "chunk_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "parser-to-JobMgr messages must preserve the modeled order",
+    "name": "jobmgr_message_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "single-page fixture should create one document",
+    "name": "document_count",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "single-page fixture should create one page",
+    "name": "page_count",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "single-page fixture should create one video work object",
+    "name": "work_count",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "single-page fixture should create one raster node",
+    "name": "raster_count",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "work +0x0c tracks page copy count",
+    "name": "work_copy_count",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "work +0x22 tracks page NBIE/plane count",
+    "name": "work_plane_count",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "page object points at the modeled work object",
+    "name": "page_work_link",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "BIH runtime +0x04 must seed work +0x84",
+    "name": "runtime_+0x04_to_work_+0x84",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "BIH runtime +0x08 must seed work +0x88",
+    "name": "runtime_+0x08_to_work_+0x88",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "BIH runtime +0x0c must seed work +0x8c",
+    "name": "runtime_+0x0c_to_work_+0x8c",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "BIH runtime +0x13 must seed work +0x90",
+    "name": "runtime_+0x13_to_work_+0x90",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "raster node owner matches active work",
+    "name": "raster_owner",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "work +0x50 contains the raster list node",
+    "name": "raster_list_link",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "payload +0x48 matches compressed BID byte count",
+    "name": "raster_payload_size",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "raster payload +0x4e tracks work copy/reference count",
+    "name": "raster_retain_count",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "safe-stop boundary must name the known unsafe video/engine consumers",
+    "name": "hardware_boundary_functions",
+    "severity": "watch"
+  },
+  {
+    "case": "base",
+    "detail": "hardware boundary raster list matches work +0x50",
+    "name": "hardware_boundary_rasters",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "parser must follow the daily print-path skeleton",
+    "name": "chunk_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "parser-to-JobMgr messages must preserve the modeled order",
+    "name": "jobmgr_message_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "single-page fixture should create one document",
+    "name": "document_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "single-page fixture should create one page",
+    "name": "page_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "single-page fixture should create one video work object",
+    "name": "work_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "single-page fixture should create one raster node",
+    "name": "raster_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "work +0x0c tracks page copy count",
+    "name": "work_copy_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "work +0x22 tracks page NBIE/plane count",
+    "name": "work_plane_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "page object points at the modeled work object",
+    "name": "page_work_link",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "BIH runtime +0x04 must seed work +0x84",
+    "name": "runtime_+0x04_to_work_+0x84",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "BIH runtime +0x08 must seed work +0x88",
+    "name": "runtime_+0x08_to_work_+0x88",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "BIH runtime +0x0c must seed work +0x8c",
+    "name": "runtime_+0x0c_to_work_+0x8c",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "BIH runtime +0x13 must seed work +0x90",
+    "name": "runtime_+0x13_to_work_+0x90",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "raster node owner matches active work",
+    "name": "raster_owner",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "work +0x50 contains the raster list node",
+    "name": "raster_list_link",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "payload +0x48 matches compressed BID byte count",
+    "name": "raster_payload_size",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "raster payload +0x4e tracks work copy/reference count",
+    "name": "raster_retain_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "safe-stop boundary must name the known unsafe video/engine consumers",
+    "name": "hardware_boundary_functions",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_2400x600",
+    "detail": "hardware boundary raster list matches work +0x50",
+    "name": "hardware_boundary_rasters",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "parser must follow the daily print-path skeleton",
+    "name": "chunk_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "parser-to-JobMgr messages must preserve the modeled order",
+    "name": "jobmgr_message_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "single-page fixture should create one document",
+    "name": "document_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "single-page fixture should create one page",
+    "name": "page_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "single-page fixture should create one video work object",
+    "name": "work_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "single-page fixture should create one raster node",
+    "name": "raster_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "work +0x0c tracks page copy count",
+    "name": "work_copy_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "work +0x22 tracks page NBIE/plane count",
+    "name": "work_plane_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "page object points at the modeled work object",
+    "name": "page_work_link",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "BIH runtime +0x04 must seed work +0x84",
+    "name": "runtime_+0x04_to_work_+0x84",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "BIH runtime +0x08 must seed work +0x88",
+    "name": "runtime_+0x08_to_work_+0x88",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "BIH runtime +0x0c must seed work +0x8c",
+    "name": "runtime_+0x0c_to_work_+0x8c",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "BIH runtime +0x13 must seed work +0x90",
+    "name": "runtime_+0x13_to_work_+0x90",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "raster node owner matches active work",
+    "name": "raster_owner",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "work +0x50 contains the raster list node",
+    "name": "raster_list_link",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "payload +0x48 matches compressed BID byte count",
+    "name": "raster_payload_size",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "raster payload +0x4e tracks work copy/reference count",
+    "name": "raster_retain_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "safe-stop boundary must name the known unsafe video/engine consumers",
+    "name": "hardware_boundary_functions",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_600x600",
+    "detail": "hardware boundary raster list matches work +0x50",
+    "name": "hardware_boundary_rasters",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "parser must follow the daily print-path skeleton",
+    "name": "chunk_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "parser-to-JobMgr messages must preserve the modeled order",
+    "name": "jobmgr_message_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "single-page fixture should create one document",
+    "name": "document_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "single-page fixture should create one page",
+    "name": "page_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "single-page fixture should create one video work object",
+    "name": "work_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "single-page fixture should create one raster node",
+    "name": "raster_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "work +0x0c tracks page copy count",
+    "name": "work_copy_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "work +0x22 tracks page NBIE/plane count",
+    "name": "work_plane_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "page object points at the modeled work object",
+    "name": "page_work_link",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "BIH runtime +0x04 must seed work +0x84",
+    "name": "runtime_+0x04_to_work_+0x84",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "BIH runtime +0x08 must seed work +0x88",
+    "name": "runtime_+0x08_to_work_+0x88",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "BIH runtime +0x0c must seed work +0x8c",
+    "name": "runtime_+0x0c_to_work_+0x8c",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "BIH runtime +0x13 must seed work +0x90",
+    "name": "runtime_+0x13_to_work_+0x90",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "raster node owner matches active work",
+    "name": "raster_owner",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "work +0x50 contains the raster list node",
+    "name": "raster_list_link",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "payload +0x48 matches compressed BID byte count",
+    "name": "raster_payload_size",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "raster payload +0x4e tracks work copy/reference count",
+    "name": "raster_retain_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "safe-stop boundary must name the known unsafe video/engine consumers",
+    "name": "hardware_boundary_functions",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_cardstock_media",
+    "detail": "hardware boundary raster list matches work +0x50",
+    "name": "hardware_boundary_rasters",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "parser must follow the daily print-path skeleton",
+    "name": "chunk_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "parser-to-JobMgr messages must preserve the modeled order",
+    "name": "jobmgr_message_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "single-page fixture should create one document",
+    "name": "document_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "single-page fixture should create one page",
+    "name": "page_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "single-page fixture should create one video work object",
+    "name": "work_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "single-page fixture should create one raster node",
+    "name": "raster_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "work +0x0c tracks page copy count",
+    "name": "work_copy_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "work +0x22 tracks page NBIE/plane count",
+    "name": "work_plane_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "page object points at the modeled work object",
+    "name": "page_work_link",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "BIH runtime +0x04 must seed work +0x84",
+    "name": "runtime_+0x04_to_work_+0x84",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "BIH runtime +0x08 must seed work +0x88",
+    "name": "runtime_+0x08_to_work_+0x88",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "BIH runtime +0x0c must seed work +0x8c",
+    "name": "runtime_+0x0c_to_work_+0x8c",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "BIH runtime +0x13 must seed work +0x90",
+    "name": "runtime_+0x13_to_work_+0x90",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "raster node owner matches active work",
+    "name": "raster_owner",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "work +0x50 contains the raster list node",
+    "name": "raster_list_link",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "payload +0x48 matches compressed BID byte count",
+    "name": "raster_payload_size",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "raster payload +0x4e tracks work copy/reference count",
+    "name": "raster_retain_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "safe-stop boundary must name the known unsafe video/engine consumers",
+    "name": "hardware_boundary_functions",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_default",
+    "detail": "hardware boundary raster list matches work +0x50",
+    "name": "hardware_boundary_rasters",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "parser must follow the daily print-path skeleton",
+    "name": "chunk_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "parser-to-JobMgr messages must preserve the modeled order",
+    "name": "jobmgr_message_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "single-page fixture should create one document",
+    "name": "document_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "single-page fixture should create one page",
+    "name": "page_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "single-page fixture should create one video work object",
+    "name": "work_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "single-page fixture should create one raster node",
+    "name": "raster_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "work +0x0c tracks page copy count",
+    "name": "work_copy_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "work +0x22 tracks page NBIE/plane count",
+    "name": "work_plane_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "page object points at the modeled work object",
+    "name": "page_work_link",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "BIH runtime +0x04 must seed work +0x84",
+    "name": "runtime_+0x04_to_work_+0x84",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "BIH runtime +0x08 must seed work +0x88",
+    "name": "runtime_+0x08_to_work_+0x88",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "BIH runtime +0x0c must seed work +0x8c",
+    "name": "runtime_+0x0c_to_work_+0x8c",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "BIH runtime +0x13 must seed work +0x90",
+    "name": "runtime_+0x13_to_work_+0x90",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "raster node owner matches active work",
+    "name": "raster_owner",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "work +0x50 contains the raster list node",
+    "name": "raster_list_link",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "payload +0x48 matches compressed BID byte count",
+    "name": "raster_payload_size",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "raster payload +0x4e tracks work copy/reference count",
+    "name": "raster_retain_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "safe-stop boundary must name the known unsafe video/engine consumers",
+    "name": "hardware_boundary_functions",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_draft",
+    "detail": "hardware boundary raster list matches work +0x50",
+    "name": "hardware_boundary_rasters",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "parser must follow the daily print-path skeleton",
+    "name": "chunk_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "parser-to-JobMgr messages must preserve the modeled order",
+    "name": "jobmgr_message_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "single-page fixture should create one document",
+    "name": "document_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "single-page fixture should create one page",
+    "name": "page_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "single-page fixture should create one video work object",
+    "name": "work_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "single-page fixture should create one raster node",
+    "name": "raster_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "work +0x0c tracks page copy count",
+    "name": "work_copy_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "work +0x22 tracks page NBIE/plane count",
+    "name": "work_plane_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "page object points at the modeled work object",
+    "name": "page_work_link",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "BIH runtime +0x04 must seed work +0x84",
+    "name": "runtime_+0x04_to_work_+0x84",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "BIH runtime +0x08 must seed work +0x88",
+    "name": "runtime_+0x08_to_work_+0x88",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "BIH runtime +0x0c must seed work +0x8c",
+    "name": "runtime_+0x0c_to_work_+0x8c",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "BIH runtime +0x13 must seed work +0x90",
+    "name": "runtime_+0x13_to_work_+0x90",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "raster node owner matches active work",
+    "name": "raster_owner",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "work +0x50 contains the raster list node",
+    "name": "raster_list_link",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "payload +0x48 matches compressed BID byte count",
+    "name": "raster_payload_size",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "raster payload +0x4e tracks work copy/reference count",
+    "name": "raster_retain_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "safe-stop boundary must name the known unsafe video/engine consumers",
+    "name": "hardware_boundary_functions",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_logical_clip",
+    "detail": "hardware boundary raster list matches work +0x50",
+    "name": "hardware_boundary_rasters",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "parser must follow the daily print-path skeleton",
+    "name": "chunk_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "parser-to-JobMgr messages must preserve the modeled order",
+    "name": "jobmgr_message_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "single-page fixture should create one document",
+    "name": "document_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "single-page fixture should create one page",
+    "name": "page_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "single-page fixture should create one video work object",
+    "name": "work_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "single-page fixture should create one raster node",
+    "name": "raster_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "work +0x0c tracks page copy count",
+    "name": "work_copy_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "work +0x22 tracks page NBIE/plane count",
+    "name": "work_plane_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "page object points at the modeled work object",
+    "name": "page_work_link",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "BIH runtime +0x04 must seed work +0x84",
+    "name": "runtime_+0x04_to_work_+0x84",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "BIH runtime +0x08 must seed work +0x88",
+    "name": "runtime_+0x08_to_work_+0x88",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "BIH runtime +0x0c must seed work +0x8c",
+    "name": "runtime_+0x0c_to_work_+0x8c",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "BIH runtime +0x13 must seed work +0x90",
+    "name": "runtime_+0x13_to_work_+0x90",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "raster node owner matches active work",
+    "name": "raster_owner",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "work +0x50 contains the raster list node",
+    "name": "raster_list_link",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "payload +0x48 matches compressed BID byte count",
+    "name": "raster_payload_size",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "raster payload +0x4e tracks work copy/reference count",
+    "name": "raster_retain_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "safe-stop boundary must name the known unsafe video/engine consumers",
+    "name": "hardware_boundary_functions",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_manual_feed",
+    "detail": "hardware boundary raster list matches work +0x50",
+    "name": "hardware_boundary_rasters",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "parser must follow the daily print-path skeleton",
+    "name": "chunk_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "parser-to-JobMgr messages must preserve the modeled order",
+    "name": "jobmgr_message_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "single-page fixture should create one document",
+    "name": "document_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "single-page fixture should create one page",
+    "name": "page_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "single-page fixture should create one video work object",
+    "name": "work_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "single-page fixture should create one raster node",
+    "name": "raster_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "work +0x0c tracks page copy count",
+    "name": "work_copy_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "work +0x22 tracks page NBIE/plane count",
+    "name": "work_plane_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "page object points at the modeled work object",
+    "name": "page_work_link",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "BIH runtime +0x04 must seed work +0x84",
+    "name": "runtime_+0x04_to_work_+0x84",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "BIH runtime +0x08 must seed work +0x88",
+    "name": "runtime_+0x08_to_work_+0x88",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "BIH runtime +0x0c must seed work +0x8c",
+    "name": "runtime_+0x0c_to_work_+0x8c",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "BIH runtime +0x13 must seed work +0x90",
+    "name": "runtime_+0x13_to_work_+0x90",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "raster node owner matches active work",
+    "name": "raster_owner",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "work +0x50 contains the raster list node",
+    "name": "raster_list_link",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "payload +0x48 matches compressed BID byte count",
+    "name": "raster_payload_size",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "raster payload +0x4e tracks work copy/reference count",
+    "name": "raster_retain_count",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "safe-stop boundary must name the known unsafe video/engine consumers",
+    "name": "hardware_boundary_functions",
+    "severity": "watch"
+  },
+  {
+    "case": "a4_two_copies",
+    "detail": "hardware boundary raster list matches work +0x50",
+    "name": "hardware_boundary_rasters",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "parser must follow the daily print-path skeleton",
+    "name": "chunk_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "parser-to-JobMgr messages must preserve the modeled order",
+    "name": "jobmgr_message_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "single-page fixture should create one document",
+    "name": "document_count",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "single-page fixture should create one page",
+    "name": "page_count",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "single-page fixture should create one video work object",
+    "name": "work_count",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "single-page fixture should create one raster node",
+    "name": "raster_count",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "work +0x0c tracks page copy count",
+    "name": "work_copy_count",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "work +0x22 tracks page NBIE/plane count",
+    "name": "work_plane_count",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "page object points at the modeled work object",
+    "name": "page_work_link",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "BIH runtime +0x04 must seed work +0x84",
+    "name": "runtime_+0x04_to_work_+0x84",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "BIH runtime +0x08 must seed work +0x88",
+    "name": "runtime_+0x08_to_work_+0x88",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "BIH runtime +0x0c must seed work +0x8c",
+    "name": "runtime_+0x0c_to_work_+0x8c",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "BIH runtime +0x13 must seed work +0x90",
+    "name": "runtime_+0x13_to_work_+0x90",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "raster node owner matches active work",
+    "name": "raster_owner",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "work +0x50 contains the raster list node",
+    "name": "raster_list_link",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "payload +0x48 matches compressed BID byte count",
+    "name": "raster_payload_size",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "raster payload +0x4e tracks work copy/reference count",
+    "name": "raster_retain_count",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "safe-stop boundary must name the known unsafe video/engine consumers",
+    "name": "hardware_boundary_functions",
+    "severity": "watch"
+  },
+  {
+    "case": "legal_default",
+    "detail": "hardware boundary raster list matches work +0x50",
+    "name": "hardware_boundary_rasters",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "parser must follow the daily print-path skeleton",
+    "name": "chunk_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "parser-to-JobMgr messages must preserve the modeled order",
+    "name": "jobmgr_message_sequence",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "single-page fixture should create one document",
+    "name": "document_count",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "single-page fixture should create one page",
+    "name": "page_count",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "single-page fixture should create one video work object",
+    "name": "work_count",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "single-page fixture should create one raster node",
+    "name": "raster_count",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "work +0x0c tracks page copy count",
+    "name": "work_copy_count",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "work +0x22 tracks page NBIE/plane count",
+    "name": "work_plane_count",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "page object points at the modeled work object",
+    "name": "page_work_link",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "BIH runtime +0x04 must seed work +0x84",
+    "name": "runtime_+0x04_to_work_+0x84",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "BIH runtime +0x08 must seed work +0x88",
+    "name": "runtime_+0x08_to_work_+0x88",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "BIH runtime +0x0c must seed work +0x8c",
+    "name": "runtime_+0x0c_to_work_+0x8c",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "BIH runtime +0x13 must seed work +0x90",
+    "name": "runtime_+0x13_to_work_+0x90",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "raster node owner matches active work",
+    "name": "raster_owner",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "work +0x50 contains the raster list node",
+    "name": "raster_list_link",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "payload +0x48 matches compressed BID byte count",
+    "name": "raster_payload_size",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "raster payload +0x4e tracks work copy/reference count",
+    "name": "raster_retain_count",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "safe-stop boundary must name the known unsafe video/engine consumers",
+    "name": "hardware_boundary_functions",
+    "severity": "watch"
+  },
+  {
+    "case": "letter_default",
+    "detail": "hardware boundary raster list matches work +0x50",
+    "name": "hardware_boundary_rasters",
+    "severity": "watch"
+  }
+]

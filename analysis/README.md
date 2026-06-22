@@ -74,6 +74,7 @@ Start here:
 68. `open-firmware-probes/usb-marker-draft/marker-length-flow-check.md` - source-level guard that clipped host length reaches endpoint-0
 69. `open-firmware-probes/usb-marker-draft/behavior-model.md` - host-side model of marker setup/gate decisions and response-length clipping
 70. `open-firmware-probes/hardware-test-ladder.md` - staged non-printing hardware test order and one-stage harness usage
+71. `open-firmware-model/model-invariants.md` - regenerated invariant check for the ZjStream print-path model across all generated cases
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -154,7 +155,8 @@ Useful current conclusions:
 - `analysis/jobmgr-raster-message-flow-report.md` closes the parser-to-JobMgr raster path: `ZJT_JBIG_BIH -> JobMgr 0x29 -> 0x10023e28 -> work +0x84/+0x88/+0x8c/+0x90`, and `ZJT_JBIG_BID -> JobMgr 0x2a -> work +0x50` raster list.
 - `analysis/video-raster-consumer-report.md` maps the video consumer side: `work +0x50` list nodes carry payload `+0x54` raster buffer pointers and `+0x48` byte-count/transfer-length candidates into VideoThread/raw-band hardware setup.
 - `analysis/open-firmware-model-report.md` adds a runnable offline model: `scripts/model-hp1020-print-path.py` parses the controlled ZjStream sample into document/page/work/raster objects and stops at the video/engine MMIO boundary.
-- `analysis/open-firmware-model/variant-matrix.md` runs that model against A4, letter, legal, resolution, and copy-count variants to show which fields are host-controlled.
+- `analysis/open-firmware-model/variant-matrix.md` runs that model against A4, letter, legal, resolution, copy-count, draft/economode, source, media, and logical-clip variants to show which fields are host-controlled.
+- `analysis/open-firmware-model/model-invariants.md` verifies the modeled chunk sequence, JobMgr message sequence, BIH-to-work-field propagation, raster list linkage, and safe-stop boundary across the base sample and all generated variants.
 - `analysis/hardware-boundary/hardware-boundary.md` converts the hardware side into a do-not-touch map: USB `0xb300` is the only plausible early custom-firmware target; video/engine families `0xb100`, `0xb200`, `0xb204`, `0xb208`, `0xb050`, and `0xb020` are unsafe for a first custom probe.
 - `analysis/hardware-boundary/video-register-projection.md` projects modeled work fields onto the first unsafe video writes, proving host-controlled BIH fields would reach `0xb2000008`, `0xb200000c`, `0xb2000024`, and `0xb2000000` if the firmware crossed the safe stop boundary.
 - `analysis/non-printing-usb-probe-spec.md` defines the only custom-firmware experiment that is currently defensible: boot/USB identity only, no video/engine MMIO.
@@ -175,6 +177,7 @@ Useful current conclusions:
 - `scripts/run-usb-marker-draft-hardware-test.sh` is the guarded dry-run/default harness for the marker draft. It re-runs the static gates before any upload and requires `HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1`.
 - `scripts/run-open-firmware-usb-test-ladder.sh` wraps the staged hardware path. Dry-run validates all probes offline; upload mode runs one selected non-printing stage with before/after USB identity capture.
 - `scripts/run-usb-snapshot-probe-hardware-test.sh` is the guarded dry-run/default harness for the read-only USB snapshot probe. It re-runs the static gates before any upload and requires `HP1020_ALLOW_USB_SNAPSHOT_UPLOAD=1`.
+- `scripts/validate-hp1020-offline-analysis.sh` regenerates the print-path matrix, model invariants, video-register projection, hardware-boundary model, and open endpoint-0 model without touching the printer.
 - `scripts/capture-hp1020-usb-identity.sh` captures host-side USB identity evidence without sending bytes. Use it before/after marker tests to compare stock identity, disappearance, or `HP1020 OPEN MARKER`.
 - `scripts/check-hp1020-safety-boundary.py` is a pre-upload safety scanner for future candidate source/disassembly; it fails on known unsafe video/engine functions and MMIO families.
 - `analysis/toolchain-probe/binutils-exec-status.md` records that the old `/tmp/hp1020-ctng-mnt/.../xtensa-fsf-elf-*` tools are present but corrupt, and that `scripts/build-xtensa-binutils-manual.sh` recovers a runnable assembly-only prefix.
