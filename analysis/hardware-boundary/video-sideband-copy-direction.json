@@ -1,0 +1,83 @@
+{
+  "checks": [
+    {
+      "detail": "0x1001b38c decompile shows reads from param_2 and writes to param_1 before the bad-instruction tail",
+      "name": "memcpy_helper_direction_is_dest_src_len",
+      "status": "present"
+    },
+    {
+      "detail": "JobMgr case 0x29 call copies iStack_84 active work into PTR_DAT_10006304 when interpreted with dest,src,len order",
+      "name": "jobmgr_sideband_copy_is_work_to_runtime_block",
+      "status": "present"
+    },
+    {
+      "detail": "datastore read/write callers agree with dest,src,len direction",
+      "name": "datastore_comparators_match_direction",
+      "status": "present"
+    },
+    {
+      "detail": "prepare field model still marks +0x26/+0x30/+0x32 unsourced after ruling out this copy path",
+      "name": "unsourced_fields_remain_after_copy_direction",
+      "status": "present"
+    }
+  ],
+  "direction_comparators": [
+    {
+      "call": "FUN_1001b38c(piVar3[1],param_1[1],*(undefined2 *)(piVar3 + 4))",
+      "function": "0x10010fd0 datastore write",
+      "interpreted_as": "copy caller data into datastore slot",
+      "present": true
+    },
+    {
+      "call": "FUN_1001b38c(param_1[1],*(undefined4 *)(puVar1 + iVar2 * 0x18 + 4)",
+      "function": "0x10010f54 datastore read",
+      "interpreted_as": "copy datastore slot into caller buffer",
+      "present": true
+    }
+  ],
+  "effect_on_prepare_fields": {
+    "ruled_out_hidden_source": "0x1000e414 case 0x29 memcpy does not copy PTR_DAT_10006304 into the active work object",
+    "still_unsourced": [
+      "+0x26",
+      "+0x30",
+      "+0x32"
+    ]
+  },
+  "helper": {
+    "argument_order": "destination, source, length",
+    "function": "0x1001b38c",
+    "limitation": "decompiler still truncates later optimized copy loop on old Xtensa instructions, but the byte prologue and callers are enough to pin argument direction",
+    "working_name": "memcpy_candidate"
+  },
+  "memcpy_direction_evidence": [
+    {
+      "meaning": "read one byte from second argument",
+      "present": true,
+      "snippet": "uVar1 = *param_2;"
+    },
+    {
+      "meaning": "write one byte to first argument",
+      "present": true,
+      "snippet": "*param_1 = uVar1;"
+    },
+    {
+      "meaning": "advance source pointer",
+      "present": true,
+      "snippet": "param_2 = param_2 + 1;"
+    },
+    {
+      "meaning": "advance destination pointer",
+      "present": true,
+      "snippet": "param_1 = param_1 + 1;"
+    }
+  ],
+  "sideband_call": {
+    "call": "FUN_1001b38c(PTR_DAT_10006304,iStack_84,0x14)",
+    "effect": "copies early work fields out to the runtime block; does not fill active work +0x26/+0x30/+0x32",
+    "function": "0x1000e414 hp1020_job_mgr_thread_candidate",
+    "interpreted_as": "memcpy(dst=PTR_DAT_10006304 runtime block, src=iStack_84 active work, len=0x14)",
+    "present": true
+  },
+  "status": "pass",
+  "summary": "Copy direction for JobMgr runtime-block sideband memcpy candidate."
+}

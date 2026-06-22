@@ -36,6 +36,7 @@ run_step "Python syntax checks" \
     "$ROOT_DIR/scripts/model-hp1020-video-helper-disassembly.py" \
     "$ROOT_DIR/scripts/model-hp1020-video-queue-payload-chain.py" \
     "$ROOT_DIR/scripts/model-hp1020-video-prepare-argument-fields.py" \
+    "$ROOT_DIR/scripts/model-hp1020-video-sideband-copy-direction.py" \
     "$ROOT_DIR/scripts/model-hp1020-video-remaining-units.py" \
     "$ROOT_DIR/scripts/model-hp1020-minimal-print-scope.py" \
     "$ROOT_DIR/scripts/model-hp1020-open-endpoint0.py" \
@@ -126,6 +127,9 @@ run_step "Regenerate video queue payload chain model" \
 
 run_step "Regenerate video prepare argument field model" \
   "$ROOT_DIR/scripts/model-hp1020-video-prepare-argument-fields.py"
+
+run_step "Regenerate video sideband copy-direction model" \
+  "$ROOT_DIR/scripts/model-hp1020-video-sideband-copy-direction.py"
 
 run_step "Regenerate video remaining-units model" \
   "$ROOT_DIR/scripts/model-hp1020-video-remaining-units.py"

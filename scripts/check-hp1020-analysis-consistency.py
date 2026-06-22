@@ -298,6 +298,21 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/hardware-boundary/video-prepare-argument-fields.json",
         )
     )
+    sideband_copy = read_json("analysis/hardware-boundary/video-sideband-copy-direction.json")
+    checks.append(
+        check(
+            "video_sideband_copy_direction_rules_out_hidden_source",
+            sideband_copy.get("status") == "pass"
+            and sideband_copy.get("helper", {}).get("argument_order") == "destination, source, length"
+            and sideband_copy.get("sideband_call", {}).get("interpreted_as")
+            == "memcpy(dst=PTR_DAT_10006304 runtime block, src=iStack_84 active work, len=0x14)"
+            and set(sideband_copy.get("effect_on_prepare_fields", {}).get("still_unsourced", []))
+            == {"+0x26", "+0x30", "+0x32"}
+            and all(item.get("status") == "present" for item in sideband_copy.get("checks", [])),
+            "The sideband copy-direction model must preserve that case 0x29 copies active work out to runtime block, not into work +0x26/+0x30/+0x32.",
+            evidence="analysis/hardware-boundary/video-sideband-copy-direction.json",
+        )
+    )
     remaining_units = read_json("analysis/hardware-boundary/video-remaining-units.json")
     remaining_cases = {
         item.get("case"): item
