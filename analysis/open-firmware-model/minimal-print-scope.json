@@ -1,0 +1,115 @@
+{
+  "blockers": [
+    {
+      "blocker": "Live execution proof for open USB descriptor code",
+      "next_test": "Run the guarded marker stage when the printer is connected and power-cycled.",
+      "why": "Without the marker descriptor appearing on the host, we do not yet know that custom code can control USB responses after upload."
+    },
+    {
+      "blocker": "USB completion/rearm behavior",
+      "next_test": "If marker fails, use the interrupt-lane model to build a bounded polling/rearm probe.",
+      "why": "Stock firmware uses event flags at 0x10021318 fed by the USB interrupt task; the marker draft currently submits one descriptor and idles."
+    },
+    {
+      "blocker": "Video and engine hardware sequencing",
+      "next_test": "Do not test this until USB-only open code is proven; continue static mapping of video/engine semantics first.",
+      "why": "The mapped print model reaches raster handoff, but real printing needs synchronized video transfer and mechanical engine control."
+    }
+  ],
+  "components": [
+    {
+      "component": "Host PDF-to-ZjStream conversion",
+      "current_status": "available",
+      "evidence": "assets/runtime/foo2zjs-wrapper and generated ZjStream matrix",
+      "replacement_need": "reuse existing GPL foo2zjs path; not firmware work",
+      "risk": "low"
+    },
+    {
+      "component": "USB upload envelope",
+      "current_status": "available",
+      "evidence": "PJL/ACL wrapper and open probes build date-prefixed ELF uploads",
+      "replacement_need": "keep ACL/PJL upload wrapper for volatile firmware load",
+      "risk": "low"
+    },
+    {
+      "component": "USB endpoint-0 descriptor/control path",
+      "current_status": "partially implemented",
+      "evidence": "24 modeled data scenarios, 4 modeled stall scenarios; control-IN descriptor/kick model present",
+      "replacement_need": "live prove marker descriptor, then add tiny completion/rearm logic",
+      "risk": "medium"
+    },
+    {
+      "component": "USB bulk receive to ZjStream parser",
+      "current_status": "mapped in stock firmware only",
+      "evidence": "USB2Thread descriptor points to parser entry 0x10009d34",
+      "replacement_need": "open firmware must receive bulk bytes and feed the parser state machine",
+      "risk": "medium"
+    },
+    {
+      "component": "ZjStream parser and JobMgr object model",
+      "current_status": "mapped",
+      "evidence": "7 parsed chunks, 1 work object(s), 1 raster node(s), invariant failures=0",
+      "replacement_need": "implement only chunk types used by foo2zjs daily printing: START/END doc/page, JBIG_BIH/BID/END_JBIG, plus END_PLANE if emitted by a host variant",
+      "risk": "medium"
+    },
+    {
+      "component": "JBIG compressed raster handling",
+      "current_status": "mapped to handoff boundary",
+      "evidence": "BID chunks become work +0x50 raster nodes with payload +0x48 length and +0x54 buffer pointer",
+      "replacement_need": "likely no full JBIG decode in firmware if hardware consumes the compressed stream like stock firmware",
+      "risk": "high until hardware consumer semantics are proven"
+    },
+    {
+      "component": "Video/raw-band hardware feed",
+      "current_status": "danger boundary mapped, semantics incomplete",
+      "evidence": "10 generated print variants project host fields into video registers",
+      "replacement_need": "reproduce page timing, raw-band pointers, channel enable/reset/wait sequence",
+      "risk": "high"
+    },
+    {
+      "component": "Engine paper/fuser/motor coordination",
+      "current_status": "dispatch/status paths mapped, behavior incomplete",
+      "evidence": "engine/status MMIO families are classified high risk in hardware boundary model",
+      "replacement_need": "coordinate mechanical state before and during video transfer",
+      "risk": "high"
+    },
+    {
+      "component": "Scanner/fax/network/multi-product features",
+      "current_status": "out of scope",
+      "evidence": "HP 1020 target is print-only USB path",
+      "replacement_need": "none for Aayush's narrow goal",
+      "risk": "none"
+    }
+  ],
+  "cross_platform_boundary": {
+    "device_side": "Open firmware would be platform-independent after bytes reach USB.",
+    "host_side": "PDF/PostScript to ZjStream conversion is host/platform packaging work.",
+    "macos_repo_scope": "This repo's current production print path is macOS glue around HP firmware plus foo2zjs."
+  },
+  "current_decision": "Continue USB-only marker proof before any engine/video printing experiment.",
+  "goal": "Print PDFs by reusing host-side ZjStream generation and implementing only the firmware path required to receive, parse, and print that stream.",
+  "stock_evidence": {
+    "control_completion_event_object": "0x10021318",
+    "endpoint0_data_cases": 24,
+    "endpoint0_stall_cases": 4,
+    "jobmgr_queue": 3,
+    "missing_required_messages": [],
+    "model_invariant_failures": 0,
+    "optional_job_messages_seen": [],
+    "parser_entry": "0x10009d34",
+    "raster_nodes": 1,
+    "required_job_messages_seen": [
+      "0x29",
+      "0x2a",
+      "0x2b",
+      1,
+      2,
+      3,
+      5,
+      6
+    ],
+    "usb_completion_status_bit": "0x400",
+    "work_objects": 1
+  },
+  "summary": "Minimum HP 1020 replacement-firmware scope for printing only."
+}

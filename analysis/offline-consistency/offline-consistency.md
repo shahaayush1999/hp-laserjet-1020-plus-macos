@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `26`
+- checks: `27`
 - failures: `0`
 - meaning: Offline analysis is internally consistent; the next decisive evidence is a guarded non-printing printer-side probe.
 
@@ -20,6 +20,7 @@ It does not contact the printer.
 | `engine_events_are_not_direct_pjl_codes` | `watch` | Raw engine event words must not be mislabeled as final PJL CODE values. | `analysis/status-path/status-code-correlation.json` |
 | `print_model_invariants_have_no_failures` | `watch` | Offline ZjStream model invariants must remain green across generated print-path variants. | `analysis/open-firmware-model/model-invariants.json` |
 | `print_model_variant_coverage` | `watch` | Invariant coverage must include paper size, resolution, copy, draft, source, media, and clip variants. | `analysis/open-firmware-model/model-invariants.json` |
+| `minimal_print_scope_keeps_parser_mapped_and_hardware_blocked` | `watch` | The generated narrow-scope report must preserve the current split: parser/object path mapped, video/engine hardware still high risk. | `analysis/open-firmware-model/minimal-print-scope.json` |
 | `hardware_boundary_keeps_engine_video_unsafe` | `watch` | The do-not-touch boundary for early custom firmware must still include video and engine paths. | `analysis/hardware-boundary/hardware-boundary.json` |
 | `usb_family_remains_only_low_risk_target` | `watch` | USB 0xb300 must remain the only plausible early open-firmware hardware target. | `analysis/hardware-boundary/hardware-boundary.json` |
 | `pjl_first_query_is_echo` | `watch` | The first stock/open comparison must remain the non-printing PJL ECHO probe. | `analysis/non-printing-status-probe/pjl-status-contract.json` |

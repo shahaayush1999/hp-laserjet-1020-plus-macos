@@ -122,6 +122,27 @@ def build_report() -> dict[str, Any]:
         )
     )
 
+    minimal_scope = read_json("analysis/open-firmware-model/minimal-print-scope.json")
+    scope_components = {
+        item.get("component"): item
+        for item in minimal_scope.get("components", [])
+        if isinstance(item, dict)
+    }
+    scope_evidence = minimal_scope.get("stock_evidence", {})
+    checks.append(
+        check(
+            "minimal_print_scope_keeps_parser_mapped_and_hardware_blocked",
+            scope_evidence.get("missing_required_messages") == []
+            and scope_evidence.get("model_invariant_failures") == 0
+            and scope_evidence.get("endpoint0_data_cases") == 24
+            and scope_components.get("ZjStream parser and JobMgr object model", {}).get("current_status") == "mapped"
+            and scope_components.get("Video/raw-band hardware feed", {}).get("risk") == "high"
+            and scope_components.get("Engine paper/fuser/motor coordination", {}).get("risk") == "high",
+            "The generated narrow-scope report must preserve the current split: parser/object path mapped, video/engine hardware still high risk.",
+            evidence="analysis/open-firmware-model/minimal-print-scope.json",
+        )
+    )
+
     boundary = read_json("analysis/hardware-boundary/hardware-boundary.json")
     unsafe_functions = {
         item["function"]

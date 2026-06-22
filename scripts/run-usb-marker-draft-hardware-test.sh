@@ -105,6 +105,10 @@ $(cat "$length_flow_status")
 
 This script does not send a PDF, PostScript file, ZjStream print stream, or
 engine/video command. It uploads a USB-only custom firmware draft.
+
+Success means host-side USB identity capture can observe HP1020 OPEN MARKER
+after upload. Silence, no paper movement, or a USB timeout is not enough by
+itself to prove the marker firmware executed.
 EOF
 
 if [[ "$mode" != "upload" ]]; then

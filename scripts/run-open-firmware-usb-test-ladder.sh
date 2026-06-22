@@ -57,13 +57,55 @@ run_and_log() {
   tail -40 "$logfile"
 }
 
+identity_marker_count() {
+  local matches_json="$1"
+  if [[ ! -f "$matches_json" ]]; then
+    printf '0\n'
+    return 0
+  fi
+  python3 - "$matches_json" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+path = Path(sys.argv[1])
+try:
+    data = json.loads(path.read_text(errors="replace"))
+except Exception:
+    print(0)
+    raise SystemExit(0)
+
+def walk(value):
+    if isinstance(value, dict):
+        for key, child in value.items():
+            yield str(key)
+            yield from walk(child)
+    elif isinstance(value, list):
+        for child in value:
+            yield from walk(child)
+    else:
+        yield str(value)
+
+count = sum(text.count("HP1020 OPEN MARKER") for text in walk(data))
+print(count)
+PY
+}
+
 write_summary() {
   local summary="$run_dir/summary.md"
+  local marker_before="0"
+  local marker_after="0"
+  marker_before="$(identity_marker_count "$run_dir/identity-before/matches.json")"
+  marker_after="$(identity_marker_count "$run_dir/identity-after/matches.json")"
   {
     printf '# HP 1020 Open Firmware USB Test Ladder Run\n\n'
     printf -- '- mode: `%s`\n' "$mode"
     printf -- '- stage: `%s`\n' "${stage:-dry-run-all}"
     printf -- '- run directory: `%s`\n' "$run_dir"
+    if [[ "$mode" == "upload" ]]; then
+      printf -- '- marker string before upload: `%s`\n' "$marker_before"
+      printf -- '- marker string after upload: `%s`\n' "$marker_after"
+    fi
     printf '\n'
     printf '## Files\n\n'
     find "$run_dir" -maxdepth 2 -type f | sort | sed "s#^$run_dir/#- #"
@@ -71,6 +113,13 @@ write_summary() {
     printf '## Meaning\n\n'
     if [[ "$mode" == "upload" ]]; then
       printf 'One non-printing open-firmware stage was attempted. Check `identity-before/summary.md`, the stage log, and `identity-after/summary.md`.\n'
+      if [[ "$stage" == "marker" ]]; then
+        if [[ "$marker_after" != "0" ]]; then
+          printf 'Marker result: macOS observed `HP1020 OPEN MARKER` after upload. That is the first useful proof that open code controlled USB descriptor response data.\n'
+        else
+          printf 'Marker result: macOS did not observe `HP1020 OPEN MARKER` after upload. That means descriptor control is still unproven; inspect logs before changing the firmware again.\n'
+        fi
+      fi
       printf 'Power-cycle the printer before normal printing or before another custom firmware stage.\n'
     else
       printf 'Dry-run only. No printer bytes were sent.\n'

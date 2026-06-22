@@ -82,6 +82,7 @@ Start here:
 76. `usb-path/control-in-data-stage.md` - stock endpoint-0 control-IN transfer descriptor and kick model
 77. `usb-path/control-completion-event.md` - stock endpoint-0 completion event-flag model
 78. `usb-path/usb-interrupt-events.md` - USB interrupt task event-lane and completion-bit model
+79. `open-firmware-model/minimal-print-scope.md` - generated minimum scope for a printing-only open replacement, including platform boundary and remaining blockers
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -165,6 +166,7 @@ Useful current conclusions:
 - `analysis/open-firmware-model-report.md` adds a runnable offline model: `scripts/model-hp1020-print-path.py` parses the controlled ZjStream sample into document/page/work/raster objects and stops at the video/engine MMIO boundary.
 - `analysis/open-firmware-model/variant-matrix.md` runs that model against A4, letter, legal, resolution, copy-count, draft/economode, source, media, and logical-clip variants to show which fields are host-controlled.
 - `analysis/open-firmware-model/model-invariants.md` verifies the modeled chunk sequence, JobMgr message sequence, BIH-to-work-field propagation, raster list linkage, and safe-stop boundary across the base sample and all generated variants.
+- `analysis/open-firmware-model/minimal-print-scope.md` synthesizes the narrow replacement target: reuse host-side ZjStream generation, implement only the firmware receive/parser/raster/engine path needed for printing, and ignore unrelated HP features.
 - `analysis/hardware-boundary/hardware-boundary.md` converts the hardware side into a do-not-touch map: USB `0xb300` is the only plausible early custom-firmware target; video/engine families `0xb100`, `0xb200`, `0xb204`, `0xb208`, `0xb050`, and `0xb020` are unsafe for a first custom probe.
 - `analysis/hardware-boundary/video-register-projection.md` projects modeled work fields onto the first unsafe video writes, proving host-controlled BIH fields would reach `0xb2000008`, `0xb200000c`, `0xb2000024`, and `0xb2000000` if the firmware crossed the safe stop boundary.
 - `analysis/non-printing-usb-probe-spec.md` defines the only custom-firmware experiment that is currently defensible: boot/USB identity only, no video/engine MMIO.
@@ -192,6 +194,7 @@ Useful current conclusions:
 - `scripts/model-hp1020-control-in-data-stage.py` regenerates the stock endpoint-0 control-IN descriptor/kick model and self-tests key response sizes.
 - `scripts/model-hp1020-control-completion.py` regenerates the stock endpoint-0 completion event-flag model and verifies the evidence snippets.
 - `scripts/model-hp1020-usb-interrupt-events.py` regenerates the USB interrupt event-lane model and verifies the evidence snippets.
+- `scripts/model-hp1020-minimal-print-scope.py` regenerates the current minimum printing-only replacement scope from the generated print-path, USB, and hardware-boundary reports.
 - `scripts/analyze-hp1020-pjl-status-capture.py` classifies PJL/status back-channel captures against the generated contract, including expected-marker, no-response, and unexpected-byte outcomes.
 - `scripts/run-usb-marker-draft-hardware-test.sh` is the guarded dry-run/default harness for the marker draft. It re-runs the static gates before any upload and requires `HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1`.
 - `scripts/run-open-firmware-usb-test-ladder.sh` wraps the staged hardware path. Dry-run validates all probes offline; upload mode runs one selected non-printing stage with before/after USB identity capture.
