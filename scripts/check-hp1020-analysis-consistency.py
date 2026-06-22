@@ -291,6 +291,7 @@ def build_report() -> dict[str, Any]:
     open_endpoint0 = read_json("analysis/usb-path/open-endpoint0-model.json")
     setup_source = read_json("analysis/usb-path/usb-setup-source.json")
     control_in = read_json("analysis/usb-path/control-in-data-stage.json")
+    control_completion = read_json("analysis/usb-path/control-completion-event.json")
     open_marker_cases = [
         scenario
         for scenario in open_endpoint0.get("scenarios", [])
@@ -339,6 +340,17 @@ def build_report() -> dict[str, Any]:
             and control_constants.get("descriptor_submit_register") == "0xb3000014",
             "Control-IN data-stage constants must preserve descriptor ring, staging buffer, and submit register evidence.",
             evidence="analysis/usb-path/control-in-data-stage.json",
+        )
+    )
+    checks.append(
+        check(
+            "control_completion_event_model_resolved",
+            control_completion.get("status") == "pass"
+            and control_completion.get("event_object") == "0x10021318"
+            and control_completion.get("control_in_wait", {}).get("requested_bits") == "0x00000001"
+            and control_completion.get("usb2_thread_wait", {}).get("requested_bits") == "0x00010000",
+            "The control completion path must remain modeled as event flags, with separate control-IN and USB2Thread wake bits.",
+            evidence="analysis/usb-path/control-completion-event.json",
         )
     )
     checks.append(

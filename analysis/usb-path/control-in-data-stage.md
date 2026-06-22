@@ -13,7 +13,7 @@ This is an offline model of the stock USB endpoint-0 data sender. It does not co
 | Name | Value |
 |---|---:|
 | `transfer_state_base` | `0x100212d4` |
-| `completion_queue` | `0x10021318` |
+| `completion_event_flags` | `0x10021318` |
 | `descriptor_flag` | `0x08000000` |
 | `descriptor_base_ptr_cell` | `0x1001bc58` |
 | `staging_buffer_ptr_cell` | `0x1001bc64` |
@@ -34,7 +34,7 @@ This is an offline model of the stock USB endpoint-0 data sender. It does not co
 - descriptor word +0x08 is the source pointer into the staging buffer
 - descriptor word +0x0c is the next descriptor pointer or zero
 - write descriptor base through 0xb3000014, then OR 0xb3000000 with 0x108
-- wait on the USB completion queue and repeat if bytes remain
+- wait on the USB completion event flag and repeat if bytes remain
 
 ## Scenario Matrix
 
@@ -86,6 +86,6 @@ Scenarios assume the normal 64-byte endpoint chunk value, matching the descripto
 ## Remaining Live Unknowns
 
 - whether the open payload inherits initialized USB transfer-state RAM after ACL upload
-- whether the control-IN completion queue can be replaced with a safe polling loop
+- whether the control-IN completion event flag can be replaced with a safe polling loop
 - which live register transition confirms the 0x108 kick completed without ThreadX
 

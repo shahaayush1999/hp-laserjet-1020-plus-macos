@@ -56,7 +56,7 @@ def resolve_constants(elf_path: Path) -> dict[str, int]:
     elf = ElfImage.load(elf_path)
     constants = {
         "transfer_state_base": elf.read_u32(0x10005E1C),
-        "completion_queue": elf.read_u32(0x10005E18),
+        "completion_event_flags": elf.read_u32(0x10005E18),
         "descriptor_flag": elf.read_u32(0x10005E80),
         "descriptor_base_ptr_cell": elf.read_u32(0x10005E98),
         "staging_buffer_ptr_cell": elf.read_u32(0x10005E94),
@@ -182,12 +182,12 @@ def build_report(elf_path: Path) -> dict[str, Any]:
             "descriptor word +0x08 is the source pointer into the staging buffer",
             "descriptor word +0x0c is the next descriptor pointer or zero",
             "write descriptor base through 0xb3000014, then OR 0xb3000000 with 0x108",
-            "wait on the USB completion queue and repeat if bytes remain",
+            "wait on the USB completion event flag and repeat if bytes remain",
         ],
         "scenarios": scenarios,
         "remaining_live_unknown": [
             "whether the open payload inherits initialized USB transfer-state RAM after ACL upload",
-            "whether the control-IN completion queue can be replaced with a safe polling loop",
+            "whether the control-IN completion event flag can be replaced with a safe polling loop",
             "which live register transition confirms the 0x108 kick completed without ThreadX",
         ],
     }

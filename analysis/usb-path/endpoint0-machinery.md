@@ -14,7 +14,7 @@ In the stock firmware, that is not a single function. It is a small USB runtime:
 - a USB service thread
 - an idle/service helper thread
 - an interrupt/event hook
-- a ThreadX queue
+- a ThreadX-style event-flag object
 - transfer records
 - DMA/transfer descriptor buffers
 - `0xb300....` USB controller register writes
@@ -34,7 +34,7 @@ That is why a USB marker is plausible but still not the next safest upload.
   installs interrupt hook for interrupt 4 through 0x1001716c
   enables interrupt 4 through 0x10017184
   creates USB2IdleThread at 0x10009934
-  waits on a ThreadX queue for USB events
+  waits on event flags for USB events
   dispatches setup/control requests
   calls 0x10008c24 to send control-IN data stages
 ```
@@ -105,7 +105,7 @@ Observed inputs:
 | `DAT_10005e9c` | max/chunk size used for transfer descriptors |
 | `PTR_DAT_10005e98` | transfer descriptor buffer base |
 | `DAT_10005ea0` | hardware-visible descriptor pointer/register |
-| `PTR_DAT_10005e18` | ThreadX queue used to wait for transfer completion |
+| `PTR_DAT_10005e18` | event-flag object used for transfer completion and USB service-loop wakeups |
 
 Observed behavior:
 
@@ -114,7 +114,7 @@ Observed behavior:
 3. Build one or more `0x10`-byte transfer descriptors.
 4. Write descriptor base through `DAT_10005ea0`.
 5. Set bits `0x108` in `0xb3000000`.
-6. Wait on the USB ThreadX queue for completion.
+6. Wait on the USB event-flag bit for completion.
 7. Repeat until remaining length reaches zero.
 
 Resolved constants for the stock path:
@@ -126,6 +126,7 @@ Resolved constants for the stock path:
 | final-descriptor flag | `0x08000000` |
 | descriptor submit register | `0xb3000014` |
 | control kick register/value | `0xb3000000 |= 0x108` |
+| completion event object | `0x10021318`, bit `0x1` for control-IN completion |
 
 The transfer descriptor shape appears to be:
 
