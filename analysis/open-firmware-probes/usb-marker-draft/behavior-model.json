@@ -22,6 +22,12 @@
         "descriptor_type": 3,
         "gate_0400": "0x00000000",
         "gate_0408": "0x00006000",
+        "post_response": {
+          "after_submit": "wait_for_gate_clear",
+          "gate_0400_mask": "0x00000003",
+          "gate_0408_mask": "0x00006000",
+          "when_clear": "return_to_poll_loop"
+        },
         "response_hex": "26 03 48 00 50 00 31 00 30 00 32 00 30 00 20 00 4f 00 50 00 45 00 4e 00 20 00 4d 00 41 00 52 00 4b 00 45 00 52 00",
         "response_len": 38,
         "response_pointer": "0x90022bd0",
@@ -56,6 +62,12 @@
         "descriptor_type": 3,
         "gate_0400": "0x00000001",
         "gate_0408": "0x00000000",
+        "post_response": {
+          "after_submit": "wait_for_gate_clear",
+          "gate_0400_mask": "0x00000003",
+          "gate_0408_mask": "0x00006000",
+          "when_clear": "return_to_poll_loop"
+        },
         "response_hex": "26 03 48 00 50 00 31 00 30 00 32 00 30 00 20 00 4f 00 50 00 45 00 4e 00 20 00 4d 00 41 00 52 00 4b 00 45 00 52 00",
         "response_len": 38,
         "response_pointer": "0x90022bd0",
@@ -102,6 +114,12 @@
         "descriptor_type": 3,
         "gate_0400": "0x00000000",
         "gate_0408": "0x00006000",
+        "post_response": {
+          "after_submit": "wait_for_gate_clear",
+          "gate_0400_mask": "0x00000003",
+          "gate_0408_mask": "0x00006000",
+          "when_clear": "return_to_poll_loop"
+        },
         "response_hex": "26 03 48 00",
         "response_len": 4,
         "response_pointer": "0x90022bd0",
@@ -136,6 +154,12 @@
         "descriptor_type": 1,
         "gate_0400": "0x00000000",
         "gate_0408": "0x00006000",
+        "post_response": {
+          "after_submit": "wait_for_gate_clear",
+          "gate_0400_mask": "0x00000003",
+          "gate_0408_mask": "0x00006000",
+          "when_clear": "return_to_poll_loop"
+        },
         "response_hex": "12 01 00 02 00 00 00 40 f0 03 17 2b 00 01 01 02 00 01",
         "response_len": 18,
         "response_pointer": "0x90022bd0",
@@ -170,6 +194,12 @@
         "descriptor_type": 2,
         "gate_0400": "0x00000000",
         "gate_0408": "0x00006000",
+        "post_response": {
+          "after_submit": "wait_for_gate_clear",
+          "gate_0400_mask": "0x00000003",
+          "gate_0408_mask": "0x00006000",
+          "when_clear": "return_to_poll_loop"
+        },
         "response_hex": "09 02 20 00 01 01 00 c0 31",
         "response_len": 9,
         "response_pointer": "0x90022bd0",
@@ -204,6 +234,12 @@
         "descriptor_type": 3,
         "gate_0400": "0x00000000",
         "gate_0408": "0x00006000",
+        "post_response": {
+          "after_submit": "wait_for_gate_clear",
+          "gate_0400_mask": "0x00000003",
+          "gate_0408_mask": "0x00006000",
+          "when_clear": "return_to_poll_loop"
+        },
         "response_hex": "04 03 09 04",
         "response_len": 4,
         "response_pointer": "0x90022bd0",
@@ -238,6 +274,12 @@
         "descriptor_type": 3,
         "gate_0400": "0x00000000",
         "gate_0408": "0x00006000",
+        "post_response": {
+          "after_submit": "wait_for_gate_clear",
+          "gate_0400_mask": "0x00000003",
+          "gate_0408_mask": "0x00006000",
+          "when_clear": "return_to_poll_loop"
+        },
         "response_hex": "20 03 48 00 65 00 77 00 6c 00 65 00 74 00 74 00 2d 00 50 00 61 00 63 00 6b 00 61 00 72 00 64 00",
         "response_len": 32,
         "response_pointer": "0x90022bd0",

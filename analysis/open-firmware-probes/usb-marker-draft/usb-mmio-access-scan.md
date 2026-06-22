@@ -1,7 +1,7 @@
 # HP 1020 USB MMIO Access Scan
 
 - allowed mapped USB registers: `15`
-- read accesses: `6`
+- read accesses: `8`
 - write accesses: `20`
 - fail hits: `0`
 
@@ -29,7 +29,9 @@
 | `watch` | `write` | `0xb3000014` | `0x10005dba` | `s32i.n	a9, a8, 0` | mapped USB MMIO write |
 | `watch` | `read` | `0xb3000000` | `0x10005dc2` | `l32i.n	a9, a8, 0` | mapped USB MMIO read |
 | `watch` | `write` | `0xb3000000` | `0x10005dcd` | `s32i.n	a9, a8, 0` | mapped USB MMIO write |
-| `watch` | `read` | `0xb3000408` | `0x10005deb` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
-| `watch` | `read` | `0xb3000400` | `0x10005df5` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
-| `watch` | `read` | `0xb3000408` | `0x10005eaa` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
-| `watch` | `read` | `0xb3000400` | `0x10005eb8` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
+| `watch` | `read` | `0xb3000408` | `0x10005de7` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
+| `watch` | `read` | `0xb3000400` | `0x10005df8` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
+| `watch` | `read` | `0xb3000408` | `0x10005e0f` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
+| `watch` | `read` | `0xb3000400` | `0x10005e19` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
+| `watch` | `read` | `0xb3000408` | `0x10005ece` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
+| `watch` | `read` | `0xb3000400` | `0x10005edc` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |

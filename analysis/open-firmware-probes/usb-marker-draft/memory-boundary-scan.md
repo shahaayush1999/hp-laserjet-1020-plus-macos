@@ -1,11 +1,11 @@
 # HP 1020 Memory Boundary Scan
 
-- recovered classified memory accesses: `24`
+- recovered classified memory accesses: `27`
 - fail hits: `0`
 
 ## Counts
 
-- `local_probe_state` `write`: `11`
+- `local_probe_state` `write`: `14`
 - `setup_packet_buffer` `read`: `6`
 - `stock_response_state` `write`: `2`
 - `usb_staging_buffer` `write`: `1`
@@ -24,18 +24,21 @@
 | `watch` | `usb_transfer_descriptor_ring` | `write` | `0x10005d98` | `0x8` | `s32i.n	a3, a4, 8` | stock USB control-IN transfer descriptor ring at 0x900226f0 |
 | `watch` | `usb_transfer_descriptor_ring` | `write` | `0x10005d9c` | `0xc` | `s32i.n	a3, a4, 12` | stock USB control-IN transfer descriptor ring at 0x900226f0 |
 | `watch` | `local_probe_state` | `write` | `0x10005dd5` | `0x44` | `s32i	a3, a4, 68` | local probe state buffer |
-| `watch` | `local_probe_state` | `write` | `0x10005df0` | `0x0` | `s32i.n	a3, a4, 0` | local probe state buffer |
-| `watch` | `local_probe_state` | `write` | `0x10005dfa` | `0x4` | `s32i.n	a3, a4, 4` | local probe state buffer |
-| `watch` | `setup_packet_buffer` | `read` | `0x10005e01` | `0x0` | `l8ui	a3, a2, 0` | candidate USB setup packet buffer at 0x90021348 |
-| `watch` | `local_probe_state` | `write` | `0x10005e07` | `0x8` | `s32i.n	a3, a4, 8` | local probe state buffer |
-| `watch` | `setup_packet_buffer` | `read` | `0x10005e12` | `0x1` | `l8ui	a3, a2, 1` | candidate USB setup packet buffer at 0x90021348 |
-| `watch` | `local_probe_state` | `write` | `0x10005e15` | `0xc` | `s32i.n	a3, a4, 12` | local probe state buffer |
-| `watch` | `setup_packet_buffer` | `read` | `0x10005e1f` | `0x2` | `l8ui	a3, a2, 2` | candidate USB setup packet buffer at 0x90021348 |
-| `watch` | `local_probe_state` | `write` | `0x10005e22` | `0x10` | `s32i.n	a3, a4, 16` | local probe state buffer |
-| `watch` | `setup_packet_buffer` | `read` | `0x10005e26` | `0x3` | `l8ui	a3, a2, 3` | candidate USB setup packet buffer at 0x90021348 |
-| `watch` | `local_probe_state` | `write` | `0x10005e29` | `0x14` | `s32i.n	a3, a4, 20` | local probe state buffer |
-| `watch` | `setup_packet_buffer` | `read` | `0x10005e8e` | `0x6` | `l8ui	a3, a11, 6` | candidate USB setup packet buffer at 0x90021348 |
-| `watch` | `local_probe_state` | `write` | `0x10005e91` | `0x18` | `s32i.n	a3, a4, 24` | local probe state buffer |
-| `watch` | `setup_packet_buffer` | `read` | `0x10005e95` | `0x7` | `l8ui	a3, a11, 7` | candidate USB setup packet buffer at 0x90021348 |
-| `watch` | `local_probe_state` | `write` | `0x10005e98` | `0x1c` | `s32i.n	a3, a4, 28` | local probe state buffer |
-| `watch` | `local_probe_state` | `write` | `0x10005ea5` | `0x20` | `s32i.n	a6, a4, 32` | local probe state buffer |
+| `watch` | `local_probe_state` | `write` | `0x10005de1` | `0x48` | `s32i	a3, a4, 72` | local probe state buffer |
+| `watch` | `local_probe_state` | `write` | `0x10005de9` | `0x4c` | `s32i	a3, a4, 76` | local probe state buffer |
+| `watch` | `local_probe_state` | `write` | `0x10005dfa` | `0x50` | `s32i	a3, a4, 80` | local probe state buffer |
+| `watch` | `local_probe_state` | `write` | `0x10005e14` | `0x0` | `s32i.n	a3, a4, 0` | local probe state buffer |
+| `watch` | `local_probe_state` | `write` | `0x10005e1e` | `0x4` | `s32i.n	a3, a4, 4` | local probe state buffer |
+| `watch` | `setup_packet_buffer` | `read` | `0x10005e25` | `0x0` | `l8ui	a3, a2, 0` | candidate USB setup packet buffer at 0x90021348 |
+| `watch` | `local_probe_state` | `write` | `0x10005e2b` | `0x8` | `s32i.n	a3, a4, 8` | local probe state buffer |
+| `watch` | `setup_packet_buffer` | `read` | `0x10005e36` | `0x1` | `l8ui	a3, a2, 1` | candidate USB setup packet buffer at 0x90021348 |
+| `watch` | `local_probe_state` | `write` | `0x10005e39` | `0xc` | `s32i.n	a3, a4, 12` | local probe state buffer |
+| `watch` | `setup_packet_buffer` | `read` | `0x10005e43` | `0x2` | `l8ui	a3, a2, 2` | candidate USB setup packet buffer at 0x90021348 |
+| `watch` | `local_probe_state` | `write` | `0x10005e46` | `0x10` | `s32i.n	a3, a4, 16` | local probe state buffer |
+| `watch` | `setup_packet_buffer` | `read` | `0x10005e4a` | `0x3` | `l8ui	a3, a2, 3` | candidate USB setup packet buffer at 0x90021348 |
+| `watch` | `local_probe_state` | `write` | `0x10005e4d` | `0x14` | `s32i.n	a3, a4, 20` | local probe state buffer |
+| `watch` | `setup_packet_buffer` | `read` | `0x10005eb2` | `0x6` | `l8ui	a3, a11, 6` | candidate USB setup packet buffer at 0x90021348 |
+| `watch` | `local_probe_state` | `write` | `0x10005eb5` | `0x18` | `s32i.n	a3, a4, 24` | local probe state buffer |
+| `watch` | `setup_packet_buffer` | `read` | `0x10005eb9` | `0x7` | `l8ui	a3, a11, 7` | candidate USB setup packet buffer at 0x90021348 |
+| `watch` | `local_probe_state` | `write` | `0x10005ebc` | `0x1c` | `s32i.n	a3, a4, 28` | local probe state buffer |
+| `watch` | `local_probe_state` | `write` | `0x10005ec9` | `0x20` | `s32i.n	a6, a4, 32` | local probe state buffer |

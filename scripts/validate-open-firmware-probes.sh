@@ -42,6 +42,10 @@ run_step "USB marker length-flow check" \
   python3 "$ROOT_DIR/scripts/check-hp1020-marker-length-flow.py" \
     "$ROOT_DIR/open-firmware/usb-marker-draft/usb-marker.S"
 
+run_step "USB marker rearm-flow check" \
+  python3 "$ROOT_DIR/scripts/check-hp1020-marker-rearm-flow.py" \
+    "$ROOT_DIR/open-firmware/usb-marker-draft/usb-marker.S"
+
 run_step "JSON scanner fail-count audit" \
   python3 - "$ROOT_DIR" <<'PY'
 import json
@@ -62,6 +66,7 @@ reports = [
     "analysis/open-firmware-probes/usb-marker-draft/memory-boundary-scan.json",
     "analysis/open-firmware-probes/usb-marker-draft/marker-descriptor-check.json",
     "analysis/open-firmware-probes/usb-marker-draft/marker-length-flow-check.json",
+    "analysis/open-firmware-probes/usb-marker-draft/marker-rearm-flow-check.json",
 ]
 
 for rel in reports:

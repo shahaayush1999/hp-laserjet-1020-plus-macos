@@ -155,6 +155,7 @@ Open firmware analysis state:
 - `scripts/check-hp1020-memory-boundary.py` classifies non-MMIO memory references in open probes, including local probe RAM, setup-packet buffer reads, and stock USB response-state writes.
 - `scripts/check-hp1020-marker-descriptor.py` verifies the USB marker draft's embedded `HP1020 OPEN MARKER` descriptor bytes, length constant, and `0x90000000` hardware alias pointer.
 - `scripts/check-hp1020-marker-length-flow.py` verifies the USB marker draft preserves the clipped host `wLength` into the endpoint-0 response-length write.
+- `scripts/check-hp1020-marker-rearm-flow.py` verifies the USB marker draft waits for both USB setup/status gates to clear and returns to polling after one descriptor response instead of parking after a one-shot response.
 - `scripts/check-hp1020-print-model-invariants.py` checks the offline ZjStream print-path model invariants across generated host-side cases.
 - `scripts/model-hp1020-usb-marker-draft.py` models the marker draft's setup/gate behavior and response-length clipping without touching hardware.
 - `scripts/model-hp1020-usb-setup-source.py` regenerates the static USB setup-source report.

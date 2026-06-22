@@ -905,6 +905,7 @@ def build_report() -> dict[str, Any]:
 
     marker_descriptor = read_json("analysis/open-firmware-probes/usb-marker-draft/marker-descriptor-check.json")
     marker_len = read_json("analysis/open-firmware-probes/usb-marker-draft/marker-length-flow-check.json")
+    marker_rearm = read_json("analysis/open-firmware-probes/usb-marker-draft/marker-rearm-flow-check.json")
     marker_sequence = read_json("analysis/open-firmware-probes/usb-marker-draft/endpoint0-sequence-scan.json")
     marker_contract = read_json("analysis/open-firmware-probes/usb-marker-draft/usb-contract-scan.json")
     marker_behavior = read_json("analysis/open-firmware-probes/usb-marker-draft/behavior-model.json")
@@ -928,6 +929,16 @@ def build_report() -> dict[str, Any]:
             and any(item.get("name") == "selected_descriptor_length_preserved" for item in marker_len),
             "The marker draft must keep host wLength clipping connected to the selected descriptor length, endpoint-0 response state, and descriptor word.",
             evidence="analysis/open-firmware-probes/usb-marker-draft/marker-length-flow-check.json",
+        )
+    )
+    checks.append(
+        check(
+            "usb_marker_rearm_flow_passes",
+            severity_count(marker_rearm, "fail") == 0
+            and len(marker_rearm) == 5
+            and any(item.get("name") == "rearm_returns_to_poll_loop" for item in marker_rearm),
+            "The marker draft must wait for USB setup gates to clear and then return to polling after one response.",
+            evidence="analysis/open-firmware-probes/usb-marker-draft/marker-rearm-flow-check.json",
         )
     )
     checks.append(
@@ -1028,9 +1039,11 @@ def build_report() -> dict[str, Any]:
                 scenario["decision"].get("data_stage", {}).get("descriptor_submit_register") == "0xb3000014"
                 and scenario["decision"].get("data_stage", {}).get("descriptor_submit_value") == "0x900226f0"
                 and scenario["decision"].get("data_stage", {}).get("transfer_kick_or") == "0x00000108"
+                and scenario["decision"].get("post_response", {}).get("after_submit") == "wait_for_gate_clear"
+                and scenario["decision"].get("post_response", {}).get("when_clear") == "return_to_poll_loop"
                 for scenario in marker_responses
             ),
-            "The marker behavior model must include the descriptor submit register and transfer kick, not just the setup decision.",
+            "The marker behavior model must include the descriptor submit register, transfer kick, and post-response rearm plan, not just the setup decision.",
             evidence="analysis/open-firmware-probes/usb-marker-draft/behavior-model.json",
         )
     )

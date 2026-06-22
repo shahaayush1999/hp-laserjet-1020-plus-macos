@@ -60,6 +60,8 @@ marker_descriptor_md="$OUT_DIR/marker-descriptor-check.md"
 marker_descriptor_json="$OUT_DIR/marker-descriptor-check.json"
 marker_length_flow_md="$OUT_DIR/marker-length-flow-check.md"
 marker_length_flow_json="$OUT_DIR/marker-length-flow-check.json"
+marker_rearm_flow_md="$OUT_DIR/marker-rearm-flow-check.md"
+marker_rearm_flow_json="$OUT_DIR/marker-rearm-flow-check.json"
 behavior_model_md="$OUT_DIR/behavior-model.md"
 behavior_model_json="$OUT_DIR/behavior-model.json"
 summary_md="$OUT_DIR/summary.md"
@@ -134,6 +136,11 @@ python3 "$ROOT_DIR/scripts/check-hp1020-marker-length-flow.py" \
   -o "$marker_length_flow_md" \
   --json "$marker_length_flow_json"
 
+python3 "$ROOT_DIR/scripts/check-hp1020-marker-rearm-flow.py" \
+  "$SRC_DIR/usb-marker.S" \
+  -o "$marker_rearm_flow_md" \
+  --json "$marker_rearm_flow_json"
+
 python3 "$ROOT_DIR/scripts/model-hp1020-usb-marker-draft.py" \
   --markdown-output "$behavior_model_md" \
   --json-output "$behavior_model_json" >/tmp/hp1020-usb-marker-behavior-status.txt
@@ -155,6 +162,7 @@ rm -f "$obj" "$toolchain_elf"
   printf -- '- Memory boundary scan: `%s`\n' "$memory_boundary_md"
   printf -- '- Marker descriptor check: `%s`\n' "$marker_descriptor_md"
   printf -- '- Marker length-flow check: `%s`\n' "$marker_length_flow_md"
+  printf -- '- Marker rearm-flow check: `%s`\n' "$marker_rearm_flow_md"
   printf -- '- Behavior model: `%s`\n' "$behavior_model_md"
   printf '\n'
   printf '## Key Checks\n\n'
@@ -176,6 +184,7 @@ rm -f "$obj" "$toolchain_elf"
   printf 'For a matching request, it clips the host `wLength`, copies the selected descriptor into the stock control-IN staging buffer `0x90022bd0`, builds one four-word transfer descriptor at `0x900226f0`, submits that descriptor through `0xb3000014`, and kicks `0xb3000000 |= 0x108`.\n'
   printf 'The marker descriptor check verifies the embedded `HP1020 OPEN MARKER` USB string descriptor, its length constant, and its 0x90000000 hardware alias pointer.\n'
   printf 'The marker length-flow check verifies the clipped USB request length is preserved into the endpoint-0 response-state write and transfer descriptor word.\n'
+  printf 'After submitting a descriptor response, the marker waits for both USB setup/status gates to clear before returning to the poll loop instead of immediately parking after one response.\n'
   printf 'It does not touch engine, fuser, motor, paper-feed, video, or raster MMIO.\n'
   printf 'It is still not the first thing to upload; the missing proof is whether the setup buffer, staging buffer, descriptor ring, and controller completion path are valid after custom upload without the full stock USB runtime.\n'
 } > "$summary_md"
@@ -184,7 +193,8 @@ chmod 644 "$elf" "$img" "$dl" "$readelf_txt" "$disasm_txt" "$layout_md" "$layout
   "$safety_md" "$safety_json" "$usb_contract_md" "$usb_contract_json" \
   "$usb_access_md" "$usb_access_json" "$endpoint0_sequence_md" "$endpoint0_sequence_json" \
   "$memory_boundary_md" "$memory_boundary_json" "$marker_descriptor_md" "$marker_descriptor_json" \
-  "$marker_length_flow_md" "$marker_length_flow_json" "$behavior_model_md" "$behavior_model_json" \
+  "$marker_length_flow_md" "$marker_length_flow_json" "$marker_rearm_flow_md" "$marker_rearm_flow_json" \
+  "$behavior_model_md" "$behavior_model_json" \
   "$summary_md" "$OUT_DIR/hp1020-usb-marker-draft.map"
 
 printf '%s\n' "$summary_md"

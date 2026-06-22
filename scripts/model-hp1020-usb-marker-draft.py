@@ -39,6 +39,15 @@ DESCRIPTOR_FINAL_FLAG = 0x08000000
 TRANSFER_KICK_OR = 0x00000108
 
 
+def post_response_rearm_plan() -> dict[str, object]:
+    return {
+        "after_submit": "wait_for_gate_clear",
+        "gate_0408_mask": "0x00006000",
+        "gate_0400_mask": "0x00000003",
+        "when_clear": "return_to_poll_loop",
+    }
+
+
 def data_stage_plan(response_len: int, source_pointer: int) -> dict[str, object]:
     return {
         "copy_source": f"0x{source_pointer:08x}",
@@ -137,6 +146,7 @@ def marker_decision(setup: bytes, gate_0408: int, gate_0400: int) -> dict[str, o
         "response_text": "HP1020 OPEN MARKER" if candidate["descriptor"] == "open marker product" else "",
         "response_hex": candidate["response"][:response_len].hex(" "),
         "data_stage": data_stage_plan(response_len, candidate["source_pointer"]),
+        "post_response": post_response_rearm_plan(),
     }
 
 
@@ -216,6 +226,7 @@ def render_markdown(report: dict[str, object]) -> str:
             "- `0xb3000400 & 0x3` selects Sequence B when Sequence A is not selected.",
             "- Matching requests copy the selected descriptor into the stock control-IN staging buffer `0x90022bd0`.",
             "- The draft builds one four-word descriptor at `0x900226f0`, submits it through `0xb3000014`, and kicks `0xb3000000 |= 0x108`.",
+            "- After submitting a response, the draft waits for both USB setup/status gates to clear, then returns to the poll loop.",
             "- If the setup packet or gate state does not match, the draft keeps polling without programming endpoint-0.",
             "- This avoids the old one-shot false negative where an early non-product request could park the probe forever.",
             "",

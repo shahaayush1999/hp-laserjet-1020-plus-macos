@@ -51,12 +51,12 @@ The vague blocker is now split in two: the direct setup-byte address is probably
 
 | PC | Offset | Field | Instruction |
 |---:|---:|---|---|
-| `0x10005e01` | `0x0` | bmRequestType | `l8ui	a3, a2, 0` |
-| `0x10005e12` | `0x1` | bRequest | `l8ui	a3, a2, 1` |
-| `0x10005e1f` | `0x2` | wValue low / descriptor index | `l8ui	a3, a2, 2` |
-| `0x10005e26` | `0x3` | wValue high / descriptor type | `l8ui	a3, a2, 3` |
-| `0x10005e8e` | `0x6` | wLength low | `l8ui	a3, a11, 6` |
-| `0x10005e95` | `0x7` | wLength high | `l8ui	a3, a11, 7` |
+| `0x10005e25` | `0x0` | bmRequestType | `l8ui	a3, a2, 0` |
+| `0x10005e36` | `0x1` | bRequest | `l8ui	a3, a2, 1` |
+| `0x10005e43` | `0x2` | wValue low / descriptor index | `l8ui	a3, a2, 2` |
+| `0x10005e4a` | `0x3` | wValue high / descriptor type | `l8ui	a3, a2, 3` |
+| `0x10005eb2` | `0x6` | wLength low | `l8ui	a3, a11, 6` |
+| `0x10005eb9` | `0x7` | wLength high | `l8ui	a3, a11, 7` |
 
 ## Event Pointer Boundary
 

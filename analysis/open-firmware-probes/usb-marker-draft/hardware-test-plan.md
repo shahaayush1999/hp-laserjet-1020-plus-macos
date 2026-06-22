@@ -26,6 +26,7 @@ The draft currently passes these static gates:
 - endpoint-0 sequence scan: USB writes match the extracted stock endpoint-0 contract
 - memory boundary scan: candidate setup-buffer reads, stock response-state writes, one staging-buffer copy loop, and four descriptor-ring writes, with no hidden fail hits
 - marker length-flow check: clipped host `wLength` is preserved into the endpoint-0 response-length write
+- marker rearm-flow check: after submitting a descriptor response, the draft waits for both USB setup/status gates to clear and then returns to the setup poll loop
 - behavior model: device, configuration, language, manufacturer, and product-string descriptor requests select Sequence A or B based on USB gates, response length is clipped to `min(wLength, descriptor length)`, and one stock-shaped control-IN descriptor is submitted
 - data-stage model: selected descriptor bytes are copied into the stock staging buffer at `0x90022bd0`, one descriptor is built at `0x900226f0`, and the transfer is kicked through the stock endpoint-0 registers
 - completion/interrupt model: stock firmware uses event flags object `0x10021318`; control-IN waits bit `0x1`, while the USB task consumes a separate `0x10000` lane signal
@@ -37,7 +38,8 @@ setup packet base 0x90021348, response state base 0x100212d4, staging buffer
 0x90022bd0, descriptor ring 0x900226f0, and the 0xb3000014/0xb3000000
 control-IN kick are valid after custom firmware upload without the full stock
 USB runtime. The current marker draft does not yet implement the stock
-event-flag wait/rearm path.
+event-flag wait path. It now has a small gate-clear rearm loop, but live
+hardware still has to prove that this is enough after custom upload.
 ```
 
 That assumption is exactly what hardware must prove or disprove.

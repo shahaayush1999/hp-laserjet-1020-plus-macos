@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `51`
+- checks: `52`
 - failures: `0`
 - meaning: Offline analysis is internally consistent; the next decisive evidence is a guarded non-printing printer-side probe.
 
@@ -51,12 +51,13 @@ It does not contact the printer.
 | `pjl_contract_is_non_printing` | `watch` | The status query contract must stay outside print/video/engine execution. | `analysis/non-printing-status-probe/pjl-status-contract.json` |
 | `usb_marker_descriptor_is_stable` | `watch` | The open marker descriptor bytes and length must remain fixed. | `analysis/open-firmware-probes/usb-marker-draft/marker-descriptor-check.json` |
 | `usb_marker_length_flow_passes` | `watch` | The marker draft must keep host wLength clipping connected to the selected descriptor length, endpoint-0 response state, and descriptor word. | `analysis/open-firmware-probes/usb-marker-draft/marker-length-flow-check.json` |
+| `usb_marker_rearm_flow_passes` | `watch` | The marker draft must wait for USB setup gates to clear and then return to polling after one response. | `analysis/open-firmware-probes/usb-marker-draft/marker-rearm-flow-check.json` |
 | `usb_marker_sequence_matches_endpoint0_contract` | `watch` | The marker draft's USB writes must remain limited to the extracted endpoint-0 sequence. | `analysis/open-firmware-probes/usb-marker-draft/endpoint0-sequence-scan.json` |
 | `usb_marker_data_stage_submit_present` | `watch` | The marker draft must submit the control-IN descriptor ring and kick the transfer path. | `analysis/open-firmware-probes/usb-marker-draft/endpoint0-sequence-scan.json` |
 | `usb_marker_contract_has_no_engine_video_mmio` | `watch` | The marker draft must stay USB-only and avoid engine/video MMIO. | `analysis/open-firmware-probes/usb-marker-draft/usb-contract-scan.json` |
 | `usb_marker_memory_boundary_has_descriptor_ring` | `watch` | The memory boundary scan must show the marker copy into USB staging RAM and the four descriptor-ring writes. | `analysis/open-firmware-probes/usb-marker-draft/memory-boundary-scan.json` |
 | `usb_marker_behavior_models_descriptor_responder` | `watch` | The host-side marker model must cover standard USB descriptors, both stock product gates, clipped host length, and polling continuation for non-matching setup/gate states. | `analysis/open-firmware-probes/usb-marker-draft/behavior-model.json` |
-| `usb_marker_behavior_models_data_stage` | `watch` | The marker behavior model must include the descriptor submit register and transfer kick, not just the setup decision. | `analysis/open-firmware-probes/usb-marker-draft/behavior-model.json` |
+| `usb_marker_behavior_models_data_stage` | `watch` | The marker behavior model must include the descriptor submit register, transfer kick, and post-response rearm plan, not just the setup decision. | `analysis/open-firmware-probes/usb-marker-draft/behavior-model.json` |
 | `host_endpoint0_model_has_open_marker_product_string` | `watch` | The pure host endpoint-0 model must include the open marker string response case. | `analysis/usb-path/open-endpoint0-model.json` |
 | `usb_setup_source_narrowed_to_direct_buffer` | `watch` | Static USB evidence must preserve the narrowed setup-buffer candidate and separate event pointer boundary. | `analysis/usb-path/usb-setup-source.json` |
 | `usb_marker_reads_required_setup_fields` | `watch` | The open marker draft must read request type, request, descriptor selector, and host length before responding. | `analysis/usb-path/usb-setup-source.json` |

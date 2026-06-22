@@ -1,5 +1,5 @@
 {
-  "check_count": 51,
+  "check_count": 52,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -224,6 +224,12 @@
       "severity": "watch"
     },
     {
+      "detail": "The marker draft must wait for USB setup gates to clear and then return to polling after one response.",
+      "evidence": "analysis/open-firmware-probes/usb-marker-draft/marker-rearm-flow-check.json",
+      "name": "usb_marker_rearm_flow_passes",
+      "severity": "watch"
+    },
+    {
       "detail": "The marker draft's USB writes must remain limited to the extracted endpoint-0 sequence.",
       "evidence": "analysis/open-firmware-probes/usb-marker-draft/endpoint0-sequence-scan.json",
       "name": "usb_marker_sequence_matches_endpoint0_contract",
@@ -254,7 +260,7 @@
       "severity": "watch"
     },
     {
-      "detail": "The marker behavior model must include the descriptor submit register and transfer kick, not just the setup decision.",
+      "detail": "The marker behavior model must include the descriptor submit register, transfer kick, and post-response rearm plan, not just the setup decision.",
       "evidence": "analysis/open-firmware-probes/usb-marker-draft/behavior-model.json",
       "name": "usb_marker_behavior_models_data_stage",
       "severity": "watch"

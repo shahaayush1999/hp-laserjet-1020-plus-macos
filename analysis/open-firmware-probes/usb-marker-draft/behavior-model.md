@@ -26,6 +26,7 @@ It mirrors the assembly-level decision boundary and does not touch hardware.
 - `0xb3000400 & 0x3` selects Sequence B when Sequence A is not selected.
 - Matching requests copy the selected descriptor into the stock control-IN staging buffer `0x90022bd0`.
 - The draft builds one four-word descriptor at `0x900226f0`, submits it through `0xb3000014`, and kicks `0xb3000000 |= 0x108`.
+- After submitting a response, the draft waits for both USB setup/status gates to clear, then returns to the poll loop.
 - If the setup packet or gate state does not match, the draft keeps polling without programming endpoint-0.
 - This avoids the old one-shot false negative where an early non-product request could park the probe forever.
 

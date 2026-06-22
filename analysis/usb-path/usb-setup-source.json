@@ -24,42 +24,42 @@
       "field": "bmRequestType",
       "instruction": "l8ui\ta3, a2, 0",
       "offset": "0x0",
-      "pc": "0x10005e01"
+      "pc": "0x10005e25"
     },
     {
       "description": "candidate USB setup packet buffer at 0x90021348",
       "field": "bRequest",
       "instruction": "l8ui\ta3, a2, 1",
       "offset": "0x1",
-      "pc": "0x10005e12"
+      "pc": "0x10005e36"
     },
     {
       "description": "candidate USB setup packet buffer at 0x90021348",
       "field": "wValue low / descriptor index",
       "instruction": "l8ui\ta3, a2, 2",
       "offset": "0x2",
-      "pc": "0x10005e1f"
+      "pc": "0x10005e43"
     },
     {
       "description": "candidate USB setup packet buffer at 0x90021348",
       "field": "wValue high / descriptor type",
       "instruction": "l8ui\ta3, a2, 3",
       "offset": "0x3",
-      "pc": "0x10005e26"
+      "pc": "0x10005e4a"
     },
     {
       "description": "candidate USB setup packet buffer at 0x90021348",
       "field": "wLength low",
       "instruction": "l8ui\ta3, a11, 6",
       "offset": "0x6",
-      "pc": "0x10005e8e"
+      "pc": "0x10005eb2"
     },
     {
       "description": "candidate USB setup packet buffer at 0x90021348",
       "field": "wLength high",
       "instruction": "l8ui\ta3, a11, 7",
       "offset": "0x7",
-      "pc": "0x10005e95"
+      "pc": "0x10005eb9"
     }
   ],
   "setup_packet_base_candidate": "0x90021348",

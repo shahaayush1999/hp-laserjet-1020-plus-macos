@@ -59,7 +59,8 @@ endpoint0_status="$(mktemp /tmp/hp1020-marker-endpoint0.XXXXXX.txt)"
 memory_status="$(mktemp /tmp/hp1020-marker-memory.XXXXXX.txt)"
 descriptor_status="$(mktemp /tmp/hp1020-marker-descriptor.XXXXXX.txt)"
 length_flow_status="$(mktemp /tmp/hp1020-marker-length-flow.XXXXXX.txt)"
-trap 'rm -f "$layout_status" "$safety_status" "$usb_contract_status" "$usb_access_status" "$endpoint0_status" "$memory_status" "$descriptor_status" "$length_flow_status"' EXIT
+rearm_flow_status="$(mktemp /tmp/hp1020-marker-rearm-flow.XXXXXX.txt)"
+trap 'rm -f "$layout_status" "$safety_status" "$usb_contract_status" "$usb_access_status" "$endpoint0_status" "$memory_status" "$descriptor_status" "$length_flow_status" "$rearm_flow_status"' EXIT
 
 python3 "$ROOT_DIR/scripts/inspect-firmware-layout.py" --profile boot-probe "$PROBE_DL" >"$layout_status"
 python3 "$ROOT_DIR/scripts/check-hp1020-safety-boundary.py" "$PROBE_SRC" "$PROBE_DISASM" >"$safety_status"
@@ -72,6 +73,8 @@ python3 "$ROOT_DIR/scripts/check-hp1020-marker-descriptor.py" \
   --source "$PROBE_SRC/usb-marker.S" >"$descriptor_status"
 python3 "$ROOT_DIR/scripts/check-hp1020-marker-length-flow.py" \
   "$PROBE_SRC/usb-marker.S" >"$length_flow_status"
+python3 "$ROOT_DIR/scripts/check-hp1020-marker-rearm-flow.py" \
+  "$PROBE_SRC/usb-marker.S" >"$rearm_flow_status"
 
 cat <<EOF
 HP 1020 USB marker draft hardware test
@@ -102,6 +105,9 @@ $(cat "$descriptor_status")
 
 Marker length-flow check:
 $(cat "$length_flow_status")
+
+Marker rearm-flow check:
+$(cat "$rearm_flow_status")
 
 This script does not send a PDF, PostScript file, ZjStream print stream, or
 engine/video command. It uploads a USB-only custom firmware draft.

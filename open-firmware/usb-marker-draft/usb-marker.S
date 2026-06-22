@@ -115,6 +115,8 @@ hp1020_done_marker_48504d4b:
     .word 0x48504d4b
 hp1020_no_match_marker_4e4f4d41:
     .word 0x4e4f4d41
+hp1020_rearm_marker_52454152:
+    .word 0x52454152
 hp1020_gate_mask_00006000:
     .word 0x00006000
 hp1020_gate_mask_00000003:
@@ -284,7 +286,28 @@ hp1020_usb_marker_kick_control_in:
     l32r a4, hp1020_usb_marker_state_ptr
     l32r a3, hp1020_done_marker_48504d4b
     s32i a3, a4, 0x44
-    jump_abs hp1020_probe_idle_loop
+    j hp1020_usb_marker_wait_gate_clear
+
+hp1020_usb_marker_wait_gate_clear:
+    l32r a4, hp1020_usb_marker_state_ptr
+    l32r a3, hp1020_rearm_marker_52454152
+    s32i a3, a4, 0x48
+1:
+    l32r a2, hp1020_mmio_b3000408
+    l32i a3, a2, 0
+    s32i a3, a4, 0x4c
+    l32r a5, hp1020_gate_mask_00006000
+    and a3, a3, a5
+    bnez a3, 1b
+
+    l32r a2, hp1020_mmio_b3000400
+    l32i a3, a2, 0
+    s32i a3, a4, 0x50
+    l32r a5, hp1020_gate_mask_00000003
+    and a3, a3, a5
+    bnez a3, 1b
+
+    j hp1020_usb_marker_poll_loop
 
     .align 4
     .global hp1020_usb_marker_draft_probe
