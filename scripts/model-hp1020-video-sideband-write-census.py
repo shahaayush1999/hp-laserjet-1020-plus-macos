@@ -31,6 +31,7 @@ SELECTED_SOURCES = {
 PREPARE_FIELDS_JSON = ROOT_DIR / "analysis/hardware-boundary/video-prepare-argument-fields.json"
 QUEUE_CHAIN_JSON = ROOT_DIR / "analysis/hardware-boundary/video-queue-payload-chain.json"
 GHIDRA_WORK_POPULATE_PROBE = ROOT_DIR / "analysis/ghidra-probes/work-populate-instruction-probe.md"
+GHIDRA_SIDEBAND_STORE_SCAN = ROOT_DIR / "analysis/ghidra-probes/sideband-store-scan.md"
 
 SIDEBAND_FIELDS = {"+0x26", "+0x30", "+0x32"}
 LINE_PATTERNS = [
@@ -117,6 +118,39 @@ def ghidra_work_populate_store_offsets() -> dict[str, Any]:
     }
 
 
+def ghidra_sideband_store_hits() -> dict[str, Any]:
+    text = read_text(GHIDRA_SIDEBAND_STORE_SCAN)
+    hits = []
+    in_table = False
+    for line in text.splitlines():
+        if line.startswith("| Address | Function | Offset |"):
+            in_table = True
+            continue
+        if not in_table:
+            continue
+        if line.startswith("|---"):
+            continue
+        if not line.startswith("| `"):
+            break
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        if len(cells) != 5:
+            continue
+        hits.append(
+            {
+                "address": cells[0].strip("`"),
+                "function": cells[1].strip("`"),
+                "offset": cells[2].strip("`"),
+                "bytes": cells[3].strip("`"),
+                "instruction": cells[4].strip("`"),
+            }
+        )
+    return {
+        "path": str(GHIDRA_SIDEBAND_STORE_SCAN.relative_to(ROOT_DIR)),
+        "language": "Xtensa:BE:32:default" if "language: `Xtensa:BE:32:default`" in text else "unknown",
+        "hits": hits,
+    }
+
+
 def classify_hits(hits: list[dict[str, Any]]) -> list[dict[str, Any]]:
     classified = []
     for hit in hits:
@@ -168,6 +202,7 @@ def build_report() -> dict[str, Any]:
     hits = classify_hits(selected_hits())
     corpus_summary = corpus_hit_summary()
     ghidra_probe = ghidra_work_populate_store_offsets()
+    ghidra_store_scan = ghidra_sideband_store_hits()
     by_role: dict[str, int] = {}
     for hit in hits:
         by_role[hit["role"]] = by_role.get(hit["role"], 0) + 1
@@ -215,6 +250,13 @@ def build_report() -> dict[str, Any]:
             "headless Ghidra instruction probe for 0x100104c8 has no stores to +0x26/+0x30/+0x32",
         ),
         check(
+            "ghidra_whole_program_sideband_stores_are_page_param_only",
+            ghidra_store_scan["language"] == "Xtensa:BE:32:default"
+            and [hit["offset"] for hit in ghidra_store_scan["hits"]] == ["0x26", "0x30", "0x32"]
+            and all(hit["function"].startswith("10009b4c ") for hit in ghidra_store_scan["hits"]),
+            "whole-program Ghidra scan finds target-offset halfword stores only in the page-parameter builder",
+        ),
+        check(
             "no_selected_active_work_writer_found",
             active_work_writer_hits == [],
             "the selected print-path corpus still has no direct active work sideband writer",
@@ -237,6 +279,7 @@ def build_report() -> dict[str, Any]:
         "selected_sources": {name: str(path.relative_to(ROOT_DIR)) for name, path in SELECTED_SOURCES.items()},
         "corpus_summary": corpus_summary,
         "ghidra_work_populate_probe": ghidra_probe,
+        "ghidra_sideband_store_scan": ghidra_store_scan,
         "role_counts": by_role,
         "selected_hits": hits,
         "active_work_writer_hits": active_work_writer_hits,
@@ -245,6 +288,7 @@ def build_report() -> dict[str, Any]:
             "The child-page `puVar1[0x13] = 0` false lead is byte +0x4c because the pointer is `undefined4 *`.",
             "The JobMgr `puVar[0x13]` hits feed work +0x90 from runtime byte +0x13, not work +0x26.",
             "A headless Ghidra instruction probe confirms 0x100104c8 has no stores to active work +0x26/+0x30/+0x32.",
+            "A whole-program Ghidra instruction scan finds `s16i` stores to offsets 0x26/0x30/0x32 only in the page-parameter builder.",
             "Within the selected print-path corpus, active work +0x26/+0x30/+0x32 remain unsourced.",
         ],
         "checks": checks,
@@ -290,6 +334,15 @@ def render_markdown(report: dict[str, Any]) -> str:
             f"- word destination offsets: `{', '.join(report['ghidra_work_populate_probe']['word_store_offsets'])}`",
         ]
     )
+
+    lines.extend(["", "## Ghidra Whole-Program Sideband Store Scan", ""])
+    lines.append(f"- path: `{report['ghidra_sideband_store_scan']['path']}`")
+    lines.append(f"- language: `{report['ghidra_sideband_store_scan']['language']}`")
+    lines.extend(["", "| Address | Function | Offset | Instruction |", "|---|---|---|---|"])
+    for hit in report["ghidra_sideband_store_scan"]["hits"]:
+        lines.append(
+            f"| `{hit['address']}` | `{hit['function']}` | `{hit['offset']}` | `{hit['instruction']}` |"
+        )
 
     lines.extend(["", "## Checks", "", "| Check | Status | Detail |", "|---|---|---|"])
     for item in report["checks"]:

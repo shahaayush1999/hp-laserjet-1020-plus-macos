@@ -14,6 +14,7 @@ This generated report is offline only. It does not contact the printer.
 - The child-page `puVar1[0x13] = 0` false lead is byte +0x4c because the pointer is `undefined4 *`.
 - The JobMgr `puVar[0x13]` hits feed work +0x90 from runtime byte +0x13, not work +0x26.
 - A headless Ghidra instruction probe confirms 0x100104c8 has no stores to active work +0x26/+0x30/+0x32.
+- A whole-program Ghidra instruction scan finds `s16i` stores to offsets 0x26/0x30/0x32 only in the page-parameter builder.
 - Within the selected print-path corpus, active work +0x26/+0x30/+0x32 remain unsourced.
 
 ## Selected Hit Classification
@@ -76,6 +77,17 @@ This generated report is offline only. It does not contact the printer.
 - halfword destination offsets: `0xc, 0xa, 0x10, 0x22, 0x1e, 0x14, 0x16, 0xe`
 - word destination offsets: `0x0`
 
+## Ghidra Whole-Program Sideband Store Scan
+
+- path: `analysis/ghidra-probes/sideband-store-scan.md`
+- language: `Xtensa:BE:32:default`
+
+| Address | Function | Offset | Instruction |
+|---|---|---|---|
+| `10009c35` | `10009b4c FUN_10009b4c` | `0x26` | `s16i a8,a2,0x26` |
+| `10009c86` | `10009b4c FUN_10009b4c` | `0x30` | `s16i a8,a2,0x30` |
+| `10009c8f` | `10009b4c FUN_10009b4c` | `0x32` | `s16i a8,a2,0x32` |
+
 ## Checks
 
 | Check | Status | Detail |
@@ -85,6 +97,7 @@ This generated report is offline only. It does not contact the printer.
 | `runtime_byte_0x13_feeds_work_0x90_not_sideband` | `present` | JobMgr puVar[0x13] references are BIH/runtime byte +0x13 copied to work +0x90 |
 | `work_populate_still_lacks_sideband_copy` | `present` | simple page-param to work-object copier has no visible +0x26/+0x30/+0x32 copy |
 | `ghidra_instruction_probe_excludes_sideband_stores` | `present` | headless Ghidra instruction probe for 0x100104c8 has no stores to +0x26/+0x30/+0x32 |
+| `ghidra_whole_program_sideband_stores_are_page_param_only` | `present` | whole-program Ghidra scan finds target-offset halfword stores only in the page-parameter builder |
 | `no_selected_active_work_writer_found` | `present` | the selected print-path corpus still has no direct active work sideband writer |
 | `prepare_field_model_keeps_sidebands_unsourced` | `present` | prepare field model still marks +0x26/+0x30/+0x32 as unsourced on active work |
 | `queue_chain_keeps_prepare_argument_as_work_object` | `present` | queue chain still identifies the active prepare argument as the 0x94 work object |
