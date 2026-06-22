@@ -32,6 +32,12 @@ Use:
 scripts/query-hp1020-pjl-status.sh
 ```
 
+The exact non-printing payloads and expected response markers are generated in:
+
+```text
+analysis/non-printing-status-probe/pjl-status-contract.md
+```
+
 Default mode is dry-run. It writes the exact PJL payload into:
 
 ```text

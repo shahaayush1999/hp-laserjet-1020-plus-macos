@@ -1,0 +1,62 @@
+{
+  "first_recommended_query": "echo",
+  "queries": [
+    {
+      "name": "echo",
+      "open_minimal_response": "return the same token through the USB back-channel",
+      "payload_bytes": 49,
+      "payload_hex": "1b 25 2d 31 32 33 34 35 58 40 50 4a 4c 20 45 43 48 4f 20 48 50 31 30 32 30 5f 53 54 41 54 55 53 5f 50 52 4f 42 45 0d 0a 1b 25 2d 31 32 33 34 35 58",
+      "payload_printable": "<ESC>%-12345X@PJL ECHO HP1020_STATUS_PROBE<CR><LF>\n<ESC>%-12345X",
+      "purpose": "lowest-risk parser/response proof with a unique token",
+      "stock_response_markers": [
+        "HP1020_STATUS_PROBE"
+      ]
+    },
+    {
+      "name": "info-status",
+      "open_minimal_response": "defer until a tiny CODE/DISPLAY builder exists",
+      "payload_bytes": 36,
+      "payload_hex": "1b 25 2d 31 32 33 34 35 58 40 50 4a 4c 20 49 4e 46 4f 20 53 54 41 54 55 53 0d 0a 1b 25 2d 31 32 33 34 35 58",
+      "payload_printable": "<ESC>%-12345X@PJL INFO STATUS<CR><LF>\n<ESC>%-12345X",
+      "purpose": "exercise stock status response builders",
+      "stock_response_markers": [
+        "CODE=",
+        "DISPLAY="
+      ]
+    },
+    {
+      "name": "info-id",
+      "open_minimal_response": "return a conservative model string only after USB response path is proven",
+      "payload_bytes": 32,
+      "payload_hex": "1b 25 2d 31 32 33 34 35 58 40 50 4a 4c 20 49 4e 46 4f 20 49 44 0d 0a 1b 25 2d 31 32 33 34 35 58",
+      "payload_printable": "<ESC>%-12345X@PJL INFO ID<CR><LF>\n<ESC>%-12345X",
+      "purpose": "read identity/model text without printing",
+      "stock_response_markers": [
+        "HP LaserJet 1020",
+        "Hewlett-Packard"
+      ]
+    },
+    {
+      "name": "ustatus-device",
+      "open_minimal_response": "not a first open-firmware target; stateful notifications can wait",
+      "payload_bytes": 44,
+      "payload_hex": "1b 25 2d 31 32 33 34 35 58 40 50 4a 4c 20 55 53 54 41 54 55 53 20 44 45 56 49 43 45 20 3d 20 4f 4e 0d 0a 1b 25 2d 31 32 33 34 35 58",
+      "payload_printable": "<ESC>%-12345X@PJL USTATUS DEVICE = ON<CR><LF>\n<ESC>%-12345X",
+      "purpose": "enable device status notifications for later stock calibration",
+      "stock_response_markers": [
+        "USTATUS",
+        "CODE=",
+        "DISPLAY=",
+        "ONLINE="
+      ]
+    }
+  ],
+  "safety_scope": [
+    "no PDF",
+    "no PostScript",
+    "no ZjStream raster",
+    "no engine/video command from host",
+    "no paper required"
+  ],
+  "summary": "Exact non-printing PJL/status payload contract for stock/open firmware comparison."
+}

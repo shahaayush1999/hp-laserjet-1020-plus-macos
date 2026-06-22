@@ -64,6 +64,9 @@ Important strings:
 
 Use `@PJL ECHO HP1020_STATUS_PROBE`.
 
+The exact payload bytes and fallback query contracts are generated in
+`analysis/non-printing-status-probe/pjl-status-contract.md`.
+
 Reason:
 
 - it has an explicit firmware string reference
