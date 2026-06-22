@@ -1,0 +1,54 @@
+{
+  "cases": [
+    {
+      "name": "GET_DESCRIPTOR DEVICE",
+      "response_bytes": 18,
+      "response_hex": "12 01 00 02 00 00 00 40 f0 03 17 2b 00 01 01 02 03 01",
+      "setup": "80 06 00 01 00 00 12 00",
+      "source": "stock device descriptor at 0x1001bbe0"
+    },
+    {
+      "name": "GET_DESCRIPTOR CONFIG high-speed-style",
+      "response_bytes": 32,
+      "response_hex": "09 02 20 00 01 01 00 c0 31 09 04 00 00 02 07 01 02 00 07 05 01 02 00 02 00 07 05 81 02 00 02 00",
+      "setup": "80 06 00 02 00 00 20 00",
+      "source": "stock config descriptor at 0x100034b0"
+    },
+    {
+      "name": "GET_DESCRIPTOR CONFIG full-speed-style",
+      "response_bytes": 32,
+      "response_hex": "09 02 20 00 01 01 00 c0 31 09 04 00 00 02 07 01 02 00 07 05 01 02 40 00 00 07 05 81 02 40 00 00",
+      "setup": "80 06 00 02 00 00 20 00",
+      "source": "stock config descriptor at 0x100034d0"
+    },
+    {
+      "name": "GET_DESCRIPTOR STRING index 1 manufacturer",
+      "response_bytes": 32,
+      "response_hex": "20 03 48 00 65 00 77 00 6c 00 65 00 74 00 74 00 2d 00 50 00 61 00 63 00 6b 00 61 00 72 00 64 00",
+      "setup": "80 06 01 03 09 04 ff 00",
+      "source": "stock ASCII identity string"
+    },
+    {
+      "name": "GET_DESCRIPTOR STRING index 2 product",
+      "response_bytes": 34,
+      "response_hex": "22 03 48 00 50 00 20 00 4c 00 61 00 73 00 65 00 72 00 4a 00 65 00 74 00 20 00 31 00 30 00 32 00 30 00",
+      "setup": "80 06 02 03 09 04 ff 00",
+      "source": "stock ASCII identity string"
+    },
+    {
+      "name": "GET_DESCRIPTOR STRING index 0 language",
+      "response_bytes": 4,
+      "response_hex": "04 03 09 04",
+      "setup": "80 06 00 03 00 00 04 00",
+      "source": "standard USB English language descriptor model"
+    },
+    {
+      "name": "FUTURE OPEN MARKER STRING example",
+      "response_bytes": 38,
+      "response_hex": "26 03 48 00 50 00 31 00 30 00 32 00 30 00 20 00 4f 00 50 00 45 00 4e 00 20 00 4d 00 41 00 52 00 4b 00 45 00 52 00",
+      "setup": "80 06 02 03 09 04 ff 00",
+      "source": "not stock firmware; byte model for a future open marker"
+    }
+  ],
+  "extraction_json": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/usb-descriptor-extraction.json"
+}

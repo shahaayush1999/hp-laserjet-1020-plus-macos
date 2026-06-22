@@ -55,6 +55,7 @@ Start here:
 49. `non-printing-status-probe/pjl-backchannel-map.md` - firmware and CUPS evidence behind the PJL/status query path
 50. `usb-path/usb-marker-boundary.md` - why a future USB marker probe is plausible but not the next safe upload
 51. `usb-path/usb-descriptor-extraction.md` - generated extraction of stock USB device/config descriptors and identity strings
+52. `usb-path/usb-descriptor-response-model.md` - byte-level GET_DESCRIPTOR response model for stock descriptors and a future open marker string
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -138,6 +139,7 @@ Useful current conclusions:
 - `analysis/non-printing-usb-probe-spec.md` defines the only custom-firmware experiment that is currently defensible: boot/USB identity only, no video/engine MMIO.
 - `analysis/usb-path/usb-marker-boundary.md` maps the stock USB string-descriptor marker path and records the current decision not to build/upload that marker yet; the open firmware would first need USB control-endpoint and descriptor-transfer plumbing.
 - `analysis/usb-path/usb-descriptor-extraction.md` statically extracts two HP device descriptors, high/full-speed USB printer configurations, and identity string pointer runs from the stock ELF. The device descriptors match vendor `0x03f0` and product `0x2b17`.
+- `analysis/usb-path/usb-descriptor-response-model.md` turns those descriptors into exact byte strings for standard USB `GET_DESCRIPTOR` responses. This defines the payload contract for a future USB-only open marker, but not the endpoint-0 hardware plumbing.
 - `scripts/check-hp1020-safety-boundary.py` is a pre-upload safety scanner for future candidate source/disassembly; it fails on known unsafe video/engine functions and MMIO families.
 - `analysis/printer-test-readiness-report.md` records the controlled connected-printer test path using `analysis/samples/minimal-page.ps` and `scripts/run-printer-readiness-test.sh --send`; that test has printed successfully once on hardware.
 - `analysis/jobmgr-producer-boundary-report.md` is now superseded for message `0x29`; it remains useful as the pre-parser checkpoint showing why the producer was missed by broad queue-send scans.

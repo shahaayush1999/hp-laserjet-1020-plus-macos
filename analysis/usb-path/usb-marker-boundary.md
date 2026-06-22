@@ -22,6 +22,10 @@ That is doable work, but it is a bigger step than the PJL/status query harness.
 - product ID `0x2b17`, matching the host-observed USB identity
 - high-speed and full-speed printer-class configurations at `0x100034b0` and `0x100034d0`
 
+`usb-descriptor-response-model.md` converts those descriptors into exact
+`GET_DESCRIPTOR` response byte strings. That gives a future open marker a clear
+payload contract, but not the hardware/control-endpoint implementation.
+
 ## What Is Mapped
 
 The main stock USB service thread is:
@@ -112,6 +116,9 @@ The hard pieces are:
 - event/interrupt acknowledgement order
 - runtime buffer addresses and alignment
 - whether the resident boot code leaves USB state usable after ACL download
+
+The descriptor payload bytes are now the easy part. The unresolved work is the
+endpoint-0 machinery that receives setup packets and returns those bytes.
 
 The current open idle probe intentionally avoids all of that, which is why it
 stayed quiet and safe.
