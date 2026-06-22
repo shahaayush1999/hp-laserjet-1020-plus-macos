@@ -31,7 +31,27 @@
       "status": "present"
     },
     {
-      "detail": "PrintMgr sends Video Queue 0x0b with the same payload slot shape",
+      "detail": "PrintMgr consumes messages from its queue and dispatches by message id",
+      "name": "printmgr_thread_dispatches_received_messages",
+      "status": "present"
+    },
+    {
+      "detail": "PrintMgr pending wrapper stores the payload pointer directly at node +0xc",
+      "name": "pending_node_payload_is_direct_param_2",
+      "status": "present"
+    },
+    {
+      "detail": "list append/pop/peek operate on links only and do not synthesize the payload at node +0xc",
+      "name": "list_helpers_do_not_rewrite_payload_word",
+      "status": "present"
+    },
+    {
+      "detail": "PrintMgr moves the existing pending node to the active list, preserving node +0xc payload identity",
+      "name": "printmgr_moves_same_node_pending_to_active",
+      "status": "present"
+    },
+    {
+      "detail": "PrintMgr copies pending-node +0xc into Video Queue 0x0b message word 4",
       "name": "printmgr_sends_video_queue_payload_word",
       "status": "present"
     },
@@ -48,7 +68,7 @@
   ],
   "conclusion": {
     "effect_on_remaining_units": "current static evidence weakens the earlier page-param +0x26 -> work +0x26 alias theory; the active work +0x26 source remains unresolved",
-    "plain_english": "The video code is almost certainly receiving the work object whose geometry is filled by JobMgr. The page-height value is proven in the earlier page-param block, but this chain does not show it being copied into the work object field that prepare reads.",
+    "plain_english": "The video code is almost certainly receiving the work object whose geometry is filled by JobMgr. The PrintMgr wrapper/list nodes preserve a pointer payload; they do not create the missing page-height field. The page-height value is proven in the earlier page-param block, but this chain does not show it being copied into the work object field that prepare reads.",
     "prepare_argument_identity": "0x94-byte video/page work object"
   },
   "stages": [
@@ -88,10 +108,31 @@
       "stage": "engine_active_work"
     },
     {
-      "confidence": "medium-high",
-      "evidence": "PrintMgr sends queue 8 message 0x0b with uVar10, and wrapper places param_5 into uStack_24",
+      "confidence": "high",
+      "evidence": "PrintMgr receives a queue message into aiStack_50 and dispatches by message id",
+      "function": "0x1000f324",
+      "object": "PrintMgr queue message array",
+      "stage": "print_mgr_receive_message"
+    },
+    {
+      "confidence": "high",
+      "evidence": "pending node +0xc is assigned directly from param_2, with state flags at +4/+8",
+      "function": "0x10010298",
+      "object": "0x10-byte pending-list node",
+      "stage": "print_mgr_pending_node_create"
+    },
+    {
+      "confidence": "high",
+      "evidence": "PrintMgr pops the pending head and appends that same node to the active list before engine message 0x0b",
+      "function": "0x1000f574 -> 0x10013050 -> 0x10013000",
+      "object": "same 0x10-byte list node",
+      "stage": "print_mgr_pending_to_active_list"
+    },
+    {
+      "confidence": "high",
+      "evidence": "PrintMgr loads uVar10 from node +0xc, sends queue 8 message 0x0b with uVar10, and wrapper places param_5 into uStack_24",
       "function": "0x1000f574 -> 0x10010218",
-      "object": "work pointer in message word 4",
+      "object": "pending-list node +0xc payload copied into message word 4",
       "stage": "print_mgr_video_send"
     },
     {

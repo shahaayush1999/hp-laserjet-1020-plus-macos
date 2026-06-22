@@ -10,7 +10,7 @@ This generated report is offline only. It does not contact the printer.
 
 ## Plain-English Meaning
 
-The video code is almost certainly receiving the work object whose geometry is filled by JobMgr. The page-height value is proven in the earlier page-param block, but this chain does not show it being copied into the work object field that prepare reads.
+The video code is almost certainly receiving the work object whose geometry is filled by JobMgr. The PrintMgr wrapper/list nodes preserve a pointer payload; they do not create the missing page-height field. The page-height value is proven in the earlier page-param block, but this chain does not show it being copied into the work object field that prepare reads.
 
 ## Pointer Chain
 
@@ -21,7 +21,10 @@ The video code is almost certainly receiving the work object whose geometry is f
 | `raster_geometry_fill` | `0x1000e414` | same work object | `high` | JobMgr writes BIH/runtime block values into work +0x84/+0x88/+0x8c/+0x90 |
 | `engine_queue_handoff` | `0x1000e414 -> queue 1 message 0x0b` | work pointer in message word 4 | `medium-high` | JobMgr stores iVar9 in iStack_84 and sends engine queue message 0x0b |
 | `engine_active_work` | `0x10016164` | engine state +0x68 active work pointer | `high` | engine dispatch stores param_1[3] into engine state +0x68 for message 0x0b/0x40 |
-| `print_mgr_video_send` | `0x1000f574 -> 0x10010218` | work pointer in message word 4 | `medium-high` | PrintMgr sends queue 8 message 0x0b with uVar10, and wrapper places param_5 into uStack_24 |
+| `print_mgr_receive_message` | `0x1000f324` | PrintMgr queue message array | `high` | PrintMgr receives a queue message into aiStack_50 and dispatches by message id |
+| `print_mgr_pending_node_create` | `0x10010298` | 0x10-byte pending-list node | `high` | pending node +0xc is assigned directly from param_2, with state flags at +4/+8 |
+| `print_mgr_pending_to_active_list` | `0x1000f574 -> 0x10013050 -> 0x10013000` | same 0x10-byte list node | `high` | PrintMgr pops the pending head and appends that same node to the active list before engine message 0x0b |
+| `print_mgr_video_send` | `0x1000f574 -> 0x10010218` | pending-list node +0xc payload copied into message word 4 | `high` | PrintMgr loads uVar10 from node +0xc, sends queue 8 message 0x0b with uVar10, and wrapper places param_5 into uStack_24 |
 | `video_thread_prepare` | `0x10013c18 -> 0x10014910` | VideoThread active work pointer | `high` | VideoThread receives message 0x0b, stores uStack_24 at video state +0x60, and calls prepare(piVar3) |
 
 ## `+0x26` Write Hits
@@ -59,6 +62,10 @@ The video code is almost certainly receiving the work object whose geometry is f
 | `jobmgr_fills_work_video_geometry` | `present` | JobMgr fills the same work object fields consumed by video prepare/render |
 | `jobmgr_sends_engine_0x0b_with_work_pointer` | `present` | JobMgr sends engine queue 0x0b with the candidate work pointer in the fourth message word |
 | `engine_dispatch_stores_active_work_pointer` | `present` | engine dispatch stores queue message word 4 as active work pointer |
-| `printmgr_sends_video_queue_payload_word` | `present` | PrintMgr sends Video Queue 0x0b with the same payload slot shape |
+| `printmgr_thread_dispatches_received_messages` | `present` | PrintMgr consumes messages from its queue and dispatches by message id |
+| `pending_node_payload_is_direct_param_2` | `present` | PrintMgr pending wrapper stores the payload pointer directly at node +0xc |
+| `list_helpers_do_not_rewrite_payload_word` | `present` | list append/pop/peek operate on links only and do not synthesize the payload at node +0xc |
+| `printmgr_moves_same_node_pending_to_active` | `present` | PrintMgr moves the existing pending node to the active list, preserving node +0xc payload identity |
+| `printmgr_sends_video_queue_payload_word` | `present` | PrintMgr copies pending-node +0xc into Video Queue 0x0b message word 4 |
 | `video_thread_uses_payload_as_prepare_argument` | `present` | VideoThread stores message word 4 as active work and passes it to prepare |
 | `prepare_reads_both_geometry_and_0x26_from_same_argument` | `present` | prepare reads +0x84 geometry and +0x26 remaining-units field from the same argument |

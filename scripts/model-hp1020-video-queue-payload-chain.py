@@ -27,6 +27,11 @@ SOURCES = {
     / "analysis/video-work-object/decompiled/100104c8_hp1020_work_populate_from_page_params_candidate.c",
     "job_mgr": ROOT_DIR / "analysis/video-work-object/decompiled/1000e414_hp1020_job_mgr_thread_candidate.c",
     "engine_dispatch": ROOT_DIR / "analysis/dispatch-mmio/decompiled/10016164_hp1020_engine_message_dispatch_candidate.c",
+    "print_mgr_thread": ROOT_DIR / "analysis/engine/engine-decompiled/1000f324_hp1020_print_mgr_thread_candidate.c",
+    "print_mgr_pending_enqueue": ROOT_DIR / "analysis/engine/engine-decompiled/10010298_FUN_10010298.c",
+    "list_append_tail": ROOT_DIR / "analysis/engine/engine-decompiled/10013000_FUN_10013000.c",
+    "list_pop_head": ROOT_DIR / "analysis/engine/engine-decompiled/10013050_FUN_10013050.c",
+    "list_peek_head": ROOT_DIR / "analysis/engine/engine-decompiled/100130bc_FUN_100130bc.c",
     "print_mgr_schedule": ROOT_DIR
     / "analysis/queue-send-census/decompiled/1000f574_hp1020_print_mgr_schedule_or_advance_candidate.c",
     "queue_wrapper": ROOT_DIR / "analysis/queue-send-census/decompiled/10010218_hp1020_queue_send_message4_candidate.c",
@@ -102,11 +107,32 @@ def build_report() -> dict[str, Any]:
             "confidence": "high",
         },
         {
+            "stage": "print_mgr_receive_message",
+            "function": "0x1000f324",
+            "object": "PrintMgr queue message array",
+            "evidence": "PrintMgr receives a queue message into aiStack_50 and dispatches by message id",
+            "confidence": "high",
+        },
+        {
+            "stage": "print_mgr_pending_node_create",
+            "function": "0x10010298",
+            "object": "0x10-byte pending-list node",
+            "evidence": "pending node +0xc is assigned directly from param_2, with state flags at +4/+8",
+            "confidence": "high",
+        },
+        {
+            "stage": "print_mgr_pending_to_active_list",
+            "function": "0x1000f574 -> 0x10013050 -> 0x10013000",
+            "object": "same 0x10-byte list node",
+            "evidence": "PrintMgr pops the pending head and appends that same node to the active list before engine message 0x0b",
+            "confidence": "high",
+        },
+        {
             "stage": "print_mgr_video_send",
             "function": "0x1000f574 -> 0x10010218",
-            "object": "work pointer in message word 4",
-            "evidence": "PrintMgr sends queue 8 message 0x0b with uVar10, and wrapper places param_5 into uStack_24",
-            "confidence": "medium-high",
+            "object": "pending-list node +0xc payload copied into message word 4",
+            "evidence": "PrintMgr loads uVar10 from node +0xc, sends queue 8 message 0x0b with uVar10, and wrapper places param_5 into uStack_24",
+            "confidence": "high",
         },
         {
             "stage": "video_thread_prepare",
@@ -161,10 +187,42 @@ def build_report() -> dict[str, Any]:
             "engine dispatch stores queue message word 4 as active work pointer",
         ),
         check(
+            "printmgr_thread_dispatches_received_messages",
+            "threadx_queue_receive_wait_candidate(PTR_DAT_1000632c,aiStack_50,0xffffffff)" in sources["print_mgr_thread"]
+            and "PTR_switchdataD_100048f0_10006360 + (aiStack_50[0] - 0xbU) * 4" in sources["print_mgr_thread"],
+            "PrintMgr consumes messages from its queue and dispatches by message id",
+        ),
+        check(
+            "pending_node_payload_is_direct_param_2",
+            "FUN_100131b8(0x10,1)" in sources["print_mgr_pending_enqueue"]
+            and "*(undefined4 *)(iVar4 + 4) = 0" in sources["print_mgr_pending_enqueue"]
+            and "*(undefined4 *)(iVar4 + 8) = param_5" in sources["print_mgr_pending_enqueue"]
+            and "*(int *)(iVar4 + 0xc) = param_2" in sources["print_mgr_pending_enqueue"],
+            "PrintMgr pending wrapper stores the payload pointer directly at node +0xc",
+        ),
+        check(
+            "list_helpers_do_not_rewrite_payload_word",
+            "*(undefined4 **)param_1[1] = param_2" in sources["list_append_tail"]
+            and "*param_2 = 0" in sources["list_append_tail"]
+            and "*param_1 = iVar2" in sources["list_pop_head"]
+            and "return *param_1" in sources["list_peek_head"]
+            and "+ 0xc" not in sources["list_append_tail"]
+            and "+ 0xc" not in sources["list_pop_head"]
+            and "+ 0xc" not in sources["list_peek_head"],
+            "list append/pop/peek operate on links only and do not synthesize the payload at node +0xc",
+        ),
+        check(
+            "printmgr_moves_same_node_pending_to_active",
+            "iVar8 = hp1020_list_pop_head_candidate(PTR_DAT_10006324)" in sources["print_mgr_schedule"]
+            and "hp1020_list_append_tail_candidate(PTR_DAT_10006328,iVar8)" in sources["print_mgr_schedule"],
+            "PrintMgr moves the existing pending node to the active list, preserving node +0xc payload identity",
+        ),
+        check(
             "printmgr_sends_video_queue_payload_word",
-            "hp1020_queue_send_message4_candidate(8,0xb,0,0,uVar10)" in sources["print_mgr_schedule"]
+            "uVar10 = *(undefined4 *)(iVar8 + 0xc)" in sources["print_mgr_schedule"]
+            and "hp1020_queue_send_message4_candidate(8,0xb,0,0,uVar10)" in sources["print_mgr_schedule"]
             and "uStack_24 = param_5" in sources["queue_wrapper"],
-            "PrintMgr sends Video Queue 0x0b with the same payload slot shape",
+            "PrintMgr copies pending-node +0xc into Video Queue 0x0b message word 4",
         ),
         check(
             "video_thread_uses_payload_as_prepare_argument",
@@ -193,7 +251,7 @@ def build_report() -> dict[str, Any]:
         "conclusion": {
             "prepare_argument_identity": "0x94-byte video/page work object",
             "effect_on_remaining_units": "current static evidence weakens the earlier page-param +0x26 -> work +0x26 alias theory; the active work +0x26 source remains unresolved",
-            "plain_english": "The video code is almost certainly receiving the work object whose geometry is filled by JobMgr. The page-height value is proven in the earlier page-param block, but this chain does not show it being copied into the work object field that prepare reads.",
+            "plain_english": "The video code is almost certainly receiving the work object whose geometry is filled by JobMgr. The PrintMgr wrapper/list nodes preserve a pointer payload; they do not create the missing page-height field. The page-height value is proven in the earlier page-param block, but this chain does not show it being copied into the work object field that prepare reads.",
         },
         "checks": checks,
     }

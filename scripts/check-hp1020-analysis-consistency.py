@@ -268,7 +268,10 @@ def build_report() -> dict[str, Any]:
             == "0x94-byte video/page work object"
             and "weakens the earlier page-param +0x26 -> work +0x26 alias theory"
             in queue_payload_chain.get("conclusion", {}).get("effect_on_remaining_units", "")
-            and len(queue_payload_chain.get("stages", [])) == 7
+            and len(queue_payload_chain.get("stages", [])) == 10
+            and queue_chain_checks.get("pending_node_payload_is_direct_param_2", {}).get("status") == "present"
+            and queue_chain_checks.get("list_helpers_do_not_rewrite_payload_word", {}).get("status") == "present"
+            and queue_chain_checks.get("printmgr_moves_same_node_pending_to_active", {}).get("status") == "present"
             and queue_chain_checks.get("video_thread_uses_payload_as_prepare_argument", {}).get("status") == "present"
             and queue_chain_checks.get("work_populate_does_not_copy_page_param_0x26", {}).get("status") == "present"
             and all(item.get("status") == "present" for item in queue_payload_chain.get("checks", [])),
@@ -296,6 +299,31 @@ def build_report() -> dict[str, Any]:
             and all(item.get("status") == "present" for item in prepare_fields.get("checks", [])),
             "The prepare argument field model must keep render geometry sourced while +0x26/+0x30/+0x32 remain unsourced on active work.",
             evidence="analysis/hardware-boundary/video-prepare-argument-fields.json",
+        )
+    )
+    sideband_census = read_json("analysis/hardware-boundary/video-sideband-write-census.json")
+    census_checks = {
+        item.get("name"): item
+        for item in sideband_census.get("checks", [])
+        if isinstance(item, dict)
+    }
+    census_roles = sideband_census.get("role_counts", {})
+    checks.append(
+        check(
+            "video_sideband_write_census_rules_out_false_leads",
+            sideband_census.get("status") == "pass"
+            and sideband_census.get("corpus_summary", {}).get("files_scanned", 0) >= 600
+            and census_roles.get("upstream_page_param_writer") == 3
+            and census_roles.get("active_work_consumer") == 4
+            and census_roles.get("scaled_index_false_lead") == 1
+            and census_roles.get("runtime_byte_to_work_0x90") == 2
+            and sideband_census.get("active_work_writer_hits") == []
+            and census_checks.get("child_record_0x13_is_not_work_0x26", {}).get("status") == "present"
+            and census_checks.get("runtime_byte_0x13_feeds_work_0x90_not_sideband", {}).get("status") == "present"
+            and census_checks.get("no_selected_active_work_writer_found", {}).get("status") == "present"
+            and all(item.get("status") == "present" for item in sideband_census.get("checks", [])),
+            "The sideband write census must preserve that selected +0x26/+0x30/+0x32 hits are upstream writers or consumers, not active work-object writers.",
+            evidence="analysis/hardware-boundary/video-sideband-write-census.json",
         )
     )
     sideband_copy = read_json("analysis/hardware-boundary/video-sideband-copy-direction.json")

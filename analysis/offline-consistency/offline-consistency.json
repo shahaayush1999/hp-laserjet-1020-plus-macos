@@ -1,5 +1,5 @@
 {
-  "check_count": 49,
+  "check_count": 50,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -77,6 +77,12 @@
       "detail": "The prepare argument field model must keep render geometry sourced while +0x26/+0x30/+0x32 remain unsourced on active work.",
       "evidence": "analysis/hardware-boundary/video-prepare-argument-fields.json",
       "name": "video_prepare_argument_fields_separate_sourced_and_unsourced",
+      "severity": "watch"
+    },
+    {
+      "detail": "The sideband write census must preserve that selected +0x26/+0x30/+0x32 hits are upstream writers or consumers, not active work-object writers.",
+      "evidence": "analysis/hardware-boundary/video-sideband-write-census.json",
+      "name": "video_sideband_write_census_rules_out_false_leads",
       "severity": "watch"
     },
     {

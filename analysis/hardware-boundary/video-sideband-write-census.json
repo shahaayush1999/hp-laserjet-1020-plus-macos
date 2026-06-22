@@ -1,0 +1,195 @@
+{
+  "active_work_writer_hits": [],
+  "checks": [
+    {
+      "detail": "selected sideband-looking hits are classified as upstream writers, consumers, or false leads",
+      "name": "selected_sideband_hits_classified",
+      "status": "present"
+    },
+    {
+      "detail": "0x10010398 puVar1[0x13] is a 32-bit child/page record slot at byte +0x4c",
+      "name": "child_record_0x13_is_not_work_0x26",
+      "status": "present"
+    },
+    {
+      "detail": "JobMgr puVar[0x13] references are BIH/runtime byte +0x13 copied to work +0x90",
+      "name": "runtime_byte_0x13_feeds_work_0x90_not_sideband",
+      "status": "present"
+    },
+    {
+      "detail": "simple page-param to work-object copier has no visible +0x26/+0x30/+0x32 copy",
+      "name": "work_populate_still_lacks_sideband_copy",
+      "status": "present"
+    },
+    {
+      "detail": "the selected print-path corpus still has no direct active work sideband writer",
+      "name": "no_selected_active_work_writer_found",
+      "status": "present"
+    },
+    {
+      "detail": "prepare field model still marks +0x26/+0x30/+0x32 as unsourced on active work",
+      "name": "prepare_field_model_keeps_sidebands_unsourced",
+      "status": "present"
+    },
+    {
+      "detail": "queue chain still identifies the active prepare argument as the 0x94 work object",
+      "name": "queue_chain_keeps_prepare_argument_as_work_object",
+      "status": "present"
+    }
+  ],
+  "conclusion": [
+    "The obvious page-param writes for +0x26/+0x30/+0x32 are upstream page-parameter fields, not active work-object writes.",
+    "The child-page `puVar1[0x13] = 0` false lead is byte +0x4c because the pointer is `undefined4 *`.",
+    "The JobMgr `puVar[0x13]` hits feed work +0x90 from runtime byte +0x13, not work +0x26.",
+    "Within the selected print-path corpus, active work +0x26/+0x30/+0x32 remain unsourced."
+  ],
+  "corpus_summary": {
+    "files_scanned": 627,
+    "raw_hit_count": 112,
+    "unique_text_count": 35,
+    "unique_texts": [
+      "*(uint *)(puVar15 + 0xd0) = (uint)*(ushort *)(param_1 + 0x26);",
+      "*(uint *)(puVar15 + 0xd4) = (uint)*(ushort *)(param_1 + 0x26);",
+      "*(uint *)(puVar15 + 0xe8) = (uint)*(ushort *)(param_1 + 0x30);",
+      "*(uint *)(puVar15 + 0xec) = (uint)*(ushort *)(param_1 + 0x32);",
+      "*(undefined *)(iVar9 + 0x90) = puVar4[0x13];",
+      "*(undefined *)(iVar9 + 0x90) = puVar6[0x13];",
+      "*(undefined2 *)(param_1 + 0x26) = *(undefined2 *)((int)param_2 + 10);",
+      "*(undefined2 *)(param_1 + 0x30) = *(undefined2 *)((int)param_2 + 10);",
+      "*(undefined2 *)(param_1 + 0x32) = *(undefined2 *)((int)param_2 + 10);",
+      "*(undefined4 *)(PTR_DAT_10006920 + 0x30) = 1;",
+      "*(undefined4 *)(iVar10 + 0x30) = 5;",
+      "*(undefined4 *)(iVar2 + 0x30) = 5;",
+      "*(undefined4 *)(iVar2 + 0x30) = 7;",
+      "*(undefined4 *)(iVar3 + 0x30) = 6;",
+      "*(undefined4 *)(iVar4 + 0x30) = 4;",
+      "*(undefined4 *)(iVar5 + 0x30) = 0xd;",
+      "*(undefined4 *)(iVar5 + 0x30) = 5;",
+      "*(undefined4 *)(iVar5 + 0x30) = 9;",
+      "*(undefined4 *)(iVar8 + 0x30) = 3;",
+      "*(undefined4 *)(param_1 + 0x30) = 0;",
+      "*(undefined4 *)(param_1 + 0x30) = 3;",
+      "*(undefined4 *)(param_1[0xd] + 0x30) = param_1[0xc];",
+      "*(undefined4 *)(puVar2 + 0x30) = 1;",
+      "*(undefined4 **)(iVar3 + 0x30) = param_1;",
+      "*param_7 = *(undefined4 *)(param_1 + 0x30);",
+      "else if (1 < *(int *)(param_1 + 0x30) - 1U) {",
+      "if ((*(uint *)(iVar3 + 0x30) & 1) != 0) {",
+      "if ((*(uint *)(iVar3 + 0x30) & 2) != 0) {",
+      "if ((*(uint *)(iVar5 + 0x30) & 2) != 0) {",
+      "if (*(int *)(iVar4 + 0x30) == 0) {",
+      "if (*(int *)(param_1 + 0x30) != 0) {",
+      "if (*(int *)(param_1 + 0x30) == 0) {",
+      "if (*(int *)(param_1 + 0x30) == 8) {",
+      "if (*(int *)(param_1 + 0x30) == 9) {",
+      "puVar1[0x13] = 0;"
+    ]
+  },
+  "role_counts": {
+    "active_work_consumer": 4,
+    "runtime_byte_to_work_0x90": 2,
+    "scaled_index_false_lead": 1,
+    "upstream_page_param_writer": 3
+  },
+  "selected_hits": [
+    {
+      "byte_offset": "+0x26",
+      "line": 102,
+      "meaning": "real page-param +0x26 writer, not active work",
+      "path": "analysis/jobmgr-producer-boundary/decompiled/10009b4c_FUN_10009b4c.c",
+      "role": "upstream_page_param_writer",
+      "source": "page_param_builder",
+      "text": "*(undefined2 *)(param_1 + 0x26) = *(undefined2 *)((int)param_2 + 10);"
+    },
+    {
+      "byte_offset": "+0x30",
+      "line": 119,
+      "meaning": "real page-param +0x30 writer, not active work",
+      "path": "analysis/jobmgr-producer-boundary/decompiled/10009b4c_FUN_10009b4c.c",
+      "role": "upstream_page_param_writer",
+      "source": "page_param_builder",
+      "text": "*(undefined2 *)(param_1 + 0x30) = *(undefined2 *)((int)param_2 + 10);"
+    },
+    {
+      "byte_offset": "+0x32",
+      "line": 122,
+      "meaning": "real page-param +0x32 writer, not active work",
+      "path": "analysis/jobmgr-producer-boundary/decompiled/10009b4c_FUN_10009b4c.c",
+      "role": "upstream_page_param_writer",
+      "source": "page_param_builder",
+      "text": "*(undefined2 *)(param_1 + 0x32) = *(undefined2 *)((int)param_2 + 10);"
+    },
+    {
+      "byte_offset": "+0x4c",
+      "line": 14,
+      "meaning": "undefined4* index 0x13 means child/page record byte offset +0x4c",
+      "path": "analysis/jobmgr-producer-boundary/decompiled/10010398_hp1020_child_page_record_create_candidate.c",
+      "role": "scaled_index_false_lead",
+      "source": "child_page_create",
+      "text": "puVar1[0x13] = 0;"
+    },
+    {
+      "byte_offset": "source +0x13, destination +0x90",
+      "line": 188,
+      "meaning": "undefined* index 0x13 is runtime block byte +0x13 copied into work +0x90",
+      "path": "analysis/video-work-object/decompiled/1000e414_hp1020_job_mgr_thread_candidate.c",
+      "role": "runtime_byte_to_work_0x90",
+      "source": "job_mgr",
+      "text": "*(undefined *)(iVar9 + 0x90) = puVar4[0x13];"
+    },
+    {
+      "byte_offset": "source +0x13, destination +0x90",
+      "line": 513,
+      "meaning": "undefined* index 0x13 is runtime block byte +0x13 copied into work +0x90",
+      "path": "analysis/video-work-object/decompiled/1000e414_hp1020_job_mgr_thread_candidate.c",
+      "role": "runtime_byte_to_work_0x90",
+      "source": "job_mgr",
+      "text": "*(undefined *)(iVar9 + 0x90) = puVar6[0x13];"
+    },
+    {
+      "byte_offset": "+0x26",
+      "line": 196,
+      "meaning": "consumer: prepare reads active argument +0x26 into video state counters",
+      "path": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+      "role": "active_work_consumer",
+      "source": "prepare",
+      "text": "*(uint *)(puVar15 + 0xd0) = (uint)*(ushort *)(param_1 + 0x26);"
+    },
+    {
+      "byte_offset": "+0x26",
+      "line": 197,
+      "meaning": "consumer: prepare reads active argument +0x26 into video state counters",
+      "path": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+      "role": "active_work_consumer",
+      "source": "prepare",
+      "text": "*(uint *)(puVar15 + 0xd4) = (uint)*(ushort *)(param_1 + 0x26);"
+    },
+    {
+      "byte_offset": "+0x32",
+      "line": 198,
+      "meaning": "consumer: prepare reads active argument +0x32 into video state +0xec",
+      "path": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+      "role": "active_work_consumer",
+      "source": "prepare",
+      "text": "*(uint *)(puVar15 + 0xec) = (uint)*(ushort *)(param_1 + 0x32);"
+    },
+    {
+      "byte_offset": "+0x30",
+      "line": 199,
+      "meaning": "consumer: prepare reads active argument +0x30 into video state +0xe8",
+      "path": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+      "role": "active_work_consumer",
+      "source": "prepare",
+      "text": "*(uint *)(puVar15 + 0xe8) = (uint)*(ushort *)(param_1 + 0x30);"
+    }
+  ],
+  "selected_sources": {
+    "child_page_create": "analysis/jobmgr-producer-boundary/decompiled/10010398_hp1020_child_page_record_create_candidate.c",
+    "job_mgr": "analysis/video-work-object/decompiled/1000e414_hp1020_job_mgr_thread_candidate.c",
+    "page_param_builder": "analysis/jobmgr-producer-boundary/decompiled/10009b4c_FUN_10009b4c.c",
+    "prepare": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+    "work_populate": "analysis/video-work-object/decompiled/100104c8_hp1020_work_populate_from_page_params_candidate.c"
+  },
+  "status": "pass",
+  "summary": "Sideband-looking write/read census for active video work fields +0x26/+0x30/+0x32."
+}
