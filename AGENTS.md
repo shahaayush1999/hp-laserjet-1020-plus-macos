@@ -100,6 +100,7 @@ Open firmware analysis state:
 - `analysis/hardware-boundary/video-queue-payload-chain.md` is the generated pointer-chain report for the object handed to VideoThread. It traces queue word 4 through JobMgr, Engine, PrintMgr, and VideoThread, and identifies the prepare argument as the `0x94` video/page work object.
 - `analysis/hardware-boundary/video-prepare-argument-fields.md` is the generated source model for fields read from that `0x94` prepare argument. It keeps JobMgr-filled render geometry `+0x84/+0x88/+0x8c/+0x90` strong, while marking active work `+0x26/+0x30/+0x32` as currently unsourced sideband fields.
 - `analysis/hardware-boundary/video-sideband-copy-direction.md` is the generated copy-direction report for `0x1001b38c(PTR_DAT_10006304,iStack_84,0x14)`. It pins `0x1001b38c` as destination/source/length, so JobMgr case `0x29` copies active work out to the runtime block and does not fill work `+0x26/+0x30/+0x32`.
+- `analysis/hardware-boundary/video-sideband-default-impact.md` is the generated zero/default impact report for those unsourced fields. It marks active work `+0x26` as print-path critical because zero skips channel-B refill and breaks remaining/final accounting; `+0x32` is mode-critical; `+0x30` is lower priority in current static evidence.
 - `analysis/hardware-boundary/video-remaining-units.md` is the generated model for `+0xd0/+0xd4`. Current conclusion: `ZJI_VIDEO_Y -> page-param +0x26` and prepare argument `+0x26 -> +0xd0/+0xd4` are proven separately, but the queue payload chain weakens the old alias theory; active work `+0x26` remains unsourced in current static decompilation.
 - `analysis/status-path/status-code-correlation.md` records that engine queue `0x17` event words are correlated with status output but are not themselves final PJL `CODE=` values.
 - `analysis/offline-consistency/offline-consistency.md` is the cross-report consistency gate for the current offline conclusions. It should pass before doing more hardware work.
@@ -129,6 +130,7 @@ Open firmware analysis state:
 - `scripts/model-hp1020-video-queue-payload-chain.py` regenerates the VideoThread work-object pointer-chain report.
 - `scripts/model-hp1020-video-prepare-argument-fields.py` regenerates the source model for fields read from the VideoThread prepare argument.
 - `scripts/model-hp1020-video-sideband-copy-direction.py` regenerates the copy-direction report that rules out JobMgr case `0x29` as a hidden source for work `+0x26/+0x30/+0x32`.
+- `scripts/model-hp1020-video-sideband-default-impact.py` regenerates the zero/default impact report for unsourced work `+0x26/+0x30/+0x32`.
 - `scripts/model-hp1020-video-remaining-units.py` regenerates the remaining-unit candidate source report and keeps the unresolved copy/alias gap explicit.
 - `scripts/run-idle-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_CUSTOM_FIRMWARE_UPLOAD=1`.
 - `scripts/run-usb-snapshot-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_USB_SNAPSHOT_UPLOAD=1`.

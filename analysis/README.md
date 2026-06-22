@@ -103,7 +103,8 @@ Start here:
 97. `hardware-boundary/video-queue-payload-chain.md` - generated pointer-chain report showing VideoThread prepare receives the `0x94` video/page work object
 98. `hardware-boundary/video-prepare-argument-fields.md` - generated source model for fields read from the `0x94` video prepare argument
 99. `hardware-boundary/video-sideband-copy-direction.md` - generated copy-direction report for the JobMgr runtime-block memcpy candidate
-100. `hardware-boundary/video-remaining-units.md` - generated model for the `+0xd0/+0xd4` remaining-unit candidate source and unresolved active work `+0x26` source
+100. `hardware-boundary/video-sideband-default-impact.md` - generated zero/default impact report for unsourced active work sideband fields
+101. `hardware-boundary/video-remaining-units.md` - generated model for the `+0xd0/+0xd4` remaining-unit candidate source and unresolved active work `+0x26` source
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -210,6 +211,7 @@ Useful current conclusions:
 - `analysis/hardware-boundary/video-queue-payload-chain.md` traces the queue word handed to VideoThread through JobMgr, Engine, PrintMgr, and VideoThread. Current conclusion: prepare receives the `0x94` video/page work object, not the raw page-parameter block.
 - `analysis/hardware-boundary/video-prepare-argument-fields.md` separates the fields read from that prepare argument: render geometry `+0x84/+0x88/+0x8c/+0x90` is JobMgr-sourced, `+0x74` is the default-zero descriptor-mode flag, and active work `+0x26/+0x30/+0x32` remain unsourced sideband fields in current static decompilation.
 - `analysis/hardware-boundary/video-sideband-copy-direction.md` rules out a tempting hidden source for those sideband fields: `0x1001b38c` uses destination/source/length order, so JobMgr case `0x29` copies `iStack_84` active work out to `PTR_DAT_10006304`, not from that runtime block into active work.
+- `analysis/hardware-boundary/video-sideband-default-impact.md` records why the unsourced fields are not equally important: default/zero active work `+0x26` would skip channel-B refill and disturb remaining/final accounting, `+0x32` changes secondary-output setup/flags, and `+0x30` has no selected downstream consumer yet.
 - `analysis/hardware-boundary/video-remaining-units.md` traces the remaining-unit candidate and corrects the old source claim: `ZJI_VIDEO_Y` reaches page-param `+0x26`, and video prepare reads argument `+0x26`, but the active work object `+0x26` source is still unsourced in static decompilation. If a hidden alias/copy still exists, `a4_default` first channel-B refill length would be `4800`.
 - `analysis/non-printing-usb-probe-spec.md` defines the only custom-firmware experiment that is currently defensible: boot/USB identity only, no video/engine MMIO.
 - `analysis/non-printing-status-probe/pjl-status-contract.md` defines the exact tiny PJL/status payloads to use when calibrating stock back-channel responses or future open USB/PJL echo behavior.
@@ -256,6 +258,7 @@ Useful current conclusions:
 - `scripts/model-hp1020-video-queue-payload-chain.py` regenerates the VideoThread work-object pointer-chain report.
 - `scripts/model-hp1020-video-prepare-argument-fields.py` regenerates the source model for fields read from the VideoThread prepare argument.
 - `scripts/model-hp1020-video-sideband-copy-direction.py` regenerates the copy-direction report that rules out JobMgr case `0x29` as a hidden source for work `+0x26/+0x30/+0x32`.
+- `scripts/model-hp1020-video-sideband-default-impact.py` regenerates the zero/default impact report for unsourced work `+0x26/+0x30/+0x32`.
 - `scripts/model-hp1020-video-remaining-units.py` regenerates the remaining-unit candidate source report and keeps the unresolved copy/alias gap explicit.
 - `scripts/model-hp1020-minimal-print-scope.py` regenerates the current minimum printing-only replacement scope from the generated print-path, USB, and hardware-boundary reports.
 - `scripts/analyze-hp1020-pjl-status-capture.py` classifies PJL/status back-channel captures against the generated contract, including expected-marker, no-response, and unexpected-byte outcomes.

@@ -313,6 +313,24 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/hardware-boundary/video-sideband-copy-direction.json",
         )
     )
+    sideband_impact = read_json("analysis/hardware-boundary/video-sideband-default-impact.json")
+    sideband_impacts = {
+        item.get("work_field"): item
+        for item in sideband_impact.get("field_impacts", [])
+        if isinstance(item, dict)
+    }
+    checks.append(
+        check(
+            "video_sideband_default_impact_keeps_0x26_critical",
+            sideband_impact.get("status") == "pass"
+            and sideband_impacts.get("+0x26", {}).get("risk") == "critical"
+            and sideband_impacts.get("+0x32", {}).get("risk") == "mode_critical"
+            and sideband_impacts.get("+0x30", {}).get("risk") == "unknown_low_in_current_static_view"
+            and all(item.get("status") == "present" for item in sideband_impact.get("checks", [])),
+            "The sideband default-impact model must keep +0x26 as print-path critical, +0x32 mode-critical, and +0x30 lower priority.",
+            evidence="analysis/hardware-boundary/video-sideband-default-impact.json",
+        )
+    )
     remaining_units = read_json("analysis/hardware-boundary/video-remaining-units.json")
     remaining_cases = {
         item.get("case"): item

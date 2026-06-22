@@ -1,0 +1,158 @@
+{
+  "checks": [
+    {
+      "detail": "prepare field model still exposes exactly the three unsourced active work sideband fields",
+      "name": "unsourced_fields_are_expected_three",
+      "status": "present"
+    },
+    {
+      "detail": "+0xd0 nonzero gates channel-B pointer/length writes",
+      "name": "zero_d0_skips_channel_b_refill",
+      "status": "present"
+    },
+    {
+      "detail": "+0xd4 participates in final/high-bit logic and is decremented by descriptor units",
+      "name": "zero_d4_triggers_final_condition_early",
+      "status": "present"
+    },
+    {
+      "detail": "+0xec controls prepare secondary branches and raw-band B flag behavior",
+      "name": "ec_controls_secondary_paths",
+      "status": "present"
+    },
+    {
+      "detail": "+0xe8 is only seen in the prepare assignment within the selected video corpus",
+      "name": "e8_has_no_selected_downstream_consumer",
+      "status": "present"
+    }
+  ],
+  "conclusion": [
+    "The unsourced sideband fields are not all equal: +0x26 is immediately critical for channel-B refill and remaining/final accounting.",
+    "+0x32 is mode-critical: zero may be correct for normal generated cases, but it affects setup tables and B-side raw-band flags.",
+    "+0x30 currently has no selected downstream consumer beyond prepare copying it to +0xe8, so it is tracked but lower priority.",
+    "The next useful static target is still the hidden source or intended default policy for active work +0x26."
+  ],
+  "field_impacts": [
+    {
+      "current_interpretation": "not safe to assume zero for a printing path",
+      "if_zero": [
+        "0x10014244 band helper sees +0xd0 == 0 and skips channel-B pointer/length writes",
+        "0x10013f34 sees +0xd4 <= descriptor_units<<2 immediately, setting the final/high-bit condition early",
+        "after queue/list consumption, +0xd4 subtracts descriptor units and can underflow as an unsigned-looking counter"
+      ],
+      "risk": "critical",
+      "state_fields": [
+        "+0xd0",
+        "+0xd4"
+      ],
+      "work_field": "+0x26"
+    },
+    {
+      "current_interpretation": "keep tracked, but it is not currently a first blocker compared with +0x26/+0x32",
+      "if_zero": [
+        "prepare copies zero into +0xe8",
+        "no downstream +0xe8 consumer was recovered in the selected video prepare/render/refill corpus"
+      ],
+      "risk": "unknown_low_in_current_static_view",
+      "state_fields": [
+        "+0xe8"
+      ],
+      "work_field": "+0x30"
+    },
+    {
+      "current_interpretation": "zero may be correct for generated normal cases, but must be deliberately chosen rather than accidentally defaulted",
+      "if_zero": [
+        "prepare takes non-secondary timing/table branches when +0xec == 0",
+        "0x10013f34 does not OR secondary-output bit 0x19 into B raw-band flags",
+        "0x100140f8 reads +0xec in the alternate raw-refresh path"
+      ],
+      "risk": "mode_critical",
+      "state_fields": [
+        "+0xec"
+      ],
+      "work_field": "+0x32"
+    }
+  ],
+  "reference_hits": {
+    "+0xd0": [
+      {
+        "line": 196,
+        "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+        "text": "*(uint *)(puVar15 + 0xd0) = (uint)*(ushort *)(param_1 + 0x26);"
+      },
+      {
+        "line": 18,
+        "source": "analysis/zjs-parser-boundary/decompiled/10014244_hp1020_video_band_done_or_irq_helper_candidate.c",
+        "text": "if ((*piVar6 == 0) && (uVar3 = *(uint *)(PTR_DAT_10006770 + 0xd0), uVar3 != 0)) {"
+      },
+      {
+        "line": 24,
+        "source": "analysis/zjs-parser-boundary/decompiled/10014244_hp1020_video_band_done_or_irq_helper_candidate.c",
+        "text": "iVar4 = *(int *)(puVar1 + 0xd0);"
+      },
+      {
+        "line": 25,
+        "source": "analysis/zjs-parser-boundary/decompiled/10014244_hp1020_video_band_done_or_irq_helper_candidate.c",
+        "text": "*(uint *)(puVar1 + 0xd0) = iVar4 - uVar3;"
+      }
+    ],
+    "+0xd4": [
+      {
+        "line": 197,
+        "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+        "text": "*(uint *)(puVar15 + 0xd4) = (uint)*(ushort *)(param_1 + 0x26);"
+      },
+      {
+        "line": 44,
+        "source": "analysis/zjs-parser-boundary/decompiled/10013f34_hp1020_video_band_queue_or_list_candidate.c",
+        "text": "if (*(uint *)(puVar2 + 0xd4) <= (uint)(*(int *)(puVar6 + 8) << 2)) {"
+      },
+      {
+        "line": 96,
+        "source": "analysis/zjs-parser-boundary/decompiled/10013f34_hp1020_video_band_queue_or_list_candidate.c",
+        "text": "*(int *)(puVar2 + 0xd4) = *(int *)(puVar2 + 0xd4) - *(int *)(puVar6 + 8);"
+      }
+    ],
+    "+0xe8": [
+      {
+        "line": 199,
+        "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+        "text": "*(uint *)(puVar15 + 0xe8) = (uint)*(ushort *)(param_1 + 0x30);"
+      }
+    ],
+    "+0xec": [
+      {
+        "line": 198,
+        "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+        "text": "*(uint *)(puVar15 + 0xec) = (uint)*(ushort *)(param_1 + 0x32);"
+      },
+      {
+        "line": 405,
+        "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+        "text": "*(int *)(hp1020_video_state_ptr_word + 0xec) == 0)) {"
+      },
+      {
+        "line": 440,
+        "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+        "text": "if ((*(int *)PTR_DAT_100067c8 == 0) && (*(int *)(hp1020_video_state_ptr_word + 0xec) != 0)) {"
+      },
+      {
+        "line": 472,
+        "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+        "text": "if ((*(int *)PTR_DAT_100067c8 == 0) && (*(int *)(hp1020_video_state_ptr_word + 0xec) != 0)) {"
+      },
+      {
+        "line": 84,
+        "source": "analysis/zjs-parser-boundary/decompiled/10013f34_hp1020_video_band_queue_or_list_candidate.c",
+        "text": "*DAT_100067dc = uVar9 | (uint)(*(int *)(puVar2 + 0xec) != 0) << 0x19;"
+      },
+      {
+        "line": 50,
+        "source": "analysis/zjs-parser-boundary/decompiled/100140f8_hp1020_video_refresh_raw_bands_candidate.c",
+        "text": "iVar11 = *(int *)(puVar3 + 0xec);"
+      }
+    ]
+  },
+  "status": "pass",
+  "summary": "Impact model for default/zero active work sideband fields."
+}

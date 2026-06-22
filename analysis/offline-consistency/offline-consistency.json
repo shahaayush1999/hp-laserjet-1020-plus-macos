@@ -1,5 +1,5 @@
 {
-  "check_count": 48,
+  "check_count": 49,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -83,6 +83,12 @@
       "detail": "The sideband copy-direction model must preserve that case 0x29 copies active work out to runtime block, not into work +0x26/+0x30/+0x32.",
       "evidence": "analysis/hardware-boundary/video-sideband-copy-direction.json",
       "name": "video_sideband_copy_direction_rules_out_hidden_source",
+      "severity": "watch"
+    },
+    {
+      "detail": "The sideband default-impact model must keep +0x26 as print-path critical, +0x32 mode-critical, and +0x30 lower priority.",
+      "evidence": "analysis/hardware-boundary/video-sideband-default-impact.json",
+      "name": "video_sideband_default_impact_keeps_0x26_critical",
       "severity": "watch"
     },
     {

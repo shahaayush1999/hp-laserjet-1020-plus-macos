@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `48`
+- checks: `49`
 - failures: `0`
 - meaning: Offline analysis is internally consistent; the next decisive evidence is a guarded non-printing printer-side probe.
 
@@ -28,6 +28,7 @@ It does not contact the printer.
 | `video_queue_payload_chain_identifies_prepare_work_object` | `watch` | The video queue payload chain must preserve that prepare receives the 0x94 work object, while work +0x26 remains unsourced. | `analysis/hardware-boundary/video-queue-payload-chain.json` |
 | `video_prepare_argument_fields_separate_sourced_and_unsourced` | `watch` | The prepare argument field model must keep render geometry sourced while +0x26/+0x30/+0x32 remain unsourced on active work. | `analysis/hardware-boundary/video-prepare-argument-fields.json` |
 | `video_sideband_copy_direction_rules_out_hidden_source` | `watch` | The sideband copy-direction model must preserve that case 0x29 copies active work out to runtime block, not into work +0x26/+0x30/+0x32. | `analysis/hardware-boundary/video-sideband-copy-direction.json` |
+| `video_sideband_default_impact_keeps_0x26_critical` | `watch` | The sideband default-impact model must keep +0x26 as print-path critical, +0x32 mode-critical, and +0x30 lower priority. | `analysis/hardware-boundary/video-sideband-default-impact.json` |
 | `video_remaining_units_keeps_alias_gap_explicit` | `watch` | Video remaining-unit model must preserve ZJI_VIDEO_Y upstream values while keeping active work +0x26 unsourced. | `analysis/hardware-boundary/video-remaining-units.json` |
 | `video_chunk_sizing_projects_stride_and_cc` | `watch` | Video chunk sizing must preserve the stride-derived +0xcc projection and helper caveat. | `analysis/hardware-boundary/video-chunk-sizing.json` |
 | `video_helper_disassembly_keeps_divide_path_bounded` | `watch` | The helper disassembly report must preserve the confirmed 0/1 edge cases while keeping the divide path bounded as a hypothesis. | `analysis/hardware-boundary/video-helper-disassembly.json` |
