@@ -63,6 +63,7 @@ Start here:
 57. `toolchain-probe/manual-binutils-rebuild.md` - reproducible manual Xtensa binutils recovery path
 58. `toolchain-probe/binutils-smoke/report.md` - runnable Xtensa assembler/linker smoke test using the recovered manual prefix
 59. `open-firmware-probes/usb-register-snapshot/summary.md` - generated open-code USB register snapshot probe and static validation
+60. `usb-path/open-endpoint0-model.md` - pure host-side endpoint-0 GET_DESCRIPTOR decision model for a future open USB marker
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -148,6 +149,7 @@ Useful current conclusions:
 - `analysis/usb-path/usb-marker-boundary.md` maps the stock USB string-descriptor marker path and records the current decision not to build/upload that marker yet; the open firmware would first need USB control-endpoint and descriptor-transfer plumbing.
 - `analysis/usb-path/usb-descriptor-extraction.md` statically extracts two HP device descriptors, high/full-speed USB printer configurations, and identity string pointer runs from the stock ELF. The device descriptors match vendor `0x03f0` and product `0x2b17`.
 - `analysis/usb-path/usb-descriptor-response-model.md` turns those descriptors into exact byte strings for standard USB `GET_DESCRIPTOR` responses. This defines the payload contract for a future USB-only open marker, but not the endpoint-0 hardware plumbing.
+- `analysis/usb-path/open-endpoint0-model.md` converts those descriptor bytes into a pure setup-packet response model. It answers what bytes to return for standard `GET_DESCRIPTOR` requests, including a future open marker string, while explicitly excluding USB controller MMIO.
 - `analysis/usb-path/endpoint0-machinery.md` maps the stock endpoint-0 flow: interrupt 4, USB event queue, `0x58`-byte transfer records, `0x10`-byte transfer descriptors, and `0xb300` control bits. The current standalone USB-marker blocker is endpoint-0 machinery, not descriptor payload bytes.
 - `analysis/usb-path/usb-mmio-map.md` turns the endpoint-0 register evidence into a concrete checklist: setup/status gates `0xb3000400/0408`, descriptor/control registers `0xb3000504/0508/050c/0510`, ack/kick registers, and likely setup/event pointer `0xb3000214`.
 - `scripts/check-hp1020-usb-probe-contract.py` is the stricter scanner for future USB-only candidates: engine/video MMIO fails, and USB MMIO must be one of the mapped endpoint-0 registers.

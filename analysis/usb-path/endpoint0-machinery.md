@@ -138,6 +138,7 @@ Important known pieces:
 - setup request `0x8006` is standard USB `GET_DESCRIPTOR`
 - descriptor payloads are now extracted in `usb-descriptor-extraction.md`
 - response byte strings are modeled in `usb-descriptor-response-model.md`
+- pure setup-packet-to-response selection is modeled in `open-endpoint0-model.md`
 - string descriptor construction around `0x1000964f` converts ASCII identity
   strings to USB UTF-16LE string descriptors
 
@@ -172,3 +173,7 @@ The next step toward an actual open USB marker requires either:
 The generated `usb-mmio-map.md` is now the best static-analysis starting point
 for that polling loop. What static analysis still cannot prove is which register
 transitions happen during live host enumeration after our custom upload.
+
+The generated `open-endpoint0-model.md` is the boundary on the other side: once
+setup bytes are available and a data-stage sender exists, the descriptor decision
+logic itself is already small and deterministic.

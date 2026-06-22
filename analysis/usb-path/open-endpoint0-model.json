@@ -1,0 +1,576 @@
+{
+  "hardware_scope": "none",
+  "porting_boundary": [
+    "setup packet source is still unknown for open firmware",
+    "data-stage transfer descriptor programming is still unknown for open firmware",
+    "engine/video MMIO remains out of scope",
+    "this model is safe to run on the host only"
+  ],
+  "purpose": "Pure endpoint-0 GET_DESCRIPTOR response model; excludes USB controller MMIO.",
+  "scenarios": [
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "device descriptor",
+      "open_marker": false,
+      "result": {
+        "available_length": 18,
+        "descriptor_index": 0,
+        "descriptor_type": 1,
+        "requested_length": 18,
+        "response_hex": "12 01 00 02 00 00 00 40 f0 03 17 2b 00 01 01 02 03 01",
+        "response_length": 18,
+        "source": "device",
+        "status": "data"
+      },
+      "setup_hex": "80 06 00 01 00 00 12 00",
+      "speed": "full",
+      "w_index": "0x0000",
+      "w_length": 18,
+      "w_value": "0x0100"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "config header clip",
+      "open_marker": false,
+      "result": {
+        "available_length": 32,
+        "descriptor_index": 0,
+        "descriptor_type": 2,
+        "requested_length": 9,
+        "response_hex": "09 02 20 00 01 01 00 c0 31",
+        "response_length": 9,
+        "source": "configuration-full",
+        "status": "data"
+      },
+      "setup_hex": "80 06 00 02 00 00 09 00",
+      "speed": "full",
+      "w_index": "0x0000",
+      "w_length": 9,
+      "w_value": "0x0200"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "full config",
+      "open_marker": false,
+      "result": {
+        "available_length": 32,
+        "descriptor_index": 0,
+        "descriptor_type": 2,
+        "requested_length": 32,
+        "response_hex": "09 02 20 00 01 01 00 c0 31 09 04 00 00 02 07 01 02 00 07 05 01 02 40 00 00 07 05 81 02 40 00 00",
+        "response_length": 32,
+        "source": "configuration-full",
+        "status": "data"
+      },
+      "setup_hex": "80 06 00 02 00 00 20 00",
+      "speed": "full",
+      "w_index": "0x0000",
+      "w_length": 32,
+      "w_value": "0x0200"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "language string",
+      "open_marker": false,
+      "result": {
+        "available_length": 4,
+        "descriptor_index": 0,
+        "descriptor_type": 3,
+        "requested_length": 4,
+        "response_hex": "04 03 09 04",
+        "response_length": 4,
+        "source": "string-0",
+        "status": "data"
+      },
+      "setup_hex": "80 06 00 03 00 00 04 00",
+      "speed": "full",
+      "w_index": "0x0000",
+      "w_length": 4,
+      "w_value": "0x0300"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "manufacturer string",
+      "open_marker": false,
+      "result": {
+        "available_length": 32,
+        "descriptor_index": 1,
+        "descriptor_type": 3,
+        "requested_length": 255,
+        "response_hex": "20 03 48 00 65 00 77 00 6c 00 65 00 74 00 74 00 2d 00 50 00 61 00 63 00 6b 00 61 00 72 00 64 00",
+        "response_length": 32,
+        "source": "string-1",
+        "status": "data"
+      },
+      "setup_hex": "80 06 01 03 09 04 ff 00",
+      "speed": "full",
+      "w_index": "0x0409",
+      "w_length": 255,
+      "w_value": "0x0301"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "product string",
+      "open_marker": false,
+      "result": {
+        "available_length": 34,
+        "descriptor_index": 2,
+        "descriptor_type": 3,
+        "requested_length": 255,
+        "response_hex": "22 03 48 00 50 00 20 00 4c 00 61 00 73 00 65 00 72 00 4a 00 65 00 74 00 20 00 31 00 30 00 32 00 30 00",
+        "response_length": 34,
+        "source": "string-2",
+        "status": "data"
+      },
+      "setup_hex": "80 06 02 03 09 04 ff 00",
+      "speed": "full",
+      "w_index": "0x0409",
+      "w_length": 255,
+      "w_value": "0x0302"
+    },
+    {
+      "b_request": "0x0a",
+      "bm_request_type": "0x21",
+      "label": "unsupported class request",
+      "open_marker": false,
+      "result": {
+        "reason": "unsupported request",
+        "status": "stall"
+      },
+      "setup_hex": "21 0a 00 00 00 00 00 00",
+      "speed": "full",
+      "w_index": "0x0000",
+      "w_length": 0,
+      "w_value": "0x0000"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "device descriptor",
+      "open_marker": true,
+      "result": {
+        "available_length": 18,
+        "descriptor_index": 0,
+        "descriptor_type": 1,
+        "requested_length": 18,
+        "response_hex": "12 01 00 02 00 00 00 40 f0 03 17 2b 00 01 01 02 03 01",
+        "response_length": 18,
+        "source": "device",
+        "status": "data"
+      },
+      "setup_hex": "80 06 00 01 00 00 12 00",
+      "speed": "full",
+      "w_index": "0x0000",
+      "w_length": 18,
+      "w_value": "0x0100"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "config header clip",
+      "open_marker": true,
+      "result": {
+        "available_length": 32,
+        "descriptor_index": 0,
+        "descriptor_type": 2,
+        "requested_length": 9,
+        "response_hex": "09 02 20 00 01 01 00 c0 31",
+        "response_length": 9,
+        "source": "configuration-full",
+        "status": "data"
+      },
+      "setup_hex": "80 06 00 02 00 00 09 00",
+      "speed": "full",
+      "w_index": "0x0000",
+      "w_length": 9,
+      "w_value": "0x0200"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "full config",
+      "open_marker": true,
+      "result": {
+        "available_length": 32,
+        "descriptor_index": 0,
+        "descriptor_type": 2,
+        "requested_length": 32,
+        "response_hex": "09 02 20 00 01 01 00 c0 31 09 04 00 00 02 07 01 02 00 07 05 01 02 40 00 00 07 05 81 02 40 00 00",
+        "response_length": 32,
+        "source": "configuration-full",
+        "status": "data"
+      },
+      "setup_hex": "80 06 00 02 00 00 20 00",
+      "speed": "full",
+      "w_index": "0x0000",
+      "w_length": 32,
+      "w_value": "0x0200"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "language string",
+      "open_marker": true,
+      "result": {
+        "available_length": 4,
+        "descriptor_index": 0,
+        "descriptor_type": 3,
+        "requested_length": 4,
+        "response_hex": "04 03 09 04",
+        "response_length": 4,
+        "source": "string-0",
+        "status": "data"
+      },
+      "setup_hex": "80 06 00 03 00 00 04 00",
+      "speed": "full",
+      "w_index": "0x0000",
+      "w_length": 4,
+      "w_value": "0x0300"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "manufacturer string",
+      "open_marker": true,
+      "result": {
+        "available_length": 32,
+        "descriptor_index": 1,
+        "descriptor_type": 3,
+        "requested_length": 255,
+        "response_hex": "20 03 48 00 65 00 77 00 6c 00 65 00 74 00 74 00 2d 00 50 00 61 00 63 00 6b 00 61 00 72 00 64 00",
+        "response_length": 32,
+        "source": "string-1",
+        "status": "data"
+      },
+      "setup_hex": "80 06 01 03 09 04 ff 00",
+      "speed": "full",
+      "w_index": "0x0409",
+      "w_length": 255,
+      "w_value": "0x0301"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "product string",
+      "open_marker": true,
+      "result": {
+        "available_length": 38,
+        "descriptor_index": 2,
+        "descriptor_type": 3,
+        "requested_length": 255,
+        "response_hex": "26 03 48 00 50 00 31 00 30 00 32 00 30 00 20 00 4f 00 50 00 45 00 4e 00 20 00 4d 00 41 00 52 00 4b 00 45 00 52 00",
+        "response_length": 38,
+        "source": "open-marker-product-string",
+        "status": "data"
+      },
+      "setup_hex": "80 06 02 03 09 04 ff 00",
+      "speed": "full",
+      "w_index": "0x0409",
+      "w_length": 255,
+      "w_value": "0x0302"
+    },
+    {
+      "b_request": "0x0a",
+      "bm_request_type": "0x21",
+      "label": "unsupported class request",
+      "open_marker": true,
+      "result": {
+        "reason": "unsupported request",
+        "status": "stall"
+      },
+      "setup_hex": "21 0a 00 00 00 00 00 00",
+      "speed": "full",
+      "w_index": "0x0000",
+      "w_length": 0,
+      "w_value": "0x0000"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "device descriptor",
+      "open_marker": false,
+      "result": {
+        "available_length": 18,
+        "descriptor_index": 0,
+        "descriptor_type": 1,
+        "requested_length": 18,
+        "response_hex": "12 01 00 02 00 00 00 40 f0 03 17 2b 00 01 01 02 03 01",
+        "response_length": 18,
+        "source": "device",
+        "status": "data"
+      },
+      "setup_hex": "80 06 00 01 00 00 12 00",
+      "speed": "high",
+      "w_index": "0x0000",
+      "w_length": 18,
+      "w_value": "0x0100"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "config header clip",
+      "open_marker": false,
+      "result": {
+        "available_length": 32,
+        "descriptor_index": 0,
+        "descriptor_type": 2,
+        "requested_length": 9,
+        "response_hex": "09 02 20 00 01 01 00 c0 31",
+        "response_length": 9,
+        "source": "configuration-high",
+        "status": "data"
+      },
+      "setup_hex": "80 06 00 02 00 00 09 00",
+      "speed": "high",
+      "w_index": "0x0000",
+      "w_length": 9,
+      "w_value": "0x0200"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "full config",
+      "open_marker": false,
+      "result": {
+        "available_length": 32,
+        "descriptor_index": 0,
+        "descriptor_type": 2,
+        "requested_length": 32,
+        "response_hex": "09 02 20 00 01 01 00 c0 31 09 04 00 00 02 07 01 02 00 07 05 01 02 00 02 00 07 05 81 02 00 02 00",
+        "response_length": 32,
+        "source": "configuration-high",
+        "status": "data"
+      },
+      "setup_hex": "80 06 00 02 00 00 20 00",
+      "speed": "high",
+      "w_index": "0x0000",
+      "w_length": 32,
+      "w_value": "0x0200"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "language string",
+      "open_marker": false,
+      "result": {
+        "available_length": 4,
+        "descriptor_index": 0,
+        "descriptor_type": 3,
+        "requested_length": 4,
+        "response_hex": "04 03 09 04",
+        "response_length": 4,
+        "source": "string-0",
+        "status": "data"
+      },
+      "setup_hex": "80 06 00 03 00 00 04 00",
+      "speed": "high",
+      "w_index": "0x0000",
+      "w_length": 4,
+      "w_value": "0x0300"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "manufacturer string",
+      "open_marker": false,
+      "result": {
+        "available_length": 32,
+        "descriptor_index": 1,
+        "descriptor_type": 3,
+        "requested_length": 255,
+        "response_hex": "20 03 48 00 65 00 77 00 6c 00 65 00 74 00 74 00 2d 00 50 00 61 00 63 00 6b 00 61 00 72 00 64 00",
+        "response_length": 32,
+        "source": "string-1",
+        "status": "data"
+      },
+      "setup_hex": "80 06 01 03 09 04 ff 00",
+      "speed": "high",
+      "w_index": "0x0409",
+      "w_length": 255,
+      "w_value": "0x0301"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "product string",
+      "open_marker": false,
+      "result": {
+        "available_length": 34,
+        "descriptor_index": 2,
+        "descriptor_type": 3,
+        "requested_length": 255,
+        "response_hex": "22 03 48 00 50 00 20 00 4c 00 61 00 73 00 65 00 72 00 4a 00 65 00 74 00 20 00 31 00 30 00 32 00 30 00",
+        "response_length": 34,
+        "source": "string-2",
+        "status": "data"
+      },
+      "setup_hex": "80 06 02 03 09 04 ff 00",
+      "speed": "high",
+      "w_index": "0x0409",
+      "w_length": 255,
+      "w_value": "0x0302"
+    },
+    {
+      "b_request": "0x0a",
+      "bm_request_type": "0x21",
+      "label": "unsupported class request",
+      "open_marker": false,
+      "result": {
+        "reason": "unsupported request",
+        "status": "stall"
+      },
+      "setup_hex": "21 0a 00 00 00 00 00 00",
+      "speed": "high",
+      "w_index": "0x0000",
+      "w_length": 0,
+      "w_value": "0x0000"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "device descriptor",
+      "open_marker": true,
+      "result": {
+        "available_length": 18,
+        "descriptor_index": 0,
+        "descriptor_type": 1,
+        "requested_length": 18,
+        "response_hex": "12 01 00 02 00 00 00 40 f0 03 17 2b 00 01 01 02 03 01",
+        "response_length": 18,
+        "source": "device",
+        "status": "data"
+      },
+      "setup_hex": "80 06 00 01 00 00 12 00",
+      "speed": "high",
+      "w_index": "0x0000",
+      "w_length": 18,
+      "w_value": "0x0100"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "config header clip",
+      "open_marker": true,
+      "result": {
+        "available_length": 32,
+        "descriptor_index": 0,
+        "descriptor_type": 2,
+        "requested_length": 9,
+        "response_hex": "09 02 20 00 01 01 00 c0 31",
+        "response_length": 9,
+        "source": "configuration-high",
+        "status": "data"
+      },
+      "setup_hex": "80 06 00 02 00 00 09 00",
+      "speed": "high",
+      "w_index": "0x0000",
+      "w_length": 9,
+      "w_value": "0x0200"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "full config",
+      "open_marker": true,
+      "result": {
+        "available_length": 32,
+        "descriptor_index": 0,
+        "descriptor_type": 2,
+        "requested_length": 32,
+        "response_hex": "09 02 20 00 01 01 00 c0 31 09 04 00 00 02 07 01 02 00 07 05 01 02 00 02 00 07 05 81 02 00 02 00",
+        "response_length": 32,
+        "source": "configuration-high",
+        "status": "data"
+      },
+      "setup_hex": "80 06 00 02 00 00 20 00",
+      "speed": "high",
+      "w_index": "0x0000",
+      "w_length": 32,
+      "w_value": "0x0200"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "language string",
+      "open_marker": true,
+      "result": {
+        "available_length": 4,
+        "descriptor_index": 0,
+        "descriptor_type": 3,
+        "requested_length": 4,
+        "response_hex": "04 03 09 04",
+        "response_length": 4,
+        "source": "string-0",
+        "status": "data"
+      },
+      "setup_hex": "80 06 00 03 00 00 04 00",
+      "speed": "high",
+      "w_index": "0x0000",
+      "w_length": 4,
+      "w_value": "0x0300"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "manufacturer string",
+      "open_marker": true,
+      "result": {
+        "available_length": 32,
+        "descriptor_index": 1,
+        "descriptor_type": 3,
+        "requested_length": 255,
+        "response_hex": "20 03 48 00 65 00 77 00 6c 00 65 00 74 00 74 00 2d 00 50 00 61 00 63 00 6b 00 61 00 72 00 64 00",
+        "response_length": 32,
+        "source": "string-1",
+        "status": "data"
+      },
+      "setup_hex": "80 06 01 03 09 04 ff 00",
+      "speed": "high",
+      "w_index": "0x0409",
+      "w_length": 255,
+      "w_value": "0x0301"
+    },
+    {
+      "b_request": "0x06",
+      "bm_request_type": "0x80",
+      "label": "product string",
+      "open_marker": true,
+      "result": {
+        "available_length": 38,
+        "descriptor_index": 2,
+        "descriptor_type": 3,
+        "requested_length": 255,
+        "response_hex": "26 03 48 00 50 00 31 00 30 00 32 00 30 00 20 00 4f 00 50 00 45 00 4e 00 20 00 4d 00 41 00 52 00 4b 00 45 00 52 00",
+        "response_length": 38,
+        "source": "open-marker-product-string",
+        "status": "data"
+      },
+      "setup_hex": "80 06 02 03 09 04 ff 00",
+      "speed": "high",
+      "w_index": "0x0409",
+      "w_length": 255,
+      "w_value": "0x0302"
+    },
+    {
+      "b_request": "0x0a",
+      "bm_request_type": "0x21",
+      "label": "unsupported class request",
+      "open_marker": true,
+      "result": {
+        "reason": "unsupported request",
+        "status": "stall"
+      },
+      "setup_hex": "21 0a 00 00 00 00 00 00",
+      "speed": "high",
+      "w_index": "0x0000",
+      "w_length": 0,
+      "w_value": "0x0000"
+    }
+  ]
+}
