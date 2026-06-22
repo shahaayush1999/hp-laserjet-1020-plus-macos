@@ -16,6 +16,7 @@ features or support other printer families.
 | USB descriptor payloads | solved at byte level from stock firmware |
 | Open USB marker candidate | built; not uploaded yet; still depends on unproven setup-buffer/response-state assumptions |
 | Host print stream | modeled; ZjStream parser and object/message path are known up to video/engine handoff |
+| Video sideband policy | narrowed; `+0x26` is critical for channel-B refill/final accounting, `+0x32` is mode-critical, `+0x30` is lower priority in current evidence |
 | Video/engine hardware | partially mapped; this is still the real printing risk |
 | Safe full printing | not solved |
 
@@ -52,13 +53,15 @@ hardware.
 
 5. Video/engine bring-up
    - Goal: turn one known-safe raster band/page into physical output.
-   - Risk: this is where motors, fuser, paper timing, laser/scanner/video, and sensors matter.
+   - Risk: this is where motors, fuser, paper timing, laser/scanner/video, sensors, and the unresolved first-page sideband values matter.
    - Rule: do not attempt this until USB/control execution is proven and the unsafe MMIO paths are isolated behind explicit gates.
 
 ## Best Next Technical Step
 
 With the printer detached, the best offline work is mostly tightening harnesses
-and reports. The next decisive technical step needs hardware:
+and reports. The main static print-path gap is now named: active work `+0x26`
+is critical but its stock source/default policy is still unresolved. The next
+decisive technical step still needs hardware:
 
 ```text
 run one staged non-printing USB probe with before/after USB identity capture
@@ -99,7 +102,7 @@ sharper:
 
 - Can open code reliably run and affect USB after upload?
 - Can we build a small open USB/control loop without leaning on stock runtime state?
-- After that, can we drive video/engine hardware without unsafe sequencing?
+- After that, can we choose the first-page video sideband values and drive video/engine hardware without unsafe sequencing?
 
 The first two are still reasonable exploratory firmware work. The third is the
 point where the project becomes a real printer-engine bring-up effort.

@@ -30,6 +30,8 @@ INPUTS = {
     "control_data_stage": ROOT_DIR / "analysis/usb-path/control-in-data-stage.json",
     "control_completion": ROOT_DIR / "analysis/usb-path/control-completion-event.json",
     "usb_interrupt_events": ROOT_DIR / "analysis/usb-path/usb-interrupt-events.json",
+    "sideband_default_impact": ROOT_DIR / "analysis/hardware-boundary/video-sideband-default-impact.json",
+    "remaining_units": ROOT_DIR / "analysis/hardware-boundary/video-remaining-units.json",
 }
 
 
@@ -59,6 +61,8 @@ def build_scope() -> dict[str, Any]:
     control_data_stage = load_json(INPUTS["control_data_stage"])
     control_completion = load_json(INPUTS["control_completion"])
     usb_interrupt_events = load_json(INPUTS["usb_interrupt_events"])
+    sideband_default_impact = load_json(INPUTS["sideband_default_impact"])
+    remaining_units = load_json(INPUTS["remaining_units"])
 
     work_objects = print_model.get("objects", {}).get("work_objects", [])
     raster_nodes = print_model.get("objects", {}).get("raster_nodes", [])
@@ -99,6 +103,17 @@ def build_scope() -> dict[str, Any]:
         1
         for item in endpoint_scenarios
         if isinstance(item, dict) and item.get("result", {}).get("status") == "stall"
+    )
+    sideband_impacts = {
+        item.get("work_field"): item
+        for item in sideband_default_impact.get("field_impacts", [])
+        if isinstance(item, dict)
+    }
+    sideband_access_hits = sideband_default_impact.get("ghidra_video_state_access_scan", {}).get("hits", [])
+    sideband_unsourced_gap = any(
+        item.get("stage") == "copy_or_alias_gap" and item.get("status") == "unresolved and weakened"
+        for item in remaining_units.get("candidate_chain", [])
+        if isinstance(item, dict)
     )
 
     components = [
@@ -145,6 +160,13 @@ def build_scope() -> dict[str, Any]:
             "risk": "high until hardware consumer semantics are proven",
         },
         {
+            "component": "Video sideband policy",
+            "current_status": "narrowed but unresolved",
+            "evidence": f"{len(sideband_access_hits)} exact-offset state access hits classified; active work +0x26 source remains {'unresolved' if sideband_unsourced_gap else 'unclear'}",
+            "replacement_need": "decide deliberate values for work +0x26/+0x32 before any print-driving firmware; +0x26 gates channel-B refill and final accounting",
+            "risk": "high",
+        },
+        {
             "component": "Video/raw-band hardware feed",
             "current_status": "danger boundary mapped, semantics incomplete",
             "evidence": f"{projected_cases} generated print variants project host fields into video registers",
@@ -183,6 +205,11 @@ def build_scope() -> dict[str, Any]:
             "why": "The mapped print model reaches raster handoff, but real printing needs synchronized video transfer and mechanical engine control.",
             "next_test": "Do not test this until USB-only open code is proven; continue static mapping of video/engine semantics first.",
         },
+        {
+            "blocker": "Video sideband values for the first print path",
+            "why": "Static analysis now shows +0x26 is critical for channel-B refill/final accounting, but its active-work source is still not proven.",
+            "next_test": "After USB-only execution is proven, use a non-printing or tightly gated trace/probe to distinguish whether stock leaves +0x26 zero or seeds it from page height/runtime state.",
+        },
     ]
 
     return {
@@ -206,6 +233,11 @@ def build_scope() -> dict[str, Any]:
             "endpoint0_stall_cases": endpoint_stall_cases,
             "control_completion_event_object": control_completion.get("event_object"),
             "usb_completion_status_bit": usb_interrupt_events.get("event_scan", {}).get("completion_status_bit"),
+            "sideband_0x26_risk": sideband_impacts.get("+0x26", {}).get("risk"),
+            "sideband_0x32_risk": sideband_impacts.get("+0x32", {}).get("risk"),
+            "sideband_0x30_risk": sideband_impacts.get("+0x30", {}).get("risk"),
+            "sideband_access_hits": len(sideband_access_hits),
+            "remaining_units_source_gap": sideband_unsourced_gap,
         },
         "components": components,
         "blockers": blockers,
@@ -257,6 +289,9 @@ def render_markdown(scope: dict[str, Any]) -> str:
             f"- endpoint-0 modeled data/stall cases: `{evidence['endpoint0_data_cases']}` / `{evidence['endpoint0_stall_cases']}`",
             f"- control completion event object: `{evidence['control_completion_event_object']}`",
             f"- USB completion status bit candidate: `{evidence['usb_completion_status_bit']}`",
+            f"- sideband access hits classified: `{evidence['sideband_access_hits']}`",
+            f"- sideband risk split: `+0x26={evidence['sideband_0x26_risk']}`, `+0x32={evidence['sideband_0x32_risk']}`, `+0x30={evidence['sideband_0x30_risk']}`",
+            f"- remaining-unit active-work source gap: `{str(evidence['remaining_units_source_gap']).lower()}`",
             "",
             "## Component Scope",
             "",

@@ -35,6 +35,9 @@ The first three are mostly software/protocol work. The last two are the hard har
 - endpoint-0 modeled data/stall cases: `24` / `4`
 - control completion event object: `0x10021318`
 - USB completion status bit candidate: `0x400`
+- sideband access hits classified: `19`
+- sideband risk split: `+0x26=critical`, `+0x32=mode_critical`, `+0x30=unknown_low_in_current_static_view`
+- remaining-unit active-work source gap: `true`
 
 ## Component Scope
 
@@ -46,6 +49,7 @@ The first three are mostly software/protocol work. The last two are the hard har
 | USB bulk receive to ZjStream parser | `mapped in stock firmware only` | open firmware must receive bulk bytes and feed the parser state machine | `medium` |
 | ZjStream parser and JobMgr object model | `mapped` | implement only chunk types used by foo2zjs daily printing: START/END doc/page, JBIG_BIH/BID/END_JBIG, plus END_PLANE if emitted by a host variant | `medium` |
 | JBIG compressed raster handling | `mapped to handoff boundary` | likely no full JBIG decode in firmware if hardware consumes the compressed stream like stock firmware | `high until hardware consumer semantics are proven` |
+| Video sideband policy | `narrowed but unresolved` | decide deliberate values for work +0x26/+0x32 before any print-driving firmware; +0x26 gates channel-B refill and final accounting | `high` |
 | Video/raw-band hardware feed | `danger boundary mapped, semantics incomplete` | reproduce page timing, raw-band pointers, channel enable/reset/wait sequence | `high` |
 | Engine paper/fuser/motor coordination | `dispatch/status paths mapped, behavior incomplete` | coordinate mechanical state before and during video transfer | `high` |
 | Scanner/fax/network/multi-product features | `out of scope` | none for Aayush's narrow goal | `none` |
@@ -57,6 +61,7 @@ The first three are mostly software/protocol work. The last two are the hard har
 | Live execution proof for open USB descriptor code | Without the marker descriptor appearing on the host, we do not yet know that custom code can control USB responses after upload. | Run the guarded marker stage when the printer is connected and power-cycled. |
 | USB completion/rearm behavior | Stock firmware uses event flags at 0x10021318 fed by the USB interrupt task; the marker draft currently submits one descriptor and idles. | If marker fails, use the interrupt-lane model to build a bounded polling/rearm probe. |
 | Video and engine hardware sequencing | The mapped print model reaches raster handoff, but real printing needs synchronized video transfer and mechanical engine control. | Do not test this until USB-only open code is proven; continue static mapping of video/engine semantics first. |
+| Video sideband values for the first print path | Static analysis now shows +0x26 is critical for channel-B refill/final accounting, but its active-work source is still not proven. | After USB-only execution is proven, use a non-printing or tightly gated trace/probe to distinguish whether stock leaves +0x26 zero or seeds it from page height/runtime state. |
 
 ## Current Decision
 

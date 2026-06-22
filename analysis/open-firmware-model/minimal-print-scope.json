@@ -14,6 +14,11 @@
       "blocker": "Video and engine hardware sequencing",
       "next_test": "Do not test this until USB-only open code is proven; continue static mapping of video/engine semantics first.",
       "why": "The mapped print model reaches raster handoff, but real printing needs synchronized video transfer and mechanical engine control."
+    },
+    {
+      "blocker": "Video sideband values for the first print path",
+      "next_test": "After USB-only execution is proven, use a non-printing or tightly gated trace/probe to distinguish whether stock leaves +0x26 zero or seeds it from page height/runtime state.",
+      "why": "Static analysis now shows +0x26 is critical for channel-B refill/final accounting, but its active-work source is still not proven."
     }
   ],
   "components": [
@@ -60,6 +65,13 @@
       "risk": "high until hardware consumer semantics are proven"
     },
     {
+      "component": "Video sideband policy",
+      "current_status": "narrowed but unresolved",
+      "evidence": "19 exact-offset state access hits classified; active work +0x26 source remains unresolved",
+      "replacement_need": "decide deliberate values for work +0x26/+0x32 before any print-driving firmware; +0x26 gates channel-B refill and final accounting",
+      "risk": "high"
+    },
+    {
       "component": "Video/raw-band hardware feed",
       "current_status": "danger boundary mapped, semantics incomplete",
       "evidence": "10 generated print variants project host fields into video registers",
@@ -98,6 +110,7 @@
     "optional_job_messages_seen": [],
     "parser_entry": "0x10009d34",
     "raster_nodes": 1,
+    "remaining_units_source_gap": true,
     "required_job_messages_seen": [
       "0x29",
       "0x2a",
@@ -108,6 +121,10 @@
       5,
       6
     ],
+    "sideband_0x26_risk": "critical",
+    "sideband_0x30_risk": "unknown_low_in_current_static_view",
+    "sideband_0x32_risk": "mode_critical",
+    "sideband_access_hits": 19,
     "usb_completion_status_bit": "0x400",
     "work_objects": 1
   },
