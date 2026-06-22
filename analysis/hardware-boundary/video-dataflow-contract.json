@@ -26,7 +26,12 @@
       "status": "present"
     },
     {
-      "detail": "a4_default work/raster/prepare values match the current generated model",
+      "detail": "chunk sizing model is pass",
+      "name": "chunk_sizing_status_pass",
+      "status": "present"
+    },
+    {
+      "detail": "a4_default work/raster/prepare/chunk values match the current generated model",
       "name": "a4_default_values_projected",
       "status": "present"
     },
@@ -82,12 +87,13 @@
       "function": "0x10014244 hp1020_video_band_done_or_irq_helper_candidate",
       "known_values": {
         "0xb2080004": "slot pointer from video state + slot*4",
-        "0xb2080008": "chunk_units * stride(1200)",
-        "chunk_units": "min(video state +0xcc, video state +0xd0)",
-        "final_flag": "set when remaining units become zero"
+        "0xb2080008": "min(4, +0xd0) * stride(1200)",
+        "chunk_units": "min(4, video state +0xd0)",
+        "final_flag": "set when remaining units become zero",
+        "video state +0xcc max chunk units": 4
       },
       "meaning": "The helper keeps channel B fed from the modulo-4 descriptor side.",
-      "remaining_unknown": "initial +0xcc/+0xd0 values need tighter static or live calibration",
+      "remaining_unknown": "initial +0xd0 is copied from work +0x26 and still needs tighter source/value calibration",
       "stage": "helper_channel_b_refill"
     },
     {
@@ -117,12 +123,13 @@
   ],
   "current_conclusion": [
     "The host-to-render dataflow is now concrete for the generated a4_default case.",
-    "The remaining unknowns are not parser fields; they are video timing, helper chunk sizing, raw-band encoding, and live IRQ completion behavior.",
+    "The remaining unknowns are not parser fields; they are work +0x26 source/value, raw-band helper divide confirmation, video timing, and live IRQ completion behavior.",
     "This report is still not a reason to upload custom printing firmware; it is the static contract a future implementation must satisfy."
   ],
   "source_case": "a4_default",
   "source_reports": {
     "band_queue": "analysis/hardware-boundary/video-band-queue.json",
+    "chunk_sizing": "analysis/hardware-boundary/video-chunk-sizing.json",
     "prepare_projection": "analysis/hardware-boundary/video-prepare-projection.json",
     "raster_fields": "analysis/open-firmware-model/raster-field-semantics.json",
     "refill_topology": "analysis/hardware-boundary/video-refill-topology.json",

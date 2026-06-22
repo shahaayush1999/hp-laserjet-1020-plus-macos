@@ -23,6 +23,7 @@ INPUTS = {
     "transfer_ring": ROOT_DIR / "analysis/hardware-boundary/video-transfer-ring.json",
     "band_queue": ROOT_DIR / "analysis/hardware-boundary/video-band-queue.json",
     "refill_topology": ROOT_DIR / "analysis/hardware-boundary/video-refill-topology.json",
+    "chunk_sizing": ROOT_DIR / "analysis/hardware-boundary/video-chunk-sizing.json",
 }
 
 
@@ -73,6 +74,7 @@ def build_report() -> dict[str, Any]:
     transfer_ring = read_json(INPUTS["transfer_ring"])
     band_queue = read_json(INPUTS["band_queue"])
     refill_topology = read_json(INPUTS["refill_topology"])
+    chunk_sizing = read_json(INPUTS["chunk_sizing"])
 
     case = "a4_default"
     raster_case = find_case(raster_fields.get("case_matrix", []), case)
@@ -87,6 +89,8 @@ def build_report() -> dict[str, Any]:
     stride = derived_state.get("stride_plus_0xb8")
     window = derived_state.get("state_plus_0xbc")
     bid_bytes = raster_case.get("payload_0x48")
+    chunk_case = find_case(chunk_sizing.get("case_matrix", []), case)
+    max_chunk_units = chunk_case.get("max_chunk_units_plus_0xcc")
 
     stages = [
         {
@@ -134,13 +138,14 @@ def build_report() -> dict[str, Any]:
             "stage": "helper_channel_b_refill",
             "function": "0x10014244 hp1020_video_band_done_or_irq_helper_candidate",
             "known_values": {
-                "chunk_units": "min(video state +0xcc, video state +0xd0)",
+                "video state +0xcc max chunk units": max_chunk_units,
+                "chunk_units": f"min({max_chunk_units}, video state +0xd0)",
                 "0xb2080004": "slot pointer from video state + slot*4",
-                "0xb2080008": f"chunk_units * stride({stride})",
+                "0xb2080008": f"min({max_chunk_units}, +0xd0) * stride({stride})",
                 "final_flag": "set when remaining units become zero",
             },
             "meaning": "The helper keeps channel B fed from the modulo-4 descriptor side.",
-            "remaining_unknown": "initial +0xcc/+0xd0 values need tighter static or live calibration",
+            "remaining_unknown": "initial +0xd0 is copied from work +0x26 and still needs tighter source/value calibration",
         },
         {
             "stage": "raw_band_queue_feed",
@@ -174,13 +179,15 @@ def build_report() -> dict[str, Any]:
         check("transfer_ring_status_pass", transfer_ring.get("status") == "pass", "transfer ring model is pass"),
         check("band_queue_status_pass", band_queue.get("status") == "pass", "band queue model is pass"),
         check("refill_topology_status_pass", refill_topology.get("status") == "pass", "refill topology model is pass"),
+        check("chunk_sizing_status_pass", chunk_sizing.get("status") == "pass", "chunk sizing model is pass"),
         check(
             "a4_default_values_projected",
             work_fields == {"+0x84": 9600, "+0x88": 6824, "+0x8c": 128, "+0x90": 0x5C}
             and bid_bytes == 6364
             and stride == 1200
-            and window == 2400,
-            "a4_default work/raster/prepare values match the current generated model",
+            and window == 2400
+            and max_chunk_units == 4,
+            "a4_default work/raster/prepare/chunk values match the current generated model",
         ),
         check(
             "normal_refill_path_preserved",
@@ -201,7 +208,7 @@ def build_report() -> dict[str, Any]:
         "checks": checks,
         "current_conclusion": [
             "The host-to-render dataflow is now concrete for the generated a4_default case.",
-            "The remaining unknowns are not parser fields; they are video timing, helper chunk sizing, raw-band encoding, and live IRQ completion behavior.",
+            "The remaining unknowns are not parser fields; they are work +0x26 source/value, raw-band helper divide confirmation, video timing, and live IRQ completion behavior.",
             "This report is still not a reason to upload custom printing firmware; it is the static contract a future implementation must satisfy.",
         ],
     }

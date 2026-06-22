@@ -1,5 +1,5 @@
 {
-  "check_count": 42,
+  "check_count": 43,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -65,6 +65,12 @@
       "detail": "The video dataflow contract must preserve concrete a4_default values through render/refill boundary formulas.",
       "evidence": "analysis/hardware-boundary/video-dataflow-contract.json",
       "name": "video_dataflow_contract_keeps_a4_default_path",
+      "severity": "watch"
+    },
+    {
+      "detail": "Video chunk sizing must preserve the stride-derived +0xcc projection and helper caveat.",
+      "evidence": "analysis/hardware-boundary/video-chunk-sizing.json",
+      "name": "video_chunk_sizing_projects_stride_and_cc",
       "severity": "watch"
     },
     {

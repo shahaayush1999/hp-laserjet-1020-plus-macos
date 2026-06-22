@@ -240,13 +240,36 @@ def build_report() -> dict[str, Any]:
             and dataflow_stages.get("host_raster_fields", {}).get("known_values", {}).get("payload +0x48") == 6364
             and dataflow_stages.get("video_prepare_geometry", {}).get("known_values", {}).get("video state +0xb8 stride") == 1200
             and dataflow_stages.get("render_initial_transfer", {}).get("known_values", {}).get("0xb2040008") == 6364
-            and "chunk_units * stride(1200)"
+            and dataflow_stages.get("helper_channel_b_refill", {}).get("known_values", {}).get("video state +0xcc max chunk units") == 4
+            and "min(4, +0xd0) * stride(1200)"
             == dataflow_stages.get("helper_channel_b_refill", {}).get("known_values", {}).get("0xb2080008")
             and "A pointer plus dual-output window(2400) when dual-block mode is active"
             == dataflow_stages.get("raw_band_queue_feed", {}).get("known_values", {}).get("0xb1000108")
             and all(item.get("status") == "present" for item in video_dataflow.get("checks", [])),
             "The video dataflow contract must preserve concrete a4_default values through render/refill boundary formulas.",
             evidence="analysis/hardware-boundary/video-dataflow-contract.json",
+        )
+    )
+    chunk_sizing = read_json("analysis/hardware-boundary/video-chunk-sizing.json")
+    chunk_cases = {
+        item.get("case"): item
+        for item in chunk_sizing.get("case_matrix", [])
+        if isinstance(item, dict)
+    }
+    checks.append(
+        check(
+            "video_chunk_sizing_projects_stride_and_cc",
+            chunk_sizing.get("status") == "pass"
+            and chunk_sizing.get("helper_hypothesis", {}).get("strong_hypothesis")
+            == "for denominator >= 2, returns ceil(numerator / denominator)"
+            and chunk_sizing.get("constants", {}).get("chunk_budget_bytes_DAT_10005dc8") == 8192
+            and chunk_cases.get("a4_default", {}).get("stride_plus_0xb8") == 1200
+            and chunk_cases.get("a4_default", {}).get("max_chunk_units_plus_0xcc") == 4
+            and chunk_cases.get("a4_600x600", {}).get("stride_plus_0xb8") == 608
+            and chunk_cases.get("a4_600x600", {}).get("max_chunk_units_plus_0xcc") == 12
+            and all(item.get("status") == "present" for item in chunk_sizing.get("checks", [])),
+            "Video chunk sizing must preserve the stride-derived +0xcc projection and helper caveat.",
+            evidence="analysis/hardware-boundary/video-chunk-sizing.json",
         )
     )
     semantic_sequences = {

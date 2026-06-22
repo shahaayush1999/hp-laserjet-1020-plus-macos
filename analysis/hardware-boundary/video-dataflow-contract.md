@@ -15,6 +15,7 @@ This is a generated offline model. It does not contact the printer.
 - `transfer_ring`: `analysis/hardware-boundary/video-transfer-ring.json`
 - `band_queue`: `analysis/hardware-boundary/video-band-queue.json`
 - `refill_topology`: `analysis/hardware-boundary/video-refill-topology.json`
+- `chunk_sizing`: `analysis/hardware-boundary/video-chunk-sizing.json`
 
 ## Contract Stages
 
@@ -66,13 +67,14 @@ This is a generated offline model. It does not contact the printer.
 
 - function: `0x10014244 hp1020_video_band_done_or_irq_helper_candidate`
 - meaning: The helper keeps channel B fed from the modulo-4 descriptor side.
-- remaining unknown: initial +0xcc/+0xd0 values need tighter static or live calibration
+- remaining unknown: initial +0xd0 is copied from work +0x26 and still needs tighter source/value calibration
 
 | Field/Register | Value/Formula |
 |---|---|
-| `chunk_units` | `min(video state +0xcc, video state +0xd0)` |
+| `video state +0xcc max chunk units` | `4` |
+| `chunk_units` | `min(4, video state +0xd0)` |
 | `0xb2080004` | `slot pointer from video state + slot*4` |
-| `0xb2080008` | `chunk_units * stride(1200)` |
+| `0xb2080008` | `min(4, +0xd0) * stride(1200)` |
 | `final_flag` | `set when remaining units become zero` |
 
 ### `raw_band_queue_feed`
@@ -104,7 +106,7 @@ This is a generated offline model. It does not contact the printer.
 ## Current Conclusion
 
 - The host-to-render dataflow is now concrete for the generated a4_default case.
-- The remaining unknowns are not parser fields; they are video timing, helper chunk sizing, raw-band encoding, and live IRQ completion behavior.
+- The remaining unknowns are not parser fields; they are work +0x26 source/value, raw-band helper divide confirmation, video timing, and live IRQ completion behavior.
 - This report is still not a reason to upload custom printing firmware; it is the static contract a future implementation must satisfy.
 
 ## Checks
@@ -116,5 +118,6 @@ This is a generated offline model. It does not contact the printer.
 | `transfer_ring_status_pass` | `present` | transfer ring model is pass |
 | `band_queue_status_pass` | `present` | band queue model is pass |
 | `refill_topology_status_pass` | `present` | refill topology model is pass |
-| `a4_default_values_projected` | `present` | a4_default work/raster/prepare values match the current generated model |
+| `chunk_sizing_status_pass` | `present` | chunk sizing model is pass |
+| `a4_default_values_projected` | `present` | a4_default work/raster/prepare/chunk values match the current generated model |
 | `normal_refill_path_preserved` | `present` | normal descriptor refill still connects channel-B helper and raw-band queue writes |
