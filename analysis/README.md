@@ -75,6 +75,7 @@ Start here:
 69. `open-firmware-probes/usb-marker-draft/behavior-model.md` - host-side model of marker setup/gate decisions and response-length clipping
 70. `open-firmware-probes/hardware-test-ladder.md` - staged non-printing hardware test order and one-stage harness usage
 71. `open-firmware-model/model-invariants.md` - regenerated invariant check for the ZjStream print-path model across all generated cases
+72. `status-path/status-code-correlation.md` - conservative engine-event-to-PJL-CODE correlation model
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -139,6 +140,7 @@ Useful current conclusions:
 - The exact engine dispatch table maps `0x17` to the default return/no-op block; `0x17` is produced and received but not consumed as a normal engine command.
 - PJL-visible words such as `PAPERLESS`, `FUSER`, `TONEREXP`, and `JAMRECOVERY` are entries in a status command table at `0x10003c8c`, not direct engine dispatch cases.
 - `0x10010838` is the current bridge from internal status words to StatusMgr/PJL-visible notifications; `0x1000a2a4` converts status words into PJL `CODE=` values.
+- `analysis/status-path/status-code-correlation.md` records the important boundary that engine queue `0x17` event words are correlated with, but not identical to, final PJL `CODE=` values.
 - `0x10011178`, `0x100111b4`, and `0x100111d8` are the scalar get/lock/unlock API for an indexed data-store table at `0x1001ce14`; `0x10010f54` and `0x10010fd0` are its read/write-notify path.
 - USTATUS `DISPLAY=` uses data-store entry `0x1a`, while `ONLINE=` uses entry `0x18`.
 - Data-store subscribers are reached through `0x10006490 -> 0x1002c56c`; writes can notify queue subscribers with message `0x2d` or call direct callbacks.

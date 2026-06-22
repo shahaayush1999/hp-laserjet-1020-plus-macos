@@ -17,7 +17,8 @@ run_step "Python syntax checks" \
     "$ROOT_DIR/scripts/check-hp1020-print-model-invariants.py" \
     "$ROOT_DIR/scripts/project-hp1020-video-registers.py" \
     "$ROOT_DIR/scripts/model-hp1020-hardware-boundary.py" \
-    "$ROOT_DIR/scripts/model-hp1020-open-endpoint0.py"
+    "$ROOT_DIR/scripts/model-hp1020-open-endpoint0.py" \
+    "$ROOT_DIR/scripts/model-hp1020-status-code-correlation.py"
 
 run_step "Generate base ZjStream sample" \
   "$ROOT_DIR/scripts/generate-zjs-sample.sh"
@@ -46,6 +47,9 @@ run_step "Regenerate hardware boundary model" \
 
 run_step "Regenerate open endpoint-0 model" \
   "$ROOT_DIR/scripts/model-hp1020-open-endpoint0.py"
+
+run_step "Regenerate status CODE correlation model" \
+  "$ROOT_DIR/scripts/model-hp1020-status-code-correlation.py"
 
 run_step "JSON fail-count audit" \
   python3 - "$ROOT_DIR" <<'PY'
