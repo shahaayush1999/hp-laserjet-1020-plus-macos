@@ -512,6 +512,33 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/hardware-boundary/video-refill-topology.json",
         )
     )
+    video_prepare_projection = read_json("analysis/hardware-boundary/video-prepare-projection.json")
+    prepare_projection_rows = video_prepare_projection.get("projections", [])
+    callback_states = []
+    for projection in prepare_projection_rows:
+        for scenario in projection.get("scenarios", []):
+            if (
+                scenario.get("datastore_0x20_zero") is True
+                and scenario.get("lane_selector") == 0
+                and scenario.get("secondary_output_state_plus_0xec_nonzero") is False
+            ):
+                callback_states.append(scenario.get("derived_state", {}))
+    checks.append(
+        check(
+            "video_prepare_projection_narrows_generated_variants",
+            video_prepare_projection.get("status") == "pass"
+            and video_prepare_projection.get("projection_count") == 10
+            and video_prepare_projection.get("scenario_count") == 80
+            and all(projection.get("resolution") == "600x600" for projection in prepare_projection_rows)
+            and all(state.get("nbie") == 1 for state in callback_states)
+            and all(state.get("state_plus_0xc8_state_200") == 2 for state in callback_states)
+            and all(state.get("state_plus_0xf4") == 2 for state in callback_states)
+            and all(state.get("state_plus_0xbc") == state.get("stride_plus_0xb8") * 2 for state in callback_states)
+            and all(check.get("status") == "present" for check in video_prepare_projection.get("checks", [])),
+            "The video prepare projection must keep the generated host variants narrowed to 600dpi/NBIE=1 setup scenarios with the expected two-output callback state.",
+            evidence="analysis/hardware-boundary/video-prepare-projection.json",
+        )
+    )
     checks.append(
         check(
             "usb_family_remains_only_low_risk_target",

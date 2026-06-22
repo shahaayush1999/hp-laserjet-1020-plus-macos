@@ -1,5 +1,5 @@
 {
-  "check_count": 38,
+  "check_count": 39,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -113,6 +113,12 @@
       "detail": "The video refill topology must preserve the normal descriptor-queue path and the alternate raw linked-list path as separate unsafe video refills.",
       "evidence": "analysis/hardware-boundary/video-refill-topology.json",
       "name": "video_refill_topology_model_resolved",
+      "severity": "watch"
+    },
+    {
+      "detail": "The video prepare projection must keep the generated host variants narrowed to 600dpi/NBIE=1 setup scenarios with the expected two-output callback state.",
+      "evidence": "analysis/hardware-boundary/video-prepare-projection.json",
+      "name": "video_prepare_projection_narrows_generated_variants",
       "severity": "watch"
     },
     {

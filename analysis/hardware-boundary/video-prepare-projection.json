@@ -1,0 +1,4204 @@
+{
+  "checks": [
+    {
+      "name": "stride_from_work_84",
+      "needle": "uVar19 = (*(int *)(param_1 + 0x84) + 0x1fU & 0xffffffe0) >> 3",
+      "status": "present"
+    },
+    {
+      "name": "callback_gate_datastore_and_work_36",
+      "needle": "if ((iVar5 == 0) && (*(short *)(param_1 + 0x36) == 0))",
+      "status": "present"
+    },
+    {
+      "name": "resolution_600_sets_two_output",
+      "needle": "if (sVar18 == 600)",
+      "status": "present"
+    },
+    {
+      "name": "resolution_1200_sets_four_output",
+      "needle": "if (sVar18 != 0x4b0) goto LAB_10014ae0",
+      "status": "present"
+    },
+    {
+      "name": "state_200_from_work_22",
+      "needle": "*(uint *)(puVar15 + 200) = uVar7",
+      "status": "present"
+    },
+    {
+      "name": "remaining_units_from_work_26",
+      "needle": "*(uint *)(puVar15 + 0xd0) = (uint)*(ushort *)(param_1 + 0x26)",
+      "status": "present"
+    },
+    {
+      "name": "mode_flag_from_work_74",
+      "needle": "if (*(char *)(param_1 + 0x74) == '\\0')",
+      "status": "present"
+    },
+    {
+      "name": "single_plane_600_secondary_branch",
+      "needle": "if ((*(int *)PTR_DAT_100067c8 == 0) && (*(int *)(hp1020_video_state_ptr_word + 0xec) != 0))",
+      "status": "present"
+    },
+    {
+      "name": "single_plane_600_two_output_table",
+      "needle": "puVar11 = (undefined4 *)(PTR_DAT_100068b8 + *(int *)PTR_DAT_100067c8 * 0x10)",
+      "status": "present"
+    },
+    {
+      "name": "vertical_pack_write",
+      "needle": "*DAT_100068d8 = (uint)*(ushort *)(param_1 + 0x18) << 0x10 | uStack_2c",
+      "status": "present"
+    },
+    {
+      "name": "stride_register_write",
+      "needle": "*puVar1 = *puVar1 & uVar7 | uVar19",
+      "status": "present"
+    }
+  ],
+  "normal_path_summary": [
+    "All current generated host variants use ZJI_NBIE=1 and 600x600 declared resolution.",
+    "For datastore 0x20 == 0 and work +0x36 == 0, the prepare code promotes the video state to a two-output 600dpi setup: state +0xc8/200 = 2, +0xf4 = 2, and +0xbc = stride*2.",
+    "The exact vertical offset and remaining-unit fields still depend on work offsets not yet included in the print-path model."
+  ],
+  "projection_count": 10,
+  "projections": [
+    {
+      "case": "a4_2400x600",
+      "paper": 9,
+      "raster_x": 19072,
+      "raster_y": 6824,
+      "resolution": "600x600",
+      "scenarios": [
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 4768,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 2384,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 19072
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005580",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x0000007f",
+              "0x00000007",
+              "0x00001fff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 4768,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 2384,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 19072
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 4768,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 2384,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 19072
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 4768,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 2384,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 19072
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2384,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 2384,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 19072
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005540",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2384,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 2384,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 19072
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2384,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 2384,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 19072
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2384,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 2384,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 19072
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        }
+      ],
+      "video_bpp": 4,
+      "work_plus_0x84": 19072
+    },
+    {
+      "case": "a4_600x600",
+      "paper": 9,
+      "raster_x": 4768,
+      "raster_y": 6824,
+      "resolution": "600x600",
+      "scenarios": [
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1216,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 608,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 4864
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005580",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x0000007f",
+              "0x00000007",
+              "0x00001fff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1216,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 608,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 4864
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1216,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 608,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 4864
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1216,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 608,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 4864
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 608,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 608,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 4864
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005540",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 608,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 608,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 4864
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 608,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 608,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 4864
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 608,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 608,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 4864
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        }
+      ],
+      "video_bpp": 1,
+      "work_plus_0x84": 4864
+    },
+    {
+      "case": "a4_cardstock_media",
+      "paper": 9,
+      "raster_x": 9536,
+      "raster_y": 6824,
+      "resolution": "600x600",
+      "scenarios": [
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005580",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x0000007f",
+              "0x00000007",
+              "0x00001fff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005540",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        }
+      ],
+      "video_bpp": 2,
+      "work_plus_0x84": 9600
+    },
+    {
+      "case": "a4_default",
+      "paper": 9,
+      "raster_x": 9536,
+      "raster_y": 6824,
+      "resolution": "600x600",
+      "scenarios": [
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005580",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x0000007f",
+              "0x00000007",
+              "0x00001fff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005540",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        }
+      ],
+      "video_bpp": 2,
+      "work_plus_0x84": 9600
+    },
+    {
+      "case": "a4_draft",
+      "paper": 9,
+      "raster_x": 9536,
+      "raster_y": 6824,
+      "resolution": "600x600",
+      "scenarios": [
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005580",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x0000007f",
+              "0x00000007",
+              "0x00001fff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005540",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        }
+      ],
+      "video_bpp": 2,
+      "work_plus_0x84": 9600
+    },
+    {
+      "case": "a4_logical_clip",
+      "paper": 9,
+      "raster_x": 9536,
+      "raster_y": 6824,
+      "resolution": "600x600",
+      "scenarios": [
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005580",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x0000007f",
+              "0x00000007",
+              "0x00001fff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005540",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        }
+      ],
+      "video_bpp": 2,
+      "work_plus_0x84": 9600
+    },
+    {
+      "case": "a4_manual_feed",
+      "paper": 9,
+      "raster_x": 9536,
+      "raster_y": 6824,
+      "resolution": "600x600",
+      "scenarios": [
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005580",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x0000007f",
+              "0x00000007",
+              "0x00001fff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005540",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        }
+      ],
+      "video_bpp": 2,
+      "work_plus_0x84": 9600
+    },
+    {
+      "case": "a4_two_copies",
+      "paper": 9,
+      "raster_x": 9536,
+      "raster_y": 6824,
+      "resolution": "600x600",
+      "scenarios": [
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005580",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x0000007f",
+              "0x00000007",
+              "0x00001fff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2400,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005540",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        }
+      ],
+      "video_bpp": 2,
+      "work_plus_0x84": 9600
+    },
+    {
+      "case": "legal_default",
+      "paper": 5,
+      "raster_x": 9816,
+      "raster_y": 8208,
+      "resolution": "600x600",
+      "scenarios": [
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2464,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005580",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x0000007f",
+              "0x00000007",
+              "0x00001fff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2464,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2464,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2464,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1232,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005540",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1232,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1232,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1232,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        }
+      ],
+      "video_bpp": 2,
+      "work_plus_0x84": 9856
+    },
+    {
+      "case": "letter_default",
+      "paper": 1,
+      "raster_x": 9816,
+      "raster_y": 6408,
+      "resolution": "600x600",
+      "scenarios": [
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2464,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005580",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x0000007f",
+              "0x00000007",
+              "0x00001fff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2464,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x800236ca"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2464,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": true,
+          "derived_state": {
+            "callback_enabled": true,
+            "callback_pointer": "600dpi callback table",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 2464,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xf4": 2,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005590",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_two_output_table",
+            "words": [
+              "0x00000000",
+              "0x00000fff",
+              "0x0000000f",
+              "0x003fffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x000000e5",
+              "0xb1000124": "0x000000e5"
+            },
+            "datastore_0x20_zero": true,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x80028688"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1232,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005540",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1232,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 0,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x100055a0",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_alt_table",
+            "words": [
+              "0x00000000",
+              "0x0000001f",
+              "0x00000003",
+              "0x000000ff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1232,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": false,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": false,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1232,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "work +0x18",
+              "work +0x24",
+              "work +0x26",
+              "work +0x30",
+              "work +0x32",
+              "work +0x36"
+            ],
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 1,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005548",
+            "lane_selector": 1,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "single_plane_600_lane_table",
+            "words": [
+              "0x00000000",
+              "0xffffffff"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062",
+              "0xb1000124": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 1,
+            "registers": [
+              "0xb1000020",
+              "0xb1000120"
+            ],
+            "resolution": "not 300",
+            "value": "0x8001087d"
+          },
+          "work_plus_0x36_assumed_zero": true
+        }
+      ],
+      "video_bpp": 2,
+      "work_plus_0x84": 9856
+    }
+  ],
+  "scenario_count": 80,
+  "source_reports": [
+    "analysis/open-firmware-model/variants/*/print-path-model.json",
+    "analysis/hardware-boundary/video-prepare-modes.json"
+  ],
+  "status": "pass",
+  "summary": "Projection from generated print-path variants into video prepare 0xb100 setup choices."
+}

@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `38`
+- checks: `39`
 - failures: `0`
 - meaning: Offline analysis is internally consistent; the next decisive evidence is a guarded non-printing printer-side probe.
 
@@ -33,6 +33,7 @@ It does not contact the printer.
 | `video_band_queue_model_resolved` | `watch` | The video band queue model must preserve +0xdc/+0xe0 collision behavior and raw-band A/B register writes. | `analysis/hardware-boundary/video-band-queue.json` |
 | `video_mode_flag_model_resolved` | `watch` | The video mode-flag model must preserve the work +0x74 to state +0xfc sign-bit fork between descriptor queue and raw linked-list refill. | `analysis/hardware-boundary/video-mode-flag.json` |
 | `video_refill_topology_model_resolved` | `watch` | The video refill topology must preserve the normal descriptor-queue path and the alternate raw linked-list path as separate unsafe video refills. | `analysis/hardware-boundary/video-refill-topology.json` |
+| `video_prepare_projection_narrows_generated_variants` | `watch` | The video prepare projection must keep the generated host variants narrowed to 600dpi/NBIE=1 setup scenarios with the expected two-output callback state. | `analysis/hardware-boundary/video-prepare-projection.json` |
 | `usb_family_remains_only_low_risk_target` | `watch` | USB 0xb300 must remain the only plausible early open-firmware hardware target. | `analysis/hardware-boundary/hardware-boundary.json` |
 | `pjl_first_query_is_echo` | `watch` | The first stock/open comparison must remain the non-printing PJL ECHO probe. | `analysis/non-printing-status-probe/pjl-status-contract.json` |
 | `pjl_contract_is_non_printing` | `watch` | The status query contract must stay outside print/video/engine execution. | `analysis/non-printing-status-probe/pjl-status-contract.json` |

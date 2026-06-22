@@ -94,6 +94,7 @@ Start here:
 88. `hardware-boundary/video-band-queue.md` - generated model of the `0x10013f34` video descriptor queue/list helper, raw-band A/B register feed, and `+0xdc/+0xe0` loop gate
 89. `hardware-boundary/video-mode-flag.md` - generated model of work object `+0x74` to video state `+0xfc` and the IRQ refill fork between descriptor-queue and raw linked-list paths
 90. `hardware-boundary/video-refill-topology.md` - generated synthesis of the normal descriptor-queue refill path versus the alternate raw linked-list refresh path
+91. `hardware-boundary/video-prepare-projection.md` - generated projection from current host print variants into the 600dpi `0xb100` video-prepare setup scenarios
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -191,6 +192,7 @@ Useful current conclusions:
 - `analysis/hardware-boundary/video-band-queue.md` maps the queue/list helper that advances video state `+0xdc`, stops before colliding with `+0xe0` unless the descriptor final flag permits one more queue step, and writes raw-band A/B pointer and flag registers at `0xb1000008/000c` and `0xb1000108/010c`.
 - `analysis/hardware-boundary/video-mode-flag.md` maps the mode fork: work object byte `+0x74` is copied into the sign bit of video state `+0xfc`; zero selects the descriptor queue/list refill path, while nonzero selects the raw linked-list refresh path.
 - `analysis/hardware-boundary/video-refill-topology.md` stitches the current video refill evidence together: the stronger normal-print hypothesis is the descriptor queue/list refill path, while the raw linked-list refresh path is real but still lacks a proven normal print-path producer.
+- `analysis/hardware-boundary/video-prepare-projection.md` narrows the current generated host print cases against the `0xb100` setup path: all generated variants are 600x600/NBIE=1 and project into a small two-output 600dpi setup family when datastore `0x20` and work `+0x36` take the normal zero path.
 - `analysis/non-printing-usb-probe-spec.md` defines the only custom-firmware experiment that is currently defensible: boot/USB identity only, no video/engine MMIO.
 - `analysis/non-printing-status-probe/pjl-status-contract.md` defines the exact tiny PJL/status payloads to use when calibrating stock back-channel responses or future open USB/PJL echo behavior.
 - `analysis/offline-consistency/offline-consistency.md` now cross-checks the main offline conclusions against generated reports: engine `0x17` dispatch, status-code correlation, print-path model invariants, hardware boundary, PJL query contract, and USB marker draft safety.
@@ -226,6 +228,7 @@ Useful current conclusions:
 - `scripts/model-hp1020-video-band-queue.py` regenerates the video descriptor queue/list and raw-band register-feed model.
 - `scripts/model-hp1020-video-mode-flag.py` regenerates the work-object mode flag and IRQ refill-fork model.
 - `scripts/model-hp1020-video-refill-topology.py` regenerates the synthesis report connecting mode flag, IRQ decision, transfer-ring, and band-queue models.
+- `scripts/model-hp1020-video-prepare-projection.py` regenerates the projection from generated print-path variants into `0xb100` video-prepare setup scenarios.
 - `scripts/model-hp1020-first-page-hardware-sequence.py` regenerates the ordered first-page hardware sequence from the current print-path and hardware-boundary reports.
 - `scripts/model-hp1020-minimal-print-scope.py` regenerates the current minimum printing-only replacement scope from the generated print-path, USB, and hardware-boundary reports.
 - `scripts/analyze-hp1020-pjl-status-capture.py` classifies PJL/status back-channel captures against the generated contract, including expected-marker, no-response, and unexpected-byte outcomes.

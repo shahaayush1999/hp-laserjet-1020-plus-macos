@@ -27,6 +27,7 @@ run_step "Python syntax checks" \
     "$ROOT_DIR/scripts/model-hp1020-video-band-queue.py" \
     "$ROOT_DIR/scripts/model-hp1020-video-mode-flag.py" \
     "$ROOT_DIR/scripts/model-hp1020-video-refill-topology.py" \
+    "$ROOT_DIR/scripts/model-hp1020-video-prepare-projection.py" \
     "$ROOT_DIR/scripts/model-hp1020-first-page-hardware-sequence.py" \
     "$ROOT_DIR/scripts/model-hp1020-minimal-print-scope.py" \
     "$ROOT_DIR/scripts/model-hp1020-open-endpoint0.py" \
@@ -93,6 +94,9 @@ run_step "Regenerate video mode flag model" \
 
 run_step "Regenerate video refill topology model" \
   "$ROOT_DIR/scripts/model-hp1020-video-refill-topology.py"
+
+run_step "Regenerate video prepare projection model" \
+  "$ROOT_DIR/scripts/model-hp1020-video-prepare-projection.py"
 
 run_step "Regenerate first-page hardware sequence" \
   "$ROOT_DIR/scripts/model-hp1020-first-page-hardware-sequence.py"
