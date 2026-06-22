@@ -1,6 +1,6 @@
 # HP 1020 USB MMIO Access Scan
 
-- allowed mapped USB registers: `14`
+- allowed mapped USB registers: `15`
 - read accesses: `14`
 - write accesses: `0`
 - fail hits: `0`

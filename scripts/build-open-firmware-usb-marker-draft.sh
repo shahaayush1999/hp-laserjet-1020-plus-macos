@@ -171,10 +171,11 @@ rm -f "$obj" "$toolchain_elf"
   printf 'This open-code draft recognizes a USB product-string GET_DESCRIPTOR setup shape and tries to expose the marker string `HP1020 OPEN MARKER` through endpoint-0.\n'
   printf 'It writes only USB-controller MMIO registers that match the extracted stock endpoint-0 sequence contract.\n'
   printf 'It also writes the stock USB response-state RAM slots used by that contract; the memory boundary scan makes those non-MMIO writes explicit.\n'
+  printf 'For a matching request, it copies the marker descriptor into the stock control-IN staging buffer `0x90022bd0`, builds one four-word transfer descriptor at `0x900226f0`, submits that descriptor through `0xb3000014`, and kicks `0xb3000000 |= 0x108`.\n'
   printf 'The marker descriptor check verifies the embedded `HP1020 OPEN MARKER` USB string descriptor, its length constant, and its 0x90000000 hardware alias pointer.\n'
   printf 'The marker length-flow check verifies the clipped USB request length is preserved into the endpoint-0 response-state write.\n'
   printf 'It does not touch engine, fuser, motor, paper-feed, video, or raster MMIO.\n'
-  printf 'It is not hardware-ready; the missing proof is whether the setup buffer and stock response state are valid after custom upload.\n'
+  printf 'It is still not the first thing to upload; the missing proof is whether the setup buffer, staging buffer, descriptor ring, and controller completion path are valid after custom upload without the full stock USB runtime.\n'
 } > "$summary_md"
 
 chmod 644 "$elf" "$img" "$dl" "$readelf_txt" "$disasm_txt" "$layout_md" "$layout_json" \

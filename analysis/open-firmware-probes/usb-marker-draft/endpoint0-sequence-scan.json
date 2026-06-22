@@ -191,10 +191,32 @@
     "instruction": "s32i.n\ta9, a8, 0",
     "kind": "endpoint0_or_write",
     "operation": "or",
-    "pc": "0x10005d88",
+    "pc": "0x10005db9",
     "register": "0xb3000000",
     "sequence": null,
     "severity": "watch",
     "value": "0x00000002"
+  },
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005dc4",
+    "register": "0xb3000014",
+    "sequence": "data_stage_submit",
+    "severity": "watch",
+    "value": "0x900226f0"
+  },
+  {
+    "description": "transfer descriptor kick pattern seen in stock data stage",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_or_write",
+    "operation": "or",
+    "pc": "0x10005dd7",
+    "register": "0xb3000000",
+    "sequence": null,
+    "severity": "watch",
+    "value": "0x00000108"
   }
 ]

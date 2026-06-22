@@ -1,8 +1,8 @@
 # HP 1020 USB MMIO Access Scan
 
-- allowed mapped USB registers: `14`
-- read accesses: `5`
-- write accesses: `18`
+- allowed mapped USB registers: `15`
+- read accesses: `6`
+- write accesses: `20`
 - fail hits: `0`
 
 | Severity | Access | Register | PC | Instruction | Description |
@@ -24,9 +24,12 @@
 | `watch` | `write` | `0xb300000c` | `0x10005d4f` | `s32i.n	a9, a8, 0` | mapped USB MMIO write |
 | `watch` | `write` | `0xb300002c` | `0x10005d5a` | `s32i.n	a9, a8, 0` | mapped USB MMIO write |
 | `watch` | `write` | `0xb3000028` | `0x10005d65` | `s32i.n	a9, a8, 0` | mapped USB MMIO write |
-| `watch` | `read` | `0xb3000000` | `0x10005d7d` | `l32i.n	a9, a8, 0` | mapped USB MMIO read |
-| `watch` | `write` | `0xb3000000` | `0x10005d88` | `s32i.n	a9, a8, 0` | mapped USB MMIO write |
-| `watch` | `read` | `0xb3000408` | `0x10005da3` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
-| `watch` | `read` | `0xb3000400` | `0x10005dad` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
-| `watch` | `read` | `0xb3000408` | `0x10005e0e` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
-| `watch` | `read` | `0xb3000400` | `0x10005e1c` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
+| `watch` | `read` | `0xb3000000` | `0x10005dae` | `l32i.n	a9, a8, 0` | mapped USB MMIO read |
+| `watch` | `write` | `0xb3000000` | `0x10005db9` | `s32i.n	a9, a8, 0` | mapped USB MMIO write |
+| `watch` | `write` | `0xb3000014` | `0x10005dc4` | `s32i.n	a9, a8, 0` | mapped USB MMIO write |
+| `watch` | `read` | `0xb3000000` | `0x10005dcc` | `l32i.n	a9, a8, 0` | mapped USB MMIO read |
+| `watch` | `write` | `0xb3000000` | `0x10005dd7` | `s32i.n	a9, a8, 0` | mapped USB MMIO write |
+| `watch` | `read` | `0xb3000408` | `0x10005df3` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
+| `watch` | `read` | `0xb3000400` | `0x10005dfd` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
+| `watch` | `read` | `0xb3000408` | `0x10005e5e` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
+| `watch` | `read` | `0xb3000400` | `0x10005e6c` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |

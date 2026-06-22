@@ -25,6 +25,7 @@ into four groups:
 |---:|---|---:|---:|---:|---|
 | `0xb3000000` | main USB command/status kick | 3 | 2 | 0 | Read/modify/write control bits. Evidence includes bit 0x2 before control-IN staging and bit 0x1 after setup completion; decompiler also shows 0x108 to start transfer descriptors. |
 | `0xb300000c` | endpoint/request ack register | 0 | 2 | 0 | Written with 0x40 during descriptor request paths. |
+| `0xb3000014` | control-IN descriptor submit register | 0 | 2 | 0 | Written with the transfer descriptor ring pointer before the 0x108 control-IN kick. |
 | `0xb3000028` | post-response ack/kick register | 0 | 1 | 0 | Written after descriptor-specific setup and before calling the control-IN sender. |
 | `0xb300002c` | endpoint/request ack register | 0 | 2 | 0 | Written with 0x40 or 0x200 in descriptor request paths. |
 | `0xb3000200` | USB event/interrupt ack register | 2 | 2 | 0 | Read/modify/write with event bits 0x1 and 0x100. |
@@ -44,6 +45,7 @@ into four groups:
 |---:|---|
 | `0xb3000000` | `0x10008c3f` ORs `0x2` before write |
 | `0xb300000c` | `0x100094fc` writes `0x40`; `0x10009582` writes `0x40` |
+| `0xb3000014` | `0x10008ce4` submits pointer `0x900226f0`; `0x10008e50` submits pointer `0x900226f0` |
 | `0xb3000028` | no immediate constant inferred from local block |
 | `0xb300002c` | `0x10009507` writes `0x40`; `0x10009590` writes `0x200` |
 | `0xb3000200` | `0x1000990f` ORs `0x100` before write |
@@ -91,6 +93,21 @@ Representative events:
 
 - `0x100094fc` WRITE in 0x100094bc..0x1000950b: `s32i.n a6,a9,0x0`
 - `0x10009582` WRITE in 0x10009534..0x10009593: `s32i.n a6,a9,0x0`
+
+### `0xb3000014` - control-IN descriptor submit register
+
+Written with the transfer descriptor ring pointer before the 0x108 control-IN kick.
+
+Open-firmware relevance: needed to submit endpoint-0 transfer descriptors without the stock helper.
+
+Pointer/literal sources seen before access:
+
+- `0x10005ea0` (2)
+
+Representative events:
+
+- `0x10008ce4` WRITE in 0x10008c24..0x10008eef: `*DAT_10005ea0 = *(undefined4 *)PTR_DAT_10005e98`
+- `0x10008e50` WRITE in 0x10008c24..0x10008eef: `*DAT_10005ea0 = *(undefined4 *)PTR_DAT_10005e98`
 
 ### `0xb3000028` - post-response ack/kick register
 

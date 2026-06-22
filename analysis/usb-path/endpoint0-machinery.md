@@ -94,6 +94,8 @@ model. The actual stock response path depends on a registered transfer object.
 `0x10008c24 hp1020_usb_control_tx_data_stage_candidate` sends the current
 control response.
 
+The generated `control-in-data-stage.md` now models this helper directly.
+
 Observed inputs:
 
 | Source | Meaning |
@@ -114,6 +116,16 @@ Observed behavior:
 5. Set bits `0x108` in `0xb3000000`.
 6. Wait on the USB ThreadX queue for completion.
 7. Repeat until remaining length reaches zero.
+
+Resolved constants for the stock path:
+
+| Name | Value |
+|---|---:|
+| staging buffer | `0x90022bd0` |
+| transfer descriptor ring | `0x900226f0` |
+| final-descriptor flag | `0x08000000` |
+| descriptor submit register | `0xb3000014` |
+| control kick register/value | `0xb3000000 |= 0x108` |
 
 The transfer descriptor shape appears to be:
 

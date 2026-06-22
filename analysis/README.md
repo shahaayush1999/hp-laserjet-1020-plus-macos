@@ -79,6 +79,7 @@ Start here:
 73. `non-printing-status-probe/pjl-status-contract.md` - exact non-printing PJL/status payload contract and expected response markers
 74. `offline-consistency/offline-consistency.md` - cross-report consistency gate for the current offline conclusions
 75. `usb-path/usb-setup-source.md` - static split between the likely setup-packet RAM buffer and USB event pointer
+76. `usb-path/control-in-data-stage.md` - stock endpoint-0 control-IN transfer descriptor and kick model
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -172,6 +173,7 @@ Useful current conclusions:
 - `analysis/usb-path/usb-descriptor-response-model.md` turns those descriptors into exact byte strings for standard USB `GET_DESCRIPTOR` responses. This defines the payload contract for a future USB-only open marker, but not the endpoint-0 hardware plumbing.
 - `analysis/usb-path/open-endpoint0-model.md` converts those descriptor bytes into a pure setup-packet response model. It answers what bytes to return for standard `GET_DESCRIPTOR` requests, including a future open marker string, while explicitly excluding USB controller MMIO.
 - `analysis/usb-path/usb-setup-source.md` narrows the setup-packet source: the stock descriptor branch reads setup-like fields from `0x90021348 + offset`, while `0xb3000214` looks like a separate event/envelope pointer.
+- `analysis/usb-path/control-in-data-stage.md` models how the stock firmware sends endpoint-0 response bytes: staging buffer `0x90022bd0`, descriptor ring `0x900226f0`, `0x08000000` final-descriptor flag, `0xb3000014` submit register, and `0xb3000000 |= 0x108` kick.
 - `analysis/usb-path/endpoint0-machinery.md` maps the stock endpoint-0 flow: interrupt 4, USB event queue, `0x58`-byte transfer records, `0x10`-byte transfer descriptors, and `0xb300` control bits. The current standalone USB-marker blocker is endpoint-0 machinery, not descriptor payload bytes.
 - `analysis/usb-path/endpoint0-handshake-contract.md` extracts the immediate hardware-facing contract from those blocks: likely setup packet base `0x90021348`, event pointer register `0xb3000214`, response state slots, and two stock USB controller programming sequences.
 - `analysis/open-firmware-probes/usb-marker-draft/endpoint0-sequence-scan.md` verifies that the current marker draft's USB writes match the extracted endpoint-0 contract; this is the strictest offline gate before any future write-capable hardware test.
@@ -183,6 +185,7 @@ Useful current conclusions:
 - `scripts/check-hp1020-marker-length-flow.py` verifies the marker draft preserves the clipped host `wLength` register into the endpoint-0 response-length write.
 - `scripts/model-hp1020-usb-marker-draft.py` models the USB marker draft's setup/gate behavior and verifies response length clipping at the decision level.
 - `scripts/model-hp1020-usb-setup-source.py` regenerates the setup-source report that separates the direct setup RAM candidate from the USB event pointer.
+- `scripts/model-hp1020-control-in-data-stage.py` regenerates the stock endpoint-0 control-IN descriptor/kick model and self-tests key response sizes.
 - `scripts/analyze-hp1020-pjl-status-capture.py` classifies PJL/status back-channel captures against the generated contract, including expected-marker, no-response, and unexpected-byte outcomes.
 - `scripts/run-usb-marker-draft-hardware-test.sh` is the guarded dry-run/default harness for the marker draft. It re-runs the static gates before any upload and requires `HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1`.
 - `scripts/run-open-firmware-usb-test-ladder.sh` wraps the staged hardware path. Dry-run validates all probes offline; upload mode runs one selected non-printing stage with before/after USB identity capture.

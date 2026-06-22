@@ -115,6 +115,12 @@
         "register": "0xb3000028",
         "value": "0x00000040"
       }
+    ],
+    "data_stage_submit": [
+      {
+        "register": "0xb3000014",
+        "value": "0x900226f0"
+      }
     ]
   }
 }

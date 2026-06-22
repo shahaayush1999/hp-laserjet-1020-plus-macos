@@ -1,5 +1,5 @@
 {
-  "check_count": 18,
+  "check_count": 24,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -80,15 +80,33 @@
       "severity": "watch"
     },
     {
+      "detail": "The marker draft must submit the control-IN descriptor ring and kick the transfer path.",
+      "evidence": "analysis/open-firmware-probes/usb-marker-draft/endpoint0-sequence-scan.json",
+      "name": "usb_marker_data_stage_submit_present",
+      "severity": "watch"
+    },
+    {
       "detail": "The marker draft must stay USB-only and avoid engine/video MMIO.",
       "evidence": "analysis/open-firmware-probes/usb-marker-draft/usb-contract-scan.json",
       "name": "usb_marker_contract_has_no_engine_video_mmio",
       "severity": "watch"
     },
     {
+      "detail": "The memory boundary scan must show the marker copy into USB staging RAM and the four descriptor-ring writes.",
+      "evidence": "analysis/open-firmware-probes/usb-marker-draft/memory-boundary-scan.json",
+      "name": "usb_marker_memory_boundary_has_descriptor_ring",
+      "severity": "watch"
+    },
+    {
       "detail": "The host-side marker model must cover both stock gates and clipped host length.",
       "evidence": "analysis/open-firmware-probes/usb-marker-draft/behavior-model.json",
       "name": "usb_marker_behavior_clips_and_uses_both_gates",
+      "severity": "watch"
+    },
+    {
+      "detail": "The marker behavior model must include the descriptor submit register and transfer kick, not just the setup decision.",
+      "evidence": "analysis/open-firmware-probes/usb-marker-draft/behavior-model.json",
+      "name": "usb_marker_behavior_models_data_stage",
       "severity": "watch"
     },
     {
@@ -107,6 +125,24 @@
       "detail": "The open marker draft must read request type, request, descriptor selector, and host length before responding.",
       "evidence": "analysis/usb-path/usb-setup-source.json",
       "name": "usb_marker_reads_required_setup_fields",
+      "severity": "watch"
+    },
+    {
+      "detail": "Control-IN data-stage constants must preserve descriptor ring, staging buffer, and submit register evidence.",
+      "evidence": "analysis/usb-path/control-in-data-stage.json",
+      "name": "control_in_data_stage_constants_resolved",
+      "severity": "watch"
+    },
+    {
+      "detail": "A 38-byte open marker response should model as one flagged control-IN descriptor.",
+      "evidence": "analysis/usb-path/control-in-data-stage.json",
+      "name": "control_in_open_marker_descriptor_shape",
+      "severity": "watch"
+    },
+    {
+      "detail": "Large control-IN responses should preserve the modeled five-descriptor batch limit before another kick.",
+      "evidence": "analysis/usb-path/control-in-data-stage.json",
+      "name": "control_in_large_response_batches",
       "severity": "watch"
     }
   ],

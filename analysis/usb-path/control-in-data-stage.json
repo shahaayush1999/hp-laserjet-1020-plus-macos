@@ -1,0 +1,396 @@
+{
+  "algorithm": [
+    "set 0xb3000000 bit 0x2 before staging the control-IN response",
+    "copy/flush response bytes into the staging buffer at 0x90022bd0",
+    "build one to five 0x10-byte transfer descriptors at 0x900226f0",
+    "descriptor word +0x00 is byte_count OR 0x08000000 on the final descriptor of each hardware kick",
+    "descriptor word +0x08 is the source pointer into the staging buffer",
+    "descriptor word +0x0c is the next descriptor pointer or zero",
+    "write descriptor base through 0xb3000014, then OR 0xb3000000 with 0x108",
+    "wait on the USB completion queue and repeat if bytes remain"
+  ],
+  "assumed_chunk_size_for_scenarios": "0x00000040",
+  "constants": {
+    "chunk_size_register": "0xb300000c",
+    "completion_queue": "0x10021318",
+    "descriptor_base": "0x900226f0",
+    "descriptor_base_ptr_cell": "0x1001bc58",
+    "descriptor_flag": "0x08000000",
+    "descriptor_hardware_alias_flag": "0x80000000",
+    "descriptor_submit_register": "0xb3000014",
+    "descriptor_submit_value": "0x900226f0",
+    "staging_buffer": "0x90022bd0",
+    "staging_buffer_ptr_cell": "0x1001bc64",
+    "transfer_state_base": "0x100212d4",
+    "usb_main_control": "0xb3000000"
+  },
+  "evidence": [
+    "analysis/usb-path/decompiled-neighbors/10008c24_hp1020_usb_control_tx_data_stage_candidate.c",
+    "analysis/usb-path/internal-blocks.md",
+    "analysis/usb-path-report.md"
+  ],
+  "remaining_live_unknown": [
+    "whether the open payload inherits initialized USB transfer-state RAM after ACL upload",
+    "whether the control-IN completion queue can be replaced with a safe polling loop",
+    "which live register transition confirms the 0x108 kick completed without ThreadX"
+  ],
+  "scenarios": [
+    {
+      "batches": [
+        {
+          "batch_index": 0,
+          "control_kick_or_value": 264,
+          "descriptor_count": 1,
+          "descriptor_submit_pointer": 2416060144,
+          "descriptors": [
+            {
+              "byte_count": 0,
+              "control_word": 134217728,
+              "flagged": true,
+              "index": 0,
+              "next_descriptor": 0,
+              "source_pointer": 2416061392
+            }
+          ],
+          "remaining_after_batch": 0
+        }
+      ],
+      "response_len": 0
+    },
+    {
+      "batches": [
+        {
+          "batch_index": 0,
+          "control_kick_or_value": 264,
+          "descriptor_count": 1,
+          "descriptor_submit_pointer": 2416060144,
+          "descriptors": [
+            {
+              "byte_count": 1,
+              "control_word": 134217729,
+              "flagged": true,
+              "index": 0,
+              "next_descriptor": 0,
+              "source_pointer": 2416061392
+            }
+          ],
+          "remaining_after_batch": 0
+        }
+      ],
+      "response_len": 1
+    },
+    {
+      "batches": [
+        {
+          "batch_index": 0,
+          "control_kick_or_value": 264,
+          "descriptor_count": 1,
+          "descriptor_submit_pointer": 2416060144,
+          "descriptors": [
+            {
+              "byte_count": 18,
+              "control_word": 134217746,
+              "flagged": true,
+              "index": 0,
+              "next_descriptor": 0,
+              "source_pointer": 2416061392
+            }
+          ],
+          "remaining_after_batch": 0
+        }
+      ],
+      "response_len": 18
+    },
+    {
+      "batches": [
+        {
+          "batch_index": 0,
+          "control_kick_or_value": 264,
+          "descriptor_count": 1,
+          "descriptor_submit_pointer": 2416060144,
+          "descriptors": [
+            {
+              "byte_count": 32,
+              "control_word": 134217760,
+              "flagged": true,
+              "index": 0,
+              "next_descriptor": 0,
+              "source_pointer": 2416061392
+            }
+          ],
+          "remaining_after_batch": 0
+        }
+      ],
+      "response_len": 32
+    },
+    {
+      "batches": [
+        {
+          "batch_index": 0,
+          "control_kick_or_value": 264,
+          "descriptor_count": 1,
+          "descriptor_submit_pointer": 2416060144,
+          "descriptors": [
+            {
+              "byte_count": 34,
+              "control_word": 134217762,
+              "flagged": true,
+              "index": 0,
+              "next_descriptor": 0,
+              "source_pointer": 2416061392
+            }
+          ],
+          "remaining_after_batch": 0
+        }
+      ],
+      "response_len": 34
+    },
+    {
+      "batches": [
+        {
+          "batch_index": 0,
+          "control_kick_or_value": 264,
+          "descriptor_count": 1,
+          "descriptor_submit_pointer": 2416060144,
+          "descriptors": [
+            {
+              "byte_count": 38,
+              "control_word": 134217766,
+              "flagged": true,
+              "index": 0,
+              "next_descriptor": 0,
+              "source_pointer": 2416061392
+            }
+          ],
+          "remaining_after_batch": 0
+        }
+      ],
+      "response_len": 38
+    },
+    {
+      "batches": [
+        {
+          "batch_index": 0,
+          "control_kick_or_value": 264,
+          "descriptor_count": 1,
+          "descriptor_submit_pointer": 2416060144,
+          "descriptors": [
+            {
+              "byte_count": 64,
+              "control_word": 134217792,
+              "flagged": true,
+              "index": 0,
+              "next_descriptor": 0,
+              "source_pointer": 2416061392
+            }
+          ],
+          "remaining_after_batch": 0
+        }
+      ],
+      "response_len": 64
+    },
+    {
+      "batches": [
+        {
+          "batch_index": 0,
+          "control_kick_or_value": 264,
+          "descriptor_count": 2,
+          "descriptor_submit_pointer": 2416060144,
+          "descriptors": [
+            {
+              "byte_count": 64,
+              "control_word": 64,
+              "flagged": false,
+              "index": 0,
+              "next_descriptor": 2416060160,
+              "source_pointer": 2416061392
+            },
+            {
+              "byte_count": 1,
+              "control_word": 134217729,
+              "flagged": true,
+              "index": 1,
+              "next_descriptor": 0,
+              "source_pointer": 2416061456
+            }
+          ],
+          "remaining_after_batch": 0
+        }
+      ],
+      "response_len": 65
+    },
+    {
+      "batches": [
+        {
+          "batch_index": 0,
+          "control_kick_or_value": 264,
+          "descriptor_count": 4,
+          "descriptor_submit_pointer": 2416060144,
+          "descriptors": [
+            {
+              "byte_count": 64,
+              "control_word": 64,
+              "flagged": false,
+              "index": 0,
+              "next_descriptor": 2416060160,
+              "source_pointer": 2416061392
+            },
+            {
+              "byte_count": 64,
+              "control_word": 64,
+              "flagged": false,
+              "index": 1,
+              "next_descriptor": 2416060176,
+              "source_pointer": 2416061456
+            },
+            {
+              "byte_count": 64,
+              "control_word": 64,
+              "flagged": false,
+              "index": 2,
+              "next_descriptor": 2416060192,
+              "source_pointer": 2416061520
+            },
+            {
+              "byte_count": 63,
+              "control_word": 134217791,
+              "flagged": true,
+              "index": 3,
+              "next_descriptor": 0,
+              "source_pointer": 2416061584
+            }
+          ],
+          "remaining_after_batch": 0
+        }
+      ],
+      "response_len": 255
+    },
+    {
+      "batches": [
+        {
+          "batch_index": 0,
+          "control_kick_or_value": 264,
+          "descriptor_count": 5,
+          "descriptor_submit_pointer": 2416060144,
+          "descriptors": [
+            {
+              "byte_count": 64,
+              "control_word": 64,
+              "flagged": false,
+              "index": 0,
+              "next_descriptor": 2416060160,
+              "source_pointer": 2416061392
+            },
+            {
+              "byte_count": 64,
+              "control_word": 64,
+              "flagged": false,
+              "index": 1,
+              "next_descriptor": 2416060176,
+              "source_pointer": 2416061456
+            },
+            {
+              "byte_count": 64,
+              "control_word": 64,
+              "flagged": false,
+              "index": 2,
+              "next_descriptor": 2416060192,
+              "source_pointer": 2416061520
+            },
+            {
+              "byte_count": 64,
+              "control_word": 64,
+              "flagged": false,
+              "index": 3,
+              "next_descriptor": 2416060208,
+              "source_pointer": 2416061584
+            },
+            {
+              "byte_count": 64,
+              "control_word": 134217792,
+              "flagged": true,
+              "index": 4,
+              "next_descriptor": 0,
+              "source_pointer": 2416061648
+            }
+          ],
+          "remaining_after_batch": 0
+        }
+      ],
+      "response_len": 320
+    },
+    {
+      "batches": [
+        {
+          "batch_index": 0,
+          "control_kick_or_value": 264,
+          "descriptor_count": 5,
+          "descriptor_submit_pointer": 2416060144,
+          "descriptors": [
+            {
+              "byte_count": 64,
+              "control_word": 64,
+              "flagged": false,
+              "index": 0,
+              "next_descriptor": 2416060160,
+              "source_pointer": 2416061392
+            },
+            {
+              "byte_count": 64,
+              "control_word": 64,
+              "flagged": false,
+              "index": 1,
+              "next_descriptor": 2416060176,
+              "source_pointer": 2416061456
+            },
+            {
+              "byte_count": 64,
+              "control_word": 64,
+              "flagged": false,
+              "index": 2,
+              "next_descriptor": 2416060192,
+              "source_pointer": 2416061520
+            },
+            {
+              "byte_count": 64,
+              "control_word": 64,
+              "flagged": false,
+              "index": 3,
+              "next_descriptor": 2416060208,
+              "source_pointer": 2416061584
+            },
+            {
+              "byte_count": 64,
+              "control_word": 134217792,
+              "flagged": true,
+              "index": 4,
+              "next_descriptor": 2416060224,
+              "source_pointer": 2416061648
+            }
+          ],
+          "remaining_after_batch": 1
+        },
+        {
+          "batch_index": 1,
+          "control_kick_or_value": 264,
+          "descriptor_count": 1,
+          "descriptor_submit_pointer": 2416060144,
+          "descriptors": [
+            {
+              "byte_count": 1,
+              "control_word": 134217729,
+              "flagged": true,
+              "index": 0,
+              "next_descriptor": 0,
+              "source_pointer": 2416061392
+            }
+          ],
+          "remaining_after_batch": 0
+        }
+      ],
+      "response_len": 321
+    }
+  ],
+  "source_function": "0x10008c24 hp1020_usb_control_tx_data_stage_candidate",
+  "summary": "Offline model of stock endpoint-0 control-IN transfer descriptor construction."
+}

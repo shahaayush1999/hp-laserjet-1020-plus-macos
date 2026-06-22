@@ -184,6 +184,7 @@ def build_report() -> dict[str, Any]:
     marker_sequence = read_json("analysis/open-firmware-probes/usb-marker-draft/endpoint0-sequence-scan.json")
     marker_contract = read_json("analysis/open-firmware-probes/usb-marker-draft/usb-contract-scan.json")
     marker_behavior = read_json("analysis/open-firmware-probes/usb-marker-draft/behavior-model.json")
+    marker_memory = read_json("analysis/open-firmware-probes/usb-marker-draft/memory-boundary-scan.json")
     checks.append(
         check(
             "usb_marker_descriptor_is_stable",
@@ -213,11 +214,49 @@ def build_report() -> dict[str, Any]:
     )
     checks.append(
         check(
+            "usb_marker_data_stage_submit_present",
+            any(
+                item.get("register") == "0xb3000014"
+                and item.get("value") == "0x900226f0"
+                and item.get("sequence") == "data_stage_submit"
+                for item in marker_sequence
+            )
+            and any(
+                item.get("register") == "0xb3000000"
+                and item.get("value") == "0x00000108"
+                and item.get("kind") == "endpoint0_or_write"
+                for item in marker_sequence
+            ),
+            "The marker draft must submit the control-IN descriptor ring and kick the transfer path.",
+            evidence="analysis/open-firmware-probes/usb-marker-draft/endpoint0-sequence-scan.json",
+        )
+    )
+    checks.append(
+        check(
             "usb_marker_contract_has_no_engine_video_mmio",
             severity_count(marker_contract, "fail") == 0
             and all(item.get("kind") == "mapped_usb_mmio" for item in marker_contract),
             "The marker draft must stay USB-only and avoid engine/video MMIO.",
             evidence="analysis/open-firmware-probes/usb-marker-draft/usb-contract-scan.json",
+        )
+    )
+    checks.append(
+        check(
+            "usb_marker_memory_boundary_has_descriptor_ring",
+            len(
+                [
+                    item
+                    for item in marker_memory
+                    if item.get("kind") == "usb_transfer_descriptor_ring" and item.get("access") == "write"
+                ]
+            )
+            == 4
+            and any(
+                item.get("kind") == "usb_staging_buffer" and item.get("access") == "write"
+                for item in marker_memory
+            ),
+            "The memory boundary scan must show the marker copy into USB staging RAM and the four descriptor-ring writes.",
+            evidence="analysis/open-firmware-probes/usb-marker-draft/memory-boundary-scan.json",
         )
     )
     marker_responses = [
@@ -235,9 +274,23 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/open-firmware-probes/usb-marker-draft/behavior-model.json",
         )
     )
+    checks.append(
+        check(
+            "usb_marker_behavior_models_data_stage",
+            all(
+                scenario["decision"].get("data_stage", {}).get("descriptor_submit_register") == "0xb3000014"
+                and scenario["decision"].get("data_stage", {}).get("descriptor_submit_value") == "0x900226f0"
+                and scenario["decision"].get("data_stage", {}).get("transfer_kick_or") == "0x00000108"
+                for scenario in marker_responses
+            ),
+            "The marker behavior model must include the descriptor submit register and transfer kick, not just the setup decision.",
+            evidence="analysis/open-firmware-probes/usb-marker-draft/behavior-model.json",
+        )
+    )
 
     open_endpoint0 = read_json("analysis/usb-path/open-endpoint0-model.json")
     setup_source = read_json("analysis/usb-path/usb-setup-source.json")
+    control_in = read_json("analysis/usb-path/control-in-data-stage.json")
     open_marker_cases = [
         scenario
         for scenario in open_endpoint0.get("scenarios", [])
@@ -273,6 +326,39 @@ def build_report() -> dict[str, Any]:
             ),
             "The open marker draft must read request type, request, descriptor selector, and host length before responding.",
             evidence="analysis/usb-path/usb-setup-source.json",
+        )
+    )
+    control_constants = control_in.get("constants", {})
+    scenarios_by_len = {item["response_len"]: item for item in control_in.get("scenarios", [])}
+    checks.append(
+        check(
+            "control_in_data_stage_constants_resolved",
+            control_constants.get("descriptor_flag") == "0x08000000"
+            and control_constants.get("descriptor_base") == "0x900226f0"
+            and control_constants.get("staging_buffer") == "0x90022bd0"
+            and control_constants.get("descriptor_submit_register") == "0xb3000014",
+            "Control-IN data-stage constants must preserve descriptor ring, staging buffer, and submit register evidence.",
+            evidence="analysis/usb-path/control-in-data-stage.json",
+        )
+    )
+    checks.append(
+        check(
+            "control_in_open_marker_descriptor_shape",
+            scenarios_by_len.get(38, {}).get("batches", [{}])[0].get("descriptor_count") == 1
+            and scenarios_by_len.get(38, {}).get("batches", [{}])[0].get("descriptors", [{}])[0].get("control_word")
+            == 0x08000026,
+            "A 38-byte open marker response should model as one flagged control-IN descriptor.",
+            evidence="analysis/usb-path/control-in-data-stage.json",
+        )
+    )
+    checks.append(
+        check(
+            "control_in_large_response_batches",
+            len(scenarios_by_len.get(321, {}).get("batches", [])) == 2
+            and [batch.get("descriptor_count") for batch in scenarios_by_len.get(321, {}).get("batches", [])]
+            == [5, 1],
+            "Large control-IN responses should preserve the modeled five-descriptor batch limit before another kick.",
+            evidence="analysis/usb-path/control-in-data-stage.json",
         )
     )
 

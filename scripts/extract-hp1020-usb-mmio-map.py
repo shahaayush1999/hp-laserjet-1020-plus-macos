@@ -39,6 +39,11 @@ REGISTER_NOTES: dict[str, dict[str, str]] = {
         "role": "Written with 0x40 during descriptor request paths.",
         "open_firmware_relevance": "likely needed to acknowledge/advance setup handling",
     },
+    "0xb3000014": {
+        "working_name": "control-IN descriptor submit register",
+        "role": "Written with the transfer descriptor ring pointer before the 0x108 control-IN kick.",
+        "open_firmware_relevance": "needed to submit endpoint-0 transfer descriptors without the stock helper",
+    },
     "0xb3000028": {
         "working_name": "post-response ack/kick register",
         "role": "Written after descriptor-specific setup and before calling the control-IN sender.",
@@ -266,6 +271,8 @@ def parse_internal_blocks() -> dict[str, Any]:
     for reg_addr, symbols in pointer_symbols.items():
         registers[reg_addr]["pointer_symbols"] = dict(sorted(symbols.items()))
 
+    add_manual_control_in_submit_register(registers)
+
     ordered = dict(sorted(registers.items()))
     summary = {
         "source": str(SOURCE.relative_to(REPO)),
@@ -283,6 +290,47 @@ def parse_internal_blocks() -> dict[str, Any]:
         "registers": ordered,
     }
     return summary
+
+
+def add_manual_control_in_submit_register(registers: dict[str, dict[str, Any]]) -> None:
+    """Add evidence from the decompiled 0x10008c24 tail not present in internal-blocks.md."""
+
+    addr = "0xb3000014"
+    reg = registers.setdefault(
+        addr,
+        {
+            "register": addr,
+            "working_name": REGISTER_NOTES[addr]["working_name"],
+            "role": REGISTER_NOTES[addr]["role"],
+            "open_firmware_relevance": REGISTER_NOTES[addr]["open_firmware_relevance"],
+            "counts": {"read": 0, "write": 0, "param": 0, "other": 0},
+            "events": [],
+            "write_values": [],
+            "pointer_symbols": {},
+        },
+    )
+    for pc in ("0x10008ce4", "0x10008e50"):
+        if any(event["pc"] == pc for event in reg["events"]):
+            continue
+        reg["counts"]["write"] += 1
+        event = {
+            "pc": pc,
+            "access": "write",
+            "instruction": "*DAT_10005ea0 = *(undefined4 *)PTR_DAT_10005e98",
+            "target": "0x10008c24",
+            "block": {"depth": 0, "start": "0x10008c24", "end": "0x10008eef"},
+            "pointer_literal": "0x10005ea0",
+            "note": "manual evidence from analysis/usb-path/decompiled-neighbors/10008c24_hp1020_usb_control_tx_data_stage_candidate.c",
+        }
+        reg["events"].append(event)
+        reg["write_values"].append(
+            {
+                "pc": pc,
+                "source_register": "DAT_10005ea0",
+                "pointer_value": "0x900226f0",
+            }
+        )
+    reg["pointer_symbols"] = {"0x10005ea0": reg["counts"]["write"]}
 
 
 def format_hex(value: int) -> str:
@@ -339,6 +387,8 @@ def write_markdown(data: dict[str, Any]) -> None:
         for value in reg["write_values"]:
             if "immediate" in value:
                 write_bits.append(f"`{value['pc']}` writes `{format_hex(value['immediate'])}`")
+            if "pointer_value" in value:
+                write_bits.append(f"`{value['pc']}` submits pointer `{value['pointer_value']}`")
             op = value.get("operation")
             if op:
                 immediates = ", ".join(f"`{format_hex(v)}`" for v in op["immediates"])

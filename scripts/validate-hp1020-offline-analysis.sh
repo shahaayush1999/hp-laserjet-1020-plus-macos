@@ -19,6 +19,7 @@ run_step "Python syntax checks" \
     "$ROOT_DIR/scripts/model-hp1020-hardware-boundary.py" \
     "$ROOT_DIR/scripts/model-hp1020-open-endpoint0.py" \
     "$ROOT_DIR/scripts/model-hp1020-usb-setup-source.py" \
+    "$ROOT_DIR/scripts/model-hp1020-control-in-data-stage.py" \
     "$ROOT_DIR/scripts/model-hp1020-status-code-correlation.py" \
     "$ROOT_DIR/scripts/model-hp1020-pjl-status-contract.py" \
     "$ROOT_DIR/scripts/analyze-hp1020-pjl-status-capture.py" \
@@ -54,6 +55,12 @@ run_step "Regenerate open endpoint-0 model" \
 
 run_step "Regenerate USB setup-source model" \
   "$ROOT_DIR/scripts/model-hp1020-usb-setup-source.py"
+
+run_step "Regenerate USB control-IN data-stage model" \
+  "$ROOT_DIR/scripts/model-hp1020-control-in-data-stage.py"
+
+run_step "Self-test USB control-IN data-stage model" \
+  "$ROOT_DIR/scripts/model-hp1020-control-in-data-stage.py" --self-test
 
 run_step "Regenerate status CODE correlation model" \
   "$ROOT_DIR/scripts/model-hp1020-status-code-correlation.py"

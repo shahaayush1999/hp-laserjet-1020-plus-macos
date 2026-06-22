@@ -184,7 +184,7 @@ def build_report(descriptors: dict[str, Any]) -> dict[str, Any]:
         "scenarios": scenarios,
         "porting_boundary": [
             "setup packet source is narrowed to 0x90021348, but live population after custom upload is unproven",
-            "data-stage transfer descriptor programming still needs live hardware confirmation",
+            "data-stage descriptor construction is modeled, but completion polling without ThreadX still needs live hardware confirmation",
             "engine/video MMIO remains out of scope",
             "this model is safe to run on the host only",
         ],
@@ -242,7 +242,7 @@ def render_markdown(report: dict[str, Any]) -> str:
             "## Practical Meaning",
             "",
             "The descriptor-response side is now small and deterministic enough to port to assembly later.",
-            "The remaining risky work is not choosing bytes; it is proving the narrowed setup-buffer candidate is populated after upload and safely triggering the USB data stage.",
+            "The remaining risky work is not choosing bytes; it is proving the narrowed setup-buffer candidate is populated after upload and replacing the stock ThreadX completion wait with a safe USB polling loop.",
             "",
         ]
     )

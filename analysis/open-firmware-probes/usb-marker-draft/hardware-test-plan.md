@@ -23,15 +23,17 @@ The draft currently passes these static gates:
 - USB probe contract: only mapped `0xb300....` USB registers
 - USB MMIO access scan: mapped USB reads/writes only
 - endpoint-0 sequence scan: USB writes match the extracted stock endpoint-0 contract
-- memory boundary scan: 6 candidate setup-buffer reads and 2 stock response-state writes, with no hidden fail hits
+- memory boundary scan: candidate setup-buffer reads, stock response-state writes, one staging-buffer copy loop, and four descriptor-ring writes, with no hidden fail hits
 - marker length-flow check: clipped host `wLength` is preserved into the endpoint-0 response-length write
-- behavior model: product-string requests select Sequence A or B based on USB gates and response length is clipped to `min(wLength, 38)`
+- behavior model: product-string requests select Sequence A or B based on USB gates, response length is clipped to `min(wLength, 38)`, and one stock-shaped control-IN descriptor is submitted
 
 The draft still has an important unresolved assumption:
 
 ```text
-setup packet base 0x90021348 and response state base 0x100212d4 are valid after
-custom firmware upload without the full stock USB runtime.
+setup packet base 0x90021348, response state base 0x100212d4, staging buffer
+0x90022bd0, descriptor ring 0x900226f0, and the 0xb3000014/0xb3000000
+control-IN kick are valid after custom firmware upload without the full stock
+USB runtime.
 ```
 
 That assumption is exactly what hardware must prove or disprove.

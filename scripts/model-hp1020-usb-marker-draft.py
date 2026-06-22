@@ -13,6 +13,30 @@ DEFAULT_JSON = ROOT_DIR / "analysis/open-firmware-probes/usb-marker-draft/behavi
 DEFAULT_MD = ROOT_DIR / "analysis/open-firmware-probes/usb-marker-draft/behavior-model.md"
 MARKER_LEN = 0x26
 SETUP_PRODUCT_STRING = bytes.fromhex("80 06 02 03 09 04 ff 00")
+MARKER_SOURCE_POINTER = 0x90003200
+STAGING_BUFFER = 0x90022BD0
+DESCRIPTOR_BASE = 0x900226F0
+DESCRIPTOR_SUBMIT_REGISTER = 0xB3000014
+DESCRIPTOR_FINAL_FLAG = 0x08000000
+TRANSFER_KICK_OR = 0x00000108
+
+
+def data_stage_plan(response_len: int) -> dict[str, object]:
+    return {
+        "copy_source": f"0x{MARKER_SOURCE_POINTER:08x}",
+        "staging_buffer": f"0x{STAGING_BUFFER:08x}",
+        "copy_bytes": MARKER_LEN,
+        "descriptor_base": f"0x{DESCRIPTOR_BASE:08x}",
+        "descriptor_words": [
+            f"0x{DESCRIPTOR_FINAL_FLAG | response_len:08x}",
+            "0x00000000",
+            f"0x{STAGING_BUFFER:08x}",
+            "0x00000000",
+        ],
+        "descriptor_submit_register": f"0x{DESCRIPTOR_SUBMIT_REGISTER:08x}",
+        "descriptor_submit_value": f"0x{DESCRIPTOR_BASE:08x}",
+        "transfer_kick_or": f"0x{TRANSFER_KICK_OR:08x}",
+    }
 
 
 def marker_decision(setup: bytes, gate_0408: int, gate_0400: int) -> dict[str, object]:
@@ -55,8 +79,10 @@ def marker_decision(setup: bytes, gate_0408: int, gate_0400: int) -> dict[str, o
         "sequence": sequence,
         "w_length": w_length,
         "response_len": response_len,
-        "response_pointer": "0x90003200",
+        "response_pointer": f"0x{STAGING_BUFFER:08x}",
+        "marker_source_pointer": f"0x{MARKER_SOURCE_POINTER:08x}",
         "response_text": "HP1020 OPEN MARKER",
+        "data_stage": data_stage_plan(response_len),
     }
 
 
@@ -98,14 +124,18 @@ def render_markdown(report: dict[str, object]) -> str:
         "",
         "## Scenario Matrix",
         "",
-        "| Scenario | Result | Sequence | wLength | Response Bytes | Reason |",
-        "|---|---|---|---:|---:|---|",
+        "| Scenario | Result | Sequence | wLength | Response Bytes | Descriptor Word | Reason |",
+        "|---|---|---|---:|---:|---:|---|",
     ]
     for scenario in report["scenarios"]:
         decision = scenario["decision"]
+        descriptor_word = ""
+        if data_stage := decision.get("data_stage"):
+            descriptor_word = data_stage["descriptor_words"][0]
         lines.append(
             f"| {scenario['name']} | `{decision['result']}` | `{decision.get('sequence', '')}` | "
             f"{decision.get('w_length', '')} | {decision.get('response_len', '')} | "
+            f"`{descriptor_word}` | "
             f"{decision.get('reason', '')} |"
         )
     lines.extend(
@@ -117,6 +147,8 @@ def render_markdown(report: dict[str, object]) -> str:
             "- Response length is clipped to `min(wLength, 38)`.",
             "- `0xb3000408 & 0x6000` selects Sequence A.",
             "- `0xb3000400 & 0x3` selects Sequence B when Sequence A is not selected.",
+            "- Matching requests copy the marker descriptor from `0x90003200` into the stock control-IN staging buffer `0x90022bd0`.",
+            "- The draft builds one four-word descriptor at `0x900226f0`, submits it through `0xb3000014`, and kicks `0xb3000000 |= 0x108`.",
             "- If neither gate is active, the draft parks without programming endpoint-0.",
             "",
         ]

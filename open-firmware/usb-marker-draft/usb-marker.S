@@ -87,8 +87,14 @@ hp1020_setup_packet_base_90021348:
     .word 0x90021348
 hp1020_marker_descriptor_hw_ptr_90003200:
     .word 0x90003200
+hp1020_staging_buffer_ptr_90022bd0:
+    .word 0x90022bd0
+hp1020_descriptor_base_ptr_900226f0:
+    .word 0x900226f0
 hp1020_marker_len_00000026:
     .word 0x00000026
+hp1020_descriptor_word_08000026:
+    .word 0x08000026
 hp1020_done_marker_48504d4b:
     .word 0x48504d4b
 hp1020_no_match_marker_4e4f4d41:
@@ -118,9 +124,13 @@ hp1020_value_00000200:
     .word 0x00000200
 hp1020_value_00000002:
     .word 0x00000002
+hp1020_value_00000108:
+    .word 0x00000108
 
 hp1020_mmio_b3000000:
     .word 0xb3000000
+hp1020_mmio_b3000014:
+    .word 0xb3000014
 hp1020_mmio_b300000c:
     .word 0xb300000c
 hp1020_mmio_b3000028:
@@ -204,9 +214,34 @@ hp1020_usb_marker_sequence_b:
 hp1020_usb_marker_kick_control_in:
     l32r a4, hp1020_response_state_base_100212d4
     s32i a6, a4, 0x3c
-    l32r a3, hp1020_marker_descriptor_hw_ptr_90003200
+    l32r a3, hp1020_staging_buffer_ptr_90022bd0
     s32i a3, a4, 0x40
+
+    l32r a2, hp1020_marker_descriptor_hw_ptr_90003200
+    l32r a3, hp1020_staging_buffer_ptr_90022bd0
+    movi a4, 0
+    l32r a5, hp1020_marker_len_00000026
+1:
+    l8ui a6, a2, 0
+    s8i a6, a3, 0
+    addi a2, a2, 1
+    addi a3, a3, 1
+    addi a4, a4, 1
+    bltu a4, a5, 1b
+
+    l32r a4, hp1020_descriptor_base_ptr_900226f0
+    l32r a3, hp1020_descriptor_word_08000026
+    s32i a3, a4, 0
+    movi a3, 0
+    s32i a3, a4, 4
+    l32r a3, hp1020_staging_buffer_ptr_90022bd0
+    s32i a3, a4, 8
+    movi a3, 0
+    s32i a3, a4, 12
+
     or_mmio_const hp1020_mmio_b3000000, hp1020_value_00000002
+    write_mmio_const hp1020_mmio_b3000014, hp1020_descriptor_base_ptr_900226f0
+    or_mmio_const hp1020_mmio_b3000000, hp1020_value_00000108
     l32r a4, hp1020_usb_marker_state_ptr
     l32r a3, hp1020_done_marker_48504d4b
     s32i a3, a4, 0x44

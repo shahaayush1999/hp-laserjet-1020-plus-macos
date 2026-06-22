@@ -123,6 +123,16 @@ constants in the `0x1000....` family.
 | `0xb300002c` | `0x00000200` |
 | `0xb3000028` | `0x00000040` |
 
+### Data-Stage Submit
+
+After the descriptor-specific setup sequence, the stock control-IN helper
+submits the transfer descriptor ring and kicks the controller.
+
+| Register | Value |
+|---:|---:|
+| `0xb3000014` | `0x900226f0` |
+| `0xb3000000` | OR `0x00000108` |
+
 ## Control-IN Sender
 
 Both sequences call `0x10008c24`, currently labeled
@@ -138,6 +148,11 @@ Then the stock code copies/flushes response bytes and eventually uses transfer
 descriptors. Existing notes in `endpoint0-machinery.md` cover that broader data
 stage: descriptor records are `0x10` bytes and the stock code later uses a
 `0x108` kick pattern on `0xb3000000`.
+
+The generated `control-in-data-stage.md` resolves the data-stage constants:
+descriptor ring `0x900226f0`, staging buffer `0x90022bd0`,
+final-descriptor flag `0x08000000`, submit register `0xb3000014`, and the
+`0xb3000000 |= 0x108` transfer kick.
 
 ## What This Changes
 

@@ -2,10 +2,26 @@
   "scenarios": [
     {
       "decision": {
+        "data_stage": {
+          "copy_bytes": 38,
+          "copy_source": "0x90003200",
+          "descriptor_base": "0x900226f0",
+          "descriptor_submit_register": "0xb3000014",
+          "descriptor_submit_value": "0x900226f0",
+          "descriptor_words": [
+            "0x08000026",
+            "0x00000000",
+            "0x90022bd0",
+            "0x00000000"
+          ],
+          "staging_buffer": "0x90022bd0",
+          "transfer_kick_or": "0x00000108"
+        },
         "gate_0400": "0x00000000",
         "gate_0408": "0x00006000",
+        "marker_source_pointer": "0x90003200",
         "response_len": 38,
-        "response_pointer": "0x90003200",
+        "response_pointer": "0x90022bd0",
         "response_text": "HP1020 OPEN MARKER",
         "result": "marker_response",
         "sequence": "sequence_a",
@@ -16,10 +32,26 @@
     },
     {
       "decision": {
+        "data_stage": {
+          "copy_bytes": 38,
+          "copy_source": "0x90003200",
+          "descriptor_base": "0x900226f0",
+          "descriptor_submit_register": "0xb3000014",
+          "descriptor_submit_value": "0x900226f0",
+          "descriptor_words": [
+            "0x08000026",
+            "0x00000000",
+            "0x90022bd0",
+            "0x00000000"
+          ],
+          "staging_buffer": "0x90022bd0",
+          "transfer_kick_or": "0x00000108"
+        },
         "gate_0400": "0x00000001",
         "gate_0408": "0x00000000",
+        "marker_source_pointer": "0x90003200",
         "response_len": 38,
-        "response_pointer": "0x90003200",
+        "response_pointer": "0x90022bd0",
         "response_text": "HP1020 OPEN MARKER",
         "result": "marker_response",
         "sequence": "sequence_b",
@@ -42,10 +74,26 @@
     },
     {
       "decision": {
+        "data_stage": {
+          "copy_bytes": 38,
+          "copy_source": "0x90003200",
+          "descriptor_base": "0x900226f0",
+          "descriptor_submit_register": "0xb3000014",
+          "descriptor_submit_value": "0x900226f0",
+          "descriptor_words": [
+            "0x08000004",
+            "0x00000000",
+            "0x90022bd0",
+            "0x00000000"
+          ],
+          "staging_buffer": "0x90022bd0",
+          "transfer_kick_or": "0x00000108"
+        },
         "gate_0400": "0x00000000",
         "gate_0408": "0x00006000",
+        "marker_source_pointer": "0x90003200",
         "response_len": 4,
-        "response_pointer": "0x90003200",
+        "response_pointer": "0x90022bd0",
         "response_text": "HP1020 OPEN MARKER",
         "result": "marker_response",
         "sequence": "sequence_a",

@@ -14,7 +14,7 @@
       "program_header_offset": 52,
       "section_header_count": 22,
       "section_header_entry_size": 40,
-      "section_header_offset": 122608,
+      "section_header_offset": 122836,
       "section_name_string_table_index": 21,
       "type": 2,
       "version": 1
@@ -294,7 +294,7 @@
         "name": ".rodata",
         "name_offset": 210,
         "offset": 8192,
-        "size": 164,
+        "size": 184,
         "type": 1,
         "type_name": "PROGBITS"
       },
@@ -326,7 +326,7 @@
         "name": ".text",
         "name_offset": 183,
         "offset": 19584,
-        "size": 426,
+        "size": 506,
         "type": 1,
         "type_name": "PROGBITS"
       },
@@ -465,12 +465,12 @@
         "flags": 0,
         "flags_text": "-",
         "index": 19,
-        "info": 62,
+        "info": 67,
         "link": 20,
         "name": ".symtab",
         "name_offset": 1,
         "offset": 119596,
-        "size": 1152,
+        "size": 1232,
         "type": 2,
         "type_name": "SYMTAB"
       },
@@ -485,8 +485,8 @@
         "link": 0,
         "name": ".strtab",
         "name_offset": 9,
-        "offset": 120748,
-        "size": 1452,
+        "offset": 120828,
+        "size": 1598,
         "type": 3,
         "type_name": "STRTAB"
       },
@@ -501,16 +501,16 @@
         "link": 0,
         "name": ".shstrtab",
         "name_offset": 17,
-        "offset": 122200,
+        "offset": 122426,
         "size": 408,
         "type": 3,
         "type_name": "STRTAB"
       }
     ],
     "summary": {
-      "alloc_section_bytes": 2694,
-      "elf_bytes": 123488,
-      "executable_section_bytes": 1864,
+      "alloc_section_bytes": 2794,
+      "elf_bytes": 123716,
+      "executable_section_bytes": 1944,
       "load_segment_file_bytes": 109692,
       "load_segment_memory_bytes": 109692
     }
@@ -529,15 +529,15 @@
       "section": ".sys_interface_table"
     }
   },
-  "image_bytes": 123496,
+  "image_bytes": 123724,
   "input": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/hp1020-usb-marker-draft.dl",
   "profile": "boot-probe",
-  "source_bytes": 123547,
+  "source_bytes": 123775,
   "source_kind": "dl_upload",
   "upload": {
-    "acl_elf_length": 123488,
+    "acl_elf_length": 123716,
     "acl_magic": "00acc0de",
-    "image_length": 123496,
+    "image_length": 123724,
     "image_offset": 42,
     "prefix_bytes": 34,
     "trailer": "1b252d313233343558"

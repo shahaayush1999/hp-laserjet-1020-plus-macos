@@ -2,9 +2,9 @@
   "access_totals": {
     "param": 2,
     "read": 11,
-    "write": 20
+    "write": 22
   },
-  "register_count": 14,
+  "register_count": 15,
   "registers": {
     "0xb3000000": {
       "counts": {
@@ -171,6 +171,61 @@
           "immediate": 64,
           "pc": "0x10009582",
           "source_register": "a6"
+        }
+      ]
+    },
+    "0xb3000014": {
+      "counts": {
+        "other": 0,
+        "param": 0,
+        "read": 0,
+        "write": 2
+      },
+      "events": [
+        {
+          "access": "write",
+          "block": {
+            "depth": 0,
+            "end": "0x10008eef",
+            "start": "0x10008c24"
+          },
+          "instruction": "*DAT_10005ea0 = *(undefined4 *)PTR_DAT_10005e98",
+          "note": "manual evidence from analysis/usb-path/decompiled-neighbors/10008c24_hp1020_usb_control_tx_data_stage_candidate.c",
+          "pc": "0x10008ce4",
+          "pointer_literal": "0x10005ea0",
+          "target": "0x10008c24"
+        },
+        {
+          "access": "write",
+          "block": {
+            "depth": 0,
+            "end": "0x10008eef",
+            "start": "0x10008c24"
+          },
+          "instruction": "*DAT_10005ea0 = *(undefined4 *)PTR_DAT_10005e98",
+          "note": "manual evidence from analysis/usb-path/decompiled-neighbors/10008c24_hp1020_usb_control_tx_data_stage_candidate.c",
+          "pc": "0x10008e50",
+          "pointer_literal": "0x10005ea0",
+          "target": "0x10008c24"
+        }
+      ],
+      "open_firmware_relevance": "needed to submit endpoint-0 transfer descriptors without the stock helper",
+      "pointer_symbols": {
+        "0x10005ea0": 2
+      },
+      "register": "0xb3000014",
+      "role": "Written with the transfer descriptor ring pointer before the 0x108 control-IN kick.",
+      "working_name": "control-IN descriptor submit register",
+      "write_values": [
+        {
+          "pc": "0x10008ce4",
+          "pointer_value": "0x900226f0",
+          "source_register": "DAT_10005ea0"
+        },
+        {
+          "pc": "0x10008e50",
+          "pointer_value": "0x900226f0",
+          "source_register": "DAT_10005ea0"
         }
       ]
     },

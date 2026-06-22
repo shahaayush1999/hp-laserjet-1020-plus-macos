@@ -14,7 +14,8 @@ from typing import Iterable
 INSN_RE = re.compile(r"^\s*(?P<pc>[0-9a-f]{8}):\s+(?P<bytes>[0-9a-f ]+)\s+(?P<insn>.+?)\s*$")
 L32R_RE = re.compile(r"^l32r\s+(?P<dst>a\d+),\s*[0-9a-f]+(?:\s+<(?P<label>[^>]+)>)?$")
 LOAD_RE = re.compile(r"^(?P<op>l(?:8ui|32i(?:\.n)?))\s+(?P<dst>a\d+),\s*(?P<base>a\d+),\s*(?P<offset>-?(?:0x)?[0-9a-f]+)")
-STORE_RE = re.compile(r"^(?P<op>s32i(?:\.n)?)\s+(?P<src>a\d+),\s*(?P<base>a\d+),\s*(?P<offset>-?(?:0x)?[0-9a-f]+)")
+STORE_RE = re.compile(r"^(?P<op>s(?:8i|32i(?:\.n)?))\s+(?P<src>a\d+),\s*(?P<base>a\d+),\s*(?P<offset>-?(?:0x)?[0-9a-f]+)")
+ADDI_RE = re.compile(r"^addi(?:\.n)?\s+(?P<dst>a\d+),\s*(?P<src>a\d+),\s*-?(?:0x)?[0-9a-f]+\b")
 DEST_RE = re.compile(r"^(?:movi(?:\.n)?|mov(?:\.n)?|add(?:\.n)?|addi(?:\.n)?|or|and|xor|slli|srli|extui)\s+(?P<dst>a\d+)\b")
 CALL_RE = re.compile(r"^call\d?\b")
 
@@ -64,6 +65,12 @@ def classify_label(label: str | None) -> tuple[str, str, str] | None:
         return ("stock_response_state", "watch", "stock USB response state object at 0x100212d4")
     if "setup_packet_base_90021348" in low:
         return ("setup_packet_buffer", "watch", "candidate USB setup packet buffer at 0x90021348")
+    if "marker_descriptor_hw_ptr_90003200" in low:
+        return ("marker_descriptor_source", "watch", "open marker descriptor hardware alias at 0x90003200")
+    if "staging_buffer_ptr_90022bd0" in low:
+        return ("usb_staging_buffer", "watch", "stock USB control-IN staging buffer at 0x90022bd0")
+    if "descriptor_base_ptr_900226f0" in low:
+        return ("usb_transfer_descriptor_ring", "watch", "stock USB control-IN transfer descriptor ring at 0x900226f0")
     return None
 
 
@@ -102,6 +109,11 @@ def scan_file(path: Path) -> list[Event]:
 
         if CALL_RE.match(insn):
             state.clear()
+        elif m := ADDI_RE.match(insn):
+            dst = m.group("dst")
+            src = m.group("src")
+            if dst != src:
+                state.pop(dst, None)
         elif m := DEST_RE.match(insn):
             state.pop(m.group("dst"), None)
 
