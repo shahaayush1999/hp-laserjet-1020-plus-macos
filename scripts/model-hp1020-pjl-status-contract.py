@@ -54,7 +54,7 @@ def printable(data: bytes) -> str:
 def build_contract() -> dict[str, Any]:
     queries = []
     for query in QUERIES:
-        payload = UEL + query["command"] + UEL
+        payload = payload_for_query(query["name"])
         queries.append(
             {
                 "name": query["name"],
@@ -78,6 +78,14 @@ def build_contract() -> dict[str, Any]:
         "first_recommended_query": "echo",
         "queries": queries,
     }
+
+
+def payload_for_query(name: str) -> bytes:
+    for query in QUERIES:
+        if query["name"] == name:
+            return UEL + query["command"] + UEL
+    supported = ", ".join(query["name"] for query in QUERIES)
+    raise SystemExit(f"unsupported query: {name}; supported: {supported}")
 
 
 def render_markdown(contract: dict[str, Any]) -> str:
@@ -137,7 +145,21 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--json-output", type=Path, default=OUT_JSON)
     parser.add_argument("--markdown-output", type=Path, default=OUT_MD)
+    parser.add_argument("--write-payload", choices=[query["name"] for query in QUERIES])
+    parser.add_argument("--payload-output", type=Path)
+    parser.add_argument("--text-output", type=Path)
     args = parser.parse_args()
+
+    if args.write_payload:
+        if not args.payload_output or not args.text_output:
+            parser.error("--write-payload requires --payload-output and --text-output")
+        payload = payload_for_query(args.write_payload)
+        args.payload_output.parent.mkdir(parents=True, exist_ok=True)
+        args.text_output.parent.mkdir(parents=True, exist_ok=True)
+        args.payload_output.write_bytes(payload)
+        args.text_output.write_text(printable(payload), encoding="ascii")
+        print(f"query={args.write_payload} bytes={len(payload)}")
+        return 0
 
     contract = build_contract()
     args.json_output.parent.mkdir(parents=True, exist_ok=True)

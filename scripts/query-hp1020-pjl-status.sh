@@ -79,29 +79,10 @@ payload_hex="$output_dir/payload.hex"
 payload_text="$output_dir/payload-printable.txt"
 run_summary="$output_dir/summary.md"
 
-python3 - "$query" "$payload" "$payload_text" <<'PY'
-import sys
-from pathlib import Path
-
-query = sys.argv[1]
-payload_path = Path(sys.argv[2])
-text_path = Path(sys.argv[3])
-
-uel = b"\x1b%-12345X"
-payloads = {
-    "echo": uel + b"@PJL ECHO HP1020_STATUS_PROBE\r\n" + uel,
-    "info-status": uel + b"@PJL INFO STATUS\r\n" + uel,
-    "info-id": uel + b"@PJL INFO ID\r\n" + uel,
-    "ustatus-device": uel + b"@PJL USTATUS DEVICE = ON\r\n" + uel,
-}
-
-data = payloads[query]
-payload_path.write_bytes(data)
-text_path.write_text(
-    data.replace(b"\x1b", b"<ESC>").replace(b"\r", b"<CR>").replace(b"\n", b"<LF>\n").decode("ascii"),
-    encoding="ascii",
-)
-PY
+python3 "$ROOT_DIR/scripts/model-hp1020-pjl-status-contract.py" \
+  --write-payload "$query" \
+  --payload-output "$payload" \
+  --text-output "$payload_text" >/tmp/hp1020-pjl-payload-status.txt
 
 if command -v xxd >/dev/null 2>&1; then
   xxd -g 1 "$payload" > "$payload_hex"
