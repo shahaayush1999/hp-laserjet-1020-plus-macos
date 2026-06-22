@@ -1,0 +1,208 @@
+{
+  "checks": [
+    {
+      "name": "thread_clears_active_work",
+      "needle": "*(undefined4 *)(PTR_DAT_10006920 + 0x68) = 0",
+      "source": "analysis/dispatch-mmio/decompiled/100163b0_hp1020_engine_thread_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "thread_runs_preflight",
+      "needle": "hp1020_engine_preflight_candidate();",
+      "source": "analysis/dispatch-mmio/decompiled/100163b0_hp1020_engine_thread_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "thread_polls_until_not_high_bit",
+      "needle": "while (uVar3 = hp1020_engine_status_poll_candidate(0), (uVar3 & uVar1) == uVar1)",
+      "source": "analysis/dispatch-mmio/decompiled/100163b0_hp1020_engine_thread_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "thread_receive_or_poll_loop",
+      "needle": "threadx_queue_receive_wait_candidate",
+      "source": "analysis/dispatch-mmio/decompiled/100163b0_hp1020_engine_thread_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "dispatch_0b_40_accepts_work",
+      "needle": "case 0x40:",
+      "source": "analysis/dispatch-mmio/decompiled/10016164_hp1020_engine_message_dispatch_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "dispatch_stores_active_work",
+      "needle": "*(undefined4 *)(puVar2 + 0x68) = param_1[3]",
+      "source": "analysis/dispatch-mmio/decompiled/10016164_hp1020_engine_message_dispatch_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "dispatch_stores_deferred_work",
+      "needle": "*(undefined4 *)(puVar2 + 0x6c) = param_1[3]",
+      "source": "analysis/dispatch-mmio/decompiled/10016164_hp1020_engine_message_dispatch_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "dispatch_maps_engine_config",
+      "needle": "FUN_100162b0(*(undefined2 *)(*(int *)(PTR_DAT_10006920 + 0x68) + 0x80))",
+      "source": "analysis/dispatch-mmio/decompiled/10016164_hp1020_engine_message_dispatch_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "dispatch_start_command_6012",
+      "needle": "hp1020_engine_status_io_candidate(DAT_100069a4)",
+      "source": "analysis/dispatch-mmio/decompiled/10016164_hp1020_engine_message_dispatch_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "dispatch_reset_command_3a13",
+      "needle": "uVar4 = hp1020_engine_status_io_candidate(DAT_100069a0)",
+      "source": "analysis/dispatch-mmio/decompiled/10016164_hp1020_engine_message_dispatch_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "dispatch_completion_message_11",
+      "needle": "case 0x11:",
+      "source": "analysis/dispatch-mmio/decompiled/10016164_hp1020_engine_message_dispatch_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "dispatch_requeues_deferred_work",
+      "needle": "hp1020_send_or_raise_engine_msg_candidate(0,&local_40)",
+      "source": "analysis/dispatch-mmio/decompiled/10016164_hp1020_engine_message_dispatch_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "preflight_emits_1100",
+      "needle": "uStack_3c = DAT_100063dc",
+      "source": "analysis/dispatch-mmio/decompiled/100160a8_hp1020_engine_preflight_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "preflight_sets_command_bit",
+      "needle": "*hp1020_engine_command_reg_table_word = *hp1020_engine_command_reg_table_word | DAT_10005e74",
+      "source": "analysis/dispatch-mmio/decompiled/100160a8_hp1020_engine_preflight_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "preflight_timeout_event",
+      "needle": "uStack_2c = DAT_1000692c",
+      "source": "analysis/dispatch-mmio/decompiled/100160a8_hp1020_engine_preflight_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "engine_io_register_pair",
+      "needle": "*puVar6 = *puVar6 & uVar1 | (uint)*(ushort *)(puVar4 + 0x5a)",
+      "source": "analysis/dispatch-mmio/decompiled/10015c68_hp1020_engine_status_io_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "poll_status_decision_entry",
+      "needle": "uVar4 = hp1020_engine_status_io_candidate(1)",
+      "source": "analysis/dispatch-mmio/decompiled/10015df8_hp1020_engine_status_poll_candidate.c",
+      "status": "present"
+    }
+  ],
+  "important_commands": {
+    "leave_e6100800_side_effect": "0x00005043",
+    "page_start_normal": "0x00006012",
+    "page_start_reset_latch": "0x00003a13",
+    "preflight_start_bit": "0x00020000",
+    "substatus_side_effect": "0x0000501a"
+  },
+  "important_events": [
+    "0x04800100",
+    "0x14000a04",
+    "0x20001607",
+    "0x80000000",
+    "0xe6000d03",
+    "0xe6000d04",
+    "0xe6000d06",
+    "0xe6100800",
+    "0xe6100a01",
+    "0xe6100b0a",
+    "0xe6100b0b",
+    "0xe6100e00",
+    "0xe6101100",
+    "0xf6000300",
+    "0xf6000400",
+    "0xfe001401"
+  ],
+  "open_firmware_implication": [
+    "This is the mechanical gate for printing: custom firmware cannot safely skip it and only drive video registers.",
+    "The command IDs and event words are now organized as a page-start state machine, but physical labels still require printer-side calibration.",
+    "The next printer-attached tests should capture non-printing status responses before any custom firmware tries to reproduce this path."
+  ],
+  "registers": {
+    "engine_command": "0xb0500004",
+    "engine_status": "0xb050000c"
+  },
+  "side_effect_commands_seen": [
+    "0x00003a13",
+    "0x0000501a",
+    "0x00005043",
+    "0x00006012"
+  ],
+  "source_reports": [
+    "analysis/hardware-boundary/engine-command-status.json",
+    "analysis/hardware-boundary/engine-status-decisions.json",
+    "analysis/hardware-boundary/first-page-hardware-sequence.json"
+  ],
+  "status": "pass",
+  "summary": "Engine-side topology for startup/preflight, page dispatch, polling, completion, and deferred work.",
+  "topology": [
+    {
+      "functions": [
+        "0x100163b0 engine thread",
+        "0x100160a8 preflight",
+        "0x10015df8 status poll"
+      ],
+      "name": "engine_thread_startup",
+      "steps": [
+        "clear active engine work pointer +0x68",
+        "run preflight, which emits engine message 0x17/e6101100 and sets command-register bit 0x20000",
+        "poll engine status until the high-bit event family clears",
+        "register engine datastore callbacks for density/media entries",
+        "enter receive-with-timeout loop; on timeout, poll status again"
+      ]
+    },
+    {
+      "functions": [
+        "0x10016164 engine message dispatch",
+        "0x10015c68 engine status I/O"
+      ],
+      "name": "page_work_acceptance",
+      "steps": [
+        "messages 0x0b and 0x40 poll status before accepting work",
+        "first work pointer is stored at engine state +0x68; a second pending pointer is stored at +0x6c",
+        "active work +0x80 selects an engine config through 0x100162b0 and stores it at +0x48",
+        "normal start submits command 0x6012; reset-latch start submits 0x3a13 and keeps the latch if the ready mask is absent"
+      ]
+    },
+    {
+      "functions": [
+        "0x10015df8 status poll",
+        "0x10015c68 engine status I/O"
+      ],
+      "name": "status_poll_and_recovery",
+      "steps": [
+        "poll reads status commands 1, 0x20, 2, 0x16, and 0x13 depending on branch conditions",
+        "selected event words are stored at engine state +0x60 and emitted as queue 1 message 0x17 when changed",
+        "side-effect commands 0x501a and 0x5043 are sent from specific status transitions",
+        "some transitions can call video reset dispatch before engine completion continues"
+      ]
+    },
+    {
+      "functions": [
+        "0x10016164 message 0x11 case",
+        "video completion feedback"
+      ],
+      "name": "completion_and_deferred_work",
+      "steps": [
+        "message 0x11 polls status after video/engine completion",
+        "when no high-bit error family remains, active work +0x68 is returned via message 0x11",
+        "if deferred work +0x6c exists, dispatch requeues message 0x0b and clears +0x6c"
+      ]
+    }
+  ]
+}

@@ -316,6 +316,34 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/hardware-boundary/engine-status-decisions.json",
         )
     )
+    engine_topology = read_json("analysis/hardware-boundary/engine-print-topology.json")
+    engine_topology_stages = {
+        item.get("name")
+        for item in engine_topology.get("topology", [])
+        if isinstance(item, dict)
+    }
+    engine_topology_commands = engine_topology.get("important_commands", {})
+    checks.append(
+        check(
+            "engine_print_topology_model_resolved",
+            engine_topology.get("status") == "pass"
+            and engine_topology.get("registers", {}).get("engine_status") == "0xb050000c"
+            and engine_topology.get("registers", {}).get("engine_command") == "0xb0500004"
+            and {
+                "engine_thread_startup",
+                "page_work_acceptance",
+                "status_poll_and_recovery",
+                "completion_and_deferred_work",
+            }.issubset(engine_topology_stages)
+            and engine_topology_commands.get("page_start_normal") == "0x00006012"
+            and engine_topology_commands.get("page_start_reset_latch") == "0x00003a13"
+            and engine_topology_commands.get("substatus_side_effect") == "0x0000501a"
+            and engine_topology_commands.get("leave_e6100800_side_effect") == "0x00005043"
+            and all(check.get("status") == "present" for check in engine_topology.get("checks", [])),
+            "The engine print topology must preserve startup/preflight, page acceptance, polling/recovery, completion/deferred-work stages, and key stock engine commands.",
+            evidence="analysis/hardware-boundary/engine-print-topology.json",
+        )
+    )
     video_feedback = read_json("analysis/hardware-boundary/video-engine-feedback.json")
     video_literals = video_feedback.get("literal_values", {})
     feedback_sequences = {

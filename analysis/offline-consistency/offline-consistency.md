@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `39`
+- checks: `40`
 - failures: `0`
 - meaning: Offline analysis is internally consistent; the next decisive evidence is a guarded non-printing printer-side probe.
 
@@ -27,6 +27,7 @@ It does not contact the printer.
 | `video_prepare_modes_keep_timing_tables` | `watch` | The video-prepare mode model must preserve the branch-dependent 0xb100 timing/setup table evidence. | `analysis/hardware-boundary/video-prepare-modes.json` |
 | `engine_command_status_model_resolved` | `watch` | The engine command/status model must preserve the stock 0xb050 register pair, command IDs, state fields, and event branches. | `analysis/hardware-boundary/engine-command-status.json` |
 | `engine_status_decision_model_resolved` | `watch` | The executable engine status decision model must preserve ready rewrite, 0x501a/0x5043 side effects, and previous-event extra emit behavior. | `analysis/hardware-boundary/engine-status-decisions.json` |
+| `engine_print_topology_model_resolved` | `watch` | The engine print topology must preserve startup/preflight, page acceptance, polling/recovery, completion/deferred-work stages, and key stock engine commands. | `analysis/hardware-boundary/engine-print-topology.json` |
 | `video_engine_feedback_model_resolved` | `watch` | The video-to-engine feedback model must preserve normal completion, reset/flush, requeue, and video event-word behavior. | `analysis/hardware-boundary/video-engine-feedback.json` |
 | `video_transfer_ring_model_resolved` | `watch` | The video transfer ring model must preserve producer/consumer collision behavior, channel A/B descriptors, and IRQ refill evidence. | `analysis/hardware-boundary/video-transfer-ring.json` |
 | `video_irq_decision_model_resolved` | `watch` | The video IRQ decision model must preserve branch priority, refill, and reset-dispatch cases 0/3/4/7. | `analysis/hardware-boundary/video-irq-decisions.json` |

@@ -1,5 +1,5 @@
 {
-  "check_count": 39,
+  "check_count": 40,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -77,6 +77,12 @@
       "detail": "The executable engine status decision model must preserve ready rewrite, 0x501a/0x5043 side effects, and previous-event extra emit behavior.",
       "evidence": "analysis/hardware-boundary/engine-status-decisions.json",
       "name": "engine_status_decision_model_resolved",
+      "severity": "watch"
+    },
+    {
+      "detail": "The engine print topology must preserve startup/preflight, page acceptance, polling/recovery, completion/deferred-work stages, and key stock engine commands.",
+      "evidence": "analysis/hardware-boundary/engine-print-topology.json",
+      "name": "engine_print_topology_model_resolved",
       "severity": "watch"
     },
     {
