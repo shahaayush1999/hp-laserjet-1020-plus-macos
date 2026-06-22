@@ -30,6 +30,7 @@ INPUTS = {
     "control_data_stage": ROOT_DIR / "analysis/usb-path/control-in-data-stage.json",
     "control_completion": ROOT_DIR / "analysis/usb-path/control-completion-event.json",
     "usb_interrupt_events": ROOT_DIR / "analysis/usb-path/usb-interrupt-events.json",
+    "marker_rearm": ROOT_DIR / "analysis/open-firmware-probes/usb-marker-draft/marker-rearm-flow-check.json",
     "sideband_default_impact": ROOT_DIR / "analysis/hardware-boundary/video-sideband-default-impact.json",
     "remaining_units": ROOT_DIR / "analysis/hardware-boundary/video-remaining-units.json",
 }
@@ -61,6 +62,7 @@ def build_scope() -> dict[str, Any]:
     control_data_stage = load_json(INPUTS["control_data_stage"])
     control_completion = load_json(INPUTS["control_completion"])
     usb_interrupt_events = load_json(INPUTS["usb_interrupt_events"])
+    marker_rearm = load_json(INPUTS["marker_rearm"])
     sideband_default_impact = load_json(INPUTS["sideband_default_impact"])
     remaining_units = load_json(INPUTS["remaining_units"])
 
@@ -135,7 +137,7 @@ def build_scope() -> dict[str, Any]:
             "component": "USB endpoint-0 descriptor/control path",
             "current_status": "partially implemented",
             "evidence": f"{endpoint_data_cases} modeled data scenarios, {endpoint_stall_cases} modeled stall scenarios; control-IN descriptor/kick model present",
-            "replacement_need": "live prove marker descriptor, then add tiny completion/rearm logic",
+            "replacement_need": "live prove marker descriptor; marker now has a tiny gate-clear rearm loop, but not full stock ThreadX/event completion handling",
             "risk": "medium",
         },
         {
@@ -197,8 +199,8 @@ def build_scope() -> dict[str, Any]:
         },
         {
             "blocker": "USB completion/rearm behavior",
-            "why": "Stock firmware uses event flags at 0x10021318 fed by the USB interrupt task; the marker draft currently submits one descriptor and idles.",
-            "next_test": "If marker fails, use the interrupt-lane model to build a bounded polling/rearm probe.",
+            "why": "Stock firmware uses event flags at 0x10021318 fed by the USB interrupt task. The marker draft now waits for setup gates to clear and returns to polling, but hardware has not proved this replaces the stock event wait.",
+            "next_test": "If marker fails, use the interrupt-lane model to build a more explicit completion polling probe.",
         },
         {
             "blocker": "Video and engine hardware sequencing",
@@ -233,6 +235,8 @@ def build_scope() -> dict[str, Any]:
             "endpoint0_stall_cases": endpoint_stall_cases,
             "control_completion_event_object": control_completion.get("event_object"),
             "usb_completion_status_bit": usb_interrupt_events.get("event_scan", {}).get("completion_status_bit"),
+            "marker_rearm_checks": len(marker_rearm),
+            "marker_rearm_failures": fail_count(marker_rearm),
             "sideband_0x26_risk": sideband_impacts.get("+0x26", {}).get("risk"),
             "sideband_0x32_risk": sideband_impacts.get("+0x32", {}).get("risk"),
             "sideband_0x30_risk": sideband_impacts.get("+0x30", {}).get("risk"),
@@ -289,6 +293,7 @@ def render_markdown(scope: dict[str, Any]) -> str:
             f"- endpoint-0 modeled data/stall cases: `{evidence['endpoint0_data_cases']}` / `{evidence['endpoint0_stall_cases']}`",
             f"- control completion event object: `{evidence['control_completion_event_object']}`",
             f"- USB completion status bit candidate: `{evidence['usb_completion_status_bit']}`",
+            f"- marker rearm-flow checks/failures: `{evidence['marker_rearm_checks']}` / `{evidence['marker_rearm_failures']}`",
             f"- sideband access hits classified: `{evidence['sideband_access_hits']}`",
             f"- sideband risk split: `+0x26={evidence['sideband_0x26_risk']}`, `+0x32={evidence['sideband_0x32_risk']}`, `+0x30={evidence['sideband_0x30_risk']}`",
             f"- remaining-unit active-work source gap: `{str(evidence['remaining_units_source_gap']).lower()}`",

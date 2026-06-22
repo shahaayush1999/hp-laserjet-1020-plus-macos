@@ -7,8 +7,8 @@
     },
     {
       "blocker": "USB completion/rearm behavior",
-      "next_test": "If marker fails, use the interrupt-lane model to build a bounded polling/rearm probe.",
-      "why": "Stock firmware uses event flags at 0x10021318 fed by the USB interrupt task; the marker draft currently submits one descriptor and idles."
+      "next_test": "If marker fails, use the interrupt-lane model to build a more explicit completion polling probe.",
+      "why": "Stock firmware uses event flags at 0x10021318 fed by the USB interrupt task. The marker draft now waits for setup gates to clear and returns to polling, but hardware has not proved this replaces the stock event wait."
     },
     {
       "blocker": "Video and engine hardware sequencing",
@@ -40,7 +40,7 @@
       "component": "USB endpoint-0 descriptor/control path",
       "current_status": "partially implemented",
       "evidence": "24 modeled data scenarios, 4 modeled stall scenarios; control-IN descriptor/kick model present",
-      "replacement_need": "live prove marker descriptor, then add tiny completion/rearm logic",
+      "replacement_need": "live prove marker descriptor; marker now has a tiny gate-clear rearm loop, but not full stock ThreadX/event completion handling",
       "risk": "medium"
     },
     {
@@ -105,6 +105,8 @@
     "endpoint0_data_cases": 24,
     "endpoint0_stall_cases": 4,
     "jobmgr_queue": 3,
+    "marker_rearm_checks": 5,
+    "marker_rearm_failures": 0,
     "missing_required_messages": [],
     "model_invariant_failures": 0,
     "optional_job_messages_seen": [],
