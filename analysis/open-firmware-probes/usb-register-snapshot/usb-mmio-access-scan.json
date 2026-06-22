@@ -1,0 +1,128 @@
+[
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/disassembly.txt",
+    "pc": "0x10005c96",
+    "register": "0xb3000000",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/disassembly.txt",
+    "pc": "0x10005ca6",
+    "register": "0xb300000c",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/disassembly.txt",
+    "pc": "0x10005cb6",
+    "register": "0xb3000028",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/disassembly.txt",
+    "pc": "0x10005cc6",
+    "register": "0xb300002c",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/disassembly.txt",
+    "pc": "0x10005cd6",
+    "register": "0xb3000200",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/disassembly.txt",
+    "pc": "0x10005ce6",
+    "register": "0xb300020c",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/disassembly.txt",
+    "pc": "0x10005cf6",
+    "register": "0xb3000214",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/disassembly.txt",
+    "pc": "0x10005d06",
+    "register": "0xb300022c",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/disassembly.txt",
+    "pc": "0x10005d16",
+    "register": "0xb3000400",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/disassembly.txt",
+    "pc": "0x10005d26",
+    "register": "0xb3000408",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/disassembly.txt",
+    "pc": "0x10005d36",
+    "register": "0xb3000504",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/disassembly.txt",
+    "pc": "0x10005d46",
+    "register": "0xb3000508",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/disassembly.txt",
+    "pc": "0x10005d56",
+    "register": "0xb300050c",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/disassembly.txt",
+    "pc": "0x10005d66",
+    "register": "0xb3000510",
+    "severity": "watch"
+  }
+]

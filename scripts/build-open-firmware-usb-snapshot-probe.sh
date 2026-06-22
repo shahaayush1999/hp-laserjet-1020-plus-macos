@@ -50,6 +50,8 @@ safety_md="$OUT_DIR/safety-scan.md"
 safety_json="$OUT_DIR/safety-scan.json"
 usb_contract_md="$OUT_DIR/usb-contract-scan.md"
 usb_contract_json="$OUT_DIR/usb-contract-scan.json"
+usb_access_md="$OUT_DIR/usb-mmio-access-scan.md"
+usb_access_json="$OUT_DIR/usb-mmio-access-scan.json"
 summary_md="$OUT_DIR/summary.md"
 
 "$as_tool" -o "$obj" "$SRC_DIR/usb-snapshot.S"
@@ -95,6 +97,11 @@ python3 "$ROOT_DIR/scripts/check-hp1020-usb-probe-contract.py" \
   -o "$usb_contract_md" \
   --json "$usb_contract_json"
 
+python3 "$ROOT_DIR/scripts/check-hp1020-usb-mmio-accesses.py" \
+  "$disasm_txt" \
+  -o "$usb_access_md" \
+  --json "$usb_access_json"
+
 rm -f "$obj" "$toolchain_elf"
 
 {
@@ -107,6 +114,7 @@ rm -f "$obj" "$toolchain_elf"
   printf -- '- Layout report: `%s`\n' "$layout_md"
   printf -- '- Safety scan: `%s`\n' "$safety_md"
   printf -- '- USB contract scan: `%s`\n' "$usb_contract_md"
+  printf -- '- USB MMIO access scan: `%s`\n' "$usb_access_md"
   printf '\n'
   printf '## Key Checks\n\n'
   printf '```text\n'
@@ -117,11 +125,13 @@ rm -f "$obj" "$toolchain_elf"
   printf '```\n\n'
   printf '## Meaning\n\n'
   printf 'This open-code probe reads only the mapped USB 0xb300 registers into local RAM and then idles.\n'
+  printf 'The disassembly access scan recovers 14 mapped USB reads and 0 USB writes.\n'
   printf 'It does not write USB MMIO, engine MMIO, video MMIO, or attempt printing.\n'
   printf 'It is a candidate for later controlled hardware testing only after review.\n'
 } > "$summary_md"
 
 chmod 644 "$elf" "$img" "$dl" "$readelf_txt" "$disasm_txt" "$layout_md" "$layout_json" \
-  "$safety_md" "$safety_json" "$usb_contract_md" "$usb_contract_json" "$summary_md" "$OUT_DIR/hp1020-usb-snapshot-probe.map"
+  "$safety_md" "$safety_json" "$usb_contract_md" "$usb_contract_json" \
+  "$usb_access_md" "$usb_access_json" "$summary_md" "$OUT_DIR/hp1020-usb-snapshot-probe.map"
 
 printf '%s\n' "$summary_md"

@@ -74,6 +74,7 @@ Open firmware analysis state:
 - `scripts/model-hp1020-usb-descriptor-responses.py` is offline-only; it turns the extracted descriptors into expected control-endpoint response byte strings.
 - `scripts/extract-hp1020-usb-mmio-map.py` is offline-only; it regenerates the USB register map from `analysis/usb-path/internal-blocks.md`.
 - `scripts/check-hp1020-usb-probe-contract.py` is a stricter pre-upload contract scan for USB-only probes. It allows only the USB registers listed in `analysis/usb-path/usb-mmio-map.json` and fails engine/video MMIO or unmapped USB registers.
+- `scripts/check-hp1020-usb-mmio-accesses.py` classifies recovered disassembly-level USB MMIO reads/writes. The USB snapshot probe should report mapped reads and zero USB writes.
 - `analysis/open-firmware-probes/minimal-idle/usb-contract-scan.md` records that the current idle probe has zero USB, video, or engine MMIO/function references.
 - `analysis/toolchain-probe/binutils-exec-status.md` records the old corrupt crosstool-NG prefix and the recovered manual binutils prefix.
 - Do not run the hardware upload script unless Aayush has the printer connected, freshly power-cycled, and explicitly asks for that test.

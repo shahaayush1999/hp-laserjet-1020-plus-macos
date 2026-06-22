@@ -10,6 +10,7 @@ This artifact is offline only. It was not uploaded to the printer.
 - Layout report: `/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/layout.md`
 - Safety scan: `/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/safety-scan.md`
 - USB contract scan: `/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/usb-contract-scan.md`
+- USB MMIO access scan: `/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-register-snapshot/usb-mmio-access-scan.md`
 
 ## Key Checks
 
@@ -28,5 +29,6 @@ entry=0x100167a8 machine=0xabc7 phnum=11 shnum=21
 ## Meaning
 
 This open-code probe reads only the mapped USB 0xb300 registers into local RAM and then idles.
+The disassembly access scan recovers 14 mapped USB reads and 0 USB writes.
 It does not write USB MMIO, engine MMIO, video MMIO, or attempt printing.
 It is a candidate for later controlled hardware testing only after review.
