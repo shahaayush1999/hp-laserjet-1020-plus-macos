@@ -15,6 +15,13 @@ handling to answer host setup packets.
 
 That is doable work, but it is a bigger step than the PJL/status query harness.
 
+`usb-descriptor-extraction.md` now confirms the raw descriptor data behind this:
+
+- device descriptors at `0x1001bbe0` and `0x1001bc00`
+- HP vendor ID `0x03f0`
+- product ID `0x2b17`, matching the host-observed USB identity
+- high-speed and full-speed printer-class configurations at `0x100034b0` and `0x100034d0`
+
 ## What Is Mapped
 
 The main stock USB service thread is:
@@ -75,9 +82,15 @@ The relevant known identity strings are:
 
 | Address | String |
 |---:|---|
+| `0x10003490` | `$$DEVICE_ID_STRING$$` |
 | `0x1001bf70` | `Hewlett-Packard` |
 | `0x1001bf8c` | `HP LaserJet 1020` |
 | `0x1001bfb0` | `HP LaserJet 1020` |
+
+The device descriptors use string indexes `1`, `2`, and `3`. Static pointer runs
+map indexes `1` and `2` to `Hewlett-Packard` and `HP LaserJet 1020`; the serial
+string is likely runtime-generated from USB/device state rather than a fixed
+ASCII literal.
 
 This is promising for a marker because a USB string descriptor can prove code is
 serving host control requests without moving paper.

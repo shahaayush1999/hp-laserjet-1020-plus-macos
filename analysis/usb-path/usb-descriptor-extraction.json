@@ -1,0 +1,286 @@
+{
+  "config_descriptors": [
+    {
+      "file_offset": 2576,
+      "items": [
+        {
+          "bConfigurationValue": 1,
+          "bMaxPower": 49,
+          "bNumInterfaces": 1,
+          "bmAttributes": 192,
+          "iConfiguration": 0,
+          "kind": "configuration",
+          "length": 9,
+          "offset": 0,
+          "raw_hex": "09 02 20 00 01 01 00 c0 31",
+          "type": 2,
+          "wTotalLength": 32
+        },
+        {
+          "bAlternateSetting": 0,
+          "bInterfaceClass": 7,
+          "bInterfaceNumber": 0,
+          "bInterfaceProtocol": 2,
+          "bInterfaceSubClass": 1,
+          "bNumEndpoints": 2,
+          "iInterface": 0,
+          "kind": "interface",
+          "length": 9,
+          "offset": 9,
+          "raw_hex": "09 04 00 00 02 07 01 02 00",
+          "type": 4
+        },
+        {
+          "bEndpointAddress": 1,
+          "bInterval": 0,
+          "bmAttributes": 2,
+          "kind": "endpoint",
+          "length": 7,
+          "offset": 18,
+          "raw_hex": "07 05 01 02 00 02 00",
+          "type": 5,
+          "wMaxPacketSize": 512
+        },
+        {
+          "bEndpointAddress": 129,
+          "bInterval": 0,
+          "bmAttributes": 2,
+          "kind": "endpoint",
+          "length": 7,
+          "offset": 25,
+          "raw_hex": "07 05 81 02 00 02 00",
+          "type": 5,
+          "wMaxPacketSize": 512
+        }
+      ],
+      "raw_hex": "09 02 20 00 01 01 00 c0 31 09 04 00 00 02 07 01 02 00 07 05 01 02 00 02 00 07 05 81 02 00 02 00",
+      "total_length": 32,
+      "vaddr": 268448944
+    },
+    {
+      "file_offset": 2608,
+      "items": [
+        {
+          "bConfigurationValue": 1,
+          "bMaxPower": 49,
+          "bNumInterfaces": 1,
+          "bmAttributes": 192,
+          "iConfiguration": 0,
+          "kind": "configuration",
+          "length": 9,
+          "offset": 0,
+          "raw_hex": "09 02 20 00 01 01 00 c0 31",
+          "type": 2,
+          "wTotalLength": 32
+        },
+        {
+          "bAlternateSetting": 0,
+          "bInterfaceClass": 7,
+          "bInterfaceNumber": 0,
+          "bInterfaceProtocol": 2,
+          "bInterfaceSubClass": 1,
+          "bNumEndpoints": 2,
+          "iInterface": 0,
+          "kind": "interface",
+          "length": 9,
+          "offset": 9,
+          "raw_hex": "09 04 00 00 02 07 01 02 00",
+          "type": 4
+        },
+        {
+          "bEndpointAddress": 1,
+          "bInterval": 0,
+          "bmAttributes": 2,
+          "kind": "endpoint",
+          "length": 7,
+          "offset": 18,
+          "raw_hex": "07 05 01 02 40 00 00",
+          "type": 5,
+          "wMaxPacketSize": 64
+        },
+        {
+          "bEndpointAddress": 129,
+          "bInterval": 0,
+          "bmAttributes": 2,
+          "kind": "endpoint",
+          "length": 7,
+          "offset": 25,
+          "raw_hex": "07 05 81 02 40 00 00",
+          "type": 5,
+          "wMaxPacketSize": 64
+        }
+      ],
+      "raw_hex": "09 02 20 00 01 01 00 c0 31 09 04 00 00 02 07 01 02 00 07 05 01 02 40 00 00 07 05 81 02 40 00 00",
+      "total_length": 32,
+      "vaddr": 268448976
+    }
+  ],
+  "device_descriptors": [
+    {
+      "fields": {
+        "bDescriptorType": 1,
+        "bDeviceClass": 0,
+        "bDeviceProtocol": 0,
+        "bDeviceSubClass": 0,
+        "bLength": 18,
+        "bMaxPacketSize0": 64,
+        "bNumConfigurations": 1,
+        "bcdDevice": 256,
+        "bcdUSB": 512,
+        "iManufacturer": 1,
+        "iProduct": 2,
+        "iSerialNumber": 3,
+        "idProduct": 11031,
+        "idVendor": 1008
+      },
+      "file_offset": 102720,
+      "raw_hex": "12 01 00 02 00 00 00 40 f0 03 17 2b 00 01 01 02 03 01",
+      "vaddr": 268549088
+    },
+    {
+      "fields": {
+        "bDescriptorType": 1,
+        "bDeviceClass": 0,
+        "bDeviceProtocol": 0,
+        "bDeviceSubClass": 0,
+        "bLength": 18,
+        "bMaxPacketSize0": 64,
+        "bNumConfigurations": 1,
+        "bcdDevice": 256,
+        "bcdUSB": 512,
+        "iManufacturer": 1,
+        "iProduct": 2,
+        "iSerialNumber": 3,
+        "idProduct": 11031,
+        "idVendor": 1008
+      },
+      "file_offset": 102752,
+      "raw_hex": "12 01 00 02 00 00 00 40 f0 03 17 2b 00 01 01 02 03 01",
+      "vaddr": 268549120
+    }
+  ],
+  "input": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/sihp1020.elf",
+  "known_strings": [
+    {
+      "file_offset": 2544,
+      "text": "$$DEVICE_ID_STRING$$",
+      "vaddr": 268448912
+    },
+    {
+      "file_offset": 103632,
+      "text": "Hewlett-Packard",
+      "vaddr": 268550000
+    },
+    {
+      "file_offset": 103660,
+      "text": "HP LaserJet 1020",
+      "vaddr": 268550028
+    },
+    {
+      "file_offset": 103696,
+      "text": "HP LaserJet 1020",
+      "vaddr": 268550064
+    },
+    {
+      "file_offset": 4216,
+      "text": "HPBOISEID",
+      "vaddr": 268450584
+    },
+    {
+      "file_offset": 7304,
+      "text": "@PJL ECHO ",
+      "vaddr": 268453672
+    },
+    {
+      "file_offset": 8758,
+      "text": "MFG:%s;MDL:%s;CMD:%s;CLS:%s;DES:%s;FWVER:%s;",
+      "vaddr": 268455126
+    },
+    {
+      "file_offset": 8765,
+      "text": "MDL:%s;CMD:%s;CLS:%s;DES:%s;FWVER:%s;",
+      "vaddr": 268455133
+    },
+    {
+      "file_offset": 8793,
+      "text": "FWVER:%s;",
+      "vaddr": 268455161
+    }
+  ],
+  "pointer_runs": [
+    {
+      "file_offset": 14912,
+      "vaddr": 268461280,
+      "values": [
+        268550000,
+        268550028
+      ],
+      "words": 2
+    },
+    {
+      "file_offset": 2564,
+      "vaddr": 268448932,
+      "values": [
+        268550000,
+        268550028
+      ],
+      "words": 2
+    },
+    {
+      "file_offset": 108104,
+      "vaddr": 268554472,
+      "values": [
+        268550064
+      ],
+      "words": 1
+    },
+    {
+      "file_offset": 14928,
+      "vaddr": 268461296,
+      "values": [
+        268550064
+      ],
+      "words": 1
+    },
+    {
+      "file_offset": 8676,
+      "vaddr": 268455044,
+      "values": [
+        268550064
+      ],
+      "words": 1
+    },
+    {
+      "file_offset": 8668,
+      "vaddr": 268455036,
+      "values": [
+        268550028
+      ],
+      "words": 1
+    },
+    {
+      "file_offset": 8660,
+      "vaddr": 268455028,
+      "values": [
+        268550000
+      ],
+      "words": 1
+    },
+    {
+      "file_offset": 7112,
+      "vaddr": 268453480,
+      "values": [
+        268453672
+      ],
+      "words": 1
+    },
+    {
+      "file_offset": 4208,
+      "vaddr": 268450576,
+      "values": [
+        268450584
+      ],
+      "words": 1
+    }
+  ]
+}
