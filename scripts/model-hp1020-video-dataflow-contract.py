@@ -152,7 +152,7 @@ def build_report() -> dict[str, Any]:
                 "final_flag": "set when remaining units become zero",
             },
             "meaning": "The helper keeps channel B fed from the modulo-4 descriptor side.",
-            "remaining_unknown": "ZJI_VIDEO_Y is the best +0xd0 source candidate, but page-param +0x26 -> prepare argument +0x26 copy/alias remains unresolved",
+            "remaining_unknown": "active work +0x26 remains unsourced; ZJI_VIDEO_Y reaches page-param +0x26 upstream, but the queue payload chain weakens that alias/copy theory",
         },
         {
             "stage": "raw_band_queue_feed",
@@ -216,7 +216,7 @@ def build_report() -> dict[str, Any]:
         "checks": checks,
         "current_conclusion": [
             "The host-to-render dataflow is now concrete for the generated a4_default case.",
-            "The remaining unknowns are not parser fields; they are the page-param +0x26 alias/copy gap, raw-band helper divide confirmation, video timing, and live IRQ completion behavior.",
+            "The remaining unknowns are not parser fields; they are the active work +0x26 source, raw-band helper divide confirmation, video timing, and live IRQ completion behavior.",
             "This report is still not a reason to upload custom printing firmware; it is the static contract a future implementation must satisfy.",
         ],
     }

@@ -242,6 +242,8 @@ def build_report() -> dict[str, Any]:
             and dataflow_stages.get("render_initial_transfer", {}).get("known_values", {}).get("0xb2040008") == 6364
             and dataflow_stages.get("helper_channel_b_refill", {}).get("known_values", {}).get("video state +0xcc max chunk units") == 4
             and dataflow_stages.get("helper_channel_b_refill", {}).get("known_values", {}).get("video state +0xd0 candidate if alias holds") == 6824
+            and dataflow_stages.get("helper_channel_b_refill", {}).get("remaining_unknown")
+            == "active work +0x26 remains unsourced; ZJI_VIDEO_Y reaches page-param +0x26 upstream, but the queue payload chain weakens that alias/copy theory"
             and dataflow_stages.get("helper_channel_b_refill", {}).get("known_values", {}).get("0xb2080008 candidate if alias holds") == 4800
             and "min(4, +0xd0) * stride(1200)"
             == dataflow_stages.get("helper_channel_b_refill", {}).get("known_values", {}).get("0xb2080008")
@@ -250,6 +252,28 @@ def build_report() -> dict[str, Any]:
             and all(item.get("status") == "present" for item in video_dataflow.get("checks", [])),
             "The video dataflow contract must preserve concrete a4_default values through render/refill boundary formulas.",
             evidence="analysis/hardware-boundary/video-dataflow-contract.json",
+        )
+    )
+    queue_payload_chain = read_json("analysis/hardware-boundary/video-queue-payload-chain.json")
+    queue_chain_checks = {
+        item.get("name"): item
+        for item in queue_payload_chain.get("checks", [])
+        if isinstance(item, dict)
+    }
+    checks.append(
+        check(
+            "video_queue_payload_chain_identifies_prepare_work_object",
+            queue_payload_chain.get("status") == "pass"
+            and queue_payload_chain.get("conclusion", {}).get("prepare_argument_identity")
+            == "0x94-byte video/page work object"
+            and "weakens the earlier page-param +0x26 -> work +0x26 alias theory"
+            in queue_payload_chain.get("conclusion", {}).get("effect_on_remaining_units", "")
+            and len(queue_payload_chain.get("stages", [])) == 7
+            and queue_chain_checks.get("video_thread_uses_payload_as_prepare_argument", {}).get("status") == "present"
+            and queue_chain_checks.get("work_populate_does_not_copy_page_param_0x26", {}).get("status") == "present"
+            and all(item.get("status") == "present" for item in queue_payload_chain.get("checks", [])),
+            "The video queue payload chain must preserve that prepare receives the 0x94 work object, while work +0x26 remains unsourced.",
+            evidence="analysis/hardware-boundary/video-queue-payload-chain.json",
         )
     )
     remaining_units = read_json("analysis/hardware-boundary/video-remaining-units.json")
@@ -267,13 +291,13 @@ def build_report() -> dict[str, Any]:
         check(
             "video_remaining_units_keeps_alias_gap_explicit",
             remaining_units.get("status") == "pass"
-            and copy_gap.get("copy_or_alias_gap", {}).get("status") == "unresolved"
+            and copy_gap.get("copy_or_alias_gap", {}).get("status") == "unresolved and weakened"
             and remaining_cases.get("a4_default", {}).get("video_y_candidate_from_zji_0x12") == 6824
             and remaining_cases.get("a4_default", {}).get("candidate_first_channel_b_length_if_alias_holds") == 4800
             and remaining_cases.get("letter_default", {}).get("video_y_candidate_from_zji_0x12") == 6408
             and remaining_cases.get("legal_default", {}).get("video_y_candidate_from_zji_0x12") == 8208
             and all(item.get("status") == "present" for item in remaining_units.get("checks", [])),
-            "Video remaining-unit model must preserve ZJI_VIDEO_Y candidate values while keeping the page-param/work alias gap unresolved.",
+            "Video remaining-unit model must preserve ZJI_VIDEO_Y upstream values while keeping active work +0x26 unsourced.",
             evidence="analysis/hardware-boundary/video-remaining-units.json",
         )
     )
@@ -297,6 +321,37 @@ def build_report() -> dict[str, Any]:
             and all(item.get("status") == "present" for item in chunk_sizing.get("checks", [])),
             "Video chunk sizing must preserve the stride-derived +0xcc projection and helper caveat.",
             evidence="analysis/hardware-boundary/video-chunk-sizing.json",
+        )
+    )
+    helper_disassembly = read_json("analysis/hardware-boundary/video-helper-disassembly.json")
+    helper_checks = {
+        item.get("name"): item
+        for item in helper_disassembly.get("checks", [])
+        if isinstance(item, dict)
+    }
+    checks.append(
+        check(
+            "video_helper_disassembly_keeps_divide_path_bounded",
+            helper_disassembly.get("status") == "pass"
+            and helper_disassembly.get("helper", {}).get("working_name") == "ceil_div_or_units_encode_candidate"
+            and helper_disassembly.get("helper", {})
+            .get("confirmed_behavior", {})
+            .get("denominator_0")
+            == "returns 0"
+            and helper_disassembly.get("helper", {})
+            .get("confirmed_behavior", {})
+            .get("denominator_1")
+            == "returns numerator"
+            and helper_disassembly.get("helper", {})
+            .get("unconfirmed_behavior", {})
+            .get("denominator_ge_2")
+            == "caller-fit hypothesis remains ceil(numerator / denominator)"
+            and helper_disassembly.get("conclusion", {}).get("status") == "bounded_hypothesis"
+            and len(helper_disassembly.get("ghidra_pcode_error_hits", [])) >= 1
+            and helper_checks.get("local_objdump_does_not_confirm_divide_path", {}).get("status") == "present"
+            and all(item.get("status") == "present" for item in helper_disassembly.get("checks", [])),
+            "The helper disassembly report must preserve the confirmed 0/1 edge cases while keeping the divide path bounded as a hypothesis.",
+            evidence="analysis/hardware-boundary/video-helper-disassembly.json",
         )
     )
     semantic_sequences = {

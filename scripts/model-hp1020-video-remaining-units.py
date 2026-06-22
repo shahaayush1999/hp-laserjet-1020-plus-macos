@@ -2,8 +2,8 @@
 """Model the source of HP 1020 video remaining-unit counters.
 
 This is offline analysis only. It tracks the candidate source for video state
-+0xd0/+0xd4 and deliberately records the unresolved gap between page-parameter
-+0x26 and the active video work object's +0x26 field.
++0xd0/+0xd4 and deliberately records that the page-parameter +0x26 candidate
+is not yet connected to the active 0x94 work object's +0x26 field.
 """
 
 from __future__ import annotations
@@ -20,6 +20,7 @@ OUT_MD = ROOT_DIR / "analysis/hardware-boundary/video-remaining-units.md"
 INPUTS = {
     "raster_fields": ROOT_DIR / "analysis/open-firmware-model/raster-field-semantics.json",
     "chunk_sizing": ROOT_DIR / "analysis/hardware-boundary/video-chunk-sizing.json",
+    "queue_payload_chain": ROOT_DIR / "analysis/hardware-boundary/video-queue-payload-chain.json",
 }
 
 SOURCES = {
@@ -96,6 +97,7 @@ def explicit_work_26_writes(sources: dict[str, str]) -> list[dict[str, str]]:
 def build_report() -> dict[str, Any]:
     raster_fields = read_json(INPUTS["raster_fields"])
     chunk_sizing = read_json(INPUTS["chunk_sizing"])
+    queue_payload_chain = read_json(INPUTS["queue_payload_chain"])
     sources = {name: path.read_text(errors="replace") for name, path in SOURCES.items()}
     rows = build_case_rows(raster_fields, chunk_sizing)
     work_26_hits = explicit_work_26_writes(sources)
@@ -130,6 +132,15 @@ def build_report() -> dict[str, Any]:
             "current_search_keeps_gap_explicit",
             len(work_26_hits) >= 2,
             "explicit +0x26 hits are builder and prepare paths; no direct work-populate copy is currently visible",
+        ),
+        check(
+            "queue_payload_chain_identifies_work_object",
+            queue_payload_chain.get("status") == "pass"
+            and queue_payload_chain.get("conclusion", {}).get("prepare_argument_identity")
+            == "0x94-byte video/page work object"
+            and "weakens the earlier page-param +0x26 -> work +0x26 alias theory"
+            in queue_payload_chain.get("conclusion", {}).get("effect_on_remaining_units", ""),
+            "queue payload chain points prepare at the 0x94 work object and weakens the page-param +0x26 alias theory",
         ),
         check(
             "candidate_values_match_generated_cases",
@@ -167,16 +178,16 @@ def build_report() -> dict[str, Any]:
             {
                 "stage": "copy_or_alias_gap",
                 "field": "page-param +0x26 -> active work/prepare +0x26",
-                "evidence": "0x100104c8 simple copier does not visibly copy +0x26; current explicit-source scan finds no direct work-object writer",
-                "status": "unresolved",
+                "evidence": "0x100104c8 simple copier does not visibly copy +0x26; video queue payload chain identifies the prepare argument as the 0x94 work object; current explicit-source scan finds no direct work-object writer",
+                "status": "unresolved and weakened",
             },
         ],
         "case_matrix_if_alias_holds": rows,
         "explicit_0x26_write_hits": work_26_hits,
         "current_conclusion": [
-            "The best static source candidate for +0xd0/+0xd4 is ZJI_VIDEO_Y through page-param +0x26.",
-            "The direct copy or alias from page-param +0x26 into the active video prepare argument is not proven in current decompilation.",
-            "Open firmware planning may use the generated candidate values, but implementation should keep this as a calibrated field until the copy/alias gap is closed.",
+            "ZJI_VIDEO_Y through page-param +0x26 is proven upstream, but it is no longer a strong source claim for active work +0x26.",
+            "The active video prepare argument is statically traced as the 0x94 work object; no direct writer for work +0x26 is visible in the current decompiled corpus.",
+            "Open firmware planning should treat +0xd0/+0xd4 as unsourced work-object fields, not as page height, until hardware traces or cleaner disassembly close the gap.",
         ],
         "checks": checks,
     }

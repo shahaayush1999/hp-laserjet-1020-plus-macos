@@ -1,0 +1,193 @@
+{
+  "checks": [
+    {
+      "detail": "ELF bytes at 0x1001b668 match the current stock firmware extraction.",
+      "name": "helper_bytes_extracted",
+      "status": "present"
+    },
+    {
+      "detail": "Ghidra decompile still exposes denominator 0 -> 0 and denominator 1 -> numerator.",
+      "name": "zero_one_cases_visible",
+      "status": "present"
+    },
+    {
+      "detail": "Ghidra still marks the helper's wider divide path as bad instruction data.",
+      "name": "bad_instruction_path_visible",
+      "status": "present"
+    },
+    {
+      "detail": "Batch decompile logs include the pcode constructor failure at 0x1001b685.",
+      "name": "ghidra_logs_show_pcode_error",
+      "status": "present"
+    },
+    {
+      "detail": "Prepare, descriptor-queue, and alternate raw-band callers still reference the helper.",
+      "name": "known_callers_accounted_for",
+      "status": "present"
+    },
+    {
+      "detail": "Current local objdump path is absent or emits old-Xtensa/custom-instruction-looking markers instead of a clean helper decode.",
+      "name": "local_objdump_does_not_confirm_divide_path",
+      "status": "present"
+    }
+  ],
+  "conclusion": {
+    "next_useful_step": "Treat this as good enough for dataflow modeling; only spend more time here if a later hardware/register formula disagrees with the ceil-div model.",
+    "plain_english": "We know this helper matters and know its no-divide edge cases. We do not yet have a clean instruction-level decode for the real divide path, so the ceil-div name is a strong model fit, not final proof.",
+    "status": "bounded_hypothesis"
+  },
+  "ghidra_pcode_error_hits": [
+    {
+      "line": "WARN  Decompiling 1001b668, pcode error at 1001b685: Unable to resolve constructor at 1001b685 (DecompileCallback)",
+      "path": "analysis/zjs-parser-boundary-run.txt"
+    },
+    {
+      "line": "WARN  Decompiling 1001b668, pcode error at 1001b685: Unable to resolve constructor at 1001b685 (DecompileCallback)",
+      "path": "analysis/queue-send-census-run.txt"
+    },
+    {
+      "line": "WARN  Decompiling 1001b668, pcode error at 1001b685: Unable to resolve constructor at 1001b685 (DecompileCallback)",
+      "path": "analysis/message-producers/message-producers-run.txt"
+    },
+    {
+      "line": "WARN  Decompiling 1001b668, pcode error at 1001b685: Unable to resolve constructor at 1001b685 (DecompileCallback)",
+      "path": "analysis/jobmgr-producer-boundary-run.txt"
+    }
+  ],
+  "helper": {
+    "address": "0x1001b668",
+    "confirmed_behavior": {
+      "denominator_0": "returns 0",
+      "denominator_1": "returns numerator"
+    },
+    "unconfirmed_behavior": {
+      "denominator_ge_2": "caller-fit hypothesis remains ceil(numerator / denominator)",
+      "reason": "Ghidra and local objdump do not currently provide a clean decode of the old Xtensa/custom divide path."
+    },
+    "working_name": "ceil_div_or_units_encode_candidate"
+  },
+  "objdump": {
+    "available": true,
+    "command": [
+      "/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf-objdump",
+      "-d",
+      "--start-address=0x1001b660",
+      "--stop-address=0x1001b6c8",
+      "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/sihp1020.elf"
+    ],
+    "decoder_limit_markers": [
+      "1001b66f:\t20056f               \texcw",
+      "1001b672:\t04043f               \tmuls.ad.hh\ta4, m2",
+      "1001b678:\t240544               \texcw",
+      "1001b680:\t331a22               \texcw",
+      "1001b685:\t6d49                \texcw",
+      "1001b687:\t0d73                \texcw",
+      "1001b695:\t147363               \texcw",
+      "1001b6ad:\t20d10f               \texcw",
+      "1001b6b5:\t2f052f04043f0474 \t{ excw; excw }"
+    ],
+    "interesting_lines": [
+      "1001b668:\t6c10                \tmovi.n\ta0, -31",
+      "1001b66f:\t20056f               \texcw",
+      "1001b672:\t04043f               \tmuls.ad.hh\ta4, m2",
+      "1001b678:\t240544               \texcw",
+      "1001b680:\t331a22               \texcw",
+      "1001b685:\t6d49                \texcw",
+      "1001b687:\t0d73                \texcw",
+      "1001b695:\t147363               \texcw",
+      "1001b6ad:\t20d10f               \texcw",
+      "1001b6b0:\t6c10                \tmovi.n\ta0, -31",
+      "1001b6b5:\t2f052f04043f0474 \t{ excw; excw }"
+    ],
+    "lines": [
+      "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/sihp1020.elf:     file format elf32-xtensa-be",
+      "Disassembly of section .text:",
+      "1001b660 <.text+0x159e0>:",
+      "1001b660:\td10f22               \tl32r\ta13, 0xffe3e9c",
+      "1001b663:\t0a00                \tadd.n\ta0, a0, a0",
+      "1001b665:\t060000               \tj\t0x1001b669",
+      "1001b668:\t6c10                \tmovi.n\ta0, -31",
+      "1001b66a:\t026e32               \ts32i\ta0, a14, 200",
+      "1001b66d:\t39d6                \ts32i.n\ta3, a6, 52",
+      "1001b66f:\t20056f               \texcw",
+      "1001b672:\t04043f               \tmuls.ad.hh\ta4, m2",
+      "1001b675:\t04745b               \tmula.da.hh.lddec\tm3, a4, m1, a0",
+      "1001b678:\t240544               \texcw",
+      "1001b67b:\t0c00                \tmovi.n\ta0, 0",
+      "1001b67d:\t410400               \tl32r\ta4, 0xffdb690",
+      "1001b680:\t331a22               \texcw",
+      "1001b683:\t0a00                \tadd.n\ta0, a0, a0",
+      "1001b685:\t6d49                \texcw",
+      "1001b687:\t0d73                \texcw",
+      "1001b689:\t630403               \tlsi\tf6, a4, 12",
+      "1001b68c:\t660cb1               \tbnei\ta12, -1, 0x1001b641",
+      "1001b68f:\t220f22               \tl8ui\ta2, a15, 34",
+      "1001b692:\t110313               \tl32r\ta1, 0xffe02a0",
+      "1001b695:\t147363               \texcw",
+      "1001b698:\t02222c               \tl32i\ta0, a2, 176",
+      "1001b69b:\t01d10f               \tl32r\ta0, 0xffdf5e0",
+      "1001b69e:\tc02073               \tmaxu\ta2, a0, a12",
+      "1001b6a1:\t6301c0               \tlsi\tf6, a1, 0x300",
+      "1001b6a4:\t210600               \tl32r\ta2, 0xffdb6bc",
+      "1001b6a7:\t00c830               \txor\ta12, a8, a0",
+      "1001b6aa:\td10fc0               \tl32r\ta13, 0x1000b6e8",
+      "1001b6ad:\t20d10f               \texcw",
+      "1001b6b0:\t6c10                \tmovi.n\ta0, -31",
+      "1001b6b2:\t026e32               \ts32i\ta0, a14, 200",
+      "1001b6b5:\t2f052f04043f0474 \t{ excw; excw }",
+      "1001b6bd:\t5b1e                \taddi.n\ta1, a14, 5",
+      "1001b6bf:\t05440c               \tcall0\t0x10027b00",
+      "1001b6c2:\t004104               \textui\ta4, a0, 1, 1",
+      "1001b6c5:\t00331a               \tsub.s\tf3, f3, f0"
+    ],
+    "returncode": 0,
+    "tool": "/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf-objdump"
+  },
+  "raw_bytes": {
+    "helper_hex": "6c10026e3239d620056f04043f04745b2405440c00410400331a220a006d490d73630403660cb1220f2211031314736302222c01d10fc020736301c021060000c830d10fc020d10f6c10026e322f052f04043f04745b1e05440c00410400331a",
+    "helper_prefix_hex": "6c10026e3239d620056f04043f04745b2405440c00410400331a220a006d490d",
+    "helper_range": "0x1001b668..0x1001b6c8",
+    "similar_helper_0x1001b6b0_prefix_hex": "6c10026e322f052f04043f04745b1e05440c00410400331ad30f6d4908732302"
+  },
+  "scope": "offline static analysis; no printer contact",
+  "source_evidence": {
+    "caller_roles": [
+      {
+        "caller": "0x10014910 hp1020_video_prepare_page_candidate",
+        "role": "computes stride-derived chunk cap +0xcc and a secondary chunk value",
+        "snippets_present": [
+          true,
+          true
+        ]
+      },
+      {
+        "caller": "0x10013f34 hp1020_video_band_queue_or_list_candidate",
+        "role": "encodes normal descriptor-queue raw-band counts before flag writes",
+        "snippets_present": [
+          true,
+          true
+        ]
+      },
+      {
+        "caller": "0x100140f8 hp1020_video_refresh_raw_bands_candidate",
+        "role": "encodes alternate raw linked-list counts before flag writes",
+        "snippets_present": [
+          true,
+          true
+        ]
+      }
+    ],
+    "decompiler_warning_markers": {
+      "bad_instruction_warning": true,
+      "halt_baddata": true,
+      "lzcount_guard": true
+    },
+    "visible_exact_cases": {
+      "denominator_0_returns_0": true,
+      "denominator_1_returns_numerator": true,
+      "small_denominator_gate": true
+    }
+  },
+  "status": "pass",
+  "summary": "Instruction-level status for helper 0x1001b668 used by video chunk sizing."
+}

@@ -1,5 +1,5 @@
 {
-  "check_count": 44,
+  "check_count": 46,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -68,7 +68,13 @@
       "severity": "watch"
     },
     {
-      "detail": "Video remaining-unit model must preserve ZJI_VIDEO_Y candidate values while keeping the page-param/work alias gap unresolved.",
+      "detail": "The video queue payload chain must preserve that prepare receives the 0x94 work object, while work +0x26 remains unsourced.",
+      "evidence": "analysis/hardware-boundary/video-queue-payload-chain.json",
+      "name": "video_queue_payload_chain_identifies_prepare_work_object",
+      "severity": "watch"
+    },
+    {
+      "detail": "Video remaining-unit model must preserve ZJI_VIDEO_Y upstream values while keeping active work +0x26 unsourced.",
       "evidence": "analysis/hardware-boundary/video-remaining-units.json",
       "name": "video_remaining_units_keeps_alias_gap_explicit",
       "severity": "watch"
@@ -77,6 +83,12 @@
       "detail": "Video chunk sizing must preserve the stride-derived +0xcc projection and helper caveat.",
       "evidence": "analysis/hardware-boundary/video-chunk-sizing.json",
       "name": "video_chunk_sizing_projects_stride_and_cc",
+      "severity": "watch"
+    },
+    {
+      "detail": "The helper disassembly report must preserve the confirmed 0/1 edge cases while keeping the divide path bounded as a hypothesis.",
+      "evidence": "analysis/hardware-boundary/video-helper-disassembly.json",
+      "name": "video_helper_disassembly_keeps_divide_path_bounded",
       "severity": "watch"
     },
     {

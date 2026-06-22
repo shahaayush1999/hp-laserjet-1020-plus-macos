@@ -19,10 +19,10 @@
       "status": "proven consumer"
     },
     {
-      "evidence": "0x100104c8 simple copier does not visibly copy +0x26; current explicit-source scan finds no direct work-object writer",
+      "evidence": "0x100104c8 simple copier does not visibly copy +0x26; video queue payload chain identifies the prepare argument as the 0x94 work object; current explicit-source scan finds no direct work-object writer",
       "field": "page-param +0x26 -> active work/prepare +0x26",
       "stage": "copy_or_alias_gap",
-      "status": "unresolved"
+      "status": "unresolved and weakened"
     }
   ],
   "case_matrix_if_alias_holds": [
@@ -142,15 +142,20 @@
       "status": "present"
     },
     {
+      "detail": "queue payload chain points prepare at the 0x94 work object and weakens the page-param +0x26 alias theory",
+      "name": "queue_payload_chain_identifies_work_object",
+      "status": "present"
+    },
+    {
       "detail": "candidate remaining-unit values follow generated page heights",
       "name": "candidate_values_match_generated_cases",
       "status": "present"
     }
   ],
   "current_conclusion": [
-    "The best static source candidate for +0xd0/+0xd4 is ZJI_VIDEO_Y through page-param +0x26.",
-    "The direct copy or alias from page-param +0x26 into the active video prepare argument is not proven in current decompilation.",
-    "Open firmware planning may use the generated candidate values, but implementation should keep this as a calibrated field until the copy/alias gap is closed."
+    "ZJI_VIDEO_Y through page-param +0x26 is proven upstream, but it is no longer a strong source claim for active work +0x26.",
+    "The active video prepare argument is statically traced as the 0x94 work object; no direct writer for work +0x26 is visible in the current decompiled corpus.",
+    "Open firmware planning should treat +0xd0/+0xd4 as unsourced work-object fields, not as page height, until hardware traces or cleaner disassembly close the gap."
   ],
   "explicit_0x26_write_hits": [
     {
@@ -171,6 +176,7 @@
   ],
   "source_reports": {
     "chunk_sizing": "analysis/hardware-boundary/video-chunk-sizing.json",
+    "queue_payload_chain": "analysis/hardware-boundary/video-queue-payload-chain.json",
     "raster_fields": "analysis/open-firmware-model/raster-field-semantics.json"
   },
   "status": "pass",

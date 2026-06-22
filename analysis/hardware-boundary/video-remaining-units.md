@@ -14,7 +14,7 @@ This is a generated offline model. It does not contact the printer.
 | `host_page_item` | `ZJI_VIDEO_Y / item id 0x12` | `candidate source` | generated ZjStream page item values and page-parameter builder switch case 0x12 |
 | `page_parameter_builder` | `page-param +0x26` | `proven for page-parameter object` | 0x10009b4c writes item value at param_2 + 10 into param_1 +0x26 |
 | `active_video_parameter` | `prepare param_1 +0x26` | `proven consumer` | 0x10014910 reads param_1 +0x26 into video state +0xd0/+0xd4 |
-| `copy_or_alias_gap` | `page-param +0x26 -> active work/prepare +0x26` | `unresolved` | 0x100104c8 simple copier does not visibly copy +0x26; current explicit-source scan finds no direct work-object writer |
+| `copy_or_alias_gap` | `page-param +0x26 -> active work/prepare +0x26` | `unresolved and weakened` | 0x100104c8 simple copier does not visibly copy +0x26; video queue payload chain identifies the prepare argument as the 0x94 work object; current explicit-source scan finds no direct work-object writer |
 
 ## Projection If Alias Holds
 
@@ -42,9 +42,9 @@ This is a generated offline model. It does not contact the printer.
 
 ## Current Conclusion
 
-- The best static source candidate for +0xd0/+0xd4 is ZJI_VIDEO_Y through page-param +0x26.
-- The direct copy or alias from page-param +0x26 into the active video prepare argument is not proven in current decompilation.
-- Open firmware planning may use the generated candidate values, but implementation should keep this as a calibrated field until the copy/alias gap is closed.
+- ZJI_VIDEO_Y through page-param +0x26 is proven upstream, but it is no longer a strong source claim for active work +0x26.
+- The active video prepare argument is statically traced as the 0x94 work object; no direct writer for work +0x26 is visible in the current decompiled corpus.
+- Open firmware planning should treat +0xd0/+0xd4 as unsourced work-object fields, not as page height, until hardware traces or cleaner disassembly close the gap.
 
 ## Checks
 
@@ -55,4 +55,5 @@ This is a generated offline model. It does not contact the printer.
 | `simple_work_populate_does_not_copy_0x26` | `present` | 0x100104c8 does not visibly copy page-param +0x26 into work +0x26 |
 | `work_common_init_clears_early_body` | `present` | common initializer clears the early work-object body, including +0x26 unless later populated |
 | `current_search_keeps_gap_explicit` | `present` | explicit +0x26 hits are builder and prepare paths; no direct work-populate copy is currently visible |
+| `queue_payload_chain_identifies_work_object` | `present` | queue payload chain points prepare at the 0x94 work object and weakens the page-param +0x26 alias theory |
 | `candidate_values_match_generated_cases` | `present` | candidate remaining-unit values follow generated page heights |

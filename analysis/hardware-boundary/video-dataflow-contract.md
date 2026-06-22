@@ -68,7 +68,7 @@ This is a generated offline model. It does not contact the printer.
 
 - function: `0x10014244 hp1020_video_band_done_or_irq_helper_candidate`
 - meaning: The helper keeps channel B fed from the modulo-4 descriptor side.
-- remaining unknown: ZJI_VIDEO_Y is the best +0xd0 source candidate, but page-param +0x26 -> prepare argument +0x26 copy/alias remains unresolved
+- remaining unknown: active work +0x26 remains unsourced; ZJI_VIDEO_Y reaches page-param +0x26 upstream, but the queue payload chain weakens that alias/copy theory
 
 | Field/Register | Value/Formula |
 |---|---|
@@ -109,7 +109,7 @@ This is a generated offline model. It does not contact the printer.
 ## Current Conclusion
 
 - The host-to-render dataflow is now concrete for the generated a4_default case.
-- The remaining unknowns are not parser fields; they are the page-param +0x26 alias/copy gap, raw-band helper divide confirmation, video timing, and live IRQ completion behavior.
+- The remaining unknowns are not parser fields; they are the active work +0x26 source, raw-band helper divide confirmation, video timing, and live IRQ completion behavior.
 - This report is still not a reason to upload custom printing firmware; it is the static contract a future implementation must satisfy.
 
 ## Checks

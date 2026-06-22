@@ -99,7 +99,9 @@ Start here:
 93. `open-firmware-model/raster-field-semantics.md` - generated host-to-raster field semantics for BIH/BID values that reach the video hardware boundary
 94. `hardware-boundary/video-dataflow-contract.md` - generated normal first-page dataflow contract from host raster fields into render/refill hardware formulas
 95. `hardware-boundary/video-chunk-sizing.md` - generated model for stride-derived `+0xcc` chunk sizing and raw-band flag helper behavior
-96. `hardware-boundary/video-remaining-units.md` - generated model for the `+0xd0/+0xd4` remaining-unit candidate source and unresolved page-param/work alias gap
+96. `hardware-boundary/video-helper-disassembly.md` - generated instruction-level status report for helper `0x1001b668` and the current old-Xtensa decoder limit
+97. `hardware-boundary/video-queue-payload-chain.md` - generated pointer-chain report showing VideoThread prepare receives the `0x94` video/page work object
+98. `hardware-boundary/video-remaining-units.md` - generated model for the `+0xd0/+0xd4` remaining-unit candidate source and unresolved active work `+0x26` source
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -202,7 +204,9 @@ Useful current conclusions:
 - `analysis/hardware-boundary/engine-print-topology.md` organizes the mechanical engine side into startup/preflight, page work acceptance, status/recovery polling, and completion/deferred-work stages. It preserves the important stock commands `0x6012`, `0x3a13`, `0x501a`, and `0x5043`.
 - `analysis/hardware-boundary/video-dataflow-contract.md` pins the normal `a4_default` first-page values through the video boundary: work `+0x84/+0x88/+0x8c/+0x90 = 9600/6824/128/0x5c`, BID bytes `6364`, prepare stride/window `1200/2400`, render channel-A length `6364`, and helper channel-B length formula `min(4, +0xd0) * 1200`.
 - `analysis/hardware-boundary/video-chunk-sizing.md` tightens that helper formula: `+0xb8` is `((work +0x84 + 31) & ~31) >> 3`, `+0xcc` is projected as `ceil_div(8192, stride) & ~3`, so `a4_default` uses stride `1200` and max chunk units `4`. The divide helper `0x1001b668` is still named cautiously because Ghidra truncates the divide path.
-- `analysis/hardware-boundary/video-remaining-units.md` traces the best candidate for `+0xd0/+0xd4`: `ZJI_VIDEO_Y` goes to page-param `+0x26`, and video prepare reads argument `+0x26`, but the direct page-param-to-active-work copy or alias is not proven. If the alias holds, `a4_default` first channel-B refill length is `4800`.
+- `analysis/hardware-boundary/video-helper-disassembly.md` records the exact bytes and decoder evidence for helper `0x1001b668`: Ghidra confirms denominator `0 -> 0` and denominator `1 -> numerator`, but hits a pcode constructor failure at `0x1001b685`; local Xtensa objdump also emits custom/old-instruction-looking markers, so denominator `>=2` stays a bounded ceil-div hypothesis.
+- `analysis/hardware-boundary/video-queue-payload-chain.md` traces the queue word handed to VideoThread through JobMgr, Engine, PrintMgr, and VideoThread. Current conclusion: prepare receives the `0x94` video/page work object, not the raw page-parameter block.
+- `analysis/hardware-boundary/video-remaining-units.md` traces the remaining-unit candidate and corrects the old source claim: `ZJI_VIDEO_Y` reaches page-param `+0x26`, and video prepare reads argument `+0x26`, but the active work object `+0x26` source is still unsourced in static decompilation. If a hidden alias/copy still exists, `a4_default` first channel-B refill length would be `4800`.
 - `analysis/non-printing-usb-probe-spec.md` defines the only custom-firmware experiment that is currently defensible: boot/USB identity only, no video/engine MMIO.
 - `analysis/non-printing-status-probe/pjl-status-contract.md` defines the exact tiny PJL/status payloads to use when calibrating stock back-channel responses or future open USB/PJL echo behavior.
 - `analysis/offline-consistency/offline-consistency.md` now cross-checks the main offline conclusions against generated reports: engine `0x17` dispatch, status-code correlation, print-path model invariants, hardware boundary, PJL query contract, and USB marker draft safety.
@@ -244,6 +248,8 @@ Useful current conclusions:
 - `scripts/model-hp1020-raster-field-semantics.py` regenerates the host-to-raster field semantics report from the generated print-path model variants and video-boundary reports.
 - `scripts/model-hp1020-video-dataflow-contract.py` regenerates the normal first-page video dataflow contract from raster fields, prepare projection, transfer-ring, and refill models.
 - `scripts/model-hp1020-video-chunk-sizing.py` regenerates the stride-derived chunk sizing and raw-band flag helper model.
+- `scripts/model-hp1020-video-helper-disassembly.py` regenerates the helper disassembly limit report for `0x1001b668`.
+- `scripts/model-hp1020-video-queue-payload-chain.py` regenerates the VideoThread work-object pointer-chain report.
 - `scripts/model-hp1020-video-remaining-units.py` regenerates the remaining-unit candidate source report and keeps the unresolved copy/alias gap explicit.
 - `scripts/model-hp1020-minimal-print-scope.py` regenerates the current minimum printing-only replacement scope from the generated print-path, USB, and hardware-boundary reports.
 - `scripts/analyze-hp1020-pjl-status-capture.py` classifies PJL/status back-channel captures against the generated contract, including expected-marker, no-response, and unexpected-byte outcomes.

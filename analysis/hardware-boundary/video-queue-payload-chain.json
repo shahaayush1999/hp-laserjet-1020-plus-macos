@@ -1,0 +1,188 @@
+{
+  "checks": [
+    {
+      "detail": "child-page create path creates a 0x94 work object and sends it to JobMgr as message 5",
+      "name": "work_object_is_allocated_before_jobmgr_message_5",
+      "status": "present"
+    },
+    {
+      "detail": "work creator allocates the object that later gets video geometry fields",
+      "name": "work_create_allocates_0x94_and_clears_video_fields",
+      "status": "present"
+    },
+    {
+      "detail": "selected page-param copier still does not copy +0x26 into the work object",
+      "name": "work_populate_does_not_copy_page_param_0x26",
+      "status": "present"
+    },
+    {
+      "detail": "JobMgr fills the same work object fields consumed by video prepare/render",
+      "name": "jobmgr_fills_work_video_geometry",
+      "status": "present"
+    },
+    {
+      "detail": "JobMgr sends engine queue 0x0b with the candidate work pointer in the fourth message word",
+      "name": "jobmgr_sends_engine_0x0b_with_work_pointer",
+      "status": "present"
+    },
+    {
+      "detail": "engine dispatch stores queue message word 4 as active work pointer",
+      "name": "engine_dispatch_stores_active_work_pointer",
+      "status": "present"
+    },
+    {
+      "detail": "PrintMgr sends Video Queue 0x0b with the same payload slot shape",
+      "name": "printmgr_sends_video_queue_payload_word",
+      "status": "present"
+    },
+    {
+      "detail": "VideoThread stores message word 4 as active work and passes it to prepare",
+      "name": "video_thread_uses_payload_as_prepare_argument",
+      "status": "present"
+    },
+    {
+      "detail": "prepare reads +0x84 geometry and +0x26 remaining-units field from the same argument",
+      "name": "prepare_reads_both_geometry_and_0x26_from_same_argument",
+      "status": "present"
+    }
+  ],
+  "conclusion": {
+    "effect_on_remaining_units": "current static evidence weakens the earlier page-param +0x26 -> work +0x26 alias theory; the active work +0x26 source remains unresolved",
+    "plain_english": "The video code is almost certainly receiving the work object whose geometry is filled by JobMgr. The page-height value is proven in the earlier page-param block, but this chain does not show it being copied into the work object field that prepare reads.",
+    "prepare_argument_identity": "0x94-byte video/page work object"
+  },
+  "stages": [
+    {
+      "confidence": "high for page-param object only",
+      "evidence": "builder writes ZJI item 0x12 into page-param +0x26",
+      "function": "0x10009b4c",
+      "object": "page parameter block",
+      "stage": "page_parameter_block"
+    },
+    {
+      "confidence": "high",
+      "evidence": "child-page creator allocates work, copies selected fields, then sends JobMgr message 5 with the work pointer",
+      "function": "0x10010398 -> 0x1000f228 -> 0x100104c8",
+      "object": "0x94-byte video/page work object",
+      "stage": "work_object_creation"
+    },
+    {
+      "confidence": "high",
+      "evidence": "JobMgr writes BIH/runtime block values into work +0x84/+0x88/+0x8c/+0x90",
+      "function": "0x1000e414",
+      "object": "same work object",
+      "stage": "raster_geometry_fill"
+    },
+    {
+      "confidence": "medium-high",
+      "evidence": "JobMgr stores iVar9 in iStack_84 and sends engine queue message 0x0b",
+      "function": "0x1000e414 -> queue 1 message 0x0b",
+      "object": "work pointer in message word 4",
+      "stage": "engine_queue_handoff"
+    },
+    {
+      "confidence": "high",
+      "evidence": "engine dispatch stores param_1[3] into engine state +0x68 for message 0x0b/0x40",
+      "function": "0x10016164",
+      "object": "engine state +0x68 active work pointer",
+      "stage": "engine_active_work"
+    },
+    {
+      "confidence": "medium-high",
+      "evidence": "PrintMgr sends queue 8 message 0x0b with uVar10, and wrapper places param_5 into uStack_24",
+      "function": "0x1000f574 -> 0x10010218",
+      "object": "work pointer in message word 4",
+      "stage": "print_mgr_video_send"
+    },
+    {
+      "confidence": "high",
+      "evidence": "VideoThread receives message 0x0b, stores uStack_24 at video state +0x60, and calls prepare(piVar3)",
+      "function": "0x10013c18 -> 0x10014910",
+      "object": "VideoThread active work pointer",
+      "stage": "video_thread_prepare"
+    }
+  ],
+  "status": "pass",
+  "summary": "Static queue/pointer chain for the object consumed by VideoThread prepare.",
+  "write_hits": {
+    "plus_0x26": [
+      {
+        "line": 196,
+        "source": "prepare",
+        "text": "*(uint *)(puVar15 + 0xd0) = (uint)*(ushort *)(param_1 + 0x26);"
+      },
+      {
+        "line": 197,
+        "source": "prepare",
+        "text": "*(uint *)(puVar15 + 0xd4) = (uint)*(ushort *)(param_1 + 0x26);"
+      },
+      {
+        "line": 102,
+        "source": "page_param_builder",
+        "text": "*(undefined2 *)(param_1 + 0x26) = *(undefined2 *)((int)param_2 + 10);"
+      }
+    ],
+    "video_geometry": [
+      {
+        "line": 185,
+        "source": "job_mgr",
+        "text": "*(undefined4 *)(iVar9 + 0x84) = *(undefined4 *)(PTR_DAT_10006304 + 4);"
+      },
+      {
+        "line": 510,
+        "source": "job_mgr",
+        "text": "*(undefined4 *)(iVar9 + 0x84) = *(undefined4 *)(PTR_DAT_10006304 + 4);"
+      },
+      {
+        "line": 15,
+        "source": "work_create",
+        "text": "*(undefined4 *)(iVar1 + 0x84) = 0;"
+      },
+      {
+        "line": 186,
+        "source": "job_mgr",
+        "text": "*(undefined4 *)(iVar9 + 0x88) = *(undefined4 *)(puVar4 + 8);"
+      },
+      {
+        "line": 511,
+        "source": "job_mgr",
+        "text": "*(undefined4 *)(iVar9 + 0x88) = *(undefined4 *)(puVar6 + 8);"
+      },
+      {
+        "line": 16,
+        "source": "work_create",
+        "text": "*(undefined4 *)(iVar1 + 0x88) = 0;"
+      },
+      {
+        "line": 187,
+        "source": "job_mgr",
+        "text": "*(undefined4 *)(iVar9 + 0x8c) = *(undefined4 *)(puVar4 + 0xc);"
+      },
+      {
+        "line": 512,
+        "source": "job_mgr",
+        "text": "*(undefined4 *)(iVar9 + 0x8c) = *(undefined4 *)(puVar6 + 0xc);"
+      },
+      {
+        "line": 17,
+        "source": "work_create",
+        "text": "*(undefined4 *)(iVar1 + 0x8c) = 0;"
+      },
+      {
+        "line": 188,
+        "source": "job_mgr",
+        "text": "*(undefined *)(iVar9 + 0x90) = puVar4[0x13];"
+      },
+      {
+        "line": 513,
+        "source": "job_mgr",
+        "text": "*(undefined *)(iVar9 + 0x90) = puVar6[0x13];"
+      },
+      {
+        "line": 18,
+        "source": "work_create",
+        "text": "*(undefined1 *)(iVar1 + 0x90) = 0;"
+      }
+    ]
+  }
+}

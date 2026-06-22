@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `44`
+- checks: `46`
 - failures: `0`
 - meaning: Offline analysis is internally consistent; the next decisive evidence is a guarded non-printing printer-side probe.
 
@@ -25,8 +25,10 @@ It does not contact the printer.
 | `hardware_boundary_keeps_engine_video_unsafe` | `watch` | The do-not-touch boundary for early custom firmware must still include video and engine paths. | `analysis/hardware-boundary/hardware-boundary.json` |
 | `first_page_sequence_keeps_video_engine_registers_ordered` | `watch` | The first-page hardware sequence must preserve the ordered engine/video/refill risk boundary. | `analysis/hardware-boundary/first-page-hardware-sequence.json` |
 | `video_dataflow_contract_keeps_a4_default_path` | `watch` | The video dataflow contract must preserve concrete a4_default values through render/refill boundary formulas. | `analysis/hardware-boundary/video-dataflow-contract.json` |
-| `video_remaining_units_keeps_alias_gap_explicit` | `watch` | Video remaining-unit model must preserve ZJI_VIDEO_Y candidate values while keeping the page-param/work alias gap unresolved. | `analysis/hardware-boundary/video-remaining-units.json` |
+| `video_queue_payload_chain_identifies_prepare_work_object` | `watch` | The video queue payload chain must preserve that prepare receives the 0x94 work object, while work +0x26 remains unsourced. | `analysis/hardware-boundary/video-queue-payload-chain.json` |
+| `video_remaining_units_keeps_alias_gap_explicit` | `watch` | Video remaining-unit model must preserve ZJI_VIDEO_Y upstream values while keeping active work +0x26 unsourced. | `analysis/hardware-boundary/video-remaining-units.json` |
 | `video_chunk_sizing_projects_stride_and_cc` | `watch` | Video chunk sizing must preserve the stride-derived +0xcc projection and helper caveat. | `analysis/hardware-boundary/video-chunk-sizing.json` |
+| `video_helper_disassembly_keeps_divide_path_bounded` | `watch` | The helper disassembly report must preserve the confirmed 0/1 edge cases while keeping the divide path bounded as a hypothesis. | `analysis/hardware-boundary/video-helper-disassembly.json` |
 | `video_engine_register_semantics_resolved` | `watch` | The video/engine register-semantics report must keep the key engine, video, channel, and raw-band roles resolved. | `analysis/hardware-boundary/video-engine-register-semantics.json` |
 | `video_prepare_modes_keep_timing_tables` | `watch` | The video-prepare mode model must preserve the branch-dependent 0xb100 timing/setup table evidence. | `analysis/hardware-boundary/video-prepare-modes.json` |
 | `engine_command_status_model_resolved` | `watch` | The engine command/status model must preserve the stock 0xb050 register pair, command IDs, state fields, and event branches. | `analysis/hardware-boundary/engine-command-status.json` |
