@@ -2,7 +2,7 @@
   {
     "description": "USB-controller MMIO family; allowed only for a USB-only probe",
     "kind": "usb_mmio",
-    "line": 131,
+    "line": 147,
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-marker-draft/usb-marker.S",
     "severity": "watch",
     "text": ".word 0xb3000000"
@@ -10,7 +10,7 @@
   {
     "description": "USB-controller MMIO family; allowed only for a USB-only probe",
     "kind": "usb_mmio",
-    "line": 133,
+    "line": 149,
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-marker-draft/usb-marker.S",
     "severity": "watch",
     "text": ".word 0xb3000014"
@@ -18,7 +18,7 @@
   {
     "description": "USB-controller MMIO family; allowed only for a USB-only probe",
     "kind": "usb_mmio",
-    "line": 135,
+    "line": 151,
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-marker-draft/usb-marker.S",
     "severity": "watch",
     "text": ".word 0xb300000c"
@@ -26,7 +26,7 @@
   {
     "description": "USB-controller MMIO family; allowed only for a USB-only probe",
     "kind": "usb_mmio",
-    "line": 137,
+    "line": 153,
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-marker-draft/usb-marker.S",
     "severity": "watch",
     "text": ".word 0xb3000028"
@@ -34,7 +34,7 @@
   {
     "description": "USB-controller MMIO family; allowed only for a USB-only probe",
     "kind": "usb_mmio",
-    "line": 139,
+    "line": 155,
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-marker-draft/usb-marker.S",
     "severity": "watch",
     "text": ".word 0xb300002c"
@@ -42,7 +42,7 @@
   {
     "description": "USB-controller MMIO family; allowed only for a USB-only probe",
     "kind": "usb_mmio",
-    "line": 141,
+    "line": 157,
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-marker-draft/usb-marker.S",
     "severity": "watch",
     "text": ".word 0xb300020c"
@@ -50,7 +50,7 @@
   {
     "description": "USB-controller MMIO family; allowed only for a USB-only probe",
     "kind": "usb_mmio",
-    "line": 143,
+    "line": 159,
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-marker-draft/usb-marker.S",
     "severity": "watch",
     "text": ".word 0xb300022c"
@@ -58,7 +58,7 @@
   {
     "description": "USB-controller MMIO family; allowed only for a USB-only probe",
     "kind": "usb_mmio",
-    "line": 145,
+    "line": 161,
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-marker-draft/usb-marker.S",
     "severity": "watch",
     "text": ".word 0xb3000400"
@@ -66,7 +66,7 @@
   {
     "description": "USB-controller MMIO family; allowed only for a USB-only probe",
     "kind": "usb_mmio",
-    "line": 147,
+    "line": 163,
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-marker-draft/usb-marker.S",
     "severity": "watch",
     "text": ".word 0xb3000408"
@@ -74,7 +74,7 @@
   {
     "description": "USB-controller MMIO family; allowed only for a USB-only probe",
     "kind": "usb_mmio",
-    "line": 149,
+    "line": 165,
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-marker-draft/usb-marker.S",
     "severity": "watch",
     "text": ".word 0xb3000504"
@@ -82,7 +82,7 @@
   {
     "description": "USB-controller MMIO family; allowed only for a USB-only probe",
     "kind": "usb_mmio",
-    "line": 151,
+    "line": 167,
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-marker-draft/usb-marker.S",
     "severity": "watch",
     "text": ".word 0xb3000508"
@@ -90,7 +90,7 @@
   {
     "description": "USB-controller MMIO family; allowed only for a USB-only probe",
     "kind": "usb_mmio",
-    "line": 153,
+    "line": 169,
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-marker-draft/usb-marker.S",
     "severity": "watch",
     "text": ".word 0xb300050c"
@@ -98,7 +98,7 @@
   {
     "description": "USB-controller MMIO family; allowed only for a USB-only probe",
     "kind": "usb_mmio",
-    "line": 155,
+    "line": 171,
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-marker-draft/usb-marker.S",
     "severity": "watch",
     "text": ".word 0xb3000510"

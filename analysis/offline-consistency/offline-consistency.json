@@ -248,9 +248,9 @@
       "severity": "watch"
     },
     {
-      "detail": "The host-side marker model must cover both stock gates, clipped host length, and polling continuation for non-matching setup/gate states.",
+      "detail": "The host-side marker model must cover standard USB descriptors, both stock product gates, clipped host length, and polling continuation for non-matching setup/gate states.",
       "evidence": "analysis/open-firmware-probes/usb-marker-draft/behavior-model.json",
-      "name": "usb_marker_behavior_clips_and_uses_both_gates",
+      "name": "usb_marker_behavior_models_descriptor_responder",
       "severity": "watch"
     },
     {

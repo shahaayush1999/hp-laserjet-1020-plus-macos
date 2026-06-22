@@ -87,12 +87,28 @@ hp1020_setup_packet_base_90021348:
     .word 0x90021348
 hp1020_marker_descriptor_hw_ptr_90003200:
     .word 0x90003200
+hp1020_device_descriptor_hw_ptr_90003300:
+    .word 0x90003300
+hp1020_config_descriptor_hw_ptr_90003314:
+    .word 0x90003314
+hp1020_lang_descriptor_hw_ptr_90003334:
+    .word 0x90003334
+hp1020_manufacturer_descriptor_hw_ptr_90003338:
+    .word 0x90003338
 hp1020_staging_buffer_ptr_90022bd0:
     .word 0x90022bd0
 hp1020_descriptor_base_ptr_900226f0:
     .word 0x900226f0
 hp1020_marker_len_00000026:
     .word 0x00000026
+hp1020_device_len_00000012:
+    .word 0x00000012
+hp1020_config_len_00000020:
+    .word 0x00000020
+hp1020_lang_len_00000004:
+    .word 0x00000004
+hp1020_manufacturer_len_00000020:
+    .word 0x00000020
 hp1020_descriptor_final_flag_08000000:
     .word 0x08000000
 hp1020_done_marker_48504d4b:
@@ -165,6 +181,27 @@ hp1020_open_marker_product_string:
     .byte 0x4d, 0x00, 0x41, 0x00, 0x52, 0x00, 0x4b, 0x00
     .byte 0x45, 0x00, 0x52, 0x00
 
+    .section .usb_standard_descriptors, "a", @progbits
+    .align 4
+hp1020_open_device_descriptor:
+    .byte 0x12, 0x01, 0x00, 0x02, 0x00, 0x00, 0x00, 0x40
+    .byte 0xf0, 0x03, 0x17, 0x2b, 0x00, 0x01, 0x01, 0x02
+    .byte 0x00, 0x01
+    .align 4
+hp1020_open_config_descriptor:
+    .byte 0x09, 0x02, 0x20, 0x00, 0x01, 0x01, 0x00, 0xc0
+    .byte 0x31, 0x09, 0x04, 0x00, 0x00, 0x02, 0x07, 0x01
+    .byte 0x02, 0x00, 0x07, 0x05, 0x01, 0x02, 0x40, 0x00
+    .byte 0x00, 0x07, 0x05, 0x81, 0x02, 0x40, 0x00, 0x00
+hp1020_open_lang_descriptor:
+    .byte 0x04, 0x03, 0x09, 0x04
+hp1020_open_manufacturer_string:
+    .byte 0x20, 0x03
+    .byte 0x48, 0x00, 0x65, 0x00, 0x77, 0x00, 0x6c, 0x00
+    .byte 0x65, 0x00, 0x74, 0x00, 0x74, 0x00, 0x2d, 0x00
+    .byte 0x50, 0x00, 0x61, 0x00, 0x63, 0x00, 0x6b, 0x00
+    .byte 0x61, 0x00, 0x72, 0x00, 0x64, 0x00
+
     .section .text.probe, "ax", @progbits
     .align 4
 hp1020_probe_trap_loop:
@@ -214,15 +251,15 @@ hp1020_usb_marker_sequence_b:
 hp1020_usb_marker_kick_control_in:
     l32r a4, hp1020_response_state_base_100212d4
     s32i a6, a4, 0x3c
+    mov a5, a6
     l32r a7, hp1020_descriptor_final_flag_08000000
     or a7, a7, a6
     l32r a3, hp1020_staging_buffer_ptr_90022bd0
     s32i a3, a4, 0x40
 
-    l32r a2, hp1020_marker_descriptor_hw_ptr_90003200
     l32r a3, hp1020_staging_buffer_ptr_90022bd0
     movi a4, 0
-    l32r a5, hp1020_marker_len_00000026
+    beq a4, a5, 2f
 1:
     l8ui a6, a2, 0
     s8i a6, a3, 0
@@ -231,6 +268,7 @@ hp1020_usb_marker_kick_control_in:
     addi a4, a4, 1
     bltu a4, a5, 1b
 
+2:
     l32r a4, hp1020_descriptor_base_ptr_900226f0
     s32i a7, a4, 0
     movi a3, 0
@@ -256,6 +294,7 @@ hp1020_usb_marker_poll_loop:
     snapshot_word hp1020_mmio_b3000400, 0x04
 
     l32r a2, hp1020_setup_packet_base_90021348
+    mov a11, a2
     l8ui a3, a2, 0x00
     l32r a4, hp1020_usb_marker_state_ptr
     s32i a3, a4, 0x08
@@ -269,18 +308,63 @@ hp1020_usb_marker_poll_loop:
 
     l8ui a3, a2, 0x02
     s32i a3, a4, 0x10
-    movi a5, 0x02
-    bne a3, a5, hp1020_usb_marker_no_match
+    mov a9, a3
 
     l8ui a3, a2, 0x03
     s32i a3, a4, 0x14
-    movi a5, 0x03
-    bne a3, a5, hp1020_usb_marker_no_match
+    mov a8, a3
 
-    l8ui a3, a2, 0x06
+    movi a5, 0x01
+    beq a8, a5, hp1020_usb_marker_select_device
+    movi a5, 0x02
+    beq a8, a5, hp1020_usb_marker_select_config
+    movi a5, 0x03
+    beq a8, a5, hp1020_usb_marker_select_string
+    j hp1020_usb_marker_no_match
+
+hp1020_usb_marker_select_device:
+    movi a5, 0x00
+    bne a9, a5, hp1020_usb_marker_no_match
+    l32r a2, hp1020_device_descriptor_hw_ptr_90003300
+    l32r a7, hp1020_device_len_00000012
+    j hp1020_usb_marker_clip_and_dispatch
+
+hp1020_usb_marker_select_config:
+    movi a5, 0x00
+    bne a9, a5, hp1020_usb_marker_no_match
+    l32r a2, hp1020_config_descriptor_hw_ptr_90003314
+    l32r a7, hp1020_config_len_00000020
+    j hp1020_usb_marker_clip_and_dispatch
+
+hp1020_usb_marker_select_string:
+    movi a5, 0x00
+    beq a9, a5, hp1020_usb_marker_select_lang
+    movi a5, 0x01
+    beq a9, a5, hp1020_usb_marker_select_manufacturer
+    movi a5, 0x02
+    beq a9, a5, hp1020_usb_marker_select_product
+    j hp1020_usb_marker_no_match
+
+hp1020_usb_marker_select_lang:
+    l32r a2, hp1020_lang_descriptor_hw_ptr_90003334
+    l32r a7, hp1020_lang_len_00000004
+    j hp1020_usb_marker_clip_and_dispatch
+
+hp1020_usb_marker_select_manufacturer:
+    l32r a2, hp1020_manufacturer_descriptor_hw_ptr_90003338
+    l32r a7, hp1020_manufacturer_len_00000020
+    j hp1020_usb_marker_clip_and_dispatch
+
+hp1020_usb_marker_select_product:
+    l32r a2, hp1020_marker_descriptor_hw_ptr_90003200
+    l32r a7, hp1020_marker_len_00000026
+
+hp1020_usb_marker_clip_and_dispatch:
+
+    l8ui a3, a11, 0x06
     s32i a3, a4, 0x18
     mov a6, a3
-    l8ui a3, a2, 0x07
+    l8ui a3, a11, 0x07
     s32i a3, a4, 0x1c
     slli a3, a3, 8
     or a6, a6, a3

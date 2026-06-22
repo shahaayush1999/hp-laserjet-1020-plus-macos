@@ -31,6 +31,6 @@
 | `watch` | `endpoint0_sequence_write` | `0x10005d43` | `0xb300000c` | `0x00000040` | `sequence_a,sequence_b` | `s32i.n	a9, a8, 0` | expected endpoint-0 sequence write |
 | `watch` | `endpoint0_sequence_write` | `0x10005d4e` | `0xb300002c` | `0x00000200` | `sequence_b` | `s32i.n	a9, a8, 0` | expected endpoint-0 sequence write |
 | `watch` | `endpoint0_sequence_write` | `0x10005d59` | `0xb3000028` | `0x00000040` | `sequence_a,sequence_b` | `s32i.n	a9, a8, 0` | expected endpoint-0 sequence write |
-| `watch` | `endpoint0_or_write` | `0x10005dae` | `0xb3000000` | `0x00000002` | `` | `s32i.n	a9, a8, 0` | begin/control-IN data stage |
-| `watch` | `endpoint0_sequence_write` | `0x10005db9` | `0xb3000014` | `0x900226f0` | `data_stage_submit` | `s32i.n	a9, a8, 0` | expected endpoint-0 sequence write |
-| `watch` | `endpoint0_or_write` | `0x10005dcc` | `0xb3000000` | `0x00000108` | `` | `s32i.n	a9, a8, 0` | transfer descriptor kick pattern seen in stock data stage |
+| `watch` | `endpoint0_or_write` | `0x10005daf` | `0xb3000000` | `0x00000002` | `` | `s32i.n	a9, a8, 0` | begin/control-IN data stage |
+| `watch` | `endpoint0_sequence_write` | `0x10005dba` | `0xb3000014` | `0x900226f0` | `data_stage_submit` | `s32i.n	a9, a8, 0` | expected endpoint-0 sequence write |
+| `watch` | `endpoint0_or_write` | `0x10005dcd` | `0xb3000000` | `0x00000108` | `` | `s32i.n	a9, a8, 0` | transfer descriptor kick pattern seen in stock data stage |

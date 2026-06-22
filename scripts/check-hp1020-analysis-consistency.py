@@ -995,14 +995,28 @@ def build_report() -> dict[str, Any]:
         for scenario in marker_behavior.get("scenarios", [])
         if scenario.get("decision", {}).get("result") == "poll_continue"
     ]
+    marker_descriptors = {item["decision"].get("descriptor") for item in marker_responses}
+    marker_product_responses = [
+        item for item in marker_responses if item["decision"].get("descriptor") == "open marker product"
+    ]
     checks.append(
         check(
-            "usb_marker_behavior_clips_and_uses_both_gates",
-            len(marker_responses) == 3
-            and len(marker_poll_continue) == 3
-            and {item["decision"].get("sequence") for item in marker_responses} == {"sequence_a", "sequence_b"}
-            and any(item["decision"].get("response_len") == 4 for item in marker_responses),
-            "The host-side marker model must cover both stock gates, clipped host length, and polling continuation for non-matching setup/gate states.",
+            "usb_marker_behavior_models_descriptor_responder",
+            {"device", "configuration", "language", "manufacturer", "open marker product"} <= marker_descriptors
+            and {item["decision"].get("sequence") for item in marker_product_responses}
+            == {"sequence_a", "sequence_b"}
+            and any(
+                item["decision"].get("descriptor") == "open marker product"
+                and item["decision"].get("response_len") == 4
+                for item in marker_responses
+            )
+            and any(
+                item["decision"].get("descriptor") == "configuration"
+                and item["decision"].get("response_len") == 9
+                for item in marker_responses
+            )
+            and len(marker_poll_continue) >= 2,
+            "The host-side marker model must cover standard USB descriptors, both stock product gates, clipped host length, and polling continuation for non-matching setup/gate states.",
             evidence="analysis/open-firmware-probes/usb-marker-draft/behavior-model.json",
         )
     )

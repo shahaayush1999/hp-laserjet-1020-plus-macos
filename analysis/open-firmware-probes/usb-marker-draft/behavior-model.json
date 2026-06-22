@@ -17,15 +17,19 @@
           "staging_buffer": "0x90022bd0",
           "transfer_kick_or": "0x00000108"
         },
+        "descriptor": "open marker product",
+        "descriptor_index": 2,
+        "descriptor_type": 3,
         "gate_0400": "0x00000000",
         "gate_0408": "0x00006000",
-        "marker_source_pointer": "0x90003200",
+        "response_hex": "26 03 48 00 50 00 31 00 30 00 32 00 30 00 20 00 4f 00 50 00 45 00 4e 00 20 00 4d 00 41 00 52 00 4b 00 45 00 52 00",
         "response_len": 38,
         "response_pointer": "0x90022bd0",
         "response_text": "HP1020 OPEN MARKER",
         "result": "marker_response",
         "sequence": "sequence_a",
         "setup_hex": "80 06 02 03 09 04 ff 00",
+        "source_pointer": "0x90003200",
         "w_length": 255
       },
       "name": "product string, sequence A gate, full host length"
@@ -47,15 +51,19 @@
           "staging_buffer": "0x90022bd0",
           "transfer_kick_or": "0x00000108"
         },
+        "descriptor": "open marker product",
+        "descriptor_index": 2,
+        "descriptor_type": 3,
         "gate_0400": "0x00000001",
         "gate_0408": "0x00000000",
-        "marker_source_pointer": "0x90003200",
+        "response_hex": "26 03 48 00 50 00 31 00 30 00 32 00 30 00 20 00 4f 00 50 00 45 00 4e 00 20 00 4d 00 41 00 52 00 4b 00 45 00 52 00",
         "response_len": 38,
         "response_pointer": "0x90022bd0",
         "response_text": "HP1020 OPEN MARKER",
         "result": "marker_response",
         "sequence": "sequence_b",
         "setup_hex": "80 06 02 03 09 04 ff 00",
+        "source_pointer": "0x90003200",
         "w_length": 255
       },
       "name": "product string, sequence B gate, full host length"
@@ -75,7 +83,7 @@
     {
       "decision": {
         "data_stage": {
-          "copy_bytes": 38,
+          "copy_bytes": 4,
           "copy_source": "0x90003200",
           "descriptor_base": "0x900226f0",
           "descriptor_submit_register": "0xb3000014",
@@ -89,36 +97,165 @@
           "staging_buffer": "0x90022bd0",
           "transfer_kick_or": "0x00000108"
         },
+        "descriptor": "open marker product",
+        "descriptor_index": 2,
+        "descriptor_type": 3,
         "gate_0400": "0x00000000",
         "gate_0408": "0x00006000",
-        "marker_source_pointer": "0x90003200",
+        "response_hex": "26 03 48 00",
         "response_len": 4,
         "response_pointer": "0x90022bd0",
         "response_text": "HP1020 OPEN MARKER",
         "result": "marker_response",
         "sequence": "sequence_a",
         "setup_hex": "80 06 02 03 09 04 04 00",
+        "source_pointer": "0x90003200",
         "w_length": 4
       },
       "name": "product string, clipped host length"
     },
     {
       "decision": {
+        "data_stage": {
+          "copy_bytes": 18,
+          "copy_source": "0x90003300",
+          "descriptor_base": "0x900226f0",
+          "descriptor_submit_register": "0xb3000014",
+          "descriptor_submit_value": "0x900226f0",
+          "descriptor_words": [
+            "0x08000012",
+            "0x00000000",
+            "0x90022bd0",
+            "0x00000000"
+          ],
+          "staging_buffer": "0x90022bd0",
+          "transfer_kick_or": "0x00000108"
+        },
+        "descriptor": "device",
+        "descriptor_index": 0,
+        "descriptor_type": 1,
         "gate_0400": "0x00000000",
         "gate_0408": "0x00006000",
-        "observed_prefix": "80 06 00 01",
-        "reason": "not GET_DESCRIPTOR string index 2; probe keeps polling",
-        "result": "poll_continue",
-        "setup_hex": "80 06 00 01 00 00 12 00"
+        "response_hex": "12 01 00 02 00 00 00 40 f0 03 17 2b 00 01 01 02 00 01",
+        "response_len": 18,
+        "response_pointer": "0x90022bd0",
+        "response_text": "",
+        "result": "marker_response",
+        "sequence": "sequence_a",
+        "setup_hex": "80 06 00 01 00 00 12 00",
+        "source_pointer": "0x90003300",
+        "w_length": 18
       },
       "name": "device descriptor request"
     },
     {
       "decision": {
+        "data_stage": {
+          "copy_bytes": 9,
+          "copy_source": "0x90003314",
+          "descriptor_base": "0x900226f0",
+          "descriptor_submit_register": "0xb3000014",
+          "descriptor_submit_value": "0x900226f0",
+          "descriptor_words": [
+            "0x08000009",
+            "0x00000000",
+            "0x90022bd0",
+            "0x00000000"
+          ],
+          "staging_buffer": "0x90022bd0",
+          "transfer_kick_or": "0x00000108"
+        },
+        "descriptor": "configuration",
+        "descriptor_index": 0,
+        "descriptor_type": 2,
         "gate_0400": "0x00000000",
         "gate_0408": "0x00006000",
-        "observed_prefix": "21 0a 00 00",
-        "reason": "not GET_DESCRIPTOR string index 2; probe keeps polling",
+        "response_hex": "09 02 20 00 01 01 00 c0 31",
+        "response_len": 9,
+        "response_pointer": "0x90022bd0",
+        "response_text": "",
+        "result": "marker_response",
+        "sequence": "sequence_a",
+        "setup_hex": "80 06 00 02 00 00 09 00",
+        "source_pointer": "0x90003314",
+        "w_length": 9
+      },
+      "name": "configuration descriptor clipped to first 9 bytes"
+    },
+    {
+      "decision": {
+        "data_stage": {
+          "copy_bytes": 4,
+          "copy_source": "0x90003334",
+          "descriptor_base": "0x900226f0",
+          "descriptor_submit_register": "0xb3000014",
+          "descriptor_submit_value": "0x900226f0",
+          "descriptor_words": [
+            "0x08000004",
+            "0x00000000",
+            "0x90022bd0",
+            "0x00000000"
+          ],
+          "staging_buffer": "0x90022bd0",
+          "transfer_kick_or": "0x00000108"
+        },
+        "descriptor": "language",
+        "descriptor_index": 0,
+        "descriptor_type": 3,
+        "gate_0400": "0x00000000",
+        "gate_0408": "0x00006000",
+        "response_hex": "04 03 09 04",
+        "response_len": 4,
+        "response_pointer": "0x90022bd0",
+        "response_text": "",
+        "result": "marker_response",
+        "sequence": "sequence_a",
+        "setup_hex": "80 06 00 03 00 00 04 00",
+        "source_pointer": "0x90003334",
+        "w_length": 4
+      },
+      "name": "language string descriptor"
+    },
+    {
+      "decision": {
+        "data_stage": {
+          "copy_bytes": 32,
+          "copy_source": "0x90003338",
+          "descriptor_base": "0x900226f0",
+          "descriptor_submit_register": "0xb3000014",
+          "descriptor_submit_value": "0x900226f0",
+          "descriptor_words": [
+            "0x08000020",
+            "0x00000000",
+            "0x90022bd0",
+            "0x00000000"
+          ],
+          "staging_buffer": "0x90022bd0",
+          "transfer_kick_or": "0x00000108"
+        },
+        "descriptor": "manufacturer",
+        "descriptor_index": 1,
+        "descriptor_type": 3,
+        "gate_0400": "0x00000000",
+        "gate_0408": "0x00006000",
+        "response_hex": "20 03 48 00 65 00 77 00 6c 00 65 00 74 00 74 00 2d 00 50 00 61 00 63 00 6b 00 61 00 72 00 64 00",
+        "response_len": 32,
+        "response_pointer": "0x90022bd0",
+        "response_text": "",
+        "result": "marker_response",
+        "sequence": "sequence_a",
+        "setup_hex": "80 06 01 03 09 04 ff 00",
+        "source_pointer": "0x90003338",
+        "w_length": 255
+      },
+      "name": "manufacturer string descriptor"
+    },
+    {
+      "decision": {
+        "gate_0400": "0x00000000",
+        "gate_0408": "0x00006000",
+        "observed_prefix": "21 0a",
+        "reason": "not a standard IN GET_DESCRIPTOR request; probe keeps polling",
         "result": "poll_continue",
         "setup_hex": "21 0a 00 00 00 00 00 00"
       },

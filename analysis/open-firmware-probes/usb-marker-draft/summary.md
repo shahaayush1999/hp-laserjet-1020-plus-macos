@@ -21,8 +21,8 @@ This artifact is offline only. It was not uploaded to the printer.
 
 ```text
 PASS /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/hp1020-usb-marker-draft.dl
-kind=dl_upload image_bytes=123772 elf_bytes=123764
-entry=0x100167a8 machine=0xabc7 phnum=11 shnum=22
+kind=dl_upload image_bytes=124792 elf_bytes=124784
+entry=0x100167a8 machine=0xabc7 phnum=11 shnum=23
 ```
 
 ```text
@@ -32,7 +32,7 @@ entry=0x100167a8 machine=0xabc7 phnum=11 shnum=22
 ```
 
 ```text
-scenarios=6 marker=3 poll_continue=3
+scenarios=9 marker=7 poll_continue=2
 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/behavior-model.md
 ```
 

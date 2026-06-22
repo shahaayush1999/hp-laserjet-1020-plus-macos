@@ -46,6 +46,9 @@ SECTIONS
   . = 0x10003200;
   .usb_marker_descriptor : { KEEP(*(.usb_marker_descriptor)) } :main
 
+  . = 0x10003300;
+  .usb_standard_descriptors : { KEEP(*(.usb_standard_descriptors)) } :main
+
   . = 0x10005c80;
   .text : {
     KEEP(*(.text.probe))

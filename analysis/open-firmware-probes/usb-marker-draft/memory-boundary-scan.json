@@ -26,17 +26,7 @@
     "instruction": "s32i\ta3, a4, 64",
     "kind": "stock_response_state",
     "offset": "0x40",
-    "pc": "0x10005d6e",
-    "severity": "watch"
-  },
-  {
-    "access": "read",
-    "base": "a2",
-    "description": "open marker descriptor hardware alias at 0x90003200",
-    "instruction": "l8ui\ta6, a2, 0",
-    "kind": "marker_descriptor_source",
-    "offset": "0x0",
-    "pc": "0x10005d7c",
+    "pc": "0x10005d71",
     "severity": "watch"
   },
   {
@@ -46,7 +36,7 @@
     "instruction": "s8i\ta6, a3, 0",
     "kind": "usb_staging_buffer",
     "offset": "0x0",
-    "pc": "0x10005d7f",
+    "pc": "0x10005d80",
     "severity": "watch"
   },
   {
@@ -56,7 +46,7 @@
     "instruction": "s32i.n\ta7, a4, 0",
     "kind": "usb_transfer_descriptor_ring",
     "offset": "0x0",
-    "pc": "0x10005d8e",
+    "pc": "0x10005d8f",
     "severity": "watch"
   },
   {
@@ -66,7 +56,7 @@
     "instruction": "s32i.n\ta3, a4, 4",
     "kind": "usb_transfer_descriptor_ring",
     "offset": "0x4",
-    "pc": "0x10005d92",
+    "pc": "0x10005d93",
     "severity": "watch"
   },
   {
@@ -76,7 +66,7 @@
     "instruction": "s32i.n\ta3, a4, 8",
     "kind": "usb_transfer_descriptor_ring",
     "offset": "0x8",
-    "pc": "0x10005d97",
+    "pc": "0x10005d98",
     "severity": "watch"
   },
   {
@@ -86,7 +76,7 @@
     "instruction": "s32i.n\ta3, a4, 12",
     "kind": "usb_transfer_descriptor_ring",
     "offset": "0xc",
-    "pc": "0x10005d9b",
+    "pc": "0x10005d9c",
     "severity": "watch"
   },
   {
@@ -96,7 +86,7 @@
     "instruction": "s32i\ta3, a4, 68",
     "kind": "local_probe_state",
     "offset": "0x44",
-    "pc": "0x10005dd4",
+    "pc": "0x10005dd5",
     "severity": "watch"
   },
   {
@@ -126,7 +116,7 @@
     "instruction": "l8ui\ta3, a2, 0",
     "kind": "setup_packet_buffer",
     "offset": "0x0",
-    "pc": "0x10005dff",
+    "pc": "0x10005e01",
     "severity": "watch"
   },
   {
@@ -136,7 +126,7 @@
     "instruction": "s32i.n\ta3, a4, 8",
     "kind": "local_probe_state",
     "offset": "0x8",
-    "pc": "0x10005e05",
+    "pc": "0x10005e07",
     "severity": "watch"
   },
   {
@@ -146,7 +136,7 @@
     "instruction": "l8ui\ta3, a2, 1",
     "kind": "setup_packet_buffer",
     "offset": "0x1",
-    "pc": "0x10005e10",
+    "pc": "0x10005e12",
     "severity": "watch"
   },
   {
@@ -156,7 +146,7 @@
     "instruction": "s32i.n\ta3, a4, 12",
     "kind": "local_probe_state",
     "offset": "0xc",
-    "pc": "0x10005e13",
+    "pc": "0x10005e15",
     "severity": "watch"
   },
   {
@@ -166,7 +156,7 @@
     "instruction": "l8ui\ta3, a2, 2",
     "kind": "setup_packet_buffer",
     "offset": "0x2",
-    "pc": "0x10005e1d",
+    "pc": "0x10005e1f",
     "severity": "watch"
   },
   {
@@ -176,7 +166,7 @@
     "instruction": "s32i.n\ta3, a4, 16",
     "kind": "local_probe_state",
     "offset": "0x10",
-    "pc": "0x10005e20",
+    "pc": "0x10005e22",
     "severity": "watch"
   },
   {
@@ -186,7 +176,7 @@
     "instruction": "l8ui\ta3, a2, 3",
     "kind": "setup_packet_buffer",
     "offset": "0x3",
-    "pc": "0x10005e2a",
+    "pc": "0x10005e26",
     "severity": "watch"
   },
   {
@@ -196,17 +186,17 @@
     "instruction": "s32i.n\ta3, a4, 20",
     "kind": "local_probe_state",
     "offset": "0x14",
-    "pc": "0x10005e2d",
+    "pc": "0x10005e29",
     "severity": "watch"
   },
   {
     "access": "read",
-    "base": "a2",
+    "base": "a11",
     "description": "candidate USB setup packet buffer at 0x90021348",
-    "instruction": "l8ui\ta3, a2, 6",
+    "instruction": "l8ui\ta3, a11, 6",
     "kind": "setup_packet_buffer",
     "offset": "0x6",
-    "pc": "0x10005e37",
+    "pc": "0x10005e8e",
     "severity": "watch"
   },
   {
@@ -216,17 +206,17 @@
     "instruction": "s32i.n\ta3, a4, 24",
     "kind": "local_probe_state",
     "offset": "0x18",
-    "pc": "0x10005e3a",
+    "pc": "0x10005e91",
     "severity": "watch"
   },
   {
     "access": "read",
-    "base": "a2",
+    "base": "a11",
     "description": "candidate USB setup packet buffer at 0x90021348",
-    "instruction": "l8ui\ta3, a2, 7",
+    "instruction": "l8ui\ta3, a11, 7",
     "kind": "setup_packet_buffer",
     "offset": "0x7",
-    "pc": "0x10005e3e",
+    "pc": "0x10005e95",
     "severity": "watch"
   },
   {
@@ -236,7 +226,7 @@
     "instruction": "s32i.n\ta3, a4, 28",
     "kind": "local_probe_state",
     "offset": "0x1c",
-    "pc": "0x10005e41",
+    "pc": "0x10005e98",
     "severity": "watch"
   },
   {
@@ -246,7 +236,7 @@
     "instruction": "s32i.n\ta6, a4, 32",
     "kind": "local_probe_state",
     "offset": "0x20",
-    "pc": "0x10005e51",
+    "pc": "0x10005ea8",
     "severity": "watch"
   }
 ]
