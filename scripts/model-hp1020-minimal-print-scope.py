@@ -241,6 +241,15 @@ def build_scope() -> dict[str, Any]:
             "endpoint0_stall_cases": endpoint_stall_cases,
             "control_completion_event_object": control_completion.get("event_object"),
             "usb_completion_status_bit": usb_interrupt_events.get("event_scan", {}).get("completion_status_bit"),
+            "usb_bulk_lane_event_bit": usb_interrupt_events.get("event_scan", {})
+            .get("bulk_receive_lane", {})
+            .get("event_bit"),
+            "usb_bulk_lane_status_register": usb_interrupt_events.get("event_scan", {})
+            .get("bulk_receive_lane", {})
+            .get("lane_status_register"),
+            "usb_bulk_lane_ack_register": usb_interrupt_events.get("event_scan", {})
+            .get("bulk_receive_lane", {})
+            .get("lane_ack_register"),
             "marker_rearm_checks": len(marker_rearm),
             "marker_rearm_failures": fail_count(marker_rearm),
             "usb_bulk_receive_status": usb_bulk_receive.get("status"),
@@ -316,6 +325,7 @@ def render_markdown(scope: dict[str, Any]) -> str:
             f"- endpoint-0 modeled data/stall cases: `{evidence['endpoint0_data_cases']}` / `{evidence['endpoint0_stall_cases']}`",
             f"- control completion event object: `{evidence['control_completion_event_object']}`",
             f"- USB completion status bit candidate: `{evidence['usb_completion_status_bit']}`",
+            f"- USB bulk interrupt lane: event bit `{evidence['usb_bulk_lane_event_bit']}`, status register `{evidence['usb_bulk_lane_status_register']}`, ack register `{evidence['usb_bulk_lane_ack_register']}`",
             f"- marker rearm-flow checks/failures: `{evidence['marker_rearm_checks']}` / `{evidence['marker_rearm_failures']}`",
             f"- USB bulk receive model: `{evidence['usb_bulk_receive_status']}`, record stride `{evidence['usb_bulk_transfer_record_stride']}`, receive buffer `{evidence['usb_bulk_receive_buffer_allocation']}`",
             f"- USB bulk parser handoff: parser `{evidence['usb_bulk_parser_entry']}`, read callback slot present `{str(evidence['usb_bulk_parser_reads_via_callback']).lower()}`",

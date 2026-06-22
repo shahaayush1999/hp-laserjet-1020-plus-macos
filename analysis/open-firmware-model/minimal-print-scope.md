@@ -35,6 +35,7 @@ The first three are mostly software/protocol work. The last two are the hard har
 - endpoint-0 modeled data/stall cases: `24` / `4`
 - control completion event object: `0x10021318`
 - USB completion status bit candidate: `0x400`
+- USB bulk interrupt lane: event bit `0x00020000`, status register `0xb3000224`, ack register `0xb3000220`
 - marker rearm-flow checks/failures: `5` / `0`
 - USB bulk receive model: `pass`, record stride `0x58`, receive buffer `0x400 bytes`
 - USB bulk parser handoff: parser `0x10009d34`, read callback slot present `true`

@@ -314,7 +314,7 @@
       "severity": "watch"
     },
     {
-      "detail": "The USB interrupt event model must keep the completion event object, per-lane stride, and 0x400 completion status bit.",
+      "detail": "The USB interrupt event model must keep the completion event object, per-lane stride, 0x400 completion status bit, and bank-1/lane-1 bulk receive event.",
       "evidence": "analysis/usb-path/usb-interrupt-events.json",
       "name": "usb_interrupt_event_model_resolved",
       "severity": "watch"

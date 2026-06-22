@@ -141,6 +141,9 @@ def build_report() -> dict[str, Any]:
             scope_evidence.get("missing_required_messages") == []
             and scope_evidence.get("model_invariant_failures") == 0
             and scope_evidence.get("endpoint0_data_cases") == 24
+            and scope_evidence.get("usb_bulk_lane_event_bit") == "0x00020000"
+            and scope_evidence.get("usb_bulk_lane_status_register") == "0xb3000224"
+            and scope_evidence.get("usb_bulk_lane_ack_register") == "0xb3000220"
             and scope_evidence.get("usb_bulk_receive_status") == "pass"
             and scope_evidence.get("usb_bulk_transfer_record_stride") == "0x58"
             and scope_evidence.get("usb_bulk_receive_buffer_allocation") == "0x400 bytes"
@@ -1183,8 +1186,18 @@ def build_report() -> dict[str, Any]:
             usb_interrupt_events.get("status") == "pass"
             and usb_interrupt_events.get("constants", {}).get("completion_event_flags") == "0x10021318"
             and usb_interrupt_events.get("event_scan", {}).get("completion_status_bit") == "0x400"
-            and usb_interrupt_events.get("event_scan", {}).get("lane_stride") == "0x20",
-            "The USB interrupt event model must keep the completion event object, per-lane stride, and 0x400 completion status bit.",
+            and usb_interrupt_events.get("event_scan", {}).get("lane_stride") == "0x20"
+            and usb_interrupt_events.get("event_scan", {}).get("bulk_receive_lane", {}).get("event_bit")
+            == "0x00020000"
+            and usb_interrupt_events.get("event_scan", {}).get("bulk_receive_lane", {}).get("lane_status_register")
+            == "0xb3000224"
+            and usb_interrupt_events.get("event_scan", {}).get("bulk_receive_lane", {}).get("lane_ack_register")
+            == "0xb3000220"
+            and usb_interrupt_events.get("event_scan", {}).get("bulk_buffer_updates", {}).get(
+                "available_size_word"
+            )
+            == "0x1001bc50",
+            "The USB interrupt event model must keep the completion event object, per-lane stride, 0x400 completion status bit, and bank-1/lane-1 bulk receive event.",
             evidence="analysis/usb-path/usb-interrupt-events.json",
         )
     )

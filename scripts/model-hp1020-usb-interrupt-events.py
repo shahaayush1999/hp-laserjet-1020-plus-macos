@@ -31,6 +31,15 @@ LITERAL_CELLS = {
     "event_ack_register": 0x10005E24,
     "event_signature_mask": 0x10005E30,
     "event_signature_value": 0x10005E34,
+    "bulk_available_size_word": 0x10005E38,
+    "bulk_source_offset_word": 0x10005E3C,
+    "bulk_next_offset_word": 0x10005E40,
+    "bulk_buffer_base_word": 0x10005E44,
+    "bulk_suppress_copy_byte": 0x10005E48,
+    "bulk_remaining_request_word": 0x10005E4C,
+    "bulk_threshold_word": 0x10005E50,
+    "bulk_next_pointer_word": 0x10005E54,
+    "bulk_destination_offset_word": 0x10005E5C,
 }
 
 
@@ -88,6 +97,10 @@ def build_report(elf_path: Path) -> dict[str, Any]:
         require_contains(source, "puVar10 = (uint *)(uVar8 * 0x20 + iVar11)"),
         require_contains(source, "if ((uVar9 & 0x400) != 0)"),
         require_contains(source, "FUN_10017dac(PTR_DAT_10005e18,iVar11,0)"),
+        require_contains(source, "if ((uVar8 == 1) && (*PTR_DAT_10005e20 != '\\0'))"),
+        require_contains(source, "*(uint *)(DAT_10005e24 + 0x20) = *(uint *)(DAT_10005e24 + 0x20) | 0x80"),
+        require_contains(source, "*(uint *)PTR_DAT_10005e38 = *(int *)PTR_DAT_10005e38 + uVar9"),
+        require_contains(source, "FUN_100086f4(*(undefined4 *)PTR_DAT_10005e40)"),
         require_contains(source, "FUN_10017dac(PTR_DAT_10005e18,1 << 0x20 - (0x20 - (uVar6 + uVar8 & 0x1f)),0)"),
     ]
     fail_count = sum(check["status"] != "present" for check in checks)
@@ -114,6 +127,26 @@ def build_report(elf_path: Path) -> dict[str, Any]:
             "lane_stride": "0x20",
             "per_lane_status_bits": ["0x200", "0x80", "0x40", "0x30", "0x400"],
             "completion_status_bit": "0x400",
+            "bulk_receive_lane": {
+                "bank_index": 1,
+                "lane_index": 1,
+                "event_bit": "0x00020000",
+                "lane_status_register": fmt32(constants["lane_bank1_base"] + 0x20),
+                "lane_ack_register": fmt32(constants["event_ack_register"] + 0x20),
+                "ack_bits": ["0x80", "0x400"],
+                "guard": "bank 1 lane 1 and bulk_done_byte != 0",
+            },
+            "bulk_buffer_updates": {
+                "available_size_word": fmt32(constants["bulk_available_size_word"]),
+                "source_offset_word": fmt32(constants["bulk_source_offset_word"]),
+                "next_offset_word": fmt32(constants["bulk_next_offset_word"]),
+                "buffer_base_word": fmt32(constants["bulk_buffer_base_word"]),
+                "suppress_copy_byte": fmt32(constants["bulk_suppress_copy_byte"]),
+                "remaining_request_word": fmt32(constants["bulk_remaining_request_word"]),
+                "threshold_word": fmt32(constants["bulk_threshold_word"]),
+                "next_pointer_word": fmt32(constants["bulk_next_pointer_word"]),
+                "destination_offset_word": fmt32(constants["bulk_destination_offset_word"]),
+            },
         },
         "event_flag_outputs": [
             {
@@ -130,13 +163,14 @@ def build_report(elf_path: Path) -> dict[str, Any]:
         "special_cases": [
             "event bit 0x2 has a pending-transfer-list path instead of the direct completion event set",
             "bank 1 lane 1 processes 0x90022bc0-style descriptor/event records before setting its event bit",
+            "bank 1 lane 1 is the bulk receive lane: event bit 0x00020000, lane status 0xb3000224, lane ack 0xb3000220",
             "USB2Thread separately waits on event bit 0x00010000",
             "control-IN data stage waits on event bit 0x00000001",
         ],
         "open_firmware_implication": [
-            "A future polling loop should start by watching the interrupt pending word and the per-lane 0x400 completion bit pattern.",
-            "The static map identifies candidate registers but not the live transition order after a custom upload.",
-            "This report supports a bounded hardware observation plan; it is not enough by itself to remove all ThreadX/event logic.",
+            "A future bulk receive loop should watch bank 1 lane 1: status register 0xb3000224, ack register 0xb3000220, and event bit 0x00020000.",
+            "The interrupt task updates the stock receive counters before waking the waiting read callback, then calls the descriptor re-arm function.",
+            "This still needs live hardware proof before open code should rely on the exact transition order.",
         ],
         "checks": checks,
     }
@@ -180,6 +214,29 @@ def render_markdown(report: dict[str, Any]) -> str:
     )
     for bank in report["event_scan"]["lane_banks"]:
         lines.append(f"| `{bank['bank_index']}` | `{bank['lane_base']}` | `{bank['event_bits']}` |")
+
+    bulk_lane = report["event_scan"]["bulk_receive_lane"]
+    buffer_updates = report["event_scan"]["bulk_buffer_updates"]
+    lines.extend(
+        [
+            "",
+            "## Bulk Receive Lane",
+            "",
+            f"- bank/lane: `{bulk_lane['bank_index']}` / `{bulk_lane['lane_index']}`",
+            f"- event bit: `{bulk_lane['event_bit']}`",
+            f"- lane status register: `{bulk_lane['lane_status_register']}`",
+            f"- lane ack register: `{bulk_lane['lane_ack_register']}`",
+            f"- ack bits: {', '.join(f'`{bit}`' for bit in bulk_lane['ack_bits'])}",
+            f"- guard: {bulk_lane['guard']}",
+            "",
+            "Bulk buffer fields updated by this branch:",
+            "",
+            "| Field | Address |",
+            "|---|---:|",
+        ]
+    )
+    for name, value in buffer_updates.items():
+        lines.append(f"| `{name}` | `{value}` |")
 
     lines.extend(["", "## Event Flag Outputs", "", "| Condition | Call | Meaning |", "|---|---|---|"])
     for item in report["event_flag_outputs"]:

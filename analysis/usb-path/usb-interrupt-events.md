@@ -26,6 +26,15 @@ This is an offline model of the interrupt-side producer for USB event flags. It 
 | `event_ack_register` | `0xb3000200` |
 | `event_signature_mask` | `0xc0000000` |
 | `event_signature_value` | `0x80000000` |
+| `bulk_available_size_word` | `0x1001bc50` |
+| `bulk_source_offset_word` | `0x1001bc4c` |
+| `bulk_next_offset_word` | `0x100216c0` |
+| `bulk_buffer_base_word` | `0x1001bc40` |
+| `bulk_suppress_copy_byte` | `0x1001bc6f` |
+| `bulk_remaining_request_word` | `0x1001bc54` |
+| `bulk_threshold_word` | `0x10021590` |
+| `bulk_next_pointer_word` | `0x1001bc44` |
+| `bulk_destination_offset_word` | `0x10021594` |
 
 ## Event Scan
 
@@ -40,6 +49,29 @@ This is an offline model of the interrupt-side producer for USB event flags. It 
 | `0` | `0xb3000004` | `0x00000001..0x00008000` |
 | `1` | `0xb3000204` | `0x00010000..0x80000000` |
 
+## Bulk Receive Lane
+
+- bank/lane: `1` / `1`
+- event bit: `0x00020000`
+- lane status register: `0xb3000224`
+- lane ack register: `0xb3000220`
+- ack bits: `0x80`, `0x400`
+- guard: bank 1 lane 1 and bulk_done_byte != 0
+
+Bulk buffer fields updated by this branch:
+
+| Field | Address |
+|---|---:|
+| `available_size_word` | `0x1001bc50` |
+| `source_offset_word` | `0x1001bc4c` |
+| `next_offset_word` | `0x100216c0` |
+| `buffer_base_word` | `0x1001bc40` |
+| `suppress_copy_byte` | `0x1001bc6f` |
+| `remaining_request_word` | `0x1001bc54` |
+| `threshold_word` | `0x10021590` |
+| `next_pointer_word` | `0x1001bc44` |
+| `destination_offset_word` | `0x10021594` |
+
 ## Event Flag Outputs
 
 | Condition | Call | Meaning |
@@ -51,14 +83,15 @@ This is an offline model of the interrupt-side producer for USB event flags. It 
 
 - event bit 0x2 has a pending-transfer-list path instead of the direct completion event set
 - bank 1 lane 1 processes 0x90022bc0-style descriptor/event records before setting its event bit
+- bank 1 lane 1 is the bulk receive lane: event bit 0x00020000, lane status 0xb3000224, lane ack 0xb3000220
 - USB2Thread separately waits on event bit 0x00010000
 - control-IN data stage waits on event bit 0x00000001
 
 ## Open-Firmware Meaning
 
-- A future polling loop should start by watching the interrupt pending word and the per-lane 0x400 completion bit pattern.
-- The static map identifies candidate registers but not the live transition order after a custom upload.
-- This report supports a bounded hardware observation plan; it is not enough by itself to remove all ThreadX/event logic.
+- A future bulk receive loop should watch bank 1 lane 1: status register 0xb3000224, ack register 0xb3000220, and event bit 0x00020000.
+- The interrupt task updates the stock receive counters before waking the waiting read callback, then calls the descriptor re-arm function.
+- This still needs live hardware proof before open code should rely on the exact transition order.
 
 ## Evidence Checks
 
@@ -72,5 +105,9 @@ This is an offline model of the interrupt-side producer for USB event flags. It 
 | `present` | `puVar10 = (uint *)(uVar8 * 0x20 + iVar11)` |
 | `present` | `if ((uVar9 & 0x400) != 0)` |
 | `present` | `FUN_10017dac(PTR_DAT_10005e18,iVar11,0)` |
+| `present` | `if ((uVar8 == 1) && (*PTR_DAT_10005e20 != '\0'))` |
+| `present` | `*(uint *)(DAT_10005e24 + 0x20) = *(uint *)(DAT_10005e24 + 0x20) \| 0x80` |
+| `present` | `*(uint *)PTR_DAT_10005e38 = *(int *)PTR_DAT_10005e38 + uVar9` |
+| `present` | `FUN_100086f4(*(undefined4 *)PTR_DAT_10005e40)` |
 | `present` | `FUN_10017dac(PTR_DAT_10005e18,1 << 0x20 - (0x20 - (uVar6 + uVar8 & 0x1f)),0)` |
 

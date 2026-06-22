@@ -32,11 +32,40 @@
     },
     {
       "evidence": "analysis/tasks/task-decompiled/10008208_hp1020_task_entry_10008208.c",
+      "needle": "if ((uVar8 == 1) && (*PTR_DAT_10005e20 != '\\0'))",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/tasks/task-decompiled/10008208_hp1020_task_entry_10008208.c",
+      "needle": "*(uint *)(DAT_10005e24 + 0x20) = *(uint *)(DAT_10005e24 + 0x20) | 0x80",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/tasks/task-decompiled/10008208_hp1020_task_entry_10008208.c",
+      "needle": "*(uint *)PTR_DAT_10005e38 = *(int *)PTR_DAT_10005e38 + uVar9",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/tasks/task-decompiled/10008208_hp1020_task_entry_10008208.c",
+      "needle": "FUN_100086f4(*(undefined4 *)PTR_DAT_10005e40)",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/tasks/task-decompiled/10008208_hp1020_task_entry_10008208.c",
       "needle": "FUN_10017dac(PTR_DAT_10005e18,1 << 0x20 - (0x20 - (uVar6 + uVar8 & 0x1f)),0)",
       "status": "present"
     }
   ],
   "constants": {
+    "bulk_available_size_word": "0x1001bc50",
+    "bulk_buffer_base_word": "0x1001bc40",
+    "bulk_destination_offset_word": "0x10021594",
+    "bulk_next_offset_word": "0x100216c0",
+    "bulk_next_pointer_word": "0x1001bc44",
+    "bulk_remaining_request_word": "0x1001bc54",
+    "bulk_source_offset_word": "0x1001bc4c",
+    "bulk_suppress_copy_byte": "0x1001bc6f",
+    "bulk_threshold_word": "0x10021590",
     "completion_event_flags": "0x10021318",
     "control_setup_gate": "0xb3000400",
     "event_ack_register": "0xb3000200",
@@ -64,6 +93,29 @@
     }
   ],
   "event_scan": {
+    "bulk_buffer_updates": {
+      "available_size_word": "0x1001bc50",
+      "buffer_base_word": "0x1001bc40",
+      "destination_offset_word": "0x10021594",
+      "next_offset_word": "0x100216c0",
+      "next_pointer_word": "0x1001bc44",
+      "remaining_request_word": "0x1001bc54",
+      "source_offset_word": "0x1001bc4c",
+      "suppress_copy_byte": "0x1001bc6f",
+      "threshold_word": "0x10021590"
+    },
+    "bulk_receive_lane": {
+      "ack_bits": [
+        "0x80",
+        "0x400"
+      ],
+      "bank_index": 1,
+      "event_bit": "0x00020000",
+      "guard": "bank 1 lane 1 and bulk_done_byte != 0",
+      "lane_ack_register": "0xb3000220",
+      "lane_index": 1,
+      "lane_status_register": "0xb3000224"
+    },
     "completion_status_bit": "0x400",
     "lane_banks": [
       {
@@ -89,14 +141,15 @@
     ]
   },
   "open_firmware_implication": [
-    "A future polling loop should start by watching the interrupt pending word and the per-lane 0x400 completion bit pattern.",
-    "The static map identifies candidate registers but not the live transition order after a custom upload.",
-    "This report supports a bounded hardware observation plan; it is not enough by itself to remove all ThreadX/event logic."
+    "A future bulk receive loop should watch bank 1 lane 1: status register 0xb3000224, ack register 0xb3000220, and event bit 0x00020000.",
+    "The interrupt task updates the stock receive counters before waking the waiting read callback, then calls the descriptor re-arm function.",
+    "This still needs live hardware proof before open code should rely on the exact transition order."
   ],
   "source_function": "0x10008208 hp1020_usb_interrupt_task_candidate",
   "special_cases": [
     "event bit 0x2 has a pending-transfer-list path instead of the direct completion event set",
     "bank 1 lane 1 processes 0x90022bc0-style descriptor/event records before setting its event bit",
+    "bank 1 lane 1 is the bulk receive lane: event bit 0x00020000, lane status 0xb3000224, lane ack 0xb3000220",
     "USB2Thread separately waits on event bit 0x00010000",
     "control-IN data stage waits on event bit 0x00000001"
   ],

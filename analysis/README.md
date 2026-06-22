@@ -81,7 +81,7 @@ Start here:
 75. `usb-path/usb-setup-source.md` - static split between the likely setup-packet RAM buffer and USB event pointer
 76. `usb-path/control-in-data-stage.md` - stock endpoint-0 control-IN transfer descriptor and kick model
 77. `usb-path/control-completion-event.md` - stock endpoint-0 completion event-flag model
-78. `usb-path/usb-interrupt-events.md` - USB interrupt task event-lane and completion-bit model
+78. `usb-path/usb-interrupt-events.md` - USB interrupt task event-lane, completion-bit, and bulk receive lane model
 79. `open-firmware-model/minimal-print-scope.md` - generated minimum scope for a printing-only open replacement, including platform boundary and remaining blockers
 80. `usb-path/usb-bulk-receive-model.md` - generated static model of stock USB bulk OUT receive registration and parser read-callback handoff
 81. `usb-path/usb-bulk-callbacks-model.md` - generated static model of the stock bulk receive callback/event/re-arm layer
@@ -244,7 +244,7 @@ Useful current conclusions:
 - `scripts/model-hp1020-usb-setup-source.py` regenerates the setup-source report that separates the direct setup RAM candidate from the USB event pointer.
 - `scripts/model-hp1020-control-in-data-stage.py` regenerates the stock endpoint-0 control-IN descriptor/kick model and self-tests key response sizes.
 - `scripts/model-hp1020-control-completion.py` regenerates the stock endpoint-0 completion event-flag model and verifies the evidence snippets.
-- `scripts/model-hp1020-usb-interrupt-events.py` regenerates the USB interrupt event-lane model and verifies the evidence snippets.
+- `scripts/model-hp1020-usb-interrupt-events.py` regenerates the USB interrupt event-lane model, including the bank-1/lane-1 bulk receive lane, and verifies the evidence snippets.
 - `scripts/model-hp1020-usb-bulk-receive.py` regenerates the static bulk OUT receive/read-callback handoff model that connects USB2Thread to parser entry `0x10009d34`.
 - `scripts/run-ghidra-usb-bulk-callbacks.sh` refreshes the saved bulk receive callback decompilation from Ghidra.
 - `scripts/model-hp1020-usb-bulk-callbacks.py` regenerates the static model of stock bulk receive callback/event/re-arm behavior.
