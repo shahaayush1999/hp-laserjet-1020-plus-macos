@@ -13,6 +13,7 @@ This generated report is offline only. It does not contact the printer.
 - The obvious page-param writes for +0x26/+0x30/+0x32 are upstream page-parameter fields, not active work-object writes.
 - The child-page `puVar1[0x13] = 0` false lead is byte +0x4c because the pointer is `undefined4 *`.
 - The JobMgr `puVar[0x13]` hits feed work +0x90 from runtime byte +0x13, not work +0x26.
+- A headless Ghidra instruction probe confirms 0x100104c8 has no stores to active work +0x26/+0x30/+0x32.
 - Within the selected print-path corpus, active work +0x26/+0x30/+0x32 remain unsourced.
 
 ## Selected Hit Classification
@@ -68,6 +69,13 @@ This generated report is offline only. It does not contact the printer.
 - `if (*(int *)(param_1 + 0x30) == 9) {`
 - `puVar1[0x13] = 0;`
 
+## Ghidra Work-Populate Probe
+
+- path: `analysis/ghidra-probes/work-populate-instruction-probe.md`
+- language: `Xtensa:BE:32:default`
+- halfword destination offsets: `0xc, 0xa, 0x10, 0x22, 0x1e, 0x14, 0x16, 0xe`
+- word destination offsets: `0x0`
+
 ## Checks
 
 | Check | Status | Detail |
@@ -76,6 +84,7 @@ This generated report is offline only. It does not contact the printer.
 | `child_record_0x13_is_not_work_0x26` | `present` | 0x10010398 puVar1[0x13] is a 32-bit child/page record slot at byte +0x4c |
 | `runtime_byte_0x13_feeds_work_0x90_not_sideband` | `present` | JobMgr puVar[0x13] references are BIH/runtime byte +0x13 copied to work +0x90 |
 | `work_populate_still_lacks_sideband_copy` | `present` | simple page-param to work-object copier has no visible +0x26/+0x30/+0x32 copy |
+| `ghidra_instruction_probe_excludes_sideband_stores` | `present` | headless Ghidra instruction probe for 0x100104c8 has no stores to +0x26/+0x30/+0x32 |
 | `no_selected_active_work_writer_found` | `present` | the selected print-path corpus still has no direct active work sideband writer |
 | `prepare_field_model_keeps_sidebands_unsourced` | `present` | prepare field model still marks +0x26/+0x30/+0x32 as unsourced on active work |
 | `queue_chain_keeps_prepare_argument_as_work_object` | `present` | queue chain still identifies the active prepare argument as the 0x94 work object |

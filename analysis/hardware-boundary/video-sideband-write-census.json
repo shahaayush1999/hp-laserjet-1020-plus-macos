@@ -22,6 +22,11 @@
       "status": "present"
     },
     {
+      "detail": "headless Ghidra instruction probe for 0x100104c8 has no stores to +0x26/+0x30/+0x32",
+      "name": "ghidra_instruction_probe_excludes_sideband_stores",
+      "status": "present"
+    },
+    {
       "detail": "the selected print-path corpus still has no direct active work sideband writer",
       "name": "no_selected_active_work_writer_found",
       "status": "present"
@@ -41,6 +46,7 @@
     "The obvious page-param writes for +0x26/+0x30/+0x32 are upstream page-parameter fields, not active work-object writes.",
     "The child-page `puVar1[0x13] = 0` false lead is byte +0x4c because the pointer is `undefined4 *`.",
     "The JobMgr `puVar[0x13]` hits feed work +0x90 from runtime byte +0x13, not work +0x26.",
+    "A headless Ghidra instruction probe confirms 0x100104c8 has no stores to active work +0x26/+0x30/+0x32.",
     "Within the selected print-path corpus, active work +0x26/+0x30/+0x32 remain unsourced."
   ],
   "corpus_summary": {
@@ -83,6 +89,23 @@
       "if (*(int *)(param_1 + 0x30) == 8) {",
       "if (*(int *)(param_1 + 0x30) == 9) {",
       "puVar1[0x13] = 0;"
+    ]
+  },
+  "ghidra_work_populate_probe": {
+    "halfword_store_offsets": [
+      "0xc",
+      "0xa",
+      "0x10",
+      "0x22",
+      "0x1e",
+      "0x14",
+      "0x16",
+      "0xe"
+    ],
+    "language": "Xtensa:BE:32:default",
+    "path": "analysis/ghidra-probes/work-populate-instruction-probe.md",
+    "word_store_offsets": [
+      "0x0"
     ]
   },
   "role_counts": {
