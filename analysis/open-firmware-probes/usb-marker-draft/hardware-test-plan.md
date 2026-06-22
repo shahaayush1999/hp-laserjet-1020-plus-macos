@@ -91,3 +91,12 @@ HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1 \
 
 Do not run this through the normal print queue. Do not use Chrome/Preview. Do
 not send a PDF.
+
+Host-side USB identity capture before and after upload:
+
+```sh
+scripts/capture-hp1020-usb-identity.sh
+```
+
+The capture script only reads macOS device listings. It does not send bytes to
+the printer.
