@@ -119,6 +119,8 @@ The hard pieces are:
 
 The descriptor payload bytes are now the easy part. The unresolved work is the
 endpoint-0 machinery that receives setup packets and returns those bytes.
+`endpoint0-machinery.md` maps that stock machinery and should be read before
+attempting any open USB marker implementation.
 
 The current open idle probe intentionally avoids all of that, which is why it
 stayed quiet and safe.
