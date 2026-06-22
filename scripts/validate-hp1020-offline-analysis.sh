@@ -17,6 +17,7 @@ run_step "Python syntax checks" \
     "$ROOT_DIR/scripts/check-hp1020-print-model-invariants.py" \
     "$ROOT_DIR/scripts/project-hp1020-video-registers.py" \
     "$ROOT_DIR/scripts/model-hp1020-hardware-boundary.py" \
+    "$ROOT_DIR/scripts/model-hp1020-first-page-hardware-sequence.py" \
     "$ROOT_DIR/scripts/model-hp1020-minimal-print-scope.py" \
     "$ROOT_DIR/scripts/model-hp1020-open-endpoint0.py" \
     "$ROOT_DIR/scripts/model-hp1020-usb-setup-source.py" \
@@ -52,6 +53,9 @@ run_step "Project video register boundary" \
 
 run_step "Regenerate hardware boundary model" \
   "$ROOT_DIR/scripts/model-hp1020-hardware-boundary.py"
+
+run_step "Regenerate first-page hardware sequence" \
+  "$ROOT_DIR/scripts/model-hp1020-first-page-hardware-sequence.py"
 
 run_step "Regenerate open endpoint-0 model" \
   "$ROOT_DIR/scripts/model-hp1020-open-endpoint0.py"

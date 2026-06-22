@@ -1,5 +1,5 @@
 {
-  "check_count": 27,
+  "check_count": 28,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -47,6 +47,12 @@
       "detail": "The do-not-touch boundary for early custom firmware must still include video and engine paths.",
       "evidence": "analysis/hardware-boundary/hardware-boundary.json",
       "name": "hardware_boundary_keeps_engine_video_unsafe",
+      "severity": "watch"
+    },
+    {
+      "detail": "The first-page hardware sequence must preserve the ordered engine/video/raw-band risk boundary.",
+      "evidence": "analysis/hardware-boundary/first-page-hardware-sequence.json",
+      "name": "first_page_sequence_keeps_video_engine_registers_ordered",
       "severity": "watch"
     },
     {

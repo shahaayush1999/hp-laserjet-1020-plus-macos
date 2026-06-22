@@ -1,0 +1,234 @@
+{
+  "decision": "Do not attempt open printing until USB-only open code is proven and video/engine register sequencing is modeled more tightly.",
+  "modeled_raster_payload": {
+    "+0x48": 6364,
+    "+0x50": 0,
+    "+0x54": {
+      "byte_count": 6364,
+      "sha256_hint": "not stored; payload bytes are kept in the source .zjs",
+      "source": "ZJT_JBIG_BID payload",
+      "zjs_payload_offset": "0x224"
+    }
+  },
+  "modeled_work_fields": {
+    "+0x50": [
+      "raster0"
+    ],
+    "+0x84": 9600,
+    "+0x88": 6824,
+    "+0x8c": 128,
+    "+0x90": 92
+  },
+  "remaining_unknowns": [
+    "Exact 0xb100 timing/setup register meanings in video_prepare_page.",
+    "Exact 0xb204/0xb208 channel state machine and timeout/retry behavior.",
+    "Exact 0xb050 engine command set and safe mechanical sequencing.",
+    "Whether the hardware consumes JBIG-compressed BID bytes directly or through an undocumented assist path."
+  ],
+  "sequence": [
+    {
+      "evidence": "JZJZ chunks create document/page/work objects and raster list nodes.",
+      "firmware_area": "USB2Thread/ZjStream parser/JobMgr",
+      "function": "0x10009d34 -> JobMgr queue 3",
+      "hardware_registers": [],
+      "open_replacement_meaning": "Software parser state machine. Already mapped well enough for the controlled foo2zjs path.",
+      "risk": "medium",
+      "stage": "host stream parsed",
+      "step": 1
+    },
+    {
+      "evidence": "Engine message 0x0b stores current work pointer and calls engine status/preflight paths.",
+      "firmware_area": "Engine Queue",
+      "function": "0x10016164 hp1020_engine_message_dispatch_candidate",
+      "hardware_registers": [
+        {
+          "action": "clear/status wait",
+          "evidence": "clears with 0xfeffffff, waits for bit 0x00010000",
+          "function": "0x10015c68",
+          "register": "0xb050000c",
+          "risk": "engine handshake"
+        },
+        {
+          "action": "engine command submit",
+          "evidence": "writes requested 16-bit command, then sets bit 0x00010000",
+          "function": "0x10015c68",
+          "register": "0xb0500004",
+          "risk": "engine handshake"
+        }
+      ],
+      "open_replacement_meaning": "Mechanical gate: paper/fuser/motor state must be correct before video transfer.",
+      "risk": "high",
+      "stage": "engine accepts page work",
+      "step": 2
+    },
+    {
+      "evidence": "payload word 3 carries the 0x94 work pointer to VideoThread.",
+      "firmware_area": "PrintMgr -> Video Queue",
+      "function": "0x1000f574 -> queue 8 message 0x0b",
+      "hardware_registers": [],
+      "open_replacement_meaning": "Scheduling bridge. Pure software, but it coordinates engine and video ownership.",
+      "risk": "medium",
+      "stage": "PrintMgr sends work to video",
+      "step": 3
+    },
+    {
+      "evidence": "work pointer lands in video state +0x60 or +0x64; render state lives around +0x6c.",
+      "firmware_area": "Video state",
+      "function": "0x10013c18 hp1020_video_thread_candidate",
+      "hardware_registers": [],
+      "open_replacement_meaning": "State bookkeeping before touching video hardware.",
+      "risk": "medium",
+      "stage": "VideoThread stores active work",
+      "step": 4
+    },
+    {
+      "evidence": "Consumes work fields such as +0x14/+0x22/+0x26/+0x74 and computes video state stride/window values.",
+      "firmware_area": "Video setup",
+      "function": "0x10014910 hp1020_video_prepare_page_candidate",
+      "hardware_registers": [
+        {
+          "action": "video block reset/enable",
+          "evidence": "clears and sets bit 0x100",
+          "function": "0x10014910 / 0x10015458",
+          "register": "0xb1000000 / 0xb1000100",
+          "risk": "video block control"
+        },
+        {
+          "action": "video block busy/status wait",
+          "evidence": "waits while bit 0x200 remains set; tests bit 0x100 in raw-band loop",
+          "function": "0x10014910 / 0x10015458",
+          "register": "0xb1000004 / 0xb1000104",
+          "risk": "video block status"
+        }
+      ],
+      "open_replacement_meaning": "Programs video block setup/timing. This is not safe to approximate blindly.",
+      "risk": "high",
+      "stage": "video page preparation",
+      "step": 5
+    },
+    {
+      "evidence": "Arms paired 0xb204/0xb208 channels, waits status, writes 0xb200 descriptors, starts transfer.",
+      "firmware_area": "Video DMA/transfer channels",
+      "function": "0x10015214 hp1020_video_render_or_dma_candidate",
+      "hardware_registers": [
+        {
+          "action": "video descriptor write",
+          "evidence": "receives work +0x84, BIH-derived horizontal field",
+          "function": "0x10015214",
+          "register": "0xb2000008",
+          "risk": "video transfer"
+        },
+        {
+          "action": "video descriptor write",
+          "evidence": "receives work +0x88, BIH-derived vertical field",
+          "function": "0x10015214",
+          "register": "0xb200000c",
+          "risk": "video transfer"
+        },
+        {
+          "action": "video descriptor write",
+          "evidence": "receives work +0x8c, BIH L0/band-height-like field",
+          "function": "0x10015214",
+          "register": "0xb2000024",
+          "risk": "video transfer"
+        },
+        {
+          "action": "video transfer control write",
+          "evidence": "writes computed control word from work +0x90 flags, OR 0x400",
+          "function": "0x10015214",
+          "register": "0xb2000000",
+          "risk": "video transfer start/control"
+        },
+        {
+          "action": "paired channel enable/reset toggles",
+          "evidence": "toggles bits 1 and 2 before descriptor writes",
+          "function": "0x10015214",
+          "register": "0xb2040000 / 0xb2080000",
+          "risk": "video transfer channel control"
+        },
+        {
+          "action": "paired channel status waits",
+          "evidence": "waits for bit 2 after channel toggles",
+          "function": "0x10015214",
+          "register": "0xb204000c / 0xb208000c",
+          "risk": "video transfer channel status"
+        }
+      ],
+      "open_replacement_meaning": "First direct bridge from host-controlled BIH/work fields into video transfer registers.",
+      "projected_registers": {
+        "0xb2000000": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x90 from BIH runtime block +0x13",
+          "value": "control derived from work +0x90=0x5c, then OR 0x400"
+        },
+        "0xb2000008": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x84 from BIH runtime block +0x04",
+          "value": 9600
+        },
+        "0xb200000c": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x88 from BIH runtime block +0x08",
+          "value": 6824
+        },
+        "0xb2000024": {
+          "consumer": "0x10015214 hp1020_video_render_or_dma_candidate",
+          "source": "work +0x8c from BIH runtime block +0x0c",
+          "value": 128
+        }
+      },
+      "risk": "high",
+      "stage": "video transfer arm",
+      "step": 6
+    },
+    {
+      "evidence": "Walks video state +0x9c raster list and writes payload pointers/counts/flags into 0xb100 registers.",
+      "firmware_area": "Raw raster/video feed",
+      "function": "0x100140f8 hp1020_video_refresh_raw_bands_candidate",
+      "hardware_registers": [
+        {
+          "action": "raw-band pointer/window write",
+          "evidence": "writes raster payload +0x54 pointer and pointer plus video_state +0xbc",
+          "function": "0x100140f8",
+          "register": "0xb1000008 / 0xb1000108",
+          "risk": "raw-band feed"
+        },
+        {
+          "action": "raw-band flags/count write",
+          "evidence": "writes count from payload +0x20 and flags from payload +0x4c/+0x50",
+          "function": "0x100140f8",
+          "register": "0xb100000c / 0xb100010c",
+          "risk": "raw-band feed"
+        }
+      ],
+      "open_replacement_meaning": "Feeds compressed raster bytes to the hardware-side print path.",
+      "projected_registers": {
+        "0xb1000008/0xb1000108": {
+          "consumer": "0x100140f8 hp1020_video_refresh_raw_bands_candidate",
+          "source": "payload +0x54 points at 6364 compressed bytes",
+          "value": "raster payload pointer plus video_state +0xbc window"
+        },
+        "0xb100000c/0xb100010c": {
+          "consumer": "0x100140f8 hp1020_video_refresh_raw_bands_candidate",
+          "source": "raster payload node under work +0x50",
+          "value": "flags/count from payload +0x20/+0x4c/+0x50"
+        }
+      },
+      "risk": "high",
+      "stage": "raw-band feed",
+      "step": 7
+    },
+    {
+      "evidence": "Video handoff report identifies engine queue message 0x10 after video work completes.",
+      "firmware_area": "Video -> Engine Queue",
+      "function": "VideoThread sends engine queue message 0x10",
+      "hardware_registers": [],
+      "open_replacement_meaning": "Completion coordination; needed so engine timing and status do not drift.",
+      "risk": "high",
+      "stage": "video done wakes engine",
+      "step": 8
+    }
+  ],
+  "source_case": "a4_default",
+  "summary": "Ordered first-page hardware sequence after the mapped parser/object boundary."
+}

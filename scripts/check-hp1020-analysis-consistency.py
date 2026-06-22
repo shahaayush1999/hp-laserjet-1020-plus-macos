@@ -165,6 +165,26 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/hardware-boundary/hardware-boundary.json",
         )
     )
+
+    first_page = read_json("analysis/hardware-boundary/first-page-hardware-sequence.json")
+    sequence_by_step = {
+        item.get("step"): item
+        for item in first_page.get("sequence", [])
+        if isinstance(item, dict)
+    }
+    checks.append(
+        check(
+            "first_page_sequence_keeps_video_engine_registers_ordered",
+            first_page.get("source_case") == "a4_default"
+            and sequence_by_step.get(2, {}).get("risk") == "high"
+            and sequence_by_step.get(6, {}).get("projected_registers", {}).get("0xb2000008", {}).get("value") == 9600
+            and sequence_by_step.get(7, {}).get("projected_registers", {}).get("0xb1000008/0xb1000108", {}).get("consumer")
+            == "0x100140f8 hp1020_video_refresh_raw_bands_candidate"
+            and len(first_page.get("remaining_unknowns", [])) >= 4,
+            "The first-page hardware sequence must preserve the ordered engine/video/raw-band risk boundary.",
+            evidence="analysis/hardware-boundary/first-page-hardware-sequence.json",
+        )
+    )
     checks.append(
         check(
             "usb_family_remains_only_low_risk_target",
