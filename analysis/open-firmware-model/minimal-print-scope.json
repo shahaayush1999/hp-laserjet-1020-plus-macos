@@ -46,7 +46,7 @@
     {
       "component": "USB bulk receive to ZjStream parser",
       "current_status": "stock path modeled",
-      "evidence": "USB2Thread registers 0x58-byte transfer records, allocates a 0x400-byte receive buffer, and hands parser 0x10009d34 a read callback at param_1+0x0c",
+      "evidence": "USB2Thread registers 0x58-byte transfer records, allocates a 0x400-byte receive buffer, and hands parser 0x10009d34 a read callback at param_1+0x0c; callback model maps event bit 0x20000 and endpoint re-arm/ack path",
       "replacement_need": "open firmware must implement a bulk OUT receiver/read-callback shim that feeds the parser state machine",
       "risk": "medium"
     },
@@ -127,6 +127,9 @@
     "sideband_0x30_risk": "unknown_low_in_current_static_view",
     "sideband_0x32_risk": "mode_critical",
     "sideband_access_hits": 19,
+    "usb_bulk_callback_status": "pass",
+    "usb_bulk_endpoint_ack_register": "0xb3000220",
+    "usb_bulk_event_bit": "0x00020000",
     "usb_bulk_parser_entry": "0x10009d34",
     "usb_bulk_parser_reads_via_callback": true,
     "usb_bulk_receive_buffer_allocation": "0x400 bytes",

@@ -1,5 +1,5 @@
 {
-  "check_count": 53,
+  "check_count": 54,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -47,6 +47,12 @@
       "detail": "The USB bulk receive model must keep the stock transfer-record registration, 0x400-byte receive buffer, and parser read-callback handoff mapped.",
       "evidence": "analysis/usb-path/usb-bulk-receive-model.json",
       "name": "usb_bulk_receive_model_preserves_parser_handoff",
+      "severity": "watch"
+    },
+    {
+      "detail": "The USB bulk callback model must preserve the read/copy callback, completion queue callback, event bit, endpoint ack register, and status-bit clear.",
+      "evidence": "analysis/usb-path/usb-bulk-callbacks-model.json",
+      "name": "usb_bulk_callback_model_preserves_event_and_rearm_path",
       "severity": "watch"
     },
     {

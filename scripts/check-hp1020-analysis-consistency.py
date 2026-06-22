@@ -124,7 +124,9 @@ def build_report() -> dict[str, Any]:
 
     minimal_scope = read_json("analysis/open-firmware-model/minimal-print-scope.json")
     usb_bulk_receive = read_json("analysis/usb-path/usb-bulk-receive-model.json")
+    usb_bulk_callbacks = read_json("analysis/usb-path/usb-bulk-callbacks-model.json")
     usb_bulk_checks = usb_bulk_receive.get("checks", [])
+    usb_bulk_callback_checks = usb_bulk_callbacks.get("checks", [])
     scope_components = {
         item.get("component"): item
         for item in minimal_scope.get("components", [])
@@ -142,6 +144,9 @@ def build_report() -> dict[str, Any]:
             and scope_evidence.get("usb_bulk_receive_buffer_allocation") == "0x400 bytes"
             and scope_evidence.get("usb_bulk_parser_entry") == "0x10009d34"
             and scope_evidence.get("usb_bulk_parser_reads_via_callback") is True
+            and scope_evidence.get("usb_bulk_callback_status") == "pass"
+            and scope_evidence.get("usb_bulk_event_bit") == "0x00020000"
+            and scope_evidence.get("usb_bulk_endpoint_ack_register") == "0xb3000220"
             and scope_components.get("ZjStream parser and JobMgr object model", {}).get("current_status") == "mapped"
             and scope_components.get("USB bulk receive to ZjStream parser", {}).get("current_status")
             == "stock path modeled"
@@ -169,6 +174,21 @@ def build_report() -> dict[str, Any]:
             and all(item.get("status") == "present" for item in usb_bulk_checks),
             "The USB bulk receive model must keep the stock transfer-record registration, 0x400-byte receive buffer, and parser read-callback handoff mapped.",
             evidence="analysis/usb-path/usb-bulk-receive-model.json",
+        )
+    )
+    checks.append(
+        check(
+            "usb_bulk_callback_model_preserves_event_and_rearm_path",
+            usb_bulk_callbacks.get("status") == "pass"
+            and usb_bulk_callbacks.get("constants", {}).get("bulk_event_bit") == "0x00020000"
+            and usb_bulk_callbacks.get("constants", {}).get("usb_endpoint_ack_register") == "0xb3000220"
+            and usb_bulk_callbacks.get("constants", {}).get("usb_status_register") == "0xb3000418"
+            and usb_bulk_callbacks.get("constants", {}).get("pending_transfer_list") == "0x10022740"
+            and any(item.get("address") == "0x100087b8" and item.get("name") == "bulk_rx_read" for item in usb_bulk_callbacks.get("callback_roles", []))
+            and any(item.get("address") == "0x10008bac" and item.get("name") == "bulk_rx_complete" for item in usb_bulk_callbacks.get("callback_roles", []))
+            and all(item.get("status") == "present" for item in usb_bulk_callback_checks),
+            "The USB bulk callback model must preserve the read/copy callback, completion queue callback, event bit, endpoint ack register, and status-bit clear.",
+            evidence="analysis/usb-path/usb-bulk-callbacks-model.json",
         )
     )
     raster_fields = read_json("analysis/open-firmware-model/raster-field-semantics.json")

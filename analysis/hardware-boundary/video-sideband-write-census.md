@@ -5,7 +5,7 @@ This generated report is offline only. It does not contact the printer.
 ## Result
 
 - status: `pass`
-- decompiled files scanned for raw sideband-looking hits: `627`
+- decompiled files scanned for raw sideband-looking hits: `632`
 - raw corpus hits: `112`
 
 ## Conclusion

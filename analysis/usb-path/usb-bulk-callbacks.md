@@ -1,0 +1,219 @@
+# HP 1020 USB Bulk Receive Callbacks
+
+This is a Ghidra extraction from the stock firmware. It does not contact the printer.
+
+## `1000807c` `hp1020_usb_transfer_prepare_callback_candidate`
+
+- containing function: `1000807c` `hp1020_usb_transfer_prepare_callback_candidate`
+- decompiled file: `bulk-callbacks-decompiled/1000807c_hp1020_usb_transfer_prepare_callback_candidate.c`
+
+### References From Instructions
+- `10008086` `bltu a8,a4,0x100080a6` -> `100080a6`/CONDITIONAL_JUMP
+- `10008092` `call8 0x1001b488` -> `1001b488`/UNCONDITIONAL_CALL
+- `100080a0` `call8 0x1001b38c` -> `1001b38c`/UNCONDITIONAL_CALL
+- `100080a3` `j 0x100080e2` -> `100080e2`/UNCONDITIONAL_JUMP
+- `100080b0` `call8 0x10013140` -> `10013140`/UNCONDITIONAL_CALL
+- `100080bc` `call8 0x1001b38c` -> `1001b38c`/UNCONDITIONAL_CALL
+- `100080c1` `beqz.n a8,0x100080d7` -> `100080d7`/CONDITIONAL_JUMP
+- `100080cc` `call8 0x1001b38c` -> `1001b38c`/UNCONDITIONAL_CALL
+- `100080d4` `call8 0x10013408` -> `10013408`/UNCONDITIONAL_CALL
+
+## `100080f0` `hp1020_usb_transfer_callback_a_candidate`
+
+- containing function: `100080f0` `hp1020_usb_transfer_callback_a_candidate`
+- decompiled file: `bulk-callbacks-decompiled/100080f0_hp1020_usb_transfer_callback_a_candidate.c`
+
+### References From Instructions
+- `10008102` `beqi a5,0x1,0x10008134` -> `10008134`/CONDITIONAL_JUMP
+- `10008105` `beqz.n a5,0x10008110` -> `10008110`/CONDITIONAL_JUMP
+- `10008107` `beqi a5,0x2,0x10008144` -> `10008144`/CONDITIONAL_JUMP
+- `1000810a` `beqi a5,0x3,0x1000813c` -> `1000813c`/CONDITIONAL_JUMP
+- `1000810d` `j 0x10008146` -> `10008146`/UNCONDITIONAL_JUMP
+- `10008115` `call8 0x10011178` -> `10011178`/UNCONDITIONAL_CALL
+- `1000811b` `bgeui a10,0x5,0x10008126` -> `10008126`/CONDITIONAL_JUMP
+- `10008123` `j 0x10008146` -> `10008146`/UNCONDITIONAL_JUMP
+- `10008131` `j 0x10008146` -> `10008146`/UNCONDITIONAL_JUMP
+- `10008139` `j 0x10008146` -> `10008146`/UNCONDITIONAL_JUMP
+- `10008141` `j 0x10008146` -> `10008146`/UNCONDITIONAL_JUMP
+- `10008148` `beqz a8,0x10008190` -> `10008190`/CONDITIONAL_JUMP
+- `1000814d` `bltu a2,a8,0x10008152` -> `10008152`/CONDITIONAL_JUMP
+- `1000815b` `call8 0x1001b38c` -> `1001b38c`/UNCONDITIONAL_CALL
+- `1000816b` `bnez.n a9,0x10008190` -> `10008190`/CONDITIONAL_JUMP
+- `1000816f` `l32r a8,0x10005ddc` -> `10005ddc`/READ
+- `10008172` `bgeu a8,a9,0x10008190` -> `10008190`/CONDITIONAL_JUMP
+- `1000817a` `call8 0x10013408` -> `10013408`/UNCONDITIONAL_CALL
+- `10008187` `call8 0x10013140` -> `10013140`/UNCONDITIONAL_CALL
+- `10008192` `beqz.n a8,0x1000819e` -> `1000819e`/CONDITIONAL_JUMP
+- `10008194` `bnez.n a2,0x1000819c` -> `1000819c`/CONDITIONAL_JUMP
+- `100081a0` `bgeu a2,a14,0x100081e5` -> `100081e5`/CONDITIONAL_JUMP
+- `100081a3` `bnez.n a4,0x100081e5` -> `100081e5`/CONDITIONAL_JUMP
+- `100081ba` `bltz a3,0x100081df` -> `100081df`/CONDITIONAL_JUMP
+- `100081c0` `beqi a5,0x1,0x100081cc` -> `100081cc`/CONDITIONAL_JUMP
+- `100081c3` `bltu a5,a7,0x100081df` -> `100081df`/CONDITIONAL_JUMP
+- `100081c6` `bgeui a5,0x4,0x100081e2` -> `100081e2`/CONDITIONAL_JUMP
+- `100081c9` `j 0x100081df` -> `100081df`/UNCONDITIONAL_JUMP
+- `100081d4` `bnez.n a2,0x100081df` -> `100081df`/CONDITIONAL_JUMP
+- `100081d6` `l32r a8,0x10005de0` -> `10005de0`/READ
+- `100081dc` `bgeu a8,a13,0x100081e2` -> `100081e2`/CONDITIONAL_JUMP
+- `100081e2` `beqz a4,0x100081a8` -> `100081a8`/CONDITIONAL_JUMP
+- `100081e5` `bf b3,0x100081ec` -> `100081ec`/CONDITIONAL_JUMP
+- `100081e8` `beqz.n a2,0x100081ee` -> `100081ee`/CONDITIONAL_JUMP
+
+## `100081f4` `hp1020_usb_transfer_callback_b_candidate`
+
+- containing function: `100081f4` `hp1020_usb_transfer_callback_b_candidate`
+- decompiled file: `bulk-callbacks-decompiled/100081f4_hp1020_usb_transfer_callback_b_candidate.c`
+
+### References From Instructions
+- no instruction references emitted
+
+## `100087b8` `hp1020_usb_bulk_rx_callback_a_candidate`
+
+- containing function: `100087b8` `hp1020_usb_bulk_rx_callback_a_candidate`
+- decompiled file: `bulk-callbacks-decompiled/100087b8_hp1020_usb_bulk_rx_callback_a_candidate.c`
+
+### References From Instructions
+- `100087c1` `l32r a8,0x10005e34` -> `10005e34`/READ
+- `100087cc` `call8 0x10017414` -> `10017414`/UNCONDITIONAL_CALL
+- `100087cf` `l32r a8,0x10005e4c` -> `10005e4c`/READ
+- `100087d6` `l32r a9,0x10005e5c` -> `10005e5c`/READ
+- `100087d9` `s32i.n a15,a8,0x0` -> `1001bc54`/WRITE
+- `100087dd` `s32i.n a8,a9,0x0` -> `10021594`/WRITE
+- `100087e2` `call8 0x100171b0` -> `100171b0`/UNCONDITIONAL_CALL
+- `100087e7` `bge a8,a3,0x100087f9` -> `100087f9`/CONDITIONAL_JUMP
+- `100087ea` `l32r a8,0x10005e50` -> `10005e50`/READ
+- `100087ef` `l32i.n a8,a8,0x0` -> `10021590`/READ
+- `100087f1` `bge a8,a15,0x100087f9` -> `100087f9`/CONDITIONAL_JUMP
+- `100087f4` `l32r a8,0x10005e54` -> `10005e54`/READ
+- `100087f7` `s32i.n a2,a8,0x0` -> `1001bc44`/WRITE
+- `100087f9` `l32r a12,0x10005e4c` -> `10005e4c`/READ
+- `100087fc` `l32i a8,a12,0x0` -> `1001bc54`/READ
+- `100087ff` `bgei a8,0x1,0x10008805` -> `10008805`/CONDITIONAL_JUMP
+- `10008802` `j 0x10008980` -> `10008980`/UNCONDITIONAL_JUMP
+- `10008805` `l32r a4,0x10005e38` -> `10005e38`/READ
+- `10008808` `l32r a5,0x10005e3c` -> `10005e3c`/READ
+- `1000880b` `l32i.n a6,a4,0x0` -> `1001bc50`/READ
+- `1000880d` `beqz a6,0x1000886c` -> `1000886c`/CONDITIONAL_JUMP
+- `10008810` `l32i.n a7,a12,0x0` -> `1001bc54`/READ
+- `10008812` `bgeu a6,a7,0x10008818` -> `10008818`/CONDITIONAL_JUMP
+- `1000881a` `l32r a15,0x10005e5c` -> `10005e5c`/READ
+- `1000881d` `l32r a8,0x10005e44` -> `10005e44`/READ
+- `10008820` `l32i.n a11,a5,0x0` -> `1001bc4c`/READ
+- `10008822` `l32i.n a10,a15,0x0` -> `10021594`/READ
+- `10008824` `l32i.n a8,a8,0x0` -> `1001bc40`/READ
+- `1000882d` `call8 0x1001b38c` -> `1001b38c`/UNCONDITIONAL_CALL -> `10021594`/PARAM
+- `10008830` `l32r a15,0x10005e5c` -> `10005e5c`/READ
+- `10008833` `l32i.n a8,a15,0x0` -> `10021594`/READ
+- `10008837` `l32i.n a8,a5,0x0` -> `1001bc4c`/READ
+- `10008839` `s32i.n a10,a15,0x0` -> `10021594`/WRITE
+- `1000883d` `l32i.n a9,a4,0x0` -> `1001bc50`/READ
+- `1000883f` `l32r a15,0x10005e4c` -> `10005e4c`/READ
+- `10008842` `s32i.n a8,a5,0x0` -> `1001bc4c`/WRITE
+- `10008844` `l32i.n a8,a15,0x0` -> `1001bc54`/READ
+- `10008849` `s32i.n a9,a4,0x0` -> `1001bc50`/WRITE
+- `1000884e` `s32i.n a12,a15,0x0` -> `1001bc54`/WRITE
+- `10008852` `blt a8,a3,0x10008858` -> `10008858`/CONDITIONAL_JUMP
+- `10008855` `j 0x1000892c` -> `1000892c`/UNCONDITIONAL_JUMP
+- `10008858` `l32r a8,0x10005e50` -> `10005e50`/READ
+- `1000885b` `l32i.n a8,a8,0x0` -> `10021590`/READ
+- `1000885d` `blt a8,a12,0x10008863` -> `10008863`/CONDITIONAL_JUMP
+- `10008860` `j 0x1000892c` -> `1000892c`/UNCONDITIONAL_JUMP
+- `10008863` `l32r a15,0x10005e54` -> `10005e54`/READ
+- `10008869` `j 0x10008931` -> `10008931`/UNCONDITIONAL_JUMP
+- `1000886c` `l32r a8,0x10005e68` -> `10005e68`/READ
+- `10008872` `l32i.n a9,a8,0x0` -> `b3000408`/READ
+- `10008874` `l32r a8,0x10005e6c` -> `10005e6c`/READ
+- `10008877` `bnone 0x1000888e,a9,a8,` -> `1000888e`/CONDITIONAL_JUMP
+- `1000887a` `l32r a15,0x10005e70` -> `10005e70`/READ
+- `10008880` `l32i.n a8,a15,0x0` -> `b3000220`/READ
+- `1000888b` `s32i a8,a15,0x0` -> `b3000220`/WRITE
+- `10008894` `call8 0x10017184` -> `10017184`/UNCONDITIONAL_CALL -> `b3000220`/PARAM -> `1001bc54`/PARAM
+- `10008897` `l32r a10,0x10005e18` -> `10005e18`/READ
+- `1000889a` `l32r a11,0x10005e74` -> `10005e74`/READ
+- `100088a8` `call8 0x10017d28` -> `10017d28`/UNCONDITIONAL_CALL -> `b3000220`/PARAM
+- `100088ab` `bnei a10,0x7,0x100088c0` -> `100088c0`/CONDITIONAL_JUMP
+- `100088ae` `l32r a15,0x10005e4c` -> `10005e4c`/READ
+- `100088b1` `l32i.n a2,a15,0x0` -> `1001bc54`/READ
+- `100088b3` `l32r a15,0x10005e54` -> `10005e54`/READ
+- `100088b6` `s32i.n a6,a15,0x0` -> `1001bc44`/WRITE
+- `100088c5` `call8 0x100171b0` -> `100171b0`/UNCONDITIONAL_CALL -> `b3000220`/PARAM
+- `100088c8` `l32r a8,0x10005e48` -> `10005e48`/READ
+- `100088cb` `l8ui a8,a8,0x0` -> `1001bc6f`/READ
+- `100088ce` `bnez a8,0x10008934` -> `10008934`/CONDITIONAL_JUMP
+- `100088d1` `l32r a15,0x10005e4c` -> `10005e4c`/READ
+- `100088d4` `l32i.n a8,a4,0x0` -> `1001bc50`/READ
+- `100088d6` `l32i.n a7,a15,0x0` -> `1001bc54`/READ
+- `100088d8` `bgeu a8,a7,0x100088dd` -> `100088dd`/CONDITIONAL_JUMP
+- `100088df` `l32r a15,0x10005e5c` -> `10005e5c`/READ
+- `100088e2` `l32r a8,0x10005e44` -> `10005e44`/READ
+- `100088e5` `l32i.n a11,a5,0x0` -> `1001bc4c`/READ
+- `100088e7` `l32i.n a10,a15,0x0` -> `10021594`/READ
+- `100088e9` `l32i.n a8,a8,0x0` -> `1001bc40`/READ
+- `100088f4` `call8 0x1001b38c` -> `1001b38c`/UNCONDITIONAL_CALL -> `10021594`/PARAM
+- `100088f7` `l32r a15,0x10005e5c` -> `10005e5c`/READ
+- `100088fa` `l32i.n a8,a15,0x0` -> `10021594`/READ
+- `100088fe` `l32i.n a8,a5,0x0` -> `1001bc4c`/READ
+- `10008900` `s32i.n a10,a15,0x0` -> `10021594`/WRITE
+- `10008904` `l32i.n a9,a4,0x0` -> `1001bc50`/READ
+- `10008906` `l32r a15,0x10005e4c` -> `10005e4c`/READ
+- `10008909` `s32i.n a8,a5,0x0` -> `1001bc4c`/WRITE
+- `1000890b` `l32i.n a8,a15,0x0` -> `1001bc54`/READ
+- `10008910` `s32i.n a9,a4,0x0` -> `1001bc50`/WRITE
+- `10008915` `s32i.n a12,a15,0x0` -> `1001bc54`/WRITE
+- `10008919` `bge a8,a3,0x1000892c` -> `1000892c`/CONDITIONAL_JUMP
+- `1000891c` `l32r a8,0x10005e50` -> `10005e50`/READ
+- `1000891f` `l32i.n a8,a8,0x0` -> `10021590`/READ
+- `10008921` `bge a8,a12,0x1000892c` -> `1000892c`/CONDITIONAL_JUMP
+- `10008924` `l32r a15,0x10005e54` -> `10005e54`/READ
+- `10008929` `j 0x10008931` -> `10008931`/UNCONDITIONAL_JUMP
+- `1000892c` `l32r a15,0x10005e54` -> `10005e54`/READ
+- `10008931` `s32i a8,a15,0x0` -> `1001bc44`/WRITE
+- `10008934` `l32i.n a8,a4,0x0` -> `1001bc50`/READ
+- `10008936` `bnez.n a8,0x10008975` -> `10008975`/CONDITIONAL_JUMP
+- `10008938` `l32r a8,0x10005e20` -> `10005e20`/READ
+- `1000893b` `l8ui a11,a8,0x0` -> `1001bc70`/READ
+- `1000893e` `bnez.n a11,0x10008975` -> `10008975`/CONDITIONAL_JUMP
+- `10008940` `s32i.n a11,a5,0x0` -> `1001bc4c`/WRITE
+- `10008945` `l32r a8,0x10005e40` -> `10005e40`/READ
+- `10008948` `l32r a9,0x10005e78` -> `10005e78`/READ
+- `1000894b` `s32i a11,a8,0x0` -> `100216c0`/WRITE
+- `1000894e` `s8i a11,a9,0x0` -> `1001bc71`/WRITE
+- `10008951` `call8 0x100086f4` -> `100086f4`/UNCONDITIONAL_CALL -> `1001bc44`/PARAM -> `b3000220`/PARAM
+- `10008954` `l32r a8,0x10005e68` -> `10005e68`/READ
+- `1000895a` `l32i.n a9,a8,0x0` -> `b3000408`/READ
+- `1000895c` `l32r a8,0x10005e6c` -> `10005e6c`/READ
+- `1000895f` `bnone 0x10008975,a9,a8,` -> `10008975`/CONDITIONAL_JUMP
+- `10008962` `l32r a15,0x10005e70` -> `10005e70`/READ
+- `10008968` `l32i.n a8,a15,0x0` -> `b3000220`/READ
+- `10008973` `s32i.n a8,a15,0x0` -> `b3000220`/WRITE
+- `10008975` `l32r a12,0x10005e4c` -> `10005e4c`/READ
+- `10008978` `l32i.n a8,a12,0x0` -> `1001bc54`/READ
+- `1000897a` `blti a8,0x1,0x10008980` -> `10008980`/CONDITIONAL_JUMP
+- `1000897d` `j 0x1000880b` -> `1000880b`/UNCONDITIONAL_JUMP
+- `10008982` `l32r a9,0x10005e54` -> `10005e54`/READ
+- `10008987` `s32i.n a8,a9,0x0` -> `1001bc44`/WRITE
+- `1000898c` `call8 0x10017184` -> `10017184`/UNCONDITIONAL_CALL -> `1001bc54`/PARAM -> `1001bc44`/PARAM
+
+## `10008bac` `hp1020_usb_bulk_rx_callback_b_candidate`
+
+- containing function: `10008bac` `hp1020_usb_bulk_rx_callback_b_candidate`
+- decompiled file: `bulk-callbacks-decompiled/10008bac_hp1020_usb_bulk_rx_callback_b_candidate.c`
+
+### References From Instructions
+- `10008baf` `l32r a6,0x10005e8c` -> `10005e8c`/READ
+- `10008bb9` `call8 0x100181a4` -> `100181a4`/UNCONDITIONAL_CALL -> `1002274c`/PARAM
+- `10008bbe` `beqz.n a4,0x10008bc4` -> `10008bc4`/CONDITIONAL_JUMP
+- `10008bcc` `call8 0x100173c8` -> `100173c8`/UNCONDITIONAL_CALL
+- `10008bcf` `call8 0x10008b78` -> `10008b78`/UNCONDITIONAL_CALL
+- `10008bdc` `call8 0x10013140` -> `10013140`/UNCONDITIONAL_CALL
+- `10008bef` `l32r a10,0x10005e10` -> `10005e10`/READ
+- `10008bf8` `call8 0x10013000` -> `10013000`/UNCONDITIONAL_CALL -> `10022740`/PARAM
+- `10008bfb` `l32r a10,0x10005e00` -> `10005e00`/READ
+- `10008c03` `l32i.n a8,a10,0x0` -> `b3000418`/READ
+- `10008c05` `l32r a11,0x10005e14` -> `10005e14`/READ
+- `10008c0b` `l32i.n a9,a11,0x0` -> `100212d0`/READ
+- `10008c10` `s32i.n a8,a10,0x0` -> `b3000418`/WRITE
+- `10008c12` `bnez.n a9,0x10008c16` -> `10008c16`/CONDITIONAL_JUMP
+- `10008c14` `s32i.n a7,a11,0x0` -> `100212d0`/WRITE
+- `10008c1c` `call8 0x10018214` -> `10018214`/UNCONDITIONAL_CALL -> `100212d0`/PARAM -> `1002274c`/PARAM
+

@@ -31,6 +31,7 @@ INPUTS = {
     "control_completion": ROOT_DIR / "analysis/usb-path/control-completion-event.json",
     "usb_interrupt_events": ROOT_DIR / "analysis/usb-path/usb-interrupt-events.json",
     "usb_bulk_receive": ROOT_DIR / "analysis/usb-path/usb-bulk-receive-model.json",
+    "usb_bulk_callbacks": ROOT_DIR / "analysis/usb-path/usb-bulk-callbacks-model.json",
     "marker_rearm": ROOT_DIR / "analysis/open-firmware-probes/usb-marker-draft/marker-rearm-flow-check.json",
     "sideband_default_impact": ROOT_DIR / "analysis/hardware-boundary/video-sideband-default-impact.json",
     "remaining_units": ROOT_DIR / "analysis/hardware-boundary/video-remaining-units.json",
@@ -64,6 +65,7 @@ def build_scope() -> dict[str, Any]:
     control_completion = load_json(INPUTS["control_completion"])
     usb_interrupt_events = load_json(INPUTS["usb_interrupt_events"])
     usb_bulk_receive = load_json(INPUTS["usb_bulk_receive"])
+    usb_bulk_callbacks = load_json(INPUTS["usb_bulk_callbacks"])
     marker_rearm = load_json(INPUTS["marker_rearm"])
     sideband_default_impact = load_json(INPUTS["sideband_default_impact"])
     remaining_units = load_json(INPUTS["remaining_units"])
@@ -145,7 +147,7 @@ def build_scope() -> dict[str, Any]:
         {
             "component": "USB bulk receive to ZjStream parser",
             "current_status": "stock path modeled",
-            "evidence": "USB2Thread registers 0x58-byte transfer records, allocates a 0x400-byte receive buffer, and hands parser 0x10009d34 a read callback at param_1+0x0c",
+            "evidence": "USB2Thread registers 0x58-byte transfer records, allocates a 0x400-byte receive buffer, and hands parser 0x10009d34 a read callback at param_1+0x0c; callback model maps event bit 0x20000 and endpoint re-arm/ack path",
             "replacement_need": "open firmware must implement a bulk OUT receiver/read-callback shim that feeds the parser state machine",
             "risk": "medium",
         },
@@ -246,6 +248,11 @@ def build_scope() -> dict[str, Any]:
             "usb_bulk_parser_reads_via_callback": usb_bulk_receive.get("parser_handoff", {}).get(
                 "parser_reads_via_param_0x0c_callback"
             ),
+            "usb_bulk_callback_status": usb_bulk_callbacks.get("status"),
+            "usb_bulk_event_bit": usb_bulk_callbacks.get("constants", {}).get("bulk_event_bit"),
+            "usb_bulk_endpoint_ack_register": usb_bulk_callbacks.get("constants", {}).get(
+                "usb_endpoint_ack_register"
+            ),
             "sideband_0x26_risk": sideband_impacts.get("+0x26", {}).get("risk"),
             "sideband_0x32_risk": sideband_impacts.get("+0x32", {}).get("risk"),
             "sideband_0x30_risk": sideband_impacts.get("+0x30", {}).get("risk"),
@@ -305,6 +312,7 @@ def render_markdown(scope: dict[str, Any]) -> str:
             f"- marker rearm-flow checks/failures: `{evidence['marker_rearm_checks']}` / `{evidence['marker_rearm_failures']}`",
             f"- USB bulk receive model: `{evidence['usb_bulk_receive_status']}`, record stride `{evidence['usb_bulk_transfer_record_stride']}`, receive buffer `{evidence['usb_bulk_receive_buffer_allocation']}`",
             f"- USB bulk parser handoff: parser `{evidence['usb_bulk_parser_entry']}`, read callback slot present `{str(evidence['usb_bulk_parser_reads_via_callback']).lower()}`",
+            f"- USB bulk callback model: `{evidence['usb_bulk_callback_status']}`, event bit `{evidence['usb_bulk_event_bit']}`, ack register `{evidence['usb_bulk_endpoint_ack_register']}`",
             f"- sideband access hits classified: `{evidence['sideband_access_hits']}`",
             f"- sideband risk split: `+0x26={evidence['sideband_0x26_risk']}`, `+0x32={evidence['sideband_0x32_risk']}`, `+0x30={evidence['sideband_0x30_risk']}`",
             f"- remaining-unit active-work source gap: `{str(evidence['remaining_units_source_gap']).lower()}`",

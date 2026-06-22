@@ -1,0 +1,144 @@
+{
+  "callback_roles": [
+    {
+      "address": "0x100087b8",
+      "meaning": "Copies bytes from the stock USB receive buffer into the caller destination, waits on event bit 0x20000 when empty, and re-arms/acks the endpoint path.",
+      "name": "bulk_rx_read",
+      "role": "blocking/read-style copy path"
+    },
+    {
+      "address": "0x10008bac",
+      "meaning": "Allocates a 0x20 byte pending-transfer node, appends it to list 0x10022740, clears bit 1 in USB status register 0xb3000418, and marks completion state 0x100212d0 active when idle.",
+      "name": "bulk_rx_complete",
+      "role": "completion/queue path"
+    },
+    {
+      "address": "0x100080f0",
+      "meaning": "Serves cached bytes first, then calls the param_1+4 read slot with timeout policy.",
+      "name": "transfer_callback_a",
+      "role": "cached read wrapper"
+    },
+    {
+      "address": "0x100081f4",
+      "meaning": "Calls the param_1+8 slot with a fixed timeout of 200.",
+      "name": "transfer_callback_b",
+      "role": "secondary read wrapper"
+    }
+  ],
+  "checks": [
+    {
+      "evidence": "analysis/usb-path/usb-bulk-callbacks.md",
+      "name": "ghidra_export_has_read_callback",
+      "needle": "100087b8` `hp1020_usb_bulk_rx_callback_a_candidate",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/usb-bulk-callbacks.md",
+      "name": "ghidra_export_has_completion_callback",
+      "needle": "10008bac` `hp1020_usb_bulk_rx_callback_b_candidate",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/bulk-callbacks-decompiled/1000807c_hp1020_usb_transfer_prepare_callback_candidate.c",
+      "name": "prepare_callback_expands_cache",
+      "needle": "FUN_10013140(*(int *)(param_1 + 0x24) + param_3 + 0x100,1)",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/bulk-callbacks-decompiled/100080f0_hp1020_usb_transfer_callback_a_candidate.c",
+      "name": "callback_a_invokes_read_slot",
+      "needle": "(**(code **)(param_1 + 4))",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/bulk-callbacks-decompiled/100080f0_hp1020_usb_transfer_callback_a_candidate.c",
+      "name": "callback_a_resets_to_0x400_buffer",
+      "needle": "FUN_10013140(0x400,1)",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/bulk-callbacks-decompiled/100081f4_hp1020_usb_transfer_callback_b_candidate.c",
+      "name": "callback_b_invokes_second_slot",
+      "needle": "(**(code **)(param_1 + 8))(param_2,param_3,200)",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/bulk-callbacks-decompiled/100087b8_hp1020_usb_bulk_rx_callback_a_candidate.c",
+      "name": "bulk_read_waits_on_event_bit",
+      "needle": "FUN_10017d28(PTR_DAT_10005e18,DAT_10005e74,1,auStack_30,param_3)",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/bulk-callbacks-decompiled/100087b8_hp1020_usb_bulk_rx_callback_a_candidate.c",
+      "name": "bulk_read_copies_from_usb_buffer_to_destination",
+      "needle": "FUN_1001b38c(iVar4 + *(int *)PTR_DAT_10005e5c,*(int *)PTR_DAT_10005e44 + *(int *)puVar2",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/bulk-callbacks-decompiled/100087b8_hp1020_usb_bulk_rx_callback_a_candidate.c",
+      "name": "bulk_read_acks_endpoint_condition",
+      "needle": "*DAT_10005e70 = *DAT_10005e70 | 0x100",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/bulk-callbacks-decompiled/100087b8_hp1020_usb_bulk_rx_callback_a_candidate.c",
+      "name": "bulk_read_rearms_receive_path",
+      "needle": "FUN_100086f4(0)",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/bulk-callbacks-decompiled/10008bac_hp1020_usb_bulk_rx_callback_b_candidate.c",
+      "name": "completion_allocates_pending_node",
+      "needle": "FUN_10013140(0x20,1)",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/bulk-callbacks-decompiled/10008bac_hp1020_usb_bulk_rx_callback_b_candidate.c",
+      "name": "completion_appends_pending_transfer",
+      "needle": "FUN_10013000(puVar1)",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/bulk-callbacks-decompiled/10008bac_hp1020_usb_bulk_rx_callback_b_candidate.c",
+      "name": "completion_clears_usb_status_bit",
+      "needle": "*DAT_10005e00 = *DAT_10005e00 & 0xfffffffd",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/bulk-callbacks-decompiled/10008bac_hp1020_usb_bulk_rx_callback_b_candidate.c",
+      "name": "completion_sets_state_if_idle",
+      "needle": "*(undefined4 *)puVar1 = 1",
+      "status": "present"
+    }
+  ],
+  "constants": {
+    "bulk_available_size_word": "0x1001bc50",
+    "bulk_completion_lock": "0x1002274c",
+    "bulk_completion_state": "0x100212d0",
+    "bulk_destination_alias": "0x80000000",
+    "bulk_destination_offset_word": "0x10021594",
+    "bulk_done_byte": "0x1001bc70",
+    "bulk_event_bit": "0x00020000",
+    "bulk_next_pointer_word": "0x1001bc44",
+    "bulk_rearm_flag_byte": "0x1001bc71",
+    "bulk_rearm_word": "0x100216c0",
+    "bulk_remaining_request_word": "0x1001bc54",
+    "bulk_source_base_word": "0x1001bc40",
+    "bulk_source_offset_word": "0x1001bc4c",
+    "bulk_suppress_copy_byte": "0x1001bc6f",
+    "bulk_threshold_word": "0x10021590",
+    "completion_event_flags": "0x10021318",
+    "pending_transfer_list": "0x10022740",
+    "usb_endpoint_ack_register": "0xb3000220",
+    "usb_setup_status_mask": "0x00008000",
+    "usb_setup_status_register": "0xb3000408",
+    "usb_status_register": "0xb3000418"
+  },
+  "open_firmware_implication": [
+    "The parser does not need direct USB MMIO access if an open replacement provides the same read-callback behavior.",
+    "The real USB work is a bulk OUT producer that fills a buffer, sets event bit 0x20000, tracks remaining bytes, and re-arms endpoint receive.",
+    "The next open-code prototype target after endpoint-0 proof is a small bulk-receive ring plus parser callback shim, not the print engine."
+  ],
+  "status": "pass",
+  "summary": "Static model of the stock USB bulk receive callback layer."
+}
