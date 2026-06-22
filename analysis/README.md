@@ -59,7 +59,10 @@ Start here:
 53. `usb-path/endpoint0-machinery.md` - stock endpoint-0 transfer/queue/register machinery and remaining USB marker blocker
 54. `usb-path/usb-mmio-map.md` - generated map of `0xb300....` USB controller reads/writes used by stock endpoint-0 handling
 55. `open-firmware-probes/minimal-idle/usb-contract-scan.md` - strict USB-only probe contract scan for the current idle candidate
-56. `toolchain-probe/binutils-exec-status.md` - current local blocker: the expected Xtensa binutils path exists but does not execute on macOS
+56. `toolchain-probe/binutils-exec-status.md` - old corrupt crosstool-NG prefix and recovered manual binutils path
+57. `toolchain-probe/manual-binutils-rebuild.md` - reproducible manual Xtensa binutils recovery path
+58. `toolchain-probe/binutils-smoke/report.md` - runnable Xtensa assembler/linker smoke test using the recovered manual prefix
+59. `open-firmware-probes/usb-register-snapshot/summary.md` - generated open-code USB register snapshot probe and static validation
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -106,9 +109,10 @@ Useful current conclusions:
 - The firmware is a date-prefixed Xtensa big-endian ELF inside an HP ACL/PJL envelope.
 - Ghidra can analyze it when forced to `Xtensa:BE:32:default`.
 - Current labels are portable via `analysis/symbols/hp1020-labels.tsv` and `analysis/ghidra-scripts/ApplyHp1020LabelsFromTsv.java`.
-- Local crosstool-NG binutils can assemble/link/inspect `elf32-xtensa-be`; full GCC/newlib is not complete.
+- The recovered manual Xtensa binutils prefix at `/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf` can assemble/link/inspect `elf32-xtensa-be`; full GCC/newlib is still not needed for the current assembly probes.
 - `open-firmware/minimal-idle/` now builds an open-code, non-printing idle firmware probe with HP-style `.elf`, date-prefixed `.img`, and PJL/ACL `.dl` outputs.
 - `analysis/open-firmware-probes/minimal-idle/summary.md` records the current generated probe. It passes the boot-probe layout profile and safety scan, and it has trap-safe system-interface/runtime-vector placeholders.
+- `open-firmware/usb-register-snapshot/` now builds an open-code, non-printing USB register snapshot probe. It only reads mapped USB `0xb300....` registers into RAM and then idles; it has no host-visible output yet and has not been uploaded.
 - `analysis/boot-handoff/boot-handoff.md` compares the stock HP firmware and open idle probe. The core packaging/shape question is mostly answered; the next decisive question is whether hardware accepts and branches into the open payload.
 - `analysis/open-firmware-probes/minimal-idle/hardware-test-result-2026-06-15.md` records the first hardware upload: USB backend sent all `121931` bytes, printer stayed green/quiet with no paper movement, and macOS still saw the HP USB identity. This is a good safety result but not proof that `_start` executed.
 - `scripts/query-hp1020-pjl-status.sh` is the next guarded hardware probe. It sends tiny non-printing PJL/status payloads through the direct USB backend, captures CUPS back-channel fd 3 bytes, and can calibrate stock HP firmware response before comparing against the open idle probe.
@@ -148,7 +152,7 @@ Useful current conclusions:
 - `analysis/usb-path/usb-mmio-map.md` turns the endpoint-0 register evidence into a concrete checklist: setup/status gates `0xb3000400/0408`, descriptor/control registers `0xb3000504/0508/050c/0510`, ack/kick registers, and likely setup/event pointer `0xb3000214`.
 - `scripts/check-hp1020-usb-probe-contract.py` is the stricter scanner for future USB-only candidates: engine/video MMIO fails, and USB MMIO must be one of the mapped endpoint-0 registers.
 - `scripts/check-hp1020-safety-boundary.py` is a pre-upload safety scanner for future candidate source/disassembly; it fails on known unsafe video/engine functions and MMIO families.
-- `analysis/toolchain-probe/binutils-exec-status.md` records that the current `/tmp/hp1020-ctng-mnt/.../xtensa-fsf-elf-*` tools are present but not runnable in this macOS session, so custom probe rebuilds need a fresh runnable `XTENSA_PREFIX`.
+- `analysis/toolchain-probe/binutils-exec-status.md` records that the old `/tmp/hp1020-ctng-mnt/.../xtensa-fsf-elf-*` tools are present but corrupt, and that `scripts/build-xtensa-binutils-manual.sh` recovers a runnable assembly-only prefix.
 - `analysis/printer-test-readiness-report.md` records the controlled connected-printer test path using `analysis/samples/minimal-page.ps` and `scripts/run-printer-readiness-test.sh --send`; that test has printed successfully once on hardware.
 - `analysis/jobmgr-producer-boundary-report.md` is now superseded for message `0x29`; it remains useful as the pre-parser checkpoint showing why the producer was missed by broad queue-send scans.
 - The status-state object is currently mapped through pointer `0x100063d8 -> 0x1002adb4`, with current status at offset `0x08`, transition status at `0x10`, and source/reason at `0x14`.

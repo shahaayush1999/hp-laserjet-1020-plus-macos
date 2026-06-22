@@ -4,8 +4,16 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 OUT_DIR="$ROOT_DIR/analysis/toolchain-probe/binutils-smoke"
 
-default_prefix="/tmp/hp1020-ctng-mnt/x-tools/xtensa-fsf-elf/bin/xtensa-fsf-elf"
-prefix="${XTENSA_PREFIX:-$default_prefix}"
+manual_prefix="/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf"
+ctng_prefix="/tmp/hp1020-ctng-mnt/x-tools/xtensa-fsf-elf/bin/xtensa-fsf-elf"
+prefix="${XTENSA_PREFIX:-}"
+if [[ -z "$prefix" ]]; then
+  if [[ -x "${manual_prefix}-as" ]]; then
+    prefix="$manual_prefix"
+  else
+    prefix="$ctng_prefix"
+  fi
+fi
 
 as_tool="${prefix}-as"
 ld_tool="${prefix}-ld"
@@ -16,7 +24,13 @@ objcopy_tool="${prefix}-objcopy"
 for tool in "$as_tool" "$ld_tool" "$readelf_tool" "$objdump_tool" "$objcopy_tool"; do
   if [[ ! -x "$tool" ]]; then
     printf 'missing tool: %s\n' "$tool" >&2
-    printf 'Set XTENSA_PREFIX to the tool prefix, for example /path/bin/xtensa-fsf-elf\n' >&2
+    printf 'Run scripts/build-xtensa-binutils-manual.sh or set XTENSA_PREFIX to /path/bin/xtensa-fsf-elf\n' >&2
+    exit 1
+  fi
+  if ! "$tool" --version >/dev/null 2>&1; then
+    printf 'tool exists but cannot run: %s\n' "$tool" >&2
+    file "$tool" >&2 || true
+    printf 'Run scripts/build-xtensa-binutils-manual.sh or set XTENSA_PREFIX to a runnable macOS tool prefix.\n' >&2
     exit 1
   fi
 done

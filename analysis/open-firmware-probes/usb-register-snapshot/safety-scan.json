@@ -1,0 +1,114 @@
+[
+  {
+    "description": "USB-controller MMIO family; allowed only for a USB-only probe",
+    "kind": "usb_mmio",
+    "line": 69,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000000"
+  },
+  {
+    "description": "USB-controller MMIO family; allowed only for a USB-only probe",
+    "kind": "usb_mmio",
+    "line": 71,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb300000c"
+  },
+  {
+    "description": "USB-controller MMIO family; allowed only for a USB-only probe",
+    "kind": "usb_mmio",
+    "line": 73,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000028"
+  },
+  {
+    "description": "USB-controller MMIO family; allowed only for a USB-only probe",
+    "kind": "usb_mmio",
+    "line": 75,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb300002c"
+  },
+  {
+    "description": "USB-controller MMIO family; allowed only for a USB-only probe",
+    "kind": "usb_mmio",
+    "line": 77,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000200"
+  },
+  {
+    "description": "USB-controller MMIO family; allowed only for a USB-only probe",
+    "kind": "usb_mmio",
+    "line": 79,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb300020c"
+  },
+  {
+    "description": "USB-controller MMIO family; allowed only for a USB-only probe",
+    "kind": "usb_mmio",
+    "line": 81,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000214"
+  },
+  {
+    "description": "USB-controller MMIO family; allowed only for a USB-only probe",
+    "kind": "usb_mmio",
+    "line": 83,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb300022c"
+  },
+  {
+    "description": "USB-controller MMIO family; allowed only for a USB-only probe",
+    "kind": "usb_mmio",
+    "line": 85,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000400"
+  },
+  {
+    "description": "USB-controller MMIO family; allowed only for a USB-only probe",
+    "kind": "usb_mmio",
+    "line": 87,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000408"
+  },
+  {
+    "description": "USB-controller MMIO family; allowed only for a USB-only probe",
+    "kind": "usb_mmio",
+    "line": 89,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000504"
+  },
+  {
+    "description": "USB-controller MMIO family; allowed only for a USB-only probe",
+    "kind": "usb_mmio",
+    "line": 91,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000508"
+  },
+  {
+    "description": "USB-controller MMIO family; allowed only for a USB-only probe",
+    "kind": "usb_mmio",
+    "line": 93,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb300050c"
+  },
+  {
+    "description": "USB-controller MMIO family; allowed only for a USB-only probe",
+    "kind": "usb_mmio",
+    "line": 95,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000510"
+  }
+]

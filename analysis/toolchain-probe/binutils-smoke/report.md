@@ -1,6 +1,6 @@
 # Xtensa Binutils Smoke Test
 
-Tool prefix: `/tmp/hp1020-ctng-mnt/x-tools/xtensa-fsf-elf/bin/xtensa-fsf-elf`
+Tool prefix: `/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf`
 
 ## File Types
 

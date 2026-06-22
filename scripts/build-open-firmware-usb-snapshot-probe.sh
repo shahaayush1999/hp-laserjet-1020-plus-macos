@@ -2,8 +2,8 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SRC_DIR="$ROOT_DIR/open-firmware/minimal-idle"
-OUT_DIR="$ROOT_DIR/analysis/open-firmware-probes/minimal-idle"
+SRC_DIR="$ROOT_DIR/open-firmware/usb-register-snapshot"
+OUT_DIR="$ROOT_DIR/analysis/open-firmware-probes/usb-register-snapshot"
 
 manual_prefix="/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf"
 ctng_prefix="/tmp/hp1020-ctng-mnt/x-tools/xtensa-fsf-elf/bin/xtensa-fsf-elf"
@@ -37,11 +37,11 @@ done
 
 mkdir -p "$OUT_DIR"
 
-obj="$OUT_DIR/hp1020-idle-probe.o"
-toolchain_elf="$OUT_DIR/hp1020-idle-probe.toolchain-machine.elf"
-elf="$OUT_DIR/hp1020-idle-probe.elf"
-img="$OUT_DIR/hp1020-idle-probe.img"
-dl="$OUT_DIR/hp1020-idle-probe.dl"
+obj="$OUT_DIR/hp1020-usb-snapshot-probe.o"
+toolchain_elf="$OUT_DIR/hp1020-usb-snapshot-probe.toolchain-machine.elf"
+elf="$OUT_DIR/hp1020-usb-snapshot-probe.elf"
+img="$OUT_DIR/hp1020-usb-snapshot-probe.img"
+dl="$OUT_DIR/hp1020-usb-snapshot-probe.dl"
 readelf_txt="$OUT_DIR/readelf.txt"
 disasm_txt="$OUT_DIR/disassembly.txt"
 layout_md="$OUT_DIR/layout.md"
@@ -52,8 +52,8 @@ usb_contract_md="$OUT_DIR/usb-contract-scan.md"
 usb_contract_json="$OUT_DIR/usb-contract-scan.json"
 summary_md="$OUT_DIR/summary.md"
 
-"$as_tool" -o "$obj" "$SRC_DIR/idle.S"
-"$ld_tool" -T "$SRC_DIR/hp1020-idle.ld" -Map "$OUT_DIR/hp1020-idle-probe.map" -o "$toolchain_elf" "$obj"
+"$as_tool" -o "$obj" "$SRC_DIR/usb-snapshot.S"
+"$ld_tool" -T "$SRC_DIR/hp1020-usb-snapshot.ld" -Map "$OUT_DIR/hp1020-usb-snapshot-probe.map" -o "$toolchain_elf" "$obj"
 
 cp "$toolchain_elf" "$elf"
 python3 - "$elf" <<'PY'
@@ -71,7 +71,7 @@ path.write_bytes(data)
 PY
 
 {
-  printf '20260613'
+  printf '20260622'
   cat "$elf"
 } > "$img"
 
@@ -83,7 +83,7 @@ python3 "$ROOT_DIR/scripts/inspect-firmware-layout.py" \
   --profile boot-probe \
   --markdown-output "$layout_md" \
   --json-output "$layout_json" \
-  "$dl" >/tmp/hp1020-idle-layout-status.txt
+  "$dl" >/tmp/hp1020-usb-snapshot-layout-status.txt
 
 python3 "$ROOT_DIR/scripts/check-hp1020-safety-boundary.py" \
   "$SRC_DIR" "$disasm_txt" "$readelf_txt" \
@@ -98,7 +98,7 @@ python3 "$ROOT_DIR/scripts/check-hp1020-usb-probe-contract.py" \
 rm -f "$obj" "$toolchain_elf"
 
 {
-  printf '# HP 1020 Minimal Idle Probe Build\n\n'
+  printf '# HP 1020 USB Register Snapshot Probe Build\n\n'
   printf 'This artifact is offline only. It was not uploaded to the printer.\n\n'
   printf '## Outputs\n\n'
   printf -- '- ELF: `%s`\n' "$elf"
@@ -110,20 +110,18 @@ rm -f "$obj" "$toolchain_elf"
   printf '\n'
   printf '## Key Checks\n\n'
   printf '```text\n'
-  cat /tmp/hp1020-idle-layout-status.txt
+  cat /tmp/hp1020-usb-snapshot-layout-status.txt
   printf '```\n\n'
   printf '```text\n'
   file "$elf" "$img" "$dl"
   printf '```\n\n'
   printf '## Meaning\n\n'
-  printf 'The build proves we can generate an HP-shaped, old-Xtensa, date-prefixed firmware upload candidate from our own assembly.\n'
-  printf 'The system interface table is open-code only: all 75 slots point to the local trap loop, not copied HP routines.\n'
-  printf 'The early runtime-vector placeholders at 0x10006a14 and 0x10006a58 also point only to local trap/state placeholders.\n'
-  printf 'The strict USB-probe contract scan also has zero USB, video, or engine MMIO/function references.\n'
-  printf 'It does not prove the printer boot ROM will accept it, and it does not attempt printing.\n'
+  printf 'This open-code probe reads only the mapped USB 0xb300 registers into local RAM and then idles.\n'
+  printf 'It does not write USB MMIO, engine MMIO, video MMIO, or attempt printing.\n'
+  printf 'It is a candidate for later controlled hardware testing only after review.\n'
 } > "$summary_md"
 
 chmod 644 "$elf" "$img" "$dl" "$readelf_txt" "$disasm_txt" "$layout_md" "$layout_json" \
-  "$safety_md" "$safety_json" "$usb_contract_md" "$usb_contract_json" "$summary_md" "$OUT_DIR/hp1020-idle-probe.map"
+  "$safety_md" "$safety_json" "$usb_contract_md" "$usb_contract_json" "$summary_md" "$OUT_DIR/hp1020-usb-snapshot-probe.map"
 
 printf '%s\n' "$summary_md"

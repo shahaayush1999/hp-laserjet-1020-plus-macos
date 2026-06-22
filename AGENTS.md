@@ -55,6 +55,9 @@ Open firmware analysis state:
 
 - `open-firmware/minimal-idle/` builds the current open-code, non-printing idle firmware probe.
 - `analysis/open-firmware-probes/minimal-idle/` contains the generated `.elf`, `.img`, `.dl`, map, disassembly, layout report, safety scan, and hardware test plan.
+- `scripts/build-xtensa-binutils-manual.sh` rebuilds the current runnable assembly-only Xtensa binutils prefix at `/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf`. Prefer this over the corrupt `/tmp/hp1020-ctng-mnt/...` prefix unless `XTENSA_PREFIX` is explicitly set.
+- `open-firmware/usb-register-snapshot/` builds the current open-code, non-printing USB register snapshot probe.
+- `analysis/open-firmware-probes/usb-register-snapshot/summary.md` records the generated USB snapshot probe. It reads only mapped USB `0xb300....` registers into RAM, then idles. It is not host-readable yet and has not been uploaded.
 - `analysis/boot-handoff/boot-handoff.md` is the current stock-vs-open upload/boot handoff report.
 - `analysis/open-firmware-probes/minimal-idle/hardware-test-result-2026-06-15.md` records the first connected-printer idle-probe upload. The backend sent all bytes and the printer stayed green/quiet with no movement; this is safe but not proof of execution.
 - `analysis/non-printing-status-probe/status-query-plan.md` documents the next discriminator: tiny non-printing PJL/status queries with CUPS back-channel capture.
@@ -71,7 +74,7 @@ Open firmware analysis state:
 - `scripts/extract-hp1020-usb-mmio-map.py` is offline-only; it regenerates the USB register map from `analysis/usb-path/internal-blocks.md`.
 - `scripts/check-hp1020-usb-probe-contract.py` is a stricter pre-upload contract scan for USB-only probes. It allows only the USB registers listed in `analysis/usb-path/usb-mmio-map.json` and fails engine/video MMIO or unmapped USB registers.
 - `analysis/open-firmware-probes/minimal-idle/usb-contract-scan.md` records that the current idle probe has zero USB, video, or engine MMIO/function references.
-- `analysis/toolchain-probe/binutils-exec-status.md` records the current local rebuild blocker: the `/tmp/hp1020-ctng-mnt/.../xtensa-fsf-elf-*` tools exist but do not execute on macOS. Set `XTENSA_PREFIX` to a runnable toolchain before rebuilding custom firmware artifacts.
+- `analysis/toolchain-probe/binutils-exec-status.md` records the old corrupt crosstool-NG prefix and the recovered manual binutils prefix.
 - Do not run the hardware upload script unless Aayush has the printer connected, freshly power-cycled, and explicitly asks for that test.
 
 ## Normal Debug Loop

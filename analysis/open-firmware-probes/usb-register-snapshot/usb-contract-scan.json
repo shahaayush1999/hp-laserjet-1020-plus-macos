@@ -1,0 +1,114 @@
+[
+  {
+    "description": "mapped USB-controller register 0xb3000000",
+    "kind": "mapped_usb_mmio",
+    "line": 69,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000000"
+  },
+  {
+    "description": "mapped USB-controller register 0xb300000c",
+    "kind": "mapped_usb_mmio",
+    "line": 71,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb300000c"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000028",
+    "kind": "mapped_usb_mmio",
+    "line": 73,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000028"
+  },
+  {
+    "description": "mapped USB-controller register 0xb300002c",
+    "kind": "mapped_usb_mmio",
+    "line": 75,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb300002c"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000200",
+    "kind": "mapped_usb_mmio",
+    "line": 77,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000200"
+  },
+  {
+    "description": "mapped USB-controller register 0xb300020c",
+    "kind": "mapped_usb_mmio",
+    "line": 79,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb300020c"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000214",
+    "kind": "mapped_usb_mmio",
+    "line": 81,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000214"
+  },
+  {
+    "description": "mapped USB-controller register 0xb300022c",
+    "kind": "mapped_usb_mmio",
+    "line": 83,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb300022c"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000400",
+    "kind": "mapped_usb_mmio",
+    "line": 85,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000400"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000408",
+    "kind": "mapped_usb_mmio",
+    "line": 87,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000408"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000504",
+    "kind": "mapped_usb_mmio",
+    "line": 89,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000504"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000508",
+    "kind": "mapped_usb_mmio",
+    "line": 91,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000508"
+  },
+  {
+    "description": "mapped USB-controller register 0xb300050c",
+    "kind": "mapped_usb_mmio",
+    "line": 93,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb300050c"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000510",
+    "kind": "mapped_usb_mmio",
+    "line": 95,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-register-snapshot/usb-snapshot.S",
+    "severity": "watch",
+    "text": ".word 0xb3000510"
+  }
+]
