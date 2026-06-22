@@ -15,6 +15,7 @@ This generated report is offline only. It does not contact the printer.
 - The JobMgr `puVar[0x13]` hits feed work +0x90 from runtime byte +0x13, not work +0x26.
 - A headless Ghidra instruction probe confirms 0x100104c8 has no stores to active work +0x26/+0x30/+0x32.
 - A whole-program Ghidra instruction scan finds `s16i` stores to offsets 0x26/0x30/0x32 only in the page-parameter builder.
+- A broader overlapping-store scan is noisy by design, but its selected direct-path hits do not identify an active-work sideband writer.
 - Within the selected print-path corpus, active work +0x26/+0x30/+0x32 remain unsourced.
 
 ## Selected Hit Classification
@@ -88,6 +89,20 @@ This generated report is offline only. It does not contact the printer.
 | `10009c86` | `10009b4c FUN_10009b4c` | `0x30` | `s16i a8,a2,0x30` |
 | `10009c8f` | `10009b4c FUN_10009b4c` | `0x32` | `s16i a8,a2,0x32` |
 
+## Ghidra Whole-Program Overlap Store Scan
+
+- path: `analysis/ghidra-probes/sideband-overlap-store-scan.md`
+- language: `Xtensa:BE:32:default`
+- overlapping stores found: `103`
+- selected direct-path overlap hits: `4`
+
+| Address | Function | Mnemonic | Offset | Width | Overlaps | Role | Meaning |
+|---|---|---|---:|---:|---|---|---|
+| `10009c35` | `10009b4c FUN_10009b4c` | `s16i` | `0x26` | `2` | `+0x26` | `upstream_page_param_exact_store` | real page-param sideband store; it is upstream of the active work object |
+| `10009c86` | `10009b4c FUN_10009b4c` | `s16i` | `0x30` | `2` | `+0x30` | `upstream_page_param_exact_store` | real page-param sideband store; it is upstream of the active work object |
+| `10009c8f` | `10009b4c FUN_10009b4c` | `s16i` | `0x32` | `2` | `+0x32` | `upstream_page_param_exact_store` | real page-param sideband store; it is upstream of the active work object |
+| `10014a2a` | `10014910 FUN_10014910` | `s32i` | `0x24` | `4` | `+0x26` | `video_state_ring_clear` | 32-bit clear at video state ring entry +0x24; overlaps +0x26 as bytes, but not an active-work field write |
+
 ## Checks
 
 | Check | Status | Detail |
@@ -98,6 +113,9 @@ This generated report is offline only. It does not contact the printer.
 | `work_populate_still_lacks_sideband_copy` | `present` | simple page-param to work-object copier has no visible +0x26/+0x30/+0x32 copy |
 | `ghidra_instruction_probe_excludes_sideband_stores` | `present` | headless Ghidra instruction probe for 0x100104c8 has no stores to +0x26/+0x30/+0x32 |
 | `ghidra_whole_program_sideband_stores_are_page_param_only` | `present` | whole-program Ghidra scan finds target-offset halfword stores only in the page-parameter builder |
+| `ghidra_overlap_scan_is_broad_not_exact_sideband_proof` | `present` | whole-program overlap scan is intentionally broader than exact target stores and catches noisy wider stores |
+| `ghidra_overlap_scan_finds_no_work_populate_or_jobmgr_sideband_writer` | `present` | no overlapping store hit appears in the selected active-work create/populate/JobMgr functions |
+| `ghidra_direct_path_overlap_hits_are_classified` | `present` | direct-path overlap hits are page-param exact stores or a video-state ring clear, not active work writers |
 | `no_selected_active_work_writer_found` | `present` | the selected print-path corpus still has no direct active work sideband writer |
 | `prepare_field_model_keeps_sidebands_unsourced` | `present` | prepare field model still marks +0x26/+0x30/+0x32 as unsourced on active work |
 | `queue_chain_keeps_prepare_argument_as_work_object` | `present` | queue chain still identifies the active prepare argument as the 0x94 work object |

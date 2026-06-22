@@ -32,6 +32,21 @@
       "status": "present"
     },
     {
+      "detail": "whole-program overlap scan is intentionally broader than exact target stores and catches noisy wider stores",
+      "name": "ghidra_overlap_scan_is_broad_not_exact_sideband_proof",
+      "status": "present"
+    },
+    {
+      "detail": "no overlapping store hit appears in the selected active-work create/populate/JobMgr functions",
+      "name": "ghidra_overlap_scan_finds_no_work_populate_or_jobmgr_sideband_writer",
+      "status": "present"
+    },
+    {
+      "detail": "direct-path overlap hits are page-param exact stores or a video-state ring clear, not active work writers",
+      "name": "ghidra_direct_path_overlap_hits_are_classified",
+      "status": "present"
+    },
+    {
       "detail": "the selected print-path corpus still has no direct active work sideband writer",
       "name": "no_selected_active_work_writer_found",
       "status": "present"
@@ -53,6 +68,7 @@
     "The JobMgr `puVar[0x13]` hits feed work +0x90 from runtime byte +0x13, not work +0x26.",
     "A headless Ghidra instruction probe confirms 0x100104c8 has no stores to active work +0x26/+0x30/+0x32.",
     "A whole-program Ghidra instruction scan finds `s16i` stores to offsets 0x26/0x30/0x32 only in the page-parameter builder.",
+    "A broader overlapping-store scan is noisy by design, but its selected direct-path hits do not identify an active-work sideband writer.",
     "Within the selected print-path corpus, active work +0x26/+0x30/+0x32 remain unsourced."
   ],
   "corpus_summary": {
@@ -97,6 +113,1352 @@
       "puVar1[0x13] = 0;"
     ]
   },
+  "ghidra_sideband_overlap_store_scan": {
+    "direct_path_hits": [
+      {
+        "address": "10009c35",
+        "bytes": "28 25 13",
+        "function": "10009b4c FUN_10009b4c",
+        "instruction": "s16i a8,a2,0x26",
+        "meaning": "real page-param sideband store; it is upstream of the active work object",
+        "mnemonic": "s16i",
+        "offset": "0x26",
+        "overlaps": [
+          "+0x26"
+        ],
+        "role": "upstream_page_param_exact_store",
+        "width": 2
+      },
+      {
+        "address": "10009c86",
+        "bytes": "28 25 18",
+        "function": "10009b4c FUN_10009b4c",
+        "instruction": "s16i a8,a2,0x30",
+        "meaning": "real page-param sideband store; it is upstream of the active work object",
+        "mnemonic": "s16i",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30"
+        ],
+        "role": "upstream_page_param_exact_store",
+        "width": 2
+      },
+      {
+        "address": "10009c8f",
+        "bytes": "28 25 19",
+        "function": "10009b4c FUN_10009b4c",
+        "instruction": "s16i a8,a2,0x32",
+        "meaning": "real page-param sideband store; it is upstream of the active work object",
+        "mnemonic": "s16i",
+        "offset": "0x32",
+        "overlaps": [
+          "+0x32"
+        ],
+        "role": "upstream_page_param_exact_store",
+        "width": 2
+      },
+      {
+        "address": "10014a2a",
+        "bytes": "2c a6 09",
+        "function": "10014910 FUN_10014910",
+        "instruction": "s32i a12,a10,0x24",
+        "meaning": "32-bit clear at video state ring entry +0x24; overlaps +0x26 as bytes, but not an active-work field write",
+        "mnemonic": "s32i",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "role": "video_state_ring_clear",
+        "width": 4
+      }
+    ],
+    "hits": [
+      {
+        "address": "10007445",
+        "bytes": "96 1c",
+        "function": "10007430 FUN_10007430",
+        "instruction": "s32i.n a6,a1,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10008057",
+        "bytes": "94 29",
+        "function": "10008034 FUN_10008034",
+        "instruction": "s32i.n a4,a2,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "100080e8",
+        "bytes": "98 29",
+        "function": "<none>",
+        "instruction": "s32i.n a8,a2,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10008165",
+        "bytes": "99 69",
+        "function": "<none>",
+        "instruction": "s32i.n a9,a6,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "100091ba",
+        "bytes": "96 19",
+        "function": "<none>",
+        "instruction": "s32i.n a6,a1,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10009c35",
+        "bytes": "28 25 13",
+        "function": "10009b4c FUN_10009b4c",
+        "instruction": "s16i a8,a2,0x26",
+        "mnemonic": "s16i",
+        "offset": "0x26",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 2
+      },
+      {
+        "address": "10009c86",
+        "bytes": "28 25 18",
+        "function": "10009b4c FUN_10009b4c",
+        "instruction": "s16i a8,a2,0x30",
+        "mnemonic": "s16i",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30"
+        ],
+        "width": 2
+      },
+      {
+        "address": "10009c8f",
+        "bytes": "28 25 19",
+        "function": "10009b4c FUN_10009b4c",
+        "instruction": "s16i a8,a2,0x32",
+        "mnemonic": "s16i",
+        "offset": "0x32",
+        "overlaps": [
+          "+0x32"
+        ],
+        "width": 2
+      },
+      {
+        "address": "1000cf92",
+        "bytes": "28 96 0c",
+        "function": "<none>",
+        "instruction": "s32i a8,a9,0x30",
+        "mnemonic": "s32i",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1000cfe0",
+        "bytes": "99 ac",
+        "function": "<none>",
+        "instruction": "s32i.n a9,a10,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1000d405",
+        "bytes": "9d 1c",
+        "function": "<none>",
+        "instruction": "s32i.n a13,a1,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1000d41f",
+        "bytes": "98 19",
+        "function": "<none>",
+        "instruction": "s32i.n a8,a1,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1000f877",
+        "bytes": "9a 1c",
+        "function": "1000f84c FUN_1000f84c",
+        "instruction": "s32i.n a10,a1,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1000fad1",
+        "bytes": "95 1c",
+        "function": "1000fabc FUN_1000fabc",
+        "instruction": "s32i.n a5,a1,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1000fade",
+        "bytes": "28 16 09",
+        "function": "1000fabc FUN_1000fabc",
+        "instruction": "s32i a8,a1,0x24",
+        "mnemonic": "s32i",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1000fbcb",
+        "bytes": "9f 19",
+        "function": "1000fabc FUN_1000fabc",
+        "instruction": "s32i.n a15,a1,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1000fbd2",
+        "bytes": "98 19",
+        "function": "1000fabc FUN_1000fabc",
+        "instruction": "s32i.n a8,a1,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1000fbdd",
+        "bytes": "95 1c",
+        "function": "1000fabc FUN_1000fabc",
+        "instruction": "s32i.n a5,a1,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1000fc13",
+        "bytes": "95 1c",
+        "function": "1000fabc FUN_1000fabc",
+        "instruction": "s32i.n a5,a1,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1000fe7f",
+        "bytes": "98 a9",
+        "function": "1000fdbc FUN_1000fdbc",
+        "instruction": "s32i.n a8,a10,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1000ffa4",
+        "bytes": "99 1c",
+        "function": "1000fee8 FUN_1000fee8",
+        "instruction": "s32i.n a9,a1,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001017b",
+        "bytes": "28 16 09",
+        "function": "10010170 FUN_10010170",
+        "instruction": "s32i a8,a1,0x24",
+        "mnemonic": "s32i",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "100117f7",
+        "bytes": "9c 19",
+        "function": "100117e8 FUN_100117e8",
+        "instruction": "s32i.n a12,a1,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10011811",
+        "bytes": "9c 19",
+        "function": "100117e8 FUN_100117e8",
+        "instruction": "s32i.n a12,a1,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001182d",
+        "bytes": "9a 19",
+        "function": "100117e8 FUN_100117e8",
+        "instruction": "s32i.n a10,a1,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001183b",
+        "bytes": "9a 19",
+        "function": "100117e8 FUN_100117e8",
+        "instruction": "s32i.n a10,a1,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10011855",
+        "bytes": "9a 19",
+        "function": "100117e8 FUN_100117e8",
+        "instruction": "s32i.n a10,a1,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001372b",
+        "bytes": "96 1c",
+        "function": "<none>",
+        "instruction": "s32i.n a6,a1,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10014a2a",
+        "bytes": "2c a6 09",
+        "function": "10014910 FUN_10014910",
+        "instruction": "s32i a12,a10,0x24",
+        "mnemonic": "s32i",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "100156aa",
+        "bytes": "96 1c",
+        "function": "<none>",
+        "instruction": "s32i.n a6,a1,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10015fc2",
+        "bytes": "28 b6 0c",
+        "function": "10015df8 FUN_10015df8",
+        "instruction": "s32i a8,a11,0x30",
+        "mnemonic": "s32i",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10015fd7",
+        "bytes": "98 9c",
+        "function": "10015df8 FUN_10015df8",
+        "instruction": "s32i.n a8,a9,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10015ff2",
+        "bytes": "28 96 0c",
+        "function": "10015df8 FUN_10015df8",
+        "instruction": "s32i a8,a9,0x30",
+        "mnemonic": "s32i",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10016596",
+        "bytes": "29 86 09",
+        "function": "1001658c FUN_1001658c",
+        "instruction": "s32i a9,a8,0x24",
+        "mnemonic": "s32i",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "100165d5",
+        "bytes": "98 1c",
+        "function": "100165a4 FUN_100165a4",
+        "instruction": "s32i.n a8,a1,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10017696",
+        "bytes": "98 9c",
+        "function": "1001766c FUN_1001766c",
+        "instruction": "s32i.n a8,a9,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "100176e9",
+        "bytes": "98 99",
+        "function": "100176c8 FUN_100176c8",
+        "instruction": "s32i.n a8,a9,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10017962",
+        "bytes": "98 bc",
+        "function": "<none>",
+        "instruction": "s32i.n a8,a11,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001862f",
+        "bytes": "99 39",
+        "function": "1001861c FUN_1001861c",
+        "instruction": "s32i.n a9,a3,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10018635",
+        "bytes": "9c 3c",
+        "function": "1001861c FUN_1001861c",
+        "instruction": "s32i.n a12,a3,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001876b",
+        "bytes": "99 39",
+        "function": "10018750 FUN_10018750",
+        "instruction": "s32i.n a9,a3,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10018771",
+        "bytes": "9c 3c",
+        "function": "10018750 FUN_10018750",
+        "instruction": "s32i.n a12,a3,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10018be7",
+        "bytes": "98 29",
+        "function": "10018b84 FUN_10018b84",
+        "instruction": "s32i.n a8,a2,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10018beb",
+        "bytes": "98 7c",
+        "function": "10018b84 FUN_10018b84",
+        "instruction": "s32i.n a8,a7,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10018c39",
+        "bytes": "97 29",
+        "function": "10018c28 FUN_10018c28",
+        "instruction": "s32i.n a7,a2,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10018cf2",
+        "bytes": "98 a9",
+        "function": "<none>",
+        "instruction": "s32i.n a8,a10,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10018dcf",
+        "bytes": "28 26 09",
+        "function": "10018d48 FUN_10018d48",
+        "instruction": "s32i a8,a2,0x24",
+        "mnemonic": "s32i",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10018e4c",
+        "bytes": "98 a9",
+        "function": "10018e14 FUN_10018e14",
+        "instruction": "s32i.n a8,a10,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10018f19",
+        "bytes": "97 29",
+        "function": "10018eac FUN_10018eac",
+        "instruction": "s32i.n a7,a2,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10018f2c",
+        "bytes": "98 7c",
+        "function": "10018eac FUN_10018eac",
+        "instruction": "s32i.n a8,a7,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10018f6b",
+        "bytes": "97 29",
+        "function": "10018f64 FUN_10018f64",
+        "instruction": "s32i.n a7,a2,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10018faf",
+        "bytes": "92 7c",
+        "function": "10018f64 FUN_10018f64",
+        "instruction": "s32i.n a2,a7,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10018fb3",
+        "bytes": "96 2c",
+        "function": "10018f64 FUN_10018f64",
+        "instruction": "s32i.n a6,a2,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10018fbe",
+        "bytes": "92 2c",
+        "function": "10018f64 FUN_10018f64",
+        "instruction": "s32i.n a2,a2,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10018ff9",
+        "bytes": "99 a9",
+        "function": "<none>",
+        "instruction": "s32i.n a9,a10,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10018ffe",
+        "bytes": "98 a9",
+        "function": "<none>",
+        "instruction": "s32i.n a8,a10,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10019091",
+        "bytes": "98 ac",
+        "function": "1001906c FUN_1001906c",
+        "instruction": "s32i.n a8,a10,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "100191c2",
+        "bytes": "24 66 09",
+        "function": "10019138 FUN_10019138",
+        "instruction": "s32i a4,a6,0x24",
+        "mnemonic": "s32i",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "100191c8",
+        "bytes": "98 69",
+        "function": "10019138 FUN_10019138",
+        "instruction": "s32i.n a8,a6,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001949c",
+        "bytes": "98 7c",
+        "function": "10019408 FUN_10019408",
+        "instruction": "s32i.n a8,a7,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001955a",
+        "bytes": "92 59",
+        "function": "10019538 FUN_10019538",
+        "instruction": "s32i.n a2,a5,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001955e",
+        "bytes": "26 26 09",
+        "function": "10019538 FUN_10019538",
+        "instruction": "s32i a6,a2,0x24",
+        "mnemonic": "s32i",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10019566",
+        "bytes": "22 26 09",
+        "function": "10019538 FUN_10019538",
+        "instruction": "s32i a2,a2,0x24",
+        "mnemonic": "s32i",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "100195ad",
+        "bytes": "98 a9",
+        "function": "10019580 FUN_10019580",
+        "instruction": "s32i.n a8,a10,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "100196b0",
+        "bytes": "98 7c",
+        "function": "10019634 FUN_10019634",
+        "instruction": "s32i.n a8,a7,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "100198ac",
+        "bytes": "98 99",
+        "function": "10019860 FUN_10019860",
+        "instruction": "s32i.n a8,a9,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001998d",
+        "bytes": "99 2c",
+        "function": "10019860 FUN_10019860",
+        "instruction": "s32i.n a9,a2,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "100199ef",
+        "bytes": "95 29",
+        "function": "100199a4 FUN_100199a4",
+        "instruction": "s32i.n a5,a2,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10019a0c",
+        "bytes": "92 7c",
+        "function": "100199a4 FUN_100199a4",
+        "instruction": "s32i.n a2,a7,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10019a10",
+        "bytes": "98 2c",
+        "function": "100199a4 FUN_100199a4",
+        "instruction": "s32i.n a8,a2,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10019a17",
+        "bytes": "92 2c",
+        "function": "100199a4 FUN_100199a4",
+        "instruction": "s32i.n a2,a2,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10019a5d",
+        "bytes": "98 ac",
+        "function": "10019a30 FUN_10019a30",
+        "instruction": "s32i.n a8,a10,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10019b02",
+        "bytes": "99 29",
+        "function": "10019ae8 FUN_10019ae8",
+        "instruction": "s32i.n a9,a2,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10019b9d",
+        "bytes": "99 29",
+        "function": "10019b7c FUN_10019b7c",
+        "instruction": "s32i.n a9,a2,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10019baa",
+        "bytes": "98 29",
+        "function": "10019b7c FUN_10019b7c",
+        "instruction": "s32i.n a8,a2,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "10019d6c",
+        "bytes": "98 7c",
+        "function": "10019b7c FUN_10019b7c",
+        "instruction": "s32i.n a8,a7,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001a03e",
+        "bytes": "98 29",
+        "function": "10019eb4 FUN_10019eb4",
+        "instruction": "s32i.n a8,a2,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001a045",
+        "bytes": "28 26 09",
+        "function": "10019eb4 FUN_10019eb4",
+        "instruction": "s32i a8,a2,0x24",
+        "mnemonic": "s32i",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001a0f4",
+        "bytes": "98 7c",
+        "function": "10019eb4 FUN_10019eb4",
+        "instruction": "s32i.n a8,a7,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001a1ed",
+        "bytes": "98 29",
+        "function": "1001a130 FUN_1001a130",
+        "instruction": "s32i.n a8,a2,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001a1f4",
+        "bytes": "98 29",
+        "function": "1001a130 FUN_1001a130",
+        "instruction": "s32i.n a8,a2,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001a347",
+        "bytes": "98 7c",
+        "function": "1001a130 FUN_1001a130",
+        "instruction": "s32i.n a8,a7,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001a4cf",
+        "bytes": "98 7c",
+        "function": "1001a478 FUN_1001a478",
+        "instruction": "s32i.n a8,a7,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001a7e6",
+        "bytes": "92 89",
+        "function": "1001a7c0 FUN_1001a7c0",
+        "instruction": "s32i.n a2,a8,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001a7ea",
+        "bytes": "29 26 09",
+        "function": "1001a7c0 FUN_1001a7c0",
+        "instruction": "s32i a9,a2,0x24",
+        "mnemonic": "s32i",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001a7f2",
+        "bytes": "22 26 09",
+        "function": "1001a7c0 FUN_1001a7c0",
+        "instruction": "s32i a2,a2,0x24",
+        "mnemonic": "s32i",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001a851",
+        "bytes": "98 a9",
+        "function": "1001a818 FUN_1001a818",
+        "instruction": "s32i.n a8,a10,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001a9aa",
+        "bytes": "98 99",
+        "function": "1001a950 FUN_1001a950",
+        "instruction": "s32i.n a8,a9,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001aa89",
+        "bytes": "99 2c",
+        "function": "1001a950 FUN_1001a950",
+        "instruction": "s32i.n a9,a2,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001aade",
+        "bytes": "27 26 0c",
+        "function": "1001aac0 FUN_1001aac0",
+        "instruction": "s32i a7,a2,0x30",
+        "mnemonic": "s32i",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001aaf1",
+        "bytes": "93 2c",
+        "function": "1001aac0 FUN_1001aac0",
+        "instruction": "s32i.n a3,a2,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001aafb",
+        "bytes": "97 2c",
+        "function": "1001aac0 FUN_1001aac0",
+        "instruction": "s32i.n a7,a2,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001ab08",
+        "bytes": "92 49",
+        "function": "1001aac0 FUN_1001aac0",
+        "instruction": "s32i.n a2,a4,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001ab0a",
+        "bytes": "93 29",
+        "function": "1001aac0 FUN_1001aac0",
+        "instruction": "s32i.n a3,a2,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001ab18",
+        "bytes": "92 29",
+        "function": "1001aac0 FUN_1001aac0",
+        "instruction": "s32i.n a2,a2,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001ac41",
+        "bytes": "98 2c",
+        "function": "1001ac30 FUN_1001ac30",
+        "instruction": "s32i.n a8,a2,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001ac99",
+        "bytes": "98 2c",
+        "function": "1001ac7c FUN_1001ac7c",
+        "instruction": "s32i.n a8,a2,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001acb9",
+        "bytes": "98 2c",
+        "function": "1001ac7c FUN_1001ac7c",
+        "instruction": "s32i.n a8,a2,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001adb6",
+        "bytes": "98 2c",
+        "function": "1001ad9c FUN_1001ad9c",
+        "instruction": "s32i.n a8,a2,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001adeb",
+        "bytes": "98 2c",
+        "function": "1001ad9c FUN_1001ad9c",
+        "instruction": "s32i.n a8,a2,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001b10b",
+        "bytes": "99 ac",
+        "function": "1001b128 FUN_1001b128",
+        "instruction": "s32i.n a9,a10,0x30",
+        "mnemonic": "s32i.n",
+        "offset": "0x30",
+        "overlaps": [
+          "+0x30",
+          "+0x32"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001b86b",
+        "bytes": "95 29",
+        "function": "1001b854 FUN_1001b854",
+        "instruction": "s32i.n a5,a2,0x24",
+        "mnemonic": "s32i.n",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      },
+      {
+        "address": "1001b8b9",
+        "bytes": "26 26 09",
+        "function": "1001b854 FUN_1001b854",
+        "instruction": "s32i a6,a2,0x24",
+        "mnemonic": "s32i",
+        "offset": "0x24",
+        "overlaps": [
+          "+0x26"
+        ],
+        "width": 4
+      }
+    ],
+    "language": "Xtensa:BE:32:default",
+    "path": "analysis/ghidra-probes/sideband-overlap-store-scan.md"
+  },
   "ghidra_sideband_store_scan": {
     "hits": [
       {
@@ -140,6 +1502,10 @@
     "word_store_offsets": [
       "0x0"
     ]
+  },
+  "overlap_role_counts": {
+    "upstream_page_param_exact_store": 3,
+    "video_state_ring_clear": 1
   },
   "role_counts": {
     "active_work_consumer": 4,

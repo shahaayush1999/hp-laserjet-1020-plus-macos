@@ -32,8 +32,20 @@ PREPARE_FIELDS_JSON = ROOT_DIR / "analysis/hardware-boundary/video-prepare-argum
 QUEUE_CHAIN_JSON = ROOT_DIR / "analysis/hardware-boundary/video-queue-payload-chain.json"
 GHIDRA_WORK_POPULATE_PROBE = ROOT_DIR / "analysis/ghidra-probes/work-populate-instruction-probe.md"
 GHIDRA_SIDEBAND_STORE_SCAN = ROOT_DIR / "analysis/ghidra-probes/sideband-store-scan.md"
+GHIDRA_SIDEBAND_OVERLAP_STORE_SCAN = ROOT_DIR / "analysis/ghidra-probes/sideband-overlap-store-scan.md"
 
 SIDEBAND_FIELDS = {"+0x26", "+0x30", "+0x32"}
+DIRECT_PATH_FUNCTION_PREFIXES = {
+    "10009b4c",  # page-parameter builder
+    "1000e414",  # JobMgr thread
+    "1000f204",  # work init/clear
+    "1000f228",  # work create
+    "10010398",  # child/page record create
+    "100104c8",  # work populate from page params
+    "10013f34",  # video descriptor queue/list helper
+    "10014244",  # video refill helper
+    "10014910",  # video prepare
+}
 LINE_PATTERNS = [
     re.compile(r"\+\s*0x26\b|\+0x26\b"),
     re.compile(r"\+\s*0x30\b|\+0x30\b"),
@@ -151,6 +163,67 @@ def ghidra_sideband_store_hits() -> dict[str, Any]:
     }
 
 
+def ghidra_sideband_overlap_store_hits() -> dict[str, Any]:
+    text = read_text(GHIDRA_SIDEBAND_OVERLAP_STORE_SCAN)
+    hits = []
+    in_table = False
+    for line in text.splitlines():
+        if line.startswith("| Address | Function | Mnemonic |"):
+            in_table = True
+            continue
+        if not in_table:
+            continue
+        if line.startswith("|---"):
+            continue
+        if not line.startswith("| `"):
+            break
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        if len(cells) != 8:
+            continue
+        hits.append(
+            {
+                "address": cells[0].strip("`"),
+                "function": cells[1].strip("`"),
+                "mnemonic": cells[2].strip("`"),
+                "offset": cells[3].strip("`"),
+                "width": int(cells[4].strip("`")),
+                "overlaps": cells[5].strip("`").split(", "),
+                "bytes": cells[6].strip("`"),
+                "instruction": cells[7].strip("`"),
+            }
+        )
+
+    direct_path_hits = [
+        hit
+        for hit in hits
+        if any(hit["function"].startswith(prefix) for prefix in DIRECT_PATH_FUNCTION_PREFIXES)
+    ]
+    return {
+        "path": str(GHIDRA_SIDEBAND_OVERLAP_STORE_SCAN.relative_to(ROOT_DIR)),
+        "language": "Xtensa:BE:32:default" if "language: `Xtensa:BE:32:default`" in text else "unknown",
+        "hits": hits,
+        "direct_path_hits": direct_path_hits,
+    }
+
+
+def classify_overlap_hits(hits: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    classified = []
+    for hit in hits:
+        function = hit["function"]
+        address = hit["address"]
+        if function.startswith("10009b4c "):
+            role = "upstream_page_param_exact_store"
+            meaning = "real page-param sideband store; it is upstream of the active work object"
+        elif function.startswith("10014910 ") and address == "10014a2a":
+            role = "video_state_ring_clear"
+            meaning = "32-bit clear at video state ring entry +0x24; overlaps +0x26 as bytes, but not an active-work field write"
+        else:
+            role = "unclassified_direct_path_overlap"
+            meaning = "direct-path overlap hit needs manual review"
+        classified.append({**hit, "role": role, "meaning": meaning})
+    return classified
+
+
 def classify_hits(hits: list[dict[str, Any]]) -> list[dict[str, Any]]:
     classified = []
     for hit in hits:
@@ -203,9 +276,14 @@ def build_report() -> dict[str, Any]:
     corpus_summary = corpus_hit_summary()
     ghidra_probe = ghidra_work_populate_store_offsets()
     ghidra_store_scan = ghidra_sideband_store_hits()
+    ghidra_overlap_scan = ghidra_sideband_overlap_store_hits()
+    classified_overlap_hits = classify_overlap_hits(ghidra_overlap_scan["direct_path_hits"])
     by_role: dict[str, int] = {}
     for hit in hits:
         by_role[hit["role"]] = by_role.get(hit["role"], 0) + 1
+    overlap_by_role: dict[str, int] = {}
+    for hit in classified_overlap_hits:
+        overlap_by_role[hit["role"]] = overlap_by_role.get(hit["role"], 0) + 1
 
     work_populate_text = read_text(SELECTED_SOURCES["work_populate"])
     unsourced_fields = [
@@ -257,6 +335,27 @@ def build_report() -> dict[str, Any]:
             "whole-program Ghidra scan finds target-offset halfword stores only in the page-parameter builder",
         ),
         check(
+            "ghidra_overlap_scan_is_broad_not_exact_sideband_proof",
+            ghidra_overlap_scan["language"] == "Xtensa:BE:32:default"
+            and len(ghidra_overlap_scan["hits"]) > len(ghidra_store_scan["hits"])
+            and all(hit["mnemonic"] in {"s8i", "s16i", "s32i", "s32i.n"} for hit in ghidra_overlap_scan["hits"]),
+            "whole-program overlap scan is intentionally broader than exact target stores and catches noisy wider stores",
+        ),
+        check(
+            "ghidra_overlap_scan_finds_no_work_populate_or_jobmgr_sideband_writer",
+            not any(
+                hit["function"].startswith(("100104c8 ", "1000e414 ", "1000f204 ", "1000f228 ", "10010398 "))
+                for hit in ghidra_overlap_scan["direct_path_hits"]
+            ),
+            "no overlapping store hit appears in the selected active-work create/populate/JobMgr functions",
+        ),
+        check(
+            "ghidra_direct_path_overlap_hits_are_classified",
+            classified_overlap_hits != []
+            and all(hit["role"] != "unclassified_direct_path_overlap" for hit in classified_overlap_hits),
+            "direct-path overlap hits are page-param exact stores or a video-state ring clear, not active work writers",
+        ),
+        check(
             "no_selected_active_work_writer_found",
             active_work_writer_hits == [],
             "the selected print-path corpus still has no direct active work sideband writer",
@@ -280,7 +379,12 @@ def build_report() -> dict[str, Any]:
         "corpus_summary": corpus_summary,
         "ghidra_work_populate_probe": ghidra_probe,
         "ghidra_sideband_store_scan": ghidra_store_scan,
+        "ghidra_sideband_overlap_store_scan": {
+            **ghidra_overlap_scan,
+            "direct_path_hits": classified_overlap_hits,
+        },
         "role_counts": by_role,
+        "overlap_role_counts": overlap_by_role,
         "selected_hits": hits,
         "active_work_writer_hits": active_work_writer_hits,
         "conclusion": [
@@ -289,6 +393,7 @@ def build_report() -> dict[str, Any]:
             "The JobMgr `puVar[0x13]` hits feed work +0x90 from runtime byte +0x13, not work +0x26.",
             "A headless Ghidra instruction probe confirms 0x100104c8 has no stores to active work +0x26/+0x30/+0x32.",
             "A whole-program Ghidra instruction scan finds `s16i` stores to offsets 0x26/0x30/0x32 only in the page-parameter builder.",
+            "A broader overlapping-store scan is noisy by design, but its selected direct-path hits do not identify an active-work sideband writer.",
             "Within the selected print-path corpus, active work +0x26/+0x30/+0x32 remain unsourced.",
         ],
         "checks": checks,
@@ -342,6 +447,24 @@ def render_markdown(report: dict[str, Any]) -> str:
     for hit in report["ghidra_sideband_store_scan"]["hits"]:
         lines.append(
             f"| `{hit['address']}` | `{hit['function']}` | `{hit['offset']}` | `{hit['instruction']}` |"
+        )
+
+    overlap_scan = report["ghidra_sideband_overlap_store_scan"]
+    lines.extend(["", "## Ghidra Whole-Program Overlap Store Scan", ""])
+    lines.append(f"- path: `{overlap_scan['path']}`")
+    lines.append(f"- language: `{overlap_scan['language']}`")
+    lines.append(f"- overlapping stores found: `{len(overlap_scan['hits'])}`")
+    lines.append(f"- selected direct-path overlap hits: `{len(overlap_scan['direct_path_hits'])}`")
+    lines.extend(
+        [
+            "",
+            "| Address | Function | Mnemonic | Offset | Width | Overlaps | Role | Meaning |",
+            "|---|---|---|---:|---:|---|---|---|",
+        ]
+    )
+    for hit in overlap_scan["direct_path_hits"]:
+        lines.append(
+            f"| `{hit['address']}` | `{hit['function']}` | `{hit['mnemonic']}` | `{hit['offset']}` | `{hit['width']}` | `{', '.join(hit['overlaps'])}` | `{hit['role']}` | {hit['meaning']} |"
         )
 
     lines.extend(["", "## Checks", "", "| Check | Status | Detail |", "|---|---|---|"])
