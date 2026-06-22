@@ -59,6 +59,7 @@ Start here:
 53. `usb-path/endpoint0-machinery.md` - stock endpoint-0 transfer/queue/register machinery and remaining USB marker blocker
 54. `usb-path/usb-mmio-map.md` - generated map of `0xb300....` USB controller reads/writes used by stock endpoint-0 handling
 55. `open-firmware-probes/minimal-idle/usb-contract-scan.md` - strict USB-only probe contract scan for the current idle candidate
+56. `toolchain-probe/binutils-exec-status.md` - current local blocker: the expected Xtensa binutils path exists but does not execute on macOS
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -147,6 +148,7 @@ Useful current conclusions:
 - `analysis/usb-path/usb-mmio-map.md` turns the endpoint-0 register evidence into a concrete checklist: setup/status gates `0xb3000400/0408`, descriptor/control registers `0xb3000504/0508/050c/0510`, ack/kick registers, and likely setup/event pointer `0xb3000214`.
 - `scripts/check-hp1020-usb-probe-contract.py` is the stricter scanner for future USB-only candidates: engine/video MMIO fails, and USB MMIO must be one of the mapped endpoint-0 registers.
 - `scripts/check-hp1020-safety-boundary.py` is a pre-upload safety scanner for future candidate source/disassembly; it fails on known unsafe video/engine functions and MMIO families.
+- `analysis/toolchain-probe/binutils-exec-status.md` records that the current `/tmp/hp1020-ctng-mnt/.../xtensa-fsf-elf-*` tools are present but not runnable in this macOS session, so custom probe rebuilds need a fresh runnable `XTENSA_PREFIX`.
 - `analysis/printer-test-readiness-report.md` records the controlled connected-printer test path using `analysis/samples/minimal-page.ps` and `scripts/run-printer-readiness-test.sh --send`; that test has printed successfully once on hardware.
 - `analysis/jobmgr-producer-boundary-report.md` is now superseded for message `0x29`; it remains useful as the pre-parser checkpoint showing why the producer was missed by broad queue-send scans.
 - The status-state object is currently mapped through pointer `0x100063d8 -> 0x1002adb4`, with current status at offset `0x08`, transition status at `0x10`, and source/reason at `0x14`.

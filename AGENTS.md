@@ -71,6 +71,7 @@ Open firmware analysis state:
 - `scripts/extract-hp1020-usb-mmio-map.py` is offline-only; it regenerates the USB register map from `analysis/usb-path/internal-blocks.md`.
 - `scripts/check-hp1020-usb-probe-contract.py` is a stricter pre-upload contract scan for USB-only probes. It allows only the USB registers listed in `analysis/usb-path/usb-mmio-map.json` and fails engine/video MMIO or unmapped USB registers.
 - `analysis/open-firmware-probes/minimal-idle/usb-contract-scan.md` records that the current idle probe has zero USB, video, or engine MMIO/function references.
+- `analysis/toolchain-probe/binutils-exec-status.md` records the current local rebuild blocker: the `/tmp/hp1020-ctng-mnt/.../xtensa-fsf-elf-*` tools exist but do not execute on macOS. Set `XTENSA_PREFIX` to a runnable toolchain before rebuilding custom firmware artifacts.
 - Do not run the hardware upload script unless Aayush has the printer connected, freshly power-cycled, and explicitly asks for that test.
 
 ## Normal Debug Loop

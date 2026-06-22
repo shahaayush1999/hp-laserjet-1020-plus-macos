@@ -19,6 +19,12 @@ for tool in "$as_tool" "$ld_tool" "$readelf_tool" "$objdump_tool"; do
     printf 'Run the crosstool-NG build or set XTENSA_PREFIX to /path/bin/xtensa-fsf-elf\n' >&2
     exit 1
   fi
+  if ! "$tool" --version >/dev/null 2>&1; then
+    printf 'tool exists but cannot run: %s\n' "$tool" >&2
+    file "$tool" >&2 || true
+    printf 'Set XTENSA_PREFIX to a runnable macOS xtensa-fsf-elf tool prefix.\n' >&2
+    exit 1
+  fi
 done
 
 mkdir -p "$OUT_DIR"
