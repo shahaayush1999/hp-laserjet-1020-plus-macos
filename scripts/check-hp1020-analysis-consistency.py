@@ -292,6 +292,7 @@ def build_report() -> dict[str, Any]:
     setup_source = read_json("analysis/usb-path/usb-setup-source.json")
     control_in = read_json("analysis/usb-path/control-in-data-stage.json")
     control_completion = read_json("analysis/usb-path/control-completion-event.json")
+    usb_interrupt_events = read_json("analysis/usb-path/usb-interrupt-events.json")
     open_marker_cases = [
         scenario
         for scenario in open_endpoint0.get("scenarios", [])
@@ -351,6 +352,17 @@ def build_report() -> dict[str, Any]:
             and control_completion.get("usb2_thread_wait", {}).get("requested_bits") == "0x00010000",
             "The control completion path must remain modeled as event flags, with separate control-IN and USB2Thread wake bits.",
             evidence="analysis/usb-path/control-completion-event.json",
+        )
+    )
+    checks.append(
+        check(
+            "usb_interrupt_event_model_resolved",
+            usb_interrupt_events.get("status") == "pass"
+            and usb_interrupt_events.get("constants", {}).get("completion_event_flags") == "0x10021318"
+            and usb_interrupt_events.get("event_scan", {}).get("completion_status_bit") == "0x400"
+            and usb_interrupt_events.get("event_scan", {}).get("lane_stride") == "0x20",
+            "The USB interrupt event model must keep the completion event object, per-lane stride, and 0x400 completion status bit.",
+            evidence="analysis/usb-path/usb-interrupt-events.json",
         )
     )
     checks.append(

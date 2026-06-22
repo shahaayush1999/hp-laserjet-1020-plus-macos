@@ -127,6 +127,7 @@ Resolved constants for the stock path:
 | descriptor submit register | `0xb3000014` |
 | control kick register/value | `0xb3000000 |= 0x108` |
 | completion event object | `0x10021318`, bit `0x1` for control-IN completion |
+| interrupt event producer | `0x10008208`, lane stride `0x20`, per-lane status bit `0x400` |
 
 The transfer descriptor shape appears to be:
 

@@ -21,6 +21,7 @@ run_step "Python syntax checks" \
     "$ROOT_DIR/scripts/model-hp1020-usb-setup-source.py" \
     "$ROOT_DIR/scripts/model-hp1020-control-in-data-stage.py" \
     "$ROOT_DIR/scripts/model-hp1020-control-completion.py" \
+    "$ROOT_DIR/scripts/model-hp1020-usb-interrupt-events.py" \
     "$ROOT_DIR/scripts/model-hp1020-status-code-correlation.py" \
     "$ROOT_DIR/scripts/model-hp1020-pjl-status-contract.py" \
     "$ROOT_DIR/scripts/analyze-hp1020-pjl-status-capture.py" \
@@ -65,6 +66,9 @@ run_step "Self-test USB control-IN data-stage model" \
 
 run_step "Regenerate USB control completion event model" \
   "$ROOT_DIR/scripts/model-hp1020-control-completion.py"
+
+run_step "Regenerate USB interrupt event model" \
+  "$ROOT_DIR/scripts/model-hp1020-usb-interrupt-events.py"
 
 run_step "Regenerate status CODE correlation model" \
   "$ROOT_DIR/scripts/model-hp1020-status-code-correlation.py"

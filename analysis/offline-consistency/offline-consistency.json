@@ -1,5 +1,5 @@
 {
-  "check_count": 25,
+  "check_count": 26,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -137,6 +137,12 @@
       "detail": "The control completion path must remain modeled as event flags, with separate control-IN and USB2Thread wake bits.",
       "evidence": "analysis/usb-path/control-completion-event.json",
       "name": "control_completion_event_model_resolved",
+      "severity": "watch"
+    },
+    {
+      "detail": "The USB interrupt event model must keep the completion event object, per-lane stride, and 0x400 completion status bit.",
+      "evidence": "analysis/usb-path/usb-interrupt-events.json",
+      "name": "usb_interrupt_event_model_resolved",
       "severity": "watch"
     },
     {

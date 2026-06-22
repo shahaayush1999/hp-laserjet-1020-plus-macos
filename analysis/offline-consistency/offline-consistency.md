@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `25`
+- checks: `26`
 - failures: `0`
 - meaning: Offline analysis is internally consistent; the next decisive evidence is a guarded non-printing printer-side probe.
 
@@ -37,6 +37,7 @@ It does not contact the printer.
 | `usb_marker_reads_required_setup_fields` | `watch` | The open marker draft must read request type, request, descriptor selector, and host length before responding. | `analysis/usb-path/usb-setup-source.json` |
 | `control_in_data_stage_constants_resolved` | `watch` | Control-IN data-stage constants must preserve descriptor ring, staging buffer, and submit register evidence. | `analysis/usb-path/control-in-data-stage.json` |
 | `control_completion_event_model_resolved` | `watch` | The control completion path must remain modeled as event flags, with separate control-IN and USB2Thread wake bits. | `analysis/usb-path/control-completion-event.json` |
+| `usb_interrupt_event_model_resolved` | `watch` | The USB interrupt event model must keep the completion event object, per-lane stride, and 0x400 completion status bit. | `analysis/usb-path/usb-interrupt-events.json` |
 | `control_in_open_marker_descriptor_shape` | `watch` | A 38-byte open marker response should model as one flagged control-IN descriptor. | `analysis/usb-path/control-in-data-stage.json` |
 | `control_in_large_response_batches` | `watch` | Large control-IN responses should preserve the modeled five-descriptor batch limit before another kick. | `analysis/usb-path/control-in-data-stage.json` |
 
