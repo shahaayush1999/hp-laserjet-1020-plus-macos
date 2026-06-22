@@ -359,6 +359,32 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/hardware-boundary/video-sideband-default-impact.json",
         )
     )
+    zero_sideband = read_json("analysis/hardware-boundary/video-zero-sideband-scenario.json")
+    zero_steps = {
+        item.get("step"): item
+        for item in zero_sideband.get("scenario", [])
+        if isinstance(item, dict)
+    }
+    checks.append(
+        check(
+            "video_zero_sideband_scenario_keeps_refill_blocker_narrow",
+            zero_sideband.get("status") == "pass"
+            and "initial_channel_a_still_arms" in zero_steps
+            and "channel_b_refill_skipped" in zero_steps
+            and "raw_band_final_logic_becomes_ambiguous" in zero_steps
+            and any(
+                "not an immediate proof that render setup cannot start" in item
+                for item in zero_sideband.get("practical_conclusion", [])
+            )
+            and any(
+                "channel B is not seeded" in item
+                for item in zero_sideband.get("practical_conclusion", [])
+            )
+            and all(item.get("status") == "present" for item in zero_sideband.get("checks", [])),
+            "The zero-sideband scenario must keep the refined conclusion: initial channel A can arm, but channel-B refill/descriptor state is not seeded.",
+            evidence="analysis/hardware-boundary/video-zero-sideband-scenario.json",
+        )
+    )
     remaining_units = read_json("analysis/hardware-boundary/video-remaining-units.json")
     remaining_cases = {
         item.get("case"): item

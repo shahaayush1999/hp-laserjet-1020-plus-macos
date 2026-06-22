@@ -39,6 +39,7 @@ run_step "Python syntax checks" \
     "$ROOT_DIR/scripts/model-hp1020-video-sideband-write-census.py" \
     "$ROOT_DIR/scripts/model-hp1020-video-sideband-copy-direction.py" \
     "$ROOT_DIR/scripts/model-hp1020-video-sideband-default-impact.py" \
+    "$ROOT_DIR/scripts/model-hp1020-video-zero-sideband-scenario.py" \
     "$ROOT_DIR/scripts/model-hp1020-video-remaining-units.py" \
     "$ROOT_DIR/scripts/model-hp1020-minimal-print-scope.py" \
     "$ROOT_DIR/scripts/model-hp1020-open-endpoint0.py" \
@@ -138,6 +139,9 @@ run_step "Regenerate video sideband copy-direction model" \
 
 run_step "Regenerate video sideband default-impact model" \
   "$ROOT_DIR/scripts/model-hp1020-video-sideband-default-impact.py"
+
+run_step "Regenerate video zero-sideband scenario model" \
+  "$ROOT_DIR/scripts/model-hp1020-video-zero-sideband-scenario.py"
 
 run_step "Regenerate video remaining-units model" \
   "$ROOT_DIR/scripts/model-hp1020-video-remaining-units.py"

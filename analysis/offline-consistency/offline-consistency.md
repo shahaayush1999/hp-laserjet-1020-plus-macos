@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `50`
+- checks: `51`
 - failures: `0`
 - meaning: Offline analysis is internally consistent; the next decisive evidence is a guarded non-printing printer-side probe.
 
@@ -30,6 +30,7 @@ It does not contact the printer.
 | `video_sideband_write_census_rules_out_false_leads` | `watch` | The sideband write census must preserve that selected +0x26/+0x30/+0x32 hits are upstream writers or consumers, not active work-object writers. | `analysis/hardware-boundary/video-sideband-write-census.json` |
 | `video_sideband_copy_direction_rules_out_hidden_source` | `watch` | The sideband copy-direction model must preserve that case 0x29 copies active work out to runtime block, not into work +0x26/+0x30/+0x32. | `analysis/hardware-boundary/video-sideband-copy-direction.json` |
 | `video_sideband_default_impact_keeps_0x26_critical` | `watch` | The sideband default-impact model must keep +0x26 as print-path critical, +0x32 mode-critical, and +0x30 lower priority. | `analysis/hardware-boundary/video-sideband-default-impact.json` |
+| `video_zero_sideband_scenario_keeps_refill_blocker_narrow` | `watch` | The zero-sideband scenario must keep the refined conclusion: initial channel A can arm, but channel-B refill/descriptor state is not seeded. | `analysis/hardware-boundary/video-zero-sideband-scenario.json` |
 | `video_remaining_units_keeps_alias_gap_explicit` | `watch` | Video remaining-unit model must preserve ZJI_VIDEO_Y upstream values while keeping active work +0x26 unsourced. | `analysis/hardware-boundary/video-remaining-units.json` |
 | `video_chunk_sizing_projects_stride_and_cc` | `watch` | Video chunk sizing must preserve the stride-derived +0xcc projection and helper caveat. | `analysis/hardware-boundary/video-chunk-sizing.json` |
 | `video_helper_disassembly_keeps_divide_path_bounded` | `watch` | The helper disassembly report must preserve the confirmed 0/1 edge cases while keeping the divide path bounded as a hypothesis. | `analysis/hardware-boundary/video-helper-disassembly.json` |

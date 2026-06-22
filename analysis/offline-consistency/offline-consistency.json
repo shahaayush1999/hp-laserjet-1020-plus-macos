@@ -1,5 +1,5 @@
 {
-  "check_count": 50,
+  "check_count": 51,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -95,6 +95,12 @@
       "detail": "The sideband default-impact model must keep +0x26 as print-path critical, +0x32 mode-critical, and +0x30 lower priority.",
       "evidence": "analysis/hardware-boundary/video-sideband-default-impact.json",
       "name": "video_sideband_default_impact_keeps_0x26_critical",
+      "severity": "watch"
+    },
+    {
+      "detail": "The zero-sideband scenario must keep the refined conclusion: initial channel A can arm, but channel-B refill/descriptor state is not seeded.",
+      "evidence": "analysis/hardware-boundary/video-zero-sideband-scenario.json",
+      "name": "video_zero_sideband_scenario_keeps_refill_blocker_narrow",
       "severity": "watch"
     },
     {
