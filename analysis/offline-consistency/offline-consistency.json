@@ -1,5 +1,5 @@
 {
-  "check_count": 35,
+  "check_count": 36,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -95,6 +95,12 @@
       "detail": "The video IRQ decision model must preserve branch priority, refill, and reset-dispatch cases 0/3/4/7.",
       "evidence": "analysis/hardware-boundary/video-irq-decisions.json",
       "name": "video_irq_decision_model_resolved",
+      "severity": "watch"
+    },
+    {
+      "detail": "The video band queue model must preserve +0xdc/+0xe0 collision behavior and raw-band A/B register writes.",
+      "evidence": "analysis/hardware-boundary/video-band-queue.json",
+      "name": "video_band_queue_model_resolved",
       "severity": "watch"
     },
     {

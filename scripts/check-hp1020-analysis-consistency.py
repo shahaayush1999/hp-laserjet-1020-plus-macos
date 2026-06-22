@@ -413,6 +413,42 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/hardware-boundary/video-irq-decisions.json",
         )
     )
+    video_band_queue = read_json("analysis/hardware-boundary/video-band-queue.json")
+    band_literals = video_band_queue.get("literal_values", {})
+    band_sequences = {
+        item.get("name")
+        for item in video_band_queue.get("queue_sequences", [])
+        if isinstance(item, dict)
+    }
+    band_scenarios = {
+        item.get("name"): item
+        for item in video_band_queue.get("loop_scenarios", [])
+        if isinstance(item, dict)
+    }
+    checks.append(
+        check(
+            "video_band_queue_model_resolved",
+            video_band_queue.get("status") == "pass"
+            and band_literals.get("video_state_base") == "0x1002efc0"
+            and band_literals.get("ring_descriptor_base") == "0x1002efe0"
+            and band_literals.get("raw_band_a_pointer") == "0xb1000008"
+            and band_literals.get("raw_band_b_pointer") == "0xb1000108"
+            and band_literals.get("raw_band_a_flags") == "0xb100000c"
+            and band_literals.get("raw_band_b_flags") == "0xb100010c"
+            and {
+                "queue_loop_gate",
+                "optional_callback_and_padding",
+                "raw_band_single_block_write",
+                "raw_band_dual_block_write",
+                "advance_queue_side",
+            }.issubset(band_sequences)
+            and band_scenarios.get("dc_0_e0_1_final_0", {}).get("loop_decision") == "stop_before_e0_collision"
+            and band_scenarios.get("dc_0_e0_1_final_1", {}).get("loop_decision") == "queue_descriptor"
+            and all(check.get("status") == "present" for check in video_band_queue.get("checks", [])),
+            "The video band queue model must preserve +0xdc/+0xe0 collision behavior and raw-band A/B register writes.",
+            evidence="analysis/hardware-boundary/video-band-queue.json",
+        )
+    )
     checks.append(
         check(
             "usb_family_remains_only_low_risk_target",

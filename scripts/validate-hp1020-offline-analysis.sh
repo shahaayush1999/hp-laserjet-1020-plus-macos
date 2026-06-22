@@ -24,6 +24,7 @@ run_step "Python syntax checks" \
     "$ROOT_DIR/scripts/model-hp1020-video-engine-feedback.py" \
     "$ROOT_DIR/scripts/model-hp1020-video-transfer-ring.py" \
     "$ROOT_DIR/scripts/model-hp1020-video-irq-decisions.py" \
+    "$ROOT_DIR/scripts/model-hp1020-video-band-queue.py" \
     "$ROOT_DIR/scripts/model-hp1020-first-page-hardware-sequence.py" \
     "$ROOT_DIR/scripts/model-hp1020-minimal-print-scope.py" \
     "$ROOT_DIR/scripts/model-hp1020-open-endpoint0.py" \
@@ -81,6 +82,9 @@ run_step "Regenerate video transfer ring model" \
 
 run_step "Regenerate video IRQ decision model" \
   "$ROOT_DIR/scripts/model-hp1020-video-irq-decisions.py"
+
+run_step "Regenerate video band queue/list model" \
+  "$ROOT_DIR/scripts/model-hp1020-video-band-queue.py"
 
 run_step "Regenerate first-page hardware sequence" \
   "$ROOT_DIR/scripts/model-hp1020-first-page-hardware-sequence.py"

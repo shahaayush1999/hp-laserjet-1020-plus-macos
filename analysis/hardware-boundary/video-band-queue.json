@@ -1,0 +1,232 @@
+{
+  "checks": [
+    {
+      "name": "descriptor_base_dc",
+      "needle": "PTR_DAT_100067bc + *(int *)(PTR_DAT_10006770 + 0xdc) * 0xc",
+      "status": "present"
+    },
+    {
+      "name": "loop_requires_ready_0x100",
+      "needle": "while (((uVar8 & 0x100) != 0",
+      "status": "present"
+    },
+    {
+      "name": "loop_stops_at_e0_unless_final",
+      "needle": "(*(int *)(puVar2 + 0xdc) + 1U & 3) != *(uint *)(puVar2 + 0xe0)",
+      "status": "present"
+    },
+    {
+      "name": "source_pointer_from_slot",
+      "needle": "iVar7 = *(int *)(puVar2 + *(int *)(puVar2 + 0xdc) * 4)",
+      "status": "present"
+    },
+    {
+      "name": "callback_enabled_by_c0",
+      "needle": "if (*(int *)(puVar2 + 0xc0) != 0)",
+      "status": "present"
+    },
+    {
+      "name": "callback_pointer_present",
+      "needle": "if (*(int *)puVar4 != 0)",
+      "status": "present"
+    },
+    {
+      "name": "final_padding_zero",
+      "needle": "if (*(int *)(puVar6 + 4) != 0)",
+      "status": "present"
+    },
+    {
+      "name": "high_bit_set_on_last_units",
+      "needle": "*(uint *)(puVar2 + *(int *)(puVar2 + 0xdc) * 4 + 0x10) + DAT_10005e34",
+      "status": "present"
+    },
+    {
+      "name": "callback_call",
+      "needle": "(**(code **)puVar4)",
+      "status": "present"
+    },
+    {
+      "name": "dual_block_branch",
+      "needle": "if (*(int *)PTR_DAT_100067c8 == 1)",
+      "status": "present"
+    },
+    {
+      "name": "raw_band_a_pointer_write",
+      "needle": "*DAT_100067cc = iVar7",
+      "status": "present"
+    },
+    {
+      "name": "raw_band_b_pointer_write",
+      "needle": "*piVar5 = iVar7 + *(int *)(puVar2 + 0xbc)",
+      "status": "present"
+    },
+    {
+      "name": "raw_band_a_ready_wait",
+      "needle": "while ((uVar8 & 0x100) == 0)",
+      "status": "present"
+    },
+    {
+      "name": "raw_band_a_flags_write",
+      "needle": "*DAT_100067d4 = uVar9",
+      "status": "present"
+    },
+    {
+      "name": "raw_band_b_flags_write",
+      "needle": "*DAT_100067dc = uVar9 | (uint)(*(int *)(puVar2 + 0xec) != 0) << 0x19",
+      "status": "present"
+    },
+    {
+      "name": "single_block_flags_write",
+      "needle": "*DAT_100067d4 = uVar8 | (uint)(*(int *)(puVar6 + 4) != 0) << 0x18",
+      "status": "present"
+    },
+    {
+      "name": "remaining_d4_decrement",
+      "needle": "*(int *)(puVar2 + 0xd4) = *(int *)(puVar2 + 0xd4) - *(int *)(puVar6 + 8)",
+      "status": "present"
+    },
+    {
+      "name": "dc_advance_mod4",
+      "needle": "uVar9 = *(int *)(puVar2 + 0xdc) + 1U & 3",
+      "status": "present"
+    }
+  ],
+  "descriptor_fields": [
+    {
+      "field": "descriptor busy/owned flag",
+      "meaning": "set by 0x10014244 helper; cleared by IRQ band-done path",
+      "offset": "+0x00"
+    },
+    {
+      "field": "final/secondary flag",
+      "meaning": "allows one more queue iteration when next +0xdc would meet +0xe0; contributes raw-band flag bit 0x18",
+      "offset": "+0x04"
+    },
+    {
+      "field": "band units/count",
+      "meaning": "fed to callback, raw-band flag encoding, remaining +0xd4 decrement, and dual-block half-count",
+      "offset": "+0x08"
+    }
+  ],
+  "literal_values": {
+    "block_a_status": "0xb1000004",
+    "block_b_status": "0xb1000104",
+    "callback_ptr_cell": "0x1002efb0",
+    "dual_block_mode_ptr": "0x1001cdac",
+    "high_bit": "0x80000000",
+    "high_bit_clear_mask": "0x7fffffff",
+    "raw_band_a_flags": "0xb100000c",
+    "raw_band_a_pointer": "0xb1000008",
+    "raw_band_b_flags": "0xb100010c",
+    "raw_band_b_pointer": "0xb1000108",
+    "ring_descriptor_base": "0x1002efe0",
+    "video_state_base": "0x1002efc0"
+  },
+  "loop_scenarios": [
+    {
+      "dc": 0,
+      "dc_after": 1,
+      "descriptor_final_flag": 0,
+      "e0": 2,
+      "loop_decision": "queue_descriptor",
+      "name": "dc_0_e0_2_final_0",
+      "next_slot": 1
+    },
+    {
+      "dc": 0,
+      "dc_after": 0,
+      "descriptor_final_flag": 0,
+      "e0": 1,
+      "loop_decision": "stop_before_e0_collision",
+      "name": "dc_0_e0_1_final_0",
+      "next_slot": 1
+    },
+    {
+      "dc": 0,
+      "dc_after": 1,
+      "descriptor_final_flag": 1,
+      "e0": 1,
+      "loop_decision": "queue_descriptor",
+      "name": "dc_0_e0_1_final_1",
+      "next_slot": 1
+    },
+    {
+      "dc": 3,
+      "dc_after": 3,
+      "descriptor_final_flag": 0,
+      "e0": 0,
+      "loop_decision": "stop_before_e0_collision",
+      "name": "dc_3_e0_0_final_0",
+      "next_slot": 0
+    }
+  ],
+  "open_firmware_implication": [
+    "This helper is the queue/list side paired with IRQ band-done refill; it explains how +0xdc advances.",
+    "The helper will not blindly overrun +0xe0 unless the current descriptor carries its final/secondary flag.",
+    "It is also a raw-band MMIO writer, so it remains unsafe for early custom firmware until live video timing is proven."
+  ],
+  "queue_sequences": [
+    {
+      "name": "queue_loop_gate",
+      "registers": [
+        "0xb1000004"
+      ],
+      "steps": [
+        "select descriptor at `0x1002efe0 + (video_state +0xdc) * 0x0c`",
+        "continue only while block A status bit 0x100 is set",
+        "stop when the next +0xdc slot would equal +0xe0 unless the current descriptor final flag is nonzero"
+      ]
+    },
+    {
+      "name": "optional_callback_and_padding",
+      "registers": [],
+      "steps": [
+        "when state +0xc0 and callback pointer are nonzero, optionally zero padding after the descriptor band",
+        "if remaining +0xd4 is within the current descriptor size, set high bit 0x80000000 on the per-slot control word",
+        "call the callback with adjusted pointer, per-slot control word, and descriptor units masked to a multiple of four",
+        "after callback, use the per-slot control word as the raw-band pointer/control source"
+      ]
+    },
+    {
+      "name": "raw_band_single_block_write",
+      "registers": [
+        "0xb1000008",
+        "0xb100000c"
+      ],
+      "steps": [
+        "write descriptor pointer/control to 0xb1000008",
+        "encode descriptor units using the firmware helper and state +0xc4",
+        "OR descriptor final flag into bit 0x18 and write 0xb100000c"
+      ]
+    },
+    {
+      "name": "raw_band_dual_block_write",
+      "registers": [
+        "0xb1000008",
+        "0xb1000108",
+        "0xb100000c",
+        "0xb100010c"
+      ],
+      "steps": [
+        "write A pointer/control to 0xb1000008",
+        "write B pointer/control as A plus state +0xbc to 0xb1000108",
+        "encode half descriptor units for both blocks",
+        "wait for A and B status bit 0x100 before writing flags",
+        "OR descriptor final flag into A bit 0x18 and state +0xec into B bit 0x19"
+      ]
+    },
+    {
+      "name": "advance_queue_side",
+      "registers": [
+        "0xb1000004"
+      ],
+      "steps": [
+        "subtract descriptor units from state +0xd4",
+        "advance state +0xdc modulo 4",
+        "load the next 0x0c-byte descriptor record and re-read block A status"
+      ]
+    }
+  ],
+  "status": "pass",
+  "summary": "Video band queue/list helper model for raw-band register feed and +0xdc ownership."
+}
