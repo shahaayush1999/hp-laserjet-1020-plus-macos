@@ -55,6 +55,7 @@ ASM
 "$as_tool" -o "$obj" "$asm"
 "$ld_tool" -Ttext=0x10000000 -e _start -o "$elf" "$obj"
 "$objcopy_tool" -O binary "$elf" "$bin"
+chmod 644 "$asm" "$obj" "$elf" "$bin"
 
 {
   printf '# Xtensa Binutils Smoke Test\n\n'

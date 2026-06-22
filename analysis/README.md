@@ -161,6 +161,7 @@ Useful current conclusions:
 - `analysis/usb-path/usb-mmio-map.md` turns the endpoint-0 register evidence into a concrete checklist: setup/status gates `0xb3000400/0408`, descriptor/control registers `0xb3000504/0508/050c/0510`, ack/kick registers, and likely setup/event pointer `0xb3000214`.
 - `scripts/check-hp1020-usb-probe-contract.py` is the stricter scanner for future USB-only candidates: engine/video MMIO fails, and USB MMIO must be one of the mapped endpoint-0 registers.
 - `scripts/check-hp1020-usb-mmio-accesses.py` classifies candidate disassembly into USB MMIO reads and writes. The current USB snapshot probe reports 14 mapped reads and 0 writes.
+- `scripts/run-usb-marker-draft-hardware-test.sh` is the guarded dry-run/default harness for the marker draft. It re-runs the static gates before any upload and requires `HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1`.
 - `scripts/check-hp1020-safety-boundary.py` is a pre-upload safety scanner for future candidate source/disassembly; it fails on known unsafe video/engine functions and MMIO families.
 - `analysis/toolchain-probe/binutils-exec-status.md` records that the old `/tmp/hp1020-ctng-mnt/.../xtensa-fsf-elf-*` tools are present but corrupt, and that `scripts/build-xtensa-binutils-manual.sh` recovers a runnable assembly-only prefix.
 - `analysis/printer-test-readiness-report.md` records the controlled connected-printer test path using `analysis/samples/minimal-page.ps` and `scripts/run-printer-readiness-test.sh --send`; that test has printed successfully once on hardware.

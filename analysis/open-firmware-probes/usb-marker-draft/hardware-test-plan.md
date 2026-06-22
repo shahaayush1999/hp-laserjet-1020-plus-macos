@@ -70,3 +70,24 @@ Do not start with this marker draft. The safer order is:
 
 This plan exists so the write-capable step is ready when needed, not because it
 should be run automatically.
+
+## Script
+
+Dry run:
+
+```sh
+scripts/run-usb-marker-draft-hardware-test.sh --dry-run
+```
+
+Real upload, only after the safer stock/idle/read-only checks:
+
+```sh
+HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1 \
+  scripts/run-usb-marker-draft-hardware-test.sh \
+  --upload \
+  --device-uri 'usb://Hewlett-Packard/HP%20LaserJet%201020?serial=...' \
+  --i-understand-this-uploads-usb-marker-draft
+```
+
+Do not run this through the normal print queue. Do not use Chrome/Preview. Do
+not send a PDF.
