@@ -1,5 +1,5 @@
 {
-  "check_count": 46,
+  "check_count": 47,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -71,6 +71,12 @@
       "detail": "The video queue payload chain must preserve that prepare receives the 0x94 work object, while work +0x26 remains unsourced.",
       "evidence": "analysis/hardware-boundary/video-queue-payload-chain.json",
       "name": "video_queue_payload_chain_identifies_prepare_work_object",
+      "severity": "watch"
+    },
+    {
+      "detail": "The prepare argument field model must keep render geometry sourced while +0x26/+0x30/+0x32 remain unsourced on active work.",
+      "evidence": "analysis/hardware-boundary/video-prepare-argument-fields.json",
+      "name": "video_prepare_argument_fields_separate_sourced_and_unsourced",
       "severity": "watch"
     },
     {

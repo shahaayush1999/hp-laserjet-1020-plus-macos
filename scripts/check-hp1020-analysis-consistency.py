@@ -276,6 +276,28 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/hardware-boundary/video-queue-payload-chain.json",
         )
     )
+    prepare_fields = read_json("analysis/hardware-boundary/video-prepare-argument-fields.json")
+    prepare_field_rows = {
+        item.get("field"): item
+        for item in prepare_fields.get("fields", [])
+        if isinstance(item, dict)
+    }
+    checks.append(
+        check(
+            "video_prepare_argument_fields_separate_sourced_and_unsourced",
+            prepare_fields.get("status") == "pass"
+            and prepare_fields.get("prepare_argument_identity") == "0x94-byte video/page work object"
+            and prepare_field_rows.get("+0x84/+0x88/+0x8c/+0x90", {}).get("source_status") == "sourced"
+            and prepare_field_rows.get("+0x26", {}).get("source_status") == "unsourced_active_work"
+            and prepare_field_rows.get("+0x30", {}).get("source_status") == "unsourced_active_work"
+            and prepare_field_rows.get("+0x32", {}).get("source_status") == "unsourced_active_work"
+            and prepare_field_rows.get("+0x74", {}).get("source_status") == "default_zero_for_current_path"
+            and prepare_fields.get("field_status_counts", {}).get("unsourced_active_work") == 3
+            and all(item.get("status") == "present" for item in prepare_fields.get("checks", [])),
+            "The prepare argument field model must keep render geometry sourced while +0x26/+0x30/+0x32 remain unsourced on active work.",
+            evidence="analysis/hardware-boundary/video-prepare-argument-fields.json",
+        )
+    )
     remaining_units = read_json("analysis/hardware-boundary/video-remaining-units.json")
     remaining_cases = {
         item.get("case"): item
