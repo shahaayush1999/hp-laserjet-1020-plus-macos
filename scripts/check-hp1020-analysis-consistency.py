@@ -316,6 +316,43 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/hardware-boundary/engine-status-decisions.json",
         )
     )
+    video_feedback = read_json("analysis/hardware-boundary/video-engine-feedback.json")
+    video_literals = video_feedback.get("literal_values", {})
+    feedback_sequences = {
+        item.get("name"): item
+        for item in video_feedback.get("feedback_sequences", [])
+        if isinstance(item, dict)
+    }
+    feedback_messages = [
+        message
+        for sequence in video_feedback.get("feedback_sequences", [])
+        if isinstance(sequence, dict)
+        for message in sequence.get("messages", [])
+        if isinstance(message, dict)
+    ]
+    feedback_message_pairs = {(item.get("message"), item.get("payload")) for item in feedback_messages}
+    checks.append(
+        check(
+            "video_engine_feedback_model_resolved",
+            video_feedback.get("status") == "pass"
+            and {
+                "normal_video_done",
+                "video_reset_or_flush",
+                "reset_dispatch_complete_active",
+                "reset_dispatch_event_words",
+            }.issubset(feedback_sequences)
+            and ("0x10", "original video queue payload") in feedback_message_pairs
+            and ("0x25", "no event word in word 1") in feedback_message_pairs
+            and ("0x11", "completion/advance") in feedback_message_pairs
+            and ("0x0b", "deferred video work when present") in feedback_message_pairs
+            and {"0xe6e01201", "0xe6e01202", "0xeee01b01", "0xeee01b02", "0xeee01b04"}.issubset(
+                set(video_literals.values())
+            )
+            and all(check.get("status") == "present" for check in video_feedback.get("checks", [])),
+            "The video-to-engine feedback model must preserve normal completion, reset/flush, requeue, and video event-word behavior.",
+            evidence="analysis/hardware-boundary/video-engine-feedback.json",
+        )
+    )
     checks.append(
         check(
             "usb_family_remains_only_low_risk_target",
