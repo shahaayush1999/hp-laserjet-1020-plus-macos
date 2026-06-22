@@ -38,7 +38,7 @@
       "severity": "watch"
     },
     {
-      "detail": "The generated narrow-scope report must preserve the current split: parser/object path mapped, video/engine hardware still high risk.",
+      "detail": "The generated narrow-scope report must preserve the current split: parser/object path mapped, sideband policy narrowed but unresolved, video/engine hardware still high risk.",
       "evidence": "analysis/open-firmware-model/minimal-print-scope.json",
       "name": "minimal_print_scope_keeps_parser_mapped_and_hardware_blocked",
       "severity": "watch"
@@ -80,7 +80,7 @@
       "severity": "watch"
     },
     {
-      "detail": "The sideband write census must preserve that selected +0x26/+0x30/+0x32 hits are upstream writers or consumers, not active work-object writers.",
+      "detail": "The sideband write census must preserve that selected +0x26/+0x30/+0x32 hits and overlap hits are upstream writers, consumers, or false leads, not active work-object writers.",
       "evidence": "analysis/hardware-boundary/video-sideband-write-census.json",
       "name": "video_sideband_write_census_rules_out_false_leads",
       "severity": "watch"
@@ -92,7 +92,7 @@
       "severity": "watch"
     },
     {
-      "detail": "The sideband default-impact model must keep +0x26 as print-path critical, +0x32 mode-critical, and +0x30 lower priority.",
+      "detail": "The sideband default-impact model must keep +0x26 as print-path critical, +0x32 mode-critical, +0x30 lower priority, and classify the exact-offset Ghidra access scan.",
       "evidence": "analysis/hardware-boundary/video-sideband-default-impact.json",
       "name": "video_sideband_default_impact_keeps_0x26_critical",
       "severity": "watch"

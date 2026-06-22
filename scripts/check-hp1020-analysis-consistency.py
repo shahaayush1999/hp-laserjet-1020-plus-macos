@@ -136,9 +136,14 @@ def build_report() -> dict[str, Any]:
             and scope_evidence.get("model_invariant_failures") == 0
             and scope_evidence.get("endpoint0_data_cases") == 24
             and scope_components.get("ZjStream parser and JobMgr object model", {}).get("current_status") == "mapped"
+            and scope_components.get("Video sideband policy", {}).get("current_status") == "narrowed but unresolved"
+            and scope_components.get("Video sideband policy", {}).get("risk") == "high"
             and scope_components.get("Video/raw-band hardware feed", {}).get("risk") == "high"
-            and scope_components.get("Engine paper/fuser/motor coordination", {}).get("risk") == "high",
-            "The generated narrow-scope report must preserve the current split: parser/object path mapped, video/engine hardware still high risk.",
+            and scope_components.get("Engine paper/fuser/motor coordination", {}).get("risk") == "high"
+            and scope_evidence.get("sideband_access_hits") == 19
+            and scope_evidence.get("sideband_0x26_risk") == "critical"
+            and scope_evidence.get("remaining_units_source_gap") is True,
+            "The generated narrow-scope report must preserve the current split: parser/object path mapped, sideband policy narrowed but unresolved, video/engine hardware still high risk.",
             evidence="analysis/open-firmware-model/minimal-print-scope.json",
         )
     )
@@ -308,6 +313,7 @@ def build_report() -> dict[str, Any]:
         if isinstance(item, dict)
     }
     census_roles = sideband_census.get("role_counts", {})
+    overlap_roles = sideband_census.get("overlap_role_counts", {})
     checks.append(
         check(
             "video_sideband_write_census_rules_out_false_leads",
@@ -318,11 +324,16 @@ def build_report() -> dict[str, Any]:
             and census_roles.get("scaled_index_false_lead") == 1
             and census_roles.get("runtime_byte_to_work_0x90") == 2
             and sideband_census.get("active_work_writer_hits") == []
+            and len(sideband_census.get("ghidra_sideband_overlap_store_scan", {}).get("hits", [])) == 103
+            and overlap_roles.get("upstream_page_param_exact_store") == 3
+            and overlap_roles.get("video_state_ring_clear") == 1
             and census_checks.get("child_record_0x13_is_not_work_0x26", {}).get("status") == "present"
             and census_checks.get("runtime_byte_0x13_feeds_work_0x90_not_sideband", {}).get("status") == "present"
+            and census_checks.get("ghidra_overlap_scan_finds_no_work_populate_or_jobmgr_sideband_writer", {}).get("status")
+            == "present"
             and census_checks.get("no_selected_active_work_writer_found", {}).get("status") == "present"
             and all(item.get("status") == "present" for item in sideband_census.get("checks", [])),
-            "The sideband write census must preserve that selected +0x26/+0x30/+0x32 hits are upstream writers or consumers, not active work-object writers.",
+            "The sideband write census must preserve that selected +0x26/+0x30/+0x32 hits and overlap hits are upstream writers, consumers, or false leads, not active work-object writers.",
             evidence="analysis/hardware-boundary/video-sideband-write-census.json",
         )
     )
@@ -347,6 +358,13 @@ def build_report() -> dict[str, Any]:
         for item in sideband_impact.get("field_impacts", [])
         if isinstance(item, dict)
     }
+    sideband_access_hits = sideband_impact.get("ghidra_video_state_access_scan", {}).get("hits", [])
+    sideband_access_roles = {item.get("role") for item in sideband_access_hits if isinstance(item, dict)}
+    e8_access_hits = [
+        item
+        for item in sideband_access_hits
+        if isinstance(item, dict) and item.get("offset") == "0xe8"
+    ]
     checks.append(
         check(
             "video_sideband_default_impact_keeps_0x26_critical",
@@ -354,8 +372,14 @@ def build_report() -> dict[str, Any]:
             and sideband_impacts.get("+0x26", {}).get("risk") == "critical"
             and sideband_impacts.get("+0x32", {}).get("risk") == "mode_critical"
             and sideband_impacts.get("+0x30", {}).get("risk") == "unknown_low_in_current_static_view"
+            and len(sideband_access_hits) == 19
+            and {"channel_b_refill_counter", "descriptor_final_accounting", "descriptor_b_flag", "raw_refresh_b_flag", "stack_local_false_positive"}.issubset(
+                sideband_access_roles
+            )
+            and len(e8_access_hits) == 1
+            and e8_access_hits[0].get("role") == "prepare_seed"
             and all(item.get("status") == "present" for item in sideband_impact.get("checks", [])),
-            "The sideband default-impact model must keep +0x26 as print-path critical, +0x32 mode-critical, and +0x30 lower priority.",
+            "The sideband default-impact model must keep +0x26 as print-path critical, +0x32 mode-critical, +0x30 lower priority, and classify the exact-offset Ghidra access scan.",
             evidence="analysis/hardware-boundary/video-sideband-default-impact.json",
         )
     )
