@@ -1,0 +1,501 @@
+{
+  "checks": [
+    {
+      "name": "io_stores_command_latch",
+      "needle": "*(undefined2 *)(PTR_DAT_10006920 + 0x5a) = param_1",
+      "source": "analysis/dispatch-mmio/decompiled/10015c68_hp1020_engine_status_io_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "io_clears_status_register",
+      "needle": "*puVar3 = *puVar3 & uVar5",
+      "source": "analysis/dispatch-mmio/decompiled/10015c68_hp1020_engine_status_io_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "io_waits_ready_submit_bit",
+      "needle": "(*hp1020_engine_status_reg_table_word & uVar2) == 0",
+      "source": "analysis/dispatch-mmio/decompiled/10015c68_hp1020_engine_status_io_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "io_writes_command_low16",
+      "needle": "*puVar6 = *puVar6 & uVar1 | (uint)*(ushort *)(puVar4 + 0x5a)",
+      "source": "analysis/dispatch-mmio/decompiled/10015c68_hp1020_engine_status_io_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "io_sets_submit_bit",
+      "needle": "*puVar6 = *puVar6 | uVar2",
+      "source": "analysis/dispatch-mmio/decompiled/10015c68_hp1020_engine_status_io_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "io_timeout_emits_0x17",
+      "needle": "hp1020_queue_send_candidate(1,&uStack_30)",
+      "source": "analysis/dispatch-mmio/decompiled/10015c68_hp1020_engine_status_io_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "poll_reads_primary_status_1",
+      "needle": "uVar4 = hp1020_engine_status_io_candidate(1)",
+      "source": "analysis/dispatch-mmio/decompiled/10015df8_hp1020_engine_status_poll_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "poll_reads_status_0x20",
+      "needle": "uVar5 = hp1020_engine_status_io_candidate(0x20)",
+      "source": "analysis/dispatch-mmio/decompiled/10015df8_hp1020_engine_status_poll_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "poll_reads_status_2",
+      "needle": "uVar5 = hp1020_engine_status_io_candidate(2)",
+      "source": "analysis/dispatch-mmio/decompiled/10015df8_hp1020_engine_status_poll_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "poll_reads_substatus_0x16",
+      "needle": "uVar7 = hp1020_engine_status_io_candidate(0x16)",
+      "source": "analysis/dispatch-mmio/decompiled/10015df8_hp1020_engine_status_poll_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "poll_reads_substatus_0x13",
+      "needle": "uVar9 = hp1020_engine_status_io_candidate(0x13)",
+      "source": "analysis/dispatch-mmio/decompiled/10015df8_hp1020_engine_status_poll_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "poll_command_0x501a_side_effect",
+      "needle": "hp1020_engine_status_io_candidate(DAT_10006968)",
+      "source": "analysis/dispatch-mmio/decompiled/10015df8_hp1020_engine_status_poll_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "poll_command_0x5043_side_effect",
+      "needle": "hp1020_engine_status_io_candidate(DAT_1000697c)",
+      "source": "analysis/dispatch-mmio/decompiled/10015df8_hp1020_engine_status_poll_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "poll_stores_selected_event",
+      "needle": "*(uint *)(PTR_DAT_10006920 + 0x60) = uVar6",
+      "source": "analysis/dispatch-mmio/decompiled/10015df8_hp1020_engine_status_poll_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "poll_stores_primary_low16",
+      "needle": "*(short *)(puVar2 + 100) = (short)uVar4",
+      "source": "analysis/dispatch-mmio/decompiled/10015df8_hp1020_engine_status_poll_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "poll_can_reset_video",
+      "needle": "hp1020_video_reset_dispatch_candidate()",
+      "source": "analysis/dispatch-mmio/decompiled/10015df8_hp1020_engine_status_poll_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "preflight_sets_start_bit",
+      "needle": "*hp1020_engine_command_reg_table_word = *hp1020_engine_command_reg_table_word | DAT_10005e74",
+      "source": "analysis/dispatch-mmio/decompiled/100160a8_hp1020_engine_preflight_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "preflight_timeout_event",
+      "needle": "uStack_2c = DAT_1000692c",
+      "source": "analysis/dispatch-mmio/decompiled/100160a8_hp1020_engine_preflight_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "preflight_datastore_source_0x0f",
+      "needle": "hp1020_datastore_get_value_candidate(0xf)",
+      "source": "analysis/dispatch-mmio/decompiled/100160a8_hp1020_engine_preflight_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "dispatch_command_0x6012",
+      "needle": "hp1020_engine_status_io_candidate(DAT_100069a4)",
+      "source": "analysis/dispatch-mmio/decompiled/10016164_hp1020_engine_message_dispatch_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "dispatch_command_0x3a13",
+      "needle": "uVar4 = hp1020_engine_status_io_candidate(DAT_100069a0)",
+      "source": "analysis/dispatch-mmio/decompiled/10016164_hp1020_engine_message_dispatch_candidate.c",
+      "status": "present"
+    }
+  ],
+  "command_sequences": [
+    {
+      "function": "0x10015c68 hp1020_engine_status_io_candidate",
+      "name": "engine_status_io_handshake",
+      "registers": {
+        "command": "0xb0500004",
+        "status": "0xb050000c"
+      },
+      "steps": [
+        "stage the 16-bit command at engine state +0x5a",
+        "clear the status register with 0xfeffffff",
+        "wait for status register bit 0x00010000",
+        "write the staged command into the command register low 16 bits while preserving upper 16 bits",
+        "set command register bit 0x00010000 and wait for firmware event response",
+        "on timeout, emit queue 1 message 0x17 with event 0xfe001401 and return 0xffff"
+      ]
+    },
+    {
+      "function": "0x100160a8 hp1020_engine_preflight_candidate",
+      "name": "preflight_start",
+      "registers": {
+        "command": "0xb0500004"
+      },
+      "steps": [
+        "emit queue 1 message 0x17 with event 0xe6101100",
+        "OR bit 0x00020000 into the engine command register",
+        "poll for that bit to clear, sleeping 0x14 ticks between checks",
+        "after success, write config pointers at engine state +0x48/+0x4c and send message 0x18",
+        "after 0x1e failed loops or latch +0x24, emit timeout event 0xfe001401"
+      ]
+    },
+    {
+      "function": "0x10016164 hp1020_engine_message_dispatch_candidate",
+      "name": "print_dispatch_start_commands",
+      "registers": {
+        "command": "0xb0500004"
+      },
+      "steps": [
+        "message 0x0b/0x40 stores active page work pointer at engine state +0x68",
+        "if no reset latch is active, send engine command 0x6012",
+        "if reset latch is active, send engine command 0x3a13 and keep latch when returned status has 0x8000 clear"
+      ]
+    },
+    {
+      "function": "0x10015df8 hp1020_engine_status_poll_candidate",
+      "name": "poll_transition_side_effects",
+      "registers": {
+        "command": "0xb0500004"
+      },
+      "steps": [
+        "command 0x501a is sent from the substatus 0x16 branch",
+        "command 0x5043 is sent when the previous event family was e6100800 and the new event leaves that family",
+        "state +0x60 is updated with the selected event and queue 1 message 0x17 is emitted when it changes",
+        "primary status low16 is stored at state +0x64 after each successful poll"
+      ]
+    }
+  ],
+  "event_decisions": [
+    {
+      "condition": "primary status command 1 passes all-ones check and has mask 0x4040 set",
+      "confidence": "medium",
+      "event": "0x04800100",
+      "source": "poll"
+    },
+    {
+      "condition": "command 0x20 response has mask 0x800 set",
+      "confidence": "medium",
+      "event": "0xf6000300",
+      "source": "poll"
+    },
+    {
+      "condition": "command 0x20 response has bit 0x400 set while 0x800 is clear",
+      "confidence": "medium",
+      "event": "0xf6000400",
+      "source": "poll"
+    },
+    {
+      "condition": "nested command 2/0x16 status checks settle into normal-looking branch",
+      "confidence": "medium",
+      "event": "0xe6100a01",
+      "source": "poll"
+    },
+    {
+      "condition": "command 2 status 0x4000 branch, or substatus 0x16 plus 0x40 transition",
+      "confidence": "medium",
+      "event": "0xe6100800",
+      "source": "poll"
+    },
+    {
+      "condition": "command 2 response has any of mask 0x424 set",
+      "confidence": "medium",
+      "event": "0x20001607",
+      "source": "poll"
+    },
+    {
+      "condition": "preflight start event, or command 2 response has bit 0x1000 set",
+      "confidence": "medium",
+      "event": "0xe6101100",
+      "source": "preflight/poll"
+    },
+    {
+      "condition": "command 2 response has bit 0x2000 set",
+      "confidence": "medium",
+      "event": "0xe6100e00",
+      "source": "poll"
+    },
+    {
+      "condition": "fallback when primary bit 0x40 is set and command 2 bit 0x200 is clear",
+      "confidence": "low",
+      "event": "0x80000000",
+      "source": "poll"
+    },
+    {
+      "condition": "substatus command 0x16 bit 0x10 branch",
+      "confidence": "medium",
+      "event": "0xe6000d03",
+      "source": "poll"
+    },
+    {
+      "condition": "substatus command 0x16 bit 0x08 branch",
+      "confidence": "medium",
+      "event": "0xe6000d06",
+      "source": "poll"
+    },
+    {
+      "condition": "substatus command 0x16 bit 0x04 branch",
+      "confidence": "medium",
+      "event": "0xe6000d04",
+      "source": "poll"
+    },
+    {
+      "condition": "command 0x13 switch default for (status >> 1) & 0x3f",
+      "confidence": "medium",
+      "event": "0xe6100b0a",
+      "source": "poll"
+    },
+    {
+      "condition": "command 0x13 switch cases 0x10, 0x14, 0x18",
+      "confidence": "medium",
+      "event": "0xe6100b0b",
+      "source": "poll"
+    },
+    {
+      "condition": "selected event low16 0x0a01 is rewritten before storage/send",
+      "confidence": "medium",
+      "event": "0x14000a04",
+      "source": "poll"
+    },
+    {
+      "condition": "status I/O retries or preflight wait loop exhaust",
+      "confidence": "high",
+      "event": "0xfe001401",
+      "source": "engine_io/preflight"
+    }
+  ],
+  "literal_values": {
+    "command_0x3a13": "0x00003a13",
+    "command_0x501a": "0x0000501a",
+    "command_0x5043": "0x00005043",
+    "command_0x6012": "0x00006012",
+    "default_primary_event": "0x04800100",
+    "dispatch_queue_ptr": "0x10030594",
+    "dispatch_ready_mask": "0x00008000",
+    "engine_clear_mask": "0xfeffffff",
+    "engine_command_preserve_mask": "0xffff0000",
+    "engine_command_register": "0xb0500004",
+    "engine_ready_submit_bit": "0x00010000",
+    "engine_start_status_bit": "0x00002000",
+    "engine_state_base": "0x1002f0c4",
+    "engine_status_register": "0xb050000c",
+    "event_0x14000a04": "0x14000a04",
+    "event_e6000d03": "0xe6000d03",
+    "event_e6000d04": "0xe6000d04",
+    "event_e6000d06": "0xe6000d06",
+    "event_e6100800": "0xe6100800",
+    "event_e6100b0a": "0xe6100b0a",
+    "event_e6100b0b": "0xe6100b0b",
+    "event_e6100e00": "0xe6100e00",
+    "event_f6000300": "0xf6000300",
+    "event_f6000400": "0xf6000400",
+    "event_preflight_or_status_1100": "0xe6101100",
+    "event_ready_ok": "0xe6100a01",
+    "event_status_1607": "0x20001607",
+    "fallback_error_event": "0x80000000",
+    "low16_0x0a01": "0x00000a01",
+    "low16_0x0a04": "0x00000a04",
+    "preflight_start_bit": "0x00020000",
+    "primary_0x2e00_mask": "0x00002e00",
+    "primary_0x4040_mask": "0x00004040",
+    "state_ptr_0x48_a": "0x1001cd34",
+    "state_ptr_0x4c_b": "0x1001cd3c",
+    "status_0x20_0x800_mask": "0x00000800",
+    "status_2_0x1000_mask": "0x00001000",
+    "status_2_0x4000_mask": "0x00004000",
+    "status_all_ones": "0x0000ffff",
+    "switch_table_0x13": "0x100059c0",
+    "timeout_event": "0xfe001401"
+  },
+  "open_firmware_implication": [
+    "For printing, this is the critical non-USB hardware conversation: it gates page start, readiness, error state, and video reset.",
+    "The model identifies the stock command IDs and event words, but it still does not name every physical condition such as exact paper, cover, fuser, toner, or jam bit.",
+    "The next printer-side test should still be non-printing status/PJL calibration before any custom firmware tries to drive these commands."
+  ],
+  "state_fields": [
+    {
+      "field": "preflight wait latch",
+      "meaning": "breaks preflight wait loop when nonzero",
+      "offset": "+0x24"
+    },
+    {
+      "field": "dispatch busy flag",
+      "meaning": "set/cleared around engine dispatch cases",
+      "offset": "+0x28"
+    },
+    {
+      "field": "paper/engine latch candidate",
+      "meaning": "used with primary status bit 0x2000 and bit 0x80",
+      "offset": "+0x2c"
+    },
+    {
+      "field": "engine-needs-service flag candidate",
+      "meaning": "set by normal/ready branch and reset-trigger branch",
+      "offset": "+0x30"
+    },
+    {
+      "field": "previous primary 0x2e00 mask flag",
+      "meaning": "tracks whether stored primary status had any 0x2e00 bits",
+      "offset": "+0x34"
+    },
+    {
+      "field": "video reset / page transition latch",
+      "meaning": "can trigger hp1020_video_reset_dispatch_candidate",
+      "offset": "+0x38"
+    },
+    {
+      "field": "deferred latch clear flag",
+      "meaning": "cleared when primary status 0x2e00 mask clears",
+      "offset": "+0x3c"
+    },
+    {
+      "field": "active engine config pointer",
+      "meaning": "points at preflight config or page mode config",
+      "offset": "+0x48"
+    },
+    {
+      "field": "secondary engine config pointer",
+      "meaning": "paired pointer written by preflight",
+      "offset": "+0x4c"
+    },
+    {
+      "field": "preflight config scalar",
+      "meaning": "zeroed during successful preflight",
+      "offset": "+0x54"
+    },
+    {
+      "field": "preflight byte flag",
+      "meaning": "set to 0xff during successful preflight",
+      "offset": "+0x58"
+    },
+    {
+      "field": "command latch",
+      "meaning": "16-bit command argument staged before register write",
+      "offset": "+0x5a"
+    },
+    {
+      "field": "returned status value",
+      "meaning": "16-bit engine response returned by status IO helper",
+      "offset": "+0x5c"
+    },
+    {
+      "field": "selected event/status word",
+      "meaning": "last event word emitted as engine queue message 0x17",
+      "offset": "+0x60"
+    },
+    {
+      "field": "primary status low16",
+      "meaning": "last primary command 1 status word",
+      "offset": "+0x64"
+    },
+    {
+      "field": "active page work pointer",
+      "meaning": "current page/job work pointer used by dispatch",
+      "offset": "+0x68"
+    },
+    {
+      "field": "deferred page work pointer",
+      "meaning": "second pending work pointer if engine is busy",
+      "offset": "+0x6c"
+    },
+    {
+      "field": "engine state object",
+      "meaning": "state base pointer is 0x1002f0c4",
+      "offset": "base"
+    }
+  ],
+  "status": "pass",
+  "status_io_calls": [
+    {
+      "argument": "1",
+      "kind": "status_read",
+      "literal_name": "",
+      "role": "primary engine status word",
+      "source": "engine_poll",
+      "value": "0x1"
+    },
+    {
+      "argument": "0x20",
+      "kind": "status_read",
+      "literal_name": "",
+      "role": "secondary status word for f600 status branch",
+      "source": "engine_poll",
+      "value": "0x20"
+    },
+    {
+      "argument": "2",
+      "kind": "status_read",
+      "literal_name": "",
+      "role": "tertiary status word for e610/20001607 branch",
+      "source": "engine_poll",
+      "value": "0x2"
+    },
+    {
+      "argument": "0x16",
+      "kind": "status_read",
+      "literal_name": "",
+      "role": "substatus word for e6000dxx and follow-up poll",
+      "source": "engine_poll",
+      "value": "0x16"
+    },
+    {
+      "argument": "DAT_10006968",
+      "kind": "engine_command",
+      "literal_name": "command_0x501a",
+      "role": "side-effect command used in substatus 0x16 branch",
+      "source": "engine_poll",
+      "value": "0x0000501a"
+    },
+    {
+      "argument": "0x13",
+      "kind": "status_read",
+      "literal_name": "",
+      "role": "substatus switch for e6100b0a/e6100b0b branch",
+      "source": "engine_poll",
+      "value": "0x13"
+    },
+    {
+      "argument": "DAT_1000697c",
+      "kind": "engine_command",
+      "literal_name": "command_0x5043",
+      "role": "side-effect command used when leaving e6100800 state family",
+      "source": "engine_poll",
+      "value": "0x00005043"
+    },
+    {
+      "argument": "DAT_100069a4",
+      "kind": "engine_command",
+      "literal_name": "command_0x6012",
+      "role": "page/start command when no engine reset latch is active",
+      "source": "dispatch",
+      "value": "0x00006012"
+    },
+    {
+      "argument": "DAT_100069a0",
+      "kind": "engine_command",
+      "literal_name": "command_0x3a13",
+      "role": "page/start command when engine reset latch is active",
+      "source": "dispatch",
+      "value": "0x00003a13"
+    }
+  ],
+  "summary": "Engine command/status flow model for the HP 1020 print engine boundary."
+}

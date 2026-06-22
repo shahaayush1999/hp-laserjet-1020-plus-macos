@@ -1,5 +1,5 @@
 {
-  "check_count": 30,
+  "check_count": 31,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -65,6 +65,12 @@
       "detail": "The video-prepare mode model must preserve the branch-dependent 0xb100 timing/setup table evidence.",
       "evidence": "analysis/hardware-boundary/video-prepare-modes.json",
       "name": "video_prepare_modes_keep_timing_tables",
+      "severity": "watch"
+    },
+    {
+      "detail": "The engine command/status model must preserve the stock 0xb050 register pair, command IDs, state fields, and event branches.",
+      "evidence": "analysis/hardware-boundary/engine-command-status.json",
+      "name": "engine_command_status_model_resolved",
       "severity": "watch"
     },
     {

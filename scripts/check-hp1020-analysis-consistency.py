@@ -235,6 +235,59 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/hardware-boundary/video-prepare-modes.json",
         )
     )
+    engine_command_status = read_json("analysis/hardware-boundary/engine-command-status.json")
+    engine_literals = engine_command_status.get("literal_values", {})
+    engine_calls = {
+        item.get("value"): item
+        for item in engine_command_status.get("status_io_calls", [])
+        if isinstance(item, dict)
+    }
+    engine_events = {
+        item.get("event")
+        for item in engine_command_status.get("event_decisions", [])
+        if isinstance(item, dict)
+    }
+    engine_sequences = {
+        item.get("name")
+        for item in engine_command_status.get("command_sequences", [])
+        if isinstance(item, dict)
+    }
+    checks.append(
+        check(
+            "engine_command_status_model_resolved",
+            engine_command_status.get("status") == "pass"
+            and engine_literals.get("engine_status_register") == "0xb050000c"
+            and engine_literals.get("engine_command_register") == "0xb0500004"
+            and engine_literals.get("engine_state_base") == "0x1002f0c4"
+            and {
+                "0x1",
+                "0x20",
+                "0x2",
+                "0x16",
+                "0x13",
+                "0x0000501a",
+                "0x00005043",
+                "0x00003a13",
+                "0x00006012",
+            }.issubset(engine_calls)
+            and {
+                "0xe6100a01",
+                "0xfe001401",
+                "0x14000a04",
+                "0xf6000300",
+                "0xe6000d03",
+            }.issubset(engine_events)
+            and {
+                "engine_status_io_handshake",
+                "preflight_start",
+                "print_dispatch_start_commands",
+                "poll_transition_side_effects",
+            }.issubset(engine_sequences)
+            and all(check.get("status") == "present" for check in engine_command_status.get("checks", [])),
+            "The engine command/status model must preserve the stock 0xb050 register pair, command IDs, state fields, and event branches.",
+            evidence="analysis/hardware-boundary/engine-command-status.json",
+        )
+    )
     checks.append(
         check(
             "usb_family_remains_only_low_risk_target",

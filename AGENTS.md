@@ -83,6 +83,7 @@ Open firmware analysis state:
 - `analysis/hardware-boundary/first-page-hardware-sequence.md` is the generated ordered sequence for the first real page after parser handoff: engine accepts work, PrintMgr sends Video Queue `0x0b`, video setup/render/raw-band feed touch `0xb100/0xb200/0xb204/0xb208`, then video completion wakes engine.
 - `analysis/hardware-boundary/video-engine-register-semantics.md` is the generated register-role report for the dangerous first-page hardware boundary: `0xb050` engine command/status, `0xb100` video setup/raw-band feed, `0xb200` transfer descriptor/control, and `0xb204`/`0xb208` paired transfer channels.
 - `analysis/hardware-boundary/video-prepare-modes.md` is the generated branch/table model for `0xb100` video prepare setup. It records mode-dependent timing values, lane/datastore branches, and the `0xb1000400..0x0430` table blocks.
+- `analysis/hardware-boundary/engine-command-status.md` is the generated command/status model for the stock `0xb050` engine path. It records the status read command IDs `1`, `0x20`, `2`, `0x16`, `0x13`; the side-effect/start commands `0x501a`, `0x5043`, `0x3a13`, `0x6012`; and the engine state offsets used for command latch, returned status, selected event, and current/deferred page work pointers.
 - `analysis/status-path/status-code-correlation.md` records that engine queue `0x17` event words are correlated with status output but are not themselves final PJL `CODE=` values.
 - `analysis/offline-consistency/offline-consistency.md` is the cross-report consistency gate for the current offline conclusions. It should pass before doing more hardware work.
 - `scripts/build-open-firmware-idle-probe.sh` rebuilds the probe.
@@ -94,6 +95,7 @@ Open firmware analysis state:
 - `scripts/model-hp1020-first-page-hardware-sequence.py` regenerates the ordered first-page hardware sequence from current generated analysis reports.
 - `scripts/model-hp1020-video-engine-register-semantics.py` regenerates the dangerous video/engine register-role report from the stock ELF and decompiled source.
 - `scripts/model-hp1020-video-prepare-modes.py` regenerates the branch/table model for `0xb100` video prepare setup.
+- `scripts/model-hp1020-engine-command-status.py` regenerates the `0xb050` engine command/status model from stock literals and decompiled source.
 - `scripts/run-idle-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_CUSTOM_FIRMWARE_UPLOAD=1`.
 - `scripts/run-usb-snapshot-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_USB_SNAPSHOT_UPLOAD=1`.
 - `scripts/run-usb-marker-draft-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1`. Do not run it before the safer stock/idle/read-only checks.

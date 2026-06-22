@@ -19,6 +19,7 @@ run_step "Python syntax checks" \
     "$ROOT_DIR/scripts/model-hp1020-hardware-boundary.py" \
     "$ROOT_DIR/scripts/model-hp1020-video-engine-register-semantics.py" \
     "$ROOT_DIR/scripts/model-hp1020-video-prepare-modes.py" \
+    "$ROOT_DIR/scripts/model-hp1020-engine-command-status.py" \
     "$ROOT_DIR/scripts/model-hp1020-first-page-hardware-sequence.py" \
     "$ROOT_DIR/scripts/model-hp1020-minimal-print-scope.py" \
     "$ROOT_DIR/scripts/model-hp1020-open-endpoint0.py" \
@@ -61,6 +62,9 @@ run_step "Regenerate video/engine register semantics" \
 
 run_step "Regenerate video prepare mode model" \
   "$ROOT_DIR/scripts/model-hp1020-video-prepare-modes.py"
+
+run_step "Regenerate engine command/status model" \
+  "$ROOT_DIR/scripts/model-hp1020-engine-command-status.py"
 
 run_step "Regenerate first-page hardware sequence" \
   "$ROOT_DIR/scripts/model-hp1020-first-page-hardware-sequence.py"
