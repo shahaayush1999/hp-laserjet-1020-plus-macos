@@ -66,6 +66,8 @@ Start here:
 60. `usb-path/open-endpoint0-model.md` - pure host-side endpoint-0 GET_DESCRIPTOR decision model for a future open USB marker
 61. `open-firmware-probes/usb-register-snapshot/usb-mmio-access-scan.md` - disassembly-level proof that the USB snapshot probe reads mapped USB registers and writes none
 62. `usb-path/endpoint0-handshake-contract.md` - static endpoint-0 setup/status gates and USB controller programming sequences
+63. `open-firmware-probes/usb-marker-draft/summary.md` - generated write-capable USB-only endpoint-0 marker draft and static validation
+64. `open-firmware-probes/usb-marker-draft/hardware-test-plan.md` - guarded future hardware test plan for the marker draft
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -116,6 +118,7 @@ Useful current conclusions:
 - `open-firmware/minimal-idle/` now builds an open-code, non-printing idle firmware probe with HP-style `.elf`, date-prefixed `.img`, and PJL/ACL `.dl` outputs.
 - `analysis/open-firmware-probes/minimal-idle/summary.md` records the current generated probe. It passes the boot-probe layout profile and safety scan, and it has trap-safe system-interface/runtime-vector placeholders.
 - `open-firmware/usb-register-snapshot/` now builds an open-code, non-printing USB register snapshot probe. It only reads mapped USB `0xb300....` registers into RAM and then idles; it has no host-visible output yet and has not been uploaded.
+- `open-firmware/usb-marker-draft/` now builds an open-code, USB-only marker draft. It recognizes a product-string `GET_DESCRIPTOR` setup shape and writes only the extracted stock endpoint-0 USB register sequences. It has not been uploaded.
 - `analysis/boot-handoff/boot-handoff.md` compares the stock HP firmware and open idle probe. The core packaging/shape question is mostly answered; the next decisive question is whether hardware accepts and branches into the open payload.
 - `analysis/open-firmware-probes/minimal-idle/hardware-test-result-2026-06-15.md` records the first hardware upload: USB backend sent all `121931` bytes, printer stayed green/quiet with no paper movement, and macOS still saw the HP USB identity. This is a good safety result but not proof that `_start` executed.
 - `scripts/query-hp1020-pjl-status.sh` is the next guarded hardware probe. It sends tiny non-printing PJL/status payloads through the direct USB backend, captures CUPS back-channel fd 3 bytes, and can calibrate stock HP firmware response before comparing against the open idle probe.
@@ -154,6 +157,7 @@ Useful current conclusions:
 - `analysis/usb-path/open-endpoint0-model.md` converts those descriptor bytes into a pure setup-packet response model. It answers what bytes to return for standard `GET_DESCRIPTOR` requests, including a future open marker string, while explicitly excluding USB controller MMIO.
 - `analysis/usb-path/endpoint0-machinery.md` maps the stock endpoint-0 flow: interrupt 4, USB event queue, `0x58`-byte transfer records, `0x10`-byte transfer descriptors, and `0xb300` control bits. The current standalone USB-marker blocker is endpoint-0 machinery, not descriptor payload bytes.
 - `analysis/usb-path/endpoint0-handshake-contract.md` extracts the immediate hardware-facing contract from those blocks: likely setup packet base `0x90021348`, event pointer register `0xb3000214`, response state slots, and two stock USB controller programming sequences.
+- `analysis/open-firmware-probes/usb-marker-draft/endpoint0-sequence-scan.md` verifies that the current marker draft's USB writes match the extracted endpoint-0 contract; this is the strictest offline gate before any future write-capable hardware test.
 - `analysis/usb-path/usb-mmio-map.md` turns the endpoint-0 register evidence into a concrete checklist: setup/status gates `0xb3000400/0408`, descriptor/control registers `0xb3000504/0508/050c/0510`, ack/kick registers, and likely setup/event pointer `0xb3000214`.
 - `scripts/check-hp1020-usb-probe-contract.py` is the stricter scanner for future USB-only candidates: engine/video MMIO fails, and USB MMIO must be one of the mapped endpoint-0 registers.
 - `scripts/check-hp1020-usb-mmio-accesses.py` classifies candidate disassembly into USB MMIO reads and writes. The current USB snapshot probe reports 14 mapped reads and 0 writes.

@@ -1,0 +1,200 @@
+[
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005cb1",
+    "register": "0xb3000508",
+    "sequence": "sequence_a",
+    "severity": "watch",
+    "value": "0x020000c1"
+  },
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005cbc",
+    "register": "0xb3000510",
+    "sequence": "sequence_a",
+    "severity": "watch",
+    "value": "0x020080c1"
+  },
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005cc7",
+    "register": "0xb300050c",
+    "sequence": "sequence_a",
+    "severity": "watch",
+    "value": "0x020000d1"
+  },
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005cd2",
+    "register": "0xb300022c",
+    "sequence": "sequence_a",
+    "severity": "watch",
+    "value": "0x00000040"
+  },
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005cdd",
+    "register": "0xb300020c",
+    "sequence": "sequence_a,sequence_b",
+    "severity": "watch",
+    "value": "0x00000040"
+  },
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005ce8",
+    "register": "0xb300000c",
+    "sequence": "sequence_a,sequence_b",
+    "severity": "watch",
+    "value": "0x00000040"
+  },
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005cf3",
+    "register": "0xb300002c",
+    "sequence": "sequence_a",
+    "severity": "watch",
+    "value": "0x00000040"
+  },
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005cfe",
+    "register": "0xb3000028",
+    "sequence": "sequence_a,sequence_b",
+    "severity": "watch",
+    "value": "0x00000040"
+  },
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005d0d",
+    "register": "0xb3000504",
+    "sequence": "sequence_b",
+    "severity": "watch",
+    "value": "0x02000000"
+  },
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005d18",
+    "register": "0xb3000508",
+    "sequence": "sequence_b",
+    "severity": "watch",
+    "value": "0x100000c1"
+  },
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005d23",
+    "register": "0xb3000510",
+    "sequence": "sequence_b",
+    "severity": "watch",
+    "value": "0x100080c1"
+  },
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005d2e",
+    "register": "0xb300050c",
+    "sequence": "sequence_b",
+    "severity": "watch",
+    "value": "0x100000d1"
+  },
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005d39",
+    "register": "0xb300022c",
+    "sequence": "sequence_b",
+    "severity": "watch",
+    "value": "0x00000200"
+  },
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005d44",
+    "register": "0xb300020c",
+    "sequence": "sequence_a,sequence_b",
+    "severity": "watch",
+    "value": "0x00000040"
+  },
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005d4f",
+    "register": "0xb300000c",
+    "sequence": "sequence_a,sequence_b",
+    "severity": "watch",
+    "value": "0x00000040"
+  },
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005d5a",
+    "register": "0xb300002c",
+    "sequence": "sequence_b",
+    "severity": "watch",
+    "value": "0x00000200"
+  },
+  {
+    "description": "expected endpoint-0 sequence write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_sequence_write",
+    "operation": "const",
+    "pc": "0x10005d65",
+    "register": "0xb3000028",
+    "sequence": "sequence_a,sequence_b",
+    "severity": "watch",
+    "value": "0x00000040"
+  },
+  {
+    "description": "begin/control-IN data stage",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "kind": "endpoint0_or_write",
+    "operation": "or",
+    "pc": "0x10005d8b",
+    "register": "0xb3000000",
+    "sequence": null,
+    "severity": "watch",
+    "value": "0x00000002"
+  }
+]

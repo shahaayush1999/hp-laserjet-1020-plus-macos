@@ -1,0 +1,120 @@
+{
+  "event_pointer_register": "0xb3000214",
+  "event_signature": {
+    "mask": "0xc0000000",
+    "value": "0x80000000"
+  },
+  "name": "HP 1020 endpoint-0 static handshake contract",
+  "response_state": {
+    "base": "0x100212d4",
+    "fields": {
+      "0x3c": "response byte count / remaining length",
+      "0x40": "response data pointer",
+      "0x68": "saved endpoint/request flag copied before TX"
+    }
+  },
+  "setup_packet_base_candidate": "0x90021348",
+  "setup_status_gates": [
+    {
+      "mask": "0x00006000",
+      "meaning": "controller speed/state gate",
+      "register": "0xb3000408"
+    },
+    {
+      "mask": "0x00000003",
+      "meaning": "setup/status ready gate",
+      "register": "0xb3000400"
+    }
+  ],
+  "usb_or_writes": [
+    {
+      "meaning": "begin/control-IN data stage",
+      "or_value": "0x00000002",
+      "register": "0xb3000000"
+    },
+    {
+      "meaning": "transfer descriptor kick pattern seen in stock data stage",
+      "or_value": "0x00000108",
+      "register": "0xb3000000"
+    },
+    {
+      "meaning": "event/interrupt acknowledgement fallback",
+      "or_value": "0x00000100",
+      "register": "0xb3000200"
+    }
+  ],
+  "usb_write_sequences": {
+    "sequence_a": [
+      {
+        "register": "0xb3000508",
+        "value": "0x020000c1"
+      },
+      {
+        "register": "0xb3000510",
+        "value": "0x020080c1"
+      },
+      {
+        "register": "0xb300050c",
+        "value": "0x020000d1"
+      },
+      {
+        "register": "0xb300022c",
+        "value": "0x00000040"
+      },
+      {
+        "register": "0xb300020c",
+        "value": "0x00000040"
+      },
+      {
+        "register": "0xb300000c",
+        "value": "0x00000040"
+      },
+      {
+        "register": "0xb300002c",
+        "value": "0x00000040"
+      },
+      {
+        "register": "0xb3000028",
+        "value": "0x00000040"
+      }
+    ],
+    "sequence_b": [
+      {
+        "register": "0xb3000504",
+        "value": "0x02000000"
+      },
+      {
+        "register": "0xb3000508",
+        "value": "0x100000c1"
+      },
+      {
+        "register": "0xb3000510",
+        "value": "0x100080c1"
+      },
+      {
+        "register": "0xb300050c",
+        "value": "0x100000d1"
+      },
+      {
+        "register": "0xb300022c",
+        "value": "0x00000200"
+      },
+      {
+        "register": "0xb300020c",
+        "value": "0x00000040"
+      },
+      {
+        "register": "0xb300000c",
+        "value": "0x00000040"
+      },
+      {
+        "register": "0xb300002c",
+        "value": "0x00000200"
+      },
+      {
+        "register": "0xb3000028",
+        "value": "0x00000040"
+      }
+    ]
+  }
+}
