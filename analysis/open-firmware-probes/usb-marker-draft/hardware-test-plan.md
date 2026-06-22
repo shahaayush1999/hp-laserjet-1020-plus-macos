@@ -23,6 +23,7 @@ The draft currently passes these static gates:
 - USB probe contract: only mapped `0xb300....` USB registers
 - USB MMIO access scan: mapped USB reads/writes only
 - endpoint-0 sequence scan: USB writes match the extracted stock endpoint-0 contract
+- memory boundary scan: 6 candidate setup-buffer reads and 2 stock response-state writes, with no hidden fail hits
 
 The draft still has an important unresolved assumption:
 

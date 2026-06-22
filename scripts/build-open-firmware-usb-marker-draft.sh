@@ -54,6 +54,8 @@ usb_access_md="$OUT_DIR/usb-mmio-access-scan.md"
 usb_access_json="$OUT_DIR/usb-mmio-access-scan.json"
 endpoint0_sequence_md="$OUT_DIR/endpoint0-sequence-scan.md"
 endpoint0_sequence_json="$OUT_DIR/endpoint0-sequence-scan.json"
+memory_boundary_md="$OUT_DIR/memory-boundary-scan.md"
+memory_boundary_json="$OUT_DIR/memory-boundary-scan.json"
 summary_md="$OUT_DIR/summary.md"
 
 "$as_tool" -o "$obj" "$SRC_DIR/usb-marker.S"
@@ -110,6 +112,11 @@ python3 "$ROOT_DIR/scripts/check-hp1020-endpoint0-sequence.py" \
   -o "$endpoint0_sequence_md" \
   --json "$endpoint0_sequence_json"
 
+python3 "$ROOT_DIR/scripts/check-hp1020-memory-boundary.py" \
+  "$disasm_txt" \
+  -o "$memory_boundary_md" \
+  --json "$memory_boundary_json"
+
 rm -f "$obj" "$toolchain_elf"
 
 {
@@ -124,6 +131,7 @@ rm -f "$obj" "$toolchain_elf"
   printf -- '- USB contract scan: `%s`\n' "$usb_contract_md"
   printf -- '- USB MMIO access scan: `%s`\n' "$usb_access_md"
   printf -- '- Endpoint-0 sequence scan: `%s`\n' "$endpoint0_sequence_md"
+  printf -- '- Memory boundary scan: `%s`\n' "$memory_boundary_md"
   printf '\n'
   printf '## Key Checks\n\n'
   printf '```text\n'
@@ -135,6 +143,7 @@ rm -f "$obj" "$toolchain_elf"
   printf '## Meaning\n\n'
   printf 'This open-code draft recognizes a USB product-string GET_DESCRIPTOR setup shape and tries to expose the marker string `HP1020 OPEN MARKER` through endpoint-0.\n'
   printf 'It writes only USB-controller MMIO registers that match the extracted stock endpoint-0 sequence contract.\n'
+  printf 'It also writes the stock USB response-state RAM slots used by that contract; the memory boundary scan makes those non-MMIO writes explicit.\n'
   printf 'It does not touch engine, fuser, motor, paper-feed, video, or raster MMIO.\n'
   printf 'It is not hardware-ready; the missing proof is whether the setup buffer and stock response state are valid after custom upload.\n'
 } > "$summary_md"
@@ -142,6 +151,6 @@ rm -f "$obj" "$toolchain_elf"
 chmod 644 "$elf" "$img" "$dl" "$readelf_txt" "$disasm_txt" "$layout_md" "$layout_json" \
   "$safety_md" "$safety_json" "$usb_contract_md" "$usb_contract_json" \
   "$usb_access_md" "$usb_access_json" "$endpoint0_sequence_md" "$endpoint0_sequence_json" \
-  "$summary_md" "$OUT_DIR/hp1020-usb-marker-draft.map"
+  "$memory_boundary_md" "$memory_boundary_json" "$summary_md" "$OUT_DIR/hp1020-usb-marker-draft.map"
 
 printf '%s\n' "$summary_md"

@@ -56,13 +56,15 @@ safety_status="$(mktemp /tmp/hp1020-marker-safety.XXXXXX.txt)"
 usb_contract_status="$(mktemp /tmp/hp1020-marker-usb-contract.XXXXXX.txt)"
 usb_access_status="$(mktemp /tmp/hp1020-marker-usb-access.XXXXXX.txt)"
 endpoint0_status="$(mktemp /tmp/hp1020-marker-endpoint0.XXXXXX.txt)"
-trap 'rm -f "$layout_status" "$safety_status" "$usb_contract_status" "$usb_access_status" "$endpoint0_status"' EXIT
+memory_status="$(mktemp /tmp/hp1020-marker-memory.XXXXXX.txt)"
+trap 'rm -f "$layout_status" "$safety_status" "$usb_contract_status" "$usb_access_status" "$endpoint0_status" "$memory_status"' EXIT
 
 python3 "$ROOT_DIR/scripts/inspect-firmware-layout.py" --profile boot-probe "$PROBE_DL" >"$layout_status"
 python3 "$ROOT_DIR/scripts/check-hp1020-safety-boundary.py" "$PROBE_SRC" "$PROBE_DISASM" >"$safety_status"
 python3 "$ROOT_DIR/scripts/check-hp1020-usb-probe-contract.py" "$PROBE_SRC" "$PROBE_DISASM" >"$usb_contract_status"
 python3 "$ROOT_DIR/scripts/check-hp1020-usb-mmio-accesses.py" --allow-usb-writes "$PROBE_DISASM" >"$usb_access_status"
 python3 "$ROOT_DIR/scripts/check-hp1020-endpoint0-sequence.py" "$PROBE_DISASM" >"$endpoint0_status"
+python3 "$ROOT_DIR/scripts/check-hp1020-memory-boundary.py" "$PROBE_DISASM" >"$memory_status"
 
 cat <<EOF
 HP 1020 USB marker draft hardware test
@@ -84,6 +86,9 @@ $(cat "$usb_access_status")
 
 Endpoint-0 sequence check:
 $(cat "$endpoint0_status")
+
+Memory boundary check:
+$(cat "$memory_status")
 
 This script does not send a PDF, PostScript file, ZjStream print stream, or
 engine/video command. It uploads a USB-only custom firmware draft.
