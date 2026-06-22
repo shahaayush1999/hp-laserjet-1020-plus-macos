@@ -77,6 +77,7 @@ Start here:
 71. `open-firmware-model/model-invariants.md` - regenerated invariant check for the ZjStream print-path model across all generated cases
 72. `status-path/status-code-correlation.md` - conservative engine-event-to-PJL-CODE correlation model
 73. `non-printing-status-probe/pjl-status-contract.md` - exact non-printing PJL/status payload contract and expected response markers
+74. `offline-consistency/offline-consistency.md` - cross-report consistency gate for the current offline conclusions
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -131,7 +132,7 @@ Useful current conclusions:
 - `scripts/validate-open-firmware-probes.sh` rebuilds all open firmware probes and runs the offline layout/scanner/dry-run harness validation stack.
 - `analysis/boot-handoff/boot-handoff.md` compares the stock HP firmware and open idle probe. The core packaging/shape question is mostly answered; the next decisive question is whether hardware accepts and branches into the open payload.
 - `analysis/open-firmware-probes/minimal-idle/hardware-test-result-2026-06-15.md` records the first hardware upload: USB backend sent all `121931` bytes, printer stayed green/quiet with no paper movement, and macOS still saw the HP USB identity. This is a good safety result but not proof that `_start` executed.
-- `scripts/query-hp1020-pjl-status.sh` is the next guarded hardware probe. It sends tiny non-printing PJL/status payloads through the direct USB backend, captures CUPS back-channel fd 3 bytes, and can calibrate stock HP firmware response before comparing against the open idle probe.
+- `scripts/query-hp1020-pjl-status.sh` is the next guarded hardware probe. It sends tiny non-printing PJL/status payloads through the direct USB backend, captures CUPS back-channel fd 3 bytes, and writes `backchannel-analysis.md` so stock/open responses can be classified without eyeballing hex.
 - The firmware uses ThreadX-style RTOS objects with magic values such as `QUEU` and `THRD`.
 - Queue send-by-ID reads from runtime table `0x1002c918`.
 - Queue `8` is strongly supported as `Video Queue`, but the exact runtime table write has not been found.
@@ -164,6 +165,7 @@ Useful current conclusions:
 - `analysis/hardware-boundary/video-register-projection.md` projects modeled work fields onto the first unsafe video writes, proving host-controlled BIH fields would reach `0xb2000008`, `0xb200000c`, `0xb2000024`, and `0xb2000000` if the firmware crossed the safe stop boundary.
 - `analysis/non-printing-usb-probe-spec.md` defines the only custom-firmware experiment that is currently defensible: boot/USB identity only, no video/engine MMIO.
 - `analysis/non-printing-status-probe/pjl-status-contract.md` defines the exact tiny PJL/status payloads to use when calibrating stock back-channel responses or future open USB/PJL echo behavior.
+- `analysis/offline-consistency/offline-consistency.md` now cross-checks the main offline conclusions against generated reports: engine `0x17` dispatch, status-code correlation, print-path model invariants, hardware boundary, PJL query contract, and USB marker draft safety.
 - `analysis/usb-path/usb-marker-boundary.md` maps the stock USB string-descriptor marker path and records the current decision not to build/upload that marker yet; the open firmware would first need USB control-endpoint and descriptor-transfer plumbing.
 - `analysis/usb-path/usb-descriptor-extraction.md` statically extracts two HP device descriptors, high/full-speed USB printer configurations, and identity string pointer runs from the stock ELF. The device descriptors match vendor `0x03f0` and product `0x2b17`.
 - `analysis/usb-path/usb-descriptor-response-model.md` turns those descriptors into exact byte strings for standard USB `GET_DESCRIPTOR` responses. This defines the payload contract for a future USB-only open marker, but not the endpoint-0 hardware plumbing.
@@ -178,6 +180,7 @@ Useful current conclusions:
 - `scripts/check-hp1020-marker-descriptor.py` verifies the marker string descriptor and the 0x90000000 hardware alias pointer used by the USB marker draft.
 - `scripts/check-hp1020-marker-length-flow.py` verifies the marker draft preserves the clipped host `wLength` register into the endpoint-0 response-length write.
 - `scripts/model-hp1020-usb-marker-draft.py` models the USB marker draft's setup/gate behavior and verifies response length clipping at the decision level.
+- `scripts/analyze-hp1020-pjl-status-capture.py` classifies PJL/status back-channel captures against the generated contract, including expected-marker, no-response, and unexpected-byte outcomes.
 - `scripts/run-usb-marker-draft-hardware-test.sh` is the guarded dry-run/default harness for the marker draft. It re-runs the static gates before any upload and requires `HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1`.
 - `scripts/run-open-firmware-usb-test-ladder.sh` wraps the staged hardware path. Dry-run validates all probes offline; upload mode runs one selected non-printing stage with before/after USB identity capture.
 - `scripts/run-usb-snapshot-probe-hardware-test.sh` is the guarded dry-run/default harness for the read-only USB snapshot probe. It re-runs the static gates before any upload and requires `HP1020_ALLOW_USB_SNAPSHOT_UPLOAD=1`.

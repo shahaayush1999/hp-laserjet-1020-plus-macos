@@ -1,0 +1,105 @@
+{
+  "check_count": 16,
+  "checks": [
+    {
+      "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
+      "evidence": "analysis/engine-dispatch-cfg/engine-dispatch-cfg.md",
+      "name": "engine_0x17_dispatch_is_default",
+      "severity": "watch"
+    },
+    {
+      "detail": "Queue-message map must preserve the current producer/default-consumer conclusion for engine 0x17.",
+      "evidence": "analysis/message-map/queue-message-map.tsv",
+      "name": "queue_map_engine_0x17_matches_cfg",
+      "severity": "watch"
+    },
+    {
+      "detail": "Status correlation must account for every currently cataloged engine 0x17 event word.",
+      "evidence": "analysis/status-path/status-code-correlation.json",
+      "name": "status_correlation_event_count_matches_source",
+      "severity": "watch"
+    },
+    {
+      "detail": "Raw engine event words must not be mislabeled as final PJL CODE values.",
+      "evidence": "analysis/status-path/status-code-correlation.json",
+      "name": "engine_events_are_not_direct_pjl_codes",
+      "severity": "watch"
+    },
+    {
+      "detail": "Offline ZjStream model invariants must remain green across generated print-path variants.",
+      "evidence": "analysis/open-firmware-model/model-invariants.json",
+      "name": "print_model_invariants_have_no_failures",
+      "severity": "watch"
+    },
+    {
+      "detail": "Invariant coverage must include paper size, resolution, copy, draft, source, media, and clip variants.",
+      "evidence": "analysis/open-firmware-model/model-invariants.json",
+      "name": "print_model_variant_coverage",
+      "severity": "watch"
+    },
+    {
+      "detail": "The do-not-touch boundary for early custom firmware must still include video and engine paths.",
+      "evidence": "analysis/hardware-boundary/hardware-boundary.json",
+      "name": "hardware_boundary_keeps_engine_video_unsafe",
+      "severity": "watch"
+    },
+    {
+      "detail": "USB 0xb300 must remain the only plausible early open-firmware hardware target.",
+      "evidence": "analysis/hardware-boundary/hardware-boundary.json",
+      "name": "usb_family_remains_only_low_risk_target",
+      "severity": "watch"
+    },
+    {
+      "detail": "The first stock/open comparison must remain the non-printing PJL ECHO probe.",
+      "evidence": "analysis/non-printing-status-probe/pjl-status-contract.json",
+      "name": "pjl_first_query_is_echo",
+      "severity": "watch"
+    },
+    {
+      "detail": "The status query contract must stay outside print/video/engine execution.",
+      "evidence": "analysis/non-printing-status-probe/pjl-status-contract.json",
+      "name": "pjl_contract_is_non_printing",
+      "severity": "watch"
+    },
+    {
+      "detail": "The open marker descriptor bytes and length must remain fixed.",
+      "evidence": "analysis/open-firmware-probes/usb-marker-draft/marker-descriptor-check.json",
+      "name": "usb_marker_descriptor_is_stable",
+      "severity": "watch"
+    },
+    {
+      "detail": "The marker draft must keep host wLength clipping connected to the endpoint-0 response length.",
+      "evidence": "analysis/open-firmware-probes/usb-marker-draft/marker-length-flow-check.json",
+      "name": "usb_marker_length_flow_passes",
+      "severity": "watch"
+    },
+    {
+      "detail": "The marker draft's USB writes must remain limited to the extracted endpoint-0 sequence.",
+      "evidence": "analysis/open-firmware-probes/usb-marker-draft/endpoint0-sequence-scan.json",
+      "name": "usb_marker_sequence_matches_endpoint0_contract",
+      "severity": "watch"
+    },
+    {
+      "detail": "The marker draft must stay USB-only and avoid engine/video MMIO.",
+      "evidence": "analysis/open-firmware-probes/usb-marker-draft/usb-contract-scan.json",
+      "name": "usb_marker_contract_has_no_engine_video_mmio",
+      "severity": "watch"
+    },
+    {
+      "detail": "The host-side marker model must cover both stock gates and clipped host length.",
+      "evidence": "analysis/open-firmware-probes/usb-marker-draft/behavior-model.json",
+      "name": "usb_marker_behavior_clips_and_uses_both_gates",
+      "severity": "watch"
+    },
+    {
+      "detail": "The pure host endpoint-0 model must include the open marker string response case.",
+      "evidence": "analysis/usb-path/open-endpoint0-model.json",
+      "name": "host_endpoint0_model_has_open_marker_product_string",
+      "severity": "watch"
+    }
+  ],
+  "fail_count": 0,
+  "high_level_result": "Offline analysis is internally consistent; the next decisive evidence is a guarded non-printing printer-side probe.",
+  "status": "pass",
+  "summary": "Cross-report consistency gate for the current offline reverse-engineering state."
+}

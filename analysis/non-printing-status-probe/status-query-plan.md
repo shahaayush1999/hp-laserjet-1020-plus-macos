@@ -68,6 +68,7 @@ The script captures:
 - `backchannel.bin` - raw CUPS back-channel fd 3 bytes
 - `backchannel.hex` - hex dump when bytes exist
 - `backchannel-printable.txt` - printable view when bytes exist
+- `backchannel-analysis.md` - automatic verdict against the expected PJL markers
 
 ## Safe Boundary
 
@@ -103,3 +104,6 @@ a USB-only marker response, not any printing logic.
 If stock firmware does not respond either, then the blocker is host-side
 back-channel capture, not firmware behavior. In that case the next step is to
 instrument the USB path more directly instead of reading fd 3.
+
+Use `scripts/analyze-hp1020-pjl-status-capture.py` to re-run the capture
+classification on any saved `backchannel.bin` file.

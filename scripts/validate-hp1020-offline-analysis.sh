@@ -19,7 +19,9 @@ run_step "Python syntax checks" \
     "$ROOT_DIR/scripts/model-hp1020-hardware-boundary.py" \
     "$ROOT_DIR/scripts/model-hp1020-open-endpoint0.py" \
     "$ROOT_DIR/scripts/model-hp1020-status-code-correlation.py" \
-    "$ROOT_DIR/scripts/model-hp1020-pjl-status-contract.py"
+    "$ROOT_DIR/scripts/model-hp1020-pjl-status-contract.py" \
+    "$ROOT_DIR/scripts/analyze-hp1020-pjl-status-capture.py" \
+    "$ROOT_DIR/scripts/check-hp1020-analysis-consistency.py"
 
 run_step "Generate base ZjStream sample" \
   "$ROOT_DIR/scripts/generate-zjs-sample.sh"
@@ -54,6 +56,12 @@ run_step "Regenerate status CODE correlation model" \
 
 run_step "Regenerate PJL/status query contract" \
   "$ROOT_DIR/scripts/model-hp1020-pjl-status-contract.py"
+
+run_step "Self-test PJL/status capture analyzer" \
+  "$ROOT_DIR/scripts/analyze-hp1020-pjl-status-capture.py" --self-test
+
+run_step "Cross-check offline analysis consistency" \
+  "$ROOT_DIR/scripts/check-hp1020-analysis-consistency.py"
 
 run_step "JSON fail-count audit" \
   python3 - "$ROOT_DIR" <<'PY'

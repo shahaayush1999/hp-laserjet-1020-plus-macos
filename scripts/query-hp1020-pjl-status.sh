@@ -234,6 +234,7 @@ Relevant files:
 - \`query-stdout.txt\`
 - \`query-stderr.txt\`
 - \`backchannel.bin\`
+- \`backchannel-analysis.md\`
 - \`preload-stderr.txt\` if stock firmware preload was used
 EOF
 
@@ -251,6 +252,13 @@ printable = "".join(chr(b) if 32 <= b <= 126 or b in (10, 13, 9) else "." for b 
 Path(sys.argv[2]).write_text(printable, encoding="ascii", errors="replace")
 PY
 fi
+
+python3 "$ROOT_DIR/scripts/analyze-hp1020-pjl-status-capture.py" \
+  --query "$query" \
+  --capture "$output_dir/backchannel.bin" \
+  --stderr "$output_dir/query-stderr.txt" \
+  --json-output "$output_dir/backchannel-analysis.json" \
+  --markdown-output "$output_dir/backchannel-analysis.md"
 
 echo "Query exit status: $query_status"
 echo "Back-channel bytes captured: $backchannel_bytes"
