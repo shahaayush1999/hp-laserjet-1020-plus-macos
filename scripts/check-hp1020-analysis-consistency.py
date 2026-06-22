@@ -484,6 +484,34 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/hardware-boundary/video-mode-flag.json",
         )
     )
+    video_refill_topology = read_json("analysis/hardware-boundary/video-refill-topology.json")
+    refill_paths = {
+        item.get("name"): item
+        for item in video_refill_topology.get("topology", [])
+        if isinstance(item, dict)
+    }
+    refill_checks = video_refill_topology.get("checks", [])
+    checks.append(
+        check(
+            "video_refill_topology_model_resolved",
+            video_refill_topology.get("status") == "pass"
+            and {
+                "analysis/hardware-boundary/video-mode-flag.json",
+                "analysis/hardware-boundary/video-irq-decisions.json",
+                "analysis/hardware-boundary/video-transfer-ring.json",
+                "analysis/hardware-boundary/video-band-queue.json",
+            }.issubset(set(video_refill_topology.get("source_reports", [])))
+            and "normal_descriptor_queue_refill" in refill_paths
+            and "alternate_raw_linked_list_refill" in refill_paths
+            and "+0xd8" in refill_paths.get("normal_descriptor_queue_refill", {}).get("state_fields", [])
+            and "+0xdc" in refill_paths.get("normal_descriptor_queue_refill", {}).get("state_fields", [])
+            and "0xb2080004" in refill_paths.get("normal_descriptor_queue_refill", {}).get("unsafe_registers", [])
+            and "+0xa0" in refill_paths.get("alternate_raw_linked_list_refill", {}).get("state_fields", [])
+            and all(check.get("status") == "present" for check in refill_checks),
+            "The video refill topology must preserve the normal descriptor-queue path and the alternate raw linked-list path as separate unsafe video refills.",
+            evidence="analysis/hardware-boundary/video-refill-topology.json",
+        )
+    )
     checks.append(
         check(
             "usb_family_remains_only_low_risk_target",

@@ -90,6 +90,7 @@ Open firmware analysis state:
 - `analysis/hardware-boundary/video-irq-decisions.md` is the generated executable decision model for `0x100144d0 hp1020_video_irq_or_band_done_candidate`. It records branch priority for video block status bits: `0x20` refill first, then reset/recovery cases for `0x02`, `0x04`, `0x01`, `0x08`, and `0x10`.
 - `analysis/hardware-boundary/video-band-queue.md` is the generated model for `0x10013f34 hp1020_video_band_queue_or_list_candidate`. It records descriptor queue advancement at video state `+0xdc`, the `+0xe0` collision gate, raw-band A/B pointer and flag writes, and why this path stays unsafe until video timing is proven.
 - `analysis/hardware-boundary/video-mode-flag.md` is the generated model for the video mode fork. It records that work object byte `+0x74` is copied into the sign bit of video state `+0xfc`; zero selects the descriptor queue/list path, and nonzero selects the raw linked-list refresh path.
+- `analysis/hardware-boundary/video-refill-topology.md` is the generated synthesis tying together the mode flag, IRQ decision, transfer-ring, and band-queue reports. Current conclusion: normal-looking print work most likely uses the descriptor queue/list refill path; the raw linked-list refresh path exists but lacks a proven normal print-path producer.
 - `analysis/status-path/status-code-correlation.md` records that engine queue `0x17` event words are correlated with status output but are not themselves final PJL `CODE=` values.
 - `analysis/offline-consistency/offline-consistency.md` is the cross-report consistency gate for the current offline conclusions. It should pass before doing more hardware work.
 - `scripts/build-open-firmware-idle-probe.sh` rebuilds the probe.
@@ -108,6 +109,7 @@ Open firmware analysis state:
 - `scripts/model-hp1020-video-irq-decisions.py` regenerates the executable video IRQ/status decision model.
 - `scripts/model-hp1020-video-band-queue.py` regenerates the video descriptor queue/list and raw-band register-feed model.
 - `scripts/model-hp1020-video-mode-flag.py` regenerates the work-object mode flag and IRQ refill-fork model.
+- `scripts/model-hp1020-video-refill-topology.py` regenerates the synthesis report connecting mode flag, IRQ decision, transfer-ring, and band-queue models.
 - `scripts/run-idle-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_CUSTOM_FIRMWARE_UPLOAD=1`.
 - `scripts/run-usb-snapshot-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_USB_SNAPSHOT_UPLOAD=1`.
 - `scripts/run-usb-marker-draft-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1`. Do not run it before the safer stock/idle/read-only checks.

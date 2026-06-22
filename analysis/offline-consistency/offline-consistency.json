@@ -1,5 +1,5 @@
 {
-  "check_count": 37,
+  "check_count": 38,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -107,6 +107,12 @@
       "detail": "The video mode-flag model must preserve the work +0x74 to state +0xfc sign-bit fork between descriptor queue and raw linked-list refill.",
       "evidence": "analysis/hardware-boundary/video-mode-flag.json",
       "name": "video_mode_flag_model_resolved",
+      "severity": "watch"
+    },
+    {
+      "detail": "The video refill topology must preserve the normal descriptor-queue path and the alternate raw linked-list path as separate unsafe video refills.",
+      "evidence": "analysis/hardware-boundary/video-refill-topology.json",
+      "name": "video_refill_topology_model_resolved",
       "severity": "watch"
     },
     {

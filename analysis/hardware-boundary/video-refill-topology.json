@@ -1,0 +1,140 @@
+{
+  "checks": [
+    {
+      "detail": "video_mode_flag status is 'pass'",
+      "name": "video_mode_flag_status_pass",
+      "status": "present"
+    },
+    {
+      "detail": "video_irq_decisions status is 'pass'",
+      "name": "video_irq_decisions_status_pass",
+      "status": "present"
+    },
+    {
+      "detail": "video_transfer_ring status is 'pass'",
+      "name": "video_transfer_ring_status_pass",
+      "status": "present"
+    },
+    {
+      "detail": "video_band_queue status is 'pass'",
+      "name": "video_band_queue_status_pass",
+      "status": "present"
+    },
+    {
+      "detail": "mode-flag model has descriptor_queue_mode",
+      "name": "descriptor_queue_mode_present",
+      "status": "present"
+    },
+    {
+      "detail": "mode-flag model has raw_linked_list_mode",
+      "name": "raw_linked_list_mode_present",
+      "status": "present"
+    },
+    {
+      "detail": "IRQ model keeps both 0x20 band-done branches",
+      "name": "irq_has_ring_and_raw_band_done_scenarios",
+      "status": "present"
+    },
+    {
+      "detail": "transfer-ring model includes channel-B helper refill",
+      "name": "ring_has_helper_refill_sequence",
+      "status": "present"
+    },
+    {
+      "detail": "band-queue model includes loop gate and raw-band writes",
+      "name": "queue_has_loop_gate_and_raw_band_writes",
+      "status": "present"
+    }
+  ],
+  "current_conclusion": [
+    "For the currently mapped normal print path, +0x74 is initialized to zero and the descriptor-queue refill path is the stronger default hypothesis.",
+    "The raw linked-list refresh path is real firmware behavior, but its normal print-path producer is not yet proven.",
+    "Both paths remain inside unsafe video/raw-band hardware, so this is planning evidence, not a reason to run custom mechanical firmware yet."
+  ],
+  "source_reports": [
+    "analysis/hardware-boundary/video-mode-flag.json",
+    "analysis/hardware-boundary/video-irq-decisions.json",
+    "analysis/hardware-boundary/video-transfer-ring.json",
+    "analysis/hardware-boundary/video-band-queue.json"
+  ],
+  "status": "pass",
+  "summary": "End-to-end topology of HP 1020 video refill paths after a video band-done event.",
+  "topology": [
+    {
+      "entry_condition": "work object +0x74 == 0, so video state +0xfc is nonnegative",
+      "evidence": [
+        "mode flag model selects descriptor_queue_mode",
+        "IRQ bit 0x20 branch clears +0xd8 ring record and advances +0xd8",
+        "0x10014244 fills a channel-B descriptor from remaining +0xd0 units",
+        "0x10013f34 advances +0xdc and writes raw-band A/B pointer/flag registers"
+      ],
+      "mode_case": {
+        "irq_band_done_path": [
+          "clear descriptor done slot at video_state +0x20 + (+0xd8 * 0x0c)",
+          "advance +0xd8 modulo 4",
+          "call hp1020_video_band_done_or_irq_helper_candidate",
+          "call hp1020_video_band_queue_or_list_candidate"
+        ],
+        "mode": "descriptor_queue_mode",
+        "previous_state_plus_0xfc": "0x80000000",
+        "state_plus_0xfc_after_prepare": "0x00000000",
+        "state_plus_0xfc_is_negative": false,
+        "work_object_plus_0x74": 0
+      },
+      "name": "normal_descriptor_queue_refill",
+      "state_fields": [
+        "+0xd0",
+        "+0xd8",
+        "+0xdc",
+        "+0xe0",
+        "+0xf0",
+        "+0xf8",
+        "+0xfc"
+      ],
+      "unsafe_registers": [
+        "0xb1000008",
+        "0xb100000c",
+        "0xb1000108",
+        "0xb100010c",
+        "0xb2080004",
+        "0xb2080008"
+      ]
+    },
+    {
+      "entry_condition": "work object +0x74 != 0, so video state +0xfc is negative",
+      "evidence": [
+        "mode flag model selects raw_linked_list_mode",
+        "IRQ bit 0x20 branch walks video state +0xa0 linked-list nodes",
+        "the branch may adjust child/page counters and send JobMgr queue message 8",
+        "0x100140f8 refreshes raw-band registers from video state +0x9c raster nodes"
+      ],
+      "mode_case": {
+        "irq_band_done_path": [
+          "use video_state +0xa0 linked-list entry",
+          "optionally decrement work/raster counters and send JobMgr queue message 8",
+          "advance +0xa0 to next linked-list node",
+          "call hp1020_video_refresh_raw_bands_candidate"
+        ],
+        "mode": "raw_linked_list_mode",
+        "previous_state_plus_0xfc": "0x00000000",
+        "state_plus_0xfc_after_prepare": "0x80000000",
+        "state_plus_0xfc_is_negative": true,
+        "work_object_plus_0x74": 1
+      },
+      "name": "alternate_raw_linked_list_refill",
+      "state_fields": [
+        "+0x9c",
+        "+0xa0",
+        "+0xf0",
+        "+0xf8",
+        "+0xfc"
+      ],
+      "unsafe_registers": [
+        "0xb1000008",
+        "0xb100000c",
+        "0xb1000108",
+        "0xb100010c"
+      ]
+    }
+  ]
+}
