@@ -58,6 +58,7 @@ Open firmware analysis state:
 - `scripts/build-xtensa-binutils-manual.sh` rebuilds the current runnable assembly-only Xtensa binutils prefix at `/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf`. Prefer this over the corrupt `/tmp/hp1020-ctng-mnt/...` prefix unless `XTENSA_PREFIX` is explicitly set.
 - `open-firmware/usb-register-snapshot/` builds the current open-code, non-printing USB register snapshot probe.
 - `analysis/open-firmware-probes/usb-register-snapshot/summary.md` records the generated USB snapshot probe. It reads only mapped USB `0xb300....` registers into RAM, then idles. It is not host-readable yet and has not been uploaded.
+- `analysis/open-firmware-probes/usb-register-snapshot/hardware-test-plan.md` records the guarded future hardware test order for the read-only USB snapshot probe.
 - `open-firmware/usb-marker-draft/` builds the current write-capable, USB-only endpoint-0 marker draft. It is offline-only for now and has not been uploaded.
 - `analysis/open-firmware-probes/usb-marker-draft/summary.md` records the generated marker draft. It recognizes a product-string `GET_DESCRIPTOR` shape and writes only the stock-mapped endpoint-0 USB register sequences; it does not touch engine/video/mechanical MMIO.
 - `analysis/open-firmware-probes/usb-marker-draft/hardware-test-plan.md` records the guarded future hardware test order. Do not start with this draft; run safer stock/idle/read-only probes first.
@@ -75,6 +76,7 @@ Open firmware analysis state:
 - `scripts/build-open-firmware-usb-snapshot-probe.sh` rebuilds the read-only USB register snapshot probe.
 - `scripts/build-open-firmware-usb-marker-draft.sh` rebuilds the write-capable USB marker draft and runs layout, safety, USB-contract, access, and endpoint-0 sequence scans.
 - `scripts/run-idle-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_CUSTOM_FIRMWARE_UPLOAD=1`.
+- `scripts/run-usb-snapshot-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_USB_SNAPSHOT_UPLOAD=1`.
 - `scripts/run-usb-marker-draft-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1`. Do not run it before the safer stock/idle/read-only checks.
 - `scripts/query-hp1020-pjl-status.sh` is dry-run by default. Real USB send requires a direct `usb://` URI and `HP1020_ALLOW_NONPRINTING_USB_QUERY=1`; `--preload-stock-firmware` can calibrate the HP firmware PJL/back-channel response without printing.
 - `scripts/extract-hp1020-usb-descriptors.py` is offline-only; it parses the firmware ELF and regenerates the stock USB descriptor extraction report.
