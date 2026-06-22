@@ -1,5 +1,5 @@
 {
-  "check_count": 54,
+  "check_count": 55,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -53,6 +53,12 @@
       "detail": "The USB bulk callback model must preserve the read/copy callback, completion queue callback, event bit, endpoint ack register, and status-bit clear.",
       "evidence": "analysis/usb-path/usb-bulk-callbacks-model.json",
       "name": "usb_bulk_callback_model_preserves_event_and_rearm_path",
+      "severity": "watch"
+    },
+    {
+      "detail": "The USB bulk re-arm model must preserve descriptor pool, buffer base, submit register, and done-flag behavior.",
+      "evidence": "analysis/usb-path/usb-bulk-rearm-model.json",
+      "name": "usb_bulk_rearm_model_preserves_descriptor_submit",
       "severity": "watch"
     },
     {

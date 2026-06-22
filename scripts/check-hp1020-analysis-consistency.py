@@ -125,8 +125,10 @@ def build_report() -> dict[str, Any]:
     minimal_scope = read_json("analysis/open-firmware-model/minimal-print-scope.json")
     usb_bulk_receive = read_json("analysis/usb-path/usb-bulk-receive-model.json")
     usb_bulk_callbacks = read_json("analysis/usb-path/usb-bulk-callbacks-model.json")
+    usb_bulk_rearm = read_json("analysis/usb-path/usb-bulk-rearm-model.json")
     usb_bulk_checks = usb_bulk_receive.get("checks", [])
     usb_bulk_callback_checks = usb_bulk_callbacks.get("checks", [])
+    usb_bulk_rearm_checks = usb_bulk_rearm.get("checks", [])
     scope_components = {
         item.get("component"): item
         for item in minimal_scope.get("components", [])
@@ -147,6 +149,9 @@ def build_report() -> dict[str, Any]:
             and scope_evidence.get("usb_bulk_callback_status") == "pass"
             and scope_evidence.get("usb_bulk_event_bit") == "0x00020000"
             and scope_evidence.get("usb_bulk_endpoint_ack_register") == "0xb3000220"
+            and scope_evidence.get("usb_bulk_rearm_status") == "pass"
+            and scope_evidence.get("usb_bulk_descriptor_pool") == "0x90021370"
+            and scope_evidence.get("usb_bulk_descriptor_submit_register") == "0xb3000234"
             and scope_components.get("ZjStream parser and JobMgr object model", {}).get("current_status") == "mapped"
             and scope_components.get("USB bulk receive to ZjStream parser", {}).get("current_status")
             == "stock path modeled"
@@ -189,6 +194,20 @@ def build_report() -> dict[str, Any]:
             and all(item.get("status") == "present" for item in usb_bulk_callback_checks),
             "The USB bulk callback model must preserve the read/copy callback, completion queue callback, event bit, endpoint ack register, and status-bit clear.",
             evidence="analysis/usb-path/usb-bulk-callbacks-model.json",
+        )
+    )
+    checks.append(
+        check(
+            "usb_bulk_rearm_model_preserves_descriptor_submit",
+            usb_bulk_rearm.get("status") == "pass"
+            and usb_bulk_rearm.get("constants", {}).get("descriptor_pool") == "0x90021370"
+            and usb_bulk_rearm.get("constants", {}).get("bulk_buffer_base") == "0x900216f0"
+            and usb_bulk_rearm.get("constants", {}).get("descriptor_submit_register") == "0xb3000234"
+            and usb_bulk_rearm.get("constants", {}).get("bulk_done_byte") == "0x1001bc70"
+            and usb_bulk_rearm.get("constants", {}).get("bulk_rx_done_flag") == "0x1001bc72"
+            and all(item.get("status") == "present" for item in usb_bulk_rearm_checks),
+            "The USB bulk re-arm model must preserve descriptor pool, buffer base, submit register, and done-flag behavior.",
+            evidence="analysis/usb-path/usb-bulk-rearm-model.json",
         )
     )
     raster_fields = read_json("analysis/open-firmware-model/raster-field-semantics.json")

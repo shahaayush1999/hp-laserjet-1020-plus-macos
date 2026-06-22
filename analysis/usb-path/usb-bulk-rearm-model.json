@@ -1,0 +1,113 @@
+{
+  "branch_model": [
+    {
+      "condition": "next pointer is zero or not 16-byte aligned",
+      "mode_flag": 0,
+      "target_pointer": "bulk buffer base + caller offset"
+    },
+    {
+      "condition": "next pointer is non-zero and 16-byte aligned",
+      "mode_flag": 1,
+      "target_pointer": "next aligned pointer"
+    }
+  ],
+  "checks": [
+    {
+      "evidence": "analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c",
+      "name": "reads_next_aligned_pointer_candidate",
+      "needle": "uVar7 = *(uint *)PTR_DAT_10005e54",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c",
+      "name": "falls_back_when_next_pointer_absent_or_unaligned",
+      "needle": "(uVar7 == 0) || ((uVar7 & 0xf) != 0)",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c",
+      "name": "falls_back_to_buffer_base_plus_offset",
+      "needle": "param_1 = *(int *)PTR_DAT_10005e44 + param_1",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c",
+      "name": "writes_descriptor_address_bytes",
+      "needle": "*(char *)(iVar6 + 8)",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c",
+      "name": "writes_descriptor_mode_flag",
+      "needle": "*PTR_DAT_10005e28 = uVar5",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c",
+      "name": "submits_descriptor_pointer_to_mmio",
+      "needle": "*piVar2 = iVar6",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c",
+      "name": "zeros_descriptor_tail_bytes",
+      "needle": "*(undefined1 *)(iVar6 + 0xc) = 0",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c",
+      "name": "writes_sram_descriptor_opcode",
+      "needle": "*puVar4 = 8",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c",
+      "name": "sets_bulk_done_byte",
+      "needle": "*puVar1 = 1",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c",
+      "name": "clears_bulk_rx_done_flag",
+      "needle": "*puVar3 = 0",
+      "status": "present"
+    }
+  ],
+  "constants": {
+    "bulk_buffer_base": "0x900216f0",
+    "bulk_buffer_base_word": "0x1001bc40",
+    "bulk_done_byte": "0x1001bc70",
+    "bulk_rx_done_flag": "0x1001bc72",
+    "descriptor_busy_flag_byte": "0x1001bc6c",
+    "descriptor_mode_flag_byte": "0x1001bc6e",
+    "descriptor_pool": "0x90021370",
+    "descriptor_pool_pointer_word": "0x1001bc48",
+    "descriptor_submit_register": "0xb3000234",
+    "next_aligned_pointer_word": "0x1001bc44"
+  },
+  "descriptor_layout": [
+    {
+      "meaning": "big-endian receive target pointer",
+      "offset": "+0x08..+0x0b"
+    },
+    {
+      "meaning": "zeroed tail/control bytes",
+      "offset": "+0x0c..+0x0f"
+    },
+    {
+      "meaning": "opcode/value 8 written through descriptor SRAM pointer",
+      "offset": "sram[0]"
+    },
+    {
+      "meaning": "zeroed after submit",
+      "offset": "sram[1..3]"
+    }
+  ],
+  "open_firmware_implication": [
+    "Bulk receive is descriptor-based, not just a raw write to the USB data FIFO.",
+    "The open shim needs to write the receive target pointer into descriptor bytes +0x08..+0x0b, submit descriptor 0x90021370 through 0xb3000234, and reset the visible done flags.",
+    "The stock path uses a 16-byte alignment decision for the next receive pointer; an open implementation should preserve that alignment rule until hardware behavior is proven otherwise."
+  ],
+  "status": "pass",
+  "summary": "Static model of stock USB bulk receive descriptor re-arm."
+}
