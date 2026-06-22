@@ -25,6 +25,7 @@ That is doable work, but it is a bigger step than the PJL/status query harness.
 `usb-descriptor-response-model.md` converts those descriptors into exact
 `GET_DESCRIPTOR` response byte strings. That gives a future open marker a clear
 payload contract, but not the hardware/control-endpoint implementation.
+`usb-mmio-map.md` maps the controller-register side of that endpoint-0 path.
 
 ## What Is Mapped
 
@@ -121,6 +122,8 @@ The descriptor payload bytes are now the easy part. The unresolved work is the
 endpoint-0 machinery that receives setup packets and returns those bytes.
 `endpoint0-machinery.md` maps that stock machinery and should be read before
 attempting any open USB marker implementation.
+`usb-mmio-map.md` narrows the register work further, but live controller state
+still has to be observed on hardware before treating it as solved.
 
 The current open idle probe intentionally avoids all of that, which is why it
 stayed quiet and safe.

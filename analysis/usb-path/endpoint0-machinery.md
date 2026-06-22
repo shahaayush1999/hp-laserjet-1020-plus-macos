@@ -19,6 +19,10 @@ In the stock firmware, that is not a single function. It is a small USB runtime:
 - DMA/transfer descriptor buffers
 - `0xb300....` USB controller register writes
 
+`usb-mmio-map.md` breaks those `0xb300....` accesses down into setup/status
+gates, descriptor/control programming registers, event/ack/kick registers, and
+a likely event/setup buffer pointer at `0xb3000214`.
+
 That is why a USB marker is plausible but still not the next safest upload.
 
 ## Main Control Flow
@@ -165,4 +169,6 @@ The next step toward an actual open USB marker requires either:
 - enough confidence in `0xb300` register semantics to write a polling endpoint-0
   loop without relying on ThreadX.
 
-That is not available yet from static analysis alone.
+The generated `usb-mmio-map.md` is now the best static-analysis starting point
+for that polling loop. What static analysis still cannot prove is which register
+transitions happen during live host enumeration after our custom upload.
