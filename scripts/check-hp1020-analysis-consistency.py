@@ -177,12 +177,24 @@ def build_report() -> dict[str, Any]:
         check(
             "first_page_sequence_keeps_video_engine_registers_ordered",
             first_page.get("source_case") == "a4_default"
+            and first_page.get("source_reports", {}).get("engine_topology")
+            == "analysis/hardware-boundary/engine-print-topology.json"
+            and first_page.get("source_reports", {}).get("video_prepare_projection")
+            == "analysis/hardware-boundary/video-prepare-projection.json"
+            and first_page.get("source_reports", {}).get("video_refill_topology")
+            == "analysis/hardware-boundary/video-refill-topology.json"
             and sequence_by_step.get(2, {}).get("risk") == "high"
+            and sequence_by_step.get(5, {}).get("projected_state", {}).get("stride_plus_0xb8") == 1200
+            and sequence_by_step.get(5, {}).get("projected_state", {}).get("state_plus_0xbc") == 2400
+            and sequence_by_step.get(5, {}).get("projected_state", {}).get("state_plus_0xc8_state_200") == 2
             and sequence_by_step.get(6, {}).get("projected_registers", {}).get("0xb2000008", {}).get("value") == 9600
-            and sequence_by_step.get(7, {}).get("projected_registers", {}).get("0xb1000008/0xb1000108", {}).get("consumer")
-            == "0x100140f8 hp1020_video_refresh_raw_bands_candidate"
+            and "0x10014244 -> 0x10013f34" in sequence_by_step.get(7, {}).get("function", "")
+            and "0xb2080004"
+            in sequence_by_step.get(7, {}).get("projected_registers", {}).get("normal_refill_unsafe_registers", {}).get("value", "")
+            and "+0xdc"
+            in sequence_by_step.get(7, {}).get("projected_registers", {}).get("normal_refill_state_fields", {}).get("value", "")
             and len(first_page.get("remaining_unknowns", [])) >= 4,
-            "The first-page hardware sequence must preserve the ordered engine/video/raw-band risk boundary.",
+            "The first-page hardware sequence must preserve the ordered engine/video/refill risk boundary.",
             evidence="analysis/hardware-boundary/first-page-hardware-sequence.json",
         )
     )

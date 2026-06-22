@@ -46,9 +46,31 @@ def build_model() -> dict[str, Any]:
     print_model = load_json("analysis/open-firmware-model/print-path-model.json")
     projection = load_json("analysis/hardware-boundary/video-register-projection.json")
     boundary = load_json("analysis/hardware-boundary/hardware-boundary.json")
+    engine_topology = load_json("analysis/hardware-boundary/engine-print-topology.json")
+    video_prepare_projection = load_json("analysis/hardware-boundary/video-prepare-projection.json")
+    video_refill_topology = load_json("analysis/hardware-boundary/video-refill-topology.json")
 
     variant = first_variant(projection)
     projected_registers = variant.get("projected_registers", {})
+    refill_paths = {
+        item.get("name"): item
+        for item in video_refill_topology.get("topology", [])
+        if isinstance(item, dict)
+    }
+    normal_refill = refill_paths.get("normal_descriptor_queue_refill", {})
+    prepare_projection = next(
+        (item for item in video_prepare_projection.get("projections", []) if item.get("case") == variant.get("case")),
+        {},
+    )
+    prepare_default_state = {}
+    for scenario in prepare_projection.get("scenarios", []):
+        if (
+            scenario.get("datastore_0x20_zero") is True
+            and scenario.get("lane_selector") == 0
+            and scenario.get("secondary_output_state_plus_0xec_nonzero") is False
+        ):
+            prepare_default_state = scenario.get("derived_state", {})
+            break
 
     work_objects = print_model.get("objects", {}).get("work_objects", [])
     work = work_objects[0] if work_objects else {"fields": {}}
@@ -73,8 +95,10 @@ def build_model() -> dict[str, Any]:
             "stage": "engine accepts page work",
             "firmware_area": "Engine Queue",
             "function": "0x10016164 hp1020_engine_message_dispatch_candidate",
-            "evidence": "Engine message 0x0b stores current work pointer and calls engine status/preflight paths.",
+            "evidence": "Engine topology models page work acceptance: status poll, active/deferred work pointers, config selection, and command 0x6012 or 0x3a13.",
             "hardware_registers": actions_by_function(boundary, "0x10015c68"),
+            "topology_source": "analysis/hardware-boundary/engine-print-topology.md",
+            "topology_stage": "page_work_acceptance",
             "open_replacement_meaning": "Mechanical gate: paper/fuser/motor state must be correct before video transfer.",
             "risk": "high",
         },
@@ -103,8 +127,19 @@ def build_model() -> dict[str, Any]:
             "stage": "video page preparation",
             "firmware_area": "Video setup",
             "function": "0x10014910 hp1020_video_prepare_page_candidate",
-            "evidence": "Consumes work fields such as +0x14/+0x22/+0x26/+0x74 and computes video state stride/window values.",
+            "evidence": "Consumes work fields and current generated variants project into the 600dpi/NBIE=1 setup family.",
             "hardware_registers": actions_by_function(boundary, "0x10014910"),
+            "projected_state": {
+                key: prepare_default_state.get(key)
+                for key in (
+                    "stride_plus_0xb8",
+                    "state_plus_0xbc",
+                    "state_plus_0xc4",
+                    "state_plus_0xf4",
+                    "state_plus_0xc8_state_200",
+                )
+            },
+            "topology_source": "analysis/hardware-boundary/video-prepare-projection.md",
             "open_replacement_meaning": "Programs video block setup/timing. This is not safe to approximate blindly.",
             "risk": "high",
         },
@@ -124,16 +159,47 @@ def build_model() -> dict[str, Any]:
         },
         {
             "step": 7,
-            "stage": "raw-band feed",
-            "firmware_area": "Raw raster/video feed",
-            "function": "0x100140f8 hp1020_video_refresh_raw_bands_candidate",
-            "evidence": "Walks video state +0x9c raster list and writes payload pointers/counts/flags into 0xb100 registers.",
-            "hardware_registers": actions_by_function(boundary, "0x100140f8"),
+            "stage": "video refill / raw-band feed",
+            "firmware_area": "Video refill and raw raster/video feed",
+            "function": "normal hypothesis: 0x10014244 -> 0x10013f34 descriptor queue/list path",
+            "evidence": "Video refill topology selects descriptor-queue refill when work +0x74 is zero; raw linked-list refresh via 0x100140f8 is real but alternate.",
+            "hardware_registers": [
+                {
+                    "register": "0xb1000008 / 0xb1000108",
+                    "action": "raw-band pointer/window write",
+                    "evidence": "normal descriptor queue/list helper and alternate raw refresh both write raw-band pointer/window registers",
+                    "function": "0x10013f34 / 0x100140f8",
+                    "risk": "raw-band feed",
+                },
+                {
+                    "register": "0xb100000c / 0xb100010c",
+                    "action": "raw-band flags/count write",
+                    "evidence": "normal descriptor queue/list helper and alternate raw refresh both write raw-band count/flag registers",
+                    "function": "0x10013f34 / 0x100140f8",
+                    "risk": "raw-band feed",
+                },
+                {
+                    "register": "0xb2080004 / 0xb2080008",
+                    "action": "channel-B refill descriptor write",
+                    "evidence": "0x10014244 fills channel-B pointer and transfer length from remaining units",
+                    "function": "0x10014244",
+                    "risk": "video transfer refill",
+                },
+            ],
             "projected_registers": {
-                key: projected_registers.get(key)
-                for key in ("0xb1000008/0xb1000108", "0xb100000c/0xb100010c")
+                "normal_refill_state_fields": {
+                    "source": "analysis/hardware-boundary/video-refill-topology.md",
+                    "value": ", ".join(normal_refill.get("state_fields", [])),
+                    "consumer": "0x10014244 -> 0x10013f34",
+                },
+                "normal_refill_unsafe_registers": {
+                    "source": "analysis/hardware-boundary/video-refill-topology.md",
+                    "value": ", ".join(normal_refill.get("unsafe_registers", [])),
+                    "consumer": "0x10014244 -> 0x10013f34",
+                },
             },
-            "open_replacement_meaning": "Feeds compressed raster bytes to the hardware-side print path.",
+            "topology_source": "analysis/hardware-boundary/video-refill-topology.md",
+            "open_replacement_meaning": "Feeds compressed raster bytes to the hardware-side print path; normal/alternate mode selection matters for reproducing timing.",
             "risk": "high",
         },
         {
@@ -172,6 +238,13 @@ def build_model() -> dict[str, Any]:
         },
         "sequence": sequence,
         "remaining_unknowns": missing,
+        "source_reports": {
+            "engine_topology": "analysis/hardware-boundary/engine-print-topology.json",
+            "video_prepare_projection": "analysis/hardware-boundary/video-prepare-projection.json",
+            "video_refill_topology": "analysis/hardware-boundary/video-refill-topology.json",
+        },
+        "engine_topology_status": engine_topology.get("status"),
+        "video_refill_topology_status": video_refill_topology.get("status"),
         "decision": "Do not attempt open printing until USB-only open code is proven and video/engine register sequencing is modeled more tightly.",
     }
 
@@ -239,6 +312,12 @@ def render_markdown(model: dict[str, Any]) -> str:
                     lines.append(
                         f"|  | projected `{reg}` | {detail.get('source', '')} | `{detail.get('value')}` | consumer `{detail.get('consumer')}` |  |"
                     )
+        projected_state = item.get("projected_state") or {}
+        if projected_state:
+            for field, value in projected_state.items():
+                lines.append(
+                    f"|  | projected video state `{field}` | `analysis/hardware-boundary/video-prepare-projection.md` | `{value}` | setup projection |  |"
+                )
 
     lines.extend(["", "## Remaining Unknowns", ""])
     for item in model["remaining_unknowns"]:

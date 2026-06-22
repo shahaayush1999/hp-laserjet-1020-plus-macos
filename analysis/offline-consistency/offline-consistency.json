@@ -50,7 +50,7 @@
       "severity": "watch"
     },
     {
-      "detail": "The first-page hardware sequence must preserve the ordered engine/video/raw-band risk boundary.",
+      "detail": "The first-page hardware sequence must preserve the ordered engine/video/refill risk boundary.",
       "evidence": "analysis/hardware-boundary/first-page-hardware-sequence.json",
       "name": "first_page_sequence_keeps_video_engine_registers_ordered",
       "severity": "watch"
