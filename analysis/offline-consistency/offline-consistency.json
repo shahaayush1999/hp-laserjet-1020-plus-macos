@@ -1,5 +1,5 @@
 {
-  "check_count": 52,
+  "check_count": 53,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -41,6 +41,12 @@
       "detail": "The generated narrow-scope report must preserve the current split: parser/object path mapped, sideband policy narrowed but unresolved, video/engine hardware still high risk.",
       "evidence": "analysis/open-firmware-model/minimal-print-scope.json",
       "name": "minimal_print_scope_keeps_parser_mapped_and_hardware_blocked",
+      "severity": "watch"
+    },
+    {
+      "detail": "The USB bulk receive model must keep the stock transfer-record registration, 0x400-byte receive buffer, and parser read-callback handoff mapped.",
+      "evidence": "analysis/usb-path/usb-bulk-receive-model.json",
+      "name": "usb_bulk_receive_model_preserves_parser_handoff",
       "severity": "watch"
     },
     {

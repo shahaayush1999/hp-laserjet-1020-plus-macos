@@ -123,6 +123,8 @@ def build_report() -> dict[str, Any]:
     )
 
     minimal_scope = read_json("analysis/open-firmware-model/minimal-print-scope.json")
+    usb_bulk_receive = read_json("analysis/usb-path/usb-bulk-receive-model.json")
+    usb_bulk_checks = usb_bulk_receive.get("checks", [])
     scope_components = {
         item.get("component"): item
         for item in minimal_scope.get("components", [])
@@ -135,7 +137,14 @@ def build_report() -> dict[str, Any]:
             scope_evidence.get("missing_required_messages") == []
             and scope_evidence.get("model_invariant_failures") == 0
             and scope_evidence.get("endpoint0_data_cases") == 24
+            and scope_evidence.get("usb_bulk_receive_status") == "pass"
+            and scope_evidence.get("usb_bulk_transfer_record_stride") == "0x58"
+            and scope_evidence.get("usb_bulk_receive_buffer_allocation") == "0x400 bytes"
+            and scope_evidence.get("usb_bulk_parser_entry") == "0x10009d34"
+            and scope_evidence.get("usb_bulk_parser_reads_via_callback") is True
             and scope_components.get("ZjStream parser and JobMgr object model", {}).get("current_status") == "mapped"
+            and scope_components.get("USB bulk receive to ZjStream parser", {}).get("current_status")
+            == "stock path modeled"
             and scope_components.get("Video sideband policy", {}).get("current_status") == "narrowed but unresolved"
             and scope_components.get("Video sideband policy", {}).get("risk") == "high"
             and scope_components.get("Video/raw-band hardware feed", {}).get("risk") == "high"
@@ -145,6 +154,21 @@ def build_report() -> dict[str, Any]:
             and scope_evidence.get("remaining_units_source_gap") is True,
             "The generated narrow-scope report must preserve the current split: parser/object path mapped, sideband policy narrowed but unresolved, video/engine hardware still high risk.",
             evidence="analysis/open-firmware-model/minimal-print-scope.json",
+        )
+    )
+    checks.append(
+        check(
+            "usb_bulk_receive_model_preserves_parser_handoff",
+            usb_bulk_receive.get("status") == "pass"
+            and usb_bulk_receive.get("transfer_record", {}).get("record_stride") == "0x58"
+            and usb_bulk_receive.get("transfer_record", {}).get("buffer_allocation") == "0x400 bytes"
+            and usb_bulk_receive.get("parser_handoff", {}).get("usb2thread_descriptor") == "0x10005fc4"
+            and usb_bulk_receive.get("parser_handoff", {}).get("parser_entry") == "0x10009d34"
+            and usb_bulk_receive.get("parser_handoff", {}).get("parser_reads_via_param_0x0c_callback") is True
+            and usb_bulk_receive.get("parser_handoff", {}).get("parser_sends_jobmgr_queue") == 3
+            and all(item.get("status") == "present" for item in usb_bulk_checks),
+            "The USB bulk receive model must keep the stock transfer-record registration, 0x400-byte receive buffer, and parser read-callback handoff mapped.",
+            evidence="analysis/usb-path/usb-bulk-receive-model.json",
         )
     )
     raster_fields = read_json("analysis/open-firmware-model/raster-field-semantics.json")

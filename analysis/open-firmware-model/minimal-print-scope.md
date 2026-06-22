@@ -36,6 +36,8 @@ The first three are mostly software/protocol work. The last two are the hard har
 - control completion event object: `0x10021318`
 - USB completion status bit candidate: `0x400`
 - marker rearm-flow checks/failures: `5` / `0`
+- USB bulk receive model: `pass`, record stride `0x58`, receive buffer `0x400 bytes`
+- USB bulk parser handoff: parser `0x10009d34`, read callback slot present `true`
 - sideband access hits classified: `19`
 - sideband risk split: `+0x26=critical`, `+0x32=mode_critical`, `+0x30=unknown_low_in_current_static_view`
 - remaining-unit active-work source gap: `true`
@@ -47,7 +49,7 @@ The first three are mostly software/protocol work. The last two are the hard har
 | Host PDF-to-ZjStream conversion | `available` | reuse existing GPL foo2zjs path; not firmware work | `low` |
 | USB upload envelope | `available` | keep ACL/PJL upload wrapper for volatile firmware load | `low` |
 | USB endpoint-0 descriptor/control path | `partially implemented` | live prove marker descriptor; marker now has a tiny gate-clear rearm loop, but not full stock ThreadX/event completion handling | `medium` |
-| USB bulk receive to ZjStream parser | `mapped in stock firmware only` | open firmware must receive bulk bytes and feed the parser state machine | `medium` |
+| USB bulk receive to ZjStream parser | `stock path modeled` | open firmware must implement a bulk OUT receiver/read-callback shim that feeds the parser state machine | `medium` |
 | ZjStream parser and JobMgr object model | `mapped` | implement only chunk types used by foo2zjs daily printing: START/END doc/page, JBIG_BIH/BID/END_JBIG, plus END_PLANE if emitted by a host variant | `medium` |
 | JBIG compressed raster handling | `mapped to handoff boundary` | likely no full JBIG decode in firmware if hardware consumes the compressed stream like stock firmware | `high until hardware consumer semantics are proven` |
 | Video sideband policy | `narrowed but unresolved` | decide deliberate values for work +0x26/+0x32 before any print-driving firmware; +0x26 gates channel-B refill and final accounting | `high` |

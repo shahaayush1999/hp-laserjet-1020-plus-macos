@@ -83,30 +83,31 @@ Start here:
 77. `usb-path/control-completion-event.md` - stock endpoint-0 completion event-flag model
 78. `usb-path/usb-interrupt-events.md` - USB interrupt task event-lane and completion-bit model
 79. `open-firmware-model/minimal-print-scope.md` - generated minimum scope for a printing-only open replacement, including platform boundary and remaining blockers
-80. `hardware-boundary/first-page-hardware-sequence.md` - generated ordered first-page sequence from parser handoff into engine/video/refill hardware
-81. `hardware-boundary/video-engine-register-semantics.md` - generated register-role model for engine handshake, video setup, video transfer, and raw-band feed
-82. `hardware-boundary/video-prepare-modes.md` - generated branch/table model for `0xb100` video prepare timing and mode setup
-83. `hardware-boundary/engine-command-status.md` - generated command/status model for the stock `0xb050` engine register pair, status reads, side-effect commands, and event decisions
-84. `hardware-boundary/engine-status-decisions.md` - generated executable branch model for `hp1020_engine_status_poll_candidate` scenarios and side effects
-85. `hardware-boundary/video-engine-feedback.md` - generated model of VideoThread completion/reset messages back into engine/status flow
-86. `hardware-boundary/video-transfer-ring.md` - generated model of video transfer ring ownership, channel A/B descriptors, and band-done refill behavior
-87. `hardware-boundary/video-irq-decisions.md` - generated executable branch model for video block IRQ/status bits and reset-dispatch cases
-88. `hardware-boundary/video-band-queue.md` - generated model of the `0x10013f34` video descriptor queue/list helper, raw-band A/B register feed, and `+0xdc/+0xe0` loop gate
-89. `hardware-boundary/video-mode-flag.md` - generated model of work object `+0x74` to video state `+0xfc` and the IRQ refill fork between descriptor-queue and raw linked-list paths
-90. `hardware-boundary/video-refill-topology.md` - generated synthesis of the normal descriptor-queue refill path versus the alternate raw linked-list refresh path
-91. `hardware-boundary/video-prepare-projection.md` - generated projection from current host print variants into the 600dpi `0xb100` video-prepare setup scenarios
-92. `hardware-boundary/engine-print-topology.md` - generated synthesis of engine startup/preflight, page work acceptance, status recovery, and completion/deferred-work flow
-93. `open-firmware-model/raster-field-semantics.md` - generated host-to-raster field semantics for BIH/BID values that reach the video hardware boundary
-94. `hardware-boundary/video-dataflow-contract.md` - generated normal first-page dataflow contract from host raster fields into render/refill hardware formulas
-95. `hardware-boundary/video-chunk-sizing.md` - generated model for stride-derived `+0xcc` chunk sizing and raw-band flag helper behavior
-96. `hardware-boundary/video-helper-disassembly.md` - generated instruction-level status report for helper `0x1001b668` and the current old-Xtensa decoder limit
-97. `hardware-boundary/video-queue-payload-chain.md` - generated pointer-chain report showing VideoThread prepare receives the `0x94` video/page work object
-98. `hardware-boundary/video-prepare-argument-fields.md` - generated source model for fields read from the `0x94` video prepare argument
-99. `hardware-boundary/video-sideband-write-census.md` - generated decompiler plus Ghidra instruction census for `+0x26/+0x30/+0x32` sideband-looking stores
-100. `hardware-boundary/video-sideband-copy-direction.md` - generated copy-direction report for the JobMgr runtime-block memcpy candidate
-101. `hardware-boundary/video-sideband-default-impact.md` - generated zero/default impact report for unsourced active work sideband fields
-102. `hardware-boundary/video-zero-sideband-scenario.md` - generated consequence model for default-zero sideband fields: channel A can arm, channel B refill is not seeded
-103. `hardware-boundary/video-remaining-units.md` - generated model for the `+0xd0/+0xd4` remaining-unit candidate source and unresolved active work `+0x26` source
+80. `usb-path/usb-bulk-receive-model.md` - generated static model of stock USB bulk OUT receive registration and parser read-callback handoff
+81. `hardware-boundary/first-page-hardware-sequence.md` - generated ordered first-page sequence from parser handoff into engine/video/refill hardware
+82. `hardware-boundary/video-engine-register-semantics.md` - generated register-role model for engine handshake, video setup, video transfer, and raw-band feed
+83. `hardware-boundary/video-prepare-modes.md` - generated branch/table model for `0xb100` video prepare timing and mode setup
+84. `hardware-boundary/engine-command-status.md` - generated command/status model for the stock `0xb050` engine register pair, status reads, side-effect commands, and event decisions
+85. `hardware-boundary/engine-status-decisions.md` - generated executable branch model for `hp1020_engine_status_poll_candidate` scenarios and side effects
+86. `hardware-boundary/video-engine-feedback.md` - generated model of VideoThread completion/reset messages back into engine/status flow
+87. `hardware-boundary/video-transfer-ring.md` - generated model of video transfer ring ownership, channel A/B descriptors, and band-done refill behavior
+88. `hardware-boundary/video-irq-decisions.md` - generated executable branch model for video block IRQ/status bits and reset-dispatch cases
+89. `hardware-boundary/video-band-queue.md` - generated model of the `0x10013f34` video descriptor queue/list helper, raw-band A/B register feed, and `+0xdc/+0xe0` loop gate
+90. `hardware-boundary/video-mode-flag.md` - generated model of work object `+0x74` to video state `+0xfc` and the IRQ refill fork between descriptor-queue and raw linked-list paths
+91. `hardware-boundary/video-refill-topology.md` - generated synthesis of the normal descriptor-queue refill path versus the alternate raw linked-list refresh path
+92. `hardware-boundary/video-prepare-projection.md` - generated projection from current host print variants into the 600dpi `0xb100` video-prepare setup scenarios
+93. `hardware-boundary/engine-print-topology.md` - generated synthesis of engine startup/preflight, page work acceptance, status recovery, and completion/deferred-work flow
+94. `open-firmware-model/raster-field-semantics.md` - generated host-to-raster field semantics for BIH/BID values that reach the video hardware boundary
+95. `hardware-boundary/video-dataflow-contract.md` - generated normal first-page dataflow contract from host raster fields into render/refill hardware formulas
+96. `hardware-boundary/video-chunk-sizing.md` - generated model for stride-derived `+0xcc` chunk sizing and raw-band flag helper behavior
+97. `hardware-boundary/video-helper-disassembly.md` - generated instruction-level status report for helper `0x1001b668` and the current old-Xtensa decoder limit
+98. `hardware-boundary/video-queue-payload-chain.md` - generated pointer-chain report showing VideoThread prepare receives the `0x94` video/page work object
+99. `hardware-boundary/video-prepare-argument-fields.md` - generated source model for fields read from the `0x94` video prepare argument
+100. `hardware-boundary/video-sideband-write-census.md` - generated decompiler plus Ghidra instruction census for `+0x26/+0x30/+0x32` sideband-looking stores
+101. `hardware-boundary/video-sideband-copy-direction.md` - generated copy-direction report for the JobMgr runtime-block memcpy candidate
+102. `hardware-boundary/video-sideband-default-impact.md` - generated zero/default impact report for unsourced active work sideband fields
+103. `hardware-boundary/video-zero-sideband-scenario.md` - generated consequence model for default-zero sideband fields: channel A can arm, channel B refill is not seeded
+104. `hardware-boundary/video-remaining-units.md` - generated model for the `+0xd0/+0xd4` remaining-unit candidate source and unresolved active work `+0x26` source
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -242,6 +243,7 @@ Useful current conclusions:
 - `scripts/model-hp1020-control-in-data-stage.py` regenerates the stock endpoint-0 control-IN descriptor/kick model and self-tests key response sizes.
 - `scripts/model-hp1020-control-completion.py` regenerates the stock endpoint-0 completion event-flag model and verifies the evidence snippets.
 - `scripts/model-hp1020-usb-interrupt-events.py` regenerates the USB interrupt event-lane model and verifies the evidence snippets.
+- `scripts/model-hp1020-usb-bulk-receive.py` regenerates the static bulk OUT receive/read-callback handoff model that connects USB2Thread to parser entry `0x10009d34`.
 - `scripts/model-hp1020-video-engine-register-semantics.py` regenerates the dangerous video/engine register-role model from the stock ELF and decompiled source.
 - `scripts/model-hp1020-video-prepare-modes.py` regenerates the branch/table model for the `0xb100` video prepare setup path.
 - `scripts/model-hp1020-engine-command-status.py` regenerates the `0xb050` engine command/status model, including stock command IDs, state offsets, and event decisions.

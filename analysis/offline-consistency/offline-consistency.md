@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `52`
+- checks: `53`
 - failures: `0`
 - meaning: Offline analysis is internally consistent; the next decisive evidence is a guarded non-printing printer-side probe.
 
@@ -21,6 +21,7 @@ It does not contact the printer.
 | `print_model_invariants_have_no_failures` | `watch` | Offline ZjStream model invariants must remain green across generated print-path variants. | `analysis/open-firmware-model/model-invariants.json` |
 | `print_model_variant_coverage` | `watch` | Invariant coverage must include paper size, resolution, copy, draft, source, media, and clip variants. | `analysis/open-firmware-model/model-invariants.json` |
 | `minimal_print_scope_keeps_parser_mapped_and_hardware_blocked` | `watch` | The generated narrow-scope report must preserve the current split: parser/object path mapped, sideband policy narrowed but unresolved, video/engine hardware still high risk. | `analysis/open-firmware-model/minimal-print-scope.json` |
+| `usb_bulk_receive_model_preserves_parser_handoff` | `watch` | The USB bulk receive model must keep the stock transfer-record registration, 0x400-byte receive buffer, and parser read-callback handoff mapped. | `analysis/usb-path/usb-bulk-receive-model.json` |
 | `raster_field_semantics_keep_host_to_video_chain` | `watch` | Raster field semantics must preserve the host ZjStream/JBIG to work/raster object chain consumed by video hardware. | `analysis/open-firmware-model/raster-field-semantics.json` |
 | `hardware_boundary_keeps_engine_video_unsafe` | `watch` | The do-not-touch boundary for early custom firmware must still include video and engine paths. | `analysis/hardware-boundary/hardware-boundary.json` |
 | `first_page_sequence_keeps_video_engine_registers_ordered` | `watch` | The first-page hardware sequence must preserve the ordered engine/video/refill risk boundary. | `analysis/hardware-boundary/first-page-hardware-sequence.json` |

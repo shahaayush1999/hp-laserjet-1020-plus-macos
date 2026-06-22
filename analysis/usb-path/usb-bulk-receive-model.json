@@ -1,0 +1,159 @@
+{
+  "checks": [
+    {
+      "evidence": "analysis/usb-path/decompiled-neighbors/10008ff0_hp1020_usb2_thread.c",
+      "needle": "uStack_70 = 1;",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/decompiled-neighbors/10008ff0_hp1020_usb2_thread.c",
+      "needle": "puStack_68 = PTR_LAB_10005efc;",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/decompiled-neighbors/10008ff0_hp1020_usb2_thread.c",
+      "needle": "puStack_64 = PTR_LAB_10005f00;",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/decompiled-neighbors/10008ff0_hp1020_usb2_thread.c",
+      "needle": "uVar11 = hp1020_usb_register_transfer_candidate(&uStack_70);",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/decompiled-neighbors/10007c00_hp1020_usb_register_transfer_candidate.c",
+      "needle": "puVar3 + iVar8 * 0x58",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/decompiled-neighbors/10007c00_hp1020_usb_register_transfer_candidate.c",
+      "needle": "piVar6[1] = param_1[2];",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/decompiled-neighbors/10007c00_hp1020_usb_register_transfer_candidate.c",
+      "needle": "piVar6[2] = param_1[3];",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/decompiled-neighbors/10007c00_hp1020_usb_register_transfer_candidate.c",
+      "needle": "piVar6[0xb] = iVar5;",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/usb-path/decompiled-neighbors/10008034_FUN_10008034.c",
+      "needle": "FUN_10013140(0x400,1)",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/zjs-parser-boundary/decompiled/10009d34_hp1020_zjs_parser_entry_candidate.c",
+      "needle": "(**(code **)(param_1 + 0xc))",
+      "status": "present"
+    },
+    {
+      "evidence": "analysis/zjs-parser-boundary/decompiled/10009d34_hp1020_zjs_parser_entry_candidate.c",
+      "needle": "hp1020_queue_send_candidate(3,auStack_1d0)",
+      "status": "present"
+    }
+  ],
+  "constants": {
+    "bulk_rx_done_flag": "0x1001bc72",
+    "bulk_rx_mask_word": "0xfffcfffe",
+    "bulk_rx_size_word": "0x1001bc50",
+    "bulk_rx_token_word": "0x1001bc40",
+    "completion_event_flags": "0x10021318",
+    "descriptor_pool_a": "0x1001bc48",
+    "descriptor_pool_b": "0x1001bc58",
+    "endpoint_ack_register": "0xb300022c",
+    "endpoint_config_word": "0x10021590",
+    "parser_entry": "0x10009d34",
+    "pending_transfer_list": "0x10022740",
+    "registered_callback_a": "0x100087b8",
+    "registered_callback_b": "0x10008bac",
+    "transfer_callback_a": "0x100080f0",
+    "transfer_callback_b": "0x100081f4",
+    "transfer_prepare_callback": "0x1000807c",
+    "transfer_ring_base": "0x1001ec00",
+    "transfer_ring_index": "0x1001f214",
+    "transfer_state": "0x100212d4",
+    "transfer_token_shift_word": "0x1001f238",
+    "usb2thread_descriptor_word0": "0x10003530",
+    "usb2thread_event_bit": "0x00010000",
+    "usb2thread_name": "0x10021588",
+    "zjs_magic": "0x1001bc78"
+  },
+  "open_firmware_implication": [
+    "The stock path separates USB transfer registration from ZjStream parsing through a callback table passed as parser param_1.",
+    "An open firmware can keep the host-side ZjStream parser model, but still needs a bulk OUT receiver that can present a blocking/read callback at param_1+0x0c.",
+    "The immediate software target after endpoint-0 proof is not video hardware; it is a small bulk-receive/read-callback shim that feeds the already-modeled ZjStream chunk loop."
+  ],
+  "parser_handoff": {
+    "parser_entry": "0x10009d34",
+    "parser_reads_via_param_0x0c_callback": true,
+    "parser_sends_jobmgr_queue": 3,
+    "usb2thread_descriptor": "0x10005fc4",
+    "usb2thread_entry": "0x10008ff0",
+    "zjs_magic": "0x1001bc78"
+  },
+  "status": "pass",
+  "summary": "Static model of stock USB bulk receive registration and parser handoff.",
+  "transfer_record": {
+    "buffer_allocation": "0x400 bytes",
+    "default_callbacks_from_allocator": {
+      "+0x0c": "0x100080f0",
+      "+0x10": "0x100081f4",
+      "+0x14": "0x1000807c"
+    },
+    "record_stride": "0x58",
+    "registered_param_words": [
+      {
+        "meaning": "transfer kind/endpoint selector candidate",
+        "record_offset": "+0x2c",
+        "value": "0x00000001",
+        "word": 0
+      },
+      {
+        "meaning": "flags/timeout candidate",
+        "record_offset": "+0x38",
+        "value": "0x00000000",
+        "word": 1
+      },
+      {
+        "meaning": "registered callback/function pointer A",
+        "record_offset": "+0x04",
+        "value": "0x100087b8",
+        "word": 2
+      },
+      {
+        "meaning": "registered callback/function pointer B",
+        "record_offset": "+0x08",
+        "value": "0x10008bac",
+        "word": 3
+      },
+      {
+        "meaning": "state/argument slot candidate",
+        "record_offset": "+0x18",
+        "value": "0x00000000",
+        "word": 4
+      },
+      {
+        "meaning": "enable/ownership candidate",
+        "record_offset": "+0x54",
+        "value": "0x00000001",
+        "word": 5
+      }
+    ],
+    "ring_base": "0x1001ec00",
+    "ring_index_word": "0x1001f214"
+  },
+  "usb2thread_descriptor_words": [
+    "0x10003530",
+    "0x10008ff0",
+    "0x10022768",
+    "0x10021588",
+    "0x10021384",
+    "0x00030d40",
+    "0x10009d34",
+    "0x1001bc78"
+  ]
+}
