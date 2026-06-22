@@ -922,8 +922,10 @@ def build_report() -> dict[str, Any]:
     checks.append(
         check(
             "usb_marker_length_flow_passes",
-            severity_count(marker_len, "fail") == 0 and len(marker_len) == 4,
-            "The marker draft must keep host wLength clipping connected to the endpoint-0 response length.",
+            severity_count(marker_len, "fail") == 0
+            and len(marker_len) == 5
+            and any(item.get("name") == "descriptor_word_uses_clipped_length" for item in marker_len),
+            "The marker draft must keep host wLength clipping connected to the endpoint-0 response state and descriptor word.",
             evidence="analysis/open-firmware-probes/usb-marker-draft/marker-length-flow-check.json",
         )
     )
@@ -988,13 +990,19 @@ def build_report() -> dict[str, Any]:
         for scenario in marker_behavior.get("scenarios", [])
         if scenario.get("decision", {}).get("result") == "marker_response"
     ]
+    marker_poll_continue = [
+        scenario
+        for scenario in marker_behavior.get("scenarios", [])
+        if scenario.get("decision", {}).get("result") == "poll_continue"
+    ]
     checks.append(
         check(
             "usb_marker_behavior_clips_and_uses_both_gates",
             len(marker_responses) == 3
+            and len(marker_poll_continue) == 3
             and {item["decision"].get("sequence") for item in marker_responses} == {"sequence_a", "sequence_b"}
             and any(item["decision"].get("response_len") == 4 for item in marker_responses),
-            "The host-side marker model must cover both stock gates and clipped host length.",
+            "The host-side marker model must cover both stock gates, clipped host length, and polling continuation for non-matching setup/gate states.",
             evidence="analysis/open-firmware-probes/usb-marker-draft/behavior-model.json",
         )
     )

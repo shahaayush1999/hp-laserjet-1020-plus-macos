@@ -60,7 +60,7 @@ Open firmware analysis state:
 - `analysis/open-firmware-probes/usb-register-snapshot/summary.md` records the generated USB snapshot probe. It reads only mapped USB `0xb300....` registers into RAM, then idles. It is not host-readable yet and has not been uploaded.
 - `analysis/open-firmware-probes/usb-register-snapshot/hardware-test-plan.md` records the guarded future hardware test order for the read-only USB snapshot probe.
 - `open-firmware/usb-marker-draft/` builds the current write-capable, USB-only endpoint-0 marker draft. It is offline-only for now and has not been uploaded.
-- `analysis/open-firmware-probes/usb-marker-draft/summary.md` records the generated marker draft. It recognizes a product-string `GET_DESCRIPTOR` shape and writes only the stock-mapped endpoint-0 USB register sequences; it does not touch engine/video/mechanical MMIO.
+- `analysis/open-firmware-probes/usb-marker-draft/summary.md` records the generated marker draft. It polls for a product-string `GET_DESCRIPTOR` shape, uses the clipped host length in the response state and descriptor word, and writes only the stock-mapped endpoint-0 USB register sequences; it does not touch engine/video/mechanical MMIO.
 - `analysis/open-firmware-probes/usb-marker-draft/hardware-test-plan.md` records the guarded future hardware test order. Do not start with this draft; run safer stock/idle/read-only probes first.
 - `analysis/open-firmware-probes/hardware-test-ladder.md` records the staged non-printing hardware test order across stock calibration, idle, USB snapshot, and USB marker stages.
 - `analysis/boot-handoff/boot-handoff.md` is the current stock-vs-open upload/boot handoff report.

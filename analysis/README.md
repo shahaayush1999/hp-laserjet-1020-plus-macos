@@ -157,7 +157,7 @@ Useful current conclusions:
 - `open-firmware/minimal-idle/` now builds an open-code, non-printing idle firmware probe with HP-style `.elf`, date-prefixed `.img`, and PJL/ACL `.dl` outputs.
 - `analysis/open-firmware-probes/minimal-idle/summary.md` records the current generated probe. It passes the boot-probe layout profile and safety scan, and it has trap-safe system-interface/runtime-vector placeholders.
 - `open-firmware/usb-register-snapshot/` now builds an open-code, non-printing USB register snapshot probe. It only reads mapped USB `0xb300....` registers into RAM and then idles; it has no host-visible output yet and has not been uploaded.
-- `open-firmware/usb-marker-draft/` now builds an open-code, USB-only marker draft. It recognizes a product-string `GET_DESCRIPTOR` setup shape and writes only the extracted stock endpoint-0 USB register sequences. It has not been uploaded.
+- `open-firmware/usb-marker-draft/` now builds an open-code, USB-only marker draft. It polls for a product-string `GET_DESCRIPTOR` setup shape, uses the clipped host length in the response state and descriptor word, and writes only the extracted stock endpoint-0 USB register sequences. It has not been uploaded.
 - `scripts/validate-open-firmware-probes.sh` rebuilds all open firmware probes and runs the offline layout/scanner/dry-run harness validation stack.
 - `analysis/boot-handoff/boot-handoff.md` compares the stock HP firmware and open idle probe. The core packaging/shape question is mostly answered; the next decisive question is whether hardware accepts and branches into the open payload.
 - `analysis/open-firmware-probes/minimal-idle/hardware-test-result-2026-06-15.md` records the first hardware upload: USB backend sent all `121931` bytes, printer stayed green/quiet with no paper movement, and macOS still saw the HP USB identity. This is a good safety result but not proof that `_start` executed.
@@ -237,7 +237,7 @@ Useful current conclusions:
 - `scripts/check-hp1020-memory-boundary.py` classifies non-MMIO memory references in open probes. The USB marker draft intentionally reads a candidate setup packet buffer and writes stock USB response-state slots.
 - `scripts/check-hp1020-marker-descriptor.py` verifies the marker string descriptor and the 0x90000000 hardware alias pointer used by the USB marker draft.
 - `scripts/check-hp1020-marker-length-flow.py` verifies the marker draft preserves the clipped host `wLength` register into the endpoint-0 response-length write.
-- `scripts/model-hp1020-usb-marker-draft.py` models the USB marker draft's setup/gate behavior and verifies response length clipping at the decision level.
+- `scripts/model-hp1020-usb-marker-draft.py` models the USB marker draft's polling setup/gate behavior and verifies response length clipping at the decision level.
 - `scripts/model-hp1020-usb-setup-source.py` regenerates the setup-source report that separates the direct setup RAM candidate from the USB event pointer.
 - `scripts/model-hp1020-control-in-data-stage.py` regenerates the stock endpoint-0 control-IN descriptor/kick model and self-tests key response sizes.
 - `scripts/model-hp1020-control-completion.py` regenerates the stock endpoint-0 completion event-flag model and verifies the evidence snippets.

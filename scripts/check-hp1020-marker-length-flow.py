@@ -45,6 +45,8 @@ def check_length_flow(lines: list[str]) -> list[Check]:
     checks: list[Check] = []
     clipped_store = find_line(lines, "s32i a6, a4, 0x20")
     response_store = find_line(lines, "s32i a6, a4, 0x3c")
+    descriptor_or = find_line(lines, "or a7, a7, a6")
+    descriptor_store = find_line(lines, "s32i a7, a4, 0")
     branch_b = find_line(lines, "bnez a7, hp1020_usb_marker_sequence_b")
     kick_label = label_line(lines, "hp1020_usb_marker_kick_control_in")
 
@@ -60,6 +62,13 @@ def check_length_flow(lines: list[str]) -> list[Check]:
             "response_length_uses_a6",
             "watch" if response_store is not None else "fail",
             "endpoint-0 response length must be programmed from the clipped-length register",
+        )
+    )
+    checks.append(
+        Check(
+            "descriptor_word_uses_clipped_length",
+            "watch" if descriptor_or is not None and descriptor_store is not None and descriptor_or < descriptor_store else "fail",
+            "transfer descriptor word must OR the final flag with the clipped-length register before descriptor submission",
         )
     )
 

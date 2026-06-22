@@ -218,7 +218,7 @@
       "severity": "watch"
     },
     {
-      "detail": "The marker draft must keep host wLength clipping connected to the endpoint-0 response length.",
+      "detail": "The marker draft must keep host wLength clipping connected to the endpoint-0 response state and descriptor word.",
       "evidence": "analysis/open-firmware-probes/usb-marker-draft/marker-length-flow-check.json",
       "name": "usb_marker_length_flow_passes",
       "severity": "watch"
@@ -248,7 +248,7 @@
       "severity": "watch"
     },
     {
-      "detail": "The host-side marker model must cover both stock gates and clipped host length.",
+      "detail": "The host-side marker model must cover both stock gates, clipped host length, and polling continuation for non-matching setup/gate states.",
       "evidence": "analysis/open-firmware-probes/usb-marker-draft/behavior-model.json",
       "name": "usb_marker_behavior_clips_and_uses_both_gates",
       "severity": "watch"

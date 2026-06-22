@@ -21,7 +21,7 @@ This artifact is offline only. It was not uploaded to the printer.
 
 ```text
 PASS /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/hp1020-usb-marker-draft.dl
-kind=dl_upload image_bytes=123724 elf_bytes=123716
+kind=dl_upload image_bytes=123772 elf_bytes=123764
 entry=0x100167a8 machine=0xabc7 phnum=11 shnum=22
 ```
 
@@ -32,17 +32,18 @@ entry=0x100167a8 machine=0xabc7 phnum=11 shnum=22
 ```
 
 ```text
-scenarios=6 marker=3 no_match=3
+scenarios=6 marker=3 poll_continue=3
 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/behavior-model.md
 ```
 
 ## Meaning
 
-This open-code draft recognizes a USB product-string GET_DESCRIPTOR setup shape and tries to expose the marker string `HP1020 OPEN MARKER` through endpoint-0.
+This open-code draft polls for a USB product-string GET_DESCRIPTOR setup shape and tries to expose the marker string `HP1020 OPEN MARKER` through endpoint-0.
+Non-matching setup packets or inactive USB gates now continue polling instead of parking after a one-shot miss.
 It writes only USB-controller MMIO registers that match the extracted stock endpoint-0 sequence contract.
 It also writes the stock USB response-state RAM slots used by that contract; the memory boundary scan makes those non-MMIO writes explicit.
-For a matching request, it copies the marker descriptor into the stock control-IN staging buffer `0x90022bd0`, builds one four-word transfer descriptor at `0x900226f0`, submits that descriptor through `0xb3000014`, and kicks `0xb3000000 |= 0x108`.
+For a matching request, it clips the host `wLength`, copies the marker descriptor into the stock control-IN staging buffer `0x90022bd0`, builds one four-word transfer descriptor at `0x900226f0`, submits that descriptor through `0xb3000014`, and kicks `0xb3000000 |= 0x108`.
 The marker descriptor check verifies the embedded `HP1020 OPEN MARKER` USB string descriptor, its length constant, and its 0x90000000 hardware alias pointer.
-The marker length-flow check verifies the clipped USB request length is preserved into the endpoint-0 response-state write.
+The marker length-flow check verifies the clipped USB request length is preserved into the endpoint-0 response-state write and transfer descriptor word.
 It does not touch engine, fuser, motor, paper-feed, video, or raster MMIO.
 It is still not the first thing to upload; the missing proof is whether the setup buffer, staging buffer, descriptor ring, and controller completion path are valid after custom upload without the full stock USB runtime.

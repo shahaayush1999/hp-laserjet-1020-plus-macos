@@ -2,7 +2,7 @@
 Discarded input sections
 
  .xtensa.info   0x0000000000000000       0x38 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/hp1020-usb-marker-draft.o
- .xt.prop       0x0000000000000000      0x30c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/hp1020-usb-marker-draft.o
+ .xt.prop       0x0000000000000000      0x2f4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/hp1020-usb-marker-draft.o
 
 Memory Configuration
 
@@ -78,13 +78,12 @@ Linker script and memory map
                 0x0000000010003200                hp1020_open_marker_product_string
                 0x0000000010005c80                . = 0x10005c80
 
-.text           0x0000000010005c80      0x1fa
+.text           0x0000000010005c80      0x1f2
  *(.text.probe)
- .text.probe    0x0000000010005c80      0x1fa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/hp1020-usb-marker-draft.o
-                                        0x1fe (size before relaxing)
-                0x0000000010005df0                hp1020_usb_marker_draft_probe
+ .text.probe    0x0000000010005c80      0x1f2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/hp1020-usb-marker-draft.o
+                0x0000000010005de8                hp1020_usb_marker_draft_probe
  *(.text)
- .text          0x0000000010005e7a        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/hp1020-usb-marker-draft.o
+ .text          0x0000000010005e72        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/hp1020-usb-marker-draft.o
                 0x0000000010006a14                . = 0x10006a14
 
 .runtime_vector.entry

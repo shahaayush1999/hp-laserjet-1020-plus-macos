@@ -65,8 +65,8 @@
         "candidate_response_len": 38,
         "gate_0400": "0x00000000",
         "gate_0408": "0x00000000",
-        "reason": "neither USB status gate is active",
-        "result": "no_match",
+        "reason": "neither USB status gate is active; probe keeps polling",
+        "result": "poll_continue",
         "setup_hex": "80 06 02 03 09 04 ff 00",
         "w_length": 255
       },
@@ -107,8 +107,8 @@
         "gate_0400": "0x00000000",
         "gate_0408": "0x00006000",
         "observed_prefix": "80 06 00 01",
-        "reason": "not GET_DESCRIPTOR string index 2",
-        "result": "no_match",
+        "reason": "not GET_DESCRIPTOR string index 2; probe keeps polling",
+        "result": "poll_continue",
         "setup_hex": "80 06 00 01 00 00 12 00"
       },
       "name": "device descriptor request"
@@ -118,8 +118,8 @@
         "gate_0400": "0x00000000",
         "gate_0408": "0x00006000",
         "observed_prefix": "21 0a 00 00",
-        "reason": "not GET_DESCRIPTOR string index 2",
-        "result": "no_match",
+        "reason": "not GET_DESCRIPTOR string index 2; probe keeps polling",
+        "result": "poll_continue",
         "setup_hex": "21 0a 00 00 00 00 00 00"
       },
       "name": "class request"

@@ -10,6 +10,11 @@
     "severity": "watch"
   },
   {
+    "detail": "transfer descriptor word must OR the final flag with the clipped-length register before descriptor submission",
+    "name": "descriptor_word_uses_clipped_length",
+    "severity": "watch"
+  },
+  {
     "detail": "no writes to a6 are allowed between clipped-length calculation and sequence dispatch",
     "name": "a6_not_clobbered_before_sequence",
     "severity": "watch"

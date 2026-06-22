@@ -93,8 +93,8 @@ hp1020_descriptor_base_ptr_900226f0:
     .word 0x900226f0
 hp1020_marker_len_00000026:
     .word 0x00000026
-hp1020_descriptor_word_08000026:
-    .word 0x08000026
+hp1020_descriptor_final_flag_08000000:
+    .word 0x08000000
 hp1020_done_marker_48504d4b:
     .word 0x48504d4b
 hp1020_no_match_marker_4e4f4d41:
@@ -183,7 +183,7 @@ hp1020_usb_marker_no_match:
     l32r a4, hp1020_usb_marker_state_ptr
     l32r a3, hp1020_no_match_marker_4e4f4d41
     s32i a3, a4, 0x40
-    jump_abs hp1020_probe_idle_loop
+    j hp1020_usb_marker_poll_loop
 
     .align 4
 hp1020_usb_marker_sequence_a:
@@ -214,6 +214,8 @@ hp1020_usb_marker_sequence_b:
 hp1020_usb_marker_kick_control_in:
     l32r a4, hp1020_response_state_base_100212d4
     s32i a6, a4, 0x3c
+    l32r a7, hp1020_descriptor_final_flag_08000000
+    or a7, a7, a6
     l32r a3, hp1020_staging_buffer_ptr_90022bd0
     s32i a3, a4, 0x40
 
@@ -230,8 +232,7 @@ hp1020_usb_marker_kick_control_in:
     bltu a4, a5, 1b
 
     l32r a4, hp1020_descriptor_base_ptr_900226f0
-    l32r a3, hp1020_descriptor_word_08000026
-    s32i a3, a4, 0
+    s32i a7, a4, 0
     movi a3, 0
     s32i a3, a4, 4
     l32r a3, hp1020_staging_buffer_ptr_90022bd0
@@ -250,6 +251,7 @@ hp1020_usb_marker_kick_control_in:
     .align 4
     .global hp1020_usb_marker_draft_probe
 hp1020_usb_marker_draft_probe:
+hp1020_usb_marker_poll_loop:
     snapshot_word hp1020_mmio_b3000408, 0x00
     snapshot_word hp1020_mmio_b3000400, 0x04
 

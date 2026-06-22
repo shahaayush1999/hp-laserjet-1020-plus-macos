@@ -9,18 +9,18 @@ It does not upload anything to the printer.
 - Profile: `boot-probe`
 - Source kind: `dl_upload`
 - Validation: `PASS`
-- Source bytes: `123775`
-- Date-prefixed image bytes: `123724`
-- Raw ELF bytes: `123716`
+- Source bytes: `123823`
+- Date-prefixed image bytes: `123772`
+- Raw ELF bytes: `123764`
 - Date prefix: `20260622`
 
 ## Upload Envelope
 
 - PJL/ACL prefix bytes: `34`
 - ACL magic: `00acc0de`
-- ACL ELF length: `123716`
+- ACL ELF length: `123764`
 - Embedded image offset: `42`
-- Embedded image length: `123724`
+- Embedded image length: `123772`
 - UEL trailer: `1b252d313233343558`
 
 ## ELF Header
@@ -33,8 +33,8 @@ It does not upload anything to the printer.
 - Section headers: `22`
 - LOAD segment file bytes: `109692`
 - LOAD segment memory bytes: `109692`
-- Allocated section bytes: `2794`
-- Executable section bytes: `1944`
+- Allocated section bytes: `2786`
+- Executable section bytes: `1936`
 
 ## Critical Sections
 
@@ -43,7 +43,7 @@ It does not upload anything to the printer.
 | `.WindowVectors.text` | `0x10000000` | `0x180` | `AX` |
 | `.sys_interface_table` | `0x10000370` | `0x12c` | `WA` |
 | `.rodata` | `0x10003000` | `0xb8` | `A` |
-| `.text` | `0x10005c80` | `0x1fa` | `AX` |
+| `.text` | `0x10005c80` | `0x1f2` | `AX` |
 | `.ResetVector.text` | `0x10100020` | `0x2e0` | `AX` |
 
 ## Anchor Addresses

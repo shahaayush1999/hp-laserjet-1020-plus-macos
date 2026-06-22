@@ -47,14 +47,14 @@ def marker_decision(setup: bytes, gate_0408: int, gate_0400: int) -> dict[str, o
     }
 
     if len(setup) != 8:
-        return {**state, "result": "no_match", "reason": "setup packet is not 8 bytes"}
+        return {**state, "result": "poll_continue", "reason": "setup packet is not 8 bytes"}
 
     expected_prefix = SETUP_PRODUCT_STRING[:4]
     if setup[:4] != expected_prefix:
         return {
             **state,
-            "result": "no_match",
-            "reason": "not GET_DESCRIPTOR string index 2",
+            "result": "poll_continue",
+            "reason": "not GET_DESCRIPTOR string index 2; probe keeps polling",
             "observed_prefix": setup[:4].hex(" "),
         }
 
@@ -67,8 +67,8 @@ def marker_decision(setup: bytes, gate_0408: int, gate_0400: int) -> dict[str, o
     else:
         return {
             **state,
-            "result": "no_match",
-            "reason": "neither USB status gate is active",
+            "result": "poll_continue",
+            "reason": "neither USB status gate is active; probe keeps polling",
             "w_length": w_length,
             "candidate_response_len": response_len,
         }
@@ -149,7 +149,8 @@ def render_markdown(report: dict[str, object]) -> str:
             "- `0xb3000400 & 0x3` selects Sequence B when Sequence A is not selected.",
             "- Matching requests copy the marker descriptor from `0x90003200` into the stock control-IN staging buffer `0x90022bd0`.",
             "- The draft builds one four-word descriptor at `0x900226f0`, submits it through `0xb3000014`, and kicks `0xb3000000 |= 0x108`.",
-            "- If neither gate is active, the draft parks without programming endpoint-0.",
+            "- If the setup packet or gate state does not match, the draft keeps polling without programming endpoint-0.",
+            "- This avoids the old one-shot false negative where an early non-product request could park the probe forever.",
             "",
         ]
     )
@@ -169,8 +170,8 @@ def main() -> int:
     args.markdown_output.write_text(render_markdown(report) + "\n")
 
     marker = sum(1 for scenario in report["scenarios"] if scenario["decision"]["result"] == "marker_response")
-    no_match = len(report["scenarios"]) - marker
-    print(f"scenarios={len(report['scenarios'])} marker={marker} no_match={no_match}")
+    poll_continue = sum(1 for scenario in report["scenarios"] if scenario["decision"]["result"] == "poll_continue")
+    print(f"scenarios={len(report['scenarios'])} marker={marker} poll_continue={poll_continue}")
     print(args.markdown_output)
     return 0
 
