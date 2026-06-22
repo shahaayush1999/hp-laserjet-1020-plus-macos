@@ -142,6 +142,33 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/open-firmware-model/minimal-print-scope.json",
         )
     )
+    raster_fields = read_json("analysis/open-firmware-model/raster-field-semantics.json")
+    raster_semantics = {
+        item.get("field"): item
+        for item in raster_fields.get("field_semantics", [])
+        if isinstance(item, dict)
+    }
+    raster_cases = {
+        item.get("case"): item
+        for item in raster_fields.get("case_matrix", [])
+        if isinstance(item, dict)
+    }
+    checks.append(
+        check(
+            "raster_field_semantics_keep_host_to_video_chain",
+            raster_fields.get("status") == "pass"
+            and len(raster_cases) >= 11
+            and {"work +0x84", "work +0x88", "work +0x8c", "work +0x90", "payload +0x48", "payload +0x54"}.issubset(
+                raster_semantics
+            )
+            and raster_cases.get("a4_default", {}).get("work_0x84_0x88_0x8c_0x90") == "9600/6824/128/0x5c"
+            and raster_cases.get("a4_600x600", {}).get("work_0x84_0x88_0x8c_0x90") == "4864/6824/128/0x5c"
+            and raster_cases.get("legal_default", {}).get("payload_0x48") == 6388
+            and all(item.get("status") == "present" for item in raster_fields.get("checks", [])),
+            "Raster field semantics must preserve the host ZjStream/JBIG to work/raster object chain consumed by video hardware.",
+            evidence="analysis/open-firmware-model/raster-field-semantics.json",
+        )
+    )
 
     boundary = read_json("analysis/hardware-boundary/hardware-boundary.json")
     unsafe_functions = {

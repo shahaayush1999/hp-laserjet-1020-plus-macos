@@ -1,5 +1,5 @@
 {
-  "check_count": 40,
+  "check_count": 41,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -41,6 +41,12 @@
       "detail": "The generated narrow-scope report must preserve the current split: parser/object path mapped, video/engine hardware still high risk.",
       "evidence": "analysis/open-firmware-model/minimal-print-scope.json",
       "name": "minimal_print_scope_keeps_parser_mapped_and_hardware_blocked",
+      "severity": "watch"
+    },
+    {
+      "detail": "Raster field semantics must preserve the host ZjStream/JBIG to work/raster object chain consumed by video hardware.",
+      "evidence": "analysis/open-firmware-model/raster-field-semantics.json",
+      "name": "raster_field_semantics_keep_host_to_video_chain",
       "severity": "watch"
     },
     {

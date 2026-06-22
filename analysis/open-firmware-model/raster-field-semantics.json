@@ -1,0 +1,261 @@
+{
+  "case_matrix": [
+    {
+      "bid_bytes": 6364,
+      "bih_xd_yd_l0_options": "9600/6824/128/0x5c",
+      "case": "base",
+      "paper": 9,
+      "payload_0x48": 6364,
+      "payload_0x4e": 1,
+      "payload_0x50": 0,
+      "raster_xy": "9536/6824",
+      "resolution": "600x600",
+      "video_xy": "4768/6824",
+      "work_0x84_0x88_0x8c_0x90": "9600/6824/128/0x5c"
+    },
+    {
+      "bid_bytes": 9080,
+      "bih_xd_yd_l0_options": "19072/6824/128/0x5c",
+      "case": "a4_2400x600",
+      "paper": 9,
+      "payload_0x48": 9080,
+      "payload_0x4e": 1,
+      "payload_0x50": 0,
+      "raster_xy": "19072/6824",
+      "resolution": "600x600",
+      "video_xy": "4768/6824",
+      "work_0x84_0x88_0x8c_0x90": "19072/6824/128/0x5c"
+    },
+    {
+      "bid_bytes": 4448,
+      "bih_xd_yd_l0_options": "4864/6824/128/0x5c",
+      "case": "a4_600x600",
+      "paper": 9,
+      "payload_0x48": 4448,
+      "payload_0x4e": 1,
+      "payload_0x50": 0,
+      "raster_xy": "4768/6824",
+      "resolution": "600x600",
+      "video_xy": "4768/6824",
+      "work_0x84_0x88_0x8c_0x90": "4864/6824/128/0x5c"
+    },
+    {
+      "bid_bytes": 6364,
+      "bih_xd_yd_l0_options": "9600/6824/128/0x5c",
+      "case": "a4_cardstock_media",
+      "paper": 9,
+      "payload_0x48": 6364,
+      "payload_0x4e": 1,
+      "payload_0x50": 0,
+      "raster_xy": "9536/6824",
+      "resolution": "600x600",
+      "video_xy": "4768/6824",
+      "work_0x84_0x88_0x8c_0x90": "9600/6824/128/0x5c"
+    },
+    {
+      "bid_bytes": 6364,
+      "bih_xd_yd_l0_options": "9600/6824/128/0x5c",
+      "case": "a4_default",
+      "paper": 9,
+      "payload_0x48": 6364,
+      "payload_0x4e": 1,
+      "payload_0x50": 0,
+      "raster_xy": "9536/6824",
+      "resolution": "600x600",
+      "video_xy": "4768/6824",
+      "work_0x84_0x88_0x8c_0x90": "9600/6824/128/0x5c"
+    },
+    {
+      "bid_bytes": 6364,
+      "bih_xd_yd_l0_options": "9600/6824/128/0x5c",
+      "case": "a4_draft",
+      "paper": 9,
+      "payload_0x48": 6364,
+      "payload_0x4e": 1,
+      "payload_0x50": 0,
+      "raster_xy": "9536/6824",
+      "resolution": "600x600",
+      "video_xy": "4768/6824",
+      "work_0x84_0x88_0x8c_0x90": "9600/6824/128/0x5c"
+    },
+    {
+      "bid_bytes": 6364,
+      "bih_xd_yd_l0_options": "9600/6824/128/0x5c",
+      "case": "a4_logical_clip",
+      "paper": 9,
+      "payload_0x48": 6364,
+      "payload_0x4e": 1,
+      "payload_0x50": 0,
+      "raster_xy": "9536/6824",
+      "resolution": "600x600",
+      "video_xy": "4768/6824",
+      "work_0x84_0x88_0x8c_0x90": "9600/6824/128/0x5c"
+    },
+    {
+      "bid_bytes": 6364,
+      "bih_xd_yd_l0_options": "9600/6824/128/0x5c",
+      "case": "a4_manual_feed",
+      "paper": 9,
+      "payload_0x48": 6364,
+      "payload_0x4e": 1,
+      "payload_0x50": 0,
+      "raster_xy": "9536/6824",
+      "resolution": "600x600",
+      "video_xy": "4768/6824",
+      "work_0x84_0x88_0x8c_0x90": "9600/6824/128/0x5c"
+    },
+    {
+      "bid_bytes": 6364,
+      "bih_xd_yd_l0_options": "9600/6824/128/0x5c",
+      "case": "a4_two_copies",
+      "paper": 9,
+      "payload_0x48": 6364,
+      "payload_0x4e": 2,
+      "payload_0x50": 0,
+      "raster_xy": "9536/6824",
+      "resolution": "600x600",
+      "video_xy": "4768/6824",
+      "work_0x84_0x88_0x8c_0x90": "9600/6824/128/0x5c"
+    },
+    {
+      "bid_bytes": 6388,
+      "bih_xd_yd_l0_options": "9856/8208/128/0x5c",
+      "case": "legal_default",
+      "paper": 5,
+      "payload_0x48": 6388,
+      "payload_0x4e": 1,
+      "payload_0x50": 0,
+      "raster_xy": "9816/8208",
+      "resolution": "600x600",
+      "video_xy": "4908/8208",
+      "work_0x84_0x88_0x8c_0x90": "9856/8208/128/0x5c"
+    },
+    {
+      "bid_bytes": 6376,
+      "bih_xd_yd_l0_options": "9856/6408/128/0x5c",
+      "case": "letter_default",
+      "paper": 1,
+      "payload_0x48": 6376,
+      "payload_0x4e": 1,
+      "payload_0x50": 0,
+      "raster_xy": "9816/6408",
+      "resolution": "600x600",
+      "video_xy": "4908/6408",
+      "work_0x84_0x88_0x8c_0x90": "9856/6408/128/0x5c"
+    }
+  ],
+  "checks": [
+    {
+      "detail": "11 print-path model(s) loaded",
+      "name": "variant_models_present",
+      "status": "present"
+    },
+    {
+      "detail": "BIH runtime block +0x04/+0x08/+0x0c/+0x13 still maps to work +0x84/+0x88/+0x8c/+0x90",
+      "name": "bih_runtime_to_work_fields",
+      "status": "present"
+    },
+    {
+      "detail": "decoded JBIG BIH XD/YD/L0/options still matches the runtime block fields",
+      "name": "bih_decoded_to_runtime_fields",
+      "status": "present"
+    },
+    {
+      "detail": "BID compressed byte count is present both at payload +0x48 and payload +0x54 byte_count",
+      "name": "bid_payload_size_to_raster_fields",
+      "status": "present"
+    },
+    {
+      "detail": "paper/resolution variants move the BIH-derived hardware geometry fields",
+      "name": "host_variants_move_geometry",
+      "status": "present"
+    },
+    {
+      "detail": "BID compressed payload size varies across generated host cases",
+      "name": "compressed_bytes_vary_by_host_case",
+      "status": "present"
+    }
+  ],
+  "field_semantics": [
+    {
+      "confidence": "high",
+      "field": "work +0x84",
+      "host_source": "JBIG BIH XD via runtime block 0x10023e28 +0x04",
+      "replacement_meaning": "horizontal raster/transfer geometry; must match host-generated compressed stream",
+      "stock_consumer": "0x10015214 video render writes 0xb2000008 and contributes to stride/window setup"
+    },
+    {
+      "confidence": "high",
+      "field": "work +0x88",
+      "host_source": "JBIG BIH YD via runtime block 0x10023e28 +0x08",
+      "replacement_meaning": "vertical raster/page geometry",
+      "stock_consumer": "0x10015214 video render writes 0xb200000c"
+    },
+    {
+      "confidence": "high",
+      "field": "work +0x8c",
+      "host_source": "JBIG BIH L0 via runtime block 0x10023e28 +0x0c",
+      "replacement_meaning": "JBIG stripe/band unit height used by the video transfer path",
+      "stock_consumer": "0x10015214 video render writes 0xb2000024 and seeds band-height logic"
+    },
+    {
+      "confidence": "medium-high",
+      "field": "work +0x90",
+      "host_source": "JBIG BIH options byte via runtime block 0x10023e28 +0x13",
+      "replacement_meaning": "mode/options bits for compressed raster transfer",
+      "stock_consumer": "0x10015214 video render derives 0xb2000000 control bits from it"
+    },
+    {
+      "confidence": "high",
+      "field": "work +0x50",
+      "host_source": "JobMgr list of ZJT_JBIG_BID raster nodes",
+      "replacement_meaning": "ordered compressed raster-band list for the page",
+      "stock_consumer": "video render stores it at video state +0x9c; refill paths walk or derive from this raster stream"
+    },
+    {
+      "confidence": "high",
+      "field": "payload +0x48",
+      "host_source": "ZJT_JBIG_BID compressed payload byte count",
+      "replacement_meaning": "compressed-band byte length; bounds DMA/raw-band transfer",
+      "stock_consumer": "video render/refill uses it as transfer-length evidence"
+    },
+    {
+      "confidence": "medium",
+      "field": "payload +0x4c",
+      "host_source": "copied marker/ref flag candidate from parser payload +0x2c",
+      "replacement_meaning": "per-band flag; exact semantics still need targeted evidence",
+      "stock_consumer": "raw-band path turns nonzero into a hardware flag bit"
+    },
+    {
+      "confidence": "medium-high",
+      "field": "payload +0x4e",
+      "host_source": "initialized from active work +0x0c",
+      "replacement_meaning": "raster node lifetime/reference count",
+      "stock_consumer": "cleanup/lifetime path decrements or forces this retain counter"
+    },
+    {
+      "confidence": "medium-high",
+      "field": "payload +0x50",
+      "host_source": "initialized to zero for parser-owned BID data",
+      "replacement_meaning": "source/ownership mode, not a print geometry field",
+      "stock_consumer": "cleanup frees payload +0x54 unless this equals 2"
+    },
+    {
+      "confidence": "high",
+      "field": "payload +0x54",
+      "host_source": "pointer to ZJT_JBIG_BID compressed payload bytes",
+      "replacement_meaning": "compressed raster buffer pointer",
+      "stock_consumer": "video render/raw-band path writes or passes this pointer toward hardware transfer"
+    }
+  ],
+  "source_reports": [
+    "analysis/open-firmware-model/print-path-model.json",
+    "analysis/open-firmware-model/variants/*/print-path-model.json",
+    "analysis/video-raster-consumer-report.md",
+    "analysis/hardware-boundary/video-register-projection.json",
+    "analysis/hardware-boundary/video-transfer-ring.json",
+    "analysis/hardware-boundary/video-refill-topology.json"
+  ],
+  "status": "pass",
+  "summary": "Host ZjStream/JBIG fields that become firmware raster and video-hardware fields."
+}

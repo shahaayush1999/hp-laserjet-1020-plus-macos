@@ -96,6 +96,7 @@ Start here:
 90. `hardware-boundary/video-refill-topology.md` - generated synthesis of the normal descriptor-queue refill path versus the alternate raw linked-list refresh path
 91. `hardware-boundary/video-prepare-projection.md` - generated projection from current host print variants into the 600dpi `0xb100` video-prepare setup scenarios
 92. `hardware-boundary/engine-print-topology.md` - generated synthesis of engine startup/preflight, page work acceptance, status recovery, and completion/deferred-work flow
+93. `open-firmware-model/raster-field-semantics.md` - generated host-to-raster field semantics for BIH/BID values that reach the video hardware boundary
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -180,6 +181,7 @@ Useful current conclusions:
 - `analysis/open-firmware-model/variant-matrix.md` runs that model against A4, letter, legal, resolution, copy-count, draft/economode, source, media, and logical-clip variants to show which fields are host-controlled.
 - `analysis/open-firmware-model/model-invariants.md` verifies the modeled chunk sequence, JobMgr message sequence, BIH-to-work-field propagation, raster list linkage, and safe-stop boundary across the base sample and all generated variants.
 - `analysis/open-firmware-model/minimal-print-scope.md` synthesizes the narrow replacement target: reuse host-side ZjStream generation, implement only the firmware receive/parser/raster/engine path needed for printing, and ignore unrelated HP features.
+- `analysis/open-firmware-model/raster-field-semantics.md` maps the important host-to-firmware fields for the narrow print path: JBIG BIH `XD/YD/L0/options` become work `+0x84/+0x88/+0x8c/+0x90`, BID byte counts become payload `+0x48/+0x54`, and the raster list at work `+0x50` is what the video path later consumes.
 - `analysis/hardware-boundary/hardware-boundary.md` converts the hardware side into a do-not-touch map: USB `0xb300` is the only plausible early custom-firmware target; video/engine families `0xb100`, `0xb200`, `0xb204`, `0xb208`, `0xb050`, and `0xb020` are unsafe for a first custom probe.
 - `analysis/hardware-boundary/video-register-projection.md` projects modeled work fields onto the first unsafe video writes, proving host-controlled BIH fields would reach `0xb2000008`, `0xb200000c`, `0xb2000024`, and `0xb2000000` if the firmware crossed the safe stop boundary.
 - `analysis/hardware-boundary/first-page-hardware-sequence.md` orders the post-parser page path: engine accepts work, PrintMgr sends Video Queue `0x0b`, video prepare projects the normal 600dpi state, render arms `0xb204/0xb208` and `0xb200`, normal descriptor-queue refill (`0x10014244 -> 0x10013f34`) feeds raw-band/channel-B registers, then video completion wakes engine. The alternate raw-refresh helper remains mapped separately.
@@ -233,6 +235,7 @@ Useful current conclusions:
 - `scripts/model-hp1020-video-prepare-projection.py` regenerates the projection from generated print-path variants into `0xb100` video-prepare setup scenarios.
 - `scripts/model-hp1020-engine-print-topology.py` regenerates the engine-side print topology synthesis from command/status and status-decision reports.
 - `scripts/model-hp1020-first-page-hardware-sequence.py` regenerates the ordered first-page hardware sequence from the current print-path and hardware-boundary reports.
+- `scripts/model-hp1020-raster-field-semantics.py` regenerates the host-to-raster field semantics report from the generated print-path model variants and video-boundary reports.
 - `scripts/model-hp1020-minimal-print-scope.py` regenerates the current minimum printing-only replacement scope from the generated print-path, USB, and hardware-boundary reports.
 - `scripts/analyze-hp1020-pjl-status-capture.py` classifies PJL/status back-channel captures against the generated contract, including expected-marker, no-response, and unexpected-byte outcomes.
 - `scripts/run-usb-marker-draft-hardware-test.sh` is the guarded dry-run/default harness for the marker draft. It re-runs the static gates before any upload and requires `HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1`.
