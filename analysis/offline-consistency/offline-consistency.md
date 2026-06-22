@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `16`
+- checks: `18`
 - failures: `0`
 - meaning: Offline analysis is internally consistent; the next decisive evidence is a guarded non-printing printer-side probe.
 
@@ -30,6 +30,8 @@ It does not contact the printer.
 | `usb_marker_contract_has_no_engine_video_mmio` | `watch` | The marker draft must stay USB-only and avoid engine/video MMIO. | `analysis/open-firmware-probes/usb-marker-draft/usb-contract-scan.json` |
 | `usb_marker_behavior_clips_and_uses_both_gates` | `watch` | The host-side marker model must cover both stock gates and clipped host length. | `analysis/open-firmware-probes/usb-marker-draft/behavior-model.json` |
 | `host_endpoint0_model_has_open_marker_product_string` | `watch` | The pure host endpoint-0 model must include the open marker string response case. | `analysis/usb-path/open-endpoint0-model.json` |
+| `usb_setup_source_narrowed_to_direct_buffer` | `watch` | Static USB evidence must preserve the narrowed setup-buffer candidate and separate event pointer boundary. | `analysis/usb-path/usb-setup-source.json` |
+| `usb_marker_reads_required_setup_fields` | `watch` | The open marker draft must read request type, request, descriptor selector, and host length before responding. | `analysis/usb-path/usb-setup-source.json` |
 
 ## Practical Meaning
 

@@ -171,8 +171,11 @@ The next step toward an actual open USB marker requires either:
   loop without relying on ThreadX.
 
 The generated `usb-mmio-map.md` is now the best static-analysis starting point
-for that polling loop. What static analysis still cannot prove is which register
-transitions happen during live host enumeration after our custom upload.
+for that polling loop. `usb-setup-source.md` narrows the likely direct setup
+packet buffer to `0x90021348`, with `0xb3000214` treated as a separate
+event/envelope pointer. What static analysis still cannot prove is whether that
+RAM slot is populated after our custom upload, or which register transitions
+happen during live host enumeration.
 
 The generated `open-endpoint0-model.md` is the boundary on the other side: once
 setup bytes are available and a data-stage sender exists, the descriptor decision

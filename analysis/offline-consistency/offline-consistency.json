@@ -1,5 +1,5 @@
 {
-  "check_count": 16,
+  "check_count": 18,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -95,6 +95,18 @@
       "detail": "The pure host endpoint-0 model must include the open marker string response case.",
       "evidence": "analysis/usb-path/open-endpoint0-model.json",
       "name": "host_endpoint0_model_has_open_marker_product_string",
+      "severity": "watch"
+    },
+    {
+      "detail": "Static USB evidence must preserve the narrowed setup-buffer candidate and separate event pointer boundary.",
+      "evidence": "analysis/usb-path/usb-setup-source.json",
+      "name": "usb_setup_source_narrowed_to_direct_buffer",
+      "severity": "watch"
+    },
+    {
+      "detail": "The open marker draft must read request type, request, descriptor selector, and host length before responding.",
+      "evidence": "analysis/usb-path/usb-setup-source.json",
+      "name": "usb_marker_reads_required_setup_fields",
       "severity": "watch"
     }
   ],

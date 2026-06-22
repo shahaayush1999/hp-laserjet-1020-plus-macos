@@ -1,0 +1,324 @@
+{
+  "classification": {
+    "direct_setup_buffer": "The stock descriptor branch reads setup-like request fields from 0x90021348 + offset. The strongest direct evidence is descriptor index/type and wLength reads.",
+    "event_pointer_register": "0xb3000214 is better treated as an event/envelope pointer. The stock code reads a pointer, then checks a high-bit event signature, rather than using it as the 8-byte setup packet itself.",
+    "open_marker_choice": "The current USB marker draft uses the direct 0x90021348 setup-buffer candidate and records bmRequestType, bRequest, wValue, and wLength before any USB writes.",
+    "remaining_live_unknown": "Static analysis narrows the address, but cannot prove that the same RAM slot is populated after our uploaded firmware starts, or which controller gate sequence is live on real hardware."
+  },
+  "event_pointer_register": "0xb3000214",
+  "event_signature": {
+    "mask": "0xc0000000",
+    "value": "0x80000000"
+  },
+  "open_marker_offsets_read": [
+    "0x0",
+    "0x1",
+    "0x2",
+    "0x3",
+    "0x6",
+    "0x7"
+  ],
+  "open_marker_setup_refs": [
+    {
+      "description": "candidate USB setup packet buffer at 0x90021348",
+      "field": "bmRequestType",
+      "instruction": "l8ui\ta3, a2, 0",
+      "offset": "0x0",
+      "pc": "0x10005db7"
+    },
+    {
+      "description": "candidate USB setup packet buffer at 0x90021348",
+      "field": "bRequest",
+      "instruction": "l8ui\ta3, a2, 1",
+      "offset": "0x1",
+      "pc": "0x10005dc8"
+    },
+    {
+      "description": "candidate USB setup packet buffer at 0x90021348",
+      "field": "wValue low / descriptor index",
+      "instruction": "l8ui\ta3, a2, 2",
+      "offset": "0x2",
+      "pc": "0x10005dd5"
+    },
+    {
+      "description": "candidate USB setup packet buffer at 0x90021348",
+      "field": "wValue high / descriptor type",
+      "instruction": "l8ui\ta3, a2, 3",
+      "offset": "0x3",
+      "pc": "0x10005de2"
+    },
+    {
+      "description": "candidate USB setup packet buffer at 0x90021348",
+      "field": "wLength low",
+      "instruction": "l8ui\ta3, a2, 6",
+      "offset": "0x6",
+      "pc": "0x10005def"
+    },
+    {
+      "description": "candidate USB setup packet buffer at 0x90021348",
+      "field": "wLength high",
+      "instruction": "l8ui\ta3, a2, 7",
+      "offset": "0x7",
+      "pc": "0x10005df6"
+    }
+  ],
+  "setup_packet_base_candidate": "0x90021348",
+  "stock_descriptor_branch_offsets_seen": [
+    "0x2",
+    "0x4",
+    "0x5",
+    "0x6",
+    "0x7"
+  ],
+  "stock_setup_refs": [
+    {
+      "address": "0x9002134e",
+      "field": "wLength low",
+      "instruction": "l8ui a8,a4,0x6",
+      "offset": "0x6",
+      "pc": "0x10009498",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134f",
+      "field": "wLength high",
+      "instruction": "l8ui a9,a4,0x7",
+      "offset": "0x7",
+      "pc": "0x1000949e",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134e",
+      "field": "wLength low",
+      "instruction": "l8ui a8,a4,0x6",
+      "offset": "0x6",
+      "pc": "0x100094aa",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134f",
+      "field": "wLength high",
+      "instruction": "l8ui a9,a4,0x7",
+      "offset": "0x7",
+      "pc": "0x100094ad",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134e",
+      "field": "wLength low",
+      "instruction": "l8ui a8,a4,0x6",
+      "offset": "0x6",
+      "pc": "0x10009512",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134f",
+      "field": "wLength high",
+      "instruction": "l8ui a9,a4,0x7",
+      "offset": "0x7",
+      "pc": "0x10009517",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134e",
+      "field": "wLength low",
+      "instruction": "l8ui a8,a4,0x6",
+      "offset": "0x6",
+      "pc": "0x10009523",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134f",
+      "field": "wLength high",
+      "instruction": "l8ui a9,a4,0x7",
+      "offset": "0x7",
+      "pc": "0x10009526",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134e",
+      "field": "wLength low",
+      "instruction": "l8ui a8,a4,0x6",
+      "offset": "0x6",
+      "pc": "0x100095dc",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134f",
+      "field": "wLength high",
+      "instruction": "l8ui a9,a4,0x7",
+      "offset": "0x7",
+      "pc": "0x100095e2",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134e",
+      "field": "wLength low",
+      "instruction": "l8ui a8,a4,0x6",
+      "offset": "0x6",
+      "pc": "0x1000969a",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134f",
+      "field": "wLength high",
+      "instruction": "l8ui a9,a4,0x7",
+      "offset": "0x7",
+      "pc": "0x1000969d",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134a",
+      "field": "wValue low / descriptor index",
+      "instruction": "l8ui a8,a4,0x2",
+      "offset": "0x2",
+      "pc": "0x100095f9",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134c",
+      "field": "wIndex low",
+      "instruction": "l8ui a9,a4,0x4",
+      "offset": "0x4",
+      "pc": "0x1000961f",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134d",
+      "field": "wIndex high",
+      "instruction": "l8ui a8,a4,0x5",
+      "offset": "0x5",
+      "pc": "0x10009631",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134e",
+      "field": "wLength low",
+      "instruction": "l8ui a8,a4,0x6",
+      "offset": "0x6",
+      "pc": "0x10009604",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134f",
+      "field": "wLength high",
+      "instruction": "l8ui a9,a4,0x7",
+      "offset": "0x7",
+      "pc": "0x10009607",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134a",
+      "field": "wValue low / descriptor index",
+      "instruction": "l8ui a8,a4,0x2",
+      "offset": "0x2",
+      "pc": "0x10009643",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134a",
+      "field": "wValue low / descriptor index",
+      "instruction": "l8ui a8,a4,0x2",
+      "offset": "0x2",
+      "pc": "0x1000964f",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134e",
+      "field": "wLength low",
+      "instruction": "l8ui a9,a4,0x6",
+      "offset": "0x6",
+      "pc": "0x10009682",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134f",
+      "field": "wLength high",
+      "instruction": "l8ui a8,a4,0x7",
+      "offset": "0x7",
+      "pc": "0x10009688",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134e",
+      "field": "wLength low",
+      "instruction": "l8ui a8,a4,0x6",
+      "offset": "0x6",
+      "pc": "0x1000969a",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134f",
+      "field": "wLength high",
+      "instruction": "l8ui a9,a4,0x7",
+      "offset": "0x7",
+      "pc": "0x1000969d",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134e",
+      "field": "wLength low",
+      "instruction": "l8ui a8,a4,0x6",
+      "offset": "0x6",
+      "pc": "0x100096b5",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134f",
+      "field": "wLength high",
+      "instruction": "l8ui a9,a4,0x7",
+      "offset": "0x7",
+      "pc": "0x100096b8",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134e",
+      "field": "wLength low",
+      "instruction": "l8ui a8,a4,0x6",
+      "offset": "0x6",
+      "pc": "0x100096c6",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134f",
+      "field": "wLength high",
+      "instruction": "l8ui a9,a4,0x7",
+      "offset": "0x7",
+      "pc": "0x100096c9",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134e",
+      "field": "wLength low",
+      "instruction": "l8ui a8,a4,0x6",
+      "offset": "0x6",
+      "pc": "0x100096eb",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134f",
+      "field": "wLength high",
+      "instruction": "l8ui a9,a4,0x7",
+      "offset": "0x7",
+      "pc": "0x100096f1",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134e",
+      "field": "wLength low",
+      "instruction": "l8ui a8,a4,0x6",
+      "offset": "0x6",
+      "pc": "0x100096fd",
+      "reference_kind": "READ"
+    },
+    {
+      "address": "0x9002134f",
+      "field": "wLength high",
+      "instruction": "l8ui a9,a4,0x7",
+      "offset": "0x7",
+      "pc": "0x10009700",
+      "reference_kind": "READ"
+    }
+  ],
+  "summary": "Static model of where endpoint-0 setup request bytes appear to come from."
+}

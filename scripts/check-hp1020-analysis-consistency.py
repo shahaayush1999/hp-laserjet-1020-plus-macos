@@ -237,6 +237,7 @@ def build_report() -> dict[str, Any]:
     )
 
     open_endpoint0 = read_json("analysis/usb-path/open-endpoint0-model.json")
+    setup_source = read_json("analysis/usb-path/usb-setup-source.json")
     open_marker_cases = [
         scenario
         for scenario in open_endpoint0.get("scenarios", [])
@@ -252,6 +253,26 @@ def build_report() -> dict[str, Any]:
             ),
             "The pure host endpoint-0 model must include the open marker string response case.",
             evidence="analysis/usb-path/open-endpoint0-model.json",
+        )
+    )
+    checks.append(
+        check(
+            "usb_setup_source_narrowed_to_direct_buffer",
+            setup_source.get("setup_packet_base_candidate") == "0x90021348"
+            and {"0x2", "0x6", "0x7"}.issubset(set(setup_source.get("stock_descriptor_branch_offsets_seen", [])))
+            and setup_source.get("event_pointer_register") == "0xb3000214",
+            "Static USB evidence must preserve the narrowed setup-buffer candidate and separate event pointer boundary.",
+            evidence="analysis/usb-path/usb-setup-source.json",
+        )
+    )
+    checks.append(
+        check(
+            "usb_marker_reads_required_setup_fields",
+            {"0x0", "0x1", "0x2", "0x3", "0x6", "0x7"}.issubset(
+                set(setup_source.get("open_marker_offsets_read", []))
+            ),
+            "The open marker draft must read request type, request, descriptor selector, and host length before responding.",
+            evidence="analysis/usb-path/usb-setup-source.json",
         )
     )
 
