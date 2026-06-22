@@ -1,0 +1,152 @@
+{
+  "branch_sequences": [
+    {
+      "function": "0x10014910 hp1020_video_prepare_page_candidate",
+      "name": "prepare_copies_work_flag_to_state_sign",
+      "steps": [
+        "read work object byte +0x74",
+        "when zero, clear high bit in video state +0xfc with 0x7fffffff",
+        "when nonzero, set high bit in video state +0xfc with 0x80000000"
+      ]
+    },
+    {
+      "function": "0x100144d0 hp1020_video_irq_or_band_done_candidate",
+      "name": "irq_band_done_selects_refill_family",
+      "steps": [
+        "on video status bit 0x20, acknowledge block status and increment state +0xf8",
+        "if state +0xfc is negative, follow +0xa0 linked-list/raw-band refresh path",
+        "if state +0xfc is nonnegative, follow descriptor ring +0xd8 and band queue/list path"
+      ]
+    },
+    {
+      "function": "0x10013d4c hp1020_video_reset_dispatch_candidate",
+      "name": "reset_dispatch_depends_on_same_sign_bit",
+      "steps": [
+        "reset/flush path also tests the sign of video state +0xfc",
+        "Ghidra truncates the nonnegative branch as bad data, so this report records only the proven gate, not a full reset model"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "name": "work_flag_initialized_zero",
+      "needle": "*(undefined1 *)(iVar1 + 0x74) = 0",
+      "source": "analysis/video-work-object/decompiled/1000f228_hp1020_video_work_create_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "work_flag_documented",
+      "needle": "| `+0x74` | cleared flag byte |",
+      "source": "analysis/video-work-object-report.md",
+      "status": "present"
+    },
+    {
+      "name": "prepare_reads_work_flag",
+      "needle": "if (*(char *)(param_1 + 0x74) == '\\0')",
+      "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "prepare_clears_state_high_bit",
+      "needle": "uVar7 = *(uint *)(puVar15 + 0xfc) & DAT_1000628c",
+      "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "prepare_sets_state_high_bit",
+      "needle": "uVar7 = *(uint *)(puVar15 + 0xfc) | DAT_10005e34",
+      "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "prepare_stores_state_flag",
+      "needle": "*(uint *)(puVar15 + 0xfc) = uVar7",
+      "source": "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "irq_tests_state_flag_negative",
+      "needle": "if (*(int *)(puVar1 + 0xfc) < 0)",
+      "source": "analysis/zjs-parser-boundary/decompiled/100144d0_hp1020_video_irq_or_band_done_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "irq_negative_calls_raw_refresh",
+      "needle": "hp1020_video_refresh_raw_bands_candidate();",
+      "source": "analysis/zjs-parser-boundary/decompiled/100144d0_hp1020_video_irq_or_band_done_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "irq_nonnegative_calls_band_done",
+      "needle": "hp1020_video_band_done_or_irq_helper_candidate();",
+      "source": "analysis/zjs-parser-boundary/decompiled/100144d0_hp1020_video_irq_or_band_done_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "irq_nonnegative_calls_band_queue",
+      "needle": "hp1020_video_band_queue_or_list_candidate();",
+      "source": "analysis/zjs-parser-boundary/decompiled/100144d0_hp1020_video_irq_or_band_done_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "irq_nonnegative_clears_descriptor_done_slot",
+      "needle": "*(undefined4 *)(puVar1 + *(int *)(puVar1 + 0xd8) * 0xc + 0x20) = 0",
+      "source": "analysis/zjs-parser-boundary/decompiled/100144d0_hp1020_video_irq_or_band_done_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "irq_nonnegative_advances_d8",
+      "needle": "*(uint *)(puVar1 + 0xd8) = *(int *)(puVar1 + 0xd8) + 1U & 3",
+      "source": "analysis/zjs-parser-boundary/decompiled/100144d0_hp1020_video_irq_or_band_done_candidate.c",
+      "status": "present"
+    },
+    {
+      "name": "reset_dispatch_has_state_flag_gate",
+      "needle": "-(*(int *)(hp1020_video_state_ptr_word + 0xfc) >> 0x1f)",
+      "source": "analysis/dispatch-mmio/decompiled/10013d4c_hp1020_video_reset_dispatch_candidate.c",
+      "status": "present"
+    }
+  ],
+  "literal_values": {
+    "high_bit": "0x80000000",
+    "high_bit_clear_mask": "0x7fffffff",
+    "video_state_base": "0x1002efc0",
+    "video_state_mode_flag_offset": "+0xfc",
+    "work_object_mode_flag_offset": "+0x74"
+  },
+  "mode_cases": [
+    {
+      "irq_band_done_path": [
+        "clear descriptor done slot at video_state +0x20 + (+0xd8 * 0x0c)",
+        "advance +0xd8 modulo 4",
+        "call hp1020_video_band_done_or_irq_helper_candidate",
+        "call hp1020_video_band_queue_or_list_candidate"
+      ],
+      "mode": "descriptor_queue_mode",
+      "previous_state_plus_0xfc": "0x80000000",
+      "state_plus_0xfc_after_prepare": "0x00000000",
+      "state_plus_0xfc_is_negative": false,
+      "work_object_plus_0x74": 0
+    },
+    {
+      "irq_band_done_path": [
+        "use video_state +0xa0 linked-list entry",
+        "optionally decrement work/raster counters and send JobMgr queue message 8",
+        "advance +0xa0 to next linked-list node",
+        "call hp1020_video_refresh_raw_bands_candidate"
+      ],
+      "mode": "raw_linked_list_mode",
+      "previous_state_plus_0xfc": "0x00000000",
+      "state_plus_0xfc_after_prepare": "0x80000000",
+      "state_plus_0xfc_is_negative": true,
+      "work_object_plus_0x74": 1
+    }
+  ],
+  "open_firmware_implication": [
+    "The normal created video work object initializes +0x74 to zero in currently mapped evidence.",
+    "A zero +0x74 selects the descriptor queue/list path, which matches the transfer-ring and band-queue models.",
+    "The nonzero +0x74 raw linked-list path remains mapped enough to recognize, but no normal print-path producer has been proven yet."
+  ],
+  "status": "pass",
+  "summary": "Video work-object +0x74 to video state +0xfc mode-flag model."
+}

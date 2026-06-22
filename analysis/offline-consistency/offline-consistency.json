@@ -1,5 +1,5 @@
 {
-  "check_count": 36,
+  "check_count": 37,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -101,6 +101,12 @@
       "detail": "The video band queue model must preserve +0xdc/+0xe0 collision behavior and raw-band A/B register writes.",
       "evidence": "analysis/hardware-boundary/video-band-queue.json",
       "name": "video_band_queue_model_resolved",
+      "severity": "watch"
+    },
+    {
+      "detail": "The video mode-flag model must preserve the work +0x74 to state +0xfc sign-bit fork between descriptor queue and raw linked-list refill.",
+      "evidence": "analysis/hardware-boundary/video-mode-flag.json",
+      "name": "video_mode_flag_model_resolved",
       "severity": "watch"
     },
     {

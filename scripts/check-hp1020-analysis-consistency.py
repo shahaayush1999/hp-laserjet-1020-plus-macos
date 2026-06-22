@@ -449,6 +449,41 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/hardware-boundary/video-band-queue.json",
         )
     )
+    video_mode_flag = read_json("analysis/hardware-boundary/video-mode-flag.json")
+    mode_literals = video_mode_flag.get("literal_values", {})
+    mode_sequences = {
+        item.get("name")
+        for item in video_mode_flag.get("branch_sequences", [])
+        if isinstance(item, dict)
+    }
+    mode_cases = {
+        item.get("mode"): item
+        for item in video_mode_flag.get("mode_cases", [])
+        if isinstance(item, dict)
+    }
+    checks.append(
+        check(
+            "video_mode_flag_model_resolved",
+            video_mode_flag.get("status") == "pass"
+            and mode_literals.get("high_bit") == "0x80000000"
+            and mode_literals.get("high_bit_clear_mask") == "0x7fffffff"
+            and mode_literals.get("video_state_base") == "0x1002efc0"
+            and mode_literals.get("work_object_mode_flag_offset") == "+0x74"
+            and mode_literals.get("video_state_mode_flag_offset") == "+0xfc"
+            and {
+                "prepare_copies_work_flag_to_state_sign",
+                "irq_band_done_selects_refill_family",
+                "reset_dispatch_depends_on_same_sign_bit",
+            }.issubset(mode_sequences)
+            and mode_cases.get("descriptor_queue_mode", {}).get("work_object_plus_0x74") == 0
+            and mode_cases.get("descriptor_queue_mode", {}).get("state_plus_0xfc_is_negative") is False
+            and mode_cases.get("raw_linked_list_mode", {}).get("work_object_plus_0x74") == 1
+            and mode_cases.get("raw_linked_list_mode", {}).get("state_plus_0xfc_is_negative") is True
+            and all(check.get("status") == "present" for check in video_mode_flag.get("checks", [])),
+            "The video mode-flag model must preserve the work +0x74 to state +0xfc sign-bit fork between descriptor queue and raw linked-list refill.",
+            evidence="analysis/hardware-boundary/video-mode-flag.json",
+        )
+    )
     checks.append(
         check(
             "usb_family_remains_only_low_risk_target",
