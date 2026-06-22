@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `55`
+- checks: `56`
 - failures: `0`
 - meaning: Offline analysis is internally consistent; the next decisive evidence is a guarded non-printing printer-side probe.
 
@@ -24,6 +24,7 @@ It does not contact the printer.
 | `usb_bulk_receive_model_preserves_parser_handoff` | `watch` | The USB bulk receive model must keep the stock transfer-record registration, 0x400-byte receive buffer, and parser read-callback handoff mapped. | `analysis/usb-path/usb-bulk-receive-model.json` |
 | `usb_bulk_callback_model_preserves_event_and_rearm_path` | `watch` | The USB bulk callback model must preserve the read/copy callback, completion queue callback, event bit, endpoint ack register, and status-bit clear. | `analysis/usb-path/usb-bulk-callbacks-model.json` |
 | `usb_bulk_rearm_model_preserves_descriptor_submit` | `watch` | The USB bulk re-arm model must preserve descriptor pool, buffer base, submit register, and done-flag behavior. | `analysis/usb-path/usb-bulk-rearm-model.json` |
+| `usb_parser_shim_contract_preserves_next_software_target` | `watch` | The synthesized USB parser-shim contract must keep the next target anchored to parser callback, bulk event bit, hardware lane, and descriptor re-arm facts. | `analysis/usb-path/usb-parser-shim-contract.json` |
 | `raster_field_semantics_keep_host_to_video_chain` | `watch` | Raster field semantics must preserve the host ZjStream/JBIG to work/raster object chain consumed by video hardware. | `analysis/open-firmware-model/raster-field-semantics.json` |
 | `hardware_boundary_keeps_engine_video_unsafe` | `watch` | The do-not-touch boundary for early custom firmware must still include video and engine paths. | `analysis/hardware-boundary/hardware-boundary.json` |
 | `first_page_sequence_keeps_video_engine_registers_ordered` | `watch` | The first-page hardware sequence must preserve the ordered engine/video/refill risk boundary. | `analysis/hardware-boundary/first-page-hardware-sequence.json` |

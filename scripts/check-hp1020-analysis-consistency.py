@@ -126,6 +126,7 @@ def build_report() -> dict[str, Any]:
     usb_bulk_receive = read_json("analysis/usb-path/usb-bulk-receive-model.json")
     usb_bulk_callbacks = read_json("analysis/usb-path/usb-bulk-callbacks-model.json")
     usb_bulk_rearm = read_json("analysis/usb-path/usb-bulk-rearm-model.json")
+    usb_parser_shim = read_json("analysis/usb-path/usb-parser-shim-contract.json")
     usb_bulk_checks = usb_bulk_receive.get("checks", [])
     usb_bulk_callback_checks = usb_bulk_callbacks.get("checks", [])
     usb_bulk_rearm_checks = usb_bulk_rearm.get("checks", [])
@@ -211,6 +212,21 @@ def build_report() -> dict[str, Any]:
             and all(item.get("status") == "present" for item in usb_bulk_rearm_checks),
             "The USB bulk re-arm model must preserve descriptor pool, buffer base, submit register, and done-flag behavior.",
             evidence="analysis/usb-path/usb-bulk-rearm-model.json",
+        )
+    )
+    shim_contract = usb_parser_shim.get("implementation_contract", {})
+    checks.append(
+        check(
+            "usb_parser_shim_contract_preserves_next_software_target",
+            usb_parser_shim.get("status") == "pass"
+            and shim_contract.get("parser_boundary", {}).get("parser_entry") == "0x10009d34"
+            and shim_contract.get("parser_boundary", {}).get("parser_read_callback_slot") == "param_1 + 0x0c"
+            and shim_contract.get("bulk_read_state", {}).get("wait_event_bit") == "0x00020000"
+            and shim_contract.get("hardware_receive_lane", {}).get("lane_status_register") == "0xb3000224"
+            and shim_contract.get("descriptor_rearm", {}).get("descriptor_pool") == "0x90021370"
+            and shim_contract.get("descriptor_rearm", {}).get("descriptor_submit_register") == "0xb3000234",
+            "The synthesized USB parser-shim contract must keep the next target anchored to parser callback, bulk event bit, hardware lane, and descriptor re-arm facts.",
+            evidence="analysis/usb-path/usb-parser-shim-contract.json",
         )
     )
     raster_fields = read_json("analysis/open-firmware-model/raster-field-semantics.json")

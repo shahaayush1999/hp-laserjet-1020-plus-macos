@@ -1,0 +1,111 @@
+{
+  "checks": [
+    {
+      "detail": "Bulk receive registration model must be green.",
+      "evidence": "analysis/usb-path/usb-bulk-receive-model.json",
+      "name": "bulk_receive_model_passes",
+      "status": "present"
+    },
+    {
+      "detail": "Bulk callback model must be green.",
+      "evidence": "analysis/usb-path/usb-bulk-callbacks-model.json",
+      "name": "bulk_callback_model_passes",
+      "status": "present"
+    },
+    {
+      "detail": "Bulk re-arm model must be green.",
+      "evidence": "analysis/usb-path/usb-bulk-rearm-model.json",
+      "name": "bulk_rearm_model_passes",
+      "status": "present"
+    },
+    {
+      "detail": "USB interrupt model must preserve the bank-1/lane-1 bulk receive lane.",
+      "evidence": "analysis/usb-path/usb-interrupt-events.json",
+      "name": "interrupt_model_has_bulk_lane",
+      "status": "present"
+    },
+    {
+      "detail": "Descriptor pool, buffer base, and submit register must be concrete.",
+      "evidence": "analysis/usb-path/usb-bulk-rearm-model.json",
+      "name": "descriptor_rearm_constants_resolved",
+      "status": "present"
+    }
+  ],
+  "current_decision": "Do not drive video/engine hardware from open code until endpoint-0 execution, bulk receive, and non-printing chunk parsing are proven.",
+  "implementation_contract": {
+    "bulk_read_state": {
+      "available_size_word": "0x1001bc50",
+      "buffer_base_word": "0x1001bc40",
+      "destination_offset_word": "0x10021594",
+      "event_flags_object": "0x10021318",
+      "next_pointer_word": "0x1001bc44",
+      "remaining_request_word": "0x1001bc54",
+      "source_offset_word": "0x1001bc4c",
+      "threshold_word": "0x10021590",
+      "wait_event_bit": "0x00020000"
+    },
+    "descriptor_rearm": {
+      "alignment_rule": "use next aligned pointer only when non-zero and 16-byte aligned; otherwise use bulk_buffer_base + offset",
+      "bulk_buffer_base": "0x900216f0",
+      "descriptor_pool": "0x90021370",
+      "descriptor_submit_register": "0xb3000234",
+      "descriptor_target_bytes": "+0x08..+0x0b",
+      "done_flags": {
+        "bulk_done_byte": "0x1001bc70",
+        "bulk_rx_done_flag": "0x1001bc72"
+      }
+    },
+    "hardware_receive_lane": {
+      "ack_bits": [
+        "0x80",
+        "0x400"
+      ],
+      "completion_status_bit": "0x400",
+      "event_bit": "0x00020000",
+      "lane_ack_register": "0xb3000220",
+      "lane_status_register": "0xb3000224"
+    },
+    "parser_boundary": {
+      "meaning": "The ZjStream parser is decoupled from USB hardware behind a read callback.",
+      "parser_entry": "0x10009d34",
+      "parser_read_callback_slot": "param_1 + 0x0c",
+      "stock_parser_output_queue": 3
+    },
+    "transfer_registration": {
+      "buffer_allocation": "0x400 bytes",
+      "record_stride": "0x58",
+      "registered_completion_callback": "0x10008bac",
+      "registered_low_level_read_callback": "0x100087b8",
+      "ring_base": "0x1001ec00",
+      "ring_index_word": "0x1001f214"
+    }
+  },
+  "staged_plan": [
+    {
+      "purpose": "Observe bank-1/lane-1 completion and buffer counters without printing.",
+      "requires_printer": true,
+      "risk": "low if it never sends engine/video commands",
+      "stage": "bulk_counter_probe"
+    },
+    {
+      "purpose": "Accept bulk OUT bytes, update a counter/state marker, and keep the printer mechanically idle.",
+      "requires_printer": true,
+      "risk": "low-to-medium until endpoint-0 marker execution is proven",
+      "stage": "bulk_echo_or_discard_firmware"
+    },
+    {
+      "purpose": "Parse only enough ZjStream framing to count document/page/raster chunks, still without video or engine output.",
+      "requires_printer": false,
+      "risk": "software-only until connected to USB receive",
+      "stage": "minimal_zjs_chunk_reader"
+    },
+    {
+      "purpose": "Only after USB receive and chunk parsing are proven, connect parsed raster/page objects to video/engine models.",
+      "requires_printer": true,
+      "risk": "high",
+      "stage": "print_path_handoff"
+    }
+  ],
+  "status": "pass",
+  "summary": "USB bulk parser-shim implementation contract for the narrow print path."
+}

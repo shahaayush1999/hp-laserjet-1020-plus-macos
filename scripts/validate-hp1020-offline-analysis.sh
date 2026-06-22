@@ -50,6 +50,7 @@ run_step "Python syntax checks" \
     "$ROOT_DIR/scripts/model-hp1020-usb-bulk-receive.py" \
     "$ROOT_DIR/scripts/model-hp1020-usb-bulk-callbacks.py" \
     "$ROOT_DIR/scripts/model-hp1020-usb-bulk-rearm.py" \
+    "$ROOT_DIR/scripts/model-hp1020-usb-parser-shim-contract.py" \
     "$ROOT_DIR/scripts/model-hp1020-status-code-correlation.py" \
     "$ROOT_DIR/scripts/model-hp1020-pjl-status-contract.py" \
     "$ROOT_DIR/scripts/analyze-hp1020-pjl-status-capture.py" \
@@ -178,6 +179,9 @@ run_step "Regenerate USB bulk callback model" \
 
 run_step "Regenerate USB bulk re-arm model" \
   "$ROOT_DIR/scripts/model-hp1020-usb-bulk-rearm.py"
+
+run_step "Regenerate USB parser shim contract" \
+  "$ROOT_DIR/scripts/model-hp1020-usb-parser-shim-contract.py"
 
 run_step "Regenerate minimal print-only replacement scope" \
   "$ROOT_DIR/scripts/model-hp1020-minimal-print-scope.py"
