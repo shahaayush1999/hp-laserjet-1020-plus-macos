@@ -15,6 +15,7 @@ from typing import Any
 ROOT_DIR = Path(__file__).resolve().parents[1]
 OUT_JSON = ROOT_DIR / "analysis/hardware-boundary/video-sideband-default-impact.json"
 OUT_MD = ROOT_DIR / "analysis/hardware-boundary/video-sideband-default-impact.md"
+GHIDRA_VIDEO_STATE_ACCESS_SCAN = ROOT_DIR / "analysis/ghidra-probes/video-state-sideband-access-scan.md"
 
 SOURCES = {
     "prepare_fields": ROOT_DIR / "analysis/hardware-boundary/video-prepare-argument-fields.json",
@@ -59,6 +60,61 @@ def references_for(token: str) -> list[dict[str, Any]]:
                     }
                 )
     return hits
+
+
+def ghidra_video_state_access_hits() -> dict[str, Any]:
+    text = GHIDRA_VIDEO_STATE_ACCESS_SCAN.read_text(errors="replace")
+    hits = []
+    in_table = False
+    for line in text.splitlines():
+        if line.startswith("| Address | Function | Access |"):
+            in_table = True
+            continue
+        if not in_table:
+            continue
+        if line.startswith("|---"):
+            continue
+        if not line.startswith("| `"):
+            break
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        if len(cells) != 7:
+            continue
+        hit = {
+            "address": cells[0].strip("`"),
+            "function": cells[1].strip("`"),
+            "access": cells[2].strip("`"),
+            "offset": cells[3].strip("`"),
+            "meaning": cells[4],
+            "bytes": cells[5].strip("`"),
+            "instruction": cells[6].strip("`"),
+        }
+        hits.append({**hit, **classify_ghidra_access(hit)})
+    return {
+        "path": str(GHIDRA_VIDEO_STATE_ACCESS_SCAN.relative_to(ROOT_DIR)),
+        "language": "Xtensa:BE:32:default" if "language: `Xtensa:BE:32:default`" in text else "unknown",
+        "hits": hits,
+    }
+
+
+def classify_ghidra_access(hit: dict[str, Any]) -> dict[str, str]:
+    function = hit["function"]
+    offset = hit["offset"]
+    access = hit["access"]
+    if function.startswith("10014910 ") and access == "store" and offset in {"0xd0", "0xd4", "0xe8", "0xec"}:
+        return {"role": "prepare_seed", "classification": "video state seed from active work argument"}
+    if function.startswith("10014910 ") and access == "load" and offset == "0xec":
+        return {"role": "prepare_mode_consumer", "classification": "prepare setup branch/table consumer"}
+    if function.startswith("10014244 ") and offset == "0xd0":
+        return {"role": "channel_b_refill_counter", "classification": "channel-B refill amount and decrement path"}
+    if function.startswith("10013f34 ") and offset == "0xd4":
+        return {"role": "descriptor_final_accounting", "classification": "descriptor queue final/high-bit accounting"}
+    if function.startswith("10013f34 ") and offset == "0xec":
+        return {"role": "descriptor_b_flag", "classification": "B-side raw-band flag bit source"}
+    if function.startswith("100140f8 ") and offset == "0xec":
+        return {"role": "raw_refresh_b_flag", "classification": "alternate raw-refresh B-side flag source"}
+    if function.startswith("100165a4 "):
+        return {"role": "stack_local_false_positive", "classification": "same numeric stack offset, not video state"}
+    return {"role": "unclassified_access", "classification": "needs manual review"}
 
 
 def build_report() -> dict[str, Any]:
@@ -111,6 +167,10 @@ def build_report() -> dict[str, Any]:
         "+0xe8": references_for("+ 0xe8") + references_for("+0xe8"),
         "+0xec": references_for("+ 0xec") + references_for("+0xec"),
     }
+    ghidra_access_scan = ghidra_video_state_access_hits()
+    ghidra_hits = ghidra_access_scan["hits"]
+    roles = {hit["role"] for hit in ghidra_hits}
+    e8_hits = [hit for hit in ghidra_hits if hit["offset"] == "0xe8"]
 
     checks = [
         check(
@@ -144,6 +204,28 @@ def build_report() -> dict[str, Any]:
             len(refs["+0xe8"]) == 1 and "param_1 + 0x30" in refs["+0xe8"][0]["text"],
             "+0xe8 is only seen in the prepare assignment within the selected video corpus",
         ),
+        check(
+            "ghidra_state_access_scan_classified",
+            ghidra_access_scan["language"] == "Xtensa:BE:32:default"
+            and ghidra_hits != []
+            and all(hit["role"] != "unclassified_access" for hit in ghidra_hits),
+            "Ghidra exact-offset state access scan is forced to Xtensa BE and every hit is classified",
+        ),
+        check(
+            "ghidra_state_access_scan_covers_critical_consumers",
+            {"channel_b_refill_counter", "descriptor_final_accounting", "descriptor_b_flag", "raw_refresh_b_flag"}.issubset(roles),
+            "Ghidra exact-offset scan independently sees the critical +0xd0/+0xd4/+0xec consumers",
+        ),
+        check(
+            "ghidra_e8_has_prepare_store_only",
+            len(e8_hits) == 1 and e8_hits[0]["function"].startswith("10014910 ") and e8_hits[0]["access"] == "store",
+            "Ghidra exact-offset scan finds +0xe8 only as the prepare-side seed store",
+        ),
+        check(
+            "ghidra_stack_local_false_positive_is_not_video_state",
+            any(hit["role"] == "stack_local_false_positive" for hit in ghidra_hits),
+            "scan records and classifies numeric +0xd0 stack-local false positives separately from video-state accesses",
+        ),
     ]
 
     status = "pass" if all(item["status"] == "present" for item in checks) else "fail"
@@ -152,6 +234,7 @@ def build_report() -> dict[str, Any]:
         "status": status,
         "field_impacts": field_impacts,
         "reference_hits": refs,
+        "ghidra_video_state_access_scan": ghidra_access_scan,
         "conclusion": [
             "The unsourced sideband fields are not all equal: +0x26 is immediately critical for channel-B refill and remaining/final accounting.",
             "+0x32 is mode-critical: zero may be correct for normal generated cases, but it affects setup tables and B-side raw-band flags.",
@@ -190,6 +273,25 @@ def render_markdown(report: dict[str, Any]) -> str:
     lines.extend(["", "## Current Conclusion", ""])
     for item in report["conclusion"]:
         lines.append(f"- {item}")
+
+    scan = report["ghidra_video_state_access_scan"]
+    lines.extend(
+        [
+            "",
+            "## Ghidra Exact State Access Scan",
+            "",
+            f"- path: `{scan['path']}`",
+            f"- language: `{scan['language']}`",
+            f"- access hits: `{len(scan['hits'])}`",
+            "",
+            "| Address | Function | Access | Offset | Role | Classification | Instruction |",
+            "|---|---|---|---:|---|---|---|",
+        ]
+    )
+    for hit in scan["hits"]:
+        lines.append(
+            f"| `{hit['address']}` | `{hit['function']}` | `{hit['access']}` | `{hit['offset']}` | `{hit['role']}` | {hit['classification']} | `{hit['instruction']}` |"
+        )
 
     lines.extend(["", "## Checks", "", "| Check | Status | Detail |", "|---|---|---|"])
     for item in report["checks"]:

@@ -24,6 +24,26 @@
       "detail": "+0xe8 is only seen in the prepare assignment within the selected video corpus",
       "name": "e8_has_no_selected_downstream_consumer",
       "status": "present"
+    },
+    {
+      "detail": "Ghidra exact-offset state access scan is forced to Xtensa BE and every hit is classified",
+      "name": "ghidra_state_access_scan_classified",
+      "status": "present"
+    },
+    {
+      "detail": "Ghidra exact-offset scan independently sees the critical +0xd0/+0xd4/+0xec consumers",
+      "name": "ghidra_state_access_scan_covers_critical_consumers",
+      "status": "present"
+    },
+    {
+      "detail": "Ghidra exact-offset scan finds +0xe8 only as the prepare-side seed store",
+      "name": "ghidra_e8_has_prepare_store_only",
+      "status": "present"
+    },
+    {
+      "detail": "scan records and classifies numeric +0xd0 stack-local false positives separately from video-state accesses",
+      "name": "ghidra_stack_local_false_positive_is_not_video_state",
+      "status": "present"
     }
   ],
   "conclusion": [
@@ -73,6 +93,221 @@
       "work_field": "+0x32"
     }
   ],
+  "ghidra_video_state_access_scan": {
+    "hits": [
+      {
+        "access": "load",
+        "address": "10013fbb",
+        "bytes": "29 72 35",
+        "classification": "descriptor queue final/high-bit accounting",
+        "function": "10013f34 FUN_10013f34",
+        "instruction": "l32i a9,a7,0xd4",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xd4",
+        "role": "descriptor_final_accounting"
+      },
+      {
+        "access": "load",
+        "address": "10014088",
+        "bytes": "28 72 3b",
+        "classification": "B-side raw-band flag bit source",
+        "function": "10013f34 FUN_10013f34",
+        "instruction": "l32i a8,a7,0xec",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xec",
+        "role": "descriptor_b_flag"
+      },
+      {
+        "access": "load",
+        "address": "100140c9",
+        "bytes": "29 72 35",
+        "classification": "descriptor queue final/high-bit accounting",
+        "function": "10013f34 FUN_10013f34",
+        "instruction": "l32i a9,a7,0xd4",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xd4",
+        "role": "descriptor_final_accounting"
+      },
+      {
+        "access": "store",
+        "address": "100140d7",
+        "bytes": "29 76 35",
+        "classification": "descriptor queue final/high-bit accounting",
+        "function": "10013f34 FUN_10013f34",
+        "instruction": "s32i a9,a7,0xd4",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xd4",
+        "role": "descriptor_final_accounting"
+      },
+      {
+        "access": "load",
+        "address": "100141b3",
+        "bytes": "29 42 3b",
+        "classification": "alternate raw-refresh B-side flag source",
+        "function": "100140f8 FUN_100140f8",
+        "instruction": "l32i a9,a4,0xec",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xec",
+        "role": "raw_refresh_b_flag"
+      },
+      {
+        "access": "load",
+        "address": "1001425f",
+        "bytes": "22 72 34",
+        "classification": "channel-B refill amount and decrement path",
+        "function": "10014244 FUN_10014244",
+        "instruction": "l32i a2,a7,0xd0",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xd0",
+        "role": "channel_b_refill_counter"
+      },
+      {
+        "access": "load",
+        "address": "10014270",
+        "bytes": "22 72 34",
+        "classification": "channel-B refill amount and decrement path",
+        "function": "10014244 FUN_10014244",
+        "instruction": "l32i a2,a7,0xd0",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xd0",
+        "role": "channel_b_refill_counter"
+      },
+      {
+        "access": "store",
+        "address": "10014279",
+        "bytes": "22 76 34",
+        "classification": "channel-B refill amount and decrement path",
+        "function": "10014244 FUN_10014244",
+        "instruction": "s32i a2,a7,0xd0",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xd0",
+        "role": "channel_b_refill_counter"
+      },
+      {
+        "access": "store",
+        "address": "10014b7d",
+        "bytes": "28 56 34",
+        "classification": "video state seed from active work argument",
+        "function": "10014910 FUN_10014910",
+        "instruction": "s32i a8,a5,0xd0",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xd0",
+        "role": "prepare_seed"
+      },
+      {
+        "access": "store",
+        "address": "10014b83",
+        "bytes": "28 56 35",
+        "classification": "video state seed from active work argument",
+        "function": "10014910 FUN_10014910",
+        "instruction": "s32i a8,a5,0xd4",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xd4",
+        "role": "prepare_seed"
+      },
+      {
+        "access": "store",
+        "address": "10014b89",
+        "bytes": "28 56 3b",
+        "classification": "video state seed from active work argument",
+        "function": "10014910 FUN_10014910",
+        "instruction": "s32i a8,a5,0xec",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xec",
+        "role": "prepare_seed"
+      },
+      {
+        "access": "store",
+        "address": "10014b8f",
+        "bytes": "28 56 3a",
+        "classification": "video state seed from active work argument",
+        "function": "10014910 FUN_10014910",
+        "instruction": "s32i a8,a5,0xe8",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xe8",
+        "role": "prepare_seed"
+      },
+      {
+        "access": "load",
+        "address": "10014ea6",
+        "bytes": "28 82 3b",
+        "classification": "prepare setup branch/table consumer",
+        "function": "10014910 FUN_10014910",
+        "instruction": "l32i a8,a8,0xec",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xec",
+        "role": "prepare_mode_consumer"
+      },
+      {
+        "access": "load",
+        "address": "10014ed0",
+        "bytes": "28 82 3b",
+        "classification": "prepare setup branch/table consumer",
+        "function": "10014910 FUN_10014910",
+        "instruction": "l32i a8,a8,0xec",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xec",
+        "role": "prepare_mode_consumer"
+      },
+      {
+        "access": "load",
+        "address": "10014fc9",
+        "bytes": "28 82 3b",
+        "classification": "prepare setup branch/table consumer",
+        "function": "10014910 FUN_10014910",
+        "instruction": "l32i a8,a8,0xec",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xec",
+        "role": "prepare_mode_consumer"
+      },
+      {
+        "access": "store",
+        "address": "100165e6",
+        "bytes": "22 16 34",
+        "classification": "same numeric stack offset, not video state",
+        "function": "100165a4 FUN_100165a4",
+        "instruction": "s32i a2,a1,0xd0",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xd0",
+        "role": "stack_local_false_positive"
+      },
+      {
+        "access": "load",
+        "address": "1001663a",
+        "bytes": "22 12 34",
+        "classification": "same numeric stack offset, not video state",
+        "function": "100165a4 FUN_100165a4",
+        "instruction": "l32i a2,a1,0xd0",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xd0",
+        "role": "stack_local_false_positive"
+      },
+      {
+        "access": "load",
+        "address": "10016675",
+        "bytes": "22 12 34",
+        "classification": "same numeric stack offset, not video state",
+        "function": "100165a4 FUN_100165a4",
+        "instruction": "l32i a2,a1,0xd0",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xd0",
+        "role": "stack_local_false_positive"
+      },
+      {
+        "access": "store",
+        "address": "1001667e",
+        "bytes": "22 16 34",
+        "classification": "same numeric stack offset, not video state",
+        "function": "100165a4 FUN_100165a4",
+        "instruction": "s32i a2,a1,0xd0",
+        "meaning": "candidate video-state sideband-derived offset",
+        "offset": "0xd0",
+        "role": "stack_local_false_positive"
+      }
+    ],
+    "language": "Xtensa:BE:32:default",
+    "path": "analysis/ghidra-probes/video-state-sideband-access-scan.md"
+  },
   "reference_hits": {
     "+0xd0": [
       {
