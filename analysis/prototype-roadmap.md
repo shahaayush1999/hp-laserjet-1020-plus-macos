@@ -1,152 +1,105 @@
 # HP 1020 Open Firmware Prototype Roadmap
 
-This is the practical roadmap after the current reverse-engineering pass.
+This roadmap is for the narrow goal: replace the HP firmware blob enough to
+print normal host-generated pages. It is not trying to implement unrelated
+features or support other printer families.
 
 ## Current State
 
-We now know enough to split the problem into layers:
-
-| Layer | Status |
+| Layer | Current status |
 |---|---|
-| Upload envelope | known; reproducible byte-for-byte |
-| ELF shape | known; Xtensa big-endian ELF with date prefix |
-| Boot/vector shape | mapped enough to understand constraints |
-| RTOS primitives | queue/thread/timer object model partially mapped |
-| USB descriptors/path | mapped enough for a minimal clone target |
-| Queue/message routing | mapped enough for architecture reasoning |
-| Engine/video hardware | entry points and first MMIO semantics mapped |
-| Safe printing behavior | not solved |
+| Upload envelope | solved; PJL/ACL wrapping and date-prefixed Xtensa ELF shape are reproducible |
+| Toolchain | solved enough for assembly-only probes using the manual Xtensa binutils prefix |
+| Minimal custom firmware artifact | solved; `open-firmware/minimal-idle/` builds a non-printing idle probe |
+| First custom upload | attempted once; backend sent bytes and printer stayed green/quiet |
+| USB register map | mapped enough for non-printing USB-only probes |
+| USB descriptor payloads | solved at byte level from stock firmware |
+| Open USB marker candidate | built; not uploaded yet; still depends on unproven setup-buffer/response-state assumptions |
+| Host print stream | modeled; ZjStream parser and object/message path are known up to video/engine handoff |
+| Video/engine hardware | partially mapped; this is still the real printing risk |
+| Safe full printing | not solved |
 
-## Prototype Options
+## What Changed Since The First Estimate
 
-### Option A: No-Hardware Static Prototype
+The early estimate assumed we still had to discover the firmware shape,
+toolchain path, upload wrapper, and broad architecture. Those moved much faster
+than a normal manual reverse-engineering pass.
 
-Goal:
+The remaining hard part is different: it is not finding where printing begins.
+We have that. The hard part is safely replacing the parts that talk to physical
+hardware.
 
-- generate a firmware-like `.dl` file from a controlled ELF-shaped payload
-- verify wrapper, date prefix, and structural fields locally
+## Current Milestone Ladder
 
-What it proves:
+1. Non-printing boot proof
+   - Status: partially tested with the idle probe.
+   - Meaning: custom upload did not obviously damage or disturb the printer.
+   - Missing proof: visible execution signal.
 
-- packaging pipeline works
-- repo can generate candidate upload artifacts
+2. Non-printing USB proof
+   - Status: USB snapshot and marker probes are built and statically gated.
+   - Next test: one staged hardware run from `analysis/open-firmware-probes/hardware-test-ladder.md`.
+   - Meaning if successful: open firmware can affect host-visible USB behavior.
 
-What it does not prove:
+3. Minimal open USB/control endpoint
+   - Goal: answer descriptor/status requests without stock firmware.
+   - Needed before print replacement: a reliable host-to-firmware data path.
 
-- printer boot ROM accepts it
-- USB enumerates
-- hardware is safe
+4. ZjStream intake
+   - Status: offline model exists in `analysis/open-firmware-model/print-path-model.md`.
+   - Goal: accept the same host-side ZjStream that `foo2zjs-wrapper` already generates.
+   - Practical note: this part is now much less mysterious than video/engine output.
 
-Risk:
-
-- none to the printer if not uploaded
-
-### Option B: Minimal Boot/USB Probe
-
-Goal:
-
-- upload a tiny ELF that tries to boot and expose USB, or at least reach a visible state
-
-What it could prove:
-
-- boot ROM accepts non-HP code in the same wrapper/ELF shape
-- minimal firmware can run after upload
-
-Problems:
-
-- we do not yet have the exact Xtensa variant/toolchain ABI
-- boot/runtime interface expectations may be stricter than ELF headers
-- if the firmware fails silently, the printer may just disappear until power-cycle
-
-Risk:
-
-- probably recoverable by power-cycle if it only touches USB/boot state
-- should not touch engine/video/fuser registers
-
-Hardware needed:
-
-- printer on and connected
-- user available to power-cycle
-- a known-good HP firmware upload ready afterward
-
-### Option C: USB Identity Clone
-
-Goal:
-
-- boot custom code that enumerates as the printer and responds to basic USB/PJL identity/status
-
-What it could prove:
-
-- open firmware can replace the non-printing host-visible layer
-
-Hard parts:
-
-- USB controller setup
-- descriptor/control endpoint handling
-- matching enough HP/PJL behavior for host tools
-
-Risk:
-
-- still mostly USB-side if engine registers are avoided
-
-### Option D: Controlled Single-Page Print
-
-Goal:
-
-- print one deliberately simple page
-
-Hard parts:
-
-- raster band format
-- `0xb100`/`0xb200`/`0xb204`/`0xb208` video transfer
-- `0xb050` engine handshakes
-- paper/fuser/motor/scanner timing
-- error handling and recovery
-
-Risk:
-
-- real mechanical/thermal risk if engine sequencing is wrong
-
-This should wait.
+5. Video/engine bring-up
+   - Goal: turn one known-safe raster band/page into physical output.
+   - Risk: this is where motors, fuser, paper timing, laser/scanner/video, and sensors matter.
+   - Rule: do not attempt this until USB/control execution is proven and the unsafe MMIO paths are isolated behind explicit gates.
 
 ## Best Next Technical Step
 
-Before uploading anything custom, the best offline step is a minimal candidate-ELF builder only if a compatible Xtensa toolchain can be identified.
+With the printer detached, the best offline work is mostly tightening harnesses
+and reports. The next decisive technical step needs hardware:
 
-Needed facts:
+```text
+run one staged non-printing USB probe with before/after USB identity capture
+```
 
-- Xtensa core variant / ABI compatibility
-- expected reset vector and entry behavior
-- whether `.sys_interface_table` must be preserved
-- whether boot ROM validates sections beyond program headers
+Use:
 
-If toolchain support is weak, the better next step is not "write firmware." It is a smaller emulator/static-loader experiment:
+```sh
+scripts/run-open-firmware-usb-test-ladder.sh --dry-run
+```
 
-- parse the HP ELF program headers
-- emit an identical section/program-header layout report
-- define the minimum set of sections a custom ELF would need
-- compare candidate ELF layout byte-for-byte against structural expectations
+Then, only with the printer connected and freshly power-cycled:
+
+```sh
+HP1020_ALLOW_OPEN_FIRMWARE_LADDER_UPLOAD=1 \
+  scripts/run-open-firmware-usb-test-ladder.sh \
+  --upload \
+  --stage marker \
+  --device-uri 'usb://Hewlett-Packard/HP%20LaserJet%201020?serial=...' \
+  --i-understand-this-uploads-open-firmware
+```
 
 ## Safety Gate Before Any Upload
 
 Do not upload a custom firmware candidate unless:
 
 - the printer is physically present and easy to power-cycle
-- the stock `sihp1020.dl` upload still works
-- the custom candidate intentionally avoids engine/video MMIO
-- the user explicitly agrees to a hardware test
-- the candidate artifact is saved and checksummed
-- the expected failure mode is "printer disappears until power-cycle"
+- the stock print path was working recently
+- the selected candidate avoids engine/video/fuser/motor/paper-feed MMIO
+- the upload goes through the guarded script, not hand-written backend commands
+- the expected failure mode is temporary USB silence until power cycle
 
 ## Practical Assessment
 
-The analysis front-end moved fast. The remaining gap is not just "more labels"; it is proof that custom code can boot on this specific Xtensa/HP boot ROM path, and proof that hardware registers can be used safely.
+Progress on reverse engineering is now well past the initial "can we even
+understand the blob?" stage. The project is not done, but the unknowns are
+sharper:
 
-Right now the most defensible next milestone is:
+- Can open code reliably run and affect USB after upload?
+- Can we build a small open USB/control loop without leaning on stock runtime state?
+- After that, can we drive video/engine hardware without unsafe sequencing?
 
-```text
-produce a structurally valid custom firmware candidate, but do not upload it yet
-```
-
-That keeps progress concrete while avoiding unnecessary risk to the working printer.
-
+The first two are still reasonable exploratory firmware work. The third is the
+point where the project becomes a real printer-engine bring-up effort.
