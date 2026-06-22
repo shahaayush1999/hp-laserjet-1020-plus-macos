@@ -58,6 +58,7 @@ Start here:
 52. `usb-path/usb-descriptor-response-model.md` - byte-level GET_DESCRIPTOR response model for stock descriptors and a future open marker string
 53. `usb-path/endpoint0-machinery.md` - stock endpoint-0 transfer/queue/register machinery and remaining USB marker blocker
 54. `usb-path/usb-mmio-map.md` - generated map of `0xb300....` USB controller reads/writes used by stock endpoint-0 handling
+55. `open-firmware-probes/minimal-idle/usb-contract-scan.md` - strict USB-only probe contract scan for the current idle candidate
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -144,6 +145,7 @@ Useful current conclusions:
 - `analysis/usb-path/usb-descriptor-response-model.md` turns those descriptors into exact byte strings for standard USB `GET_DESCRIPTOR` responses. This defines the payload contract for a future USB-only open marker, but not the endpoint-0 hardware plumbing.
 - `analysis/usb-path/endpoint0-machinery.md` maps the stock endpoint-0 flow: interrupt 4, USB event queue, `0x58`-byte transfer records, `0x10`-byte transfer descriptors, and `0xb300` control bits. The current standalone USB-marker blocker is endpoint-0 machinery, not descriptor payload bytes.
 - `analysis/usb-path/usb-mmio-map.md` turns the endpoint-0 register evidence into a concrete checklist: setup/status gates `0xb3000400/0408`, descriptor/control registers `0xb3000504/0508/050c/0510`, ack/kick registers, and likely setup/event pointer `0xb3000214`.
+- `scripts/check-hp1020-usb-probe-contract.py` is the stricter scanner for future USB-only candidates: engine/video MMIO fails, and USB MMIO must be one of the mapped endpoint-0 registers.
 - `scripts/check-hp1020-safety-boundary.py` is a pre-upload safety scanner for future candidate source/disassembly; it fails on known unsafe video/engine functions and MMIO families.
 - `analysis/printer-test-readiness-report.md` records the controlled connected-printer test path using `analysis/samples/minimal-page.ps` and `scripts/run-printer-readiness-test.sh --send`; that test has printed successfully once on hardware.
 - `analysis/jobmgr-producer-boundary-report.md` is now superseded for message `0x29`; it remains useful as the pre-parser checkpoint showing why the producer was missed by broad queue-send scans.

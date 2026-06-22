@@ -89,12 +89,14 @@ Before any custom artifact is uploaded, run the candidate source/disassembly thr
 
 ```sh
 scripts/check-hp1020-safety-boundary.py path/to/candidate
+scripts/check-hp1020-usb-probe-contract.py path/to/candidate
 ```
 
 The scan must have:
 
 - zero `fail` hits
-- only expected `watch` hits for USB `0xb300....` or unavoidable boot/timer MMIO
+- only expected `watch` hits for mapped USB `0xb300....` registers or unavoidable boot/timer MMIO
+- no unmapped USB registers
 
 Do not use `--allow-unsafe` for upload candidates. That option is only for validating the scanner
 against known unsafe firmware code.

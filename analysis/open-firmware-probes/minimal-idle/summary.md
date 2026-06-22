@@ -9,6 +9,7 @@ This artifact is offline only. It was not uploaded to the printer.
 - PJL/ACL upload wrapper: `/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/hp1020-idle-probe.dl`
 - Layout report: `/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/layout.md`
 - Safety scan: `/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/safety-scan.md`
+- USB contract scan: `/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/minimal-idle/usb-contract-scan.md`
 
 ## Key Checks
 
@@ -29,4 +30,5 @@ entry=0x100167a8 machine=0xabc7 phnum=11 shnum=21
 The build proves we can generate an HP-shaped, old-Xtensa, date-prefixed firmware upload candidate from our own assembly.
 The system interface table is open-code only: all 75 slots point to the local trap loop, not copied HP routines.
 The early runtime-vector placeholders at 0x10006a14 and 0x10006a58 also point only to local trap/state placeholders.
+The strict USB-probe contract scan also has zero USB, video, or engine MMIO/function references.
 It does not prove the printer boot ROM will accept it, and it does not attempt printing.

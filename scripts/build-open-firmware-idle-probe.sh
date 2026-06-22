@@ -34,6 +34,8 @@ layout_md="$OUT_DIR/layout.md"
 layout_json="$OUT_DIR/layout.json"
 safety_md="$OUT_DIR/safety-scan.md"
 safety_json="$OUT_DIR/safety-scan.json"
+usb_contract_md="$OUT_DIR/usb-contract-scan.md"
+usb_contract_json="$OUT_DIR/usb-contract-scan.json"
 summary_md="$OUT_DIR/summary.md"
 
 "$as_tool" -o "$obj" "$SRC_DIR/idle.S"
@@ -74,6 +76,11 @@ python3 "$ROOT_DIR/scripts/check-hp1020-safety-boundary.py" \
   -o "$safety_md" \
   --json "$safety_json"
 
+python3 "$ROOT_DIR/scripts/check-hp1020-usb-probe-contract.py" \
+  "$SRC_DIR" "$disasm_txt" "$readelf_txt" \
+  -o "$usb_contract_md" \
+  --json "$usb_contract_json"
+
 rm -f "$obj" "$toolchain_elf"
 
 {
@@ -85,6 +92,7 @@ rm -f "$obj" "$toolchain_elf"
   printf -- '- PJL/ACL upload wrapper: `%s`\n' "$dl"
   printf -- '- Layout report: `%s`\n' "$layout_md"
   printf -- '- Safety scan: `%s`\n' "$safety_md"
+  printf -- '- USB contract scan: `%s`\n' "$usb_contract_md"
   printf '\n'
   printf '## Key Checks\n\n'
   printf '```text\n'
@@ -97,10 +105,11 @@ rm -f "$obj" "$toolchain_elf"
   printf 'The build proves we can generate an HP-shaped, old-Xtensa, date-prefixed firmware upload candidate from our own assembly.\n'
   printf 'The system interface table is open-code only: all 75 slots point to the local trap loop, not copied HP routines.\n'
   printf 'The early runtime-vector placeholders at 0x10006a14 and 0x10006a58 also point only to local trap/state placeholders.\n'
+  printf 'The strict USB-probe contract scan also has zero USB, video, or engine MMIO/function references.\n'
   printf 'It does not prove the printer boot ROM will accept it, and it does not attempt printing.\n'
 } > "$summary_md"
 
 chmod 644 "$elf" "$img" "$dl" "$readelf_txt" "$disasm_txt" "$layout_md" "$layout_json" \
-  "$safety_md" "$safety_json" "$summary_md" "$OUT_DIR/hp1020-idle-probe.map"
+  "$safety_md" "$safety_json" "$usb_contract_md" "$usb_contract_json" "$summary_md" "$OUT_DIR/hp1020-idle-probe.map"
 
 printf '%s\n' "$summary_md"
