@@ -225,6 +225,30 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/hardware-boundary/first-page-hardware-sequence.json",
         )
     )
+    video_dataflow = read_json("analysis/hardware-boundary/video-dataflow-contract.json")
+    dataflow_stages = {
+        item.get("stage"): item
+        for item in video_dataflow.get("contract_stages", [])
+        if isinstance(item, dict)
+    }
+    checks.append(
+        check(
+            "video_dataflow_contract_keeps_a4_default_path",
+            video_dataflow.get("status") == "pass"
+            and video_dataflow.get("source_case") == "a4_default"
+            and dataflow_stages.get("host_raster_fields", {}).get("known_values", {}).get("work +0x84") == 9600
+            and dataflow_stages.get("host_raster_fields", {}).get("known_values", {}).get("payload +0x48") == 6364
+            and dataflow_stages.get("video_prepare_geometry", {}).get("known_values", {}).get("video state +0xb8 stride") == 1200
+            and dataflow_stages.get("render_initial_transfer", {}).get("known_values", {}).get("0xb2040008") == 6364
+            and "chunk_units * stride(1200)"
+            == dataflow_stages.get("helper_channel_b_refill", {}).get("known_values", {}).get("0xb2080008")
+            and "A pointer plus dual-output window(2400) when dual-block mode is active"
+            == dataflow_stages.get("raw_band_queue_feed", {}).get("known_values", {}).get("0xb1000108")
+            and all(item.get("status") == "present" for item in video_dataflow.get("checks", [])),
+            "The video dataflow contract must preserve concrete a4_default values through render/refill boundary formulas.",
+            evidence="analysis/hardware-boundary/video-dataflow-contract.json",
+        )
+    )
     semantic_sequences = {
         item.get("name"): item
         for item in register_semantics.get("semantic_sequences", [])

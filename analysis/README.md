@@ -97,6 +97,7 @@ Start here:
 91. `hardware-boundary/video-prepare-projection.md` - generated projection from current host print variants into the 600dpi `0xb100` video-prepare setup scenarios
 92. `hardware-boundary/engine-print-topology.md` - generated synthesis of engine startup/preflight, page work acceptance, status recovery, and completion/deferred-work flow
 93. `open-firmware-model/raster-field-semantics.md` - generated host-to-raster field semantics for BIH/BID values that reach the video hardware boundary
+94. `hardware-boundary/video-dataflow-contract.md` - generated normal first-page dataflow contract from host raster fields into render/refill hardware formulas
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -197,6 +198,7 @@ Useful current conclusions:
 - `analysis/hardware-boundary/video-refill-topology.md` stitches the current video refill evidence together: the stronger normal-print hypothesis is the descriptor queue/list refill path, while the raw linked-list refresh path is real but still lacks a proven normal print-path producer.
 - `analysis/hardware-boundary/video-prepare-projection.md` narrows the current generated host print cases against the `0xb100` setup path: all generated variants are 600x600/NBIE=1 and project into a small two-output 600dpi setup family when datastore `0x20` and work `+0x36` take the normal zero path.
 - `analysis/hardware-boundary/engine-print-topology.md` organizes the mechanical engine side into startup/preflight, page work acceptance, status/recovery polling, and completion/deferred-work stages. It preserves the important stock commands `0x6012`, `0x3a13`, `0x501a`, and `0x5043`.
+- `analysis/hardware-boundary/video-dataflow-contract.md` pins the normal `a4_default` first-page values through the video boundary: work `+0x84/+0x88/+0x8c/+0x90 = 9600/6824/128/0x5c`, BID bytes `6364`, prepare stride/window `1200/2400`, render channel-A length `6364`, and helper channel-B length formula `chunk_units * 1200`.
 - `analysis/non-printing-usb-probe-spec.md` defines the only custom-firmware experiment that is currently defensible: boot/USB identity only, no video/engine MMIO.
 - `analysis/non-printing-status-probe/pjl-status-contract.md` defines the exact tiny PJL/status payloads to use when calibrating stock back-channel responses or future open USB/PJL echo behavior.
 - `analysis/offline-consistency/offline-consistency.md` now cross-checks the main offline conclusions against generated reports: engine `0x17` dispatch, status-code correlation, print-path model invariants, hardware boundary, PJL query contract, and USB marker draft safety.
@@ -236,6 +238,7 @@ Useful current conclusions:
 - `scripts/model-hp1020-engine-print-topology.py` regenerates the engine-side print topology synthesis from command/status and status-decision reports.
 - `scripts/model-hp1020-first-page-hardware-sequence.py` regenerates the ordered first-page hardware sequence from the current print-path and hardware-boundary reports.
 - `scripts/model-hp1020-raster-field-semantics.py` regenerates the host-to-raster field semantics report from the generated print-path model variants and video-boundary reports.
+- `scripts/model-hp1020-video-dataflow-contract.py` regenerates the normal first-page video dataflow contract from raster fields, prepare projection, transfer-ring, and refill models.
 - `scripts/model-hp1020-minimal-print-scope.py` regenerates the current minimum printing-only replacement scope from the generated print-path, USB, and hardware-boundary reports.
 - `scripts/analyze-hp1020-pjl-status-capture.py` classifies PJL/status back-channel captures against the generated contract, including expected-marker, no-response, and unexpected-byte outcomes.
 - `scripts/run-usb-marker-draft-hardware-test.sh` is the guarded dry-run/default harness for the marker draft. It re-runs the static gates before any upload and requires `HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1`.

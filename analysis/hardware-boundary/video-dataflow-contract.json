@@ -1,0 +1,133 @@
+{
+  "checks": [
+    {
+      "detail": "raster field model is pass",
+      "name": "raster_fields_status_pass",
+      "status": "present"
+    },
+    {
+      "detail": "prepare projection model is pass",
+      "name": "prepare_projection_status_pass",
+      "status": "present"
+    },
+    {
+      "detail": "transfer ring model is pass",
+      "name": "transfer_ring_status_pass",
+      "status": "present"
+    },
+    {
+      "detail": "band queue model is pass",
+      "name": "band_queue_status_pass",
+      "status": "present"
+    },
+    {
+      "detail": "refill topology model is pass",
+      "name": "refill_topology_status_pass",
+      "status": "present"
+    },
+    {
+      "detail": "a4_default work/raster/prepare values match the current generated model",
+      "name": "a4_default_values_projected",
+      "status": "present"
+    },
+    {
+      "detail": "normal descriptor refill still connects channel-B helper and raw-band queue writes",
+      "name": "normal_refill_path_preserved",
+      "status": "present"
+    }
+  ],
+  "contract_stages": [
+    {
+      "function": "ZjStream parser + JobMgr",
+      "known_values": {
+        "payload +0x48": 6364,
+        "payload +0x54": "pointer to the same compressed BID bytes",
+        "work +0x84": 9600,
+        "work +0x88": 6824,
+        "work +0x8c": 128,
+        "work +0x90": "0x5c"
+      },
+      "meaning": "Host BIH/BID data is already enough to define page geometry and the first compressed raster payload.",
+      "remaining_unknown": "exact physical meaning of every BIH option bit",
+      "stage": "host_raster_fields"
+    },
+    {
+      "function": "0x10014910 hp1020_video_prepare_page_candidate",
+      "known_values": {
+        "video state +0xb8 stride": 1200,
+        "video state +0xbc dual-output window": 2400,
+        "video state +0xc4": 1,
+        "video state +0xc8 / 200": 2,
+        "video state +0xf4": 2
+      },
+      "meaning": "The current host cases land in the normal 600dpi setup family.",
+      "remaining_unknown": "hardware-calibrated meaning of datastore 0x20 and less common prepare branches",
+      "stage": "video_prepare_geometry"
+    },
+    {
+      "function": "0x10015214 hp1020_video_render_or_dma_candidate",
+      "known_values": {
+        "0xb2000000": "derived from work +0x90, then OR 0x400",
+        "0xb2000008": 9600,
+        "0xb200000c": 6824,
+        "0xb2000024": 128,
+        "0xb2040004": "payload +0x54 compressed raster pointer",
+        "0xb2040008": 6364
+      },
+      "meaning": "Render arms the first transfer using the host-derived geometry and first compressed raster buffer.",
+      "remaining_unknown": "live completion timing for channel A progress",
+      "stage": "render_initial_transfer"
+    },
+    {
+      "function": "0x10014244 hp1020_video_band_done_or_irq_helper_candidate",
+      "known_values": {
+        "0xb2080004": "slot pointer from video state + slot*4",
+        "0xb2080008": "chunk_units * stride(1200)",
+        "chunk_units": "min(video state +0xcc, video state +0xd0)",
+        "final_flag": "set when remaining units become zero"
+      },
+      "meaning": "The helper keeps channel B fed from the modulo-4 descriptor side.",
+      "remaining_unknown": "initial +0xcc/+0xd0 values need tighter static or live calibration",
+      "stage": "helper_channel_b_refill"
+    },
+    {
+      "function": "0x10013f34 hp1020_video_band_queue_or_list_candidate",
+      "known_values": {
+        "0xb1000008": "descriptor pointer/control source",
+        "0xb100000c": "encoded descriptor units plus final flag bit 0x18",
+        "0xb1000108": "A pointer plus dual-output window(2400) when dual-block mode is active",
+        "0xb100010c": "encoded descriptor units plus secondary output bit 0x19",
+        "queue index +0xdc": "advances modulo 4 unless it would collide with +0xe0 without final flag"
+      },
+      "meaning": "This is the normal raw-band/channel feed boundary after render and refill helper setup.",
+      "remaining_unknown": "exact encoding performed by 0x1001b668",
+      "stage": "raw_band_queue_feed"
+    },
+    {
+      "function": "0x100144d0 hp1020_video_irq_or_band_done_candidate",
+      "known_values": {
+        "alternate_path": "raw linked-list refresh when video state +0xfc is negative",
+        "band_done_bit": "0x20",
+        "normal_path": "clear ring record, advance +0xd8, call helper, then queue/list next band"
+      },
+      "meaning": "Actual printing depends on the video IRQ/band-done loop continuing this refill safely.",
+      "remaining_unknown": "live interrupt cadence and exact stop/completion condition",
+      "stage": "irq_refill_loop"
+    }
+  ],
+  "current_conclusion": [
+    "The host-to-render dataflow is now concrete for the generated a4_default case.",
+    "The remaining unknowns are not parser fields; they are video timing, helper chunk sizing, raw-band encoding, and live IRQ completion behavior.",
+    "This report is still not a reason to upload custom printing firmware; it is the static contract a future implementation must satisfy."
+  ],
+  "source_case": "a4_default",
+  "source_reports": {
+    "band_queue": "analysis/hardware-boundary/video-band-queue.json",
+    "prepare_projection": "analysis/hardware-boundary/video-prepare-projection.json",
+    "raster_fields": "analysis/open-firmware-model/raster-field-semantics.json",
+    "refill_topology": "analysis/hardware-boundary/video-refill-topology.json",
+    "transfer_ring": "analysis/hardware-boundary/video-transfer-ring.json"
+  },
+  "status": "pass",
+  "summary": "Normal first-page video dataflow contract from host fields to render/refill hardware boundary."
+}

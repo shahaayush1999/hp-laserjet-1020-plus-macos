@@ -1,5 +1,5 @@
 {
-  "check_count": 41,
+  "check_count": 42,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -59,6 +59,12 @@
       "detail": "The first-page hardware sequence must preserve the ordered engine/video/refill risk boundary.",
       "evidence": "analysis/hardware-boundary/first-page-hardware-sequence.json",
       "name": "first_page_sequence_keeps_video_engine_registers_ordered",
+      "severity": "watch"
+    },
+    {
+      "detail": "The video dataflow contract must preserve concrete a4_default values through render/refill boundary formulas.",
+      "evidence": "analysis/hardware-boundary/video-dataflow-contract.json",
+      "name": "video_dataflow_contract_keeps_a4_default_path",
       "severity": "watch"
     },
     {
