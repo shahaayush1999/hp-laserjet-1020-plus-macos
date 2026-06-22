@@ -75,6 +75,7 @@ Open firmware analysis state:
 - `scripts/build-open-firmware-idle-probe.sh` rebuilds the probe.
 - `scripts/build-open-firmware-usb-snapshot-probe.sh` rebuilds the read-only USB register snapshot probe.
 - `scripts/build-open-firmware-usb-marker-draft.sh` rebuilds the write-capable USB marker draft and runs layout, safety, USB-contract, access, and endpoint-0 sequence scans.
+- `scripts/validate-open-firmware-probes.sh` rebuilds all open firmware probes, runs layout/scanner audits, and exercises dry-run hardware harnesses without contacting the printer.
 - `scripts/run-idle-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_CUSTOM_FIRMWARE_UPLOAD=1`.
 - `scripts/run-usb-snapshot-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_USB_SNAPSHOT_UPLOAD=1`.
 - `scripts/run-usb-marker-draft-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1`. Do not run it before the safer stock/idle/read-only checks.
