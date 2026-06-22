@@ -13,6 +13,9 @@ from pathlib import Path
 WRITE_A6_RE = re.compile(
     r"^\s*(?:abs|add|addi|and|extui|l16ui|l32i|l32r|l8ui|mov|movi|or|slli|srli|sub|xor)\s+a6\b"
 )
+WRITE_A7_RE = re.compile(
+    r"^\s*(?:abs|add|addi|and|extui|l16ui|l32i|l32r|l8ui|mov|movi|or|slli|srli|sub|xor)\s+a7\b"
+)
 
 
 @dataclass(frozen=True)
@@ -49,6 +52,8 @@ def check_length_flow(lines: list[str]) -> list[Check]:
     descriptor_store = find_line(lines, "s32i a7, a4, 0")
     branch_b = find_line(lines, "bnez a7, hp1020_usb_marker_sequence_b")
     kick_label = label_line(lines, "hp1020_usb_marker_kick_control_in")
+    clip_label = label_line(lines, "hp1020_usb_marker_clip_and_dispatch")
+    clip_branch = find_line(lines, "bltu a6, a7, 1f")
 
     checks.append(
         Check(
@@ -85,6 +90,24 @@ def check_length_flow(lines: list[str]) -> list[Check]:
                 "a6_not_clobbered_before_sequence",
                 "watch" if not clobbers else "fail",
                 "no writes to a6 are allowed between clipped-length calculation and sequence dispatch"
+                if not clobbers
+                else "; ".join(f"line {line_no}: {text}" for line_no, text in clobbers),
+            )
+        )
+
+    if clip_label is None or clip_branch is None:
+        checks.append(Check("selected_descriptor_length_preserved", "fail", "could not locate descriptor-length clip range"))
+    else:
+        clobbers = [
+            (index + 1, line.strip())
+            for index, line in enumerate(lines[clip_label + 1 : clip_branch], start=clip_label + 1)
+            if WRITE_A7_RE.match(line)
+        ]
+        checks.append(
+            Check(
+                "selected_descriptor_length_preserved",
+                "watch" if not clobbers else "fail",
+                "selected descriptor length in a7 must reach the wLength clip unchanged"
                 if not clobbers
                 else "; ".join(f"line {line_no}: {text}" for line_no, text in clobbers),
             )

@@ -50,7 +50,7 @@ It does not contact the printer.
 | `pjl_first_query_is_echo` | `watch` | The first stock/open comparison must remain the non-printing PJL ECHO probe. | `analysis/non-printing-status-probe/pjl-status-contract.json` |
 | `pjl_contract_is_non_printing` | `watch` | The status query contract must stay outside print/video/engine execution. | `analysis/non-printing-status-probe/pjl-status-contract.json` |
 | `usb_marker_descriptor_is_stable` | `watch` | The open marker descriptor bytes and length must remain fixed. | `analysis/open-firmware-probes/usb-marker-draft/marker-descriptor-check.json` |
-| `usb_marker_length_flow_passes` | `watch` | The marker draft must keep host wLength clipping connected to the endpoint-0 response state and descriptor word. | `analysis/open-firmware-probes/usb-marker-draft/marker-length-flow-check.json` |
+| `usb_marker_length_flow_passes` | `watch` | The marker draft must keep host wLength clipping connected to the selected descriptor length, endpoint-0 response state, and descriptor word. | `analysis/open-firmware-probes/usb-marker-draft/marker-length-flow-check.json` |
 | `usb_marker_sequence_matches_endpoint0_contract` | `watch` | The marker draft's USB writes must remain limited to the extracted endpoint-0 sequence. | `analysis/open-firmware-probes/usb-marker-draft/endpoint0-sequence-scan.json` |
 | `usb_marker_data_stage_submit_present` | `watch` | The marker draft must submit the control-IN descriptor ring and kick the transfer path. | `analysis/open-firmware-probes/usb-marker-draft/endpoint0-sequence-scan.json` |
 | `usb_marker_contract_has_no_engine_video_mmio` | `watch` | The marker draft must stay USB-only and avoid engine/video MMIO. | `analysis/open-firmware-probes/usb-marker-draft/usb-contract-scan.json` |

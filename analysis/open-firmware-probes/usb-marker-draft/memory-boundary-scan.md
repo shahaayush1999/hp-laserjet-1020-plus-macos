@@ -38,4 +38,4 @@
 | `watch` | `local_probe_state` | `write` | `0x10005e91` | `0x18` | `s32i.n	a3, a4, 24` | local probe state buffer |
 | `watch` | `setup_packet_buffer` | `read` | `0x10005e95` | `0x7` | `l8ui	a3, a11, 7` | candidate USB setup packet buffer at 0x90021348 |
 | `watch` | `local_probe_state` | `write` | `0x10005e98` | `0x1c` | `s32i.n	a3, a4, 28` | local probe state buffer |
-| `watch` | `local_probe_state` | `write` | `0x10005ea8` | `0x20` | `s32i.n	a6, a4, 32` | local probe state buffer |
+| `watch` | `local_probe_state` | `write` | `0x10005ea5` | `0x20` | `s32i.n	a6, a4, 32` | local probe state buffer |

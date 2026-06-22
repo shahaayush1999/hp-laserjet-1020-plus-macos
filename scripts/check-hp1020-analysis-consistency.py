@@ -923,9 +923,10 @@ def build_report() -> dict[str, Any]:
         check(
             "usb_marker_length_flow_passes",
             severity_count(marker_len, "fail") == 0
-            and len(marker_len) == 5
-            and any(item.get("name") == "descriptor_word_uses_clipped_length" for item in marker_len),
-            "The marker draft must keep host wLength clipping connected to the endpoint-0 response state and descriptor word.",
+            and len(marker_len) == 6
+            and any(item.get("name") == "descriptor_word_uses_clipped_length" for item in marker_len)
+            and any(item.get("name") == "selected_descriptor_length_preserved" for item in marker_len),
+            "The marker draft must keep host wLength clipping connected to the selected descriptor length, endpoint-0 response state, and descriptor word.",
             evidence="analysis/open-firmware-probes/usb-marker-draft/marker-length-flow-check.json",
         )
     )

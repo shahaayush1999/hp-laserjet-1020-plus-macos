@@ -191,6 +191,24 @@ def read_one_device(
         return report
 
     try:
+        product_index = cached_desc.iProduct or 2
+        manufacturer_index = cached_desc.iManufacturer
+        serial_index = cached_desc.iSerialNumber
+        if product_index:
+            report["control_reads"].append(
+                {
+                    "name": "product_first",
+                    **control_get_descriptor(
+                        lib,
+                        handle,
+                        USB_DT_STRING,
+                        product_index,
+                        lang_id=0x0409,
+                        length=255,
+                        timeout_ms=timeout_ms,
+                    ),
+                }
+            )
         device = control_get_descriptor(
             lib,
             handle,
@@ -200,9 +218,6 @@ def read_one_device(
             timeout_ms=timeout_ms,
         )
         report["control_reads"].append({"name": "device", **device})
-        product_index = cached_desc.iProduct
-        manufacturer_index = cached_desc.iManufacturer
-        serial_index = cached_desc.iSerialNumber
         if device.get("ok"):
             raw = bytes.fromhex(device["data_hex"])
             if len(raw) >= 17:

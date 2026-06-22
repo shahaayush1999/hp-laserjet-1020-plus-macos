@@ -31,5 +31,5 @@
 | `watch` | `write` | `0xb3000000` | `0x10005dcd` | `s32i.n	a9, a8, 0` | mapped USB MMIO write |
 | `watch` | `read` | `0xb3000408` | `0x10005deb` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
 | `watch` | `read` | `0xb3000400` | `0x10005df5` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
-| `watch` | `read` | `0xb3000408` | `0x10005ead` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
-| `watch` | `read` | `0xb3000400` | `0x10005ebb` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
+| `watch` | `read` | `0xb3000408` | `0x10005eaa` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
+| `watch` | `read` | `0xb3000400` | `0x10005eb8` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |

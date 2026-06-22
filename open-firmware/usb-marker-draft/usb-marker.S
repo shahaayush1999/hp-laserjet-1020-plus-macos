@@ -368,7 +368,6 @@ hp1020_usb_marker_clip_and_dispatch:
     s32i a3, a4, 0x1c
     slli a3, a3, 8
     or a6, a6, a3
-    l32r a7, hp1020_marker_len_00000026
     bltu a6, a7, 1f
     mov a6, a7
 1:

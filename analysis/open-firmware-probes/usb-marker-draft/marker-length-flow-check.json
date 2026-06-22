@@ -20,6 +20,11 @@
     "severity": "watch"
   },
   {
+    "detail": "selected descriptor length in a7 must reach the wLength clip unchanged",
+    "name": "selected_descriptor_length_preserved",
+    "severity": "watch"
+  },
+  {
     "detail": "the response length write must live in hp1020_usb_marker_kick_control_in",
     "name": "response_store_in_kick_path",
     "severity": "watch"

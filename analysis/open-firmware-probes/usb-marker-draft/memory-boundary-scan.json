@@ -236,7 +236,7 @@
     "instruction": "s32i.n\ta6, a4, 32",
     "kind": "local_probe_state",
     "offset": "0x20",
-    "pc": "0x10005ea8",
+    "pc": "0x10005ea5",
     "severity": "watch"
   }
 ]
