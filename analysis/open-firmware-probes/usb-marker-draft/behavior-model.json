@@ -1,0 +1,80 @@
+{
+  "scenarios": [
+    {
+      "decision": {
+        "gate_0400": "0x00000000",
+        "gate_0408": "0x00006000",
+        "response_len": 38,
+        "response_pointer": "0x90003200",
+        "response_text": "HP1020 OPEN MARKER",
+        "result": "marker_response",
+        "sequence": "sequence_a",
+        "setup_hex": "80 06 02 03 09 04 ff 00",
+        "w_length": 255
+      },
+      "name": "product string, sequence A gate, full host length"
+    },
+    {
+      "decision": {
+        "gate_0400": "0x00000001",
+        "gate_0408": "0x00000000",
+        "response_len": 38,
+        "response_pointer": "0x90003200",
+        "response_text": "HP1020 OPEN MARKER",
+        "result": "marker_response",
+        "sequence": "sequence_b",
+        "setup_hex": "80 06 02 03 09 04 ff 00",
+        "w_length": 255
+      },
+      "name": "product string, sequence B gate, full host length"
+    },
+    {
+      "decision": {
+        "candidate_response_len": 38,
+        "gate_0400": "0x00000000",
+        "gate_0408": "0x00000000",
+        "reason": "neither USB status gate is active",
+        "result": "no_match",
+        "setup_hex": "80 06 02 03 09 04 ff 00",
+        "w_length": 255
+      },
+      "name": "product string, both gates clear"
+    },
+    {
+      "decision": {
+        "gate_0400": "0x00000000",
+        "gate_0408": "0x00006000",
+        "response_len": 4,
+        "response_pointer": "0x90003200",
+        "response_text": "HP1020 OPEN MARKER",
+        "result": "marker_response",
+        "sequence": "sequence_a",
+        "setup_hex": "80 06 02 03 09 04 04 00",
+        "w_length": 4
+      },
+      "name": "product string, clipped host length"
+    },
+    {
+      "decision": {
+        "gate_0400": "0x00000000",
+        "gate_0408": "0x00006000",
+        "observed_prefix": "80 06 00 01",
+        "reason": "not GET_DESCRIPTOR string index 2",
+        "result": "no_match",
+        "setup_hex": "80 06 00 01 00 00 12 00"
+      },
+      "name": "device descriptor request"
+    },
+    {
+      "decision": {
+        "gate_0400": "0x00000000",
+        "gate_0408": "0x00006000",
+        "observed_prefix": "21 0a 00 00",
+        "reason": "not GET_DESCRIPTOR string index 2",
+        "result": "no_match",
+        "setup_hex": "21 0a 00 00 00 00 00 00"
+      },
+      "name": "class request"
+    }
+  ]
+}

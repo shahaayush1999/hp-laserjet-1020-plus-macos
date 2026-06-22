@@ -24,6 +24,8 @@ The draft currently passes these static gates:
 - USB MMIO access scan: mapped USB reads/writes only
 - endpoint-0 sequence scan: USB writes match the extracted stock endpoint-0 contract
 - memory boundary scan: 6 candidate setup-buffer reads and 2 stock response-state writes, with no hidden fail hits
+- marker length-flow check: clipped host `wLength` is preserved into the endpoint-0 response-length write
+- behavior model: product-string requests select Sequence A or B based on USB gates and response length is clipped to `min(wLength, 38)`
 
 The draft still has an important unresolved assumption:
 

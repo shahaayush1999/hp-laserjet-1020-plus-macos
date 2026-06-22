@@ -191,7 +191,7 @@
     "instruction": "s32i.n\ta9, a8, 0",
     "kind": "endpoint0_or_write",
     "operation": "or",
-    "pc": "0x10005d8b",
+    "pc": "0x10005d88",
     "register": "0xb3000000",
     "sequence": null,
     "severity": "watch",

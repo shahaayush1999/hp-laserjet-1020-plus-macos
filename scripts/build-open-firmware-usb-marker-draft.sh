@@ -56,6 +56,12 @@ endpoint0_sequence_md="$OUT_DIR/endpoint0-sequence-scan.md"
 endpoint0_sequence_json="$OUT_DIR/endpoint0-sequence-scan.json"
 memory_boundary_md="$OUT_DIR/memory-boundary-scan.md"
 memory_boundary_json="$OUT_DIR/memory-boundary-scan.json"
+marker_descriptor_md="$OUT_DIR/marker-descriptor-check.md"
+marker_descriptor_json="$OUT_DIR/marker-descriptor-check.json"
+marker_length_flow_md="$OUT_DIR/marker-length-flow-check.md"
+marker_length_flow_json="$OUT_DIR/marker-length-flow-check.json"
+behavior_model_md="$OUT_DIR/behavior-model.md"
+behavior_model_json="$OUT_DIR/behavior-model.json"
 summary_md="$OUT_DIR/summary.md"
 
 "$as_tool" -o "$obj" "$SRC_DIR/usb-marker.S"
@@ -117,6 +123,21 @@ python3 "$ROOT_DIR/scripts/check-hp1020-memory-boundary.py" \
   -o "$memory_boundary_md" \
   --json "$memory_boundary_json"
 
+python3 "$ROOT_DIR/scripts/check-hp1020-marker-descriptor.py" \
+  "$elf" \
+  --source "$SRC_DIR/usb-marker.S" \
+  -o "$marker_descriptor_md" \
+  --json "$marker_descriptor_json"
+
+python3 "$ROOT_DIR/scripts/check-hp1020-marker-length-flow.py" \
+  "$SRC_DIR/usb-marker.S" \
+  -o "$marker_length_flow_md" \
+  --json "$marker_length_flow_json"
+
+python3 "$ROOT_DIR/scripts/model-hp1020-usb-marker-draft.py" \
+  --markdown-output "$behavior_model_md" \
+  --json-output "$behavior_model_json" >/tmp/hp1020-usb-marker-behavior-status.txt
+
 rm -f "$obj" "$toolchain_elf"
 
 {
@@ -132,6 +153,9 @@ rm -f "$obj" "$toolchain_elf"
   printf -- '- USB MMIO access scan: `%s`\n' "$usb_access_md"
   printf -- '- Endpoint-0 sequence scan: `%s`\n' "$endpoint0_sequence_md"
   printf -- '- Memory boundary scan: `%s`\n' "$memory_boundary_md"
+  printf -- '- Marker descriptor check: `%s`\n' "$marker_descriptor_md"
+  printf -- '- Marker length-flow check: `%s`\n' "$marker_length_flow_md"
+  printf -- '- Behavior model: `%s`\n' "$behavior_model_md"
   printf '\n'
   printf '## Key Checks\n\n'
   printf '```text\n'
@@ -140,10 +164,15 @@ rm -f "$obj" "$toolchain_elf"
   printf '```text\n'
   file "$elf" "$img" "$dl"
   printf '```\n\n'
+  printf '```text\n'
+  cat /tmp/hp1020-usb-marker-behavior-status.txt
+  printf '```\n\n'
   printf '## Meaning\n\n'
   printf 'This open-code draft recognizes a USB product-string GET_DESCRIPTOR setup shape and tries to expose the marker string `HP1020 OPEN MARKER` through endpoint-0.\n'
   printf 'It writes only USB-controller MMIO registers that match the extracted stock endpoint-0 sequence contract.\n'
   printf 'It also writes the stock USB response-state RAM slots used by that contract; the memory boundary scan makes those non-MMIO writes explicit.\n'
+  printf 'The marker descriptor check verifies the embedded `HP1020 OPEN MARKER` USB string descriptor, its length constant, and its 0x90000000 hardware alias pointer.\n'
+  printf 'The marker length-flow check verifies the clipped USB request length is preserved into the endpoint-0 response-state write.\n'
   printf 'It does not touch engine, fuser, motor, paper-feed, video, or raster MMIO.\n'
   printf 'It is not hardware-ready; the missing proof is whether the setup buffer and stock response state are valid after custom upload.\n'
 } > "$summary_md"
@@ -151,6 +180,8 @@ rm -f "$obj" "$toolchain_elf"
 chmod 644 "$elf" "$img" "$dl" "$readelf_txt" "$disasm_txt" "$layout_md" "$layout_json" \
   "$safety_md" "$safety_json" "$usb_contract_md" "$usb_contract_json" \
   "$usb_access_md" "$usb_access_json" "$endpoint0_sequence_md" "$endpoint0_sequence_json" \
-  "$memory_boundary_md" "$memory_boundary_json" "$summary_md" "$OUT_DIR/hp1020-usb-marker-draft.map"
+  "$memory_boundary_md" "$memory_boundary_json" "$marker_descriptor_md" "$marker_descriptor_json" \
+  "$marker_length_flow_md" "$marker_length_flow_json" "$behavior_model_md" "$behavior_model_json" \
+  "$summary_md" "$OUT_DIR/hp1020-usb-marker-draft.map"
 
 printf '%s\n' "$summary_md"

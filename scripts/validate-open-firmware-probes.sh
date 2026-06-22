@@ -35,6 +35,13 @@ run_step "USB marker draft layout" \
     --profile boot-probe \
     "$ROOT_DIR/analysis/open-firmware-probes/usb-marker-draft/hp1020-usb-marker-draft.dl"
 
+run_step "USB marker behavior model" \
+  python3 "$ROOT_DIR/scripts/model-hp1020-usb-marker-draft.py"
+
+run_step "USB marker length-flow check" \
+  python3 "$ROOT_DIR/scripts/check-hp1020-marker-length-flow.py" \
+    "$ROOT_DIR/open-firmware/usb-marker-draft/usb-marker.S"
+
 run_step "JSON scanner fail-count audit" \
   python3 - "$ROOT_DIR" <<'PY'
 import json
@@ -53,13 +60,19 @@ reports = [
     "analysis/open-firmware-probes/usb-marker-draft/usb-mmio-access-scan.json",
     "analysis/open-firmware-probes/usb-marker-draft/endpoint0-sequence-scan.json",
     "analysis/open-firmware-probes/usb-marker-draft/memory-boundary-scan.json",
+    "analysis/open-firmware-probes/usb-marker-draft/marker-descriptor-check.json",
+    "analysis/open-firmware-probes/usb-marker-draft/marker-length-flow-check.json",
 ]
 
 for rel in reports:
     path = root / rel
     items = json.loads(path.read_text())
-    fail = sum(item.get("severity") == "fail" for item in items)
-    print(f"{rel}: items={len(items)} fail={fail}")
+    if isinstance(items, dict) and "checks" in items:
+        check_items = items["checks"]
+    else:
+        check_items = items
+    fail = sum(item.get("severity") == "fail" for item in check_items)
+    print(f"{rel}: items={len(check_items)} fail={fail}")
     if fail:
         raise SystemExit(1)
 PY

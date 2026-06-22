@@ -157,7 +157,7 @@
     "description": "mapped USB MMIO read",
     "instruction": "l32i.n\ta9, a8, 0",
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/disassembly.txt",
-    "pc": "0x10005d80",
+    "pc": "0x10005d7d",
     "register": "0xb3000000",
     "severity": "watch"
   },
@@ -166,7 +166,7 @@
     "description": "mapped USB MMIO write",
     "instruction": "s32i.n\ta9, a8, 0",
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/disassembly.txt",
-    "pc": "0x10005d8b",
+    "pc": "0x10005d88",
     "register": "0xb3000000",
     "severity": "watch"
   },
@@ -175,7 +175,7 @@
     "description": "mapped USB MMIO read",
     "instruction": "l32i.n\ta3, a2, 0",
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/disassembly.txt",
-    "pc": "0x10005da7",
+    "pc": "0x10005da3",
     "register": "0xb3000408",
     "severity": "watch"
   },
@@ -184,7 +184,7 @@
     "description": "mapped USB MMIO read",
     "instruction": "l32i.n\ta3, a2, 0",
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/disassembly.txt",
-    "pc": "0x10005db1",
+    "pc": "0x10005dad",
     "register": "0xb3000400",
     "severity": "watch"
   },
@@ -193,7 +193,7 @@
     "description": "mapped USB MMIO read",
     "instruction": "l32i.n\ta3, a2, 0",
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/disassembly.txt",
-    "pc": "0x10005e00",
+    "pc": "0x10005e0e",
     "register": "0xb3000408",
     "severity": "watch"
   },
@@ -202,7 +202,7 @@
     "description": "mapped USB MMIO read",
     "instruction": "l32i.n\ta3, a2, 0",
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-marker-draft/disassembly.txt",
-    "pc": "0x10005e0e",
+    "pc": "0x10005e1c",
     "register": "0xb3000400",
     "severity": "watch"
   }

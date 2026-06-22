@@ -1,0 +1,22 @@
+[
+  {
+    "detail": "clipped host wLength must be saved in local probe state at +0x20",
+    "name": "clipped_length_saved",
+    "severity": "watch"
+  },
+  {
+    "detail": "endpoint-0 response length must be programmed from the clipped-length register",
+    "name": "response_length_uses_a6",
+    "severity": "watch"
+  },
+  {
+    "detail": "no writes to a6 are allowed between clipped-length calculation and sequence dispatch",
+    "name": "a6_not_clobbered_before_sequence",
+    "severity": "watch"
+  },
+  {
+    "detail": "the response length write must live in hp1020_usb_marker_kick_control_in",
+    "name": "response_store_in_kick_path",
+    "severity": "watch"
+  }
+]

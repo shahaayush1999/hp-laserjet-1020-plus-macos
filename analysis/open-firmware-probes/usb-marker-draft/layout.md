@@ -33,8 +33,8 @@ It does not upload anything to the printer.
 - Section headers: `22`
 - LOAD segment file bytes: `109692`
 - LOAD segment memory bytes: `109692`
-- Allocated section bytes: `2680`
-- Executable section bytes: `1850`
+- Allocated section bytes: `2694`
+- Executable section bytes: `1864`
 
 ## Critical Sections
 
@@ -43,7 +43,7 @@ It does not upload anything to the printer.
 | `.WindowVectors.text` | `0x10000000` | `0x180` | `AX` |
 | `.sys_interface_table` | `0x10000370` | `0x12c` | `WA` |
 | `.rodata` | `0x10003000` | `0xa4` | `A` |
-| `.text` | `0x10005c80` | `0x19c` | `AX` |
+| `.text` | `0x10005c80` | `0x1aa` | `AX` |
 | `.ResetVector.text` | `0x10100020` | `0x2e0` | `AX` |
 
 ## Anchor Addresses

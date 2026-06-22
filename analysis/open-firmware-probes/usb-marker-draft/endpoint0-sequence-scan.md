@@ -30,4 +30,4 @@
 | `watch` | `endpoint0_sequence_write` | `0x10005d4f` | `0xb300000c` | `0x00000040` | `sequence_a,sequence_b` | `s32i.n	a9, a8, 0` | expected endpoint-0 sequence write |
 | `watch` | `endpoint0_sequence_write` | `0x10005d5a` | `0xb300002c` | `0x00000200` | `sequence_b` | `s32i.n	a9, a8, 0` | expected endpoint-0 sequence write |
 | `watch` | `endpoint0_sequence_write` | `0x10005d65` | `0xb3000028` | `0x00000040` | `sequence_a,sequence_b` | `s32i.n	a9, a8, 0` | expected endpoint-0 sequence write |
-| `watch` | `endpoint0_or_write` | `0x10005d8b` | `0xb3000000` | `0x00000002` | `` | `s32i.n	a9, a8, 0` | begin/control-IN data stage |
+| `watch` | `endpoint0_or_write` | `0x10005d88` | `0xb3000000` | `0x00000002` | `` | `s32i.n	a9, a8, 0` | begin/control-IN data stage |

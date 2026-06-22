@@ -203,8 +203,7 @@ hp1020_usb_marker_sequence_b:
     .align 4
 hp1020_usb_marker_kick_control_in:
     l32r a4, hp1020_response_state_base_100212d4
-    l32r a3, hp1020_marker_len_00000026
-    s32i a3, a4, 0x3c
+    s32i a6, a4, 0x3c
     l32r a3, hp1020_marker_descriptor_hw_ptr_90003200
     s32i a3, a4, 0x40
     or_mmio_const hp1020_mmio_b3000000, hp1020_value_00000002
@@ -243,20 +242,28 @@ hp1020_usb_marker_draft_probe:
 
     l8ui a3, a2, 0x06
     s32i a3, a4, 0x18
+    mov a6, a3
     l8ui a3, a2, 0x07
     s32i a3, a4, 0x1c
+    slli a3, a3, 8
+    or a6, a6, a3
+    l32r a7, hp1020_marker_len_00000026
+    bltu a6, a7, 1f
+    mov a6, a7
+1:
+    s32i a6, a4, 0x20
 
     l32r a2, hp1020_mmio_b3000408
     l32i a3, a2, 0
     l32r a5, hp1020_gate_mask_00006000
-    and a6, a3, a5
-    bnez a6, hp1020_usb_marker_sequence_a
+    and a7, a3, a5
+    bnez a7, hp1020_usb_marker_sequence_a
 
     l32r a2, hp1020_mmio_b3000400
     l32i a3, a2, 0
     l32r a5, hp1020_gate_mask_00000003
-    and a6, a3, a5
-    bnez a6, hp1020_usb_marker_sequence_b
+    and a7, a3, a5
+    bnez a7, hp1020_usb_marker_sequence_b
 
     j hp1020_usb_marker_no_match
 

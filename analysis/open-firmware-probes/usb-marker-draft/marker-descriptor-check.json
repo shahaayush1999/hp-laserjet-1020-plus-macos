@@ -1,0 +1,39 @@
+{
+  "checks": [
+    {
+      "actual": "26 03 48 00 50 00 31 00 30 00 32 00 30 00 20 00 4f 00 50 00 45 00 4e 00 20 00 4d 00 41 00 52 00 4b 00 45 00 52 00",
+      "description": "embedded USB string descriptor must equal HP1020 OPEN MARKER",
+      "expected": "26 03 48 00 50 00 31 00 30 00 32 00 30 00 20 00 4f 00 50 00 45 00 4e 00 20 00 4d 00 41 00 52 00 4b 00 45 00 52 00",
+      "name": "descriptor_bytes",
+      "severity": "watch"
+    },
+    {
+      "actual": "38",
+      "description": "section size must match descriptor length",
+      "expected": "38",
+      "name": "descriptor_size",
+      "severity": "watch"
+    },
+    {
+      "actual": "0x00000026",
+      "description": "firmware length constant must match descriptor length",
+      "expected": "0x00000026",
+      "name": "length_constant",
+      "severity": "watch"
+    },
+    {
+      "actual": "0x90003200",
+      "description": "USB response pointer should use the stock 0x90000000 hardware alias convention",
+      "expected": "0x90003200",
+      "name": "hardware_alias_pointer",
+      "severity": "watch"
+    }
+  ],
+  "descriptor_hex": "26 03 48 00 50 00 31 00 30 00 32 00 30 00 20 00 4f 00 50 00 45 00 4e 00 20 00 4d 00 41 00 52 00 4b 00 45 00 52 00",
+  "descriptor_text": "HP1020 OPEN MARKER",
+  "section": {
+    "addr": 268448256,
+    "offset": 8704,
+    "size": 38
+  }
+}
