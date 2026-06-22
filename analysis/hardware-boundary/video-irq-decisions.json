@@ -1,0 +1,430 @@
+{
+  "branch_priority": [
+    "0x20 band done/refill",
+    "0x02 reset dispatch case 0",
+    "0x04 recovery or reset dispatch case 0",
+    "0x01 latch or reset dispatch case 7",
+    "0x08 reset dispatch case 3",
+    "0x10 reset dispatch case 4"
+  ],
+  "checks": [
+    {
+      "name": "bit_0x20_priority",
+      "needle": "(*DAT_100067c0 & 0x20) != 0",
+      "status": "present"
+    },
+    {
+      "name": "bit_0x20_ack_a",
+      "needle": "*puVar2 = 0xffffffdf",
+      "status": "present"
+    },
+    {
+      "name": "bit_0x20_ack_b",
+      "needle": "*DAT_100067d8 = 0xffffffdf",
+      "status": "present"
+    },
+    {
+      "name": "fc_negative_raw_band_path",
+      "needle": "if (*(int *)(puVar1 + 0xfc) < 0)",
+      "status": "present"
+    },
+    {
+      "name": "ring_done_index_advance",
+      "needle": "*(uint *)(puVar1 + 0xd8) = *(int *)(puVar1 + 0xd8) + 1U & 3",
+      "status": "present"
+    },
+    {
+      "name": "bit_0x02_reset_case_0",
+      "needle": "uVar6 = 0",
+      "status": "present"
+    },
+    {
+      "name": "bit_0x04_recovery_branch",
+      "needle": "if ((*DAT_100067c0 & 4) != 0)",
+      "status": "present"
+    },
+    {
+      "name": "bit_0x04_ack",
+      "needle": "*DAT_100067c0 = 0xfffffffb",
+      "status": "present"
+    },
+    {
+      "name": "bit_0x04_done_case_0",
+      "needle": "FUN_10013d4c(0)",
+      "status": "present"
+    },
+    {
+      "name": "bit_0x01_case_7",
+      "needle": "FUN_10013d4c(7)",
+      "status": "present"
+    },
+    {
+      "name": "bit_0x08_case_3",
+      "needle": "uVar6 = 3",
+      "status": "present"
+    },
+    {
+      "name": "bit_0x10_case_4",
+      "needle": "uVar6 = 4",
+      "status": "present"
+    },
+    {
+      "name": "bit_0x10_ack",
+      "needle": "uVar4 = 0xffffffef",
+      "status": "present"
+    },
+    {
+      "name": "dispatch_param",
+      "needle": "FUN_10013d4c(uVar6)",
+      "status": "present"
+    },
+    {
+      "name": "event_10_ack",
+      "needle": "FUN_100171e0(10)",
+      "status": "present"
+    },
+    {
+      "name": "event_0x0b_ack",
+      "needle": "FUN_100171e0(0xb)",
+      "status": "present"
+    }
+  ],
+  "open_firmware_implication": [
+    "The video IRQ path is not a single done bit; multiple block-status bits have different reset/recovery meanings.",
+    "Bit 0x20 is the continue/refill path and has priority over reset bits.",
+    "Reset dispatch cases 3, 4, and 7 become video reset event words through the video-to-engine feedback model.",
+    "Hardware calibration is still needed to attach physical labels to these video block status bits."
+  ],
+  "scenario_count": 11,
+  "scenario_failures": 0,
+  "scenarios": [
+    {
+      "decision": {
+        "ack_masks": [
+          "block_a &= 0xffffffdf"
+        ],
+        "actions": [
+          "increment video_state +0xf8",
+          "set video_state +0xf0",
+          "clear ring record at +0x20 + (+0xd8 * 0x0c)",
+          "advance +0xd8 modulo 4",
+          "refill channel-B descriptor",
+          "queue/list next band"
+        ],
+        "category": "band_done",
+        "event_ack": [],
+        "reset_dispatch_param": null,
+        "trace": [
+          "bit_0x20_band_done_priority",
+          "ring_record_complete_and_refill"
+        ]
+      },
+      "inputs": {
+        "block_a": "0x20",
+        "block_b": "0x00",
+        "dual_block_mode": true,
+        "fc_negative": false,
+        "in_b8": false,
+        "state_6c": 0,
+        "state_70": false,
+        "state_f0": false
+      },
+      "name": "band_done_ring_refill",
+      "status": "pass"
+    },
+    {
+      "decision": {
+        "ack_masks": [
+          "block_b &= 0xffffffdf"
+        ],
+        "actions": [
+          "increment video_state +0xf8",
+          "set video_state +0xf0",
+          "advance video_state +0xa0 list",
+          "refresh raw bands"
+        ],
+        "category": "band_done",
+        "event_ack": [],
+        "reset_dispatch_param": null,
+        "trace": [
+          "bit_0x20_band_done_priority",
+          "fc_negative_raw_band_refresh"
+        ]
+      },
+      "inputs": {
+        "block_a": "0x00",
+        "block_b": "0x20",
+        "dual_block_mode": true,
+        "fc_negative": true,
+        "in_b8": false,
+        "state_6c": 0,
+        "state_70": false,
+        "state_f0": false
+      },
+      "name": "band_done_raw_band_refresh",
+      "status": "pass"
+    },
+    {
+      "decision": {
+        "ack_masks": [
+          "block_a &= 0xfffffffd",
+          "block_b &= 0xfffffffd"
+        ],
+        "actions": [],
+        "category": "reset_dispatch",
+        "event_ack": [],
+        "reset_dispatch_param": 0,
+        "trace": [
+          "block_a_bit_0x02_reset_case_0"
+        ]
+      },
+      "inputs": {
+        "block_a": "0x02",
+        "block_b": "0x00",
+        "dual_block_mode": true,
+        "fc_negative": false,
+        "in_b8": false,
+        "state_6c": 0,
+        "state_70": false,
+        "state_f0": false
+      },
+      "name": "bit_0x02_reset_case_0",
+      "status": "pass"
+    },
+    {
+      "decision": {
+        "ack_masks": [
+          "block_a &= 0xfffffffb",
+          "block_b &= 0xfffffffb"
+        ],
+        "actions": [
+          "clear video_state +0x70",
+          "clear video_state +0xdc",
+          "toggle block control bit 0x100 after busy waits",
+          "queue/list next band"
+        ],
+        "category": "recover_or_reset",
+        "event_ack": [],
+        "reset_dispatch_param": null,
+        "trace": [
+          "block_a_bit_0x04_recovery",
+          "rearm_video_blocks_without_reset_dispatch"
+        ]
+      },
+      "inputs": {
+        "block_a": "0x04",
+        "block_b": "0x00",
+        "dual_block_mode": true,
+        "fc_negative": false,
+        "in_b8": false,
+        "state_6c": 2,
+        "state_70": true,
+        "state_f0": false
+      },
+      "name": "bit_0x04_rearm_without_reset",
+      "status": "pass"
+    },
+    {
+      "decision": {
+        "ack_masks": [
+          "block_a &= 0xfffffffb",
+          "block_b &= 0xfffffffb"
+        ],
+        "actions": [
+          "clear video_state +0x70"
+        ],
+        "category": "recover_or_reset",
+        "event_ack": [],
+        "reset_dispatch_param": 0,
+        "trace": [
+          "block_a_bit_0x04_recovery",
+          "state_f0_already_seen_dispatch_case_0"
+        ]
+      },
+      "inputs": {
+        "block_a": "0x04",
+        "block_b": "0x00",
+        "dual_block_mode": true,
+        "fc_negative": false,
+        "in_b8": false,
+        "state_6c": 2,
+        "state_70": true,
+        "state_f0": true
+      },
+      "name": "bit_0x04_dispatch_case_0_after_done",
+      "status": "pass"
+    },
+    {
+      "decision": {
+        "ack_masks": [
+          "block_a &= 0xfffffffe"
+        ],
+        "actions": [
+          "set video_state +0x70",
+          "signal video event object"
+        ],
+        "category": "latch_or_reset_case_7",
+        "event_ack": [],
+        "reset_dispatch_param": 7,
+        "trace": [
+          "bit_0x01_latch_or_case_7"
+        ]
+      },
+      "inputs": {
+        "block_a": "0x01",
+        "block_b": "0x00",
+        "dual_block_mode": true,
+        "fc_negative": false,
+        "in_b8": false,
+        "state_6c": 0,
+        "state_70": false,
+        "state_f0": false
+      },
+      "name": "bit_0x01_dispatch_case_7_when_idle",
+      "status": "pass"
+    },
+    {
+      "decision": {
+        "ack_masks": [
+          "block_b &= 0xfffffffe"
+        ],
+        "actions": [
+          "set video_state +0x70"
+        ],
+        "category": "latch_or_reset_case_7",
+        "event_ack": [],
+        "reset_dispatch_param": null,
+        "trace": [
+          "bit_0x01_latch_or_case_7"
+        ]
+      },
+      "inputs": {
+        "block_a": "0x00",
+        "block_b": "0x01",
+        "dual_block_mode": true,
+        "fc_negative": false,
+        "in_b8": false,
+        "state_6c": 2,
+        "state_70": false,
+        "state_f0": false
+      },
+      "name": "bit_0x01_latch_when_running",
+      "status": "pass"
+    },
+    {
+      "decision": {
+        "ack_masks": [
+          "block_a &= 0xfffffff7",
+          "block_b &= 0xfffffff7"
+        ],
+        "actions": [],
+        "category": "reset_dispatch",
+        "event_ack": [],
+        "reset_dispatch_param": 3,
+        "trace": [
+          "bit_0x08_reset_case_3"
+        ]
+      },
+      "inputs": {
+        "block_a": "0x08",
+        "block_b": "0x00",
+        "dual_block_mode": true,
+        "fc_negative": false,
+        "in_b8": false,
+        "state_6c": 0,
+        "state_70": false,
+        "state_f0": false
+      },
+      "name": "bit_0x08_reset_case_3",
+      "status": "pass"
+    },
+    {
+      "decision": {
+        "ack_masks": [
+          "block_a &= 0xffffffef",
+          "block_b &= 0xffffffef"
+        ],
+        "actions": [],
+        "category": "reset_dispatch",
+        "event_ack": [],
+        "reset_dispatch_param": 4,
+        "trace": [
+          "bit_0x10_reset_case_4"
+        ]
+      },
+      "inputs": {
+        "block_a": "0x00",
+        "block_b": "0x10",
+        "dual_block_mode": true,
+        "fc_negative": false,
+        "in_b8": false,
+        "state_6c": 0,
+        "state_70": false,
+        "state_f0": false
+      },
+      "name": "bit_0x10_reset_case_4",
+      "status": "pass"
+    },
+    {
+      "decision": {
+        "ack_masks": [],
+        "actions": [],
+        "category": "no_action",
+        "event_ack": [],
+        "reset_dispatch_param": null,
+        "trace": [
+          "no_modeled_status_bit"
+        ]
+      },
+      "inputs": {
+        "block_a": "0x00",
+        "block_b": "0x10",
+        "dual_block_mode": false,
+        "fc_negative": false,
+        "in_b8": false,
+        "state_6c": 0,
+        "state_70": false,
+        "state_f0": false
+      },
+      "name": "bit_0x10_ignored_without_dual_block",
+      "status": "pass"
+    },
+    {
+      "decision": {
+        "ack_masks": [
+          "block_a &= 0xffffffdf"
+        ],
+        "actions": [
+          "increment video_state +0xf8",
+          "set video_state +0xf0",
+          "clear ring record at +0x20 + (+0xd8 * 0x0c)",
+          "advance +0xd8 modulo 4",
+          "refill channel-B descriptor",
+          "queue/list next band"
+        ],
+        "category": "band_done",
+        "event_ack": [],
+        "reset_dispatch_param": null,
+        "trace": [
+          "bit_0x20_band_done_priority",
+          "ring_record_complete_and_refill"
+        ]
+      },
+      "inputs": {
+        "block_a": "0x22",
+        "block_b": "0x00",
+        "dual_block_mode": true,
+        "fc_negative": false,
+        "in_b8": false,
+        "state_6c": 0,
+        "state_70": false,
+        "state_f0": false
+      },
+      "name": "priority_0x20_over_0x02",
+      "status": "pass"
+    }
+  ],
+  "source_function": "0x100144d0 hp1020_video_irq_or_band_done_candidate",
+  "status": "pass",
+  "summary": "Executable branch model for video block IRQ/status decisions."
+}

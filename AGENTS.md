@@ -87,6 +87,7 @@ Open firmware analysis state:
 - `analysis/hardware-boundary/engine-status-decisions.md` is the generated executable branch model for `0x10015df8 hp1020_engine_status_poll_candidate`. It predicts stock event words and side-effect commands for raw status-word scenarios; it does not assign physical labels such as paper/fuser/cover without hardware calibration.
 - `analysis/hardware-boundary/video-engine-feedback.md` is the generated model for VideoThread completion/reset feedback into engine/status flow. It records normal message `0x10`, reset/flush message `0x25`, reset-dispatch `0x11`, deferred work requeue `0x0b`, and video reset event words emitted as engine message `0x17`.
 - `analysis/hardware-boundary/video-transfer-ring.md` is the generated video transfer ring model. It records producer index `+0x98`, consumer/full check `+0x94`, IRQ done index `+0xd8`, descriptor base `0x1002efe0`, channel A descriptors at `0xb2040004/0008`, channel B descriptors at `0xb2080004/0008`, and the band-done refill path.
+- `analysis/hardware-boundary/video-irq-decisions.md` is the generated executable decision model for `0x100144d0 hp1020_video_irq_or_band_done_candidate`. It records branch priority for video block status bits: `0x20` refill first, then reset/recovery cases for `0x02`, `0x04`, `0x01`, `0x08`, and `0x10`.
 - `analysis/status-path/status-code-correlation.md` records that engine queue `0x17` event words are correlated with status output but are not themselves final PJL `CODE=` values.
 - `analysis/offline-consistency/offline-consistency.md` is the cross-report consistency gate for the current offline conclusions. It should pass before doing more hardware work.
 - `scripts/build-open-firmware-idle-probe.sh` rebuilds the probe.
@@ -102,6 +103,7 @@ Open firmware analysis state:
 - `scripts/model-hp1020-engine-status-decisions.py` regenerates the executable status-poller branch/scenario model.
 - `scripts/model-hp1020-video-engine-feedback.py` regenerates the video-to-engine completion/reset feedback model.
 - `scripts/model-hp1020-video-transfer-ring.py` regenerates the video transfer ring ownership and descriptor refill model.
+- `scripts/model-hp1020-video-irq-decisions.py` regenerates the executable video IRQ/status decision model.
 - `scripts/run-idle-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_CUSTOM_FIRMWARE_UPLOAD=1`.
 - `scripts/run-usb-snapshot-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_USB_SNAPSHOT_UPLOAD=1`.
 - `scripts/run-usb-marker-draft-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1`. Do not run it before the safer stock/idle/read-only checks.

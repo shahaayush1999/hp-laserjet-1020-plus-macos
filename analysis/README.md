@@ -90,6 +90,7 @@ Start here:
 84. `hardware-boundary/engine-status-decisions.md` - generated executable branch model for `hp1020_engine_status_poll_candidate` scenarios and side effects
 85. `hardware-boundary/video-engine-feedback.md` - generated model of VideoThread completion/reset messages back into engine/status flow
 86. `hardware-boundary/video-transfer-ring.md` - generated model of video transfer ring ownership, channel A/B descriptors, and band-done refill behavior
+87. `hardware-boundary/video-irq-decisions.md` - generated executable branch model for video block IRQ/status bits and reset-dispatch cases
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -183,6 +184,7 @@ Useful current conclusions:
 - `analysis/hardware-boundary/engine-status-decisions.md` turns the nested engine poller into an executable scenario model. It covers the `0x14000a04` ready rewrite, `0x501a`/`0x5043` side effects, `0x13` and `0x16` substatus branches, and previous-event extra emit behavior.
 - `analysis/hardware-boundary/video-engine-feedback.md` maps the video-to-engine feedback loop: normal VideoThread completion sends engine queue message `0x10`; reset/flush can send `0x25`; reset dispatch can send `0x11`, requeue deferred work as `0x0b`, or emit video reset event words through engine message `0x17`.
 - `analysis/hardware-boundary/video-transfer-ring.md` maps the video transfer ring around producer index `+0x98`, consumer/full check `+0x94`, IRQ done index `+0xd8`, descriptor base `0x1002efe0`, channel A registers `0xb2040004/0008`, and channel B registers `0xb2080004/0008`.
+- `analysis/hardware-boundary/video-irq-decisions.md` turns video block status bits into branch outcomes: `0x20` is the refill path, while `0x02`, `0x08`, `0x10`, and idle `0x01` lead to reset-dispatch cases `0`, `3`, `4`, and `7` respectively.
 - `analysis/non-printing-usb-probe-spec.md` defines the only custom-firmware experiment that is currently defensible: boot/USB identity only, no video/engine MMIO.
 - `analysis/non-printing-status-probe/pjl-status-contract.md` defines the exact tiny PJL/status payloads to use when calibrating stock back-channel responses or future open USB/PJL echo behavior.
 - `analysis/offline-consistency/offline-consistency.md` now cross-checks the main offline conclusions against generated reports: engine `0x17` dispatch, status-code correlation, print-path model invariants, hardware boundary, PJL query contract, and USB marker draft safety.
@@ -214,6 +216,7 @@ Useful current conclusions:
 - `scripts/model-hp1020-engine-status-decisions.py` regenerates the executable engine poller branch/scenario model from the command/status report and decompiled source.
 - `scripts/model-hp1020-video-engine-feedback.py` regenerates the video-to-engine completion/reset feedback model.
 - `scripts/model-hp1020-video-transfer-ring.py` regenerates the video transfer ring ownership and descriptor refill model.
+- `scripts/model-hp1020-video-irq-decisions.py` regenerates the executable video block IRQ/status decision model.
 - `scripts/model-hp1020-first-page-hardware-sequence.py` regenerates the ordered first-page hardware sequence from the current print-path and hardware-boundary reports.
 - `scripts/model-hp1020-minimal-print-scope.py` regenerates the current minimum printing-only replacement scope from the generated print-path, USB, and hardware-boundary reports.
 - `scripts/analyze-hp1020-pjl-status-capture.py` classifies PJL/status back-channel captures against the generated contract, including expected-marker, no-response, and unexpected-byte outcomes.

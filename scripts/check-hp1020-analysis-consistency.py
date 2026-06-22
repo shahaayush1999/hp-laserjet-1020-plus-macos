@@ -387,6 +387,32 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/hardware-boundary/video-transfer-ring.json",
         )
     )
+    video_irq = read_json("analysis/hardware-boundary/video-irq-decisions.json")
+    irq_scenarios = {
+        item.get("name"): item
+        for item in video_irq.get("scenarios", [])
+        if isinstance(item, dict)
+    }
+    checks.append(
+        check(
+            "video_irq_decision_model_resolved",
+            video_irq.get("status") == "pass"
+            and video_irq.get("scenario_count") == 11
+            and video_irq.get("scenario_failures") == 0
+            and video_irq.get("branch_priority", [None])[0] == "0x20 band done/refill"
+            and irq_scenarios.get("priority_0x20_over_0x02", {}).get("decision", {}).get("category") == "band_done"
+            and irq_scenarios.get("bit_0x02_reset_case_0", {}).get("decision", {}).get("reset_dispatch_param") == 0
+            and irq_scenarios.get("bit_0x08_reset_case_3", {}).get("decision", {}).get("reset_dispatch_param") == 3
+            and irq_scenarios.get("bit_0x10_reset_case_4", {}).get("decision", {}).get("reset_dispatch_param") == 4
+            and irq_scenarios.get("bit_0x01_dispatch_case_7_when_idle", {}).get("decision", {}).get(
+                "reset_dispatch_param"
+            )
+            == 7
+            and all(check.get("status") == "present" for check in video_irq.get("checks", [])),
+            "The video IRQ decision model must preserve branch priority, refill, and reset-dispatch cases 0/3/4/7.",
+            evidence="analysis/hardware-boundary/video-irq-decisions.json",
+        )
+    )
     checks.append(
         check(
             "usb_family_remains_only_low_risk_target",

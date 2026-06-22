@@ -1,5 +1,5 @@
 {
-  "check_count": 34,
+  "check_count": 35,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -89,6 +89,12 @@
       "detail": "The video transfer ring model must preserve producer/consumer collision behavior, channel A/B descriptors, and IRQ refill evidence.",
       "evidence": "analysis/hardware-boundary/video-transfer-ring.json",
       "name": "video_transfer_ring_model_resolved",
+      "severity": "watch"
+    },
+    {
+      "detail": "The video IRQ decision model must preserve branch priority, refill, and reset-dispatch cases 0/3/4/7.",
+      "evidence": "analysis/hardware-boundary/video-irq-decisions.json",
+      "name": "video_irq_decision_model_resolved",
       "severity": "watch"
     },
     {
