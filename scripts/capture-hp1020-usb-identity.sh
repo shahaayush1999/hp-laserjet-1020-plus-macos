@@ -11,7 +11,8 @@ Usage:
   scripts/capture-hp1020-usb-identity.sh [--output-dir DIR]
 
 Captures host-side macOS USB/printer identity evidence for HP LaserJet 1020
-open-firmware tests. This does not send bytes to the printer.
+open-firmware tests. If libusb is available, it also sends standard USB
+control-IN GET_DESCRIPTOR reads. It never sends print data.
 EOF
   exit 2
 }
@@ -30,6 +31,8 @@ lpinfo_out="$output_dir/lpinfo-v.txt"
 spusb_json="$output_dir/system-profiler-spusb.json"
 spusb_text="$output_dir/system-profiler-spusb.txt"
 ioreg_out="$output_dir/ioreg-iousb.txt"
+direct_json="$output_dir/direct-descriptors.json"
+direct_md="$output_dir/direct-descriptors.md"
 matches_json="$output_dir/matches.json"
 summary="$output_dir/summary.md"
 
@@ -53,13 +56,19 @@ else
   printf 'ioreg not found\n' >"$ioreg_out"
 fi
 
-python3 - "$spusb_json" "$lpinfo_out" "$ioreg_out" "$matches_json" "$summary" <<'PY'
+python3 "$ROOT_DIR/scripts/read-hp1020-usb-descriptors.py" \
+  --json "$direct_json" \
+  --output "$direct_md" \
+  >"$output_dir/direct-descriptors.stdout" \
+  2>"$output_dir/direct-descriptors.stderr" || true
+
+python3 - "$spusb_json" "$lpinfo_out" "$ioreg_out" "$direct_json" "$matches_json" "$summary" <<'PY'
 import json
 import re
 import sys
 from pathlib import Path
 
-spusb_path, lpinfo_path, ioreg_path, matches_path, summary_path = map(Path, sys.argv[1:])
+spusb_path, lpinfo_path, ioreg_path, direct_path, matches_path, summary_path = map(Path, sys.argv[1:])
 
 def load_json(path: Path):
     try:
@@ -98,6 +107,7 @@ def interesting_item(item):
     return any(needle in text for needle in needles)
 
 spusb = load_json(spusb_path)
+direct = load_json(direct_path)
 usb_matches = []
 for item in walk_usb_items(spusb):
     if interesting_item(item):
@@ -118,6 +128,7 @@ lpinfo_matches = [line for line in lpinfo_text.splitlines() if re.search(r"Laser
 ioreg_matches = [line.strip() for line in ioreg_text.splitlines() if re.search(r"LaserJet|Hewlett|HP1020 OPEN MARKER|idVendor|idProduct|USB Product Name", line, re.I)]
 
 out = {
+    "direct_descriptor_report": direct,
     "system_profiler_matches": usb_matches,
     "lpinfo_matches": lpinfo_matches,
     "ioreg_matching_lines": ioreg_matches[:200],
@@ -127,11 +138,18 @@ matches_path.write_text(json.dumps(out, indent=2, sort_keys=True) + "\n")
 lines = [
     "# HP 1020 USB Identity Capture",
     "",
-    "This is host-side evidence only. No bytes were sent to the printer.",
+    "This is host-side evidence plus standard USB descriptor reads. No print data, PJL, engine commands, or video/raster data were sent.",
     "",
     f"- system_profiler matches: `{len(usb_matches)}`",
     f"- lpinfo matches: `{len(lpinfo_matches)}`",
     f"- ioreg matching lines: `{len(ioreg_matches)}`",
+    f"- direct descriptor status: `{direct.get('status', 'not_run')}`",
+    "",
+    "## Direct Descriptor Read",
+    "",
+    f"- report: `{direct_path.with_suffix('.md')}`",
+    f"- status: `{direct.get('status', 'not_run')}`",
+    f"- matching devices: `{len(direct.get('devices', []))}`",
     "",
     "## lpinfo Matches",
     "",

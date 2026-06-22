@@ -38,11 +38,12 @@ scenarios=9 marker=7 poll_continue=2
 
 ## Meaning
 
-This open-code draft polls for a USB product-string GET_DESCRIPTOR setup shape and tries to expose the marker string `HP1020 OPEN MARKER` through endpoint-0.
+This open-code draft polls for standard USB GET_DESCRIPTOR setup shapes and tries to answer device, configuration, language, manufacturer, and product-string requests through endpoint-0.
+The product string is intentionally changed to `HP1020 OPEN MARKER` so a direct host descriptor read can prove open code controlled USB response data.
 Non-matching setup packets or inactive USB gates now continue polling instead of parking after a one-shot miss.
 It writes only USB-controller MMIO registers that match the extracted stock endpoint-0 sequence contract.
 It also writes the stock USB response-state RAM slots used by that contract; the memory boundary scan makes those non-MMIO writes explicit.
-For a matching request, it clips the host `wLength`, copies the marker descriptor into the stock control-IN staging buffer `0x90022bd0`, builds one four-word transfer descriptor at `0x900226f0`, submits that descriptor through `0xb3000014`, and kicks `0xb3000000 |= 0x108`.
+For a matching request, it clips the host `wLength`, copies the selected descriptor into the stock control-IN staging buffer `0x90022bd0`, builds one four-word transfer descriptor at `0x900226f0`, submits that descriptor through `0xb3000014`, and kicks `0xb3000000 |= 0x108`.
 The marker descriptor check verifies the embedded `HP1020 OPEN MARKER` USB string descriptor, its length constant, and its 0x90000000 hardware alias pointer.
 The marker length-flow check verifies the clipped USB request length is preserved into the endpoint-0 response-state write and transfer descriptor word.
 It does not touch engine, fuser, motor, paper-feed, video, or raster MMIO.

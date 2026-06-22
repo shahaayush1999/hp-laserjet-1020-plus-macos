@@ -10,8 +10,9 @@ PDF, PostScript, ZjStream, engine, video, motor, fuser, or paper-feed data.
 Answer one narrow question:
 
 ```text
-Can open firmware use only the mapped USB endpoint-0 registers to expose a
-different product-string descriptor such as HP1020 OPEN MARKER?
+Can open firmware use only the mapped USB endpoint-0 registers to answer basic
+descriptor reads and expose a different product-string descriptor such as
+HP1020 OPEN MARKER?
 ```
 
 ## Current Offline Evidence
@@ -25,8 +26,8 @@ The draft currently passes these static gates:
 - endpoint-0 sequence scan: USB writes match the extracted stock endpoint-0 contract
 - memory boundary scan: candidate setup-buffer reads, stock response-state writes, one staging-buffer copy loop, and four descriptor-ring writes, with no hidden fail hits
 - marker length-flow check: clipped host `wLength` is preserved into the endpoint-0 response-length write
-- behavior model: product-string requests select Sequence A or B based on USB gates, response length is clipped to `min(wLength, 38)`, and one stock-shaped control-IN descriptor is submitted
-- data-stage model: marker bytes are copied into the stock staging buffer at `0x90022bd0`, one descriptor is built at `0x900226f0`, and the transfer is kicked through the stock endpoint-0 registers
+- behavior model: device, configuration, language, manufacturer, and product-string descriptor requests select Sequence A or B based on USB gates, response length is clipped to `min(wLength, descriptor length)`, and one stock-shaped control-IN descriptor is submitted
+- data-stage model: selected descriptor bytes are copied into the stock staging buffer at `0x90022bd0`, one descriptor is built at `0x900226f0`, and the transfer is kicked through the stock endpoint-0 registers
 - completion/interrupt model: stock firmware uses event flags object `0x10021318`; control-IN waits bit `0x1`, while the USB task consumes a separate `0x10000` lane signal
 
 The draft still has an important unresolved assumption:
@@ -47,7 +48,7 @@ Good outcome:
 
 - upload completes or times out only after bytes are sent
 - printer stays mechanically quiet
-- a host descriptor read can observe `HP1020 OPEN MARKER`
+- a direct host USB descriptor read can observe `HP1020 OPEN MARKER`
 
 Useful failure:
 
@@ -105,8 +106,10 @@ Host-side USB identity capture before and after upload:
 scripts/capture-hp1020-usb-identity.sh
 ```
 
-The capture script only reads macOS device listings. It does not send bytes to
-the printer.
+The capture script records macOS listings and also runs
+`scripts/read-hp1020-usb-descriptors.py`, which sends standard USB control-IN
+`GET_DESCRIPTOR` reads only. It does not send print data, PJL, engine commands,
+or video/raster data.
 
 The preferred wrapper is:
 
@@ -121,3 +124,5 @@ HP1020_ALLOW_OPEN_FIRMWARE_LADDER_UPLOAD=1 \
 
 That wrapper records `identity-before`, uploads exactly one stage, records
 `identity-after`, and writes a summary with the observed marker-string count.
+The strongest pass signal is `direct-descriptors.md` reporting
+`marker_product_seen` after upload.
