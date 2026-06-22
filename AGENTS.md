@@ -96,6 +96,7 @@ Open firmware analysis state:
 - `analysis/hardware-boundary/engine-print-topology.md` is the generated synthesis for the mechanical engine side. It records startup/preflight, page work acceptance, status/recovery polling, and completion/deferred-work stages around the `0xb050` register pair and stock commands `0x6012`, `0x3a13`, `0x501a`, and `0x5043`.
 - `analysis/hardware-boundary/video-dataflow-contract.md` is the generated normal first-page dataflow contract. It pins the current `a4_default` path through work fields, prepare stride/window, render channel-A setup, helper channel-B formula, raw-band queue feed, and IRQ refill loop.
 - `analysis/hardware-boundary/video-chunk-sizing.md` is the generated chunk sizing and raw-band flag helper model. It projects `a4_default` to stride `1200`, `+0xcc = 4`, and channel-B length `min(+0xcc,+0xd0) * 1200`, while keeping `0x1001b668` as a cautious ceil-div hypothesis until instruction-level confirmation.
+- `analysis/hardware-boundary/video-remaining-units.md` is the generated model for `+0xd0/+0xd4`. Current conclusion: `ZJI_VIDEO_Y -> page-param +0x26` and prepare argument `+0x26 -> +0xd0/+0xd4` are proven, but page-param `+0x26` to active video work/prepare argument `+0x26` remains an explicit unresolved alias/copy gap.
 - `analysis/status-path/status-code-correlation.md` records that engine queue `0x17` event words are correlated with status output but are not themselves final PJL `CODE=` values.
 - `analysis/offline-consistency/offline-consistency.md` is the cross-report consistency gate for the current offline conclusions. It should pass before doing more hardware work.
 - `scripts/build-open-firmware-idle-probe.sh` rebuilds the probe.
@@ -120,6 +121,7 @@ Open firmware analysis state:
 - `scripts/model-hp1020-engine-print-topology.py` regenerates the engine-side print topology synthesis from command/status and status-decision reports.
 - `scripts/model-hp1020-video-dataflow-contract.py` regenerates the normal first-page video dataflow contract from raster fields, prepare projection, transfer-ring, and refill models.
 - `scripts/model-hp1020-video-chunk-sizing.py` regenerates the stride-derived chunk sizing and raw-band flag helper model.
+- `scripts/model-hp1020-video-remaining-units.py` regenerates the remaining-unit candidate source report and keeps the unresolved copy/alias gap explicit.
 - `scripts/run-idle-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_CUSTOM_FIRMWARE_UPLOAD=1`.
 - `scripts/run-usb-snapshot-probe-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_USB_SNAPSHOT_UPLOAD=1`.
 - `scripts/run-usb-marker-draft-hardware-test.sh` is dry-run by default and requires explicit upload flags plus `HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1`. Do not run it before the safer stock/idle/read-only checks.

@@ -1,5 +1,5 @@
 {
-  "check_count": 43,
+  "check_count": 44,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -65,6 +65,12 @@
       "detail": "The video dataflow contract must preserve concrete a4_default values through render/refill boundary formulas.",
       "evidence": "analysis/hardware-boundary/video-dataflow-contract.json",
       "name": "video_dataflow_contract_keeps_a4_default_path",
+      "severity": "watch"
+    },
+    {
+      "detail": "Video remaining-unit model must preserve ZJI_VIDEO_Y candidate values while keeping the page-param/work alias gap unresolved.",
+      "evidence": "analysis/hardware-boundary/video-remaining-units.json",
+      "name": "video_remaining_units_keeps_alias_gap_explicit",
       "severity": "watch"
     },
     {

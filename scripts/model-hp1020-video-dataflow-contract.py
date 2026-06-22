@@ -24,6 +24,7 @@ INPUTS = {
     "band_queue": ROOT_DIR / "analysis/hardware-boundary/video-band-queue.json",
     "refill_topology": ROOT_DIR / "analysis/hardware-boundary/video-refill-topology.json",
     "chunk_sizing": ROOT_DIR / "analysis/hardware-boundary/video-chunk-sizing.json",
+    "remaining_units": ROOT_DIR / "analysis/hardware-boundary/video-remaining-units.json",
 }
 
 
@@ -75,6 +76,7 @@ def build_report() -> dict[str, Any]:
     band_queue = read_json(INPUTS["band_queue"])
     refill_topology = read_json(INPUTS["refill_topology"])
     chunk_sizing = read_json(INPUTS["chunk_sizing"])
+    remaining_units = read_json(INPUTS["remaining_units"])
 
     case = "a4_default"
     raster_case = find_case(raster_fields.get("case_matrix", []), case)
@@ -91,6 +93,9 @@ def build_report() -> dict[str, Any]:
     bid_bytes = raster_case.get("payload_0x48")
     chunk_case = find_case(chunk_sizing.get("case_matrix", []), case)
     max_chunk_units = chunk_case.get("max_chunk_units_plus_0xcc")
+    remaining_case = find_case(remaining_units.get("case_matrix_if_alias_holds", []), case)
+    remaining_candidate = remaining_case.get("video_y_candidate_from_zji_0x12")
+    candidate_channel_b_len = remaining_case.get("candidate_first_channel_b_length_if_alias_holds")
 
     stages = [
         {
@@ -139,13 +144,15 @@ def build_report() -> dict[str, Any]:
             "function": "0x10014244 hp1020_video_band_done_or_irq_helper_candidate",
             "known_values": {
                 "video state +0xcc max chunk units": max_chunk_units,
+                "video state +0xd0 candidate if alias holds": remaining_candidate,
                 "chunk_units": f"min({max_chunk_units}, video state +0xd0)",
                 "0xb2080004": "slot pointer from video state + slot*4",
                 "0xb2080008": f"min({max_chunk_units}, +0xd0) * stride({stride})",
+                "0xb2080008 candidate if alias holds": candidate_channel_b_len,
                 "final_flag": "set when remaining units become zero",
             },
             "meaning": "The helper keeps channel B fed from the modulo-4 descriptor side.",
-            "remaining_unknown": "initial +0xd0 is copied from work +0x26 and still needs tighter source/value calibration",
+            "remaining_unknown": "ZJI_VIDEO_Y is the best +0xd0 source candidate, but page-param +0x26 -> prepare argument +0x26 copy/alias remains unresolved",
         },
         {
             "stage": "raw_band_queue_feed",
@@ -180,6 +187,7 @@ def build_report() -> dict[str, Any]:
         check("band_queue_status_pass", band_queue.get("status") == "pass", "band queue model is pass"),
         check("refill_topology_status_pass", refill_topology.get("status") == "pass", "refill topology model is pass"),
         check("chunk_sizing_status_pass", chunk_sizing.get("status") == "pass", "chunk sizing model is pass"),
+        check("remaining_units_status_pass", remaining_units.get("status") == "pass", "remaining-units model is pass"),
         check(
             "a4_default_values_projected",
             work_fields == {"+0x84": 9600, "+0x88": 6824, "+0x8c": 128, "+0x90": 0x5C}
@@ -208,7 +216,7 @@ def build_report() -> dict[str, Any]:
         "checks": checks,
         "current_conclusion": [
             "The host-to-render dataflow is now concrete for the generated a4_default case.",
-            "The remaining unknowns are not parser fields; they are work +0x26 source/value, raw-band helper divide confirmation, video timing, and live IRQ completion behavior.",
+            "The remaining unknowns are not parser fields; they are the page-param +0x26 alias/copy gap, raw-band helper divide confirmation, video timing, and live IRQ completion behavior.",
             "This report is still not a reason to upload custom printing firmware; it is the static contract a future implementation must satisfy.",
         ],
     }

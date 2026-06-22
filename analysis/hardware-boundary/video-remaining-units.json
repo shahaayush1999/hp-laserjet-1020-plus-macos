@@ -1,0 +1,178 @@
+{
+  "candidate_chain": [
+    {
+      "evidence": "generated ZjStream page item values and page-parameter builder switch case 0x12",
+      "field": "ZJI_VIDEO_Y / item id 0x12",
+      "stage": "host_page_item",
+      "status": "candidate source"
+    },
+    {
+      "evidence": "0x10009b4c writes item value at param_2 + 10 into param_1 +0x26",
+      "field": "page-param +0x26",
+      "stage": "page_parameter_builder",
+      "status": "proven for page-parameter object"
+    },
+    {
+      "evidence": "0x10014910 reads param_1 +0x26 into video state +0xd0/+0xd4",
+      "field": "prepare param_1 +0x26",
+      "stage": "active_video_parameter",
+      "status": "proven consumer"
+    },
+    {
+      "evidence": "0x100104c8 simple copier does not visibly copy +0x26; current explicit-source scan finds no direct work-object writer",
+      "field": "page-param +0x26 -> active work/prepare +0x26",
+      "stage": "copy_or_alias_gap",
+      "status": "unresolved"
+    }
+  ],
+  "case_matrix_if_alias_holds": [
+    {
+      "candidate_first_channel_b_length_if_alias_holds": 4800,
+      "candidate_first_refill_units_if_alias_holds": 4,
+      "case": "base",
+      "max_chunk_units_plus_0xcc": 4,
+      "stride_plus_0xb8": 1200,
+      "video_y_candidate_from_zji_0x12": 6824
+    },
+    {
+      "candidate_first_channel_b_length_if_alias_holds": 9536,
+      "candidate_first_refill_units_if_alias_holds": 4,
+      "case": "a4_2400x600",
+      "max_chunk_units_plus_0xcc": 4,
+      "stride_plus_0xb8": 2384,
+      "video_y_candidate_from_zji_0x12": 6824
+    },
+    {
+      "candidate_first_channel_b_length_if_alias_holds": 7296,
+      "candidate_first_refill_units_if_alias_holds": 12,
+      "case": "a4_600x600",
+      "max_chunk_units_plus_0xcc": 12,
+      "stride_plus_0xb8": 608,
+      "video_y_candidate_from_zji_0x12": 6824
+    },
+    {
+      "candidate_first_channel_b_length_if_alias_holds": 4800,
+      "candidate_first_refill_units_if_alias_holds": 4,
+      "case": "a4_cardstock_media",
+      "max_chunk_units_plus_0xcc": 4,
+      "stride_plus_0xb8": 1200,
+      "video_y_candidate_from_zji_0x12": 6824
+    },
+    {
+      "candidate_first_channel_b_length_if_alias_holds": 4800,
+      "candidate_first_refill_units_if_alias_holds": 4,
+      "case": "a4_default",
+      "max_chunk_units_plus_0xcc": 4,
+      "stride_plus_0xb8": 1200,
+      "video_y_candidate_from_zji_0x12": 6824
+    },
+    {
+      "candidate_first_channel_b_length_if_alias_holds": 4800,
+      "candidate_first_refill_units_if_alias_holds": 4,
+      "case": "a4_draft",
+      "max_chunk_units_plus_0xcc": 4,
+      "stride_plus_0xb8": 1200,
+      "video_y_candidate_from_zji_0x12": 6824
+    },
+    {
+      "candidate_first_channel_b_length_if_alias_holds": 4800,
+      "candidate_first_refill_units_if_alias_holds": 4,
+      "case": "a4_logical_clip",
+      "max_chunk_units_plus_0xcc": 4,
+      "stride_plus_0xb8": 1200,
+      "video_y_candidate_from_zji_0x12": 6824
+    },
+    {
+      "candidate_first_channel_b_length_if_alias_holds": 4800,
+      "candidate_first_refill_units_if_alias_holds": 4,
+      "case": "a4_manual_feed",
+      "max_chunk_units_plus_0xcc": 4,
+      "stride_plus_0xb8": 1200,
+      "video_y_candidate_from_zji_0x12": 6824
+    },
+    {
+      "candidate_first_channel_b_length_if_alias_holds": 4800,
+      "candidate_first_refill_units_if_alias_holds": 4,
+      "case": "a4_two_copies",
+      "max_chunk_units_plus_0xcc": 4,
+      "stride_plus_0xb8": 1200,
+      "video_y_candidate_from_zji_0x12": 6824
+    },
+    {
+      "candidate_first_channel_b_length_if_alias_holds": 4928,
+      "candidate_first_refill_units_if_alias_holds": 4,
+      "case": "legal_default",
+      "max_chunk_units_plus_0xcc": 4,
+      "stride_plus_0xb8": 1232,
+      "video_y_candidate_from_zji_0x12": 8208
+    },
+    {
+      "candidate_first_channel_b_length_if_alias_holds": 4928,
+      "candidate_first_refill_units_if_alias_holds": 4,
+      "case": "letter_default",
+      "max_chunk_units_plus_0xcc": 4,
+      "stride_plus_0xb8": 1232,
+      "video_y_candidate_from_zji_0x12": 6408
+    }
+  ],
+  "checks": [
+    {
+      "detail": "page parameter builder stores item id 0x12, ZJI_VIDEO_Y, into page-param +0x26",
+      "name": "page_param_builder_maps_zji_video_y_to_0x26",
+      "status": "present"
+    },
+    {
+      "detail": "video prepare copies active parameter +0x26 into video state +0xd0/+0xd4",
+      "name": "prepare_reads_work_0x26_to_remaining_counters",
+      "status": "present"
+    },
+    {
+      "detail": "0x100104c8 does not visibly copy page-param +0x26 into work +0x26",
+      "name": "simple_work_populate_does_not_copy_0x26",
+      "status": "present"
+    },
+    {
+      "detail": "common initializer clears the early work-object body, including +0x26 unless later populated",
+      "name": "work_common_init_clears_early_body",
+      "status": "present"
+    },
+    {
+      "detail": "explicit +0x26 hits are builder and prepare paths; no direct work-populate copy is currently visible",
+      "name": "current_search_keeps_gap_explicit",
+      "status": "present"
+    },
+    {
+      "detail": "candidate remaining-unit values follow generated page heights",
+      "name": "candidate_values_match_generated_cases",
+      "status": "present"
+    }
+  ],
+  "current_conclusion": [
+    "The best static source candidate for +0xd0/+0xd4 is ZJI_VIDEO_Y through page-param +0x26.",
+    "The direct copy or alias from page-param +0x26 into the active video prepare argument is not proven in current decompilation.",
+    "Open firmware planning may use the generated candidate values, but implementation should keep this as a calibrated field until the copy/alias gap is closed."
+  ],
+  "explicit_0x26_write_hits": [
+    {
+      "line": 102,
+      "source": "page_param_builder",
+      "text": "*(undefined2 *)(param_1 + 0x26) = *(undefined2 *)((int)param_2 + 10);"
+    },
+    {
+      "line": 196,
+      "source": "prepare",
+      "text": "*(uint *)(puVar15 + 0xd0) = (uint)*(ushort *)(param_1 + 0x26);"
+    },
+    {
+      "line": 197,
+      "source": "prepare",
+      "text": "*(uint *)(puVar15 + 0xd4) = (uint)*(ushort *)(param_1 + 0x26);"
+    }
+  ],
+  "source_reports": {
+    "chunk_sizing": "analysis/hardware-boundary/video-chunk-sizing.json",
+    "raster_fields": "analysis/open-firmware-model/raster-field-semantics.json"
+  },
+  "status": "pass",
+  "summary": "Candidate source and unresolved copy gap for video state +0xd0/+0xd4 remaining-unit counters."
+}

@@ -16,6 +16,7 @@ This is a generated offline model. It does not contact the printer.
 - `band_queue`: `analysis/hardware-boundary/video-band-queue.json`
 - `refill_topology`: `analysis/hardware-boundary/video-refill-topology.json`
 - `chunk_sizing`: `analysis/hardware-boundary/video-chunk-sizing.json`
+- `remaining_units`: `analysis/hardware-boundary/video-remaining-units.json`
 
 ## Contract Stages
 
@@ -67,14 +68,16 @@ This is a generated offline model. It does not contact the printer.
 
 - function: `0x10014244 hp1020_video_band_done_or_irq_helper_candidate`
 - meaning: The helper keeps channel B fed from the modulo-4 descriptor side.
-- remaining unknown: initial +0xd0 is copied from work +0x26 and still needs tighter source/value calibration
+- remaining unknown: ZJI_VIDEO_Y is the best +0xd0 source candidate, but page-param +0x26 -> prepare argument +0x26 copy/alias remains unresolved
 
 | Field/Register | Value/Formula |
 |---|---|
 | `video state +0xcc max chunk units` | `4` |
+| `video state +0xd0 candidate if alias holds` | `6824` |
 | `chunk_units` | `min(4, video state +0xd0)` |
 | `0xb2080004` | `slot pointer from video state + slot*4` |
 | `0xb2080008` | `min(4, +0xd0) * stride(1200)` |
+| `0xb2080008 candidate if alias holds` | `4800` |
 | `final_flag` | `set when remaining units become zero` |
 
 ### `raw_band_queue_feed`
@@ -106,7 +109,7 @@ This is a generated offline model. It does not contact the printer.
 ## Current Conclusion
 
 - The host-to-render dataflow is now concrete for the generated a4_default case.
-- The remaining unknowns are not parser fields; they are work +0x26 source/value, raw-band helper divide confirmation, video timing, and live IRQ completion behavior.
+- The remaining unknowns are not parser fields; they are the page-param +0x26 alias/copy gap, raw-band helper divide confirmation, video timing, and live IRQ completion behavior.
 - This report is still not a reason to upload custom printing firmware; it is the static contract a future implementation must satisfy.
 
 ## Checks
@@ -119,5 +122,6 @@ This is a generated offline model. It does not contact the printer.
 | `band_queue_status_pass` | `present` | band queue model is pass |
 | `refill_topology_status_pass` | `present` | refill topology model is pass |
 | `chunk_sizing_status_pass` | `present` | chunk sizing model is pass |
+| `remaining_units_status_pass` | `present` | remaining-units model is pass |
 | `a4_default_values_projected` | `present` | a4_default work/raster/prepare/chunk values match the current generated model |
 | `normal_refill_path_preserved` | `present` | normal descriptor refill still connects channel-B helper and raw-band queue writes |

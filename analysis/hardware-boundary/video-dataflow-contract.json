@@ -31,6 +31,11 @@
       "status": "present"
     },
     {
+      "detail": "remaining-units model is pass",
+      "name": "remaining_units_status_pass",
+      "status": "present"
+    },
+    {
       "detail": "a4_default work/raster/prepare/chunk values match the current generated model",
       "name": "a4_default_values_projected",
       "status": "present"
@@ -88,12 +93,14 @@
       "known_values": {
         "0xb2080004": "slot pointer from video state + slot*4",
         "0xb2080008": "min(4, +0xd0) * stride(1200)",
+        "0xb2080008 candidate if alias holds": 4800,
         "chunk_units": "min(4, video state +0xd0)",
         "final_flag": "set when remaining units become zero",
-        "video state +0xcc max chunk units": 4
+        "video state +0xcc max chunk units": 4,
+        "video state +0xd0 candidate if alias holds": 6824
       },
       "meaning": "The helper keeps channel B fed from the modulo-4 descriptor side.",
-      "remaining_unknown": "initial +0xd0 is copied from work +0x26 and still needs tighter source/value calibration",
+      "remaining_unknown": "ZJI_VIDEO_Y is the best +0xd0 source candidate, but page-param +0x26 -> prepare argument +0x26 copy/alias remains unresolved",
       "stage": "helper_channel_b_refill"
     },
     {
@@ -123,7 +130,7 @@
   ],
   "current_conclusion": [
     "The host-to-render dataflow is now concrete for the generated a4_default case.",
-    "The remaining unknowns are not parser fields; they are work +0x26 source/value, raw-band helper divide confirmation, video timing, and live IRQ completion behavior.",
+    "The remaining unknowns are not parser fields; they are the page-param +0x26 alias/copy gap, raw-band helper divide confirmation, video timing, and live IRQ completion behavior.",
     "This report is still not a reason to upload custom printing firmware; it is the static contract a future implementation must satisfy."
   ],
   "source_case": "a4_default",
@@ -133,6 +140,7 @@
     "prepare_projection": "analysis/hardware-boundary/video-prepare-projection.json",
     "raster_fields": "analysis/open-firmware-model/raster-field-semantics.json",
     "refill_topology": "analysis/hardware-boundary/video-refill-topology.json",
+    "remaining_units": "analysis/hardware-boundary/video-remaining-units.json",
     "transfer_ring": "analysis/hardware-boundary/video-transfer-ring.json"
   },
   "status": "pass",

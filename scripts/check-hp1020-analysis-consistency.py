@@ -241,6 +241,8 @@ def build_report() -> dict[str, Any]:
             and dataflow_stages.get("video_prepare_geometry", {}).get("known_values", {}).get("video state +0xb8 stride") == 1200
             and dataflow_stages.get("render_initial_transfer", {}).get("known_values", {}).get("0xb2040008") == 6364
             and dataflow_stages.get("helper_channel_b_refill", {}).get("known_values", {}).get("video state +0xcc max chunk units") == 4
+            and dataflow_stages.get("helper_channel_b_refill", {}).get("known_values", {}).get("video state +0xd0 candidate if alias holds") == 6824
+            and dataflow_stages.get("helper_channel_b_refill", {}).get("known_values", {}).get("0xb2080008 candidate if alias holds") == 4800
             and "min(4, +0xd0) * stride(1200)"
             == dataflow_stages.get("helper_channel_b_refill", {}).get("known_values", {}).get("0xb2080008")
             and "A pointer plus dual-output window(2400) when dual-block mode is active"
@@ -248,6 +250,31 @@ def build_report() -> dict[str, Any]:
             and all(item.get("status") == "present" for item in video_dataflow.get("checks", [])),
             "The video dataflow contract must preserve concrete a4_default values through render/refill boundary formulas.",
             evidence="analysis/hardware-boundary/video-dataflow-contract.json",
+        )
+    )
+    remaining_units = read_json("analysis/hardware-boundary/video-remaining-units.json")
+    remaining_cases = {
+        item.get("case"): item
+        for item in remaining_units.get("case_matrix_if_alias_holds", [])
+        if isinstance(item, dict)
+    }
+    copy_gap = {
+        item.get("stage"): item
+        for item in remaining_units.get("candidate_chain", [])
+        if isinstance(item, dict)
+    }
+    checks.append(
+        check(
+            "video_remaining_units_keeps_alias_gap_explicit",
+            remaining_units.get("status") == "pass"
+            and copy_gap.get("copy_or_alias_gap", {}).get("status") == "unresolved"
+            and remaining_cases.get("a4_default", {}).get("video_y_candidate_from_zji_0x12") == 6824
+            and remaining_cases.get("a4_default", {}).get("candidate_first_channel_b_length_if_alias_holds") == 4800
+            and remaining_cases.get("letter_default", {}).get("video_y_candidate_from_zji_0x12") == 6408
+            and remaining_cases.get("legal_default", {}).get("video_y_candidate_from_zji_0x12") == 8208
+            and all(item.get("status") == "present" for item in remaining_units.get("checks", [])),
+            "Video remaining-unit model must preserve ZJI_VIDEO_Y candidate values while keeping the page-param/work alias gap unresolved.",
+            evidence="analysis/hardware-boundary/video-remaining-units.json",
         )
     )
     chunk_sizing = read_json("analysis/hardware-boundary/video-chunk-sizing.json")
