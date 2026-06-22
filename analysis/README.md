@@ -85,6 +85,7 @@ Start here:
 79. `open-firmware-model/minimal-print-scope.md` - generated minimum scope for a printing-only open replacement, including platform boundary and remaining blockers
 80. `hardware-boundary/first-page-hardware-sequence.md` - generated ordered first-page sequence from parser handoff into engine/video/raw-band hardware
 81. `hardware-boundary/video-engine-register-semantics.md` - generated register-role model for engine handshake, video setup, video transfer, and raw-band feed
+82. `hardware-boundary/video-prepare-modes.md` - generated branch/table model for `0xb100` video prepare timing and mode setup
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -173,6 +174,7 @@ Useful current conclusions:
 - `analysis/hardware-boundary/video-register-projection.md` projects modeled work fields onto the first unsafe video writes, proving host-controlled BIH fields would reach `0xb2000008`, `0xb200000c`, `0xb2000024`, and `0xb2000000` if the firmware crossed the safe stop boundary.
 - `analysis/hardware-boundary/first-page-hardware-sequence.md` orders the post-parser page path: engine accepts work, PrintMgr sends Video Queue `0x0b`, video prepare touches `0xb100`, render arms `0xb204/0xb208` and `0xb200`, raw-band feed writes `0xb100`, then video completion wakes engine.
 - `analysis/hardware-boundary/video-engine-register-semantics.md` extracts literal-cell-to-register mappings from the stock ELF and decompiled functions. It names the current dangerous roles: `0xb050` engine command/status, `0xb100` video setup/raw-band feed, `0xb200` transfer descriptors/control, and `0xb204`/`0xb208` paired transfer channels.
+- `analysis/hardware-boundary/video-prepare-modes.md` narrows the `0xb100` setup path: it records mode-dependent writes for `0xb1000020/0x24`, `0xb1000120/0x24`, `0xb100001c/0x11c`, and the `0xb1000400..0x0430` timing table blocks.
 - `analysis/non-printing-usb-probe-spec.md` defines the only custom-firmware experiment that is currently defensible: boot/USB identity only, no video/engine MMIO.
 - `analysis/non-printing-status-probe/pjl-status-contract.md` defines the exact tiny PJL/status payloads to use when calibrating stock back-channel responses or future open USB/PJL echo behavior.
 - `analysis/offline-consistency/offline-consistency.md` now cross-checks the main offline conclusions against generated reports: engine `0x17` dispatch, status-code correlation, print-path model invariants, hardware boundary, PJL query contract, and USB marker draft safety.
@@ -199,6 +201,7 @@ Useful current conclusions:
 - `scripts/model-hp1020-control-completion.py` regenerates the stock endpoint-0 completion event-flag model and verifies the evidence snippets.
 - `scripts/model-hp1020-usb-interrupt-events.py` regenerates the USB interrupt event-lane model and verifies the evidence snippets.
 - `scripts/model-hp1020-video-engine-register-semantics.py` regenerates the dangerous video/engine register-role model from the stock ELF and decompiled source.
+- `scripts/model-hp1020-video-prepare-modes.py` regenerates the branch/table model for the `0xb100` video prepare setup path.
 - `scripts/model-hp1020-first-page-hardware-sequence.py` regenerates the ordered first-page hardware sequence from the current print-path and hardware-boundary reports.
 - `scripts/model-hp1020-minimal-print-scope.py` regenerates the current minimum printing-only replacement scope from the generated print-path, USB, and hardware-boundary reports.
 - `scripts/analyze-hp1020-pjl-status-capture.py` classifies PJL/status back-channel captures against the generated contract, including expected-marker, no-response, and unexpected-byte outcomes.

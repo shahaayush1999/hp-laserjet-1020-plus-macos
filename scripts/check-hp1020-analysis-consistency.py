@@ -215,6 +215,26 @@ def build_report() -> dict[str, Any]:
             evidence="analysis/hardware-boundary/video-engine-register-semantics.json",
         )
     )
+    video_prepare_modes = read_json("analysis/hardware-boundary/video-prepare-modes.json")
+    prepare_tables = {
+        item.get("name"): item
+        for item in video_prepare_modes.get("table_blocks", [])
+        if isinstance(item, dict)
+    }
+    prepare_literal_values = video_prepare_modes.get("literal_values", {})
+    checks.append(
+        check(
+            "video_prepare_modes_keep_timing_tables",
+            video_prepare_modes.get("status") == "pass"
+            and prepare_literal_values.get("setup_a_timing") == "0xb1000020"
+            and prepare_literal_values.get("timing_table_0") == "0xb1000400"
+            and len(video_prepare_modes.get("timing_modes", [])) == 8
+            and len(prepare_tables.get("single_plane_1200_table", {}).get("words", [])) == 16
+            and all(check.get("status") == "present" for check in video_prepare_modes.get("checks", [])),
+            "The video-prepare mode model must preserve the branch-dependent 0xb100 timing/setup table evidence.",
+            evidence="analysis/hardware-boundary/video-prepare-modes.json",
+        )
+    )
     checks.append(
         check(
             "usb_family_remains_only_low_risk_target",

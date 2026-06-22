@@ -1,0 +1,347 @@
+{
+  "checks": [
+    {
+      "name": "stride_from_work_84",
+      "needle": "uVar19 = (*(int *)(param_1 + 0x84) + 0x1fU & 0xffffffe0) >> 3",
+      "status": "present"
+    },
+    {
+      "name": "lane_count_from_work_22",
+      "needle": "uVar7 = (uint)*(ushort *)(param_1 + 0x22)",
+      "status": "present"
+    },
+    {
+      "name": "resolution_600_mode",
+      "needle": "if (sVar18 == 600)",
+      "status": "present"
+    },
+    {
+      "name": "resolution_1200_mode",
+      "needle": "if (sVar18 != 0x4b0) goto LAB_10014ae0",
+      "status": "present"
+    },
+    {
+      "name": "block_control_clear",
+      "needle": "*DAT_10006808 = *DAT_10006808 & 0xfffffeff",
+      "status": "present"
+    },
+    {
+      "name": "block_status_busy_wait_a",
+      "needle": "while ((uVar19 & 0x200) != 0)",
+      "status": "present"
+    },
+    {
+      "name": "block_status_busy_wait_b",
+      "needle": "} while ((*DAT_100067d8 & 0x200) != 0);",
+      "status": "present"
+    },
+    {
+      "name": "timing_register_a_write",
+      "needle": "*DAT_10006854 = uVar6",
+      "status": "present"
+    },
+    {
+      "name": "mode_register_low_bits",
+      "needle": "*DAT_10006884 = *DAT_10006884 & 0xffffffc0 | local_30",
+      "status": "present"
+    },
+    {
+      "name": "table_zero_16_entries",
+      "needle": "while (DAT_1000680c = puVar1, DAT_10006898 = uVar7, uVar19 < 0x10)",
+      "status": "present"
+    },
+    {
+      "name": "single_plane_table_branch",
+      "needle": "if (*(short *)(param_1 + 0x22) == 1)",
+      "status": "present"
+    },
+    {
+      "name": "two_plane_table_branch",
+      "needle": "else if (*(short *)(param_1 + 0x22) == 2)",
+      "status": "present"
+    },
+    {
+      "name": "resolution_horizontal_mode",
+      "needle": "if (*(short *)(param_1 + 0x16) == 300)",
+      "status": "present"
+    },
+    {
+      "name": "vertical_packed_write_a",
+      "needle": "*DAT_100068d8 = (uint)*(ushort *)(param_1 + 0x18) << 0x10 | uStack_2c",
+      "status": "present"
+    },
+    {
+      "name": "final_enable_bit",
+      "needle": "*puVar1 = *puVar1 | 0x100",
+      "status": "present"
+    }
+  ],
+  "literal_values": {
+    "block_a_control": "0xb1000000",
+    "block_a_status": "0xb1000004",
+    "block_b_control": "0xb1000100",
+    "block_b_status": "0xb1000104",
+    "control_pair_clear_mask": "0xfcffffff",
+    "lane0_vertical_base": "0x00000d1e",
+    "lane1_vertical_base": "0x00000d34",
+    "mode_a_clear_mask": "0x00203f00",
+    "mode_a_register": "0xb100001c",
+    "mode_ab_clear_mask": "0x00180000",
+    "mode_b_register": "0xb100011c",
+    "mode_control_mask": "0x03000000",
+    "setup_a_constant": "0xb1000024",
+    "setup_a_timing": "0xb1000020",
+    "setup_b_constant": "0xb1000124",
+    "setup_b_timing": "0xb1000120",
+    "single_plane_1200_sparse_mask": "0x10030dd4",
+    "single_plane_1200_table": "0x100055b0",
+    "single_plane_300_default_table": "0x10005530",
+    "single_plane_300_lane1_table": "0x10005520",
+    "single_plane_600_alt_table": "0x100055a0",
+    "single_plane_600_lane_table": "0x10005540",
+    "single_plane_600_two_output_table": "0x10005580",
+    "stride_a_register": "0xb1000014",
+    "stride_b_register": "0xb1000114",
+    "stride_mask": "0x0000ffff",
+    "timing_table_0": "0xb1000400",
+    "timing_table_1": "0xb1000410",
+    "timing_table_2": "0xb1000420",
+    "timing_table_3": "0xb1000430",
+    "two_plane_lane0_table": "0x10005570",
+    "two_plane_lane_table": "0x10005550",
+    "vertical_a_register": "0xb1000010",
+    "vertical_b_register": "0xb1000110"
+  },
+  "mode_register_rules": [
+    {
+      "additional_bits": "clear 0x00180000 on both; set 0x00080000 on block B; set 0x00800000 on both",
+      "lane0_datastore_nonzero": "0x05",
+      "lane0_datastore_zero": "0x0c",
+      "lane1_datastore_nonzero": "0x08",
+      "lane1_datastore_zero": "0x15",
+      "operation": "clear mask 0x00203f00, set bit 0x100, then replace low six bits",
+      "registers": [
+        "0xb100001c",
+        "0xb100011c"
+      ]
+    },
+    {
+      "operation": "clear 0x100, wait busy, apply lane/mode masks, then set 0x100",
+      "registers": [
+        "0xb1000000",
+        "0xb1000100"
+      ],
+      "state_200_1": "clear 0x03000000",
+      "state_200_2": "write 0x01000000 under mask 0x03000000",
+      "state_200_4": "write 0x02000000 under mask 0x03000000"
+    },
+    {
+      "lane0_low_bits": "0x0068",
+      "lane1_low_bits": "0x001e",
+      "operation": "write packed vertical offset: work +0x18 in high 16 bits, lane offset in low 16 bits",
+      "registers": [
+        "0xb1000010",
+        "0xb1000110"
+      ]
+    }
+  ],
+  "open_firmware_implication": [
+    "Video prepare is not just a fixed register preamble; it branches on datastore entry 0x20, lane selector, plane count, and resolution.",
+    "The 0xb1000400..0xb1000430 timing table writes are table-driven and must be understood before any printing firmware writes them.",
+    "The safe current path remains USB-only; these tables are offline evidence for future hardware sequencing, not upload candidates."
+  ],
+  "status": "pass",
+  "summary": "Video-prepare mode/timing branches for 0x10014910.",
+  "table_blocks": [
+    {
+      "base": "0x10005520",
+      "name": "single_plane_300_lane1_table",
+      "words": [
+        "0x00000000",
+        "0x00001fff",
+        "0x00000000",
+        "0x003fffff"
+      ]
+    },
+    {
+      "base": "0x10005530",
+      "name": "single_plane_300_default_table",
+      "words": [
+        "0x00000000",
+        "0x0000007f",
+        "0x00000000",
+        "0x00000fff"
+      ]
+    },
+    {
+      "base": "0x100055a0",
+      "name": "single_plane_600_alt_table",
+      "words": [
+        "0x00000000",
+        "0x0000001f",
+        "0x00000003",
+        "0x000000ff"
+      ]
+    },
+    {
+      "base": "0x10005580",
+      "name": "single_plane_600_two_output_table",
+      "words": [
+        "0x00000000",
+        "0x0000007f",
+        "0x00000007",
+        "0x00001fff"
+      ]
+    },
+    {
+      "base": "0x10005540",
+      "name": "single_plane_600_lane_table",
+      "words": [
+        "0x00000000",
+        "0xffffffff",
+        "0x00000000",
+        "0xffffffff"
+      ]
+    },
+    {
+      "base": "0x100055b0",
+      "name": "single_plane_1200_table",
+      "words": [
+        "0x00000000",
+        "0x0003c0f0",
+        "0x00000c00",
+        "0x00000060",
+        "0x00018000",
+        "0x000fe1fc",
+        "0x000000f0",
+        "0x0003c000",
+        "0x000000f8",
+        "0x0007c000",
+        "0x000003fe",
+        "0x001ff000",
+        "0x0007e3fe",
+        "0x001ff1f8",
+        "0x0007c0f8",
+        "0x001ff3fe"
+      ]
+    },
+    {
+      "base": "0x10005570",
+      "name": "two_plane_lane0_table",
+      "words": [
+        "0x00000000",
+        "0x00000007",
+        "0x0000001f",
+        "0x0000007f"
+      ]
+    },
+    {
+      "base": "0x10005550",
+      "name": "two_plane_lane_table",
+      "words": [
+        "0x00000000",
+        "0x0000001f",
+        "0x000001ff",
+        "0x00001fff"
+      ]
+    }
+  ],
+  "timing_modes": [
+    {
+      "constant_registers": {
+        "0xb1000024": "0x000000e5"
+      },
+      "datastore_0x20_zero": true,
+      "lane_selector": 0,
+      "register": "0xb1000020",
+      "resolution": "300",
+      "value": "0x900236ca"
+    },
+    {
+      "constant_registers": {
+        "0xb1000024": "0x00000062"
+      },
+      "datastore_0x20_zero": false,
+      "lane_selector": 0,
+      "register": "0xb1000020",
+      "resolution": "300",
+      "value": "0x90010598"
+    },
+    {
+      "constant_registers": {
+        "0xb1000024": "0x000000e5"
+      },
+      "datastore_0x20_zero": true,
+      "lane_selector": 0,
+      "register": "0xb1000020",
+      "resolution": "not 300",
+      "value": "0x800236ca"
+    },
+    {
+      "constant_registers": {
+        "0xb1000024": "0x00000062"
+      },
+      "datastore_0x20_zero": false,
+      "lane_selector": 0,
+      "register": "0xb1000020",
+      "resolution": "not 300",
+      "value": "0x80010598"
+    },
+    {
+      "constant_registers": {
+        "0xb1000024": "0x000000e5",
+        "0xb1000124": "0x000000e5"
+      },
+      "datastore_0x20_zero": true,
+      "lane_selector": 1,
+      "registers": [
+        "0xb1000020",
+        "0xb1000120"
+      ],
+      "resolution": "300",
+      "value": "0x90028688"
+    },
+    {
+      "constant_registers": {
+        "0xb1000024": "0x00000062",
+        "0xb1000124": "0x00000062"
+      },
+      "datastore_0x20_zero": false,
+      "lane_selector": 1,
+      "registers": [
+        "0xb1000020",
+        "0xb1000120"
+      ],
+      "resolution": "300",
+      "value": "0x9001087d"
+    },
+    {
+      "constant_registers": {
+        "0xb1000024": "0x000000e5",
+        "0xb1000124": "0x000000e5"
+      },
+      "datastore_0x20_zero": true,
+      "lane_selector": 1,
+      "registers": [
+        "0xb1000020",
+        "0xb1000120"
+      ],
+      "resolution": "not 300",
+      "value": "0x80028688"
+    },
+    {
+      "constant_registers": {
+        "0xb1000024": "0x00000062",
+        "0xb1000124": "0x00000062"
+      },
+      "datastore_0x20_zero": false,
+      "lane_selector": 1,
+      "registers": [
+        "0xb1000020",
+        "0xb1000120"
+      ],
+      "resolution": "not 300",
+      "value": "0x8001087d"
+    }
+  ]
+}
