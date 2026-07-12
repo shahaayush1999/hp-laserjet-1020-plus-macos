@@ -20,7 +20,7 @@ L32I_RE = re.compile(r"^l32i(?:\.n)?\s+(?P<dst>a\d+),\s*(?P<base>a\d+),\s*(?P<of
 S32I_RE = re.compile(r"^s32i(?:\.n)?\s+(?P<src>a\d+),\s*(?P<base>a\d+),\s*(?P<offset>-?(?:0x)?[0-9a-f]+)")
 DEST_RE = re.compile(r"^(?:movi(?:\.n)?|mov(?:\.n)?|add(?:\.n)?|addi(?:\.n)?|or|and|xor|slli|srli|extui)\s+(?P<dst>a\d+)\b")
 CALL_RE = re.compile(r"^call\d?\b")
-USB_REG_RE = re.compile(r"b300[0-9a-f]{4}", re.IGNORECASE)
+USB_REG_RE = re.compile(r"b30[01][0-9a-f]{4}", re.IGNORECASE)
 
 
 @dataclass(frozen=True)
@@ -89,7 +89,7 @@ def classify_file(path: Path, allowed_usb: set[str], allow_writes: bool) -> list
                 continue
             if register not in allowed_usb:
                 severity = "fail"
-                description = "USB register is not in the endpoint-0 static map"
+                description = "USB register is not in the configured static map"
             elif access_kind == "write" and not allow_writes:
                 severity = "fail"
                 description = "USB MMIO write is blocked for this probe/access profile"

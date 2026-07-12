@@ -22,7 +22,7 @@ S32I_RE = re.compile(r"^s32i(?:\.n)?\s+(?P<src>a\d+),\s*(?P<base>a\d+),\s*-?(?:0
 OR_RE = re.compile(r"^or\s+(?P<dst>a\d+),\s*(?P<left>a\d+),\s*(?P<right>a\d+)")
 DEST_RE = re.compile(r"^(?:mov(?:\.n)?|add(?:\.n)?|addi(?:\.n)?|and|xor|slli|srli|extui)\s+(?P<dst>a\d+)\b")
 CALL_RE = re.compile(r"^call\d?\b")
-USB_REG_RE = re.compile(r"b300[0-9a-f]{4}", re.IGNORECASE)
+USB_REG_RE = re.compile(r"b30[01][0-9a-f]{4}", re.IGNORECASE)
 HEX8_RE = re.compile(r"(?<![0-9a-f])(?:0x)?(?P<value>[0-9a-f]{8})(?![0-9a-f])", re.IGNORECASE)
 
 
@@ -86,6 +86,24 @@ def load_contract(path: Path) -> dict[str, Any]:
     return {"raw": raw, "allowed_const": allowed_const, "allowed_or": allowed_or}
 
 
+def load_additional_contract(path: Path | None) -> dict[str, Any]:
+    if path is None:
+        return {"allowed_const": {}, "allowed_or": {}, "roles": {}}
+    raw = json.loads(path.read_text())
+    allowed_const: dict[tuple[str, str], str] = {}
+    allowed_or: dict[tuple[str, str], str] = {}
+    roles: dict[str, str] = {}
+    for register, item in raw.get("registers", {}).items():
+        register = register.lower()
+        roles[register] = item.get("role") or item.get("working_name") or "additional USB contract"
+        for value in item.get("allowed_write_values", []):
+            allowed_const[(register, value.lower())] = roles[register]
+        for value in item.get("allowed_write_masks", []):
+            normalized = value.lower().removeprefix("or ")
+            allowed_or[(register, normalized)] = roles[register]
+    return {"allowed_const": allowed_const, "allowed_or": allowed_or, "roles": roles}
+
+
 def classify_write(
     register: str,
     value_state: dict[str, Any] | None,
@@ -103,6 +121,18 @@ def classify_write(
         if sequences:
             sequence = ",".join(sorted(sequences))
             return Event("watch", "endpoint0_sequence_write", pc, register, value, "const", sequence, instruction, "expected endpoint-0 sequence write")
+        if key in contract["additional"]["allowed_const"]:
+            return Event(
+                "watch",
+                "additional_contract_write",
+                pc,
+                register,
+                value,
+                "const",
+                "bulk_contract",
+                instruction,
+                contract["additional"]["allowed_const"][key],
+            )
         return Event("fail", "unexpected_usb_write", pc, register, value, "const", None, instruction, "USB write is not in endpoint-0 contract")
 
     if value_state["kind"] == "mmio_or":
@@ -111,6 +141,18 @@ def classify_write(
         key = (register, value)
         if source_register == register and key in contract["allowed_or"]:
             return Event("watch", "endpoint0_or_write", pc, register, value, "or", None, instruction, contract["allowed_or"][key])
+        if source_register == register and key in contract["additional"]["allowed_or"]:
+            return Event(
+                "watch",
+                "additional_contract_or_write",
+                pc,
+                register,
+                value,
+                "or",
+                "bulk_contract",
+                instruction,
+                contract["additional"]["allowed_or"][key],
+            )
         return Event("fail", "unexpected_usb_or_write", pc, register, value, "or", None, instruction, "USB OR write is not in endpoint-0 contract")
 
     return Event("fail", "unknown_usb_write", pc, register, None, "unknown", None, instruction, "USB write value state is unsupported")
@@ -223,12 +265,18 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("paths", nargs="+", type=Path, help="Xtensa objdump text files")
     parser.add_argument("--contract", type=Path, default=DEFAULT_CONTRACT)
+    parser.add_argument(
+        "--additional-mmio-map",
+        type=Path,
+        help="optional generated USB map whose explicit write values/masks are accepted alongside endpoint 0",
+    )
     parser.add_argument("-o", "--output", type=Path, help="write markdown report")
     parser.add_argument("--json", type=Path, help="write JSON event list")
     parser.add_argument("--allow-fail", action="store_true", help="exit 0 even if fail hits are found")
     args = parser.parse_args()
 
     contract = load_contract(args.contract)
+    contract["additional"] = load_additional_contract(args.additional_mmio_map)
     events: list[Event] = []
     for path in iter_files(args.paths):
         events.extend(scan_file(path, contract))

@@ -1,5 +1,5 @@
 {
-  "check_count": 56,
+  "check_count": 64,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -38,7 +38,7 @@
       "severity": "watch"
     },
     {
-      "detail": "The generated narrow-scope report must preserve the current split: parser/object path mapped, sideband policy narrowed but unresolved, video/engine hardware still high risk.",
+      "detail": "The generated narrow-scope report must mark only the inert USB bulk receive/framing component implemented offline, retain semantic parser and engine/video blockers, and carry exact probe evidence.",
       "evidence": "analysis/open-firmware-model/minimal-print-scope.json",
       "name": "minimal_print_scope_keeps_parser_mapped_and_hardware_blocked",
       "severity": "watch"
@@ -65,6 +65,54 @@
       "detail": "The synthesized USB parser-shim contract must keep the next target anchored to parser callback, bulk event bit, hardware lane, and descriptor re-arm facts.",
       "evidence": "analysis/usb-path/usb-parser-shim-contract.json",
       "name": "usb_parser_shim_contract_preserves_next_software_target",
+      "severity": "watch"
+    },
+    {
+      "detail": "Every required bulk-parser report must exist, carry a passing status or zero fail markers, agree with the deterministic rollup, and retain offline-only handoff documents.",
+      "evidence": "analysis/open-firmware-probes/usb-bulk-parser-draft/deterministic-test-results.json",
+      "name": "usb_bulk_probe_all_required_reports_pass",
+      "severity": "watch"
+    },
+    {
+      "detail": "The combined allowlist and probe disassembly must preserve the stock bank-1/lane-1 event bit, status register, and acknowledgement register without substituting another USB lane.",
+      "evidence": "analysis/usb-path/usb-bulk-probe-contract.json",
+      "name": "usb_bulk_probe_lane_contract_matches_stock_models",
+      "severity": "watch"
+    },
+    {
+      "detail": "The stock re-arm model, shim contract, combined allowlist, memory scan, and disassembly must agree on descriptor 0x90021370, buffer 0x900216f0, and submit register 0xb3000234.",
+      "evidence": "analysis/open-firmware-probes/usb-bulk-parser-draft/memory-boundary-scan.json",
+      "name": "usb_bulk_probe_descriptor_buffer_submit_contract_matches",
+      "severity": "watch"
+    },
+    {
+      "detail": "The executable model and deterministic rollup must preserve exactly 11 generated samples, 33 boundary/error cases, 425 assertions, and recognized types 0x00 through 0x06.",
+      "evidence": "analysis/open-firmware-probes/usb-bulk-parser-draft/parser-model.json",
+      "name": "usb_bulk_probe_exact_parser_scope_and_matrix_pass",
+      "severity": "watch"
+    },
+    {
+      "detail": "Offline parser cases and every source/disassembly boundary scan must show zero USB-host contact, print dispatch, video, engine, or mechanical side effects.",
+      "evidence": "analysis/open-firmware-probes/usb-bulk-parser-draft/safety-scan.json",
+      "name": "usb_bulk_probe_has_no_mechanical_or_print_side_effects",
+      "severity": "watch"
+    },
+    {
+      "detail": "The writable product string must expose B/D/C/E/U as the parser model's bytes, descriptors, recognized chunks, errors, and unknown chunks counters.",
+      "evidence": "analysis/open-firmware-probes/usb-bulk-parser-draft/status-descriptor-check.json",
+      "name": "usb_bulk_probe_status_descriptor_exposes_all_counters",
+      "severity": "watch"
+    },
+    {
+      "detail": "The linked printer-class configurations must advertise 512-byte high-speed and 64-byte full-speed bulk endpoints, selected from the same b3010000 speed bit used by receive setup.",
+      "evidence": "analysis/open-firmware-probes/usb-bulk-parser-draft/config-descriptor-check.json",
+      "name": "usb_bulk_probe_config_descriptors_match_controller_speed",
+      "severity": "watch"
+    },
+    {
+      "detail": "Two clean builds must produce byte-identical generated files, and the second-build firmware hashes must match the deterministic artifact rollup.",
+      "evidence": "analysis/open-firmware-probes/usb-bulk-parser-draft/reproducibility-check.json",
+      "name": "usb_bulk_probe_rebuild_is_reproducible",
       "severity": "watch"
     },
     {
@@ -339,7 +387,7 @@
     }
   ],
   "fail_count": 0,
-  "high_level_result": "Offline analysis is internally consistent; the next decisive evidence is a guarded non-printing printer-side probe.",
+  "high_level_result": "The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.",
   "status": "pass",
   "summary": "Cross-report consistency gate for the current offline reverse-engineering state."
 }

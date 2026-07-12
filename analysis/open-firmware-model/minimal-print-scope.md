@@ -16,7 +16,7 @@ For the narrow goal, we do not need to clone every HP firmware feature. We need:
 4. Raster handoff into the video/raw-band hardware path.
 5. Engine coordination for paper, fuser, motor, and page timing.
 
-The first three are mostly software/protocol work. The last two are the hard hardware part.
+USB bulk receive and framing now have an offline-validated inert implementation. That does not implement semantic print dispatch, raster output, video transfer, or engine control.
 
 ## Platform Boundary
 
@@ -45,6 +45,24 @@ The first three are mostly software/protocol work. The last two are the hard har
 - sideband risk split: `+0x26=critical`, `+0x32=mode_critical`, `+0x30=unknown_low_in_current_static_view`
 - remaining-unit active-work source gap: `true`
 
+## Open Bulk Parser Probe Evidence
+
+- component status: `implemented and offline validated`
+- offline validated: `true`
+- generated samples passed: `11/11`
+- deterministic matrix cases passed: `33/33`
+- total cases passed: `44/44`
+- assertions passed: `425/425`
+- recognized chunk scope: `0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06`
+- generated sample cases: `generated::matrix-a4_2400x600, generated::matrix-a4_600x600, generated::matrix-a4_cardstock_media, generated::matrix-a4_default, generated::matrix-a4_draft, generated::matrix-a4_logical_clip, generated::matrix-a4_manual_feed, generated::matrix-a4_two_copies, generated::matrix-legal_default, generated::matrix-letter_default, generated::minimal-page-a4`
+- deterministic matrix cases: `header_split_01_of_16, header_split_02_of_16, header_split_03_of_16, header_split_04_of_16, header_split_05_of_16, header_split_06_of_16, header_split_07_of_16, header_split_08_of_16, header_split_09_of_16, header_split_10_of_16, header_split_11_of_16, header_split_12_of_16, header_split_13_of_16, header_split_14_of_16, header_split_15_of_16, magic_split_01_of_4, magic_split_02_of_4, magic_split_03_of_4, payload_split_across_four_boundaries, multiple_chunks_single_transfer, stock_types_outside_probe_scope_are_unknown, valid_zero_payload_chunks, zero_size_chunk_recovery, oversize_chunk_policy_recovery, bad_signature_recovery, reserved_exceeds_payload_recovery, unknown_chunk_is_counted_and_skipped, ring_and_descriptor_wrap_boundary, payload_crosses_ring_wrap_boundary, three_repeated_documents, truncated_chunk_header_at_eof, truncated_chunk_payload_at_eof, zero_byte_receive_descriptors`
+- mechanically inert across all cases: `true`
+- printer/USB contacted during validation: `false`
+- report statuses: `combined_contract=pass, parser_model=pass, deterministic_results=pass, safety_scan=pass, usb_contract_scan=pass, usb_mmio_access_scan=pass, memory_boundary_scan=pass, source_contract_check=pass, status_descriptor_check=pass, config_descriptor_check=pass, reproducibility_check=pass`
+- report fail counts: `combined_contract=0, parser_model=0, deterministic_results=0, safety_scan=0, usb_contract_scan=0, usb_mmio_access_scan=0, memory_boundary_scan=0, source_contract_check=0, status_descriptor_check=0, config_descriptor_check=0, reproducibility_check=0`
+- status descriptor: `HP1020 B=00000000 D=00000000 C=00000000 E=00000000 U=00000000` at `0x10003400`
+- reproducibility: `pass`
+
 ## Component Scope
 
 | Component | Status | Replacement need | Risk |
@@ -52,8 +70,8 @@ The first three are mostly software/protocol work. The last two are the hard har
 | Host PDF-to-ZjStream conversion | `available` | reuse existing GPL foo2zjs path; not firmware work | `low` |
 | USB upload envelope | `available` | keep ACL/PJL upload wrapper for volatile firmware load | `low` |
 | USB endpoint-0 descriptor/control path | `partially implemented` | live prove marker descriptor; marker now has a tiny gate-clear rearm loop, but not full stock ThreadX/event completion handling | `medium` |
-| USB bulk receive to ZjStream parser | `stock path modeled` | open firmware must implement a bulk OUT receiver/read-callback shim that feeds the parser state machine | `medium` |
-| ZjStream parser and JobMgr object model | `mapped` | implement only chunk types used by foo2zjs daily printing: START/END doc/page, JBIG_BIH/BID/END_JBIG, plus END_PLANE if emitted by a host variant | `medium` |
+| USB bulk receive to ZjStream parser | `implemented and offline validated` | guarded hardware execution must prove custom-code execution and real controller completion, length, acknowledgement, and repeated descriptor re-arm behavior; this probe discards payloads and has no print handoff | `medium` |
+| ZjStream parser and JobMgr object model | `mapped` | implement semantic chunk handling, JobMgr messages, work/raster objects, and a deliberately gated print handoff; none exists in the inert probe | `medium` |
 | JBIG compressed raster handling | `mapped to handoff boundary` | likely no full JBIG decode in firmware if hardware consumes the compressed stream like stock firmware | `high until hardware consumer semantics are proven` |
 | Video sideband policy | `narrowed but unresolved` | decide deliberate values for work +0x26/+0x32 before any print-driving firmware; +0x26 gates channel-B refill and final accounting | `high` |
 | Video/raw-band hardware feed | `danger boundary mapped, semantics incomplete` | reproduce page timing, raw-band pointers, channel enable/reset/wait sequence | `high` |
@@ -64,12 +82,11 @@ The first three are mostly software/protocol work. The last two are the hard har
 
 | Blocker | Why | Next test/work |
 |---|---|---|
-| Live execution proof for open USB descriptor code | Without the marker descriptor appearing on the host, we do not yet know that custom code can control USB responses after upload. | Run the guarded marker stage when the printer is connected and power-cycled. |
-| USB completion/rearm behavior | Stock firmware uses event flags at 0x10021318 fed by the USB interrupt task. The marker draft now waits for setup gates to clear and returns to polling, but hardware has not proved this replaces the stock event wait. | If marker fails, use the interrupt-lane model to build a more explicit completion polling probe. |
+| Guarded hardware execution and USB controller behavior | The bulk receive/framing probe is implemented and validated offline, but hardware has not proved that custom code executes, that boot-ROM controller state is sufficient, or that real completion length/ack/re-arm behavior matches the static contract. | Follow the probe hardware test plan only after a fresh power cycle: prove the status descriptor, send the inert START_DOC/END_DOC stream, and verify counters. Do not send raster or invoke engine/video paths. |
 | Video and engine hardware sequencing | The mapped print model reaches raster handoff, but real printing needs synchronized video transfer and mechanical engine control. | Do not test this until USB-only open code is proven; continue static mapping of video/engine semantics first. |
 | Video sideband values for the first print path | Static analysis now shows +0x26 is critical for channel-B refill/final accounting, but its active-work source is still not proven. | After USB-only execution is proven, use a non-printing or tightly gated trace/probe to distinguish whether stock leaves +0x26 zero or seeds it from page height/runtime state. |
 
 ## Current Decision
 
-Continue USB-only marker proof before any engine/video printing experiment.
+The USB bulk receive/framing component is ready only for its guarded mechanically inert hardware test; printing, semantic JobMgr/raster handoff, and all engine/video behavior remain unimplemented or unproven.
 

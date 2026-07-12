@@ -1,0 +1,162 @@
+[
+  {
+    "description": "mapped USB-controller register 0xb3000000",
+    "kind": "mapped_usb_mmio",
+    "line": 211,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb3000000"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000014",
+    "kind": "mapped_usb_mmio",
+    "line": 213,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb3000014"
+  },
+  {
+    "description": "mapped USB-controller register 0xb300000c",
+    "kind": "mapped_usb_mmio",
+    "line": 215,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb300000c"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000028",
+    "kind": "mapped_usb_mmio",
+    "line": 217,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb3000028"
+  },
+  {
+    "description": "mapped USB-controller register 0xb300002c",
+    "kind": "mapped_usb_mmio",
+    "line": 219,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb300002c"
+  },
+  {
+    "description": "mapped USB-controller register 0xb300020c",
+    "kind": "mapped_usb_mmio",
+    "line": 221,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb300020c"
+  },
+  {
+    "description": "mapped USB-controller register 0xb300022c",
+    "kind": "mapped_usb_mmio",
+    "line": 223,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb300022c"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000200",
+    "kind": "mapped_usb_mmio",
+    "line": 225,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb3000200"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000220",
+    "kind": "mapped_usb_mmio",
+    "line": 227,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb3000220"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000224",
+    "kind": "mapped_usb_mmio",
+    "line": 229,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb3000224"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000234",
+    "kind": "mapped_usb_mmio",
+    "line": 231,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb3000234"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000400",
+    "kind": "mapped_usb_mmio",
+    "line": 233,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb3000400"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000404",
+    "kind": "mapped_usb_mmio",
+    "line": 235,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb3000404"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000408",
+    "kind": "mapped_usb_mmio",
+    "line": 237,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb3000408"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000418",
+    "kind": "mapped_usb_mmio",
+    "line": 239,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb3000418"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3010000",
+    "kind": "mapped_usb_mmio",
+    "line": 241,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb3010000"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000504",
+    "kind": "mapped_usb_mmio",
+    "line": 243,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb3000504"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000508",
+    "kind": "mapped_usb_mmio",
+    "line": 245,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb3000508"
+  },
+  {
+    "description": "mapped USB-controller register 0xb300050c",
+    "kind": "mapped_usb_mmio",
+    "line": 247,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb300050c"
+  },
+  {
+    "description": "mapped USB-controller register 0xb3000510",
+    "kind": "mapped_usb_mmio",
+    "line": 249,
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S",
+    "severity": "watch",
+    "text": ".word 0xb3000510"
+  }
+]

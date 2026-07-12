@@ -307,7 +307,7 @@ def read_one_device(
         if item.get("ok") and item.get("descriptor_type") == USB_DT_STRING
     ]
     report["string_texts"] = texts
-    if any("HP1020 OPEN MARKER" in text for text in texts):
+    if any("HP1020 OPEN MARKER" in text or text.startswith("HP1020 B=") for text in texts):
         report["verdict"] = "marker_product_seen"
     elif any(item.get("ok") for item in report["control_reads"]):
         report["verdict"] = "descriptors_read_no_marker"

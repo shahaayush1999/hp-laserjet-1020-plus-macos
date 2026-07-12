@@ -19,6 +19,7 @@ run_step "Xtensa binutils smoke test" "$ROOT_DIR/scripts/probe-xtensa-binutils.s
 run_step "Build minimal idle probe" "$ROOT_DIR/scripts/build-open-firmware-idle-probe.sh"
 run_step "Build USB register snapshot probe" "$ROOT_DIR/scripts/build-open-firmware-usb-snapshot-probe.sh"
 run_step "Build USB marker draft" "$ROOT_DIR/scripts/build-open-firmware-usb-marker-draft.sh"
+run_step "Build USB bulk/parser draft" "$ROOT_DIR/scripts/build-open-firmware-usb-bulk-parser-draft.sh"
 
 run_step "Idle probe layout" \
   python3 "$ROOT_DIR/scripts/inspect-firmware-layout.py" \
@@ -35,6 +36,11 @@ run_step "USB marker draft layout" \
     --profile boot-probe \
     "$ROOT_DIR/analysis/open-firmware-probes/usb-marker-draft/hp1020-usb-marker-draft.dl"
 
+run_step "USB bulk/parser draft layout" \
+  python3 "$ROOT_DIR/scripts/inspect-firmware-layout.py" \
+    --profile boot-probe \
+    "$ROOT_DIR/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.dl"
+
 run_step "USB marker behavior model" \
   python3 "$ROOT_DIR/scripts/model-hp1020-usb-marker-draft.py"
 
@@ -45,6 +51,26 @@ run_step "USB marker length-flow check" \
 run_step "USB marker rearm-flow check" \
   python3 "$ROOT_DIR/scripts/check-hp1020-marker-rearm-flow.py" \
     "$ROOT_DIR/open-firmware/usb-marker-draft/usb-marker.S"
+
+run_step "USB bulk/parser host model" \
+  python3 "$ROOT_DIR/scripts/model-hp1020-usb-bulk-parser-draft.py"
+
+run_step "USB bulk/parser source contract" \
+  python3 "$ROOT_DIR/scripts/check-hp1020-usb-bulk-parser-source.py" \
+    "$ROOT_DIR/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S"
+
+run_step "USB bulk/parser status descriptor" \
+  python3 "$ROOT_DIR/scripts/check-hp1020-usb-bulk-status-descriptor.py" \
+    "$ROOT_DIR/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.elf" \
+    --source "$ROOT_DIR/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S"
+
+run_step "USB bulk/parser speed descriptors" \
+  python3 "$ROOT_DIR/scripts/check-hp1020-usb-bulk-config-descriptors.py" \
+    "$ROOT_DIR/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.elf" \
+    --source "$ROOT_DIR/open-firmware/usb-bulk-parser-draft/usb-bulk-parser.S"
+
+run_step "USB bulk/parser reproducibility" \
+  "$ROOT_DIR/scripts/check-open-firmware-usb-bulk-parser-reproducibility.sh"
 
 run_step "JSON scanner fail-count audit" \
   python3 - "$ROOT_DIR" <<'PY'
@@ -67,23 +93,39 @@ reports = [
     "analysis/open-firmware-probes/usb-marker-draft/marker-descriptor-check.json",
     "analysis/open-firmware-probes/usb-marker-draft/marker-length-flow-check.json",
     "analysis/open-firmware-probes/usb-marker-draft/marker-rearm-flow-check.json",
+    "analysis/open-firmware-probes/usb-bulk-parser-draft/safety-scan.json",
+    "analysis/open-firmware-probes/usb-bulk-parser-draft/usb-contract-scan.json",
+    "analysis/open-firmware-probes/usb-bulk-parser-draft/usb-mmio-access-scan.json",
+    "analysis/open-firmware-probes/usb-bulk-parser-draft/endpoint0-sequence-scan.json",
+    "analysis/open-firmware-probes/usb-bulk-parser-draft/memory-boundary-scan.json",
+    "analysis/open-firmware-probes/usb-bulk-parser-draft/endpoint0-length-flow-check.json",
+    "analysis/open-firmware-probes/usb-bulk-parser-draft/endpoint0-rearm-flow-check.json",
+    "analysis/open-firmware-probes/usb-bulk-parser-draft/source-contract-check.json",
+    "analysis/open-firmware-probes/usb-bulk-parser-draft/status-descriptor-check.json",
+    "analysis/open-firmware-probes/usb-bulk-parser-draft/config-descriptor-check.json",
+    "analysis/open-firmware-probes/usb-bulk-parser-draft/parser-model.json",
+    "analysis/open-firmware-probes/usb-bulk-parser-draft/deterministic-test-results.json",
+    "analysis/open-firmware-probes/usb-bulk-parser-draft/reproducibility-check.json",
 ]
 
 for rel in reports:
     path = root / rel
-    items = json.loads(path.read_text())
-    if isinstance(items, dict) and "checks" in items:
-        check_items = items["checks"]
+    data = json.loads(path.read_text())
+    if isinstance(data, dict) and data.get("status") == "fail":
+        fail = 1
     else:
-        check_items = items
-    fail = sum(item.get("severity") == "fail" for item in check_items)
-    print(f"{rel}: items={len(check_items)} fail={fail}")
+        items = data.get("checks", data) if isinstance(data, dict) else data
+        if not isinstance(items, list):
+            items = []
+        fail = sum(
+            item.get("severity") == "fail" or item.get("status") == "fail"
+            for item in items
+            if isinstance(item, dict)
+        )
+    print(f"{rel}: fail={fail}")
     if fail:
         raise SystemExit(1)
 PY
-
-tmp_dir="$(mktemp -d /tmp/hp1020-probe-validation.XXXXXX)"
-trap 'rm -rf "$tmp_dir"' EXIT
 
 run_step "Idle hardware harness dry-run" \
   "$ROOT_DIR/scripts/run-idle-probe-hardware-test.sh" --dry-run
@@ -94,7 +136,7 @@ run_step "USB snapshot hardware harness dry-run" \
 run_step "USB marker hardware harness dry-run" \
   "$ROOT_DIR/scripts/run-usb-marker-draft-hardware-test.sh" --dry-run
 
-run_step "USB identity capture dry-run/baseline" \
-  "$ROOT_DIR/scripts/capture-hp1020-usb-identity.sh" --output-dir "$tmp_dir/usb-identity"
+run_step "USB bulk/parser hardware harness dry-run" \
+  "$ROOT_DIR/scripts/run-usb-bulk-parser-draft-hardware-test.sh" --dry-run
 
 echo "All open firmware probe validations completed."

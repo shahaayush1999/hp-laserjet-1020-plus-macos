@@ -1,0 +1,964 @@
+{
+  "allowed_memory": {
+    "bulk_buffer": {
+      "end": "0x90021aef",
+      "start": "0x900216f0"
+    },
+    "bulk_descriptor": {
+      "end": "0x9002137f",
+      "start": "0x90021370"
+    },
+    "control_in_descriptor": {
+      "end": "0x900226ff",
+      "start": "0x900226f0"
+    },
+    "control_in_staging": {
+      "end": "0x90022c4b",
+      "start": "0x90022bd0"
+    },
+    "open_marker_descriptor": {
+      "end": "0x90003225",
+      "start": "0x90003200"
+    },
+    "open_standard_descriptors": {
+      "end": "0x90003377",
+      "start": "0x90003300"
+    },
+    "probe_runtime_state": {
+      "end": "0x1001d557",
+      "start": "0x1001d498"
+    },
+    "probe_status_descriptor": {
+      "end": "0x1000347b",
+      "start": "0x10003400"
+    },
+    "probe_status_descriptor_hardware_alias": {
+      "end": "0x9000347b",
+      "start": "0x90003400"
+    },
+    "setup_packet": {
+      "end": "0x9002134f",
+      "start": "0x90021348"
+    },
+    "stock_control_response_state": {
+      "end": "0x10021314",
+      "start": "0x100212d4"
+    }
+  },
+  "bulk_registers": [
+    "0xb3000200",
+    "0xb3000220",
+    "0xb3000224",
+    "0xb300022c",
+    "0xb3000234",
+    "0xb3000404",
+    "0xb3000418",
+    "0xb3010000"
+  ],
+  "checks": [
+    {
+      "detail": "bank-1/lane-1 status, ack, and event bit remain fixed",
+      "name": "bulk_lane_matches_interrupt_model",
+      "status": "present"
+    },
+    {
+      "detail": "descriptor pool, buffer, and submit register remain fixed",
+      "name": "descriptor_submit_matches_rearm_model",
+      "status": "present"
+    },
+    {
+      "detail": "callback and lane mask registers agree with the probe allowlist",
+      "name": "callback_ack_matches_contract",
+      "status": "present"
+    },
+    {
+      "detail": "all additions stay in the mapped USB controller families",
+      "name": "all_bulk_registers_are_usb_only",
+      "status": "present"
+    },
+    {
+      "detail": "raw big-endian stock ELF contains the direct event/register/buffer literals; lane status 0xb3000224 is the decompiled +4 status word derived from base 0xb3000220",
+      "name": "stock_elf_contains_resolved_bulk_literals",
+      "status": "present"
+    },
+    {
+      "detail": "USB2Thread, interrupt task, re-arm helper, callback, and parser boundary evidence all remain present",
+      "name": "saved_decompilation_preserves_bulk_contract",
+      "status": "present"
+    }
+  ],
+  "independent_stock_evidence": {
+    "big_endian_literal_counts": {
+      "0x00020000": 80,
+      "0x90021370": 1,
+      "0x900216f0": 1,
+      "0xb3000220": 1,
+      "0xb3000224": 0,
+      "0xb3000234": 1
+    },
+    "derived_registers": {
+      "0xb3000224": "lane status word at 0xb3000220 + 0x4; not stored as a standalone stock ELF literal"
+    },
+    "elf": "analysis/sihp1020.elf",
+    "saved_decompilation_checks": [
+      {
+        "missing_needles": [],
+        "name": "usb2thread_descriptor_initialization",
+        "source": "analysis/usb-path/decompiled-neighbors/10008ff0_hp1020_usb2_thread.c",
+        "status": "present"
+      },
+      {
+        "missing_needles": [],
+        "name": "interrupt_bank_lane_completion",
+        "source": "analysis/tasks/task-decompiled/10008208_hp1020_task_entry_10008208.c",
+        "status": "present"
+      },
+      {
+        "missing_needles": [],
+        "name": "bulk_rearm_descriptor_shape",
+        "source": "analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c",
+        "status": "present"
+      },
+      {
+        "missing_needles": [],
+        "name": "bulk_callback_wait_copy_rearm",
+        "source": "analysis/usb-path/bulk-callbacks-decompiled/100087b8_hp1020_usb_bulk_rx_callback_a_candidate.c",
+        "status": "present"
+      },
+      {
+        "missing_needles": [],
+        "name": "parser_callback_boundary",
+        "source": "analysis/zjs-parser-boundary/decompiled/10009d34_hp1020_zjs_parser_entry_candidate.c",
+        "status": "present"
+      }
+    ]
+  },
+  "registers": {
+    "0xb3000000": {
+      "counts": {
+        "other": 0,
+        "param": 0,
+        "read": 3,
+        "write": 2
+      },
+      "events": [
+        {
+          "access": "read",
+          "block": {
+            "depth": 2,
+            "end": "0x10009883",
+            "start": "0x1000985f"
+          },
+          "instruction": "l32i.n a8,a9,0x0",
+          "pc": "0x10009877",
+          "pointer_literal": "0x10005e90",
+          "target": "0x10009859"
+        },
+        {
+          "access": "write",
+          "block": {
+            "depth": 2,
+            "end": "0x10009883",
+            "start": "0x1000985f"
+          },
+          "instruction": "s32i.n a8,a9,0x0",
+          "pc": "0x1000987f",
+          "pointer_literal": "0x10005e90",
+          "target": "0x10009859",
+          "write_value": {
+            "source_register": "a8"
+          }
+        },
+        {
+          "access": "read",
+          "block": {
+            "depth": 4,
+            "end": "0x10008c4e",
+            "start": "0x10008c24"
+          },
+          "instruction": "l32i.n a8,a4,0x0",
+          "pc": "0x10008c35",
+          "pointer_literal": "0x10005e90",
+          "target": "0x100096af"
+        },
+        {
+          "access": "write",
+          "block": {
+            "depth": 4,
+            "end": "0x10008c4e",
+            "start": "0x10008c24"
+          },
+          "instruction": "s32i.n a8,a4,0x0",
+          "pc": "0x10008c3f",
+          "pointer_literal": "0x10005e90",
+          "target": "0x100096af",
+          "write_value": {
+            "operation": {
+              "immediates": [
+                2
+              ],
+              "instruction": "or a8,a8,a2",
+              "operation": "or_with_immediate"
+            },
+            "source_register": "a8"
+          }
+        },
+        {
+          "access": "read",
+          "block": {
+            "depth": 4,
+            "end": "0x10008c4e",
+            "start": "0x10008c24"
+          },
+          "instruction": "l32i.n a8,a4,0x0",
+          "pc": "0x10008c4a",
+          "pointer_literal": "0x10005e90",
+          "target": "0x100096af"
+        }
+      ],
+      "open_firmware_relevance": "core endpoint-0 bring-up and transmit kick",
+      "pointer_symbols": {
+        "0x10005e90": 5
+      },
+      "register": "0xb3000000",
+      "role": "Read/modify/write control bits. Evidence includes bit 0x2 before control-IN staging and bit 0x1 after setup completion; decompiler also shows 0x108 to start transfer descriptors.",
+      "working_name": "main USB command/status kick",
+      "write_values": [
+        {
+          "pc": "0x1000987f",
+          "source_register": "a8"
+        },
+        {
+          "operation": {
+            "immediates": [
+              2
+            ],
+            "instruction": "or a8,a8,a2",
+            "operation": "or_with_immediate"
+          },
+          "pc": "0x10008c3f",
+          "source_register": "a8"
+        }
+      ]
+    },
+    "0xb300000c": {
+      "counts": {
+        "other": 0,
+        "param": 0,
+        "read": 0,
+        "write": 2
+      },
+      "events": [
+        {
+          "access": "write",
+          "block": {
+            "depth": 3,
+            "end": "0x1000950b",
+            "start": "0x100094bc"
+          },
+          "instruction": "s32i.n a6,a9,0x0",
+          "pc": "0x100094fc",
+          "pointer_literal": "0x10005e9c",
+          "target": "0x10009476",
+          "write_value": {
+            "immediate": 64,
+            "source_register": "a6"
+          }
+        },
+        {
+          "access": "write",
+          "block": {
+            "depth": 4,
+            "end": "0x10009593",
+            "start": "0x10009534"
+          },
+          "instruction": "s32i.n a6,a9,0x0",
+          "pc": "0x10009582",
+          "pointer_literal": "0x10005e9c",
+          "target": "0x10009476",
+          "write_value": {
+            "immediate": 64,
+            "source_register": "a6"
+          }
+        }
+      ],
+      "open_firmware_relevance": "likely needed to acknowledge/advance setup handling",
+      "pointer_symbols": {
+        "0x10005e9c": 2
+      },
+      "register": "0xb300000c",
+      "role": "Written with 0x40 during descriptor request paths.",
+      "working_name": "endpoint/request ack register",
+      "write_values": [
+        {
+          "immediate": 64,
+          "pc": "0x100094fc",
+          "source_register": "a6"
+        },
+        {
+          "immediate": 64,
+          "pc": "0x10009582",
+          "source_register": "a6"
+        }
+      ]
+    },
+    "0xb3000014": {
+      "counts": {
+        "other": 0,
+        "param": 0,
+        "read": 0,
+        "write": 2
+      },
+      "events": [
+        {
+          "access": "write",
+          "block": {
+            "depth": 0,
+            "end": "0x10008eef",
+            "start": "0x10008c24"
+          },
+          "instruction": "*DAT_10005ea0 = *(undefined4 *)PTR_DAT_10005e98",
+          "note": "manual evidence from analysis/usb-path/decompiled-neighbors/10008c24_hp1020_usb_control_tx_data_stage_candidate.c",
+          "pc": "0x10008ce4",
+          "pointer_literal": "0x10005ea0",
+          "target": "0x10008c24"
+        },
+        {
+          "access": "write",
+          "block": {
+            "depth": 0,
+            "end": "0x10008eef",
+            "start": "0x10008c24"
+          },
+          "instruction": "*DAT_10005ea0 = *(undefined4 *)PTR_DAT_10005e98",
+          "note": "manual evidence from analysis/usb-path/decompiled-neighbors/10008c24_hp1020_usb_control_tx_data_stage_candidate.c",
+          "pc": "0x10008e50",
+          "pointer_literal": "0x10005ea0",
+          "target": "0x10008c24"
+        }
+      ],
+      "open_firmware_relevance": "needed to submit endpoint-0 transfer descriptors without the stock helper",
+      "pointer_symbols": {
+        "0x10005ea0": 2
+      },
+      "register": "0xb3000014",
+      "role": "Written with the transfer descriptor ring pointer before the 0x108 control-IN kick.",
+      "working_name": "control-IN descriptor submit register",
+      "write_values": [
+        {
+          "pc": "0x10008ce4",
+          "pointer_value": "0x900226f0",
+          "source_register": "DAT_10005ea0"
+        },
+        {
+          "pc": "0x10008e50",
+          "pointer_value": "0x900226f0",
+          "source_register": "DAT_10005ea0"
+        }
+      ]
+    },
+    "0xb3000028": {
+      "counts": {
+        "other": 0,
+        "param": 0,
+        "read": 0,
+        "write": 1
+      },
+      "events": [
+        {
+          "access": "write",
+          "block": {
+            "depth": 4,
+            "end": "0x100095b2",
+            "start": "0x10009594"
+          },
+          "instruction": "s32i.n a6,a9,0x0",
+          "pc": "0x10009597",
+          "target": "0x10009476",
+          "write_value": {
+            "source_register": "a6"
+          }
+        }
+      ],
+      "open_firmware_relevance": "likely needed after preparing a descriptor response",
+      "pointer_symbols": {},
+      "register": "0xb3000028",
+      "role": "Written after descriptor-specific setup and before calling the control-IN sender.",
+      "working_name": "post-response ack/kick register",
+      "write_values": [
+        {
+          "pc": "0x10009597",
+          "source_register": "a6"
+        }
+      ]
+    },
+    "0xb300002c": {
+      "counts": {
+        "other": 0,
+        "param": 0,
+        "read": 0,
+        "write": 2
+      },
+      "events": [
+        {
+          "access": "write",
+          "block": {
+            "depth": 3,
+            "end": "0x1000950b",
+            "start": "0x100094bc"
+          },
+          "instruction": "s32i.n a6,a8,0x0",
+          "pc": "0x10009507",
+          "pointer_literal": "0x10005ee0",
+          "target": "0x10009476",
+          "write_value": {
+            "immediate": 64,
+            "source_register": "a6"
+          }
+        },
+        {
+          "access": "write",
+          "block": {
+            "depth": 4,
+            "end": "0x10009593",
+            "start": "0x10009534"
+          },
+          "instruction": "s32i.n a6,a8,0x0",
+          "pc": "0x10009590",
+          "pointer_literal": "0x10005ee0",
+          "target": "0x10009476",
+          "write_value": {
+            "immediate": 512,
+            "source_register": "a6"
+          }
+        }
+      ],
+      "open_firmware_relevance": "likely tied to full-speed/high-speed or direction-specific completion",
+      "pointer_symbols": {
+        "0x10005ee0": 2
+      },
+      "register": "0xb300002c",
+      "role": "Written with 0x40 or 0x200 in descriptor request paths.",
+      "working_name": "endpoint/request ack register",
+      "write_values": [
+        {
+          "immediate": 64,
+          "pc": "0x10009507",
+          "source_register": "a6"
+        },
+        {
+          "immediate": 512,
+          "pc": "0x10009590",
+          "source_register": "a6"
+        }
+      ]
+    },
+    "0xb3000200": {
+      "access": [
+        "read",
+        "write"
+      ],
+      "allowed_write_masks": [
+        "or 0x00000100"
+      ],
+      "evidence": "stock USB2Thread sets bit 0x100 after arming bulk receive",
+      "role": "bank-1 event acknowledgement/enable register"
+    },
+    "0xb300020c": {
+      "counts": {
+        "other": 0,
+        "param": 0,
+        "read": 0,
+        "write": 2
+      },
+      "events": [
+        {
+          "access": "write",
+          "block": {
+            "depth": 3,
+            "end": "0x1000950b",
+            "start": "0x100094bc"
+          },
+          "instruction": "s32i.n a6,a8,0x0",
+          "pc": "0x100094f7",
+          "pointer_literal": "0x10005ee4",
+          "target": "0x10009476",
+          "write_value": {
+            "immediate": 64,
+            "source_register": "a6"
+          }
+        },
+        {
+          "access": "write",
+          "block": {
+            "depth": 4,
+            "end": "0x10009593",
+            "start": "0x10009534"
+          },
+          "instruction": "s32i.n a6,a8,0x0",
+          "pc": "0x1000957d",
+          "pointer_literal": "0x10005ee4",
+          "target": "0x10009476",
+          "write_value": {
+            "immediate": 64,
+            "source_register": "a6"
+          }
+        }
+      ],
+      "open_firmware_relevance": "likely needed to clear/advance control endpoint state",
+      "pointer_symbols": {
+        "0x10005ee4": 2
+      },
+      "register": "0xb300020c",
+      "role": "Written with 0x40 in descriptor request paths.",
+      "working_name": "endpoint/request ack register",
+      "write_values": [
+        {
+          "immediate": 64,
+          "pc": "0x100094f7",
+          "source_register": "a6"
+        },
+        {
+          "immediate": 64,
+          "pc": "0x1000957d",
+          "source_register": "a6"
+        }
+      ]
+    },
+    "0xb3000214": {
+      "counts": {
+        "other": 0,
+        "param": 0,
+        "read": 1,
+        "write": 0
+      },
+      "events": [
+        {
+          "access": "read",
+          "block": {
+            "depth": 3,
+            "end": "0x100098c1",
+            "start": "0x10009890"
+          },
+          "instruction": "l32i.n a11,a8,0x0",
+          "pc": "0x10009896",
+          "pointer_literal": "0x10005ef8",
+          "target": "0x10009859"
+        }
+      ],
+      "open_firmware_relevance": "plausible source of setup/event packet metadata",
+      "pointer_symbols": {
+        "0x10005ef8": 1
+      },
+      "register": "0xb3000214",
+      "role": "Read as a pointer, then dereferenced as bytes that are compared against an event signature.",
+      "working_name": "USB event/setup buffer pointer",
+      "write_values": []
+    },
+    "0xb3000220": {
+      "access": [
+        "read",
+        "write"
+      ],
+      "allowed_write_masks": [
+        "or 0x00000080",
+        "or 0x00000100"
+      ],
+      "evidence": "stock interrupt lane and bulk read callback acknowledge bits 0x80/0x100",
+      "role": "bulk OUT lane acknowledgement/re-arm register"
+    },
+    "0xb3000224": {
+      "access": [
+        "read",
+        "write"
+      ],
+      "allowed_write_values": [
+        "0x00000400"
+      ],
+      "evidence": "stock interrupt task clears completion status bit 0x400 before processing descriptor",
+      "role": "bank-1 lane-1 bulk OUT status"
+    },
+    "0xb300022c": {
+      "access": [
+        "write"
+      ],
+      "allowed_write_values": [
+        "0x00000040",
+        "0x00000200"
+      ],
+      "evidence": "stock USB2Thread selects 64-byte full-speed or 512-byte high-speed receive packets",
+      "role": "bulk OUT endpoint maximum-packet/config word"
+    },
+    "0xb3000234": {
+      "access": [
+        "write"
+      ],
+      "allowed_write_values": [
+        "0x90021370"
+      ],
+      "evidence": "stock re-arm helper submits descriptor pool 0x90021370",
+      "role": "bulk OUT receive descriptor submit register"
+    },
+    "0xb3000400": {
+      "counts": {
+        "other": 0,
+        "param": 0,
+        "read": 2,
+        "write": 0
+      },
+      "events": [
+        {
+          "access": "read",
+          "block": {
+            "depth": 1,
+            "end": "0x10009491",
+            "start": "0x10009484"
+          },
+          "instruction": "l32i.n a8,a8,0x0",
+          "pc": "0x1000948a",
+          "pointer_literal": "0x10005df4",
+          "target": "0x10009476"
+        },
+        {
+          "access": "read",
+          "block": {
+            "depth": 1,
+            "end": "0x100095cf",
+            "start": "0x100095c2"
+          },
+          "instruction": "l32i a8,a8,0x0",
+          "pc": "0x100095c8",
+          "pointer_literal": "0x10005df4",
+          "target": "0x100095b3"
+        }
+      ],
+      "open_firmware_relevance": "likely tells whether a setup/status condition is ready",
+      "pointer_symbols": {
+        "0x10005df4": 2
+      },
+      "register": "0xb3000400",
+      "role": "Read before choosing descriptor response source. Low two bits are tested.",
+      "working_name": "control/setup status gate",
+      "write_values": []
+    },
+    "0xb3000404": {
+      "access": [
+        "read",
+        "write"
+      ],
+      "allowed_write_masks": [
+        "or 0x00000008"
+      ],
+      "evidence": "stock USB2Thread sets bit 0x8 before enabling bulk service",
+      "role": "USB interrupt/service enable word"
+    },
+    "0xb3000408": {
+      "counts": {
+        "other": 0,
+        "param": 0,
+        "read": 3,
+        "write": 0
+      },
+      "events": [
+        {
+          "access": "read",
+          "block": {
+            "depth": 0,
+            "end": "0x10009483",
+            "start": "0x10009476"
+          },
+          "instruction": "l32i.n a9,a8,0x0",
+          "pc": "0x1000947c",
+          "pointer_literal": "0x10005e68",
+          "target": "0x10009476"
+        },
+        {
+          "access": "read",
+          "block": {
+            "depth": 0,
+            "end": "0x100095c1",
+            "start": "0x100095b3"
+          },
+          "instruction": "l32i a9,a8,0x0",
+          "pc": "0x100095b9",
+          "pointer_literal": "0x10005e68",
+          "target": "0x100095b3"
+        },
+        {
+          "access": "read",
+          "block": {
+            "depth": 2,
+            "end": "0x1000971d",
+            "start": "0x1000970e"
+          },
+          "instruction": "l32i.n a9,a8,0x0",
+          "pc": "0x10009714",
+          "pointer_literal": "0x10005e68",
+          "target": "0x100096e5"
+        }
+      ],
+      "open_firmware_relevance": "likely selects the active descriptor/config branch",
+      "pointer_symbols": {
+        "0x10005e68": 3
+      },
+      "register": "0xb3000408",
+      "role": "Read and tested against a mask before choosing descriptor response source.",
+      "working_name": "control/setup status gate",
+      "write_values": []
+    },
+    "0xb3000418": {
+      "access": [
+        "write"
+      ],
+      "allowed_write_values": [
+        "0xfffcfffe"
+      ],
+      "evidence": "stock USB2Thread leaves endpoint-0 and bank-1 service lanes unmasked",
+      "role": "USB event-lane mask word"
+    },
+    "0xb3000504": {
+      "counts": {
+        "other": 0,
+        "param": 0,
+        "read": 0,
+        "write": 1
+      },
+      "events": [
+        {
+          "access": "write",
+          "block": {
+            "depth": 4,
+            "end": "0x10009593",
+            "start": "0x10009534"
+          },
+          "instruction": "s32i.n a9,a11,0x0",
+          "pc": "0x10009548",
+          "pointer_literal": "0x10005ebc",
+          "target": "0x10009476",
+          "write_value": {
+            "source_register": "a9"
+          }
+        }
+      ],
+      "open_firmware_relevance": "part of stock setup response register programming",
+      "pointer_symbols": {
+        "0x10005ebc": 1
+      },
+      "register": "0xb3000504",
+      "role": "Written with a constant/pointer-like value during one descriptor branch.",
+      "working_name": "control endpoint descriptor/config register",
+      "write_values": [
+        {
+          "pc": "0x10009548",
+          "source_register": "a9"
+        }
+      ]
+    },
+    "0xb3000508": {
+      "counts": {
+        "other": 0,
+        "param": 0,
+        "read": 0,
+        "write": 2
+      },
+      "events": [
+        {
+          "access": "write",
+          "block": {
+            "depth": 3,
+            "end": "0x1000950b",
+            "start": "0x100094bc"
+          },
+          "instruction": "s32i.n a8,a9,0x0",
+          "pc": "0x100094cd",
+          "pointer_literal": "0x10005ec0",
+          "target": "0x10009476",
+          "write_value": {
+            "source_register": "a8"
+          }
+        },
+        {
+          "access": "write",
+          "block": {
+            "depth": 4,
+            "end": "0x10009593",
+            "start": "0x10009534"
+          },
+          "instruction": "s32i.n a8,a10,0x0",
+          "pc": "0x1000954d",
+          "pointer_literal": "0x10005ec0",
+          "target": "0x10009476",
+          "write_value": {
+            "source_register": "a8"
+          }
+        }
+      ],
+      "open_firmware_relevance": "part of stock setup response register programming",
+      "pointer_symbols": {
+        "0x10005ec0": 2
+      },
+      "register": "0xb3000508",
+      "role": "Written during both device/config descriptor branches.",
+      "working_name": "control endpoint descriptor/config register",
+      "write_values": [
+        {
+          "pc": "0x100094cd",
+          "source_register": "a8"
+        },
+        {
+          "pc": "0x1000954d",
+          "source_register": "a8"
+        }
+      ]
+    },
+    "0xb300050c": {
+      "counts": {
+        "other": 0,
+        "param": 1,
+        "read": 0,
+        "write": 2
+      },
+      "events": [
+        {
+          "access": "write",
+          "block": {
+            "depth": 3,
+            "end": "0x1000950b",
+            "start": "0x100094bc"
+          },
+          "instruction": "s32i.n a8,a10,0x0",
+          "pc": "0x100094dd",
+          "pointer_literal": "0x10005ed0",
+          "target": "0x10009476",
+          "write_value": {
+            "source_register": "a8"
+          }
+        },
+        {
+          "access": "param",
+          "block": {
+            "depth": 4,
+            "end": "0x100095b2",
+            "start": "0x10009594"
+          },
+          "instruction": "call8 0x10008c24",
+          "pc": "0x100095a1",
+          "target": "0x10009476"
+        },
+        {
+          "access": "write",
+          "block": {
+            "depth": 4,
+            "end": "0x10009593",
+            "start": "0x10009534"
+          },
+          "instruction": "s32i.n a8,a10,0x0",
+          "pc": "0x10009563",
+          "pointer_literal": "0x10005ed0",
+          "target": "0x10009476",
+          "write_value": {
+            "source_register": "a8"
+          }
+        }
+      ],
+      "open_firmware_relevance": "part of stock setup response register programming",
+      "pointer_symbols": {
+        "0x10005ed0": 2
+      },
+      "register": "0xb300050c",
+      "role": "Written during descriptor branches and passed into the control-IN sender path.",
+      "working_name": "control endpoint descriptor/config register",
+      "write_values": [
+        {
+          "pc": "0x100094dd",
+          "source_register": "a8"
+        },
+        {
+          "pc": "0x10009563",
+          "source_register": "a8"
+        }
+      ]
+    },
+    "0xb3000510": {
+      "counts": {
+        "other": 0,
+        "param": 1,
+        "read": 0,
+        "write": 2
+      },
+      "events": [
+        {
+          "access": "write",
+          "block": {
+            "depth": 3,
+            "end": "0x1000950b",
+            "start": "0x100094bc"
+          },
+          "instruction": "s32i.n a9,a11,0x0",
+          "pc": "0x100094d8",
+          "pointer_literal": "0x10005ec8",
+          "target": "0x10009476",
+          "write_value": {
+            "source_register": "a9"
+          }
+        },
+        {
+          "access": "param",
+          "block": {
+            "depth": 4,
+            "end": "0x100095b2",
+            "start": "0x10009594"
+          },
+          "instruction": "call8 0x10008c24",
+          "pc": "0x100095a1",
+          "target": "0x10009476"
+        },
+        {
+          "access": "write",
+          "block": {
+            "depth": 4,
+            "end": "0x10009593",
+            "start": "0x10009534"
+          },
+          "instruction": "s32i.n a9,a11,0x0",
+          "pc": "0x1000955e",
+          "pointer_literal": "0x10005ec8",
+          "target": "0x10009476",
+          "write_value": {
+            "source_register": "a9"
+          }
+        }
+      ],
+      "open_firmware_relevance": "part of stock setup response register programming",
+      "pointer_symbols": {
+        "0x10005ec8": 2
+      },
+      "register": "0xb3000510",
+      "role": "Written during descriptor branches and passed into the control-IN sender path.",
+      "working_name": "control endpoint descriptor/config register",
+      "write_values": [
+        {
+          "pc": "0x100094d8",
+          "source_register": "a9"
+        },
+        {
+          "pc": "0x1000955e",
+          "source_register": "a9"
+        }
+      ]
+    },
+    "0xb3010000": {
+      "access": [
+        "read",
+        "write"
+      ],
+      "allowed_write_masks": [
+        "or 0x00000005"
+      ],
+      "evidence": "stock USB2Thread reads bit 0 for speed and sets service bits 0/2",
+      "role": "USB global speed/service control"
+    }
+  },
+  "status": "pass",
+  "summary": "Combined endpoint-0 and bulk OUT USB MMIO contract for the mechanically inert parser probe."
+}

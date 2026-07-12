@@ -111,6 +111,13 @@ Start here:
 105. `hardware-boundary/video-sideband-default-impact.md` - generated zero/default impact report for unsourced active work sideband fields
 106. `hardware-boundary/video-zero-sideband-scenario.md` - generated consequence model for default-zero sideband fields: channel A can arm, channel B refill is not seeded
 107. `hardware-boundary/video-remaining-units.md` - generated model for the `+0xd0/+0xd4` remaining-unit candidate source and unresolved active work `+0x26` source
+108. `usb-path/usb-bulk-probe-contract.md` - combined endpoint-0 and stock bulk OUT lane/descriptor/buffer/submit allowlist for the inert parser probe
+109. `open-firmware-probes/usb-bulk-parser-draft/summary.md` - generated mechanically inert USB bulk receive/ZjStream framing probe and offline validation summary
+110. `open-firmware-probes/usb-bulk-parser-draft/parser-model.md` - executable host model with exact generated-sample, boundary, wrap, malformed, and repeated-document coverage
+111. `open-firmware-probes/usb-bulk-parser-draft/deterministic-test-results.md` - aggregate build, scanner, descriptor, source-contract, and parser-model statuses and artifact hashes
+112. `open-firmware-probes/usb-bulk-parser-draft/hardware-test-plan.md` - guarded endpoint-0 counter and fixed 36-byte START_DOC/END_DOC-only hardware test order; not a print test
+113. `open-firmware-probes/usb-bulk-parser-draft/reproducibility-check.md` - two clean builds with byte-identical firmware, reports, maps, and disassembly
+114. `open-firmware-probes/usb-bulk-parser-draft/config-descriptor-check.md` - linked high-speed/full-speed printer-class descriptor and speed-bit selection checks
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -162,6 +169,9 @@ Useful current conclusions:
 - `analysis/open-firmware-probes/minimal-idle/summary.md` records the current generated probe. It passes the boot-probe layout profile and safety scan, and it has trap-safe system-interface/runtime-vector placeholders.
 - `open-firmware/usb-register-snapshot/` now builds an open-code, non-printing USB register snapshot probe. It only reads mapped USB `0xb300....` registers into RAM and then idles; it has no host-visible output yet and has not been uploaded.
 - `open-firmware/usb-marker-draft/` now builds an open-code, USB-only marker draft. It polls for a product-string `GET_DESCRIPTOR` setup shape, uses the clipped host length in the response state and descriptor word, and writes only the extracted stock endpoint-0 USB register sequences. It has not been uploaded.
+- `open-firmware/usb-bulk-parser-draft/` now builds a mechanically inert bulk OUT/ZjStream framing probe. It uses the stock-mapped bank-1/lane-1 status/ack path, descriptor `0x90021370`, receive buffer `0x900216f0`, and submit register `0xb3000234`; recognizes only chunk types `0x00..0x06`; and counts/discards payloads without JobMgr, raster, video, engine, or mechanical output.
+- `analysis/open-firmware-probes/usb-bulk-parser-draft/parser-model.md` passes `11/11` generated samples, `33/33` deterministic boundary/error cases, and `425/425` assertions. The writable product descriptor exposes bytes (`B`), completed descriptors (`D`), recognized chunks (`C`), parser errors (`E`), and unknown chunks (`U`). This is offline evidence only and does not prove controller behavior or printing.
+- `analysis/open-firmware-probes/usb-bulk-parser-draft/hardware-test-plan.md` reduces the remaining USB question to guarded custom-code execution and real controller completion/length/ack/re-arm behavior. It first requires the zero-counter descriptor and only then permits one separately enabled 36-byte START_DOC/END_DOC-only transfer.
 - `scripts/validate-open-firmware-probes.sh` rebuilds all open firmware probes and runs the offline layout/scanner/dry-run harness validation stack.
 - `analysis/boot-handoff/boot-handoff.md` compares the stock HP firmware and open idle probe. The core packaging/shape question is mostly answered; the next decisive question is whether hardware accepts and branches into the open payload.
 - `analysis/open-firmware-probes/minimal-idle/hardware-test-result-2026-06-15.md` records the first hardware upload: USB backend sent all `121931` bytes, printer stayed green/quiet with no paper movement, and macOS still saw the HP USB identity. This is a good safety result but not proof that `_start` executed.
@@ -251,6 +261,11 @@ Useful current conclusions:
 - `scripts/model-hp1020-usb-bulk-callbacks.py` regenerates the static model of stock bulk receive callback/event/re-arm behavior.
 - `scripts/model-hp1020-usb-bulk-rearm.py` regenerates the static model of the receive descriptor pool and submit-register behavior.
 - `scripts/model-hp1020-usb-parser-shim-contract.py` regenerates the synthesized contract for the first non-printing USB bulk/parser shim.
+- `scripts/model-hp1020-usb-bulk-probe-contract.py` regenerates the combined endpoint-0/bulk OUT USB and memory allowlist used by the inert probe scanners.
+- `scripts/model-hp1020-usb-bulk-parser-draft.py` regenerates the offline executable parser model and exact sample/matrix report without contacting hardware.
+- `scripts/build-open-firmware-usb-bulk-parser-draft.sh` rebuilds the probe and all deterministic layout, safety, USB, memory, source, descriptor, and parser reports.
+- `scripts/check-open-firmware-usb-bulk-parser-reproducibility.sh` performs two clean builds and requires byte-identical outputs.
+- `scripts/run-usb-bulk-parser-draft-hardware-test.sh --dry-run` is the offline/default harness path. Real mode requires `--upload`, an explicit direct `usb://` URI, and `HP1020_ALLOW_USB_BULK_PARSER_UPLOAD=1`; the fixed 36-byte data step separately requires `--send-probe-data` and `HP1020_ALLOW_USB_BULK_PARSER_DATA=1`.
 - `scripts/model-hp1020-video-engine-register-semantics.py` regenerates the dangerous video/engine register-role model from the stock ELF and decompiled source.
 - `scripts/model-hp1020-video-prepare-modes.py` regenerates the branch/table model for the `0xb100` video prepare setup path.
 - `scripts/model-hp1020-engine-command-status.py` regenerates the `0xb050` engine command/status model, including stock command IDs, state offsets, and event decisions.

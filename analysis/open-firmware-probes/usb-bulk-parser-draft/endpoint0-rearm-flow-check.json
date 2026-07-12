@@ -1,0 +1,27 @@
+[
+  {
+    "detail": "after submitting one descriptor response, marker should enter a gate-clear wait path",
+    "name": "response_enters_rearm_wait",
+    "severity": "watch"
+  },
+  {
+    "detail": "successful marker response must not immediately park in the idle loop",
+    "name": "no_idle_after_successful_response",
+    "severity": "watch"
+  },
+  {
+    "detail": "rearm wait should leave a RAM breadcrumb for postmortem diagnosis",
+    "name": "rearm_state_recorded",
+    "severity": "watch"
+  },
+  {
+    "detail": "rearm wait must read and mask both USB setup/status gates before polling again",
+    "name": "waits_for_both_setup_gates",
+    "severity": "watch"
+  },
+  {
+    "detail": "after both gates clear, marker should return to the setup polling loop",
+    "name": "rearm_returns_to_poll_loop",
+    "severity": "watch"
+  }
+]

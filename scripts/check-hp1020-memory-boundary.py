@@ -13,12 +13,13 @@ from typing import Iterable
 
 INSN_RE = re.compile(r"^\s*(?P<pc>[0-9a-f]{8}):\s+(?P<bytes>[0-9a-f ]+)\s+(?P<insn>.+?)\s*$")
 L32R_RE = re.compile(r"^l32r\s+(?P<dst>a\d+),\s*[0-9a-f]+(?:\s+<(?P<label>[^>]+)>)?$")
-LOAD_RE = re.compile(r"^(?P<op>l(?:8ui|32i(?:\.n)?))\s+(?P<dst>a\d+),\s*(?P<base>a\d+),\s*(?P<offset>-?(?:0x)?[0-9a-f]+)")
-STORE_RE = re.compile(r"^(?P<op>s(?:8i|32i(?:\.n)?))\s+(?P<src>a\d+),\s*(?P<base>a\d+),\s*(?P<offset>-?(?:0x)?[0-9a-f]+)")
+LOAD_RE = re.compile(r"^(?P<op>l(?:8ui|16ui|32i(?:\.n)?))\s+(?P<dst>a\d+),\s*(?P<base>a\d+),\s*(?P<offset>-?(?:0x)?[0-9a-f]+)")
+STORE_RE = re.compile(r"^(?P<op>s(?:8i|16i|32i(?:\.n)?))\s+(?P<src>a\d+),\s*(?P<base>a\d+),\s*(?P<offset>-?(?:0x)?[0-9a-f]+)")
 ADDI_RE = re.compile(r"^addi(?:\.n)?\s+(?P<dst>a\d+),\s*(?P<src>a\d+),\s*-?(?:0x)?[0-9a-f]+\b")
 MOV_RE = re.compile(r"^mov(?:\.n)?\s+(?P<dst>a\d+),\s*(?P<src>a\d+)\b")
 DEST_RE = re.compile(r"^(?:movi(?:\.n)?|mov(?:\.n)?|add(?:\.n)?|addi(?:\.n)?|or|and|xor|slli|srli|extui)\s+(?P<dst>a\d+)\b")
 CALL_RE = re.compile(r"^call\d?\b")
+HARDWARE_ALIAS_RE = re.compile(r"(?<![0-9a-f])(?P<address>9[0-9a-f]{7})(?![0-9a-f])", re.IGNORECASE)
 
 
 @dataclass(frozen=True)
@@ -58,7 +59,7 @@ def classify_label(label: str | None) -> tuple[str, str, str] | None:
     if not label:
         return None
     low = label.lower()
-    if "mmio_b300" in low:
+    if "mmio_b30" in low:
         return None
     if "usb_marker_state_ptr" in low or "usb_snapshot_state_ptr" in low:
         return ("local_probe_state", "watch", "local probe state buffer")
@@ -68,17 +69,50 @@ def classify_label(label: str | None) -> tuple[str, str, str] | None:
         return ("setup_packet_buffer", "watch", "candidate USB setup packet buffer at 0x90021348")
     if "marker_descriptor_hw_ptr_90003200" in low:
         return ("marker_descriptor_source", "watch", "open marker descriptor hardware alias at 0x90003200")
+    if "status_descriptor_local_ptr_10003400" in low:
+        return ("status_descriptor_local", "watch", "open bulk-status descriptor local alias at 0x10003400")
+    if "status_descriptor_hw_ptr_90003400" in low:
+        return (
+            "status_descriptor_hardware_alias",
+            "watch",
+            "open bulk-status descriptor hardware alias at 0x90003400",
+        )
+    if "config_high_speed_descriptor_hw_ptr_90003314" in low:
+        return (
+            "usb_high_speed_config_descriptor",
+            "watch",
+            "open high-speed USB configuration descriptor hardware alias at 0x90003314",
+        )
+    if "config_full_speed_descriptor_hw_ptr_90003334" in low:
+        return (
+            "usb_full_speed_config_descriptor",
+            "watch",
+            "open full-speed USB configuration descriptor hardware alias at 0x90003334",
+        )
     if (
-        "device_descriptor_hw_ptr" in low
-        or "config_descriptor_hw_ptr" in low
-        or "lang_descriptor_hw_ptr" in low
-        or "manufacturer_descriptor_hw_ptr" in low
+        "device_descriptor_hw_ptr_90003300" in low
+        or "config_descriptor_hw_ptr_90003314" in low
+        or "lang_descriptor_hw_ptr_90003334" in low
+        or "manufacturer_descriptor_hw_ptr_90003338" in low
+        or "lang_descriptor_hw_ptr_90003354" in low
+        or "manufacturer_descriptor_hw_ptr_90003358" in low
     ):
         return ("usb_descriptor_source", "watch", "open USB descriptor hardware alias")
     if "staging_buffer_ptr_90022bd0" in low:
         return ("usb_staging_buffer", "watch", "stock USB control-IN staging buffer at 0x90022bd0")
     if "descriptor_base_ptr_900226f0" in low:
         return ("usb_transfer_descriptor_ring", "watch", "stock USB control-IN transfer descriptor ring at 0x900226f0")
+    if "bulk_descriptor_ptr_90021370" in low:
+        return ("usb_bulk_transfer_descriptor", "watch", "stock USB bulk OUT transfer descriptor at 0x90021370")
+    if "bulk_buffer_ptr_900216f0" in low:
+        return ("usb_bulk_receive_buffer", "watch", "stock USB bulk OUT receive buffer at 0x900216f0")
+    if match := HARDWARE_ALIAS_RE.search(low):
+        address = f"0x{match.group('address').lower()}"
+        return (
+            "unclassified_hardware_alias",
+            "watch",
+            f"unclassified hardware-alias pointer {address}; writes through this base are unsafe",
+        )
     return None
 
 
@@ -109,6 +143,8 @@ def scan_file(path: Path) -> list[Event]:
             if classified:
                 kind, severity, description = classified
                 access = "write" if access_match.re is STORE_RE else "read"
+                if kind == "unclassified_hardware_alias" and access == "write":
+                    severity = "fail"
                 offset = fmt_offset(parse_offset(access_match.group("offset")))
                 events.append(Event(severity, kind, pc, access, base_reg, offset, insn, description))
             if access_match.re is LOAD_RE:
@@ -127,7 +163,9 @@ def scan_file(path: Path) -> list[Event]:
         elif m := ADDI_RE.match(insn):
             dst = m.group("dst")
             src = m.group("src")
-            if dst != src:
+            if src in state:
+                state[dst] = state[src]
+            else:
                 state.pop(dst, None)
         elif m := DEST_RE.match(insn):
             state.pop(m.group("dst"), None)

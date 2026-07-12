@@ -36,6 +36,13 @@ def find_line(lines: list[str], needle: str) -> int | None:
     return None
 
 
+def find_exact_line(lines: list[str], instruction: str) -> int | None:
+    for index, line in enumerate(lines):
+        if line.strip() == instruction:
+            return index
+    return None
+
+
 def label_line(lines: list[str], label: str) -> int | None:
     exact = f"{label}:"
     for index, line in enumerate(lines):
@@ -49,7 +56,7 @@ def check_length_flow(lines: list[str]) -> list[Check]:
     clipped_store = find_line(lines, "s32i a6, a4, 0x20")
     response_store = find_line(lines, "s32i a6, a4, 0x3c")
     descriptor_or = find_line(lines, "or a7, a7, a6")
-    descriptor_store = find_line(lines, "s32i a7, a4, 0")
+    descriptor_store = find_exact_line(lines, "s32i a7, a4, 0")
     branch_b = find_line(lines, "bnez a7, hp1020_usb_marker_sequence_b")
     kick_label = label_line(lines, "hp1020_usb_marker_kick_control_in")
     clip_label = label_line(lines, "hp1020_usb_marker_clip_and_dispatch")

@@ -1,0 +1,75 @@
+{
+  "checks": [
+    {
+      "actual": "0x10003300",
+      "description": "fixed local descriptor table address",
+      "expected": "0x10003300",
+      "name": "descriptor_section_address",
+      "status": "pass"
+    },
+    {
+      "actual": "0x78",
+      "description": "device, two configurations, language, and manufacturer descriptors fit exactly",
+      "expected": "0x78",
+      "name": "descriptor_section_size",
+      "status": "pass"
+    },
+    {
+      "actual": "09 02 20 00 / 32 bytes",
+      "description": "high-speed configuration is complete",
+      "expected": "09 02 20 00 / 32 bytes",
+      "name": "high_speed_config_shape",
+      "status": "pass"
+    },
+    {
+      "actual": "09 02 20 00 / 32 bytes",
+      "description": "full-speed configuration is complete",
+      "expected": "09 02 20 00 / 32 bytes",
+      "name": "full_speed_config_shape",
+      "status": "pass"
+    },
+    {
+      "actual": "[512, 512]",
+      "description": "both high-speed bulk endpoints advertise 512 bytes",
+      "expected": "[512, 512]",
+      "name": "high_speed_bulk_packets",
+      "status": "pass"
+    },
+    {
+      "actual": "[64, 64]",
+      "description": "both full-speed bulk endpoints advertise 64 bytes",
+      "expected": "[64, 64]",
+      "name": "full_speed_bulk_packets",
+      "status": "pass"
+    },
+    {
+      "actual": "0x90003314",
+      "description": "DMA alias matches high-speed descriptor",
+      "expected": "0x90003314",
+      "name": "high_speed_alias",
+      "status": "pass"
+    },
+    {
+      "actual": "0x90003334",
+      "description": "DMA alias matches full-speed descriptor",
+      "expected": "0x90003334",
+      "name": "full_speed_alias",
+      "status": "pass"
+    },
+    {
+      "actual": "present",
+      "description": "configuration response follows the same speed bit as bulk endpoint setup",
+      "expected": "b3010000 bit 0 chooses full speed",
+      "name": "speed_bit_branch",
+      "status": "pass"
+    }
+  ],
+  "full_speed_hex": "09 02 20 00 01 01 00 c0 31 09 04 00 00 02 07 01 02 00 07 05 01 02 40 00 00 07 05 81 02 40 00 00",
+  "high_speed_hex": "09 02 20 00 01 01 00 c0 31 09 04 00 00 02 07 01 02 00 07 05 01 02 00 02 00 07 05 81 02 00 02 00",
+  "section": {
+    "address": 268448512,
+    "offset": 8960,
+    "size": 120
+  },
+  "status": "pass"
+}

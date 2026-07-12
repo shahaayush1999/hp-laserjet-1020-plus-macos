@@ -31,7 +31,7 @@ BANNED_PATTERNS = [
     ("unsafe_func_engine_dispatch", r"\b(?:0x)?10016164\b|hp1020_engine_message_dispatch_candidate", "engine dispatch path"),
 ]
 
-USB_MMIO_RE = re.compile(r"\b(?:0x)?b300[0-9a-fA-F]{4}\b")
+USB_MMIO_RE = re.compile(r"\b(?:0x)?b30[01][0-9a-fA-F]{4}\b")
 
 
 @dataclass(frozen=True)
@@ -92,7 +92,7 @@ def scan_file(path: Path, allowed_usb: set[str]) -> list[Hit]:
                     Hit(
                         "unmapped_usb_mmio",
                         "fail",
-                        f"USB register {register} is not in the endpoint-0 static map",
+                        f"USB register {register} is not in the configured static map",
                         str(path),
                         line_no,
                         stripped,

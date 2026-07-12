@@ -6,9 +6,9 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `56`
+- checks: `64`
 - failures: `0`
-- meaning: Offline analysis is internally consistent; the next decisive evidence is a guarded non-printing printer-side probe.
+- meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
 ## Checks
 
@@ -20,11 +20,19 @@ It does not contact the printer.
 | `engine_events_are_not_direct_pjl_codes` | `watch` | Raw engine event words must not be mislabeled as final PJL CODE values. | `analysis/status-path/status-code-correlation.json` |
 | `print_model_invariants_have_no_failures` | `watch` | Offline ZjStream model invariants must remain green across generated print-path variants. | `analysis/open-firmware-model/model-invariants.json` |
 | `print_model_variant_coverage` | `watch` | Invariant coverage must include paper size, resolution, copy, draft, source, media, and clip variants. | `analysis/open-firmware-model/model-invariants.json` |
-| `minimal_print_scope_keeps_parser_mapped_and_hardware_blocked` | `watch` | The generated narrow-scope report must preserve the current split: parser/object path mapped, sideband policy narrowed but unresolved, video/engine hardware still high risk. | `analysis/open-firmware-model/minimal-print-scope.json` |
+| `minimal_print_scope_keeps_parser_mapped_and_hardware_blocked` | `watch` | The generated narrow-scope report must mark only the inert USB bulk receive/framing component implemented offline, retain semantic parser and engine/video blockers, and carry exact probe evidence. | `analysis/open-firmware-model/minimal-print-scope.json` |
 | `usb_bulk_receive_model_preserves_parser_handoff` | `watch` | The USB bulk receive model must keep the stock transfer-record registration, 0x400-byte receive buffer, and parser read-callback handoff mapped. | `analysis/usb-path/usb-bulk-receive-model.json` |
 | `usb_bulk_callback_model_preserves_event_and_rearm_path` | `watch` | The USB bulk callback model must preserve the read/copy callback, completion queue callback, event bit, endpoint ack register, and status-bit clear. | `analysis/usb-path/usb-bulk-callbacks-model.json` |
 | `usb_bulk_rearm_model_preserves_descriptor_submit` | `watch` | The USB bulk re-arm model must preserve descriptor pool, buffer base, submit register, and done-flag behavior. | `analysis/usb-path/usb-bulk-rearm-model.json` |
 | `usb_parser_shim_contract_preserves_next_software_target` | `watch` | The synthesized USB parser-shim contract must keep the next target anchored to parser callback, bulk event bit, hardware lane, and descriptor re-arm facts. | `analysis/usb-path/usb-parser-shim-contract.json` |
+| `usb_bulk_probe_all_required_reports_pass` | `watch` | Every required bulk-parser report must exist, carry a passing status or zero fail markers, agree with the deterministic rollup, and retain offline-only handoff documents. | `analysis/open-firmware-probes/usb-bulk-parser-draft/deterministic-test-results.json` |
+| `usb_bulk_probe_lane_contract_matches_stock_models` | `watch` | The combined allowlist and probe disassembly must preserve the stock bank-1/lane-1 event bit, status register, and acknowledgement register without substituting another USB lane. | `analysis/usb-path/usb-bulk-probe-contract.json` |
+| `usb_bulk_probe_descriptor_buffer_submit_contract_matches` | `watch` | The stock re-arm model, shim contract, combined allowlist, memory scan, and disassembly must agree on descriptor 0x90021370, buffer 0x900216f0, and submit register 0xb3000234. | `analysis/open-firmware-probes/usb-bulk-parser-draft/memory-boundary-scan.json` |
+| `usb_bulk_probe_exact_parser_scope_and_matrix_pass` | `watch` | The executable model and deterministic rollup must preserve exactly 11 generated samples, 33 boundary/error cases, 425 assertions, and recognized types 0x00 through 0x06. | `analysis/open-firmware-probes/usb-bulk-parser-draft/parser-model.json` |
+| `usb_bulk_probe_has_no_mechanical_or_print_side_effects` | `watch` | Offline parser cases and every source/disassembly boundary scan must show zero USB-host contact, print dispatch, video, engine, or mechanical side effects. | `analysis/open-firmware-probes/usb-bulk-parser-draft/safety-scan.json` |
+| `usb_bulk_probe_status_descriptor_exposes_all_counters` | `watch` | The writable product string must expose B/D/C/E/U as the parser model's bytes, descriptors, recognized chunks, errors, and unknown chunks counters. | `analysis/open-firmware-probes/usb-bulk-parser-draft/status-descriptor-check.json` |
+| `usb_bulk_probe_config_descriptors_match_controller_speed` | `watch` | The linked printer-class configurations must advertise 512-byte high-speed and 64-byte full-speed bulk endpoints, selected from the same b3010000 speed bit used by receive setup. | `analysis/open-firmware-probes/usb-bulk-parser-draft/config-descriptor-check.json` |
+| `usb_bulk_probe_rebuild_is_reproducible` | `watch` | Two clean builds must produce byte-identical generated files, and the second-build firmware hashes must match the deterministic artifact rollup. | `analysis/open-firmware-probes/usb-bulk-parser-draft/reproducibility-check.json` |
 | `raster_field_semantics_keep_host_to_video_chain` | `watch` | Raster field semantics must preserve the host ZjStream/JBIG to work/raster object chain consumed by video hardware. | `analysis/open-firmware-model/raster-field-semantics.json` |
 | `hardware_boundary_keeps_engine_video_unsafe` | `watch` | The do-not-touch boundary for early custom firmware must still include video and engine paths. | `analysis/hardware-boundary/hardware-boundary.json` |
 | `first_page_sequence_keeps_video_engine_registers_ordered` | `watch` | The first-page hardware sequence must preserve the ordered engine/video/refill risk boundary. | `analysis/hardware-boundary/first-page-hardware-sequence.json` |
@@ -73,5 +81,5 @@ It does not contact the printer.
 
 ## Practical Meaning
 
-The offline work is now guarded well enough that the main unknown is no longer a missing script or stale note. The main unknown is whether the printer accepts, executes, and responds through the narrow non-printing USB/PJL path we modeled.
+The mechanically inert USB bulk receive/framing implementation now passes the offline cross-report gate. The next USB unknown is guarded printer-side execution and real controller completion/re-arm behavior; semantic print dispatch, raster output, video transfer, and engine control remain unimplemented or unproven.
 

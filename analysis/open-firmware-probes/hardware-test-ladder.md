@@ -24,6 +24,12 @@ PostScript, ZjStream page, fuser command, motor command, or raster/video stream.
    - Expected result if successful: host-side USB identity may expose the marker string.
    - Expected result if incomplete: no visible change, possible temporary USB silence until power cycle.
 
+5. USB bulk/parser draft
+   - Uploads the offline-validated inert receiver/parser and first requires its zero-counter product string.
+   - An independently guarded second step may send only the fixed 36-byte `JZJZ + START_DOC + END_DOC` stream.
+   - Expected exact result: `B=00000024 D=00000001 C=00000002 E=00000000 U=00000000`.
+   - This stage has no page, raster, video, engine, or mechanical path and is not a print test.
+
 ## One-Stage Harness
 
 Dry-run all gates:
@@ -51,3 +57,13 @@ analysis/open-firmware-probes/hardware-test-runs/
 
 Power-cycle the printer before normal printing or before another custom firmware
 stage.
+
+The bulk/parser stage uses its stricter dedicated harness rather than the older
+one-stage wrapper:
+
+```sh
+scripts/run-usb-bulk-parser-draft-hardware-test.sh --dry-run
+```
+
+Real upload and inert-data commands are documented in
+`analysis/open-firmware-probes/usb-bulk-parser-draft/hardware-test-plan.md`.

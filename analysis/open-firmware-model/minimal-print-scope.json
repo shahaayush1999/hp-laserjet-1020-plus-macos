@@ -1,14 +1,9 @@
 {
   "blockers": [
     {
-      "blocker": "Live execution proof for open USB descriptor code",
-      "next_test": "Run the guarded marker stage when the printer is connected and power-cycled.",
-      "why": "Without the marker descriptor appearing on the host, we do not yet know that custom code can control USB responses after upload."
-    },
-    {
-      "blocker": "USB completion/rearm behavior",
-      "next_test": "If marker fails, use the interrupt-lane model to build a more explicit completion polling probe.",
-      "why": "Stock firmware uses event flags at 0x10021318 fed by the USB interrupt task. The marker draft now waits for setup gates to clear and returns to polling, but hardware has not proved this replaces the stock event wait."
+      "blocker": "Guarded hardware execution and USB controller behavior",
+      "next_test": "Follow the probe hardware test plan only after a fresh power cycle: prove the status descriptor, send the inert START_DOC/END_DOC stream, and verify counters. Do not send raster or invoke engine/video paths.",
+      "why": "The bulk receive/framing probe is implemented and validated offline, but hardware has not proved that custom code executes, that boot-ROM controller state is sufficient, or that real completion length/ack/re-arm behavior matches the static contract."
     },
     {
       "blocker": "Video and engine hardware sequencing",
@@ -45,16 +40,16 @@
     },
     {
       "component": "USB bulk receive to ZjStream parser",
-      "current_status": "stock path modeled",
-      "evidence": "USB2Thread registers 0x58-byte transfer records, allocates a 0x400-byte receive buffer, and hands parser 0x10009d34 a read callback at param_1+0x0c; callback model maps event bit 0x20000 and re-arm model maps descriptor submit register 0xb3000234",
-      "replacement_need": "open firmware must implement a bulk OUT receiver/read-callback shim that feeds the parser state machine",
+      "current_status": "implemented and offline validated",
+      "evidence": "mechanically inert open probe; 11/11 generated samples, 33/33 deterministic matrix cases, 425/425 assertions; recognized scope 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06",
+      "replacement_need": "guarded hardware execution must prove custom-code execution and real controller completion, length, acknowledgement, and repeated descriptor re-arm behavior; this probe discards payloads and has no print handoff",
       "risk": "medium"
     },
     {
       "component": "ZjStream parser and JobMgr object model",
       "current_status": "mapped",
-      "evidence": "7 parsed chunks, 1 work object(s), 1 raster node(s), invariant failures=0",
-      "replacement_need": "implement only chunk types used by foo2zjs daily printing: START/END doc/page, JBIG_BIH/BID/END_JBIG, plus END_PLANE if emitted by a host variant",
+      "evidence": "stock-path model has 7 parsed chunks, 1 work object(s), 1 raster node(s), invariant failures=0; the inert probe only frames/counts 0x00..0x06 and discards payloads",
+      "replacement_need": "implement semantic chunk handling, JobMgr messages, work/raster objects, and a deliberately gated print handoff; none exists in the inert probe",
       "risk": "medium"
     },
     {
@@ -98,8 +93,115 @@
     "host_side": "PDF/PostScript to ZjStream conversion is host/platform packaging work.",
     "macos_repo_scope": "This repo's current production print path is macOS glue around HP firmware plus foo2zjs."
   },
-  "current_decision": "Continue USB-only marker proof before any engine/video printing experiment.",
+  "current_decision": "The USB bulk receive/framing component is ready only for its guarded mechanically inert hardware test; printing, semantic JobMgr/raster handoff, and all engine/video behavior remain unimplemented or unproven.",
   "goal": "Print PDFs by reusing host-side ZjStream generation and implementing only the firmware path required to receive, parse, and print that stream.",
+  "open_probe_evidence": {
+    "coverage": {
+      "assertions": 425,
+      "assertions_passed": 425,
+      "generated_samples_discovered": 11,
+      "generated_samples_passed": 11,
+      "synthetic_cases": 33,
+      "synthetic_cases_passed": 33,
+      "total_cases": 44,
+      "total_cases_passed": 44
+    },
+    "execution_scope": "offline host-side only",
+    "generated_sample_cases": [
+      "generated::matrix-a4_2400x600",
+      "generated::matrix-a4_600x600",
+      "generated::matrix-a4_cardstock_media",
+      "generated::matrix-a4_default",
+      "generated::matrix-a4_draft",
+      "generated::matrix-a4_logical_clip",
+      "generated::matrix-a4_manual_feed",
+      "generated::matrix-a4_two_copies",
+      "generated::matrix-legal_default",
+      "generated::matrix-letter_default",
+      "generated::minimal-page-a4"
+    ],
+    "hardware_access": "none; no USB device, MMIO, video, or engine path exists in this model",
+    "hardware_contact": false,
+    "hardware_test_plan": "analysis/open-firmware-probes/usb-bulk-parser-draft/hardware-test-plan.md",
+    "matrix_cases": [
+      "header_split_01_of_16",
+      "header_split_02_of_16",
+      "header_split_03_of_16",
+      "header_split_04_of_16",
+      "header_split_05_of_16",
+      "header_split_06_of_16",
+      "header_split_07_of_16",
+      "header_split_08_of_16",
+      "header_split_09_of_16",
+      "header_split_10_of_16",
+      "header_split_11_of_16",
+      "header_split_12_of_16",
+      "header_split_13_of_16",
+      "header_split_14_of_16",
+      "header_split_15_of_16",
+      "magic_split_01_of_4",
+      "magic_split_02_of_4",
+      "magic_split_03_of_4",
+      "payload_split_across_four_boundaries",
+      "multiple_chunks_single_transfer",
+      "stock_types_outside_probe_scope_are_unknown",
+      "valid_zero_payload_chunks",
+      "zero_size_chunk_recovery",
+      "oversize_chunk_policy_recovery",
+      "bad_signature_recovery",
+      "reserved_exceeds_payload_recovery",
+      "unknown_chunk_is_counted_and_skipped",
+      "ring_and_descriptor_wrap_boundary",
+      "payload_crosses_ring_wrap_boundary",
+      "three_repeated_documents",
+      "truncated_chunk_header_at_eof",
+      "truncated_chunk_payload_at_eof",
+      "zero_byte_receive_descriptors"
+    ],
+    "mechanical_behavior": "none; payloads are length-counted and discarded",
+    "mechanically_inert_cases": true,
+    "offline_validated": true,
+    "recognized_chunk_types": [
+      "0x00",
+      "0x01",
+      "0x02",
+      "0x03",
+      "0x04",
+      "0x05",
+      "0x06"
+    ],
+    "report_fail_counts": {
+      "combined_contract": 0,
+      "config_descriptor_check": 0,
+      "deterministic_results": 0,
+      "memory_boundary_scan": 0,
+      "parser_model": 0,
+      "reproducibility_check": 0,
+      "safety_scan": 0,
+      "source_contract_check": 0,
+      "status_descriptor_check": 0,
+      "usb_contract_scan": 0,
+      "usb_mmio_access_scan": 0
+    },
+    "report_statuses": {
+      "combined_contract": "pass",
+      "config_descriptor_check": "pass",
+      "deterministic_results": "pass",
+      "memory_boundary_scan": "pass",
+      "parser_model": "pass",
+      "reproducibility_check": "pass",
+      "safety_scan": "pass",
+      "source_contract_check": "pass",
+      "status_descriptor_check": "pass",
+      "usb_contract_scan": "pass",
+      "usb_mmio_access_scan": "pass"
+    },
+    "reproducibility_status": "pass",
+    "status": "implemented and offline validated",
+    "status_descriptor_address": "0x10003400",
+    "status_descriptor_text": "HP1020 B=00000000 D=00000000 C=00000000 E=00000000 U=00000000",
+    "summary_report": "analysis/open-firmware-probes/usb-bulk-parser-draft/summary.md"
+  },
   "stock_evidence": {
     "control_completion_event_object": "0x10021318",
     "endpoint0_data_cases": 24,

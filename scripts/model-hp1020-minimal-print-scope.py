@@ -19,6 +19,7 @@ from typing import Any
 ROOT_DIR = Path(__file__).resolve().parents[1]
 OUT_JSON = ROOT_DIR / "analysis/open-firmware-model/minimal-print-scope.json"
 OUT_MD = ROOT_DIR / "analysis/open-firmware-model/minimal-print-scope.md"
+USB_BULK_PROBE_DIR = ROOT_DIR / "analysis/open-firmware-probes/usb-bulk-parser-draft"
 
 
 INPUTS = {
@@ -33,9 +34,35 @@ INPUTS = {
     "usb_bulk_receive": ROOT_DIR / "analysis/usb-path/usb-bulk-receive-model.json",
     "usb_bulk_callbacks": ROOT_DIR / "analysis/usb-path/usb-bulk-callbacks-model.json",
     "usb_bulk_rearm": ROOT_DIR / "analysis/usb-path/usb-bulk-rearm-model.json",
+    "usb_bulk_probe_contract": ROOT_DIR / "analysis/usb-path/usb-bulk-probe-contract.json",
+    "usb_bulk_parser_model": USB_BULK_PROBE_DIR / "parser-model.json",
+    "usb_bulk_deterministic": USB_BULK_PROBE_DIR / "deterministic-test-results.json",
+    "usb_bulk_safety": USB_BULK_PROBE_DIR / "safety-scan.json",
+    "usb_bulk_usb_contract": USB_BULK_PROBE_DIR / "usb-contract-scan.json",
+    "usb_bulk_usb_mmio": USB_BULK_PROBE_DIR / "usb-mmio-access-scan.json",
+    "usb_bulk_memory": USB_BULK_PROBE_DIR / "memory-boundary-scan.json",
+    "usb_bulk_source_contract": USB_BULK_PROBE_DIR / "source-contract-check.json",
+    "usb_bulk_status_descriptor": USB_BULK_PROBE_DIR / "status-descriptor-check.json",
+    "usb_bulk_config_descriptor": USB_BULK_PROBE_DIR / "config-descriptor-check.json",
+    "usb_bulk_reproducibility": USB_BULK_PROBE_DIR / "reproducibility-check.json",
     "marker_rearm": ROOT_DIR / "analysis/open-firmware-probes/usb-marker-draft/marker-rearm-flow-check.json",
     "sideband_default_impact": ROOT_DIR / "analysis/hardware-boundary/video-sideband-default-impact.json",
     "remaining_units": ROOT_DIR / "analysis/hardware-boundary/video-remaining-units.json",
+}
+
+TEXT_INPUTS = {
+    "usb_bulk_summary": USB_BULK_PROBE_DIR / "summary.md",
+    "usb_bulk_hardware_test_plan": USB_BULK_PROBE_DIR / "hardware-test-plan.md",
+}
+
+EXPECTED_SIDE_EFFECT_COUNTERS = {
+    "usb_device_opens": 0,
+    "usb_transfers_submitted": 0,
+    "mmio_reads": 0,
+    "mmio_writes": 0,
+    "video_commands": 0,
+    "engine_commands": 0,
+    "mechanical_actions": 0,
 }
 
 
@@ -50,6 +77,34 @@ def fail_count(items: Any) -> int:
     if not isinstance(items, list):
         return 0
     return sum(isinstance(item, dict) and item.get("severity") == "fail" for item in items)
+
+
+def nested_fail_count(value: Any) -> int:
+    """Count explicit fail markers in either object-style or list-style reports."""
+
+    if isinstance(value, list):
+        return sum(nested_fail_count(item) for item in value)
+    if not isinstance(value, dict):
+        return 0
+    count = int(value.get("severity") == "fail" or value.get("status") == "fail")
+    return count + sum(
+        nested_fail_count(item)
+        for key, item in value.items()
+        if key not in {"severity", "status"}
+    )
+
+
+def report_status(value: Any) -> str:
+    if isinstance(value, dict) and value.get("status") in {"pass", "fail"}:
+        return value["status"]
+    return "fail" if nested_fail_count(value) else "pass"
+
+
+def load_text(path: Path) -> str:
+    try:
+        return path.read_text()
+    except FileNotFoundError as exc:
+        raise SystemExit(f"missing input report: {path}") from exc
 
 
 def status_from_bool(ok: bool) -> str:
@@ -68,6 +123,19 @@ def build_scope() -> dict[str, Any]:
     usb_bulk_receive = load_json(INPUTS["usb_bulk_receive"])
     usb_bulk_callbacks = load_json(INPUTS["usb_bulk_callbacks"])
     usb_bulk_rearm = load_json(INPUTS["usb_bulk_rearm"])
+    usb_bulk_probe_contract = load_json(INPUTS["usb_bulk_probe_contract"])
+    usb_bulk_parser_model = load_json(INPUTS["usb_bulk_parser_model"])
+    usb_bulk_deterministic = load_json(INPUTS["usb_bulk_deterministic"])
+    usb_bulk_safety = load_json(INPUTS["usb_bulk_safety"])
+    usb_bulk_usb_contract = load_json(INPUTS["usb_bulk_usb_contract"])
+    usb_bulk_usb_mmio = load_json(INPUTS["usb_bulk_usb_mmio"])
+    usb_bulk_memory = load_json(INPUTS["usb_bulk_memory"])
+    usb_bulk_source_contract = load_json(INPUTS["usb_bulk_source_contract"])
+    usb_bulk_status_descriptor = load_json(INPUTS["usb_bulk_status_descriptor"])
+    usb_bulk_config_descriptor = load_json(INPUTS["usb_bulk_config_descriptor"])
+    usb_bulk_reproducibility = load_json(INPUTS["usb_bulk_reproducibility"])
+    usb_bulk_summary = load_text(TEXT_INPUTS["usb_bulk_summary"])
+    usb_bulk_hardware_test_plan = load_text(TEXT_INPUTS["usb_bulk_hardware_test_plan"])
     marker_rearm = load_json(INPUTS["marker_rearm"])
     sideband_default_impact = load_json(INPUTS["sideband_default_impact"])
     remaining_units = load_json(INPUTS["remaining_units"])
@@ -124,6 +192,105 @@ def build_scope() -> dict[str, Any]:
         if isinstance(item, dict)
     )
 
+    bulk_probe_reports = {
+        "combined_contract": usb_bulk_probe_contract,
+        "parser_model": usb_bulk_parser_model,
+        "deterministic_results": usb_bulk_deterministic,
+        "safety_scan": usb_bulk_safety,
+        "usb_contract_scan": usb_bulk_usb_contract,
+        "usb_mmio_access_scan": usb_bulk_usb_mmio,
+        "memory_boundary_scan": usb_bulk_memory,
+        "source_contract_check": usb_bulk_source_contract,
+        "status_descriptor_check": usb_bulk_status_descriptor,
+        "config_descriptor_check": usb_bulk_config_descriptor,
+        "reproducibility_check": usb_bulk_reproducibility,
+    }
+    bulk_probe_report_statuses = {
+        name: report_status(report) for name, report in bulk_probe_reports.items()
+    }
+    bulk_probe_report_failures = {
+        name: nested_fail_count(report) for name, report in bulk_probe_reports.items()
+    }
+    bulk_probe_coverage = usb_bulk_parser_model.get("coverage", {})
+    bulk_probe_generated_samples = [
+        item.get("name")
+        for item in usb_bulk_parser_model.get("generated_samples", [])
+        if isinstance(item, dict)
+    ]
+    bulk_probe_matrix_cases = [
+        item.get("name")
+        for item in usb_bulk_parser_model.get("test_matrix", [])
+        if isinstance(item, dict)
+    ]
+    bulk_probe_recognized_types = [
+        item.get("type_hex")
+        for item in usb_bulk_parser_model.get("probe_recognized_chunk_types", [])
+        if isinstance(item, dict)
+    ]
+    bulk_probe_cases = [
+        *usb_bulk_parser_model.get("generated_samples", []),
+        *usb_bulk_parser_model.get("test_matrix", []),
+    ]
+    bulk_probe_mechanically_inert = bool(bulk_probe_cases) and all(
+        isinstance(item, dict)
+        and item.get("parser_state", {}).get("side_effects") == EXPECTED_SIDE_EFFECT_COUNTERS
+        for item in bulk_probe_cases
+    )
+    bulk_probe_coverage_passes = (
+        bulk_probe_coverage.get("generated_samples_discovered")
+        == bulk_probe_coverage.get("generated_samples_passed")
+        == len(bulk_probe_generated_samples)
+        and bulk_probe_coverage.get("synthetic_cases")
+        == bulk_probe_coverage.get("synthetic_cases_passed")
+        == len(bulk_probe_matrix_cases)
+        and bulk_probe_coverage.get("total_cases")
+        == bulk_probe_coverage.get("total_cases_passed")
+        == len(bulk_probe_cases)
+        and bulk_probe_coverage.get("assertions")
+        == bulk_probe_coverage.get("assertions_passed")
+    )
+    bulk_probe_offline_validated = (
+        all(status == "pass" for status in bulk_probe_report_statuses.values())
+        and all(count == 0 for count in bulk_probe_report_failures.values())
+        and bulk_probe_coverage_passes
+        and bulk_probe_recognized_types
+        == ["0x00", "0x01", "0x02", "0x03", "0x04", "0x05", "0x06"]
+        and bulk_probe_mechanically_inert
+        and usb_bulk_deterministic.get("hardware_contact") is False
+        and bool(usb_bulk_summary.strip())
+        and bool(usb_bulk_hardware_test_plan.strip())
+    )
+    bulk_probe_component_status = (
+        "implemented and offline validated"
+        if bulk_probe_offline_validated
+        else "implemented; offline validation failed"
+    )
+    status_descriptor_address = usb_bulk_status_descriptor.get("section", {}).get("address")
+    bulk_probe_evidence = {
+        "status": bulk_probe_component_status,
+        "offline_validated": bulk_probe_offline_validated,
+        "execution_scope": usb_bulk_parser_model.get("scope", {}).get("execution"),
+        "hardware_access": usb_bulk_parser_model.get("scope", {}).get("hardware_access"),
+        "mechanical_behavior": usb_bulk_parser_model.get("scope", {}).get("mechanical_behavior"),
+        "mechanically_inert_cases": bulk_probe_mechanically_inert,
+        "hardware_contact": usb_bulk_deterministic.get("hardware_contact"),
+        "report_statuses": bulk_probe_report_statuses,
+        "report_fail_counts": bulk_probe_report_failures,
+        "coverage": bulk_probe_coverage,
+        "generated_sample_cases": bulk_probe_generated_samples,
+        "matrix_cases": bulk_probe_matrix_cases,
+        "recognized_chunk_types": bulk_probe_recognized_types,
+        "status_descriptor_text": usb_bulk_status_descriptor.get("descriptor_text"),
+        "status_descriptor_address": (
+            f"0x{status_descriptor_address:08x}"
+            if isinstance(status_descriptor_address, int)
+            else status_descriptor_address
+        ),
+        "reproducibility_status": usb_bulk_reproducibility.get("status"),
+        "summary_report": str(TEXT_INPUTS["usb_bulk_summary"].relative_to(ROOT_DIR)),
+        "hardware_test_plan": str(TEXT_INPUTS["usb_bulk_hardware_test_plan"].relative_to(ROOT_DIR)),
+    }
+
     components = [
         {
             "component": "Host PDF-to-ZjStream conversion",
@@ -148,16 +315,22 @@ def build_scope() -> dict[str, Any]:
         },
         {
             "component": "USB bulk receive to ZjStream parser",
-            "current_status": "stock path modeled",
-            "evidence": "USB2Thread registers 0x58-byte transfer records, allocates a 0x400-byte receive buffer, and hands parser 0x10009d34 a read callback at param_1+0x0c; callback model maps event bit 0x20000 and re-arm model maps descriptor submit register 0xb3000234",
-            "replacement_need": "open firmware must implement a bulk OUT receiver/read-callback shim that feeds the parser state machine",
+            "current_status": bulk_probe_component_status,
+            "evidence": (
+                "mechanically inert open probe; "
+                f"{bulk_probe_coverage.get('generated_samples_passed')}/{bulk_probe_coverage.get('generated_samples_discovered')} generated samples, "
+                f"{bulk_probe_coverage.get('synthetic_cases_passed')}/{bulk_probe_coverage.get('synthetic_cases')} deterministic matrix cases, "
+                f"{bulk_probe_coverage.get('assertions_passed')}/{bulk_probe_coverage.get('assertions')} assertions; "
+                f"recognized scope {', '.join(bulk_probe_recognized_types)}"
+            ),
+            "replacement_need": "guarded hardware execution must prove custom-code execution and real controller completion, length, acknowledgement, and repeated descriptor re-arm behavior; this probe discards payloads and has no print handoff",
             "risk": "medium",
         },
         {
             "component": "ZjStream parser and JobMgr object model",
             "current_status": status_from_bool(not missing_messages and fail_count(invariants) == 0),
-            "evidence": f"{len(trace)} parsed chunks, {len(work_objects)} work object(s), {len(raster_nodes)} raster node(s), invariant failures={fail_count(invariants)}",
-            "replacement_need": "implement only chunk types used by foo2zjs daily printing: START/END doc/page, JBIG_BIH/BID/END_JBIG, plus END_PLANE if emitted by a host variant",
+            "evidence": f"stock-path model has {len(trace)} parsed chunks, {len(work_objects)} work object(s), {len(raster_nodes)} raster node(s), invariant failures={fail_count(invariants)}; the inert probe only frames/counts 0x00..0x06 and discards payloads",
+            "replacement_need": "implement semantic chunk handling, JobMgr messages, work/raster objects, and a deliberately gated print handoff; none exists in the inert probe",
             "risk": "medium",
         },
         {
@@ -199,14 +372,9 @@ def build_scope() -> dict[str, Any]:
 
     blockers = [
         {
-            "blocker": "Live execution proof for open USB descriptor code",
-            "why": "Without the marker descriptor appearing on the host, we do not yet know that custom code can control USB responses after upload.",
-            "next_test": "Run the guarded marker stage when the printer is connected and power-cycled.",
-        },
-        {
-            "blocker": "USB completion/rearm behavior",
-            "why": "Stock firmware uses event flags at 0x10021318 fed by the USB interrupt task. The marker draft now waits for setup gates to clear and returns to polling, but hardware has not proved this replaces the stock event wait.",
-            "next_test": "If marker fails, use the interrupt-lane model to build a more explicit completion polling probe.",
+            "blocker": "Guarded hardware execution and USB controller behavior",
+            "why": "The bulk receive/framing probe is implemented and validated offline, but hardware has not proved that custom code executes, that boot-ROM controller state is sufficient, or that real completion length/ack/re-arm behavior matches the static contract.",
+            "next_test": "Follow the probe hardware test plan only after a fresh power cycle: prove the status descriptor, send the inert START_DOC/END_DOC stream, and verify counters. Do not send raster or invoke engine/video paths.",
         },
         {
             "blocker": "Video and engine hardware sequencing",
@@ -275,9 +443,10 @@ def build_scope() -> dict[str, Any]:
             "sideband_access_hits": len(sideband_access_hits),
             "remaining_units_source_gap": sideband_unsourced_gap,
         },
+        "open_probe_evidence": bulk_probe_evidence,
         "components": components,
         "blockers": blockers,
-        "current_decision": "Continue USB-only marker proof before any engine/video printing experiment.",
+        "current_decision": "The USB bulk receive/framing component is ready only for its guarded mechanically inert hardware test; printing, semantic JobMgr/raster handoff, and all engine/video behavior remain unimplemented or unproven.",
     }
 
 
@@ -301,7 +470,7 @@ def render_markdown(scope: dict[str, Any]) -> str:
         "4. Raster handoff into the video/raw-band hardware path.",
         "5. Engine coordination for paper, fuser, motor, and page timing.",
         "",
-        "The first three are mostly software/protocol work. The last two are the hard hardware part.",
+        "USB bulk receive and framing now have an offline-validated inert implementation. That does not implement semantic print dispatch, raster output, video transfer, or engine control.",
         "",
         "## Platform Boundary",
         "",
@@ -334,6 +503,30 @@ def render_markdown(scope: dict[str, Any]) -> str:
             f"- sideband access hits classified: `{evidence['sideband_access_hits']}`",
             f"- sideband risk split: `+0x26={evidence['sideband_0x26_risk']}`, `+0x32={evidence['sideband_0x32_risk']}`, `+0x30={evidence['sideband_0x30_risk']}`",
             f"- remaining-unit active-work source gap: `{str(evidence['remaining_units_source_gap']).lower()}`",
+            "",
+            "## Open Bulk Parser Probe Evidence",
+            "",
+        ]
+    )
+    probe = scope["open_probe_evidence"]
+    coverage = probe["coverage"]
+    lines.extend(
+        [
+            f"- component status: `{probe['status']}`",
+            f"- offline validated: `{str(probe['offline_validated']).lower()}`",
+            f"- generated samples passed: `{coverage.get('generated_samples_passed')}/{coverage.get('generated_samples_discovered')}`",
+            f"- deterministic matrix cases passed: `{coverage.get('synthetic_cases_passed')}/{coverage.get('synthetic_cases')}`",
+            f"- total cases passed: `{coverage.get('total_cases_passed')}/{coverage.get('total_cases')}`",
+            f"- assertions passed: `{coverage.get('assertions_passed')}/{coverage.get('assertions')}`",
+            f"- recognized chunk scope: `{', '.join(probe['recognized_chunk_types'])}`",
+            f"- generated sample cases: `{', '.join(probe['generated_sample_cases'])}`",
+            f"- deterministic matrix cases: `{', '.join(probe['matrix_cases'])}`",
+            f"- mechanically inert across all cases: `{str(probe['mechanically_inert_cases']).lower()}`",
+            f"- printer/USB contacted during validation: `{str(probe['hardware_contact']).lower()}`",
+            f"- report statuses: `{', '.join(f'{name}={status}' for name, status in probe['report_statuses'].items())}`",
+            f"- report fail counts: `{', '.join(f'{name}={count}' for name, count in probe['report_fail_counts'].items())}`",
+            f"- status descriptor: `{probe['status_descriptor_text']}` at `{probe['status_descriptor_address']}`",
+            f"- reproducibility: `{probe['reproducibility_status']}`",
             "",
             "## Component Scope",
             "",

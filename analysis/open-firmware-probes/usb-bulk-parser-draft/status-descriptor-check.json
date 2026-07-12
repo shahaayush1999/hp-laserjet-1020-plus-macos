@@ -1,0 +1,69 @@
+{
+  "checks": [
+    {
+      "actual": "7c 03 48 00 50 00 31 00 30 00 32 00 30 00 20 00 42 00 3d 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 20 00 44 00 3d 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 20 00 43 00 3d 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 20 00 45 00 3d 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 20 00 55 00 3d 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00",
+      "description": "ELF contains the exact counter template",
+      "expected": "7c 03 48 00 50 00 31 00 30 00 32 00 30 00 20 00 42 00 3d 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 20 00 44 00 3d 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 20 00 43 00 3d 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 20 00 45 00 3d 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 20 00 55 00 3d 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00",
+      "name": "descriptor_bytes",
+      "status": "pass"
+    },
+    {
+      "actual": "0x10003400",
+      "description": "local writable descriptor address is fixed",
+      "expected": "0x10003400",
+      "name": "descriptor_address",
+      "status": "pass"
+    },
+    {
+      "actual": "flags=0x3",
+      "description": "counter digits are patched before each product-string response",
+      "expected": "SHF_WRITE",
+      "name": "descriptor_writable",
+      "status": "pass"
+    },
+    {
+      "actual": "0x7c",
+      "description": "control response length matches the descriptor",
+      "expected": "0x7c",
+      "name": "length_constant",
+      "status": "pass"
+    },
+    {
+      "actual": "0x10003400",
+      "description": "formatter patches the local RAM mapping",
+      "expected": "0x10003400",
+      "name": "local_pointer",
+      "status": "pass"
+    },
+    {
+      "actual": "0x90003400",
+      "description": "USB DMA reads the hardware alias",
+      "expected": "0x90003400",
+      "name": "hardware_alias",
+      "status": "pass"
+    },
+    {
+      "actual": "['write_hex_counter 0x60, 0x14', 'write_hex_counter 0x64, 0x2a', 'write_hex_counter 0x68, 0x40', 'write_hex_counter 0x6c, 0x56', 'write_hex_counter 0x70, 0x6c']",
+      "description": "B/D/C/E/U counters are rendered as eight hexadecimal digits",
+      "expected": "all five state/descriptor offsets",
+      "name": "counter_patch_calls",
+      "status": "pass"
+    },
+    {
+      "actual": "present",
+      "description": "GET_DESCRIPTOR product string exposes current counters",
+      "expected": "dynamic status alias",
+      "name": "product_selects_status_alias",
+      "status": "pass"
+    }
+  ],
+  "descriptor_hex": "7c 03 48 00 50 00 31 00 30 00 32 00 30 00 20 00 42 00 3d 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 20 00 44 00 3d 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 20 00 43 00 3d 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 20 00 45 00 3d 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 20 00 55 00 3d 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00 30 00",
+  "descriptor_text": "HP1020 B=00000000 D=00000000 C=00000000 E=00000000 U=00000000",
+  "section": {
+    "address": 268448768,
+    "flags": 3,
+    "offset": 9216,
+    "size": 124
+  },
+  "status": "pass"
+}

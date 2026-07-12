@@ -1,0 +1,46 @@
+{
+  "artifacts": {
+    "dl": {
+      "bytes": 127315,
+      "sha256": "20361937bd0ffcb4eaf9aeca62400b5e792cf054e64b3879725c1820b81d4f34"
+    },
+    "elf": {
+      "bytes": 127256,
+      "sha256": "f7adf99f9304e95a5418cf43a23856c793bd8e1234fa698dc64ccd363d099d18"
+    },
+    "img": {
+      "bytes": 127264,
+      "sha256": "538b3aa9c4d8b9fde3e6ae884769ee50c26519e0a44c2bc2051bf04f58888f68"
+    },
+    "map": {
+      "bytes": 10377,
+      "sha256": "68b6b041d1b1e3ab279bb0b7c02a82bf1299438029290ab0ce69c6afd90498b6"
+    }
+  },
+  "hardware_contact": false,
+  "parser_coverage": {
+    "assertions": 425,
+    "assertions_passed": 425,
+    "generated_samples_discovered": 11,
+    "generated_samples_passed": 11,
+    "synthetic_cases": 33,
+    "synthetic_cases_passed": 33,
+    "total_cases": 44,
+    "total_cases_passed": 44
+  },
+  "reports": {
+    "config_descriptors": "pass",
+    "endpoint0_length": "pass",
+    "endpoint0_rearm": "pass",
+    "endpoint0_sequence": "pass",
+    "layout": "pass",
+    "memory_boundary": "pass",
+    "parser_model": "pass",
+    "safety": "pass",
+    "source_contract": "pass",
+    "status_descriptor": "pass",
+    "usb_contract": "pass",
+    "usb_mmio": "pass"
+  },
+  "status": "pass"
+}

@@ -1,0 +1,902 @@
+[
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a2, 96",
+    "kind": "local_probe_state",
+    "offset": "0x60",
+    "pc": "0x10005c95",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a2, 100",
+    "kind": "local_probe_state",
+    "offset": "0x64",
+    "pc": "0x10005c98",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a2, 104",
+    "kind": "local_probe_state",
+    "offset": "0x68",
+    "pc": "0x10005c9b",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a2, 108",
+    "kind": "local_probe_state",
+    "offset": "0x6c",
+    "pc": "0x10005c9e",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a2, 112",
+    "kind": "local_probe_state",
+    "offset": "0x70",
+    "pc": "0x10005ca1",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a2, 116",
+    "kind": "local_probe_state",
+    "offset": "0x74",
+    "pc": "0x10005ca4",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a2, 120",
+    "kind": "local_probe_state",
+    "offset": "0x78",
+    "pc": "0x10005ca7",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a2, 124",
+    "kind": "local_probe_state",
+    "offset": "0x7c",
+    "pc": "0x10005caa",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a2, 128",
+    "kind": "local_probe_state",
+    "offset": "0x80",
+    "pc": "0x10005cad",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a2, 132",
+    "kind": "local_probe_state",
+    "offset": "0x84",
+    "pc": "0x10005cb0",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a2, 136",
+    "kind": "local_probe_state",
+    "offset": "0x88",
+    "pc": "0x10005cb3",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a2, 140",
+    "kind": "local_probe_state",
+    "offset": "0x8c",
+    "pc": "0x10005cb6",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a2, 144",
+    "kind": "local_probe_state",
+    "offset": "0x90",
+    "pc": "0x10005cb9",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta11, a2, 148",
+    "kind": "local_probe_state",
+    "offset": "0x94",
+    "pc": "0x10005cd4",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a2, 152",
+    "kind": "local_probe_state",
+    "offset": "0x98",
+    "pc": "0x10005d3c",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "stock USB bulk OUT transfer descriptor at 0x90021370",
+    "instruction": "s32i.n\ta3, a2, 0",
+    "kind": "usb_bulk_transfer_descriptor",
+    "offset": "0x0",
+    "pc": "0x10005d4a",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "stock USB bulk OUT transfer descriptor at 0x90021370",
+    "instruction": "s32i.n\ta3, a2, 4",
+    "kind": "usb_bulk_transfer_descriptor",
+    "offset": "0x4",
+    "pc": "0x10005d4e",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "stock USB bulk OUT transfer descriptor at 0x90021370",
+    "instruction": "s32i.n\ta3, a2, 8",
+    "kind": "usb_bulk_transfer_descriptor",
+    "offset": "0x8",
+    "pc": "0x10005d53",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a2",
+    "description": "stock USB bulk OUT transfer descriptor at 0x90021370",
+    "instruction": "s32i.n\ta3, a2, 12",
+    "kind": "usb_bulk_transfer_descriptor",
+    "offset": "0xc",
+    "pc": "0x10005d57",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "l32i\ta3, a4, 144",
+    "kind": "local_probe_state",
+    "offset": "0x90",
+    "pc": "0x10005d77",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a4, 144",
+    "kind": "local_probe_state",
+    "offset": "0x90",
+    "pc": "0x10005d7c",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "l32i\ta5, a4, 100",
+    "kind": "local_probe_state",
+    "offset": "0x64",
+    "pc": "0x10005da5",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta5, a4, 100",
+    "kind": "local_probe_state",
+    "offset": "0x64",
+    "pc": "0x10005daa",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a2",
+    "description": "stock USB bulk OUT transfer descriptor at 0x90021370",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "kind": "usb_bulk_transfer_descriptor",
+    "offset": "0x0",
+    "pc": "0x10005db0",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "l32i\ta5, a4, 108",
+    "kind": "local_probe_state",
+    "offset": "0x6c",
+    "pc": "0x10005dbe",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta5, a4, 108",
+    "kind": "local_probe_state",
+    "offset": "0x6c",
+    "pc": "0x10005dc3",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta5, a4, 136",
+    "kind": "local_probe_state",
+    "offset": "0x88",
+    "pc": "0x10005dc8",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "l32i\ta5, a4, 108",
+    "kind": "local_probe_state",
+    "offset": "0x6c",
+    "pc": "0x10005ddc",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta5, a4, 108",
+    "kind": "local_probe_state",
+    "offset": "0x6c",
+    "pc": "0x10005de1",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta6, a4, 136",
+    "kind": "local_probe_state",
+    "offset": "0x88",
+    "pc": "0x10005de6",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "l32i\ta5, a4, 96",
+    "kind": "local_probe_state",
+    "offset": "0x60",
+    "pc": "0x10005de9",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta5, a4, 96",
+    "kind": "local_probe_state",
+    "offset": "0x60",
+    "pc": "0x10005def",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a12",
+    "description": "stock USB bulk OUT receive buffer at 0x900216f0",
+    "instruction": "l8ui\ta2, a12, 0",
+    "kind": "usb_bulk_receive_buffer",
+    "offset": "0x0",
+    "pc": "0x10005dfe",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "l32i\ta5, a4, 116",
+    "kind": "local_probe_state",
+    "offset": "0x74",
+    "pc": "0x10005e08",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "l32i\ta7, a4, 120",
+    "kind": "local_probe_state",
+    "offset": "0x78",
+    "pc": "0x10005e15",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 120",
+    "kind": "local_probe_state",
+    "offset": "0x78",
+    "pc": "0x10005e1e",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta5, a4, 116",
+    "kind": "local_probe_state",
+    "offset": "0x74",
+    "pc": "0x10005e2c",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta5, a4, 120",
+    "kind": "local_probe_state",
+    "offset": "0x78",
+    "pc": "0x10005e31",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta5, a4, 124",
+    "kind": "local_probe_state",
+    "offset": "0x7c",
+    "pc": "0x10005e34",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "l32i\ta7, a4, 124",
+    "kind": "local_probe_state",
+    "offset": "0x7c",
+    "pc": "0x10005e3c",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 124",
+    "kind": "local_probe_state",
+    "offset": "0x7c",
+    "pc": "0x10005e4b",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta9, a4, 128",
+    "kind": "local_probe_state",
+    "offset": "0x80",
+    "pc": "0x10005e7b",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta10, a4, 132",
+    "kind": "local_probe_state",
+    "offset": "0x84",
+    "pc": "0x10005e7e",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 124",
+    "kind": "local_probe_state",
+    "offset": "0x7c",
+    "pc": "0x10005e83",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 116",
+    "kind": "local_probe_state",
+    "offset": "0x74",
+    "pc": "0x10005e8e",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "l32i\ta7, a4, 128",
+    "kind": "local_probe_state",
+    "offset": "0x80",
+    "pc": "0x10005e94",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 128",
+    "kind": "local_probe_state",
+    "offset": "0x80",
+    "pc": "0x10005e99",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "l32i\ta8, a4, 132",
+    "kind": "local_probe_state",
+    "offset": "0x84",
+    "pc": "0x10005ea2",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "l32i\ta7, a4, 112",
+    "kind": "local_probe_state",
+    "offset": "0x70",
+    "pc": "0x10005eaa",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 112",
+    "kind": "local_probe_state",
+    "offset": "0x70",
+    "pc": "0x10005eaf",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "l32i\ta7, a4, 104",
+    "kind": "local_probe_state",
+    "offset": "0x68",
+    "pc": "0x10005eb5",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 104",
+    "kind": "local_probe_state",
+    "offset": "0x68",
+    "pc": "0x10005eba",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 116",
+    "kind": "local_probe_state",
+    "offset": "0x74",
+    "pc": "0x10005ec4",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 124",
+    "kind": "local_probe_state",
+    "offset": "0x7c",
+    "pc": "0x10005ec9",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 116",
+    "kind": "local_probe_state",
+    "offset": "0x74",
+    "pc": "0x10005ed2",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 120",
+    "kind": "local_probe_state",
+    "offset": "0x78",
+    "pc": "0x10005ed5",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 124",
+    "kind": "local_probe_state",
+    "offset": "0x7c",
+    "pc": "0x10005ed8",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 128",
+    "kind": "local_probe_state",
+    "offset": "0x80",
+    "pc": "0x10005edb",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "l32i\ta7, a4, 108",
+    "kind": "local_probe_state",
+    "offset": "0x6c",
+    "pc": "0x10005ee1",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 108",
+    "kind": "local_probe_state",
+    "offset": "0x6c",
+    "pc": "0x10005ee6",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 116",
+    "kind": "local_probe_state",
+    "offset": "0x74",
+    "pc": "0x10005eeb",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 120",
+    "kind": "local_probe_state",
+    "offset": "0x78",
+    "pc": "0x10005eee",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 124",
+    "kind": "local_probe_state",
+    "offset": "0x7c",
+    "pc": "0x10005ef1",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta7, a4, 128",
+    "kind": "local_probe_state",
+    "offset": "0x80",
+    "pc": "0x10005ef4",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a4, 64",
+    "kind": "local_probe_state",
+    "offset": "0x40",
+    "pc": "0x10005f02",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "stock USB response state object at 0x100212d4",
+    "instruction": "s32i.n\ta6, a4, 60",
+    "kind": "stock_response_state",
+    "offset": "0x3c",
+    "pc": "0x10005fcf",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "stock USB response state object at 0x100212d4",
+    "instruction": "s32i\ta3, a4, 64",
+    "kind": "stock_response_state",
+    "offset": "0x40",
+    "pc": "0x10005fdd",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a3",
+    "description": "stock USB control-IN staging buffer at 0x90022bd0",
+    "instruction": "s8i\ta6, a3, 0",
+    "kind": "usb_staging_buffer",
+    "offset": "0x0",
+    "pc": "0x10005fec",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "stock USB control-IN transfer descriptor ring at 0x900226f0",
+    "instruction": "s32i.n\ta7, a4, 0",
+    "kind": "usb_transfer_descriptor_ring",
+    "offset": "0x0",
+    "pc": "0x10005ffb",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "stock USB control-IN transfer descriptor ring at 0x900226f0",
+    "instruction": "s32i.n\ta3, a4, 4",
+    "kind": "usb_transfer_descriptor_ring",
+    "offset": "0x4",
+    "pc": "0x10005fff",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "stock USB control-IN transfer descriptor ring at 0x900226f0",
+    "instruction": "s32i.n\ta3, a4, 8",
+    "kind": "usb_transfer_descriptor_ring",
+    "offset": "0x8",
+    "pc": "0x10006004",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "stock USB control-IN transfer descriptor ring at 0x900226f0",
+    "instruction": "s32i.n\ta3, a4, 12",
+    "kind": "usb_transfer_descriptor_ring",
+    "offset": "0xc",
+    "pc": "0x10006008",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a4, 68",
+    "kind": "local_probe_state",
+    "offset": "0x44",
+    "pc": "0x10006041",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a4, 72",
+    "kind": "local_probe_state",
+    "offset": "0x48",
+    "pc": "0x1000604d",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a4, 76",
+    "kind": "local_probe_state",
+    "offset": "0x4c",
+    "pc": "0x10006055",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a4, 80",
+    "kind": "local_probe_state",
+    "offset": "0x50",
+    "pc": "0x10006066",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i\ta3, a4, 140",
+    "kind": "local_probe_state",
+    "offset": "0x8c",
+    "pc": "0x10006083",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i.n\ta3, a4, 0",
+    "kind": "local_probe_state",
+    "offset": "0x0",
+    "pc": "0x10006097",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i.n\ta3, a4, 4",
+    "kind": "local_probe_state",
+    "offset": "0x4",
+    "pc": "0x100060a1",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a2",
+    "description": "candidate USB setup packet buffer at 0x90021348",
+    "instruction": "l8ui\ta3, a2, 0",
+    "kind": "setup_packet_buffer",
+    "offset": "0x0",
+    "pc": "0x100060a8",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i.n\ta3, a4, 8",
+    "kind": "local_probe_state",
+    "offset": "0x8",
+    "pc": "0x100060ae",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a2",
+    "description": "candidate USB setup packet buffer at 0x90021348",
+    "instruction": "l8ui\ta3, a2, 1",
+    "kind": "setup_packet_buffer",
+    "offset": "0x1",
+    "pc": "0x100060b9",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i.n\ta3, a4, 12",
+    "kind": "local_probe_state",
+    "offset": "0xc",
+    "pc": "0x100060bc",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a2",
+    "description": "candidate USB setup packet buffer at 0x90021348",
+    "instruction": "l8ui\ta3, a2, 2",
+    "kind": "setup_packet_buffer",
+    "offset": "0x2",
+    "pc": "0x100060c6",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i.n\ta3, a4, 16",
+    "kind": "local_probe_state",
+    "offset": "0x10",
+    "pc": "0x100060c9",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a2",
+    "description": "candidate USB setup packet buffer at 0x90021348",
+    "instruction": "l8ui\ta3, a2, 3",
+    "kind": "setup_packet_buffer",
+    "offset": "0x3",
+    "pc": "0x100060cd",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "local probe state buffer",
+    "instruction": "s32i.n\ta3, a4, 20",
+    "kind": "local_probe_state",
+    "offset": "0x14",
+    "pc": "0x100060d0",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a2",
+    "description": "local probe state buffer",
+    "instruction": "l32i\ta3, a2, 96",
+    "kind": "local_probe_state",
+    "offset": "0x60",
+    "pc": "0x10006147",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "base": "a4",
+    "description": "open bulk-status descriptor local alias at 0x10003400",
+    "instruction": "s8i\ta6, a4, 0",
+    "kind": "status_descriptor_local",
+    "offset": "0x0",
+    "pc": "0x10006163",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "base": "a2",
+    "description": "local probe state buffer",
+    "instruction": "l32i\ta3, a2, 100",
+    "kind": "local_probe_state",
+    "offset": "0x64",
+    "pc": "0x10006174",
+    "severity": "watch"
+  }
+]

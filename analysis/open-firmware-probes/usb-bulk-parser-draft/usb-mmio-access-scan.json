@@ -1,0 +1,425 @@
+[
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005cc2",
+    "register": "0xb3010000",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta11, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005cdd",
+    "register": "0xb300022c",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005ce8",
+    "register": "0xb3000418",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005cf0",
+    "register": "0xb3010000",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005cfb",
+    "register": "0xb3010000",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005d03",
+    "register": "0xb3000404",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005d0e",
+    "register": "0xb3000404",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005d16",
+    "register": "0xb3000220",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005d21",
+    "register": "0xb3000220",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005d29",
+    "register": "0xb3000200",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005d34",
+    "register": "0xb3000200",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta2, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005d5f",
+    "register": "0xb3000234",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005d67",
+    "register": "0xb3000220",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005d72",
+    "register": "0xb3000220",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005d8d",
+    "register": "0xb3000224",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005d95",
+    "register": "0xb3000220",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005da0",
+    "register": "0xb3000220",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005f11",
+    "register": "0xb3000508",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005f1c",
+    "register": "0xb3000510",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005f27",
+    "register": "0xb300050c",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005f32",
+    "register": "0xb300022c",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005f3d",
+    "register": "0xb300020c",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005f48",
+    "register": "0xb300000c",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005f53",
+    "register": "0xb300002c",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005f5e",
+    "register": "0xb3000028",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005f6d",
+    "register": "0xb3000504",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005f78",
+    "register": "0xb3000508",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005f83",
+    "register": "0xb3000510",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005f8e",
+    "register": "0xb300050c",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005f99",
+    "register": "0xb300022c",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005fa4",
+    "register": "0xb300020c",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005faf",
+    "register": "0xb300000c",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005fba",
+    "register": "0xb300002c",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10005fc5",
+    "register": "0xb3000028",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10006010",
+    "register": "0xb3000000",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x1000601b",
+    "register": "0xb3000000",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10006026",
+    "register": "0xb3000014",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x1000602e",
+    "register": "0xb3000000",
+    "severity": "watch"
+  },
+  {
+    "access": "write",
+    "description": "mapped USB MMIO write",
+    "instruction": "s32i.n\ta9, a8, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10006039",
+    "register": "0xb3000000",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10006053",
+    "register": "0xb3000408",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10006064",
+    "register": "0xb3000400",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x1000607e",
+    "register": "0xb3000224",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10006092",
+    "register": "0xb3000408",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x1000609c",
+    "register": "0xb3000400",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10006106",
+    "register": "0xb3010000",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10006252",
+    "register": "0xb3000408",
+    "severity": "watch"
+  },
+  {
+    "access": "read",
+    "description": "mapped USB MMIO read",
+    "instruction": "l32i.n\ta3, a2, 0",
+    "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
+    "pc": "0x10006260",
+    "register": "0xb3000400",
+    "severity": "watch"
+  }
+]

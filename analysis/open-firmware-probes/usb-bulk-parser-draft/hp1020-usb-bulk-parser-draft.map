@@ -1,0 +1,181 @@
+
+Discarded input sections
+
+ .xtensa.info   0x0000000000000000       0x38 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+ .xt.prop       0x0000000000000000      0x600 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+                0x0000000010000000                . = 0x10000000
+
+.WindowVectors.text
+                0x0000000010000000      0x180
+ *(.WindowVectors.text)
+ .WindowVectors.text
+                0x0000000010000000      0x180 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x0000000010000000                hp1020_window_vectors
+                0x0000000010000180                . = 0x10000180
+
+.KernelExceptionVector.literal
+                0x0000000010000180        0x4
+ *(.KernelExceptionVector.literal)
+ .KernelExceptionVector.literal
+                0x0000000010000180        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x0000000010000200                . = 0x10000200
+
+.KernelExceptionVector.text
+                0x0000000010000200       0x1c
+ *(.KernelExceptionVector.text)
+ .KernelExceptionVector.text
+                0x0000000010000200       0x1c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x000000001000021c                . = 0x1000021c
+
+.UserExceptionVector.literal
+                0x000000001000021c        0x4
+ *(.UserExceptionVector.literal)
+ .UserExceptionVector.literal
+                0x000000001000021c        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x0000000010000220                . = 0x10000220
+
+.UserExceptionVector.text
+                0x0000000010000220       0x1c
+ *(.UserExceptionVector.text)
+ .UserExceptionVector.text
+                0x0000000010000220       0x1c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x0000000010000270                . = 0x10000270
+
+.DoubleExceptionVector.text
+                0x0000000010000270       0xe0
+ *(.DoubleExceptionVector.text)
+ .DoubleExceptionVector.text
+                0x0000000010000270       0xe0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x0000000010000370                . = 0x10000370
+
+.sys_interface_table
+                0x0000000010000370      0x12c
+ *(.sys_interface_table)
+ .sys_interface_table
+                0x0000000010000370      0x12c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x0000000010000370                hp1020_probe_sys_interface_table
+                0x0000000010003000                . = 0x10003000
+
+.rodata         0x0000000010003000      0x13c
+ *(.rodata.probe)
+ .rodata.probe  0x0000000010003000      0x13c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                                        0x14c (size before relaxing)
+ *(.rodata*)
+                0x0000000010003200                . = 0x10003200
+
+.usb_marker_descriptor
+                0x0000000010003200       0x26
+ *(.usb_marker_descriptor)
+ .usb_marker_descriptor
+                0x0000000010003200       0x26 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x0000000010003200                hp1020_open_marker_product_string
+                0x0000000010003300                . = 0x10003300
+
+.usb_standard_descriptors
+                0x0000000010003300       0x78
+ *(.usb_standard_descriptors)
+ .usb_standard_descriptors
+                0x0000000010003300       0x78 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x0000000010003400                . = 0x10003400
+
+.usb_status_descriptor
+                0x0000000010003400       0x7c
+ *(.usb_status_descriptor)
+ .usb_status_descriptor
+                0x0000000010003400       0x7c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x0000000010003400                hp1020_open_bulk_status_product_string
+                0x0000000010005c80                . = 0x10005c80
+
+.text           0x0000000010005c80      0x5ee
+ *(.text.probe)
+ .text.probe    0x0000000010005c80      0x5ee /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x0000000010005c90                hp1020_usb_bulk_parser_probe
+                0x0000000010006078                hp1020_usb_marker_draft_probe
+ *(.text)
+ .text          0x000000001000626e        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x0000000010006a14                . = 0x10006a14
+
+.runtime_vector.entry
+                0x0000000010006a14        0xc
+ *(.runtime_vector.entry)
+ .runtime_vector.entry
+                0x0000000010006a14        0xc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x0000000010006a14                hp1020_probe_entry_vector
+                0x0000000010006a58                . = 0x10006a58
+
+.runtime_vector.interrupt
+                0x0000000010006a58       0x14
+ *(.runtime_vector.interrupt)
+ .runtime_vector.interrupt
+                0x0000000010006a58       0x14 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x0000000010006a58                hp1020_probe_interrupt_vector
+                0x00000000100167a8                . = 0x100167a8
+
+.text.entry     0x00000000100167a8       0x12
+ *(.text.entry)
+ .text.entry    0x00000000100167a8       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x00000000100167a8                _start
+                0x000000001001bb90                . = 0x1001bb90
+
+.data           0x000000001001bb90        0x0
+ *(.data*)
+ .data          0x000000001001bb90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x000000001001d498                . = 0x1001d498
+
+.runtime_state  0x000000001001d498       0xc0
+ *(.runtime_state)
+ .runtime_state
+                0x000000001001d498       0xc0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x000000001001d498                hp1020_usb_marker_state
+                0x000000001001d580                . = 0x1001d580
+
+.interrupt_table
+                0x000000001001d580       0x80
+ *(.interrupt_table)
+ .interrupt_table
+                0x000000001001d580       0x80 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x000000001001d580                hp1020_probe_interrupt_table
+                0x000000001001d640                . = 0x1001d640
+
+.bss            0x000000001001d640        0x0
+ *(.bss*)
+ .bss           0x000000001001d640        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+ *(COMMON)
+                0x0000000010100020                . = 0x10100020
+
+.ResetVector.text
+                0x0000000010100020      0x2e0
+ *(.ResetVector.text)
+ .ResetVector.text
+                0x0000000010100020      0x2e0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x0000000010100020                hp1020_reset_vector
+                0x0000000010100300                . = 0x10100300
+
+.DebugExceptionVector.literal
+                0x0000000010100300        0x4
+ *(.DebugExceptionVector.literal)
+ .DebugExceptionVector.literal
+                0x0000000010100300        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+                0x0000000010100320                . = 0x10100320
+
+.DebugExceptionVector.text
+                0x0000000010100320        0xc
+ *(.DebugExceptionVector.text)
+ .DebugExceptionVector.text
+                0x0000000010100320        0xc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+
+/DISCARD/
+ *(.comment)
+ *(.xtensa.info)
+ *(.xt.prop)
+ *(.note*)
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+OUTPUT(/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.toolchain-machine.elf elf32-xtensa-be)
