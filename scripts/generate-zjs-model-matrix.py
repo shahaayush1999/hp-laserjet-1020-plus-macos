@@ -14,6 +14,7 @@ SAMPLE_PS = REPO / "analysis/samples/minimal-page.ps"
 GENERATED = REPO / "analysis/samples/generated"
 MODEL_ROOT = REPO / "analysis/open-firmware-model/variants"
 SUMMARY = REPO / "analysis/open-firmware-model/variant-matrix.md"
+NORMALIZER = REPO / "scripts/normalize-zjs-sample-metadata.py"
 
 CASES = [
     {
@@ -87,6 +88,7 @@ def generate_case(case: dict[str, object]) -> dict[str, object]:
     MODEL_ROOT.mkdir(parents=True, exist_ok=True)
     with zjs_path.open("wb") as out:
         subprocess.run(args, cwd=REPO, stdout=out, env=env, check=True)
+    run([str(NORMALIZER), str(zjs_path)])
     run([str(modeler), str(zjs_path.relative_to(REPO)), "-o", str(model_dir.relative_to(REPO))])
 
     model = json.loads((model_dir / "print-path-model.json").read_text())

@@ -14,6 +14,7 @@ export PATH="$repo_root/assets/runtime:$PATH"
 (
   cd "$repo_root"
   assets/runtime/foo2zjs-wrapper -P -z1 -L0 -p9 "analysis/samples/minimal-page.ps" > "analysis/samples/generated/minimal-page-a4.zjs"
+  scripts/normalize-zjs-sample-metadata.py "analysis/samples/generated/minimal-page-a4.zjs"
   scripts/inspect-zjs-stream.py "analysis/samples/generated/minimal-page-a4.zjs" -o "analysis/samples/generated/minimal-page-a4-zjs-report.md"
 )
 

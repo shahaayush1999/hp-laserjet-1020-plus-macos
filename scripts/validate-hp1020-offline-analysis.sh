@@ -14,6 +14,7 @@ run_step "Python syntax checks" \
   python3 -m py_compile \
     "$ROOT_DIR/scripts/model-hp1020-print-path.py" \
     "$ROOT_DIR/scripts/generate-zjs-model-matrix.py" \
+    "$ROOT_DIR/scripts/normalize-zjs-sample-metadata.py" \
     "$ROOT_DIR/scripts/check-hp1020-print-model-invariants.py" \
     "$ROOT_DIR/scripts/project-hp1020-video-registers.py" \
     "$ROOT_DIR/scripts/model-hp1020-hardware-boundary.py" \

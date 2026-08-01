@@ -118,8 +118,8 @@
     },
     {
       "file": "parser-model.json",
-      "first_sha256": "517c49dc89a84cedffb8b09a8eb78ef221e9446fa87767a1c38a14dd0f4de1dc",
-      "second_sha256": "517c49dc89a84cedffb8b09a8eb78ef221e9446fa87767a1c38a14dd0f4de1dc",
+      "first_sha256": "078b34f90b2ddc736be03c963dbb04180938a35b6c23df02b425b3edbd896a18",
+      "second_sha256": "078b34f90b2ddc736be03c963dbb04180938a35b6c23df02b425b3edbd896a18",
       "status": "pass"
     },
     {

@@ -119,6 +119,7 @@ Open firmware analysis state:
 - `scripts/build-open-firmware-usb-marker-draft.sh` rebuilds the write-capable USB marker draft and runs layout, safety, USB-contract, access, and endpoint-0 sequence scans.
 - `scripts/build-open-firmware-usb-bulk-parser-draft.sh` rebuilds the inert bulk/parser probe and all deterministic layout, USB, memory, source, descriptor, and parser reports.
 - `scripts/check-open-firmware-usb-bulk-parser-reproducibility.sh` performs two clean builds and requires byte-identical generated artifacts and reports.
+- `scripts/normalize-zjs-sample-metadata.py` removes wall-clock variation from offline foo2zjs `JobAttr4` metadata so generated model inputs and hashes remain reproducible.
 - `scripts/run-usb-bulk-parser-draft-hardware-test.sh --dry-run` rebuilds and validates the fixed inert payload without enumerating or contacting USB. Real mode requires `--upload`, a direct `usb://` URI, and `HP1020_ALLOW_USB_BULK_PARSER_UPLOAD=1`; sending the 36-byte data step additionally requires `--send-probe-data` and `HP1020_ALLOW_USB_BULK_PARSER_DATA=1`.
 - `scripts/validate-open-firmware-probes.sh` rebuilds all open firmware probes, runs layout/scanner audits, and exercises dry-run hardware harnesses without contacting the printer.
 - `scripts/validate-hp1020-offline-analysis.sh` regenerates the print-path matrix, model invariants, video-register projection, hardware-boundary model, and open endpoint-0 model without contacting the printer.

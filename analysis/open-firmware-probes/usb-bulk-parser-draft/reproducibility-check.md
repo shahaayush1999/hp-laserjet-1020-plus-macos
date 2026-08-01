@@ -26,7 +26,7 @@
 | `layout.md` | `afafb10cb030fd5dcd8363b806bd79449ac4df6495c870bbc3794d733a874e9b` | `afafb10cb030fd5dcd8363b806bd79449ac4df6495c870bbc3794d733a874e9b` | `pass` |
 | `memory-boundary-scan.json` | `fcb9a72a7ad8aa19b72dbad6889687eba77a514e201f4a183987fccc52daf5f2` | `fcb9a72a7ad8aa19b72dbad6889687eba77a514e201f4a183987fccc52daf5f2` | `pass` |
 | `memory-boundary-scan.md` | `c255857ad54cc41e45f8deab5469e000872b9a43fbc445ff5a12114b9b2acff7` | `c255857ad54cc41e45f8deab5469e000872b9a43fbc445ff5a12114b9b2acff7` | `pass` |
-| `parser-model.json` | `517c49dc89a84cedffb8b09a8eb78ef221e9446fa87767a1c38a14dd0f4de1dc` | `517c49dc89a84cedffb8b09a8eb78ef221e9446fa87767a1c38a14dd0f4de1dc` | `pass` |
+| `parser-model.json` | `078b34f90b2ddc736be03c963dbb04180938a35b6c23df02b425b3edbd896a18` | `078b34f90b2ddc736be03c963dbb04180938a35b6c23df02b425b3edbd896a18` | `pass` |
 | `parser-model.md` | `ed8df90a22a1adc11658fa36e9b2f9dfe2e533c94b7f7255e790e3296f46d0d0` | `ed8df90a22a1adc11658fa36e9b2f9dfe2e533c94b7f7255e790e3296f46d0d0` | `pass` |
 | `readelf.txt` | `e2d10bf192d499e50b6df75eaad2a5c8b4ea7f4ad921fabada31a827fdb5804b` | `e2d10bf192d499e50b6df75eaad2a5c8b4ea7f4ad921fabada31a827fdb5804b` | `pass` |
 | `safety-scan.json` | `916e80fb8f6d5f54703c6f488090fd66e7bb2106f6d12f6e93bfaa069e470e18` | `916e80fb8f6d5f54703c6f488090fd66e7bb2106f6d12f6e93bfaa069e470e18` | `pass` |

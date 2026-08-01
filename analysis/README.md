@@ -118,6 +118,7 @@ Start here:
 112. `open-firmware-probes/usb-bulk-parser-draft/hardware-test-plan.md` - guarded endpoint-0 counter and fixed 36-byte START_DOC/END_DOC-only hardware test order; not a print test
 113. `open-firmware-probes/usb-bulk-parser-draft/reproducibility-check.md` - two clean builds with byte-identical firmware, reports, maps, and disassembly
 114. `open-firmware-probes/usb-bulk-parser-draft/config-descriptor-check.md` - linked high-speed/full-speed printer-class descriptor and speed-bit selection checks
+115. `../scripts/normalize-zjs-sample-metadata.py` - fixed offline foo2zjs `JobAttr4` metadata normalizer used to keep generated ZjStream model inputs deterministic
 
 Generated Ghidra scripts live in `ghidra-scripts/`.
 
@@ -265,6 +266,7 @@ Useful current conclusions:
 - `scripts/model-hp1020-usb-bulk-parser-draft.py` regenerates the offline executable parser model and exact sample/matrix report without contacting hardware.
 - `scripts/build-open-firmware-usb-bulk-parser-draft.sh` rebuilds the probe and all deterministic layout, safety, USB, memory, source, descriptor, and parser reports.
 - `scripts/check-open-firmware-usb-bulk-parser-reproducibility.sh` performs two clean builds and requires byte-identical outputs.
+- `scripts/normalize-zjs-sample-metadata.py` fixes the otherwise wall-clock-dependent PJL `JobAttr4` field in offline samples before model hashing.
 - `scripts/run-usb-bulk-parser-draft-hardware-test.sh --dry-run` is the offline/default harness path. Real mode requires `--upload`, an explicit direct `usb://` URI, and `HP1020_ALLOW_USB_BULK_PARSER_UPLOAD=1`; the fixed 36-byte data step separately requires `--send-probe-data` and `HP1020_ALLOW_USB_BULK_PARSER_DATA=1`.
 - `scripts/model-hp1020-video-engine-register-semantics.py` regenerates the dangerous video/engine register-role model from the stock ELF and decompiled source.
 - `scripts/model-hp1020-video-prepare-modes.py` regenerates the branch/table model for the `0xb100` video prepare setup path.
