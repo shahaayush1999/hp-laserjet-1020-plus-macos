@@ -94,6 +94,7 @@ This removes:
 
 ## Repo Contents
 
+- `CURRENT_STATUS.md`: concise open-firmware reverse-engineering handoff and current blockers
 - `assets/runtime/`: working local foo2zjs runtime files and `sihp1020.dl` firmware
 - `assets/firmware-source/`: firmware artifacts used while getting this working
 - `vendor/foo2zjs-source/`: source snapshot used to build the bundled foo2zjs runtime
