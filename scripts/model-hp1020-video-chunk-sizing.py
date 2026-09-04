@@ -27,7 +27,7 @@ SOURCES = {
     "prepare": ROOT_DIR / "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
     "band_queue": ROOT_DIR / "analysis/zjs-parser-boundary/decompiled/10013f34_hp1020_video_band_queue_or_list_candidate.c",
     "raw_refresh": ROOT_DIR / "analysis/zjs-parser-boundary/decompiled/100140f8_hp1020_video_refresh_raw_bands_candidate.c",
-    "ceil_helper": ROOT_DIR / "analysis/message-producers/producer-decompiled/1001b668_FUN_1001b668.c",
+    "division_helper": ROOT_DIR / "analysis/message-producers/producer-decompiled/1001b668_FUN_1001b668.c",
 }
 
 CONSTANT_ADDRS = {
@@ -58,12 +58,12 @@ def read_u32_from_elf(addr: int) -> int:
     raise ValueError(f"address 0x{addr:08x} is not file-backed")
 
 
-def ceil_div_candidate(numerator: int, denominator: int) -> int:
+def unsigned_divide(numerator: int, denominator: int) -> int:
     if denominator == 0:
         return 0
     if denominator == 1:
         return numerator
-    return (numerator + denominator - 1) // denominator
+    return numerator // denominator
 
 
 def round_down_to_four(value: int) -> int:
@@ -88,14 +88,14 @@ def build_case_rows(raster_fields: dict[str, Any], constants: dict[str, int]) ->
         work = case.get("work_0x84_0x88_0x8c_0x90", "0/0/0/0x00").split("/")
         width = int(work[0])
         stride = ((width + 0x1F) & 0xFFFFFFE0) >> 3
-        ceil_units = ceil_div_candidate(budget, stride)
-        max_chunk_units = round_down_to_four(ceil_units)
+        quotient_units = unsigned_divide(budget, stride)
+        max_chunk_units = round_down_to_four(quotient_units)
         rows.append(
             {
                 "case": case.get("case"),
                 "work_plus_0x84": width,
                 "stride_plus_0xb8": stride,
-                "ceil_div_8192_by_stride": ceil_units,
+                "floor_div_8192_by_stride": quotient_units,
                 "max_chunk_units_plus_0xcc": max_chunk_units,
                 "channel_b_length_formula": f"min(+0xcc,+0xd0) * {stride}",
                 "payload_0x48": case.get("payload_0x48"),
@@ -107,7 +107,7 @@ def build_case_rows(raster_fields: dict[str, Any], constants: dict[str, int]) ->
 def flag_scenarios() -> list[dict[str, Any]]:
     scenarios = []
     for units, c4, final_flag, secondary in [(4, 1, 0, 0), (4, 1, 1, 0), (4, 1, 1, 1), (5, 2, 0, 1), (7, 2, 1, 1)]:
-        encoded = ceil_div_candidate(units, c4)
+        encoded = unsigned_divide(units, c4)
         flags = encoded | (int(bool(final_flag)) << 24) | (int(bool(secondary)) << 25)
         scenarios.append(
             {
@@ -115,8 +115,8 @@ def flag_scenarios() -> list[dict[str, Any]]:
                 "state_plus_0xc4": c4,
                 "final_flag": final_flag,
                 "secondary_or_source_flag": secondary,
-                "encoded_units_hypothesis": encoded,
-                "raw_band_flag_word_hypothesis": f"0x{flags:08x}",
+                "encoded_units": encoded,
+                "raw_band_flag_word": f"0x{flags:08x}",
             }
         )
     return scenarios
@@ -126,10 +126,10 @@ def evidence_checks(sources: dict[str, str], constants: dict[str, int], rows: li
     a4_default = find_case(rows, "a4_default")
     return [
         check(
-            "ceil_helper_zero_one_cases_visible",
-            "if (param_2 < 2)" in sources["ceil_helper"]
-            and "return param_1;" in sources["ceil_helper"]
-            and "return 0;" in sources["ceil_helper"],
+            "division_helper_zero_one_cases_visible",
+            "if (param_2 < 2)" in sources["division_helper"]
+            and "return param_1;" in sources["division_helper"]
+            and "return 0;" in sources["division_helper"],
             "0x1001b668 exposes exact divisor 0/1 behavior despite bad decompiler flow after that",
         ),
         check(
@@ -168,7 +168,7 @@ def evidence_checks(sources: dict[str, str], constants: dict[str, int], rows: li
         check(
             "a4_default_chunk_projection",
             a4_default.get("stride_plus_0xb8") == 1200 and a4_default.get("max_chunk_units_plus_0xcc") == 4,
-            "a4_default projects to stride 1200 and +0xcc max chunk units 4 under the ceil-div hypothesis",
+            "a4_default projects to stride 1200 and +0xcc max chunk units 4 under verified unsigned floor division",
         ),
     ]
 
@@ -192,21 +192,21 @@ def build_report() -> dict[str, Any]:
             "raster_fields": raster_fields.get("status"),
             "prepare_projection": prepare_projection.get("status"),
         },
-        "helper_hypothesis": {
+        "helper_contract": {
             "function": "0x1001b668",
-            "working_name": "ceil_div_or_units_encode_candidate",
+            "working_name": "unsigned_divide",
             "exact_cases": {"denominator_0": 0, "denominator_1": "numerator"},
-            "strong_hypothesis": "for denominator >= 2, returns ceil(numerator / denominator)",
-            "why_not_fully_named": "Ghidra decompiler reports bad instruction data in the divide path; callers and special cases fit ceil-div but the exact Xtensa instruction path still needs disassembly confirmation.",
+            "verified_behavior": "for denominator >= 2, returns floor(numerator / denominator)",
+            "evidence": "Complete ELF-matched decode and independent instruction execution are recorded in video-helper-disassembly.md.",
         },
         "constants": constants,
         "case_matrix": rows,
         "flag_encoding_scenarios": flag_scenarios(),
         "field_conclusions": [
             "+0xb8 is stride bytes: ((work +0x84 + 31) & ~31) >> 3.",
-            "+0xcc is a maximum chunk-unit cap: ceil_div(8192, stride) rounded down to a multiple of 4.",
+            "+0xcc is a maximum chunk-unit cap: floor_div(8192, stride) rounded down to a multiple of 4.",
             "+0xd0/+0xd4 are copied from work +0x26 and then decremented by the refill helper.",
-            "Raw-band flag words are helper-encoded units ORed with final/secondary bits, but the helper's divide path remains a named hypothesis until instruction-level confirmation.",
+            "Raw-band flag words use unsigned floor-divided units ORed with final/secondary bits; physical interpretation remains uncalibrated.",
         ],
         "checks": checks,
     }
@@ -223,18 +223,18 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- status: `{report['status']}`",
         "- scope: video state `+0xcc/+0xd0` sizing and raw-band flag helper behavior",
         "",
-        "## Helper Hypothesis",
+        "## Verified Helper",
         "",
     ]
-    helper = report["helper_hypothesis"]
+    helper = report["helper_contract"]
     lines.extend(
         [
             f"- function: `{helper['function']}`",
             f"- working name: `{helper['working_name']}`",
             f"- exact denominator 0 case: `{helper['exact_cases']['denominator_0']}`",
             f"- exact denominator 1 case: `{helper['exact_cases']['denominator_1']}`",
-            f"- strong hypothesis: {helper['strong_hypothesis']}",
-            f"- caution: {helper['why_not_fully_named']}",
+            f"- verified behavior: {helper['verified_behavior']}",
+            f"- evidence: {helper['evidence']}",
             "",
             "## Constants",
             "",
@@ -245,18 +245,18 @@ def render_markdown(report: dict[str, Any]) -> str:
     for name, value in report["constants"].items():
         lines.append(f"| `{name}` | `{value}` / `0x{value:08x}` |")
 
-    lines.extend(["", "## Chunk Projection", "", "| Case | Work +0x84 | Stride +0xb8 | ceil(8192/stride) | +0xcc max chunk units | Channel-B length formula | Payload +0x48 |", "|---|---:|---:|---:|---:|---|---:|"])
+    lines.extend(["", "## Chunk Projection", "", "| Case | Work +0x84 | Stride +0xb8 | floor(8192/stride) | +0xcc max chunk units | Channel-B length formula | Payload +0x48 |", "|---|---:|---:|---:|---:|---|---:|"])
     for row in report["case_matrix"]:
         lines.append(
-            "| `{case}` | `{work_plus_0x84}` | `{stride_plus_0xb8}` | `{ceil_div_8192_by_stride}` | `{max_chunk_units_plus_0xcc}` | `{channel_b_length_formula}` | `{payload_0x48}` |".format(
+            "| `{case}` | `{work_plus_0x84}` | `{stride_plus_0xb8}` | `{floor_div_8192_by_stride}` | `{max_chunk_units_plus_0xcc}` | `{channel_b_length_formula}` | `{payload_0x48}` |".format(
                 **row
             )
         )
 
-    lines.extend(["", "## Flag Encoding Scenarios", "", "| Units | +0xc4 | Final | Secondary | Encoded units | Flag word hypothesis |", "|---:|---:|---:|---:|---:|---:|"])
+    lines.extend(["", "## Flag Encoding Scenarios", "", "| Units | +0xc4 | Final | Secondary | Encoded units | Flag word |", "|---:|---:|---:|---:|---:|---:|"])
     for row in report["flag_encoding_scenarios"]:
         lines.append(
-            "| `{units}` | `{state_plus_0xc4}` | `{final_flag}` | `{secondary_or_source_flag}` | `{encoded_units_hypothesis}` | `{raw_band_flag_word_hypothesis}` |".format(
+            "| `{units}` | `{state_plus_0xc4}` | `{final_flag}` | `{secondary_or_source_flag}` | `{encoded_units}` | `{raw_band_flag_word}` |".format(
                 **row
             )
         )

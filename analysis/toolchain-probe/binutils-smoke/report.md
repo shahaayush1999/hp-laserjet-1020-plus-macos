@@ -66,9 +66,9 @@ Key to Flags:
 Disassembly of section .text:
 
 10000000 <_start>:
-10000000:	362100               	entry	a1, 16
-10000003:	0c02                	movi.n	a2, 0
-10000005:	1df0                	retw.n
+10000000:	6c1002        	entry	a1, 16
+10000003:	c020      	movi.n	a2, 0
+10000005:	d10f      	retw.n
 ```
 
 ## Raw Binary

@@ -24,6 +24,18 @@ network, multi-model, and unrelated firmware features are out of scope.
 - Semantic print dispatch, raster/video output, and engine control are not
   implemented in open firmware.
 
+## Latest Offline Audit (2026-09-05)
+
+- Fixed a toolchain ISA-overlay mismatch: earlier probes contained LE instructions
+  in BE ELF files. All four probes are rebuilt; earlier uploads cannot prove execution.
+- Added byte fixtures and complete stock-helper reassembly to every probe build.
+- Refuted ceiling division at `0x1001b668`: complete decoding and 169,890
+  differential instruction executions establish unsigned floor division.
+- The assembled parser now passes all 44 generated/boundary cases in an
+  independent RAM-only interpreter: 1,178,483 instructions; zero MMIO accesses.
+- Both validation suites and bulk-probe reproducibility pass. Research continues
+  on unresolved work sideband fields and offline semantic construction.
+
 ## Main Unknowns
 
 1. Whether boot-ROM USB initialization is sufficient for the standalone probe.

@@ -18,6 +18,8 @@ if [[ -z "$prefix" ]]; then
   fi
 fi
 
+python3 "$ROOT_DIR/scripts/check-xtensa-instruction-encoding.py" --prefix "$prefix"
+
 as_tool="${prefix}-as"
 ld_tool="${prefix}-ld"
 readelf_tool="${prefix}-readelf"
@@ -77,6 +79,7 @@ python3 "$ROOT_DIR/scripts/wrap-firmware-acl.py" "$img" "$dl"
 
 python3 "$ROOT_DIR/scripts/model-hp1020-usb-bulk-probe-contract.py"
 python3 "$ROOT_DIR/scripts/model-hp1020-usb-bulk-parser-draft.py"
+XTENSA_PREFIX="$prefix" python3 "$ROOT_DIR/scripts/check-hp1020-assembled-parser.py"
 
 python3 "$ROOT_DIR/scripts/inspect-firmware-layout.py" \
   --profile boot-probe \

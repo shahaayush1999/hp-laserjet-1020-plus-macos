@@ -2,8 +2,8 @@
   "case_matrix": [
     {
       "case": "base",
-      "ceil_div_8192_by_stride": 7,
       "channel_b_length_formula": "min(+0xcc,+0xd0) * 1200",
+      "floor_div_8192_by_stride": 6,
       "max_chunk_units_plus_0xcc": 4,
       "payload_0x48": 6364,
       "stride_plus_0xb8": 1200,
@@ -11,17 +11,17 @@
     },
     {
       "case": "a4_2400x600",
-      "ceil_div_8192_by_stride": 4,
       "channel_b_length_formula": "min(+0xcc,+0xd0) * 2384",
-      "max_chunk_units_plus_0xcc": 4,
+      "floor_div_8192_by_stride": 3,
+      "max_chunk_units_plus_0xcc": 0,
       "payload_0x48": 9080,
       "stride_plus_0xb8": 2384,
       "work_plus_0x84": 19072
     },
     {
       "case": "a4_600x600",
-      "ceil_div_8192_by_stride": 14,
       "channel_b_length_formula": "min(+0xcc,+0xd0) * 608",
+      "floor_div_8192_by_stride": 13,
       "max_chunk_units_plus_0xcc": 12,
       "payload_0x48": 4448,
       "stride_plus_0xb8": 608,
@@ -29,8 +29,8 @@
     },
     {
       "case": "a4_cardstock_media",
-      "ceil_div_8192_by_stride": 7,
       "channel_b_length_formula": "min(+0xcc,+0xd0) * 1200",
+      "floor_div_8192_by_stride": 6,
       "max_chunk_units_plus_0xcc": 4,
       "payload_0x48": 6364,
       "stride_plus_0xb8": 1200,
@@ -38,8 +38,8 @@
     },
     {
       "case": "a4_default",
-      "ceil_div_8192_by_stride": 7,
       "channel_b_length_formula": "min(+0xcc,+0xd0) * 1200",
+      "floor_div_8192_by_stride": 6,
       "max_chunk_units_plus_0xcc": 4,
       "payload_0x48": 6364,
       "stride_plus_0xb8": 1200,
@@ -47,8 +47,8 @@
     },
     {
       "case": "a4_draft",
-      "ceil_div_8192_by_stride": 7,
       "channel_b_length_formula": "min(+0xcc,+0xd0) * 1200",
+      "floor_div_8192_by_stride": 6,
       "max_chunk_units_plus_0xcc": 4,
       "payload_0x48": 6364,
       "stride_plus_0xb8": 1200,
@@ -56,8 +56,8 @@
     },
     {
       "case": "a4_logical_clip",
-      "ceil_div_8192_by_stride": 7,
       "channel_b_length_formula": "min(+0xcc,+0xd0) * 1200",
+      "floor_div_8192_by_stride": 6,
       "max_chunk_units_plus_0xcc": 4,
       "payload_0x48": 6364,
       "stride_plus_0xb8": 1200,
@@ -65,8 +65,8 @@
     },
     {
       "case": "a4_manual_feed",
-      "ceil_div_8192_by_stride": 7,
       "channel_b_length_formula": "min(+0xcc,+0xd0) * 1200",
+      "floor_div_8192_by_stride": 6,
       "max_chunk_units_plus_0xcc": 4,
       "payload_0x48": 6364,
       "stride_plus_0xb8": 1200,
@@ -74,8 +74,8 @@
     },
     {
       "case": "a4_two_copies",
-      "ceil_div_8192_by_stride": 7,
       "channel_b_length_formula": "min(+0xcc,+0xd0) * 1200",
+      "floor_div_8192_by_stride": 6,
       "max_chunk_units_plus_0xcc": 4,
       "payload_0x48": 6364,
       "stride_plus_0xb8": 1200,
@@ -83,8 +83,8 @@
     },
     {
       "case": "legal_default",
-      "ceil_div_8192_by_stride": 7,
       "channel_b_length_formula": "min(+0xcc,+0xd0) * 1232",
+      "floor_div_8192_by_stride": 6,
       "max_chunk_units_plus_0xcc": 4,
       "payload_0x48": 6388,
       "stride_plus_0xb8": 1232,
@@ -92,8 +92,8 @@
     },
     {
       "case": "letter_default",
-      "ceil_div_8192_by_stride": 7,
       "channel_b_length_formula": "min(+0xcc,+0xd0) * 1232",
+      "floor_div_8192_by_stride": 6,
       "max_chunk_units_plus_0xcc": 4,
       "payload_0x48": 6376,
       "stride_plus_0xb8": 1232,
@@ -103,7 +103,7 @@
   "checks": [
     {
       "detail": "0x1001b668 exposes exact divisor 0/1 behavior despite bad decompiler flow after that",
-      "name": "ceil_helper_zero_one_cases_visible",
+      "name": "division_helper_zero_one_cases_visible",
       "status": "present"
     },
     {
@@ -132,7 +132,7 @@
       "status": "present"
     },
     {
-      "detail": "a4_default projects to stride 1200 and +0xcc max chunk units 4 under the ceil-div hypothesis",
+      "detail": "a4_default projects to stride 1200 and +0xcc max chunk units 4 under verified unsigned floor division",
       "name": "a4_default_chunk_projection",
       "status": "present"
     }
@@ -145,61 +145,61 @@
   },
   "field_conclusions": [
     "+0xb8 is stride bytes: ((work +0x84 + 31) & ~31) >> 3.",
-    "+0xcc is a maximum chunk-unit cap: ceil_div(8192, stride) rounded down to a multiple of 4.",
+    "+0xcc is a maximum chunk-unit cap: floor_div(8192, stride) rounded down to a multiple of 4.",
     "+0xd0/+0xd4 are copied from work +0x26 and then decremented by the refill helper.",
-    "Raw-band flag words are helper-encoded units ORed with final/secondary bits, but the helper's divide path remains a named hypothesis until instruction-level confirmation."
+    "Raw-band flag words use unsigned floor-divided units ORed with final/secondary bits; physical interpretation remains uncalibrated."
   ],
   "flag_encoding_scenarios": [
     {
-      "encoded_units_hypothesis": 4,
+      "encoded_units": 4,
       "final_flag": 0,
-      "raw_band_flag_word_hypothesis": "0x00000004",
+      "raw_band_flag_word": "0x00000004",
       "secondary_or_source_flag": 0,
       "state_plus_0xc4": 1,
       "units": 4
     },
     {
-      "encoded_units_hypothesis": 4,
+      "encoded_units": 4,
       "final_flag": 1,
-      "raw_band_flag_word_hypothesis": "0x01000004",
+      "raw_band_flag_word": "0x01000004",
       "secondary_or_source_flag": 0,
       "state_plus_0xc4": 1,
       "units": 4
     },
     {
-      "encoded_units_hypothesis": 4,
+      "encoded_units": 4,
       "final_flag": 1,
-      "raw_band_flag_word_hypothesis": "0x03000004",
+      "raw_band_flag_word": "0x03000004",
       "secondary_or_source_flag": 1,
       "state_plus_0xc4": 1,
       "units": 4
     },
     {
-      "encoded_units_hypothesis": 3,
+      "encoded_units": 2,
       "final_flag": 0,
-      "raw_band_flag_word_hypothesis": "0x02000003",
+      "raw_band_flag_word": "0x02000002",
       "secondary_or_source_flag": 1,
       "state_plus_0xc4": 2,
       "units": 5
     },
     {
-      "encoded_units_hypothesis": 4,
+      "encoded_units": 3,
       "final_flag": 1,
-      "raw_band_flag_word_hypothesis": "0x03000004",
+      "raw_band_flag_word": "0x03000003",
       "secondary_or_source_flag": 1,
       "state_plus_0xc4": 2,
       "units": 7
     }
   ],
-  "helper_hypothesis": {
+  "helper_contract": {
+    "evidence": "Complete ELF-matched decode and independent instruction execution are recorded in video-helper-disassembly.md.",
     "exact_cases": {
       "denominator_0": 0,
       "denominator_1": "numerator"
     },
     "function": "0x1001b668",
-    "strong_hypothesis": "for denominator >= 2, returns ceil(numerator / denominator)",
-    "why_not_fully_named": "Ghidra decompiler reports bad instruction data in the divide path; callers and special cases fit ceil-div but the exact Xtensa instruction path still needs disassembly confirmation.",
-    "working_name": "ceil_div_or_units_encode_candidate"
+    "verified_behavior": "for denominator >= 2, returns floor(numerator / denominator)",
+    "working_name": "unsigned_divide"
   },
   "source_reports": {
     "prepare_projection": "analysis/hardware-boundary/video-prepare-projection.json",

@@ -1,0 +1,319 @@
+{
+  "functions": [
+    {
+      "end": 268547760,
+      "instructions": [
+        {
+          "address": 268547688,
+          "bytes": "6c1002",
+          "mnemonic": "entry",
+          "operands": "a1, 0x10"
+        },
+        {
+          "address": 268547691,
+          "bytes": "6e3239",
+          "mnemonic": "bltui",
+          "operands": "a3, 0x2, 0x1001b6a8"
+        },
+        {
+          "address": 268547694,
+          "bytes": "d620",
+          "mnemonic": "mov.n",
+          "operands": "a6, a2"
+        },
+        {
+          "address": 268547696,
+          "bytes": "056f04",
+          "mnemonic": "nsau",
+          "operands": "a5, a6"
+        },
+        {
+          "address": 268547699,
+          "bytes": "043f04",
+          "mnemonic": "nsau",
+          "operands": "a4, a3"
+        },
+        {
+          "address": 268547702,
+          "bytes": "745b24",
+          "mnemonic": "bgeu",
+          "operands": "a5, a4, 0x1001b69e"
+        },
+        {
+          "address": 268547705,
+          "bytes": "05440c",
+          "mnemonic": "sub",
+          "operands": "a4, a4, a5"
+        },
+        {
+          "address": 268547708,
+          "bytes": "004104",
+          "mnemonic": "ssl",
+          "operands": "a4"
+        },
+        {
+          "address": 268547711,
+          "bytes": "00331a",
+          "mnemonic": "sll",
+          "operands": "a3, a3"
+        },
+        {
+          "address": 268547714,
+          "bytes": "220a00",
+          "mnemonic": "movi",
+          "operands": "a2, 0x0"
+        },
+        {
+          "address": 268547717,
+          "bytes": "6d490d",
+          "mnemonic": "loopnez",
+          "operands": "a4, 0x1001b696"
+        },
+        {
+          "address": 268547720,
+          "bytes": "736304",
+          "mnemonic": "bltu",
+          "operands": "a6, a3, 0x1001b690"
+        },
+        {
+          "address": 268547723,
+          "bytes": "03660c",
+          "mnemonic": "sub",
+          "operands": "a6, a6, a3"
+        },
+        {
+          "address": 268547726,
+          "bytes": "b122",
+          "mnemonic": "addi.n",
+          "operands": "a2, a2, 0x1"
+        },
+        {
+          "address": 268547728,
+          "bytes": "0f2211",
+          "mnemonic": "slli",
+          "operands": "a2, a2, 0x1"
+        },
+        {
+          "address": 268547731,
+          "bytes": "031314",
+          "mnemonic": "srli",
+          "operands": "a3, a3, 0x1"
+        },
+        {
+          "address": 268547734,
+          "bytes": "736302",
+          "mnemonic": "bltu",
+          "operands": "a6, a3, 0x1001b69c"
+        },
+        {
+          "address": 268547737,
+          "bytes": "222c01",
+          "mnemonic": "addi",
+          "operands": "a2, a2, 0x1"
+        },
+        {
+          "address": 268547740,
+          "bytes": "d10f",
+          "mnemonic": "retw.n",
+          "operands": ""
+        },
+        {
+          "address": 268547742,
+          "bytes": "c020",
+          "mnemonic": "movi.n",
+          "operands": "a2, 0x0"
+        },
+        {
+          "address": 268547744,
+          "bytes": "736301",
+          "mnemonic": "bltu",
+          "operands": "a6, a3, 0x1001b6a5"
+        },
+        {
+          "address": 268547747,
+          "bytes": "c021",
+          "mnemonic": "movi.n",
+          "operands": "a2, 0x1"
+        },
+        {
+          "address": 268547749,
+          "bytes": "060000",
+          "mnemonic": "retw",
+          "operands": ""
+        },
+        {
+          "address": 268547752,
+          "bytes": "c830",
+          "mnemonic": "beqz.n",
+          "operands": "a3, 0x1001b6ac"
+        },
+        {
+          "address": 268547754,
+          "bytes": "d10f",
+          "mnemonic": "retw.n",
+          "operands": ""
+        },
+        {
+          "address": 268547756,
+          "bytes": "c020",
+          "mnemonic": "movi.n",
+          "operands": "a2, 0x0"
+        },
+        {
+          "address": 268547758,
+          "bytes": "d10f",
+          "mnemonic": "retw.n",
+          "operands": ""
+        }
+      ],
+      "name": "unsigned_divide",
+      "sha256": "028e0472d3e3219fcfed48e69cb2d48c43e49df8458aa068134650f954e48a93",
+      "start": 268547688
+    },
+    {
+      "end": 268547820,
+      "instructions": [
+        {
+          "address": 268547760,
+          "bytes": "6c1002",
+          "mnemonic": "entry",
+          "operands": "a1, 0x10"
+        },
+        {
+          "address": 268547763,
+          "bytes": "6e322f",
+          "mnemonic": "bltui",
+          "operands": "a3, 0x2, 0x1001b6e6"
+        },
+        {
+          "address": 268547766,
+          "bytes": "052f04",
+          "mnemonic": "nsau",
+          "operands": "a5, a2"
+        },
+        {
+          "address": 268547769,
+          "bytes": "043f04",
+          "mnemonic": "nsau",
+          "operands": "a4, a3"
+        },
+        {
+          "address": 268547772,
+          "bytes": "745b1e",
+          "mnemonic": "bgeu",
+          "operands": "a5, a4, 0x1001b6de"
+        },
+        {
+          "address": 268547775,
+          "bytes": "05440c",
+          "mnemonic": "sub",
+          "operands": "a4, a4, a5"
+        },
+        {
+          "address": 268547778,
+          "bytes": "004104",
+          "mnemonic": "ssl",
+          "operands": "a4"
+        },
+        {
+          "address": 268547781,
+          "bytes": "00331a",
+          "mnemonic": "sll",
+          "operands": "a3, a3"
+        },
+        {
+          "address": 268547784,
+          "bytes": "d30f",
+          "mnemonic": "nop.n",
+          "operands": ""
+        },
+        {
+          "address": 268547786,
+          "bytes": "6d4908",
+          "mnemonic": "loopnez",
+          "operands": "a4, 0x1001b6d6"
+        },
+        {
+          "address": 268547789,
+          "bytes": "732302",
+          "mnemonic": "bltu",
+          "operands": "a2, a3, 0x1001b6d3"
+        },
+        {
+          "address": 268547792,
+          "bytes": "03220c",
+          "mnemonic": "sub",
+          "operands": "a2, a2, a3"
+        },
+        {
+          "address": 268547795,
+          "bytes": "031314",
+          "mnemonic": "srli",
+          "operands": "a3, a3, 0x1"
+        },
+        {
+          "address": 268547798,
+          "bytes": "732302",
+          "mnemonic": "bltu",
+          "operands": "a2, a3, 0x1001b6dc"
+        },
+        {
+          "address": 268547801,
+          "bytes": "03220c",
+          "mnemonic": "sub",
+          "operands": "a2, a2, a3"
+        },
+        {
+          "address": 268547804,
+          "bytes": "d10f",
+          "mnemonic": "retw.n",
+          "operands": ""
+        },
+        {
+          "address": 268547806,
+          "bytes": "732302",
+          "mnemonic": "bltu",
+          "operands": "a2, a3, 0x1001b6e4"
+        },
+        {
+          "address": 268547809,
+          "bytes": "03220c",
+          "mnemonic": "sub",
+          "operands": "a2, a2, a3"
+        },
+        {
+          "address": 268547812,
+          "bytes": "d10f",
+          "mnemonic": "retw.n",
+          "operands": ""
+        },
+        {
+          "address": 268547814,
+          "bytes": "220a00",
+          "mnemonic": "movi",
+          "operands": "a2, 0x0"
+        },
+        {
+          "address": 268547817,
+          "bytes": "060000",
+          "mnemonic": "retw",
+          "operands": ""
+        }
+      ],
+      "name": "unsigned_remainder",
+      "sha256": "3f95b4d1299be52a84244f3d12c60708be92fc1a95cc0ea7b4b38f3d5fd802cb",
+      "start": 268547760
+    }
+  ],
+  "ghidra_version": "12.1.1",
+  "instruction_source_sha256": "d7fcfdc28dd216ba02e5b202c1c4fd61d35885c7b525e6ded7c3ab2dfa40196d",
+  "language": "Xtensa:BE:32:default",
+  "pypcode_version": "4.0.0",
+  "repair": {
+    "constructors_changed": 3,
+    "new": "bri8_m = 0b01 & bri8_n = 0b11 & op0 =",
+    "old": "at = 0b0111 & op0 =",
+    "reason": "BRI8 m/n field groups swap position in BE; literal at=7 encodes LE field order. BE at must be 13."
+  },
+  "scope": "offline mnemonic decode only; p-code loops not used"
+}

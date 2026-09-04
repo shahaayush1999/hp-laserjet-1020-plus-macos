@@ -104,6 +104,7 @@ reports = [
     "analysis/open-firmware-probes/usb-bulk-parser-draft/status-descriptor-check.json",
     "analysis/open-firmware-probes/usb-bulk-parser-draft/config-descriptor-check.json",
     "analysis/open-firmware-probes/usb-bulk-parser-draft/parser-model.json",
+    "analysis/open-firmware-probes/usb-bulk-parser-draft/assembled-parser-check.json",
     "analysis/open-firmware-probes/usb-bulk-parser-draft/deterministic-test-results.json",
     "analysis/open-firmware-probes/usb-bulk-parser-draft/reproducibility-check.json",
 ]

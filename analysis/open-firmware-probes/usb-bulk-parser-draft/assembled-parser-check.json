@@ -1,0 +1,277 @@
+{
+  "cases": [
+    {
+      "instructions_executed": 136566,
+      "name": "generated::matrix-a4_2400x600",
+      "status": "pass",
+      "transfers_compared": 10
+    },
+    {
+      "instructions_executed": 71708,
+      "name": "generated::matrix-a4_600x600",
+      "status": "pass",
+      "transfers_compared": 5
+    },
+    {
+      "instructions_executed": 98536,
+      "name": "generated::matrix-a4_cardstock_media",
+      "status": "pass",
+      "transfers_compared": 7
+    },
+    {
+      "instructions_executed": 98536,
+      "name": "generated::matrix-a4_default",
+      "status": "pass",
+      "transfers_compared": 7
+    },
+    {
+      "instructions_executed": 98522,
+      "name": "generated::matrix-a4_draft",
+      "status": "pass",
+      "transfers_compared": 7
+    },
+    {
+      "instructions_executed": 98872,
+      "name": "generated::matrix-a4_logical_clip",
+      "status": "pass",
+      "transfers_compared": 7
+    },
+    {
+      "instructions_executed": 98536,
+      "name": "generated::matrix-a4_manual_feed",
+      "status": "pass",
+      "transfers_compared": 7
+    },
+    {
+      "instructions_executed": 98536,
+      "name": "generated::matrix-a4_two_copies",
+      "status": "pass",
+      "transfers_compared": 7
+    },
+    {
+      "instructions_executed": 98872,
+      "name": "generated::matrix-legal_default",
+      "status": "pass",
+      "transfers_compared": 7
+    },
+    {
+      "instructions_executed": 98704,
+      "name": "generated::matrix-letter_default",
+      "status": "pass",
+      "transfers_compared": 7
+    },
+    {
+      "instructions_executed": 98536,
+      "name": "generated::minimal-page-a4",
+      "status": "pass",
+      "transfers_compared": 7
+    },
+    {
+      "instructions_executed": 881,
+      "name": "header_split_01_of_16",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 881,
+      "name": "header_split_02_of_16",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 881,
+      "name": "header_split_03_of_16",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 881,
+      "name": "header_split_04_of_16",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 881,
+      "name": "header_split_05_of_16",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 881,
+      "name": "header_split_06_of_16",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 881,
+      "name": "header_split_07_of_16",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 881,
+      "name": "header_split_08_of_16",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 881,
+      "name": "header_split_09_of_16",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 881,
+      "name": "header_split_10_of_16",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 881,
+      "name": "header_split_11_of_16",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 881,
+      "name": "header_split_12_of_16",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 881,
+      "name": "header_split_13_of_16",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 881,
+      "name": "header_split_14_of_16",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 881,
+      "name": "header_split_15_of_16",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 710,
+      "name": "magic_split_01_of_4",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 710,
+      "name": "magic_split_02_of_4",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 710,
+      "name": "magic_split_03_of_4",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 4317,
+      "name": "payload_split_across_four_boundaries",
+      "status": "pass",
+      "transfers_compared": 5
+    },
+    {
+      "instructions_executed": 4010,
+      "name": "multiple_chunks_single_transfer",
+      "status": "pass",
+      "transfers_compared": 1
+    },
+    {
+      "instructions_executed": 4256,
+      "name": "stock_types_outside_probe_scope_are_unknown",
+      "status": "pass",
+      "transfers_compared": 1
+    },
+    {
+      "instructions_executed": 1352,
+      "name": "valid_zero_payload_chunks",
+      "status": "pass",
+      "transfers_compared": 1
+    },
+    {
+      "instructions_executed": 1088,
+      "name": "zero_size_chunk_recovery",
+      "status": "pass",
+      "transfers_compared": 7
+    },
+    {
+      "instructions_executed": 1088,
+      "name": "oversize_chunk_policy_recovery",
+      "status": "pass",
+      "transfers_compared": 6
+    },
+    {
+      "instructions_executed": 1084,
+      "name": "bad_signature_recovery",
+      "status": "pass",
+      "transfers_compared": 6
+    },
+    {
+      "instructions_executed": 1133,
+      "name": "reserved_exceeds_payload_recovery",
+      "status": "pass",
+      "transfers_compared": 6
+    },
+    {
+      "instructions_executed": 1212,
+      "name": "unknown_chunk_is_counted_and_skipped",
+      "status": "pass",
+      "transfers_compared": 6
+    },
+    {
+      "instructions_executed": 18264,
+      "name": "ring_and_descriptor_wrap_boundary",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 15609,
+      "name": "payload_crosses_ring_wrap_boundary",
+      "status": "pass",
+      "transfers_compared": 2
+    },
+    {
+      "instructions_executed": 12348,
+      "name": "three_repeated_documents",
+      "status": "pass",
+      "transfers_compared": 15
+    },
+    {
+      "instructions_executed": 193,
+      "name": "truncated_chunk_header_at_eof",
+      "status": "pass",
+      "transfers_compared": 3
+    },
+    {
+      "instructions_executed": 548,
+      "name": "truncated_chunk_payload_at_eof",
+      "status": "pass",
+      "transfers_compared": 4
+    },
+    {
+      "instructions_executed": 712,
+      "name": "zero_byte_receive_descriptors",
+      "status": "pass",
+      "transfers_compared": 3
+    }
+  ],
+  "comparison": "After each transfer, before host-only finalize; compare counters, parser state, partial header and active payload remainder.",
+  "decoded_parser_instructions": 94,
+  "elf_sha256": "8f25286ccc9f070b803abb68ae87a8d23a748990c269c861be19f7a31d35aa3f",
+  "instructions_executed": 1178483,
+  "mmio_accesses": 0,
+  "scope": "assembled parser slice only; no descriptor/MMIO/boot emulation",
+  "status": "pass",
+  "total_cases": 44,
+  "unique_instructions_executed": 94
+}

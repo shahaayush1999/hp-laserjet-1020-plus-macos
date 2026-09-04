@@ -188,9 +188,9 @@
       "severity": "watch"
     },
     {
-      "detail": "The helper disassembly report must preserve the confirmed 0/1 edge cases while keeping the divide path bounded as a hypothesis.",
+      "detail": "Unsigned floor division must be verified against complete ELF-matched helper instructions, including loop execution.",
       "evidence": "analysis/hardware-boundary/video-helper-disassembly.json",
-      "name": "video_helper_disassembly_keeps_divide_path_bounded",
+      "name": "video_helper_unsigned_division_instruction_verified",
       "severity": "watch"
     },
     {

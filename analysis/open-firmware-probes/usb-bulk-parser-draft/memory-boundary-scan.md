@@ -1,14 +1,14 @@
 # HP 1020 Memory Boundary Scan
 
-- recovered classified memory accesses: `90`
+- recovered classified memory accesses: `98`
 - fail hits: `0`
 
 ## Counts
 
-- `local_probe_state` `read`: `15`
+- `local_probe_state` `read`: `18`
 - `local_probe_state` `write`: `57`
-- `setup_packet_buffer` `read`: `4`
-- `status_descriptor_local` `write`: `1`
+- `setup_packet_buffer` `read`: `6`
+- `status_descriptor_local` `write`: `4`
 - `stock_response_state` `write`: `2`
 - `usb_bulk_receive_buffer` `read`: `1`
 - `usb_bulk_transfer_descriptor` `read`: `1`
@@ -110,3 +110,11 @@
 | `watch` | `local_probe_state` | `read` | `0x10006147` | `0x60` | `l32i	a3, a2, 96` | local probe state buffer |
 | `watch` | `status_descriptor_local` | `write` | `0x10006163` | `0x0` | `s8i	a6, a4, 0` | open bulk-status descriptor local alias at 0x10003400 |
 | `watch` | `local_probe_state` | `read` | `0x10006174` | `0x64` | `l32i	a3, a2, 100` | local probe state buffer |
+| `watch` | `local_probe_state` | `read` | `0x100061a4` | `0x68` | `l32i	a3, a2, 104` | local probe state buffer |
+| `watch` | `local_probe_state` | `read` | `0x100061d4` | `0x6c` | `l32i	a3, a2, 108` | local probe state buffer |
+| `watch` | `local_probe_state` | `read` | `0x10006204` | `0x70` | `l32i	a3, a2, 112` | local probe state buffer |
+| `watch` | `setup_packet_buffer` | `read` | `0x10006236` | `0x6` | `l8ui	a3, a11, 6` | candidate USB setup packet buffer at 0x90021348 |
+| `watch` | `status_descriptor_local` | `write` | `0x10006239` | `0x18` | `s32i.n	a3, a4, 24` | open bulk-status descriptor local alias at 0x10003400 |
+| `watch` | `setup_packet_buffer` | `read` | `0x1000623d` | `0x7` | `l8ui	a3, a11, 7` | candidate USB setup packet buffer at 0x90021348 |
+| `watch` | `status_descriptor_local` | `write` | `0x10006240` | `0x1c` | `s32i.n	a3, a4, 28` | open bulk-status descriptor local alias at 0x10003400 |
+| `watch` | `status_descriptor_local` | `write` | `0x1000624d` | `0x20` | `s32i.n	a6, a4, 32` | open bulk-status descriptor local alias at 0x10003400 |

@@ -1,328 +1,158 @@
 #!/usr/bin/env python3
-"""Document the current disassembly limit for HP 1020 helper 0x1001b668.
+"""Audit and execute the complete stock unsigned divide/remainder helpers.
 
-This is offline analysis only. The helper is important for video chunk sizing,
-but the available decoders do not fully decode the old Xtensa divide path.
+The saved mnemonic decode is regenerated with recover-hp1020-division-decode.py.
+Every saved instruction is checked against the ELF. Loop execution below is
+explicit: it deliberately does not use Ghidra's defective loop p-code wrapper.
 """
-
 from __future__ import annotations
-
+import hashlib
 import json
-import shutil
-import struct
-import subprocess
+import random
 from pathlib import Path
-from typing import Any
-
+import importlib.util
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
-ELF_PATH = ROOT_DIR / "analysis/sihp1020.elf"
-OUT_JSON = ROOT_DIR / "analysis/hardware-boundary/video-helper-disassembly.json"
-OUT_MD = ROOT_DIR / "analysis/hardware-boundary/video-helper-disassembly.md"
-
-HELPER_ADDR = 0x1001B668
-HELPER_END = 0x1001B6C8
-SIMILAR_HELPER_ADDR = 0x1001B6B0
-Pcode_ERROR_ADDR = "1001b685"
-
-SOURCES = {
-    "helper_decompile": ROOT_DIR / "analysis/message-producers/producer-decompiled/1001b668_FUN_1001b668.c",
-    "prepare": ROOT_DIR / "analysis/dispatch-mmio/decompiled/10014910_hp1020_video_prepare_page_candidate.c",
-    "band_queue": ROOT_DIR / "analysis/zjs-parser-boundary/decompiled/10013f34_hp1020_video_band_queue_or_list_candidate.c",
-    "raw_refresh": ROOT_DIR / "analysis/zjs-parser-boundary/decompiled/100140f8_hp1020_video_refresh_raw_bands_candidate.c",
-}
-
-GHIDRA_LOGS = [
-    ROOT_DIR / "analysis/zjs-parser-boundary-run.txt",
-    ROOT_DIR / "analysis/queue-send-census-run.txt",
-    ROOT_DIR / "analysis/message-producers/message-producers-run.txt",
-    ROOT_DIR / "analysis/jobmgr-producer-boundary-run.txt",
-]
-
-OBJDUMP_CANDIDATES = [
-    ROOT_DIR / "tools/xtensa-fsf-elf/bin/xtensa-fsf-elf-objdump",
-    Path("/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf-objdump"),
-    Path("/opt/homebrew/bin/xtensa-fsf-elf-objdump"),
-    Path("/opt/homebrew/bin/objdump"),
-    Path("/opt/homebrew/Cellar/binutils/2.46.0/bin/objdump"),
-]
+spec = importlib.util.spec_from_file_location('division_decode', ROOT_DIR/'scripts/recover-hp1020-division-decode.py')
+decoder = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(decoder)
+elf_range = decoder.elf_range
+OUT = ROOT_DIR/'analysis/hardware-boundary'
+MASK = 0xffffffff
 
 
-def read_text(path: Path) -> str:
-    return path.read_text(errors="replace")
+def unsigned_divide(numerator: int, denominator: int) -> int:
+    if not 0 <= numerator <= MASK or not 0 <= denominator <= MASK:
+        raise ValueError('requires unsigned 32-bit operands')
+    return numerator // denominator if denominator else 0
 
 
-def elf_bytes_for_addr(addr: int, size: int) -> bytes:
-    data = ELF_PATH.read_bytes()
-    phoff = struct.unpack(">I", data[28:32])[0]
-    phentsize = struct.unpack(">H", data[42:44])[0]
-    phnum = struct.unpack(">H", data[44:46])[0]
-    for index in range(phnum):
-        off = phoff + index * phentsize
-        p_type, p_offset, p_vaddr, _p_paddr, p_filesz, _p_memsz, _p_flags, _p_align = struct.unpack(
-            ">IIIIIIII", data[off : off + 32]
-        )
-        if p_type == 1 and p_vaddr <= addr and addr + size <= p_vaddr + p_filesz:
-            file_off = p_offset + addr - p_vaddr
-            return data[file_off : file_off + size]
-    raise ValueError(f"address range 0x{addr:08x}..0x{addr + size:08x} is not file-backed")
+def compile_program(function):
+    cursor = function['start']
+    program = {}
+    for row in function['instructions']:
+        raw = bytes.fromhex(row['bytes'])
+        if row['address'] != cursor or elf_range(cursor,len(raw)) != raw:
+            raise ValueError('saved instruction bytes do not match contiguous ELF range')
+        args = tuple(int(x.strip()[1:]) if x.strip().startswith('a') else int(x.strip(),0)
+                     for x in row['operands'].split(',') if x.strip())
+        program[cursor] = (row['mnemonic'], args, len(raw))
+        cursor += len(raw)
+    if cursor != function['end']:
+        raise ValueError('incomplete function')
+    if hashlib.sha256(elf_range(function['start'],cursor-function['start'])).hexdigest() != function['sha256']:
+        raise ValueError('function hash differs')
+    return program
 
 
-def choose_objdump() -> Path | None:
-    for candidate in OBJDUMP_CANDIDATES:
-        if candidate.exists() and candidate.is_file():
-            return candidate
-    resolved = shutil.which("xtensa-fsf-elf-objdump") or shutil.which("objdump")
-    return Path(resolved) if resolved else None
+def execute(program, entry, numerator, denominator, visited=None):
+    r = [0]*16
+    r[2],r[3] = numerator,denominator
+    pc,shift = entry,0
+    loop_begin,loop_end,loop_remaining = 0,0,0
+    for step in range(300):
+        if visited is not None: visited.add(pc)
+        op,a,size = program[pc]
+        nxt = pc+size
+        if op == 'entry': pass  # local register-window view; no memory in body
+        elif op.startswith('retw'): return r[2]
+        elif op in ('movi','movi.n'): r[a[0]]=a[1]
+        elif op == 'mov.n': r[a[0]]=r[a[1]]
+        elif op == 'nsau': r[a[0]]=32-r[a[1]].bit_length()
+        elif op == 'sub': r[a[0]]=(r[a[1]]-r[a[2]])&MASK
+        elif op in ('addi','addi.n'): r[a[0]]=(r[a[1]]+a[2])&MASK
+        elif op == 'ssl': shift=r[a[0]]&31
+        elif op == 'sll': r[a[0]]=(r[a[1]]<<shift)&MASK
+        elif op == 'slli': r[a[0]]=(r[a[1]]<<a[2])&MASK
+        elif op == 'srli': r[a[0]]=r[a[1]]>>a[2]
+        elif op == 'nop.n': pass
+        elif op == 'bltui':
+            if r[a[0]]<a[1]: nxt=a[2]
+        elif op == 'bltu':
+            if r[a[0]]<r[a[1]]: nxt=a[2]
+        elif op == 'bgeu':
+            if r[a[0]]>=r[a[1]]: nxt=a[2]
+        elif op == 'beqz.n':
+            if r[a[0]]==0: nxt=a[1]
+        elif op == 'loopnez':
+            loop_begin,loop_end,loop_remaining = nxt,a[1],r[a[0]]
+            if not loop_remaining: nxt=loop_end
+        else: raise ValueError(f'unsupported instruction {op}')
+        if nxt == loop_end and loop_remaining:
+            loop_remaining-=1
+            if loop_remaining: nxt=loop_begin
+        pc=nxt
+    raise ValueError('nonterminating helper')
 
 
-def run_objdump() -> dict[str, Any]:
-    objdump = choose_objdump()
-    if objdump is None:
-        return {
-            "available": False,
-            "tool": None,
-            "returncode": None,
-            "lines": [],
-            "decoder_limit_markers": [],
-        }
-
-    command = [
-        str(objdump),
-        "-d",
-        f"--start-address=0x{HELPER_ADDR - 8:08x}",
-        f"--stop-address=0x{HELPER_END:08x}",
-        str(ELF_PATH),
-    ]
-    proc = subprocess.run(command, capture_output=True, text=True, check=False)
-    text = proc.stdout + proc.stderr
-    lines = [line.rstrip() for line in text.splitlines() if line.strip()]
-    interesting = [
-        line
-        for line in lines
-        if any(token in line for token in ("1001b668", "1001b685", "excw", "muls.ad", "1001b6b0"))
-    ]
-    return {
-        "available": True,
-        "tool": str(objdump),
-        "returncode": proc.returncode,
-        "command": command,
-        "lines": lines[:80],
-        "interesting_lines": interesting[:40],
-        "decoder_limit_markers": [line for line in interesting if "excw" in line or "muls.ad" in line],
-    }
-
-
-def collect_ghidra_log_hits() -> list[dict[str, str]]:
-    hits = []
-    for path in GHIDRA_LOGS:
-        if not path.exists():
-            continue
-        for line in read_text(path).splitlines():
-            if "1001b668" in line and Pcode_ERROR_ADDR in line:
-                hits.append({"path": str(path.relative_to(ROOT_DIR)), "line": line.strip()})
-    return hits
+def build_report():
+    decoded=json.loads((OUT/'division-instructions.json').read_text())
+    funcs=decoded['functions']
+    programs=[compile_program(f) for f in funcs]
+    edge={0,1,2,3,MASK,MASK-1,8192,1200,608}
+    for b in range(32):
+        edge.update(x for x in ((1<<b)-1,1<<b,(1<<b)+1) if x<=MASK)
+    pairs=[(n,d) for n in range(256) for d in range(256)]
+    pairs.extend((n,d) for n in sorted(edge) for d in sorted(edge))
+    rng=random.Random(1020)
+    pairs.extend((rng.getrandbits(32),rng.getrandbits(32)) for _ in range(10000))
+    coverage=[set(),set()]
+    for n,d in pairs:
+        expected=(unsigned_divide(n,d),n%d if d else 0)
+        for i in range(2):
+            actual=execute(programs[i],funcs[i]['start'],n,d,coverage[i])
+            if actual!=expected[i]: raise AssertionError((funcs[i]['name'],n,d,actual,expected[i]))
+    examples=[]
+    for n,d in [(1,2),(7,2),(8192,1200),(8192,608),(8192,1100),(MASK,2),(MASK,MASK),(123,0)]:
+        examples.append({'numerator':n,'denominator':d,'stock_quotient':execute(programs[0],funcs[0]['start'],n,d),
+                         'old_ceiling_hypothesis':(n+d-1)//d if d else 0})
+    checks=[{'name':'complete_ELF_matched_decode','status':'present'},
+            {'name':'quotient_and_remainder_differential_cases','status':'present'},
+            {'name':'all_instructions_exercised','status':'present' if all(len(c)==len(p) for c,p in zip(coverage,programs)) else 'missing'},
+            {'name':'ceiling_hypothesis_refuted','status':'present' if examples[0]['stock_quotient']==0 else 'missing'}]
+    return {'status':'pass' if all(x['status']=='present' for x in checks) else 'fail',
+            'helper':{'address':'0x1001b668','working_name':'unsigned_divide',
+                      'confirmed_behavior':{'denominator_0':'returns 0','denominator_1':'returns numerator',
+                                            'denominator_ge_2':'returns floor(numerator / denominator)'}},
+            'neighbor':{'address':'0x1001b6b0','working_name':'unsigned_remainder','zero_divisor_result':0},
+            'conclusion':{'status':'instruction_verified','plain_english':'The previous ceiling-division hypothesis was wrong. The complete stock helper computes unsigned floor division; its neighbor computes remainder.'},
+            'validation':{'input_pairs':len(pairs),'executions':2*len(pairs),'instruction_coverage':[len(c) for c in coverage],
+                          'method':'ELF-matched saved mnemonic decode, independent explicit instruction interpreter, Python // and % oracle',
+                          'limit':'Not exhaustive over all 2^64 inputs; no hardware execution, timing, ABI, or Ghidra loop p-code claim.'},
+            'examples':examples,'checks':checks,'decoder_repair':decoded['repair']}
 
 
-def source_evidence() -> dict[str, Any]:
-    sources = {name: read_text(path) for name, path in SOURCES.items()}
-    return {
-        "visible_exact_cases": {
-            "denominator_0_returns_0": "return 0;" in sources["helper_decompile"],
-            "denominator_1_returns_numerator": "return param_1;" in sources["helper_decompile"],
-            "small_denominator_gate": "if (param_2 < 2)" in sources["helper_decompile"],
-        },
-        "decompiler_warning_markers": {
-            "bad_instruction_warning": "Control flow encountered bad instruction data" in sources["helper_decompile"],
-            "halt_baddata": "halt_baddata" in sources["helper_decompile"],
-            "lzcount_guard": "LZCOUNT" in sources["helper_decompile"],
-        },
-        "caller_roles": [
-            {
-                "caller": "0x10014910 hp1020_video_prepare_page_candidate",
-                "role": "computes stride-derived chunk cap +0xcc and a secondary chunk value",
-                "snippets_present": [
-                    "FUN_1001b668(uVar6,uVar19)" in sources["prepare"],
-                    "FUN_1001b668(DAT_10005ddc,iVar8)" in sources["prepare"],
-                ],
-            },
-            {
-                "caller": "0x10013f34 hp1020_video_band_queue_or_list_candidate",
-                "role": "encodes normal descriptor-queue raw-band counts before flag writes",
-                "snippets_present": [
-                    "FUN_1001b668(uVar8 >> 1,uVar11)" in sources["band_queue"],
-                    "FUN_1001b668(uVar11,uVar12)" in sources["band_queue"],
-                ],
-            },
-            {
-                "caller": "0x100140f8 hp1020_video_refresh_raw_bands_candidate",
-                "role": "encodes alternate raw linked-list counts before flag writes",
-                "snippets_present": [
-                    "FUN_1001b668(uVar1 >> 1,uVar10)" in sources["raw_refresh"],
-                    "FUN_1001b668(uVar2,uVar10)" in sources["raw_refresh"],
-                ],
-            },
-        ],
-    }
+def main():
+    report=build_report()
+    (OUT/'video-helper-disassembly.json').write_text(json.dumps(report,indent=2,sort_keys=True)+'\n')
+    lines=['# HP 1020 Unsigned Division and Remainder Audit','',report['conclusion']['plain_english'],'',
+           'The missing instruction `6d 49 0d` at `0x1001b685` is `loopnez a4,0x1001b696`. '
+           'Ghidra 12.1.1 uses the LE `at=7` field layout for its loop constructors; BE needs `at=13`. '
+           'The isolated repair uses the existing endian-aware `bri8_m/bri8_n` fields. It changes no installed tool or ELF.', '',
+           'The branch/shift/subtract sequence matches the unsigned division and remainder algorithms in '
+           '[GCC 3.4.6](https://github.com/gcc-mirror/gcc/blob/releases/gcc-3.4.6/gcc/config/xtensa/lib1funcs.asm). '
+           'This is supporting source correlation, not proof of the exact compiler version.', '',
+           '## Verification','',f"- Status: `{report['status']}`",
+           f"- {report['validation']['executions']} differential executions; all {sum(report['validation']['instruction_coverage'])} decoded instructions exercised.",
+           '- Inputs: exhaustive 8-bit pairs, 32-bit power boundaries, seeded 32-bit random pairs, and video sizes.',
+           '- Loop count and control flow are executed explicitly, independently of Ghidra loop p-code.',
+           '- All decoded bytes and function hashes must match the stock ELF on every validation run.',
+           '- '+report['validation']['limit'],'',
+           '## Consequences','',
+           '`+0xcc = floor(8192 / stride) & ~3`. A4 stride 1200 still gives four units, but the intermediate quotient is six, not seven. '
+           'At stride 1100 the old rule permits eight units (8800 bytes) against an 8192-byte budget; the stock rule permits four. '
+           'Raw-band unit encodings must also use floor division. This arithmetic correction does not validate hardware timing.','',
+           '| Numerator | Divisor | Stock quotient | Old ceiling hypothesis |','|---:|---:|---:|---:|']
+    for x in report['examples']: lines.append('| {numerator} | {denominator} | {stock_quotient} | {old_ceiling_hypothesis} |'.format(**x))
+    lines+=['','## Complete decoded bodies','']
+    for f in json.loads((OUT/'division-instructions.json').read_text())['functions']:
+        lines+=['### '+f['name'],'','```text']
+        lines += [f"{i['address']:08x}  {i['bytes']:6s}  {i['mnemonic']} {i['operands']}".rstrip() for i in f['instructions']]
+        lines+=['```','']
+    lines+=['## Reproduce','',
+            'Regular validation requires only Python 3. To regenerate the independent mnemonic decode, install `pypcode==4.0.0` in a temporary virtual environment and run `scripts/recover-hp1020-division-decode.py` with Ghidra 12.1.1 available. Then run `scripts/model-hp1020-video-helper-disassembly.py`.','']
+    (OUT/'video-helper-disassembly.md').write_text('\n'.join(lines))
+    print(f"status={report['status']} executions={report['validation']['executions']}")
+    return report['status']!='pass'
 
-
-def build_checks(report: dict[str, Any]) -> list[dict[str, str]]:
-    raw = report["raw_bytes"]
-    evidence = report["source_evidence"]
-    visible = evidence["visible_exact_cases"]
-    warnings = evidence["decompiler_warning_markers"]
-    callers = evidence["caller_roles"]
-    objdump = report["objdump"]
-    checks = [
-        {
-            "name": "helper_bytes_extracted",
-            "status": "present" if raw["helper_prefix_hex"].startswith("6c10026e3239d620056f") else "missing",
-            "detail": "ELF bytes at 0x1001b668 match the current stock firmware extraction.",
-        },
-        {
-            "name": "zero_one_cases_visible",
-            "status": "present"
-            if all(visible.values())
-            else "missing",
-            "detail": "Ghidra decompile still exposes denominator 0 -> 0 and denominator 1 -> numerator.",
-        },
-        {
-            "name": "bad_instruction_path_visible",
-            "status": "present" if all(warnings.values()) else "missing",
-            "detail": "Ghidra still marks the helper's wider divide path as bad instruction data.",
-        },
-        {
-            "name": "ghidra_logs_show_pcode_error",
-            "status": "present" if report["ghidra_pcode_error_hits"] else "missing",
-            "detail": "Batch decompile logs include the pcode constructor failure at 0x1001b685.",
-        },
-        {
-            "name": "known_callers_accounted_for",
-            "status": "present" if all(all(role["snippets_present"]) for role in callers) else "missing",
-            "detail": "Prepare, descriptor-queue, and alternate raw-band callers still reference the helper.",
-        },
-        {
-            "name": "local_objdump_does_not_confirm_divide_path",
-            "status": "present"
-            if (not objdump["available"] or objdump["decoder_limit_markers"])
-            else "missing",
-            "detail": "Current local objdump path is absent or emits old-Xtensa/custom-instruction-looking markers instead of a clean helper decode.",
-        },
-    ]
-    return checks
-
-
-def build_report() -> dict[str, Any]:
-    raw_helper = elf_bytes_for_addr(HELPER_ADDR, HELPER_END - HELPER_ADDR)
-    raw_similar = elf_bytes_for_addr(SIMILAR_HELPER_ADDR, 40)
-    report: dict[str, Any] = {
-        "summary": "Instruction-level status for helper 0x1001b668 used by video chunk sizing.",
-        "scope": "offline static analysis; no printer contact",
-        "helper": {
-            "address": f"0x{HELPER_ADDR:08x}",
-            "working_name": "ceil_div_or_units_encode_candidate",
-            "confirmed_behavior": {
-                "denominator_0": "returns 0",
-                "denominator_1": "returns numerator",
-            },
-            "unconfirmed_behavior": {
-                "denominator_ge_2": "caller-fit hypothesis remains ceil(numerator / denominator)",
-                "reason": "Ghidra and local objdump do not currently provide a clean decode of the old Xtensa/custom divide path.",
-            },
-        },
-        "raw_bytes": {
-            "helper_range": f"0x{HELPER_ADDR:08x}..0x{HELPER_END:08x}",
-            "helper_prefix_hex": raw_helper[:32].hex(),
-            "helper_hex": raw_helper.hex(),
-            "similar_helper_0x1001b6b0_prefix_hex": raw_similar[:32].hex(),
-        },
-        "source_evidence": source_evidence(),
-        "ghidra_pcode_error_hits": collect_ghidra_log_hits(),
-        "objdump": run_objdump(),
-        "conclusion": {
-            "status": "bounded_hypothesis",
-            "plain_english": "We know this helper matters and know its no-divide edge cases. We do not yet have a clean instruction-level decode for the real divide path, so the ceil-div name is a strong model fit, not final proof.",
-            "next_useful_step": "Treat this as good enough for dataflow modeling; only spend more time here if a later hardware/register formula disagrees with the ceil-div model.",
-        },
-    }
-    report["checks"] = build_checks(report)
-    report["status"] = "pass" if all(item["status"] == "present" for item in report["checks"]) else "fail"
-    return report
-
-
-def render_markdown(report: dict[str, Any]) -> str:
-    helper = report["helper"]
-    objdump = report["objdump"]
-    lines = [
-        "# HP 1020 Video Helper Disassembly Limit",
-        "",
-        "This generated report is offline only. It does not contact the printer.",
-        "",
-        "## Result",
-        "",
-        f"- status: `{report['status']}`",
-        f"- helper: `{helper['address']}` `{helper['working_name']}`",
-        f"- confirmed denominator 0 behavior: {helper['confirmed_behavior']['denominator_0']}",
-        f"- confirmed denominator 1 behavior: {helper['confirmed_behavior']['denominator_1']}",
-        f"- denominator >= 2: {helper['unconfirmed_behavior']['denominator_ge_2']}",
-        f"- why not final: {helper['unconfirmed_behavior']['reason']}",
-        "",
-        "## Plain-English Meaning",
-        "",
-        report["conclusion"]["plain_english"],
-        "",
-        "## Raw Bytes",
-        "",
-        f"- range: `{report['raw_bytes']['helper_range']}`",
-        f"- first 32 bytes: `{report['raw_bytes']['helper_prefix_hex']}`",
-        f"- similar helper `0x1001b6b0` first 32 bytes: `{report['raw_bytes']['similar_helper_0x1001b6b0_prefix_hex']}`",
-        "",
-        "## Caller Impact",
-        "",
-        "| Caller | Role | Evidence |",
-        "|---|---|---|",
-    ]
-    for role in report["source_evidence"]["caller_roles"]:
-        present = "present" if all(role["snippets_present"]) else "missing"
-        lines.append(f"| `{role['caller']}` | {role['role']} | `{present}` |")
-
-    lines.extend(["", "## Decoder Evidence", ""])
-    lines.append(f"- Ghidra pcode error hits: `{len(report['ghidra_pcode_error_hits'])}`")
-    for hit in report["ghidra_pcode_error_hits"]:
-        lines.append(f"  - `{hit['path']}`: `{hit['line']}`")
-    lines.append("")
-    if objdump["available"]:
-        lines.extend(
-            [
-                f"- objdump tool: `{objdump['tool']}`",
-                f"- objdump return code: `{objdump['returncode']}`",
-                f"- decoder limit markers: `{len(objdump['decoder_limit_markers'])}`",
-                "",
-                "Relevant objdump lines:",
-                "",
-            ]
-        )
-        for line in objdump.get("interesting_lines", [])[:16]:
-            lines.append(f"- `{line}`")
-    else:
-        lines.append("- objdump tool: not available")
-
-    lines.extend(["", "## Checks", "", "| Check | Status | Detail |", "|---|---|---|"])
-    for item in report["checks"]:
-        lines.append(f"| `{item['name']}` | `{item['status']}` | {item['detail']} |")
-    lines.append("")
-    return "\n".join(lines)
-
-
-def main() -> int:
-    report = build_report()
-    OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
-    OUT_JSON.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
-    OUT_MD.write_text(render_markdown(report))
-    print(f"status={report['status']} checks={len(report['checks'])}")
-    print(f"wrote {OUT_MD.relative_to(ROOT_DIR)}")
-    return 0 if report["status"] == "pass" else 1
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
+if __name__=='__main__': raise SystemExit(main())

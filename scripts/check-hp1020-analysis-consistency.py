@@ -1014,8 +1014,8 @@ def build_report() -> dict[str, Any]:
         check(
             "video_chunk_sizing_projects_stride_and_cc",
             chunk_sizing.get("status") == "pass"
-            and chunk_sizing.get("helper_hypothesis", {}).get("strong_hypothesis")
-            == "for denominator >= 2, returns ceil(numerator / denominator)"
+            and chunk_sizing.get("helper_contract", {}).get("verified_behavior")
+            == "for denominator >= 2, returns floor(numerator / denominator)"
             and chunk_sizing.get("constants", {}).get("chunk_budget_bytes_DAT_10005dc8") == 8192
             and chunk_cases.get("a4_default", {}).get("stride_plus_0xb8") == 1200
             and chunk_cases.get("a4_default", {}).get("max_chunk_units_plus_0xcc") == 4
@@ -1027,33 +1027,15 @@ def build_report() -> dict[str, Any]:
         )
     )
     helper_disassembly = read_json("analysis/hardware-boundary/video-helper-disassembly.json")
-    helper_checks = {
-        item.get("name"): item
-        for item in helper_disassembly.get("checks", [])
-        if isinstance(item, dict)
-    }
     checks.append(
         check(
-            "video_helper_disassembly_keeps_divide_path_bounded",
+            "video_helper_unsigned_division_instruction_verified",
             helper_disassembly.get("status") == "pass"
-            and helper_disassembly.get("helper", {}).get("working_name") == "ceil_div_or_units_encode_candidate"
-            and helper_disassembly.get("helper", {})
-            .get("confirmed_behavior", {})
-            .get("denominator_0")
-            == "returns 0"
-            and helper_disassembly.get("helper", {})
-            .get("confirmed_behavior", {})
-            .get("denominator_1")
-            == "returns numerator"
-            and helper_disassembly.get("helper", {})
-            .get("unconfirmed_behavior", {})
-            .get("denominator_ge_2")
-            == "caller-fit hypothesis remains ceil(numerator / denominator)"
-            and helper_disassembly.get("conclusion", {}).get("status") == "bounded_hypothesis"
-            and len(helper_disassembly.get("ghidra_pcode_error_hits", [])) >= 1
-            and helper_checks.get("local_objdump_does_not_confirm_divide_path", {}).get("status") == "present"
+            and helper_disassembly.get("helper", {}).get("working_name") == "unsigned_divide"
+            and helper_disassembly.get("conclusion", {}).get("status") == "instruction_verified"
+            and helper_disassembly.get("validation", {}).get("executions", 0) >= 131072
             and all(item.get("status") == "present" for item in helper_disassembly.get("checks", [])),
-            "The helper disassembly report must preserve the confirmed 0/1 edge cases while keeping the divide path bounded as a hypothesis.",
+            "Unsigned floor division must be verified against complete ELF-matched helper instructions, including loop execution.",
             evidence="analysis/hardware-boundary/video-helper-disassembly.json",
         )
     )

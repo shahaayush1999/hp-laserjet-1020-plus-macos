@@ -16,6 +16,8 @@ if [[ -z "$prefix" ]]; then
   fi
 fi
 
+python3 "$ROOT_DIR/scripts/check-xtensa-instruction-encoding.py" --prefix "$prefix"
+
 as_tool="${prefix}-as"
 ld_tool="${prefix}-ld"
 readelf_tool="${prefix}-readelf"

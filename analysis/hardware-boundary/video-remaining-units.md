@@ -21,7 +21,7 @@ This is a generated offline model. It does not contact the printer.
 | Case | ZJI_VIDEO_Y candidate | +0xcc max chunk units | Stride +0xb8 | First refill units | First channel-B length |
 |---|---:|---:|---:|---:|---:|
 | `base` | `6824` | `4` | `1200` | `4` | `4800` |
-| `a4_2400x600` | `6824` | `4` | `2384` | `4` | `9536` |
+| `a4_2400x600` | `6824` | `0` | `2384` | `0` | `0` |
 | `a4_600x600` | `6824` | `12` | `608` | `12` | `7296` |
 | `a4_cardstock_media` | `6824` | `4` | `1200` | `4` | `4800` |
 | `a4_default` | `6824` | `4` | `1200` | `4` | `4800` |

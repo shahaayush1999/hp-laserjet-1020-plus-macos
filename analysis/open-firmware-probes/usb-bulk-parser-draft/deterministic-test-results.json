@@ -2,15 +2,15 @@
   "artifacts": {
     "dl": {
       "bytes": 127315,
-      "sha256": "20361937bd0ffcb4eaf9aeca62400b5e792cf054e64b3879725c1820b81d4f34"
+      "sha256": "a12e63807660f7e328021342d5288d1234690f278b0ad6ea0f0e16e2d22d44da"
     },
     "elf": {
       "bytes": 127256,
-      "sha256": "f7adf99f9304e95a5418cf43a23856c793bd8e1234fa698dc64ccd363d099d18"
+      "sha256": "8f25286ccc9f070b803abb68ae87a8d23a748990c269c861be19f7a31d35aa3f"
     },
     "img": {
       "bytes": 127264,
-      "sha256": "538b3aa9c4d8b9fde3e6ae884769ee50c26519e0a44c2bc2051bf04f58888f68"
+      "sha256": "f32b210cdb34bfb71438c1838b4010db6085fa3cd3fcc5780348b8b966d9582d"
     },
     "map": {
       "bytes": 10377,

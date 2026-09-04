@@ -35,10 +35,10 @@
       "video_y_candidate_from_zji_0x12": 6824
     },
     {
-      "candidate_first_channel_b_length_if_alias_holds": 9536,
-      "candidate_first_refill_units_if_alias_holds": 4,
+      "candidate_first_channel_b_length_if_alias_holds": 0,
+      "candidate_first_refill_units_if_alias_holds": 0,
       "case": "a4_2400x600",
-      "max_chunk_units_plus_0xcc": 4,
+      "max_chunk_units_plus_0xcc": 0,
       "stride_plus_0xb8": 2384,
       "video_y_candidate_from_zji_0x12": 6824
     },

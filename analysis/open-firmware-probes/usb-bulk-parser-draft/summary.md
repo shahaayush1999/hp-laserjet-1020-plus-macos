@@ -21,7 +21,7 @@ The next meaningful step is the guarded test in `hardware-test-plan.md`: upload 
 
 ## Artifacts
 
-- `usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.dl`: `20361937bd0ffcb4eaf9aeca62400b5e792cf054e64b3879725c1820b81d4f34`
-- `usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.elf`: `f7adf99f9304e95a5418cf43a23856c793bd8e1234fa698dc64ccd363d099d18`
-- `usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.img`: `538b3aa9c4d8b9fde3e6ae884769ee50c26519e0a44c2bc2051bf04f58888f68`
+- `usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.dl`: `a12e63807660f7e328021342d5288d1234690f278b0ad6ea0f0e16e2d22d44da`
+- `usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.elf`: `8f25286ccc9f070b803abb68ae87a8d23a748990c269c861be19f7a31d35aa3f`
+- `usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.img`: `f32b210cdb34bfb71438c1838b4010db6085fa3cd3fcc5780348b8b966d9582d`
 - `usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.map`: `68b6b041d1b1e3ab279bb0b7c02a82bf1299438029290ab0ce69c6afd90498b6`
