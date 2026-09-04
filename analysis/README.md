@@ -1,335 +1,73 @@
-# HP 1020 Firmware Analysis Index
+# Research map for agents
 
-This directory contains offline reverse-engineering notes for the HP LaserJet 1020/1020 Plus firmware.
+Read `../CURRENT_STATUS.md` first. This is a selective map, not a reading list.
+The owner consumes progress through chat and is not expected to read these files.
+Paths below are relative to the repository root unless linked explicitly.
 
-Start here:
+## Where to work
 
-1. `firmware-architecture-map.md` - current integrated architecture map
-2. `viability-report.md` - first viability snapshot
-3. `upload-wrapper-report.md` - `.img` to `.dl` upload envelope
-4. `boot-abi-report.md` - ELF/reset/vector/system-interface shape
-5. `startup-chain-report.md` - entry path, interrupt dispatch, scheduler notes
-6. `rtos-primitives-report.md` - RTOS object signatures and queue/send/receive primitives
-7. `object-creation-report.md` - queue/thread creation wrappers
-8. `queue-resolution-report.md` - queue IDs and consumers
-9. `message-producers-report.md` - message producers by subsystem
-10. `message-map-report.md` - consolidated queue/message dictionary
-11. `engine-event-report.md` - engine queue `0x17` payload/event-code map
-12. `engine-status-poll-report.md` - branch conditions that select engine status event words
-13. `engine-event-consumer/engine-event-consumer.md` - scan for the unresolved engine `0x17` consumer path
-14. `engine-dispatch-cfg/engine-dispatch-cfg.md` - raw CFG and exact engine dispatch switch table
-15. `status-path-report.md` - PJL-visible status/fault string table and bridging functions
-16. `status-mask-report.md` - literal masks/constants used by status-state and engine-status paths
-17. `status-state-report.md` - status-state object layout and transition rules
-18. `data-store-report.md` - indexed firmware state/config table used by PJL/status paths
-19. `data-store-subscriber-report.md` - data-store publish/subscribe wiring and known callbacks
-20. `printmgr-fallout-report.md` - PrintMgr `0x2d` notification handler and unresolved producer boundary
-21. `queue-send-census-report.md` - global queue-send census and PrintMgr `0x2d` producer check
-22. `printmgr-inputs-report.md` - proven PrintMgr queue inputs and handler targets
-23. `job-object-flow-report.md` - JobMgr/PrintMgr list nodes and work-object handoff
-24. `job-record-fields-report.md` - first field map for job and child/page records
-25. `video-handoff-report.md` - PrintMgr to Video Queue `0x0b` payload and video state slots
-26. `video-work-object-report.md` - `0x94` video/page work object lifecycle and fields
-27. `zjs-parser-boundary/zjs-parser-boundary.md` - USB/ZjStream parser entry and chunk switch table
-28. `jobmgr-raster-message-flow-report.md` - parser-to-JobMgr raster flow for `0x29`/`0x2a`/`0x2b`
-29. `video-raster-consumer-report.md` - video-side consumer for `work +0x50` raster list nodes
-30. `printer-test-readiness-report.md` - controlled sample and next connected-printer test commands
-31. `jobmgr-producer-boundary-report.md` - earlier JobMgr producer scan, now superseded for `0x29`
-32. `pjl-status-code-reference.md` - external HP PJL status-code mapping for generated `CODE=` values
-33. `dispatch-mmio-report.md` - dispatch tables and MMIO use sites
-34. `mmio-semantics-report.md` - first behavioral names for hardware registers
-35. `firmware-layout-report.md` - offline upload/image/ELF structural validator output
-36. `symbols/apply-labels-report.md` - replay report for portable Ghidra labels
-37. `toolchain-probe-report.md` - local build-tool availability for replacement firmware work
-38. `prototype-roadmap.md` - practical prototype options and safety gates
-39. `open-firmware-model-report.md` - executable offline model of the normal ZjStream-to-work-object path
-40. `hardware-boundary/hardware-boundary.md` - concrete safe/unsafe MMIO boundary for custom firmware work
-41. `hardware-boundary/video-register-projection.md` - projection from modeled work fields to first unsafe video registers
-42. `non-printing-usb-probe-spec.md` - narrow custom-firmware boot/USB probe target and hard safety gate
-43. `hardware-boundary/safety-scanner-known-unsafe-report.md` - validation that the safety scanner flags known unsafe firmware paths
-44. `toolchain-probe/xtensa-toolchain-checkpoint.md` - crosstool-NG/Xtensa binutils checkpoint
-45. `open-firmware-probes/minimal-idle/summary.md` - generated open idle firmware probe and static validation
-46. `boot-handoff/boot-handoff.md` - stock-vs-open boot/upload handoff comparison
-47. `open-firmware-probes/minimal-idle/hardware-test-result-2026-06-15.md` - first connected-printer idle-probe upload result
-48. `non-printing-status-probe/status-query-plan.md` - guarded PJL/back-channel query plan for the next non-mechanical hardware discriminator
-49. `non-printing-status-probe/pjl-backchannel-map.md` - firmware and CUPS evidence behind the PJL/status query path
-50. `usb-path/usb-marker-boundary.md` - why a future USB marker probe is plausible but not the next safe upload
-51. `usb-path/usb-descriptor-extraction.md` - generated extraction of stock USB device/config descriptors and identity strings
-52. `usb-path/usb-descriptor-response-model.md` - byte-level GET_DESCRIPTOR response model for stock descriptors and a future open marker string
-53. `usb-path/endpoint0-machinery.md` - stock endpoint-0 transfer/queue/register machinery and remaining USB marker blocker
-54. `usb-path/usb-mmio-map.md` - generated map of `0xb300....` USB controller reads/writes used by stock endpoint-0 handling
-55. `open-firmware-probes/minimal-idle/usb-contract-scan.md` - strict USB-only probe contract scan for the current idle candidate
-56. `toolchain-probe/binutils-exec-status.md` - old corrupt crosstool-NG prefix and recovered manual binutils path
-57. `toolchain-probe/manual-binutils-rebuild.md` - reproducible manual Xtensa binutils recovery path
-58. `toolchain-probe/binutils-smoke/report.md` - runnable Xtensa assembler/linker smoke test using the recovered manual prefix
-59. `open-firmware-probes/usb-register-snapshot/summary.md` - generated open-code USB register snapshot probe and static validation
-60. `usb-path/open-endpoint0-model.md` - pure host-side endpoint-0 GET_DESCRIPTOR decision model for a future open USB marker
-61. `open-firmware-probes/usb-register-snapshot/usb-mmio-access-scan.md` - disassembly-level proof that the USB snapshot probe reads mapped USB registers and writes none
-62. `usb-path/endpoint0-handshake-contract.md` - static endpoint-0 setup/status gates and USB controller programming sequences
-63. `open-firmware-probes/usb-marker-draft/summary.md` - generated write-capable USB-only endpoint-0 marker draft and static validation
-64. `open-firmware-probes/usb-marker-draft/hardware-test-plan.md` - guarded future hardware test plan for the marker draft
-65. `open-firmware-probes/usb-register-snapshot/hardware-test-plan.md` - guarded future hardware test plan for the read-only USB snapshot probe
-66. `open-firmware-probes/usb-marker-draft/memory-boundary-scan.md` - explicit setup-buffer reads and stock response-state writes in the marker draft
-67. `open-firmware-probes/usb-marker-draft/marker-descriptor-check.md` - embedded marker descriptor bytes, length, and hardware alias verification
-68. `open-firmware-probes/usb-marker-draft/marker-length-flow-check.md` - source-level guard that clipped host length reaches endpoint-0
-69. `open-firmware-probes/usb-marker-draft/behavior-model.md` - host-side model of marker setup/gate decisions and response-length clipping
-70. `open-firmware-probes/hardware-test-ladder.md` - staged non-printing hardware test order and one-stage harness usage
-71. `open-firmware-model/model-invariants.md` - regenerated invariant check for the ZjStream print-path model across all generated cases
-72. `status-path/status-code-correlation.md` - conservative engine-event-to-PJL-CODE correlation model
-73. `non-printing-status-probe/pjl-status-contract.md` - exact non-printing PJL/status payload contract and expected response markers
-74. `offline-consistency/offline-consistency.md` - cross-report consistency gate for the current offline conclusions
-75. `usb-path/usb-setup-source.md` - static split between the likely setup-packet RAM buffer and USB event pointer
-76. `usb-path/control-in-data-stage.md` - stock endpoint-0 control-IN transfer descriptor and kick model
-77. `usb-path/control-completion-event.md` - stock endpoint-0 completion event-flag model
-78. `usb-path/usb-interrupt-events.md` - USB interrupt task event-lane, completion-bit, and bulk receive lane model
-79. `open-firmware-model/minimal-print-scope.md` - generated minimum scope for a printing-only open replacement, including platform boundary and remaining blockers
-80. `usb-path/usb-bulk-receive-model.md` - generated static model of stock USB bulk OUT receive registration and parser read-callback handoff
-81. `usb-path/usb-bulk-callbacks-model.md` - generated static model of the stock bulk receive callback/event/re-arm layer
-82. `usb-path/usb-bulk-rearm-model.md` - generated static model of the stock USB receive descriptor re-arm function
-83. `usb-path/usb-parser-shim-contract.md` - generated implementation contract for the first non-printing USB bulk/parser shim
-84. `hardware-boundary/first-page-hardware-sequence.md` - generated ordered first-page sequence from parser handoff into engine/video/refill hardware
-85. `hardware-boundary/video-engine-register-semantics.md` - generated register-role model for engine handshake, video setup, video transfer, and raw-band feed
-86. `hardware-boundary/video-prepare-modes.md` - generated branch/table model for `0xb100` video prepare timing and mode setup
-87. `hardware-boundary/engine-command-status.md` - generated command/status model for the stock `0xb050` engine register pair, status reads, side-effect commands, and event decisions
-88. `hardware-boundary/engine-status-decisions.md` - generated executable branch model for `hp1020_engine_status_poll_candidate` scenarios and side effects
-89. `hardware-boundary/video-engine-feedback.md` - generated model of VideoThread completion/reset messages back into engine/status flow
-90. `hardware-boundary/video-transfer-ring.md` - generated model of video transfer ring ownership, channel A/B descriptors, and band-done refill behavior
-91. `hardware-boundary/video-irq-decisions.md` - generated executable branch model for video block IRQ/status bits and reset-dispatch cases
-92. `hardware-boundary/video-band-queue.md` - generated model of the `0x10013f34` video descriptor queue/list helper, raw-band A/B register feed, and `+0xdc/+0xe0` loop gate
-93. `hardware-boundary/video-mode-flag.md` - generated model of work object `+0x74` to video state `+0xfc` and the IRQ refill fork between descriptor-queue and raw linked-list paths
-94. `hardware-boundary/video-refill-topology.md` - generated synthesis of the normal descriptor-queue refill path versus the alternate raw linked-list refresh path
-95. `hardware-boundary/video-prepare-projection.md` - generated projection from current host print variants into the 600dpi `0xb100` video-prepare setup scenarios
-96. `hardware-boundary/engine-print-topology.md` - generated synthesis of engine startup/preflight, page work acceptance, status recovery, and completion/deferred-work flow
-97. `open-firmware-model/raster-field-semantics.md` - generated host-to-raster field semantics for BIH/BID values that reach the video hardware boundary
-98. `hardware-boundary/video-dataflow-contract.md` - generated normal first-page dataflow contract from host raster fields into render/refill hardware formulas
-99. `hardware-boundary/video-chunk-sizing.md` - generated model for stride-derived `+0xcc` chunk sizing and raw-band flag helper behavior
-100. `hardware-boundary/video-helper-disassembly.md` - generated instruction-level status report for helper `0x1001b668` and the current old-Xtensa decoder limit
-101. `hardware-boundary/video-queue-payload-chain.md` - generated pointer-chain report showing VideoThread prepare receives the `0x94` video/page work object
-102. `hardware-boundary/video-prepare-argument-fields.md` - generated source model for fields read from the `0x94` video prepare argument
-103. `hardware-boundary/video-sideband-write-census.md` - generated decompiler plus Ghidra instruction census for `+0x26/+0x30/+0x32` sideband-looking stores
-104. `hardware-boundary/video-sideband-copy-direction.md` - generated copy-direction report for the JobMgr runtime-block memcpy candidate
-105. `hardware-boundary/video-sideband-default-impact.md` - generated zero/default impact report for sourced work fields, analyzed counterfactually at zero
-106. `hardware-boundary/video-zero-sideband-scenario.md` - generated consequence model for default-zero sideband fields: channel A can arm, channel B refill is not seeded
-107. `hardware-boundary/video-remaining-units.md` - generated model for the `+0xd0/+0xd4` remaining-unit candidate source and unresolved active work `+0x26` source
-108. `usb-path/usb-bulk-probe-contract.md` - combined endpoint-0 and stock bulk OUT lane/descriptor/buffer/submit allowlist for the inert parser probe
-109. `open-firmware-probes/usb-bulk-parser-draft/summary.md` - generated mechanically inert USB bulk receive/ZjStream framing probe and offline validation summary
-110. `open-firmware-probes/usb-bulk-parser-draft/parser-model.md` - executable host model with exact generated-sample, boundary, wrap, malformed, and repeated-document coverage
-111. `open-firmware-probes/usb-bulk-parser-draft/deterministic-test-results.md` - aggregate build, scanner, descriptor, source-contract, and parser-model statuses and artifact hashes
-112. `open-firmware-probes/usb-bulk-parser-draft/hardware-test-plan.md` - guarded endpoint-0 counter and fixed 36-byte START_DOC/END_DOC-only hardware test order; not a print test
-113. `open-firmware-probes/usb-bulk-parser-draft/reproducibility-check.md` - two clean builds with byte-identical firmware, reports, maps, and disassembly
-114. `open-firmware-probes/usb-bulk-parser-draft/config-descriptor-check.md` - linked high-speed/full-speed printer-class descriptor and speed-bit selection checks
-115. `../scripts/normalize-zjs-sample-metadata.py` - fixed offline foo2zjs `JobAttr4` metadata normalizer used to keep generated ZjStream model inputs deterministic
+| Question | Source or current evidence |
+|---|---|
+| What is still unknown, and what would resolve it? | [Next evidence](open-firmware-model/next-evidence.md) |
+| Which components are implemented? | `open-firmware/semantic-core/`, `open-firmware/usb-bulk-parser-draft/`; each has its own README |
+| What proves current offline agreement? | [Consistency gate](offline-consistency/offline-consistency.md), [target C execution](open-firmware-model/semantic-target/validation.md), [page planning](open-firmware-model/page-plan.md) |
+| Correct toolchain and old encoding failure? | [BE encoding audit](toolchain-probe/big-endian-encoding-audit.md), [C compiler](toolchain-probe/freestanding-c-compiler.md) |
+| Boot wrapper and standalone handoff? | `analysis/upload-wrapper-report.md`, `analysis/boot-handoff/boot-handoff.md` |
+| Direct page fields and raster data? | [START_PAGE construction](hardware-boundary/zjs-direct-work.md), [field semantics](open-firmware-model/raster-field-semantics.md), [metadata bounds](open-firmware-model/metadata-bounds.md) |
+| USB control and bulk contracts? | `analysis/usb-path/usb-bulk-probe-contract.md`, `analysis/usb-path/usb-parser-shim-contract.md`; supporting control/event/re-arm reports are in the same directory |
+| Custom raster opcodes? | [Callback inventory](hardware-boundary/raster-callbacks.md) |
+| First-page video and engine behavior? | `analysis/hardware-boundary/first-page-hardware-sequence.md`, `video-dataflow-contract.md`, `engine-print-topology.md` in that directory |
+| Future non-printing hardware experiment? | [Bulk probe test plan](open-firmware-probes/usb-bulk-parser-draft/hardware-test-plan.md), [safer staged ladder](open-firmware-probes/hardware-test-ladder.md) |
+| Installed printing support? | `README.md` at the repository root; research tests are a separate workflow |
 
-Generated Ghidra scripts live in `ghidra-scripts/`.
+## Verification and recovery
 
-Generated decompilation/report folders include:
+Run from the repository root:
 
-- `boot-abi/`
-- `call-clusters/`
-- `descriptor-refs/`
-- `data-store/`
-- `data-store-subscribers/`
-- `dispatch-mmio/`
-- `engine/`
-- `engine-dispatch-cfg/`
-- `engine-event-consumer/`
-- `engine-events/`
-- `firmware-layout/`
-- `hardware-boundary/`
-- `identity/`
-- `jobmgr-producer-boundary/`
-- `labeled/`
-- `message-map/`
-- `message-producers/`
-- `open-firmware-model/`
-- `open-firmware-probes/`
-- `object-creation/`
-- `printmgr-fallout/`
-- `queue-send-census/`
-- `queue-routing/`
-- `queue-table-init/`
-- `samples/generated/`
-- `status-masks/`
-- `status-path/`
-- `symbols/`
-- `toolchain-probe/`
-- `tasks/`
-- `usb-path/`
-- `video-work-object/`
-- `zjs-parser-boundary/`
+```sh
+scripts/validate.sh
+```
 
-Useful current conclusions:
+This runs the analysis suite followed by the probe suite, including native/target
+execution, scanner negative cases, reproducibility and dry-run harnesses. Logs
+are saved outside the repo and printed on failure. It never opts into USB or
+printing. Do not run suites in parallel: they regenerate shared files.
+For a narrow edit, use its existing generator/check first; for documentation
+alone, verify references and the diff. Do not rerun every check without a reason.
 
-- The upload wrapper is known and reproducible with `scripts/wrap-firmware-acl.py`.
-- The upload/image/ELF layout is checkable with `scripts/inspect-firmware-layout.py`.
-- The firmware is a date-prefixed Xtensa big-endian ELF inside an HP ACL/PJL envelope.
-- Ghidra can analyze it when forced to `Xtensa:BE:32:default`.
-- Current labels are portable via `analysis/symbols/hp1020-labels.tsv` and `analysis/ghidra-scripts/ApplyHp1020LabelsFromTsv.java`.
-- The recovered manual Xtensa binutils prefix at `/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf` can assemble/link/inspect `elf32-xtensa-be`; full GCC/newlib is still not needed for the current assembly probes.
-- `open-firmware/minimal-idle/` now builds an open-code, non-printing idle firmware probe with HP-style `.elf`, date-prefixed `.img`, and PJL/ACL `.dl` outputs.
-- `analysis/open-firmware-probes/minimal-idle/summary.md` records the current generated probe. It passes the boot-probe layout profile and safety scan, and it has trap-safe system-interface/runtime-vector placeholders.
-- `open-firmware/usb-register-snapshot/` now builds an open-code, non-printing USB register snapshot probe. It only reads mapped USB `0xb300....` registers into RAM and then idles; it has no host-visible output yet and has not been uploaded.
-- `open-firmware/usb-marker-draft/` now builds an open-code, USB-only marker draft. It polls for a product-string `GET_DESCRIPTOR` setup shape, uses the clipped host length in the response state and descriptor word, and writes only the extracted stock endpoint-0 USB register sequences. It has not been uploaded.
-- `open-firmware/usb-bulk-parser-draft/` now builds a mechanically inert bulk OUT/ZjStream framing probe. It uses the stock-mapped bank-1/lane-1 status/ack path, descriptor `0x90021370`, receive buffer `0x900216f0`, and submit register `0xb3000234`; recognizes only chunk types `0x00..0x06`; and counts/discards payloads without JobMgr, raster, video, engine, or mechanical output.
-- `analysis/open-firmware-probes/usb-bulk-parser-draft/parser-model.md` passes `11/11` generated samples, `33/33` deterministic boundary/error cases, and `425/425` assertions. The writable product descriptor exposes bytes (`B`), completed descriptors (`D`), recognized chunks (`C`), parser errors (`E`), and unknown chunks (`U`). This is offline evidence only and does not prove controller behavior or printing.
-- `analysis/open-firmware-probes/usb-bulk-parser-draft/hardware-test-plan.md` reduces the remaining USB question to guarded custom-code execution and real controller completion/length/ack/re-arm behavior. It first requires the zero-counter descriptor and only then permits one separately enabled 36-byte START_DOC/END_DOC-only transfer.
-- `scripts/validate-open-firmware-probes.sh` rebuilds all open firmware probes and runs the offline layout/scanner/dry-run harness validation stack.
-- `analysis/boot-handoff/boot-handoff.md` compares the stock HP firmware and open idle probe. The core packaging/shape question is mostly answered; the next decisive question is whether hardware accepts and branches into the open payload.
-- `analysis/open-firmware-probes/minimal-idle/hardware-test-result-2026-06-15.md` records the first hardware upload: USB backend sent all `121931` bytes, printer stayed green/quiet with no paper movement, and macOS still saw the HP USB identity. This is a good safety result but not proof that `_start` executed.
-- `scripts/query-hp1020-pjl-status.sh` is the next guarded hardware probe. It sends tiny non-printing PJL/status payloads through the direct USB backend, captures CUPS back-channel fd 3 bytes, and writes `backchannel-analysis.md` so stock/open responses can be classified without eyeballing hex.
-- The firmware uses ThreadX-style RTOS objects with magic values such as `QUEU` and `THRD`.
-- Queue send-by-ID reads from runtime table `0x1002c918`.
-- Queue `8` is strongly supported as `Video Queue`, but the exact runtime table write has not been found.
-- Message numbers are queue-relative; use `analysis/message-map/queue-message-map.tsv` as the current `(queue, message)` dictionary.
-- Engine message `0x17` carries a second-word event/status code; use `analysis/engine-events/engine-0x17-events.tsv` as the current code map.
-- `analysis/engine-status-poll-report.md` maps the branch conditions that choose event words such as `0xe6100a01`, `0xf6000300`, and `0xe6000d03`.
-- The exact engine dispatch table maps `0x17` to the default return/no-op block; `0x17` is produced and received but not consumed as a normal engine command.
-- PJL-visible words such as `PAPERLESS`, `FUSER`, `TONEREXP`, and `JAMRECOVERY` are entries in a status command table at `0x10003c8c`, not direct engine dispatch cases.
-- `0x10010838` is the current bridge from internal status words to StatusMgr/PJL-visible notifications; `0x1000a2a4` converts status words into PJL `CODE=` values.
-- `analysis/status-path/status-code-correlation.md` records the important boundary that engine queue `0x17` event words are correlated with, but not identical to, final PJL `CODE=` values.
-- `0x10011178`, `0x100111b4`, and `0x100111d8` are the scalar get/lock/unlock API for an indexed data-store table at `0x1001ce14`; `0x10010f54` and `0x10010fd0` are its read/write-notify path.
-- USTATUS `DISPLAY=` uses data-store entry `0x1a`, while `ONLINE=` uses entry `0x18`.
-- Data-store subscribers are reached through `0x10006490 -> 0x1002c56c`; writes can notify queue subscribers with message `0x2d` or call direct callbacks.
-- Known live subscriptions include ONLINE/status entries `0x18`/`0x19` into the control-panel path and engine entries `0x0f..0x14` into engine callbacks.
-- Known queue subscribers from PrintMgr use queue id `1`; the current map labels queue id `1` as `engMsgQ`, where `0x2d` currently dispatches to default/no-op.
-- PrintMgr has its own real `0x2d` dispatch case, but the queue-send census found `0` direct static sends of `queue 0, message 0x2d`.
-- The only proven queue-send `0x2d` producer remains the data-store writer at `0x10010fd0`, where the queue id is read from each subscriber record.
-- Proven PrintMgr queue-0 inputs are now summarized in `analysis/printmgr-inputs-report.md`; `0x4a` is sent to queue 0 but falls outside the PrintMgr dispatch range and is treated as a wake/retry/no-op style message.
-- Job/work records now have a first flow map in `analysis/job-object-flow-report.md`; JobMgr creates records, PrintMgr moves list nodes from pending to active, and PrintMgr `0x11` returns active work to JobMgr.
-- `analysis/job-record-fields-report.md` maps the first useful offsets in the `0x78`-byte job record and `0x50`-byte child/page record.
-- `analysis/video-handoff-report.md` maps the PrintMgr-to-video handoff: `queue 8, message 0x0b` carries the work pointer in payload word 4, and the video thread stores it in video state slots `+0x60`/`+0x64`.
-- `analysis/video-work-object-report.md` maps that pointer as a `0x94`-byte video/page work object. It is created by `0x1000f228`, populated by `0x100104c8`, stored in a child/page slot, and later consumed by Engine/PrintMgr/Video.
-- `analysis/zjs-parser-boundary/zjs-parser-boundary.md` identifies `0x10009d34` as the ZjStream parser entry wired from the USB2Thread descriptor and maps chunk types `0..12`.
-- `analysis/jobmgr-raster-message-flow-report.md` closes the parser-to-JobMgr raster path: `ZJT_JBIG_BIH -> JobMgr 0x29 -> 0x10023e28 -> work +0x84/+0x88/+0x8c/+0x90`, and `ZJT_JBIG_BID -> JobMgr 0x2a -> work +0x50` raster list.
-- `analysis/video-raster-consumer-report.md` maps the video consumer side: `work +0x50` list nodes carry payload `+0x54` raster buffer pointers and `+0x48` byte-count/transfer-length candidates into VideoThread/raw-band hardware setup.
-- `analysis/open-firmware-model-report.md` adds a runnable offline model: `scripts/model-hp1020-print-path.py` parses the controlled ZjStream sample into document/page/work/raster objects and stops at the video/engine MMIO boundary.
-- `analysis/open-firmware-model/variant-matrix.md` runs that model against A4, letter, legal, resolution, copy-count, draft/economode, source, media, and logical-clip variants to show which fields are host-controlled.
-- `analysis/open-firmware-model/model-invariants.md` verifies the modeled chunk sequence, JobMgr message sequence, BIH-to-work-field propagation, raster list linkage, and safe-stop boundary across the base sample and all generated variants.
-- `analysis/open-firmware-model/minimal-print-scope.md` synthesizes the narrow replacement target: reuse host-side ZjStream generation, implement only the firmware receive/parser/raster/engine path needed for printing, and ignore unrelated HP features.
-- `analysis/open-firmware-model/raster-field-semantics.md` maps the important host-to-firmware fields for the narrow print path: JBIG BIH `XD/YD/L0/options` become work `+0x84/+0x88/+0x8c/+0x90`, BID byte counts become payload `+0x48/+0x54`, and the raster list at work `+0x50` is what the video path later consumes.
-- `analysis/hardware-boundary/hardware-boundary.md` converts the hardware side into a do-not-touch map: USB `0xb300` is the only plausible early custom-firmware target; video/engine families `0xb100`, `0xb200`, `0xb204`, `0xb208`, `0xb050`, and `0xb020` are unsafe for a first custom probe.
-- `analysis/hardware-boundary/video-register-projection.md` projects modeled work fields onto the first unsafe video writes, proving host-controlled BIH fields would reach `0xb2000008`, `0xb200000c`, `0xb2000024`, and `0xb2000000` if the firmware crossed the safe stop boundary.
-- `analysis/hardware-boundary/first-page-hardware-sequence.md` orders the post-parser page path: engine accepts work, PrintMgr sends Video Queue `0x0b`, video prepare projects the normal 600dpi state, render arms `0xb204/0xb208` and `0xb200`, normal descriptor-queue refill (`0x10014244 -> 0x10013f34`) feeds raw-band/channel-B registers, then video completion wakes engine. The alternate raw-refresh helper remains mapped separately.
-- `analysis/hardware-boundary/video-engine-register-semantics.md` extracts literal-cell-to-register mappings from the stock ELF and decompiled functions. It names the current dangerous roles: `0xb050` engine command/status, `0xb100` video setup/raw-band feed, `0xb200` transfer descriptors/control, and `0xb204`/`0xb208` paired transfer channels.
-- `analysis/hardware-boundary/video-prepare-modes.md` narrows the `0xb100` setup path: it records mode-dependent writes for `0xb1000020/0x24`, `0xb1000120/0x24`, `0xb100001c/0x11c`, and the `0xb1000400..0x0430` timing table blocks.
-- `analysis/hardware-boundary/engine-command-status.md` narrows the `0xb050` engine path: stock status reads use command IDs `1`, `0x20`, `2`, `0x16`, and `0x13`; side-effect/start commands include `0x501a`, `0x5043`, `0x3a13`, and `0x6012`; selected event words are stored at engine state `+0x60` and sent as queue `1` message `0x17`.
-- `analysis/hardware-boundary/engine-status-decisions.md` turns the nested engine poller into an executable scenario model. It covers the `0x14000a04` ready rewrite, `0x501a`/`0x5043` side effects, `0x13` and `0x16` substatus branches, and previous-event extra emit behavior.
-- `analysis/hardware-boundary/video-engine-feedback.md` maps the video-to-engine feedback loop: normal VideoThread completion sends engine queue message `0x10`; reset/flush can send `0x25`; reset dispatch can send `0x11`, requeue deferred work as `0x0b`, or emit video reset event words through engine message `0x17`.
-- `analysis/hardware-boundary/video-transfer-ring.md` maps the video transfer ring around producer index `+0x98`, consumer/full check `+0x94`, IRQ done index `+0xd8`, descriptor base `0x1002efe0`, channel A registers `0xb2040004/0008`, and channel B registers `0xb2080004/0008`.
-- `analysis/hardware-boundary/video-irq-decisions.md` turns video block status bits into branch outcomes: `0x20` is the refill path, while `0x02`, `0x08`, `0x10`, and idle `0x01` lead to reset-dispatch cases `0`, `3`, `4`, and `7` respectively.
-- `analysis/hardware-boundary/video-band-queue.md` maps the queue/list helper that advances video state `+0xdc`, stops before colliding with `+0xe0` unless the descriptor final flag permits one more queue step, and writes raw-band A/B pointer and flag registers at `0xb1000008/000c` and `0xb1000108/010c`.
-- `analysis/hardware-boundary/video-mode-flag.md` maps the mode fork: work object byte `+0x74` is copied into the sign bit of video state `+0xfc`; zero selects the descriptor queue/list refill path, while nonzero selects the raw linked-list refresh path.
-- `analysis/hardware-boundary/video-refill-topology.md` stitches the current video refill evidence together: the stronger normal-print hypothesis is the descriptor queue/list refill path, while the raw linked-list refresh path is real but still lacks a proven normal print-path producer.
-- `analysis/hardware-boundary/video-prepare-projection.md` projects VIDEO_BPP (work `+0x22`, distinct from NBIE at `+0x12`) into BPP1/2/4 branches. Default A4 BPP2 keeps `+0xbc = stride = 1200`; BPP1 doubles the window. Host ECONOMODE selects secondary-output scenarios.
-- `analysis/hardware-boundary/engine-print-topology.md` organizes the mechanical engine side into startup/preflight, page work acceptance, status/recovery polling, and completion/deferred-work stages. It preserves the important stock commands `0x6012`, `0x3a13`, `0x501a`, and `0x5043`.
-- `analysis/hardware-boundary/video-dataflow-contract.md` pins the normal `a4_default` first-page values through the video boundary: work `+0x84/+0x88/+0x8c/+0x90 = 9600/6824/128/0x5c`, BID bytes `6364`, prepare stride/window `1200/2400`, render channel-A length `6364`, and helper channel-B length formula `min(4, +0xd0) * 1200`.
-- `analysis/hardware-boundary/video-chunk-sizing.md` uses instruction-verified unsigned floor division: `+0xcc = floor(8192 / stride) & ~3`. A4 stride 1200 still produces four units; the former ceiling-division hypothesis was refuted.
-- `analysis/hardware-boundary/video-helper-disassembly.md` verifies the full unsigned division/remainder bodies at `0x1001b668/0x1001b6b0`: complete ELF-matched decode, GNU reassembly, and 169,890 independent instruction executions. Ghidra BE loop decoding and the GNU ISA-overlay mismatch are now identified; see `analysis/toolchain-probe/big-endian-encoding-audit.md`.
-- `analysis/hardware-boundary/video-queue-payload-chain.md` traces the queue word handed to VideoThread through JobMgr, Engine, PrintMgr, and VideoThread. Current conclusion: prepare receives the `0x94` video/page work object, not the raw page-parameter block.
-- `analysis/hardware-boundary/video-prepare-argument-fields.md` records the direct START_PAGE builder sources: VIDEO_Y -> `+0x26`, RET/default zero -> `+0x30`, ECONOMODE -> `+0x32`, VIDEO_X -> `+0x24`. JobMgr still fills BIH geometry `+0x84/+0x88/+0x8c/+0x90`.
-- `analysis/hardware-boundary/video-sideband-write-census.md` classifies three direct active-work stores in `0x10009b4c`. The former missing-source conclusion was caused by omitted parser switch handlers; the alternate `0x100104c8` copier is not the normal START_PAGE path.
-- `analysis/hardware-boundary/video-sideband-copy-direction.md` verifies the separate JobMgr case `0x29` memcpy copies the 20-byte BIH payload into the runtime block. This is not the low-work-field builder.
-- `analysis/hardware-boundary/video-sideband-default-impact.md` records counterfactual zero-value consequences and the saved video-state access scan. VIDEO_Y is critical for refill/final accounting, ECONOMODE selects secondary behavior, and RET has no selected downstream consumer beyond its prepare seed.
-- `analysis/hardware-boundary/video-zero-sideband-scenario.md` refines that risk: zero `+0x26` does not prove render setup cannot start, because channel A can still arm, but channel-B refill is not seeded and raw-band final accounting becomes ambiguous.
-- `analysis/hardware-boundary/video-remaining-units.md` records the proven direct VIDEO_Y -> active work `+0x26` -> video `+0xd0/+0xd4` source chain. A4 seeds 6824 units and a first channel-B length of 4800 bytes; physical completion timing remains unproven.
-- `analysis/non-printing-usb-probe-spec.md` defines the only custom-firmware experiment that is currently defensible: boot/USB identity only, no video/engine MMIO.
-- `analysis/non-printing-status-probe/pjl-status-contract.md` defines the exact tiny PJL/status payloads to use when calibrating stock back-channel responses or future open USB/PJL echo behavior.
-- `analysis/offline-consistency/offline-consistency.md` now cross-checks the main offline conclusions against generated reports: engine `0x17` dispatch, status-code correlation, print-path model invariants, hardware boundary, PJL query contract, and USB marker draft safety.
-- `analysis/usb-path/usb-marker-boundary.md` maps the stock USB string-descriptor marker path and records the current decision not to build/upload that marker yet; the open firmware would first need USB control-endpoint and descriptor-transfer plumbing.
-- `analysis/usb-path/usb-descriptor-extraction.md` statically extracts two HP device descriptors, high/full-speed USB printer configurations, and identity string pointer runs from the stock ELF. The device descriptors match vendor `0x03f0` and product `0x2b17`.
-- `analysis/usb-path/usb-descriptor-response-model.md` turns those descriptors into exact byte strings for standard USB `GET_DESCRIPTOR` responses. This defines the payload contract for a future USB-only open marker, but not the endpoint-0 hardware plumbing.
-- `analysis/usb-path/open-endpoint0-model.md` converts those descriptor bytes into a pure setup-packet response model. It answers what bytes to return for standard `GET_DESCRIPTOR` requests, including a future open marker string, while explicitly excluding USB controller MMIO.
-- `analysis/usb-path/usb-setup-source.md` narrows the setup-packet source: the stock descriptor branch reads setup-like fields from `0x90021348 + offset`, while `0xb3000214` looks like a separate event/envelope pointer.
-- `analysis/usb-path/control-in-data-stage.md` models how the stock firmware sends endpoint-0 response bytes: staging buffer `0x90022bd0`, descriptor ring `0x900226f0`, `0x08000000` final-descriptor flag, `0xb3000014` submit register, and `0xb3000000 |= 0x108` kick.
-- `analysis/usb-path/control-completion-event.md` models the next stock layer: the control-IN sender waits on event flag bit `0x1` at `0x10021318`, while USB2Thread waits on bit `0x10000`; this is the current boundary for replacing ThreadX with a tiny open polling/event loop.
-- `analysis/usb-path/usb-interrupt-events.md` maps the producer side of those event flags: interrupt task `0x10008208`, two 16-lane event banks, lane stride `0x20`, and per-lane `0x400` completion status.
-- `analysis/usb-path/endpoint0-machinery.md` maps the stock endpoint-0 flow: interrupt 4, USB event flags, `0x58`-byte transfer records, `0x10`-byte transfer descriptors, and `0xb300` control bits. The current standalone USB-marker blocker is endpoint-0 machinery, not descriptor payload bytes.
-- `analysis/usb-path/endpoint0-handshake-contract.md` extracts the immediate hardware-facing contract from those blocks: likely setup packet base `0x90021348`, event pointer register `0xb3000214`, response state slots, and two stock USB controller programming sequences.
-- `analysis/open-firmware-probes/usb-marker-draft/endpoint0-sequence-scan.md` verifies that the current marker draft's USB writes match the extracted endpoint-0 contract; this is the strictest offline gate before any future write-capable hardware test.
-- `analysis/usb-path/usb-mmio-map.md` turns the endpoint-0 register evidence into a concrete checklist: setup/status gates `0xb3000400/0408`, descriptor/control registers `0xb3000504/0508/050c/0510`, ack/kick registers, and likely setup/event pointer `0xb3000214`.
-- `scripts/check-hp1020-usb-probe-contract.py` is the stricter scanner for future USB-only candidates: engine/video MMIO fails, and USB MMIO must be one of the mapped endpoint-0 registers.
-- `scripts/check-hp1020-usb-mmio-accesses.py` classifies candidate disassembly into USB MMIO reads and writes. The current USB snapshot probe reports 14 mapped reads and 0 writes.
-- `scripts/check-hp1020-memory-boundary.py` classifies non-MMIO memory references in open probes. The USB marker draft intentionally reads a candidate setup packet buffer and writes stock USB response-state slots.
-- `scripts/check-hp1020-marker-descriptor.py` verifies the marker string descriptor and the 0x90000000 hardware alias pointer used by the USB marker draft.
-- `scripts/check-hp1020-marker-length-flow.py` verifies the marker draft preserves the clipped host `wLength` register into the endpoint-0 response-length write.
-- `scripts/model-hp1020-usb-marker-draft.py` models the USB marker draft's polling setup/gate behavior and verifies response length clipping at the decision level.
-- `scripts/model-hp1020-usb-setup-source.py` regenerates the setup-source report that separates the direct setup RAM candidate from the USB event pointer.
-- `scripts/model-hp1020-control-in-data-stage.py` regenerates the stock endpoint-0 control-IN descriptor/kick model and self-tests key response sizes.
-- `scripts/model-hp1020-control-completion.py` regenerates the stock endpoint-0 completion event-flag model and verifies the evidence snippets.
-- `scripts/model-hp1020-usb-interrupt-events.py` regenerates the USB interrupt event-lane model, including the bank-1/lane-1 bulk receive lane, and verifies the evidence snippets.
-- `scripts/model-hp1020-usb-bulk-receive.py` regenerates the static bulk OUT receive/read-callback handoff model that connects USB2Thread to parser entry `0x10009d34`.
-- `scripts/run-ghidra-usb-bulk-callbacks.sh` refreshes the saved bulk receive callback decompilation from Ghidra.
-- `scripts/model-hp1020-usb-bulk-callbacks.py` regenerates the static model of stock bulk receive callback/event/re-arm behavior.
-- `scripts/model-hp1020-usb-bulk-rearm.py` regenerates the static model of the receive descriptor pool and submit-register behavior.
-- `scripts/model-hp1020-usb-parser-shim-contract.py` regenerates the synthesized contract for the first non-printing USB bulk/parser shim.
-- `scripts/model-hp1020-usb-bulk-probe-contract.py` regenerates the combined endpoint-0/bulk OUT USB and memory allowlist used by the inert probe scanners.
-- `scripts/model-hp1020-usb-bulk-parser-draft.py` regenerates the offline executable parser model and exact sample/matrix report without contacting hardware.
-- `scripts/build-open-firmware-usb-bulk-parser-draft.sh` rebuilds the probe and all deterministic layout, safety, USB, memory, source, descriptor, and parser reports.
-- `scripts/check-open-firmware-usb-bulk-parser-reproducibility.sh` performs two clean builds and requires byte-identical outputs.
-- `scripts/normalize-zjs-sample-metadata.py` fixes the otherwise wall-clock-dependent PJL `JobAttr4` field in offline samples before model hashing.
-- `scripts/run-usb-bulk-parser-draft-hardware-test.sh --dry-run` is the offline/default harness path. Real mode requires `--upload`, an explicit direct `usb://` URI, and `HP1020_ALLOW_USB_BULK_PARSER_UPLOAD=1`; the fixed 36-byte data step separately requires `--send-probe-data` and `HP1020_ALLOW_USB_BULK_PARSER_DATA=1`.
-- `scripts/model-hp1020-video-engine-register-semantics.py` regenerates the dangerous video/engine register-role model from the stock ELF and decompiled source.
-- `scripts/model-hp1020-video-prepare-modes.py` regenerates the branch/table model for the `0xb100` video prepare setup path.
-- `scripts/model-hp1020-engine-command-status.py` regenerates the `0xb050` engine command/status model, including stock command IDs, state offsets, and event decisions.
-- `scripts/model-hp1020-engine-status-decisions.py` regenerates the executable engine poller branch/scenario model from the command/status report and decompiled source.
-- `scripts/model-hp1020-video-engine-feedback.py` regenerates the video-to-engine completion/reset feedback model.
-- `scripts/model-hp1020-video-transfer-ring.py` regenerates the video transfer ring ownership and descriptor refill model.
-- `scripts/model-hp1020-video-irq-decisions.py` regenerates the executable video block IRQ/status decision model.
-- `scripts/model-hp1020-video-band-queue.py` regenerates the video descriptor queue/list and raw-band register-feed model.
-- `scripts/model-hp1020-video-mode-flag.py` regenerates the work-object mode flag and IRQ refill-fork model.
-- `scripts/model-hp1020-video-refill-topology.py` regenerates the synthesis report connecting mode flag, IRQ decision, transfer-ring, and band-queue models.
-- `scripts/model-hp1020-video-prepare-projection.py` regenerates the projection from generated print-path variants into `0xb100` video-prepare setup scenarios.
-- `scripts/model-hp1020-engine-print-topology.py` regenerates the engine-side print topology synthesis from command/status and status-decision reports.
-- `scripts/model-hp1020-first-page-hardware-sequence.py` regenerates the ordered first-page hardware sequence from the current print-path and hardware-boundary reports.
-- `scripts/model-hp1020-raster-field-semantics.py` regenerates the host-to-raster field semantics report from the generated print-path model variants and video-boundary reports.
-- `scripts/model-hp1020-video-dataflow-contract.py` regenerates the normal first-page video dataflow contract from raster fields, prepare projection, transfer-ring, and refill models.
-- `scripts/model-hp1020-video-chunk-sizing.py` regenerates the stride-derived chunk sizing and raw-band flag helper model.
-- `scripts/model-hp1020-video-helper-disassembly.py` regenerates the helper disassembly limit report for `0x1001b668`.
-- `scripts/model-hp1020-video-queue-payload-chain.py` regenerates the VideoThread work-object pointer-chain report.
-- `scripts/model-hp1020-video-prepare-argument-fields.py` regenerates the source model for fields read from the VideoThread prepare argument.
-- `scripts/model-hp1020-video-sideband-write-census.py` regenerates the sideband store/read census from decompiled source and saved Ghidra probe outputs, including the exact target-offset and broader overlap-store scans.
-- `scripts/model-hp1020-video-sideband-copy-direction.py` regenerates the copy-direction report that rules out JobMgr case `0x29` as a hidden source for work `+0x26/+0x30/+0x32`.
-- `scripts/model-hp1020-video-sideband-default-impact.py` regenerates counterfactual zero-value effects for the now-sourced work fields.
-- `scripts/model-hp1020-video-zero-sideband-scenario.py` regenerates the default-zero sideband consequence model.
-- `scripts/model-hp1020-video-remaining-units.py` regenerates the direct VIDEO_Y-to-work-to-remaining-counter report.
-- `scripts/model-hp1020-minimal-print-scope.py` regenerates the current minimum printing-only replacement scope from the generated print-path, USB, and hardware-boundary reports.
-- `scripts/analyze-hp1020-pjl-status-capture.py` classifies PJL/status back-channel captures against the generated contract, including expected-marker, no-response, and unexpected-byte outcomes.
-- `scripts/run-usb-marker-draft-hardware-test.sh` is the guarded dry-run/default harness for the marker draft. It re-runs the static gates before any upload and requires `HP1020_ALLOW_USB_MARKER_DRAFT_UPLOAD=1`.
-- `scripts/run-open-firmware-usb-test-ladder.sh` wraps the staged hardware path. Dry-run validates all probes offline; upload mode runs one selected non-printing stage with before/after USB identity capture.
-- `scripts/run-usb-snapshot-probe-hardware-test.sh` is the guarded dry-run/default harness for the read-only USB snapshot probe. It re-runs the static gates before any upload and requires `HP1020_ALLOW_USB_SNAPSHOT_UPLOAD=1`.
-- `scripts/validate-hp1020-offline-analysis.sh` regenerates the print-path matrix, model invariants, video-register projection, hardware-boundary model, and open endpoint-0 model without touching the printer.
-- `scripts/capture-hp1020-usb-identity.sh` captures host-side USB identity evidence; when libusb is available it also sends standard control-IN descriptor reads. Use it before/after marker tests to compare stock identity, disappearance, or `HP1020 OPEN MARKER`.
-- `scripts/check-hp1020-safety-boundary.py` is a pre-upload safety scanner for future candidate source/disassembly; it fails on known unsafe video/engine functions and MMIO families.
-- `analysis/toolchain-probe/binutils-exec-status.md` records that the old `/tmp/hp1020-ctng-mnt/.../xtensa-fsf-elf-*` tools are present but corrupt, and that `scripts/build-xtensa-binutils-manual.sh` recovers a runnable assembly-only prefix.
-- `analysis/printer-test-readiness-report.md` records the controlled connected-printer test path using `analysis/samples/minimal-page.ps` and `scripts/run-printer-readiness-test.sh --send`; that test has printed successfully once on hardware.
-- `analysis/jobmgr-producer-boundary-report.md` is now superseded for message `0x29`; it remains useful as the pre-parser checkpoint showing why the producer was missed by broad queue-send scans.
-- The status-state object is currently mapped through pointer `0x100063d8 -> 0x1002adb4`, with current status at offset `0x08`, transition status at `0x10`, and source/reason at `0x14`.
-- HP's PJL reference anchors firmware-generated `410xx` codes as foreground paper-loading status codes; see `analysis/pjl-status-code-reference.md`.
-- Engine/video MMIO has first behavioral names, but register semantics are not complete.
+The aggregate command requires the existing local research dependencies. It does
+not install anything automatically. Scratch tools may disappear after cleanup:
 
-- `toolchain-probe/big-endian-encoding-audit.md` documents the corrected ISA overlay, superseded LE-encoded probes, and byte-exact regression gate.
+| Dependency | Recovery / location |
+|---|---|
+| BE Xtensa binutils | `scripts/build-xtensa-binutils-manual.sh`; default prefix `/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf`, override `XTENSA_PREFIX` |
+| BE/call0 GCC 14.3.0 | `scripts/build-xtensa-gcc-manual.sh`; default prefix `/tmp/hp1020-xtensa-gcc14/bin/xtensa-fsf-elf`, component-build override `HP1020_GCC_PREFIX` |
+| Host tools | Homebrew Bash (the suites use `mapfile`), Python 3, clang, Ghostscript/GNU sed and existing foo2zjs runtime; compiler rebuild additionally needs GNU make, GMP, MPFR and MPC |
+| Optional deeper decoding | Saved Ghidra output is retained; refresh scripts require Ghidra and Homebrew `openjdk@21`. Pcode experiments use `/tmp/hp1020-astra-pcode-venv` (pypcode 4.0.0 and z3-solver) |
 
-- `open-firmware-probes/usb-bulk-parser-draft/assembled-parser-check.md` records 44 differential cases against the actual compiled parser instruction stream, with all MMIO rejected.
+The corrected assembler overlay is pinned in its build script. Historical
+crosstool-NG tools under `/tmp/hp1020-ctng-mnt/` were corrupt; a tool name or BE
+ELF header is insufficient. Every probe build checks actual instruction bytes.
+C target builds check the conservative compiler profile. The synthetic target
+ELF at `0x20000000` must never be treated as a printer upload image.
 
-- `scripts/check-hp1020-assembled-control-in.py` executes descriptor selection, clipping and staging in host RAM for both USB probes (104 cases), skipping controller gates/submission and rejecting all MMIO.
+## Evidence layout and trust
 
-### Direct work construction and portable semantic core (2026-09-05)
+- `assets/firmware-source/` and the extracted stock ELF are the original input;
+  `analysis/ghidra*`, disassembly directories, symbols and raw captures preserve
+  investigation evidence. Locate exact files through the relevant generator.
+- `scripts/model-*`, `extract-*`, `project-*` and `check-*` derive the reports.
+  Find a report's producer with `rg` under `scripts/`. Change the producer first.
+- `analysis/open-firmware-model/` holds executable parser/planning models and
+  fixtures; `analysis/open-firmware-probes/` holds built artifacts and audits.
+- `analysis/usb-path/`, `hardware-boundary/` and `status-path/` organize the current
+  narrow path. Older top-level `*-report.md` files retain broader exploration;
+  they are evidence from a point in time, not independent current roadmaps.
+- Saved Ghidra C can omit switch arms and arguments. Check raw bytes/control flow
+  before promoting a claim. Static models do not establish physical behavior.
 
-- `analysis/hardware-boundary/zjs-direct-work.md` verifies 43 stock-byte/source checks for the START_PAGE allocation, direct item-builder call, queue payload and low-field stores.
-- `open-firmware/semantic-core/` is a portable C streaming semantic parser with bounded caller-owned raster storage, no hardware addresses or output callbacks, and 512 ASan/UBSan cases. It is not linked into a device probe.
-- `scripts/validate-hp1020-offline-analysis.sh` now regenerates the base model as well as variants, verifies the direct work contract, and runs the native semantic tests.
-
-### Raster callback and metadata boundaries (2026-09-05)
-
-- `analysis/hardware-boundary/raster-callbacks.md` verifies four callback arguments, including stride omitted by decompilation, and inventories unresolved custom instruction effects. Do not treat those opcodes as safe or substitute guessed semantics.
-- `scripts/check-hp1020-probe-instructions.py` traverses entry plus six vector roots, skips literal pools, proves constant trampolines, and rejects reachable custom/unknown opcodes. Every probe build runs it and five negative mutations. Current reachable counts are idle 21, snapshot 111, marker 240, bulk 560.
-- `analysis/open-firmware-model/metadata-bounds.md` identifies the logical-clip fixture's 180-byte item list versus 156-byte declared allocation. Paper/media items exceed the initialized stock metadata region. Its full-payload model is not proof of stock equivalence.
-- `analysis/open-firmware-model/page-plan.md` verifies the portable C page/band planner with 1398 cases and 5,394,344 band partitions. It has no hardware output and rejects BPP4 and the logical-clip mismatch.
-
-### Freestanding target C checkpoint (2026-09-05)
-
-- `scripts/build-xtensa-gcc-manual.sh` reproduces the pinned GCC 14.3.0 BE/call0 compiler at `/tmp/hp1020-xtensa-gcc14`; the repaired manual binutils prefix remains required. `analysis/toolchain-probe/freestanding-c-compiler.md` records configuration and source checksum.
-- `scripts/check-hp1020-c-compiler-profile.py` checks 21 target macros and five stock instruction counterparts. Hardware division, loops, windows and unestablished optional ALU features are disabled in this component profile.
-- `scripts/build-hp1020-semantic-target.sh` builds the actual C parser/planner into an ELF at synthetic RAM address `0x20000000`. This is not a printer boot layout or upload image.
-- `scripts/validate-hp1020-semantic-target.py` runs 66 target cases (19,991,177 instructions), compares native sanitizers and independent fixture expectations, and rejects MMIO, code writes, unaligned words and execution from data. `scripts/check-hp1020-semantic-target-reproducibility.sh` requires identical ELF/map files from two builds. Both run in the offline analysis suite.
-- `analysis/open-firmware-model/next-evidence.md` enumerates the remaining boot/USB, raster ISA, video ownership and engine calibration questions. Do not replace missing device evidence with guessed hardware code.
+The previous broad roadmap and early toolchain summaries were removed after
+being superseded; Git retains them. The historical tool inventory remains as
+raw evidence, explicitly labeled. Preserve other reports at stable paths because
+scripts cross-reference or consume them. Do not duplicate the full inventory in
+`AGENTS.md`, add per-session handoff files, or keep parallel lists of next steps.

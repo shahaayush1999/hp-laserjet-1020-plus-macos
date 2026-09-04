@@ -1,3 +1,7 @@
+> Historical crosstool-NG inventory, retained as captured evidence. Despite the
+> filename, this is not the current toolchain. These tools were later found
+> corrupt. Use `freestanding-c-compiler.md` and `big-endian-encoding-audit.md`.
+
 # Firmware Toolchain Probe
 
 Repo: `/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos`

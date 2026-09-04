@@ -2,6 +2,15 @@
 
 This repo packages the working local macOS setup for an HP LaserJet 1020 Plus.
 
+It also contains an unfinished open firmware replacement. The existing printing
+setup works using HP firmware; the replacement cannot print yet. Agents start
+with `AGENTS.md` and `CURRENT_STATUS.md`, then use `analysis/README.md` for research.
+These files are maintained for agents. Aayush receives progress through chat.
+
+For an offline research checkpoint, run `scripts/validate.sh`. The install,
+diagnose and print commands below are for maintenance of the working setup;
+they are not part of offline research validation.
+
 The printer is old and host-based. It needs two things macOS does not provide out of the box:
 
 - firmware upload after power-on
@@ -73,6 +82,36 @@ Useful signals:
 - `/Library/Printers/hp1020/spool-worker.log` should show firmware bytes and document bytes sent.
 
 If the queue accepts a job but no paper moves, first unplug/replug USB and run `diagnose.sh`.
+
+## Installed Service Reference
+
+The visible queue uses `hp1020queue://localhost`. macOS CUPS sandboxing prevented
+the normal filter path from running Homebrew Ghostscript/GNU sed, so conversion
+and USB delivery happen in the root LaunchDaemon outside that sandbox.
+
+| Component | Installed location |
+|---|---|
+| CUPS backend | `/usr/libexec/cups/backend/hp1020queue` |
+| Passthrough filter | `/usr/libexec/cups/filter/hp1020passthrough` |
+| Spool worker | `/Library/Printers/hp1020/hp1020-root-spool-worker` |
+| Queue PPD | `/Library/Printers/hp1020/HP-LaserJet_1020-Plus-hp1020zjs.ppd` |
+| LaunchDaemon | `/Library/LaunchDaemons/com.aayush.hp1020-root-spool-worker.plist` |
+| Handoff spool | `/private/var/spool/cups/tmp/hp1020queue` |
+| User print helper | `/Users/aayush/bin/hp1020-print` |
+| User runtime | `/Users/aayush/.local/share/hp1020/` (`foo2zjs`, wrapper, pstops, `sihp1020.dl`) |
+| Worker log | `/Library/Printers/hp1020/spool-worker.log` |
+| Daemon output | `/Library/Printers/hp1020/launchd.out.log`, `launchd.err.log` |
+
+Jobs can disappear from Print Center after handoff; the worker log then provides
+the delivery result. The printer loses firmware on power cycle, so `hp1020-print`
+sends firmware before each document. USB backend timeouts prevent the worker
+from waiting forever after delivery.
+
+During authorized printing support, run `scripts/diagnose.sh`, check the USB URI
+and queue above, then inspect the worker log. If USB is missing, ask for a power
+cycle and replug before changing code. If the queue is paused, use
+`cupsenable HP_LaserJet_1020_Plus` and inspect logs before repeated retries.
+Use the installer/uninstaller for repairs; do not delete arbitrary CUPS files.
 
 ## Uninstall / Cleanup
 

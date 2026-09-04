@@ -1,95 +1,51 @@
-# Open Firmware Current Status
+# Current handoff
 
-## Objective
+Updated: 2026-09-05. Owner-facing answer: **the open replacement cannot print yet**.
+The separate HP-firmware-based macOS printing setup already works and is untouched.
+Aayush wants plain-language chat updates; these notes are for agents only.
 
-Replace only the HP LaserJet 1020 Plus device firmware needed to print
-host-generated ZjStream. Keep the working macOS/foo2zjs path intact. Scanner,
-network, multi-model, and unrelated firmware features are out of scope.
+## Implemented and verified offline
 
-## Current State
+- Four assembly probes: idle, read-only USB snapshot, endpoint-0 marker, and inert
+  USB bulk/ZjStream framing. None of the corrected builds has live execution proof.
+- Bounded portable C page/raster parser and page/band planner. Actual compiled
+  BE/call0 Xtensa C executes in synthetic host RAM; it is not a device boot image.
+- Byte-verified assembler and conservative GCC 14.3.0 configuration, reproducible
+  outputs, native sanitizers, instruction interpreters and MMIO/unknown-opcode gates.
+- Latest research validation: both suites pass; 73 consistency checks, 512 native
+  semantic cases, 1398 planner cases, 66 compiled-target cases. Detailed results
+  live with the components, not in additional handoff summaries.
 
-- Normal macOS printing works using bundled HP firmware plus the repo's CUPS
-  and LaunchDaemon glue. Do not modify that installed path during research.
-- The stock 2005 Old-Xtensa ELF has been structurally analyzed. USB receive,
-  ZjStream parsing, raster handoff, video transfer, and engine-control paths
-  are mapped to varying confidence levels under `analysis/`.
-- `open-firmware/usb-bulk-parser-draft/` is a buildable, mechanically inert
-  open firmware probe. It implements endpoint-0 status counters, USB bulk OUT
-  receive/re-arm, and incremental ZjStream framing for chunk types `0x00..0x06`.
-- Offline validation passes: 11/11 generated streams, 33/33 boundary cases,
-  425/425 assertions, reproducible artifacts, and zero forbidden mechanical,
-  engine, video, fuser, motor, laser, or paper-feed MMIO accesses.
-- The probe has never been uploaded. Real custom-code execution, endpoint-0,
-  bulk completion length, acknowledgement, and repeated re-arm remain unproven.
-- A separate portable C semantic parser retains page metadata and compressed
-  raster records in bounded RAM. It is native- and target-tested in host RAM,
-  not linked into a device probe.
-  Raster/video output and engine control remain unimplemented.
+## Corrections agents must not regress
 
-## Latest Offline Audit (2026-09-05)
+- Earlier probes put LE instructions inside BE ELF containers. All rebuilt;
+  the old quiet idle upload does not prove execution. Use repaired manual binutils.
+- Stock helper `0x1001b668` is unsigned floor division, not ceiling division.
+- START_PAGE directly fills active work: VIDEO_Y/RET/ECONOMODE source
+  `+0x26/+0x30/+0x32`. The old unresolved-field hypothesis is superseded.
+- `+0x22` is VIDEO_BPP; NBIE is `+0x12`. Default A4 window is 1200 bytes.
+- Endpoint-0 pointer clobbers are fixed and instruction-tested in host RAM.
+- Logical-clip metadata declares 156 bytes for 180 bytes of items. The narrow
+  planner rejects it and BPP4. Custom raster instruction effects remain unknown.
 
-- Fixed a toolchain ISA-overlay mismatch: earlier probes contained LE instructions
-  in BE ELF files. All four probes are rebuilt; earlier uploads cannot prove execution.
-- Added byte fixtures and complete stock-helper reassembly to every probe build.
-- Refuted ceiling division at `0x1001b668`: complete decoding and 169,890
-  differential instruction executions establish unsigned floor division.
-- The assembled parser now passes all 44 generated/boundary cases in an
-  independent RAM-only interpreter: 1,178,483 instructions; zero MMIO accesses.
-- Fixed endpoint-0 descriptor/state pointer clobbers in both USB probes;
-  104 assembled control-IN RAM tests verify exact payloads and transfer records.
-- Resolved the missing low work fields: START_PAGE calls the item builder
-  directly on active work. VIDEO_Y/RET/ECONOMODE source +0x26/+0x30/+0x32.
-- Corrected +0x22 to VIDEO_BPP (NBIE is +0x12); default A4 window is 1200,
-  not 2400 bytes. All dependent reports and consistency checks are updated.
-- Portable semantic C passes 512 ASan/UBSan cases across 11 generated streams.
-- Verified four raster callback arguments and isolated their custom instructions;
-  their transformations/side effects remain unknown. Probe instruction gates
-  now reject unknown/custom code from entry and all six vector roots.
-- Identified logical-clip metadata length mismatch (180 actual / 156 declared).
-- RAM-only C page planner passes 1398 cases and 5,394,344 band partitions;
-  rejects BPP4 and inconsistent metadata. A4: 1706 bands, four rows each.
-- Built GCC 14.3.0 with a conservative BE/call0 profile and software division.
-  The actual compiled parser/planner passes 66 RAM-only cases: 19,991,177
-  instructions, 859 distinct instructions; identical ELF/map on repeated builds.
-- Both validation suites, 73 consistency checks and reproducibility pass.
+## Next action and blockers
 
-## Main Unknowns
+Current mode: **offline only; no hardware test is authorized**.
+The next useful device experiment is the guarded non-printing USB test in
+`analysis/open-firmware-probes/usb-bulk-parser-draft/hardware-test-plan.md`,
+subject to its prerequisites, a fresh power cycle and explicit user authorization.
+Success must show the custom descriptor, then the fixed 36-byte transaction's
+counters; stock identity or quiet LEDs are insufficient.
 
-1. Whether boot-ROM USB initialization is sufficient for the standalone probe.
-2. Whether real bulk descriptor completion and length encoding match the static
-   model.
-3. Core-specific raster instruction semantics, or demonstrated stock bypass behavior.
-4. Live video channel units, cache visibility and buffer ownership.
-5. Calibrated engine status meanings and safe timing/recovery for a first page.
+Remaining questions: corrected boot/endpoint-0 execution, repeated bulk receive,
+custom raster ISA (or measured stock bypass), video channel/cache ownership,
+and physical engine status/timing/recovery. Exact evidence requirements are in
+`analysis/open-firmware-model/next-evidence.md`. A core-specific ISA definition
+could still resolve the raster gap offline. Do not implement guessed hardware
+behavior to make the replacement appear complete.
 
-## Offline Boundary
+## Resume and verify
 
-The supported parser and page planner are implemented and instruction-tested.
-Further integration depends on unproven device contracts. Exact questions,
-current evidence and resolving observations are in
-`analysis/open-firmware-model/next-evidence.md`. Core-specific ISA documentation
-could also resolve the raster extension gap without hardware. Static hypotheses
-are not proof of USB, raster-output or mechanical behavior.
-
-## Hardware Checkpoint
-
-The highest-value live test is the guarded, non-printing two-stage test in
-`analysis/open-firmware-probes/usb-bulk-parser-draft/hardware-test-plan.md`:
-
-1. Fresh power cycle, upload the inert probe, expect zero counter descriptor.
-2. Fresh power cycle, send only 36-byte START_DOC/END_DOC input, expect
-   `B=24 D=1 C=2 E=0 U=0`.
-
-Do not contact the printer unless the user explicitly says it is connected,
-freshly power-cycled, and ready.
-
-## Verification
-
-```sh
-scripts/validate-hp1020-offline-analysis.sh
-scripts/validate-open-firmware-probes.sh
-scripts/check-open-firmware-usb-bulk-parser-reproducibility.sh
-```
-
-Start with this file, then `AGENTS.md`, `analysis/README.md`, and the generated
-reports referenced above. Commit and push coherent progress to private `main`.
+Use `analysis/README.md` for the relevant evidence and toolchain recovery.
+`scripts/validate.sh` runs all offline checkpoint checks with separate logs.
+Keep this handoff current, commit coherent changes and push private `main`.
