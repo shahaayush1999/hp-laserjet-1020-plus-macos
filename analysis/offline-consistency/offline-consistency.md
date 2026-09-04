@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `72`
+- checks: `73`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -38,6 +38,7 @@ It does not contact the printer.
 | `first_page_sequence_keeps_video_engine_registers_ordered` | `watch` | The first-page hardware sequence must preserve the ordered engine/video/refill risk boundary. | `analysis/hardware-boundary/first-page-hardware-sequence.json` |
 | `video_dataflow_contract_keeps_a4_default_path` | `watch` | The video dataflow contract must preserve concrete a4_default values through render/refill boundary formulas. | `analysis/hardware-boundary/video-dataflow-contract.json` |
 | `direct_start_page_and_native_semantics_verified` | `watch` | Direct stock ELF work creation and native semantic parser must both pass. | `analysis/hardware-boundary/zjs-direct-work.json` |
+| `compiled_semantic_target_verified` | `watch` | Actual BE/call0 parser and planner must agree with native and independent model expectations in RAM-only execution. | `analysis/open-firmware-model/semantic-target/validation.json` |
 | `portable_page_plan_boundary` | `watch` | Native page planning must retain corrected window arithmetic and reject unsupported/mismatched fixtures. | `analysis/open-firmware-model/page-plan.json` |
 | `stock_metadata_split_boundary_explicit` | `watch` | The logical-clip full-payload model must not be mistaken for bounded stock metadata handling. | `analysis/open-firmware-model/metadata-bounds.json` |
 | `raster_callback_argument_and_unknown_isa_boundary` | `watch` | Stock raster callbacks must preserve fourth stride argument and explicit unresolved ISA effects. | `analysis/hardware-boundary/raster-callbacks.json` |

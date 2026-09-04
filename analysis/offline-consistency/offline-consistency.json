@@ -1,5 +1,5 @@
 {
-  "check_count": 72,
+  "check_count": 73,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -143,6 +143,12 @@
       "detail": "Direct stock ELF work creation and native semantic parser must both pass.",
       "evidence": "analysis/hardware-boundary/zjs-direct-work.json",
       "name": "direct_start_page_and_native_semantics_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Actual BE/call0 parser and planner must agree with native and independent model expectations in RAM-only execution.",
+      "evidence": "analysis/open-firmware-model/semantic-target/validation.json",
+      "name": "compiled_semantic_target_verified",
       "severity": "watch"
     },
     {

@@ -46,3 +46,12 @@ copy, and only the final band is marked final. A4 gives 1706 four-row bands.
 `python3 scripts/validate-hp1020-page-plan.py` checks 1398 cases and more than
 five million band partitions under ASan/UBSan. Callback transformations, live
 buffer ownership and mechanical sequencing remain outside this component.
+
+The `freestanding/` test fixture links these same C components at synthetic
+address `0x20000000`, with call0 functions, small memory helpers and software
+unsigned division. It is an emulator test ELF, not a bootable printer image.
+Build with `scripts/build-hp1020-semantic-target.sh` after rebuilding the compiler
+with `scripts/build-xtensa-gcc-manual.sh`. The target validator executes 66 cases
+and compares nearly 20 million instructions' results with both native sanitizer
+execution and independent generated-stream expectations. It does not model USB,
+cache coherency, core-specific raster instructions or engine mechanics.

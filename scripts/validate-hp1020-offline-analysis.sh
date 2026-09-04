@@ -92,6 +92,12 @@ run_step "Validate portable semantic core under sanitizers" \
 run_step "Validate portable page and band planner" \
   "$ROOT_DIR/scripts/validate-hp1020-page-plan.py"
 
+run_step "Build and reproduce semantic core for synthetic Xtensa RAM" \
+  "$ROOT_DIR/scripts/check-hp1020-semantic-target-reproducibility.sh"
+
+run_step "Execute compiled semantic core and planner" \
+  "$ROOT_DIR/scripts/validate-hp1020-semantic-target.py"
+
 run_step "Print model invariant check" \
   "$ROOT_DIR/scripts/check-hp1020-print-model-invariants.py" \
     "${model_paths[@]}" \

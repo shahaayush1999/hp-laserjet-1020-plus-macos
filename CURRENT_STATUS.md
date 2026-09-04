@@ -22,7 +22,8 @@ network, multi-model, and unrelated firmware features are out of scope.
 - The probe has never been uploaded. Real custom-code execution, endpoint-0,
   bulk completion length, acknowledgement, and repeated re-arm remain unproven.
 - A separate portable C semantic parser retains page metadata and compressed
-  raster records in bounded RAM. It is native-tested, not linked into a probe.
+  raster records in bounded RAM. It is native- and target-tested in host RAM,
+  not linked into a device probe.
   Raster/video output and engine control remain unimplemented.
 
 ## Latest Offline Audit (2026-09-05)
@@ -47,28 +48,28 @@ network, multi-model, and unrelated firmware features are out of scope.
 - Identified logical-clip metadata length mismatch (180 actual / 156 declared).
 - RAM-only C page planner passes 1398 cases and 5,394,344 band partitions;
   rejects BPP4 and inconsistent metadata. A4: 1706 bands, four rows each.
-- Both validation suites, 72 consistency checks and reproducibility pass.
-  A clean freestanding C cross-compiler build is in progress outside the repo.
+- Built GCC 14.3.0 with a conservative BE/call0 profile and software division.
+  The actual compiled parser/planner passes 66 RAM-only cases: 19,991,177
+  instructions, 859 distinct instructions; identical ELF/map on repeated builds.
+- Both validation suites, 73 consistency checks and reproducibility pass.
 
 ## Main Unknowns
 
 1. Whether boot-ROM USB initialization is sufficient for the standalone probe.
 2. Whether real bulk descriptor completion and length encoding match the static
    model.
-3. Custom instruction semantics inside stock raster-processing callbacks.
-4. Exact safe video-transfer and mechanical engine sequencing for a first page.
+3. Core-specific raster instruction semantics, or demonstrated stock bypass behavior.
+4. Live video channel units, cache visibility and buffer ownership.
+5. Calibrated engine status meanings and safe timing/recovery for a first page.
 
-## Productive Offline Work
+## Offline Boundary
 
-- Independently audit the recovered contracts against stock ELF instructions.
-- Build and validate target C output for the portable semantic components.
-- Lift or model remaining video helpers and engine state transitions.
-- Extend the tested portable semantic component and host-side transfer planning.
-- Build executable host models for video descriptors and engine state machines.
-- Extend static safety gates before any printing-capable firmware is created.
-
-Continue offline until remaining uncertainty is a precise hardware-only
-question. Do not turn static hypotheses into claimed facts.
+The supported parser and page planner are implemented and instruction-tested.
+Further integration depends on unproven device contracts. Exact questions,
+current evidence and resolving observations are in
+`analysis/open-firmware-model/next-evidence.md`. Core-specific ISA documentation
+could also resolve the raster extension gap without hardware. Static hypotheses
+are not proof of USB, raster-output or mechanical behavior.
 
 ## Hardware Checkpoint
 

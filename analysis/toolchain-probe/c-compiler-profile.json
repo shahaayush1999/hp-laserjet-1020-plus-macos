@@ -1,0 +1,55 @@
+{
+  "compiler": "xtensa-fsf-elf-gcc (GCC) 14.3.0",
+  "macros": {
+    "__XCHAL_HAVE_ABS": "0",
+    "__XCHAL_HAVE_ADDX": "1",
+    "__XCHAL_HAVE_BE": "1",
+    "__XCHAL_HAVE_DENSITY": "1",
+    "__XCHAL_HAVE_DIV32": "0",
+    "__XCHAL_HAVE_FP": "0",
+    "__XCHAL_HAVE_L32R": "1",
+    "__XCHAL_HAVE_LOOPS": "0",
+    "__XCHAL_HAVE_MINMAX": "0",
+    "__XCHAL_HAVE_MUL16": "0",
+    "__XCHAL_HAVE_MUL32": "1",
+    "__XCHAL_HAVE_MUL32_HIGH": "0",
+    "__XCHAL_HAVE_NSA": "1",
+    "__XCHAL_HAVE_RELEASE_SYNC": "0",
+    "__XCHAL_HAVE_S32C1I": "0",
+    "__XCHAL_HAVE_SEXT": "0",
+    "__XCHAL_HAVE_THREADPTR": "0",
+    "__XCHAL_HAVE_WINDOWED": "0",
+    "__XSHAL_ABI": "1",
+    "__XTENSA_CALL0_ABI__": "1",
+    "__XTENSA_EB__": "1"
+  },
+  "scope": "Compiler feature and static stock-byte compatibility gate; not a boot/CPU-state hardware test",
+  "status": "pass",
+  "stock_instruction_evidence": [
+    {
+      "address": "0x100187b1",
+      "bytes": "500a5d",
+      "instruction": "call0"
+    },
+    {
+      "address": "0x1001b1fa",
+      "bytes": "d00f",
+      "instruction": "ret.n"
+    },
+    {
+      "address": "0x10013f8e",
+      "bytes": "098828",
+      "instruction": "mull"
+    },
+    {
+      "address": "0x1001b670",
+      "bytes": "056f04",
+      "instruction": "nsau"
+    },
+    {
+      "address": "0x10013f75",
+      "bytes": "07a80a",
+      "instruction": "addx4"
+    }
+  ]
+}

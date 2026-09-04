@@ -15,6 +15,15 @@ Generated from the working local setup on 2026-06-04 02:01:58 IST.
 - `assets/firmware-source`: 328K
 - `vendor/foo2zjs-source`: 11M
 
+## Offline Research Toolchain (2026-09-05)
+
+GCC 14.3.0 is built outside the repository for synthetic RAM execution of the
+open C components. It is not an installed printing dependency or bundled runtime.
+Source archive: `https://ftp.gnu.org/gnu/gcc/gcc-14.3.0/gcc-14.3.0.tar.xz`.
+SHA-256: `e0dc77297625631ac8e50fa92fffefe899a4eb702592da5c32ef04e2293aca3a`.
+Configuration, repaired assembler dependency and reproduction instructions are
+in `analysis/toolchain-probe/freestanding-c-compiler.md`.
+
 ## SHA-256 Checksums
 
 ```text

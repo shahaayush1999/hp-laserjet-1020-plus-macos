@@ -839,6 +839,16 @@ def build_report() -> dict[str, Any]:
                         and set(semantic_core["sanitizers"]) == {"address", "undefined"},
                         "Direct stock ELF work creation and native semantic parser must both pass.",
                         evidence="analysis/hardware-boundary/zjs-direct-work.json"))
+    target_c = read_json("analysis/open-firmware-model/semantic-target/validation.json")
+    checks.append(check("compiled_semantic_target_verified",
+                        target_c["status"] == "pass" and target_c["total_cases"] == 66
+                        and read_json("analysis/open-firmware-model/semantic-target/reproducibility.json")["status"] == "pass"
+                        and target_c["executed_instructions"] > 19000000
+                        and target_c["negative_memory_checks"] == 4
+                        and read_json("analysis/toolchain-probe/c-compiler-profile.json")["status"] == "pass"
+                        and not {"quou","quos","loop","loopnez","entry","retw","retw.n","cust0","minu","maxu","min","max","sext","abs","mul16u","mul16s"}.intersection(target_c["executed_opcodes"]),
+                        "Actual BE/call0 parser and planner must agree with native and independent model expectations in RAM-only execution.",
+                        evidence="analysis/open-firmware-model/semantic-target/validation.json"))
     page_plan = read_json("analysis/open-firmware-model/page-plan.json")
     checks.append(check("portable_page_plan_boundary",
                         page_plan["status"] == "pass" and page_plan["total_cases"] == 1398

@@ -1,0 +1,541 @@
+{
+  "cases": [
+    {
+      "case": "matrix-a4_2400x600",
+      "fragment": 1,
+      "instructions": 747527,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_2400x600",
+      "fragment": 7,
+      "instructions": 389939,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_2400x600",
+      "fragment": 1024,
+      "instructions": 330728,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_600x600",
+      "fragment": 1,
+      "instructions": 497081,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_600x600",
+      "fragment": 7,
+      "instructions": 310203,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_600x600",
+      "fragment": 1024,
+      "instructions": 279243,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_cardstock_media",
+      "fragment": 1,
+      "instructions": 823822,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_cardstock_media",
+      "fragment": 7,
+      "instructions": 566338,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_cardstock_media",
+      "fragment": 1024,
+      "instructions": 523682,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_default",
+      "fragment": 1,
+      "instructions": 823822,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_default",
+      "fragment": 7,
+      "instructions": 566338,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_default",
+      "fragment": 1024,
+      "instructions": 523682,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_draft",
+      "fragment": 1,
+      "instructions": 823765,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_draft",
+      "fragment": 7,
+      "instructions": 566281,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_draft",
+      "fragment": 1024,
+      "instructions": 523668,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_logical_clip",
+      "fragment": 1,
+      "instructions": 545520,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_logical_clip",
+      "fragment": 7,
+      "instructions": 287133,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_logical_clip",
+      "fragment": 1024,
+      "instructions": 244348,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_manual_feed",
+      "fragment": 1,
+      "instructions": 823822,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_manual_feed",
+      "fragment": 7,
+      "instructions": 566338,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_manual_feed",
+      "fragment": 1024,
+      "instructions": 523682,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_two_copies",
+      "fragment": 1,
+      "instructions": 823822,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_two_copies",
+      "fragment": 7,
+      "instructions": 566338,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_two_copies",
+      "fragment": 1024,
+      "instructions": 523682,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-legal_default",
+      "fragment": 1,
+      "instructions": 882366,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-legal_default",
+      "fragment": 7,
+      "instructions": 623979,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-legal_default",
+      "fragment": 1024,
+      "instructions": 581194,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-letter_default",
+      "fragment": 1,
+      "instructions": 807666,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-letter_default",
+      "fragment": 7,
+      "instructions": 549709,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-letter_default",
+      "fragment": 1024,
+      "instructions": 507010,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "minimal-page-a4",
+      "fragment": 1,
+      "instructions": 823822,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "minimal-page-a4",
+      "fragment": 7,
+      "instructions": 566338,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "minimal-page-a4",
+      "fragment": 1024,
+      "instructions": 523682,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_01_of_16",
+      "fragment": 7,
+      "instructions": 26847,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_02_of_16",
+      "fragment": 7,
+      "instructions": 26847,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_03_of_16",
+      "fragment": 7,
+      "instructions": 26847,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_04_of_16",
+      "fragment": 7,
+      "instructions": 26847,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_05_of_16",
+      "fragment": 7,
+      "instructions": 26847,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_06_of_16",
+      "fragment": 7,
+      "instructions": 26847,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_07_of_16",
+      "fragment": 7,
+      "instructions": 26847,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_08_of_16",
+      "fragment": 7,
+      "instructions": 26847,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_09_of_16",
+      "fragment": 7,
+      "instructions": 26847,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_10_of_16",
+      "fragment": 7,
+      "instructions": 26847,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_11_of_16",
+      "fragment": 7,
+      "instructions": 26847,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_12_of_16",
+      "fragment": 7,
+      "instructions": 26847,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_13_of_16",
+      "fragment": 7,
+      "instructions": 26847,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_14_of_16",
+      "fragment": 7,
+      "instructions": 26847,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_15_of_16",
+      "fragment": 7,
+      "instructions": 26847,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/magic_split_01_of_4",
+      "fragment": 7,
+      "instructions": 27041,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/magic_split_02_of_4",
+      "fragment": 7,
+      "instructions": 27041,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/magic_split_03_of_4",
+      "fragment": 7,
+      "instructions": 27041,
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/payload_split_across_four_boundaries",
+      "fragment": 7,
+      "instructions": 26412,
+      "result": 2,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/multiple_chunks_single_transfer",
+      "fragment": 7,
+      "instructions": 26869,
+      "result": 4,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/stock_types_outside_probe_scope_are_unknown",
+      "fragment": 7,
+      "instructions": 27592,
+      "result": 4,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/valid_zero_payload_chunks",
+      "fragment": 7,
+      "instructions": 26977,
+      "result": 2,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/zero_size_chunk_recovery",
+      "fragment": 7,
+      "instructions": 26392,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/oversize_chunk_policy_recovery",
+      "fragment": 7,
+      "instructions": 26398,
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/bad_signature_recovery",
+      "fragment": 7,
+      "instructions": 26389,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/reserved_exceeds_payload_recovery",
+      "fragment": 7,
+      "instructions": 26403,
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/unknown_chunk_is_counted_and_skipped",
+      "fragment": 7,
+      "instructions": 26962,
+      "result": 4,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/ring_and_descriptor_wrap_boundary",
+      "fragment": 7,
+      "instructions": 47356,
+      "result": 4,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/payload_crosses_ring_wrap_boundary",
+      "fragment": 7,
+      "instructions": 46561,
+      "result": 2,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/three_repeated_documents",
+      "fragment": 7,
+      "instructions": 26869,
+      "result": 4,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/truncated_chunk_header_at_eof",
+      "fragment": 7,
+      "instructions": 26146,
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/truncated_chunk_payload_at_eof",
+      "fragment": 7,
+      "instructions": 26412,
+      "result": 2,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/zero_byte_receive_descriptors",
+      "fragment": 7,
+      "instructions": 27041,
+      "result": 0,
+      "status": "pass"
+    }
+  ],
+  "distinct_instructions": 859,
+  "elf_sha256": "9912d44e3a01e927629dee98974d98b78092b453a069e2c14b6612000e883021",
+  "executed_instructions": 19991177,
+  "executed_opcodes": [
+    "add",
+    "add.n",
+    "addi",
+    "addi.n",
+    "addmi",
+    "addx2",
+    "addx4",
+    "and",
+    "bany",
+    "bbci",
+    "beq",
+    "beqi",
+    "beqz",
+    "beqz.n",
+    "bgeu",
+    "bgeui",
+    "bltu",
+    "bltui",
+    "bne",
+    "bnei",
+    "bnez",
+    "bnez.n",
+    "call0",
+    "extui",
+    "j",
+    "jx",
+    "l16ui",
+    "l32i",
+    "l32i.n",
+    "l32r",
+    "l8ui",
+    "mov.n",
+    "moveqz",
+    "movi",
+    "movi.n",
+    "movnez",
+    "mull",
+    "nsau",
+    "or",
+    "ret.n",
+    "s16i",
+    "s32i",
+    "s32i.n",
+    "s8i",
+    "sll",
+    "slli",
+    "srl",
+    "srli",
+    "ssl",
+    "ssr",
+    "sub",
+    "xor"
+  ],
+  "limits": "This tests compiler/ABI/CPU arithmetic and RAM behavior. It does not prove boot-ROM state, USB behavior, cache coherency, custom raster instructions or mechanical safety.",
+  "negative_memory_checks": 4,
+  "scope": "The real compiled C parser, memory helpers, software unsigned division and page planner execute without a peripheral model. No upload image is produced.",
+  "source_sha256": {
+    "open-firmware/semantic-core/freestanding/memory.c": "9678a7810cf3756484c6bf178f7a206a180ace6cbce3502f247055a462a19bfc",
+    "open-firmware/semantic-core/freestanding/string.h": "02f67a15e7bb981984f512b9d5a262a61326011afad74ccfcf8d80c6faa030a9",
+    "open-firmware/semantic-core/freestanding/target-check.c": "d27bef3845f267ec4626140b7dcb9bd1f8864168d0f98b0a2c5f8e1f26a6948b",
+    "open-firmware/semantic-core/freestanding/target-check.ld": "05ef01683dc60cf553148564fa30449296e3d9a15a34c43451dd4edcf77dac32",
+    "open-firmware/semantic-core/host-check.c": "0c42a6fe7c273c677ff1dda9b90b86bba02e000cc9712242b55ff1aecbc6ce40",
+    "open-firmware/semantic-core/hp1020_page_plan.c": "16f6608918c620f437d09fe1f56c8f1043d9c60a4e6b8b3f2cd5220ff57e0517",
+    "open-firmware/semantic-core/hp1020_page_plan.h": "1df6b7a2f4ccf752d3ac127e70b48ac8fb93cd6ce4c02431622d5d0ea1326f23",
+    "open-firmware/semantic-core/hp1020_semantic.c": "dbe994d79b62d86f8c6e61d2a1da8e3c644bd5fc5303821eddefdcdc82e0a725",
+    "open-firmware/semantic-core/hp1020_semantic.h": "fc6c647f443a96eeb1ab45bb26652a85cca7768ebcc41cc6777d41285ed25fce",
+    "open-firmware/semantic-core/plan-check.c": "05191d900d643cd81092a267b3261e412bc7aec23fef31eedc6b62faefd88cec"
+  },
+  "status": "pass",
+  "target": "GCC 14.3.0, big-endian Xtensa call0, synthetic RAM at 0x20000000",
+  "total_cases": 66
+}

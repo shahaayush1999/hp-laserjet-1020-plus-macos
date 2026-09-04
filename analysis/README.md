@@ -298,7 +298,7 @@ Useful current conclusions:
 - `scripts/run-open-firmware-usb-test-ladder.sh` wraps the staged hardware path. Dry-run validates all probes offline; upload mode runs one selected non-printing stage with before/after USB identity capture.
 - `scripts/run-usb-snapshot-probe-hardware-test.sh` is the guarded dry-run/default harness for the read-only USB snapshot probe. It re-runs the static gates before any upload and requires `HP1020_ALLOW_USB_SNAPSHOT_UPLOAD=1`.
 - `scripts/validate-hp1020-offline-analysis.sh` regenerates the print-path matrix, model invariants, video-register projection, hardware-boundary model, and open endpoint-0 model without touching the printer.
-- `scripts/capture-hp1020-usb-identity.sh` captures host-side USB identity evidence without sending bytes. Use it before/after marker tests to compare stock identity, disappearance, or `HP1020 OPEN MARKER`.
+- `scripts/capture-hp1020-usb-identity.sh` captures host-side USB identity evidence; when libusb is available it also sends standard control-IN descriptor reads. Use it before/after marker tests to compare stock identity, disappearance, or `HP1020 OPEN MARKER`.
 - `scripts/check-hp1020-safety-boundary.py` is a pre-upload safety scanner for future candidate source/disassembly; it fails on known unsafe video/engine functions and MMIO families.
 - `analysis/toolchain-probe/binutils-exec-status.md` records that the old `/tmp/hp1020-ctng-mnt/.../xtensa-fsf-elf-*` tools are present but corrupt, and that `scripts/build-xtensa-binutils-manual.sh` recovers a runnable assembly-only prefix.
 - `analysis/printer-test-readiness-report.md` records the controlled connected-printer test path using `analysis/samples/minimal-page.ps` and `scripts/run-printer-readiness-test.sh --send`; that test has printed successfully once on hardware.
@@ -325,3 +325,11 @@ Useful current conclusions:
 - `scripts/check-hp1020-probe-instructions.py` traverses entry plus six vector roots, skips literal pools, proves constant trampolines, and rejects reachable custom/unknown opcodes. Every probe build runs it and five negative mutations. Current reachable counts are idle 21, snapshot 111, marker 240, bulk 560.
 - `analysis/open-firmware-model/metadata-bounds.md` identifies the logical-clip fixture's 180-byte item list versus 156-byte declared allocation. Paper/media items exceed the initialized stock metadata region. Its full-payload model is not proof of stock equivalence.
 - `analysis/open-firmware-model/page-plan.md` verifies the portable C page/band planner with 1398 cases and 5,394,344 band partitions. It has no hardware output and rejects BPP4 and the logical-clip mismatch.
+
+### Freestanding target C checkpoint (2026-09-05)
+
+- `scripts/build-xtensa-gcc-manual.sh` reproduces the pinned GCC 14.3.0 BE/call0 compiler at `/tmp/hp1020-xtensa-gcc14`; the repaired manual binutils prefix remains required. `analysis/toolchain-probe/freestanding-c-compiler.md` records configuration and source checksum.
+- `scripts/check-hp1020-c-compiler-profile.py` checks 21 target macros and five stock instruction counterparts. Hardware division, loops, windows and unestablished optional ALU features are disabled in this component profile.
+- `scripts/build-hp1020-semantic-target.sh` builds the actual C parser/planner into an ELF at synthetic RAM address `0x20000000`. This is not a printer boot layout or upload image.
+- `scripts/validate-hp1020-semantic-target.py` runs 66 target cases (19,991,177 instructions), compares native sanitizers and independent fixture expectations, and rejects MMIO, code writes, unaligned words and execution from data. `scripts/check-hp1020-semantic-target-reproducibility.sh` requires identical ELF/map files from two builds. Both run in the offline analysis suite.
+- `analysis/open-firmware-model/next-evidence.md` enumerates the remaining boot/USB, raster ISA, video ownership and engine calibration questions. Do not replace missing device evidence with guessed hardware code.
