@@ -94,13 +94,13 @@ Linker script and memory map
                 0x0000000010003400                hp1020_open_bulk_status_product_string
                 0x0000000010005c80                . = 0x10005c80
 
-.text           0x0000000010005c80      0x5ee
+.text           0x0000000010005c80      0x5f3
  *(.text.probe)
- .text.probe    0x0000000010005c80      0x5ee /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+ .text.probe    0x0000000010005c80      0x5f3 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
                 0x0000000010005c90                hp1020_usb_bulk_parser_probe
                 0x0000000010006078                hp1020_usb_marker_draft_probe
  *(.text)
- .text          0x000000001000626e        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
+ .text          0x0000000010006273        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/hp1020-usb-bulk-parser-draft.o
                 0x0000000010006a14                . = 0x10006a14
 
 .runtime_vector.entry

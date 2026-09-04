@@ -409,7 +409,7 @@
     "description": "mapped USB MMIO read",
     "instruction": "l32i.n\ta3, a2, 0",
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
-    "pc": "0x10006252",
+    "pc": "0x10006257",
     "register": "0xb3000408",
     "severity": "watch"
   },
@@ -418,7 +418,7 @@
     "description": "mapped USB MMIO read",
     "instruction": "l32i.n\ta3, a2, 0",
     "path": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-probes/usb-bulk-parser-draft/disassembly.txt",
-    "pc": "0x10006260",
+    "pc": "0x10006265",
     "register": "0xb3000400",
     "severity": "watch"
   }

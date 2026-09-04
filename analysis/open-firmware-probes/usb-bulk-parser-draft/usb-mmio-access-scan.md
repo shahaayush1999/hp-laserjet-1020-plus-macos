@@ -52,5 +52,5 @@
 | `watch` | `read` | `0xb3000408` | `0x10006092` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
 | `watch` | `read` | `0xb3000400` | `0x1000609c` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
 | `watch` | `read` | `0xb3010000` | `0x10006106` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
-| `watch` | `read` | `0xb3000408` | `0x10006252` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
-| `watch` | `read` | `0xb3000400` | `0x10006260` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
+| `watch` | `read` | `0xb3000408` | `0x10006257` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |
+| `watch` | `read` | `0xb3000400` | `0x10006265` | `l32i.n	a3, a2, 0` | mapped USB MMIO read |

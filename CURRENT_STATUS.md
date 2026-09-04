@@ -33,6 +33,8 @@ network, multi-model, and unrelated firmware features are out of scope.
   differential instruction executions establish unsigned floor division.
 - The assembled parser now passes all 44 generated/boundary cases in an
   independent RAM-only interpreter: 1,178,483 instructions; zero MMIO accesses.
+- Fixed endpoint-0 descriptor/state pointer clobbers in both USB probes;
+  104 assembled control-IN RAM tests verify exact payloads and transfer records.
 - Both validation suites and bulk-probe reproducibility pass. Research continues
   on unresolved work sideband fields and offline semantic construction.
 

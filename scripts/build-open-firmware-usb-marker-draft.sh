@@ -94,6 +94,7 @@ PY
 python3 "$ROOT_DIR/scripts/wrap-firmware-acl.py" "$img" "$dl"
 "$readelf_tool" -h -l -S "$elf" > "$readelf_txt"
 "$objdump_tool" -d "$elf" > "$disasm_txt"
+XTENSA_PREFIX="$prefix" python3 "$ROOT_DIR/scripts/check-hp1020-assembled-control-in.py" --variant usb-marker-draft
 
 python3 "$ROOT_DIR/scripts/inspect-firmware-layout.py" \
   --profile boot-probe \

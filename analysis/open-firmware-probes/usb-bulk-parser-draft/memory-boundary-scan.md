@@ -1,16 +1,16 @@
 # HP 1020 Memory Boundary Scan
 
-- recovered classified memory accesses: `98`
+- recovered classified memory accesses: `99`
 - fail hits: `0`
 
 ## Counts
 
 - `local_probe_state` `read`: `18`
-- `local_probe_state` `write`: `57`
+- `local_probe_state` `write`: `60`
 - `setup_packet_buffer` `read`: `6`
-- `status_descriptor_local` `write`: `4`
+- `status_descriptor_local` `write`: `1`
 - `stock_response_state` `write`: `2`
-- `usb_bulk_receive_buffer` `read`: `1`
+- `usb_bulk_receive_buffer` `read`: `2`
 - `usb_bulk_transfer_descriptor` `read`: `1`
 - `usb_bulk_transfer_descriptor` `write`: `4`
 - `usb_staging_buffer` `write`: `1`
@@ -85,8 +85,9 @@
 | `watch` | `local_probe_state` | `write` | `0x10005ef1` | `0x7c` | `s32i	a7, a4, 124` | local probe state buffer |
 | `watch` | `local_probe_state` | `write` | `0x10005ef4` | `0x80` | `s32i	a7, a4, 128` | local probe state buffer |
 | `watch` | `local_probe_state` | `write` | `0x10005f02` | `0x40` | `s32i	a3, a4, 64` | local probe state buffer |
-| `watch` | `stock_response_state` | `write` | `0x10005fcf` | `0x3c` | `s32i.n	a6, a4, 60` | stock USB response state object at 0x100212d4 |
-| `watch` | `stock_response_state` | `write` | `0x10005fdd` | `0x40` | `s32i	a3, a4, 64` | stock USB response state object at 0x100212d4 |
+| `watch` | `stock_response_state` | `write` | `0x10005fd1` | `0x3c` | `s32i.n	a6, a4, 60` | stock USB response state object at 0x100212d4 |
+| `watch` | `stock_response_state` | `write` | `0x10005fde` | `0x40` | `s32i	a3, a4, 64` | stock USB response state object at 0x100212d4 |
+| `watch` | `usb_bulk_receive_buffer` | `read` | `0x10005fe9` | `0x0` | `l8ui	a6, a2, 0` | stock USB bulk OUT receive buffer at 0x900216f0 |
 | `watch` | `usb_staging_buffer` | `write` | `0x10005fec` | `0x0` | `s8i	a6, a3, 0` | stock USB control-IN staging buffer at 0x90022bd0 |
 | `watch` | `usb_transfer_descriptor_ring` | `write` | `0x10005ffb` | `0x0` | `s32i.n	a7, a4, 0` | stock USB control-IN transfer descriptor ring at 0x900226f0 |
 | `watch` | `usb_transfer_descriptor_ring` | `write` | `0x10005fff` | `0x4` | `s32i.n	a3, a4, 4` | stock USB control-IN transfer descriptor ring at 0x900226f0 |
@@ -113,8 +114,8 @@
 | `watch` | `local_probe_state` | `read` | `0x100061a4` | `0x68` | `l32i	a3, a2, 104` | local probe state buffer |
 | `watch` | `local_probe_state` | `read` | `0x100061d4` | `0x6c` | `l32i	a3, a2, 108` | local probe state buffer |
 | `watch` | `local_probe_state` | `read` | `0x10006204` | `0x70` | `l32i	a3, a2, 112` | local probe state buffer |
-| `watch` | `setup_packet_buffer` | `read` | `0x10006236` | `0x6` | `l8ui	a3, a11, 6` | candidate USB setup packet buffer at 0x90021348 |
-| `watch` | `status_descriptor_local` | `write` | `0x10006239` | `0x18` | `s32i.n	a3, a4, 24` | open bulk-status descriptor local alias at 0x10003400 |
-| `watch` | `setup_packet_buffer` | `read` | `0x1000623d` | `0x7` | `l8ui	a3, a11, 7` | candidate USB setup packet buffer at 0x90021348 |
-| `watch` | `status_descriptor_local` | `write` | `0x10006240` | `0x1c` | `s32i.n	a3, a4, 28` | open bulk-status descriptor local alias at 0x10003400 |
-| `watch` | `status_descriptor_local` | `write` | `0x1000624d` | `0x20` | `s32i.n	a6, a4, 32` | open bulk-status descriptor local alias at 0x10003400 |
+| `watch` | `setup_packet_buffer` | `read` | `0x1000623b` | `0x6` | `l8ui	a3, a11, 6` | candidate USB setup packet buffer at 0x90021348 |
+| `watch` | `local_probe_state` | `write` | `0x1000623e` | `0x18` | `s32i.n	a3, a4, 24` | local probe state buffer |
+| `watch` | `setup_packet_buffer` | `read` | `0x10006242` | `0x7` | `l8ui	a3, a11, 7` | candidate USB setup packet buffer at 0x90021348 |
+| `watch` | `local_probe_state` | `write` | `0x10006245` | `0x1c` | `s32i.n	a3, a4, 28` | local probe state buffer |
+| `watch` | `local_probe_state` | `write` | `0x10006252` | `0x20` | `s32i.n	a6, a4, 32` | local probe state buffer |

@@ -267,7 +267,7 @@
   ],
   "comparison": "After each transfer, before host-only finalize; compare counters, parser state, partial header and active payload remainder.",
   "decoded_parser_instructions": 94,
-  "elf_sha256": "8f25286ccc9f070b803abb68ae87a8d23a748990c269c861be19f7a31d35aa3f",
+  "elf_sha256": "ec0b664e52bedee5169a1ffb45d9f0fd954a8d977f69801874b6e8f834b1042c",
   "instructions_executed": 1178483,
   "mmio_accesses": 0,
   "scope": "assembled parser slice only; no descriptor/MMIO/boot emulation",

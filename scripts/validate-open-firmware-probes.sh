@@ -90,6 +90,7 @@ reports = [
     "analysis/open-firmware-probes/usb-marker-draft/usb-mmio-access-scan.json",
     "analysis/open-firmware-probes/usb-marker-draft/endpoint0-sequence-scan.json",
     "analysis/open-firmware-probes/usb-marker-draft/memory-boundary-scan.json",
+    "analysis/open-firmware-probes/usb-marker-draft/assembled-control-in-check.json",
     "analysis/open-firmware-probes/usb-marker-draft/marker-descriptor-check.json",
     "analysis/open-firmware-probes/usb-marker-draft/marker-length-flow-check.json",
     "analysis/open-firmware-probes/usb-marker-draft/marker-rearm-flow-check.json",
@@ -105,6 +106,7 @@ reports = [
     "analysis/open-firmware-probes/usb-bulk-parser-draft/config-descriptor-check.json",
     "analysis/open-firmware-probes/usb-bulk-parser-draft/parser-model.json",
     "analysis/open-firmware-probes/usb-bulk-parser-draft/assembled-parser-check.json",
+    "analysis/open-firmware-probes/usb-bulk-parser-draft/assembled-control-in-check.json",
     "analysis/open-firmware-probes/usb-bulk-parser-draft/deterministic-test-results.json",
     "analysis/open-firmware-probes/usb-bulk-parser-draft/reproducibility-check.json",
 ]

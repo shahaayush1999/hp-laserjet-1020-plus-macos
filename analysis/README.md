@@ -310,3 +310,5 @@ Useful current conclusions:
 - `toolchain-probe/big-endian-encoding-audit.md` documents the corrected ISA overlay, superseded LE-encoded probes, and byte-exact regression gate.
 
 - `open-firmware-probes/usb-bulk-parser-draft/assembled-parser-check.md` records 44 differential cases against the actual compiled parser instruction stream, with all MMIO rejected.
+
+- `scripts/check-hp1020-assembled-control-in.py` executes descriptor selection, clipping and staging in host RAM for both USB probes (104 cases), skipping controller gates/submission and rejecting all MMIO.

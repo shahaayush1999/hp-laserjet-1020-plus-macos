@@ -127,7 +127,7 @@
   },
   {
     "detail": "0xb3000224 must be polled through the exact 0x400 completion mask",
-    "evidence": "line 635: l32r a2,hp1020_mmio_b3000224; line 637: l32i a3,a2,0; line 640: l32r a5,hp1020_bulk_completion_mask_00000400; line 641: and a3,a3,a5; line 642: bnez a3,hp1020_usb_bulk_handle_completion",
+    "evidence": "line 636: l32r a2,hp1020_mmio_b3000224; line 638: l32i a3,a2,0; line 641: l32r a5,hp1020_bulk_completion_mask_00000400; line 642: and a3,a3,a5; line 643: bnez a3,hp1020_usb_bulk_handle_completion",
     "name": "bulk_completion_poll",
     "severity": "pass"
   },
@@ -145,7 +145,7 @@
   },
   {
     "detail": "b3010000 bit 0 must select the 0x90003314 high-speed or 0x90003334 full-speed configuration descriptor",
-    "evidence": "line 686: l32r a2,hp1020_mmio_b3010000; line 688: l32i a3,a2,0; line 689: movi a5,1; line 690: and a3,a3,a5; line 691: bnez a3,hp1020_usb_marker_select_full_speed_config; line 692: l32r a2,hp1020_config_high_speed_descriptor_hw_ptr_90003314; line 695: l32r a2,hp1020_config_full_speed_descriptor_hw_ptr_90003334",
+    "evidence": "line 687: l32r a2,hp1020_mmio_b3010000; line 689: l32i a3,a2,0; line 690: movi a5,1; line 691: and a3,a3,a5; line 692: bnez a3,hp1020_usb_marker_select_full_speed_config; line 693: l32r a2,hp1020_config_high_speed_descriptor_hw_ptr_90003314; line 696: l32r a2,hp1020_config_full_speed_descriptor_hw_ptr_90003334",
     "name": "speed_specific_config_alias_selection",
     "severity": "pass"
   },
@@ -229,13 +229,13 @@
   },
   {
     "detail": "the product descriptor path must format bytes, descriptors, recognized chunks, errors, and unknown chunks at their fixed descriptor offsets",
-    "evidence": "line 720: write_hex_counter 0x60,0x14; line 721: write_hex_counter 0x64,0x2a; line 722: write_hex_counter 0x68,0x40; line 723: write_hex_counter 0x6c,0x56; line 724: write_hex_counter 0x70,0x6c",
+    "evidence": "line 721: write_hex_counter 0x60,0x14; line 722: write_hex_counter 0x64,0x2a; line 723: write_hex_counter 0x68,0x40; line 724: write_hex_counter 0x6c,0x56; line 725: write_hex_counter 0x70,0x6c",
     "name": "dynamic_product_status_counter_calls",
     "severity": "pass"
   },
   {
     "detail": "entry must raise Xtensa INTLEVEL to 15 before the polling probe enables USB service bits, so the trap-only interrupt table cannot steal a completion",
-    "evidence": "line 778: rsil a2,15; line 779: jump_abs hp1020_usb_bulk_parser_probe",
+    "evidence": "line 783: rsil a2,15; line 784: jump_abs hp1020_usb_bulk_parser_probe",
     "name": "polling_masks_cpu_interrupts_before_usb_setup",
     "severity": "pass"
   },

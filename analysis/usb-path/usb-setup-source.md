@@ -55,8 +55,8 @@ The vague blocker is now split in two: the direct setup-byte address is probably
 | `0x10005e36` | `0x1` | bRequest | `l8ui	a3, a2, 1` |
 | `0x10005e43` | `0x2` | wValue low / descriptor index | `l8ui	a3, a2, 2` |
 | `0x10005e4a` | `0x3` | wValue high / descriptor type | `l8ui	a3, a2, 3` |
-| `0x10005eb2` | `0x6` | wLength low | `l8ui	a3, a11, 6` |
-| `0x10005eb9` | `0x7` | wLength high | `l8ui	a3, a11, 7` |
+| `0x10005eb7` | `0x6` | wLength low | `l8ui	a3, a11, 6` |
+| `0x10005ebe` | `0x7` | wLength high | `l8ui	a3, a11, 7` |
 
 ## Event Pointer Boundary
 

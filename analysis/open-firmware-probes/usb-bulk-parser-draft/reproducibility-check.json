@@ -1,11 +1,23 @@
 {
   "clean_generated_output_between_builds": true,
-  "compared_files": 35,
+  "compared_files": 37,
   "files": [
     {
+      "file": "assembled-control-in-check.json",
+      "first_sha256": "2dea96f82a7969fda938c6f8fc56362fdb4d488d0aa94ec5fbdf709dc00a4d7b",
+      "second_sha256": "2dea96f82a7969fda938c6f8fc56362fdb4d488d0aa94ec5fbdf709dc00a4d7b",
+      "status": "pass"
+    },
+    {
+      "file": "assembled-control-in-check.md",
+      "first_sha256": "09e5c56297f73ad6535890a307f9a5b641cd303b35af67e277f250540e025fdb",
+      "second_sha256": "09e5c56297f73ad6535890a307f9a5b641cd303b35af67e277f250540e025fdb",
+      "status": "pass"
+    },
+    {
       "file": "assembled-parser-check.json",
-      "first_sha256": "dd036492a154bb7e1049c04d2d42a3bac5c22ea972320a5e9a9dc6a32ffc5517",
-      "second_sha256": "dd036492a154bb7e1049c04d2d42a3bac5c22ea972320a5e9a9dc6a32ffc5517",
+      "first_sha256": "f1adaa2a7fbf76d566726b735137323df0e9c1e85f1a0ba850757c7b99145d89",
+      "second_sha256": "f1adaa2a7fbf76d566726b735137323df0e9c1e85f1a0ba850757c7b99145d89",
       "status": "pass"
     },
     {
@@ -28,20 +40,20 @@
     },
     {
       "file": "deterministic-test-results.json",
-      "first_sha256": "bb27e345fbc0b6f17b1f1b6183f3ff973390481b4c5426cd381dc86d54195633",
-      "second_sha256": "bb27e345fbc0b6f17b1f1b6183f3ff973390481b4c5426cd381dc86d54195633",
+      "first_sha256": "637a513f44b60a172ea2e8f8e0a4a9936506e6d5184be662eba8cf18f117019c",
+      "second_sha256": "637a513f44b60a172ea2e8f8e0a4a9936506e6d5184be662eba8cf18f117019c",
       "status": "pass"
     },
     {
       "file": "deterministic-test-results.md",
-      "first_sha256": "cdbcfdf959de485cbf529ab85539413c285af7420a375e53cee11207f90f0797",
-      "second_sha256": "cdbcfdf959de485cbf529ab85539413c285af7420a375e53cee11207f90f0797",
+      "first_sha256": "52f60729710e5ce2ea53959d9eed0e7ac679bd458fd57482a4afce8967ac93b2",
+      "second_sha256": "52f60729710e5ce2ea53959d9eed0e7ac679bd458fd57482a4afce8967ac93b2",
       "status": "pass"
     },
     {
       "file": "disassembly.txt",
-      "first_sha256": "abe026aaf479458599e01704f3ed2c7792fe50e2a0d11804f698f9e0d1fa9cd0",
-      "second_sha256": "abe026aaf479458599e01704f3ed2c7792fe50e2a0d11804f698f9e0d1fa9cd0",
+      "first_sha256": "4f9ace06d6df0929e6b0f906b1f21e403870ca87f73e9527bcc92db7e0855503",
+      "second_sha256": "4f9ace06d6df0929e6b0f906b1f21e403870ca87f73e9527bcc92db7e0855503",
       "status": "pass"
     },
     {
@@ -82,50 +94,50 @@
     },
     {
       "file": "hp1020-usb-bulk-parser-draft.dl",
-      "first_sha256": "a12e63807660f7e328021342d5288d1234690f278b0ad6ea0f0e16e2d22d44da",
-      "second_sha256": "a12e63807660f7e328021342d5288d1234690f278b0ad6ea0f0e16e2d22d44da",
+      "first_sha256": "fff2a9718d5e646434f3760a6df7f1662fa7c6fbc000c4a11a44696ea9bb0ee7",
+      "second_sha256": "fff2a9718d5e646434f3760a6df7f1662fa7c6fbc000c4a11a44696ea9bb0ee7",
       "status": "pass"
     },
     {
       "file": "hp1020-usb-bulk-parser-draft.elf",
-      "first_sha256": "8f25286ccc9f070b803abb68ae87a8d23a748990c269c861be19f7a31d35aa3f",
-      "second_sha256": "8f25286ccc9f070b803abb68ae87a8d23a748990c269c861be19f7a31d35aa3f",
+      "first_sha256": "ec0b664e52bedee5169a1ffb45d9f0fd954a8d977f69801874b6e8f834b1042c",
+      "second_sha256": "ec0b664e52bedee5169a1ffb45d9f0fd954a8d977f69801874b6e8f834b1042c",
       "status": "pass"
     },
     {
       "file": "hp1020-usb-bulk-parser-draft.img",
-      "first_sha256": "f32b210cdb34bfb71438c1838b4010db6085fa3cd3fcc5780348b8b966d9582d",
-      "second_sha256": "f32b210cdb34bfb71438c1838b4010db6085fa3cd3fcc5780348b8b966d9582d",
+      "first_sha256": "0453f7290e1565a8d92690f86b4040671b2d9d16d3c798735f207551359eb852",
+      "second_sha256": "0453f7290e1565a8d92690f86b4040671b2d9d16d3c798735f207551359eb852",
       "status": "pass"
     },
     {
       "file": "hp1020-usb-bulk-parser-draft.map",
-      "first_sha256": "68b6b041d1b1e3ab279bb0b7c02a82bf1299438029290ab0ce69c6afd90498b6",
-      "second_sha256": "68b6b041d1b1e3ab279bb0b7c02a82bf1299438029290ab0ce69c6afd90498b6",
+      "first_sha256": "6d67a0b4f003f4b1553a09e2d7953efc1f7ac06f9b47a8d11c9b92ed27261be8",
+      "second_sha256": "6d67a0b4f003f4b1553a09e2d7953efc1f7ac06f9b47a8d11c9b92ed27261be8",
       "status": "pass"
     },
     {
       "file": "layout.json",
-      "first_sha256": "9fe47d45f9e274f51e5dadecda9d85d8fd30353f4bd885be276c6c81a15a68c9",
-      "second_sha256": "9fe47d45f9e274f51e5dadecda9d85d8fd30353f4bd885be276c6c81a15a68c9",
+      "first_sha256": "52b95febd6eabd665f05f792433e2cf5ada6e134c4ecb11c2c9a05f6ced314dc",
+      "second_sha256": "52b95febd6eabd665f05f792433e2cf5ada6e134c4ecb11c2c9a05f6ced314dc",
       "status": "pass"
     },
     {
       "file": "layout.md",
-      "first_sha256": "afafb10cb030fd5dcd8363b806bd79449ac4df6495c870bbc3794d733a874e9b",
-      "second_sha256": "afafb10cb030fd5dcd8363b806bd79449ac4df6495c870bbc3794d733a874e9b",
+      "first_sha256": "a3299fe4852beae9cbfc02275cef226073422a51cb7c029d6f9a13b3d522c5d0",
+      "second_sha256": "a3299fe4852beae9cbfc02275cef226073422a51cb7c029d6f9a13b3d522c5d0",
       "status": "pass"
     },
     {
       "file": "memory-boundary-scan.json",
-      "first_sha256": "080b1aec2fbc5c3c442ea85b5e245b22207607e50c6db795d3903cec316fb0a3",
-      "second_sha256": "080b1aec2fbc5c3c442ea85b5e245b22207607e50c6db795d3903cec316fb0a3",
+      "first_sha256": "391e6144443dbaeab7ae79fccc03c1543bf2e13b010f7f2cd158018cf4868a9a",
+      "second_sha256": "391e6144443dbaeab7ae79fccc03c1543bf2e13b010f7f2cd158018cf4868a9a",
       "status": "pass"
     },
     {
       "file": "memory-boundary-scan.md",
-      "first_sha256": "4c722497c5cc0731df44da890c395bf13a3102b63138a70987e5f68222e95b6e",
-      "second_sha256": "4c722497c5cc0731df44da890c395bf13a3102b63138a70987e5f68222e95b6e",
+      "first_sha256": "34a6d66e9bedfff3da9eadf69ffc99c37afa98e1a4abb531281843417c71bcf4",
+      "second_sha256": "34a6d66e9bedfff3da9eadf69ffc99c37afa98e1a4abb531281843417c71bcf4",
       "status": "pass"
     },
     {
@@ -142,8 +154,8 @@
     },
     {
       "file": "readelf.txt",
-      "first_sha256": "e2d10bf192d499e50b6df75eaad2a5c8b4ea7f4ad921fabada31a827fdb5804b",
-      "second_sha256": "e2d10bf192d499e50b6df75eaad2a5c8b4ea7f4ad921fabada31a827fdb5804b",
+      "first_sha256": "f3f8c95f637d8d9eb1dd87eee44655e91210320b77c0b3cefe5df292931bc6b0",
+      "second_sha256": "f3f8c95f637d8d9eb1dd87eee44655e91210320b77c0b3cefe5df292931bc6b0",
       "status": "pass"
     },
     {
@@ -160,14 +172,14 @@
     },
     {
       "file": "source-contract-check.json",
-      "first_sha256": "4ac7c06c1d93f88ae19a31acac0c906db95e8ede4afc4cbcc3a947a7fa03d43f",
-      "second_sha256": "4ac7c06c1d93f88ae19a31acac0c906db95e8ede4afc4cbcc3a947a7fa03d43f",
+      "first_sha256": "0155b95d4b6b2ab2e6ce21a894a5376dd5a8d7bd100a2ec41e5b845443e32fac",
+      "second_sha256": "0155b95d4b6b2ab2e6ce21a894a5376dd5a8d7bd100a2ec41e5b845443e32fac",
       "status": "pass"
     },
     {
       "file": "source-contract-check.md",
-      "first_sha256": "bc69c8b40ddc0e7cd2bf09af68d46874cfb596873c0d2495e960f0ee3e4e8f68",
-      "second_sha256": "bc69c8b40ddc0e7cd2bf09af68d46874cfb596873c0d2495e960f0ee3e4e8f68",
+      "first_sha256": "dadabc85d078a9314de55232f94dab8621de4a740077a822cd0ff481f0c6fda8",
+      "second_sha256": "dadabc85d078a9314de55232f94dab8621de4a740077a822cd0ff481f0c6fda8",
       "status": "pass"
     },
     {
@@ -184,8 +196,8 @@
     },
     {
       "file": "summary.md",
-      "first_sha256": "6bcd5bfc25940239d480049dc3e0edd69772344bcb9a97676bce018595adaeb5",
-      "second_sha256": "6bcd5bfc25940239d480049dc3e0edd69772344bcb9a97676bce018595adaeb5",
+      "first_sha256": "3fc53e8eba130b3c72ccf19be6d1cdb1dff1e596083360f8b1cfc4b5197198ef",
+      "second_sha256": "3fc53e8eba130b3c72ccf19be6d1cdb1dff1e596083360f8b1cfc4b5197198ef",
       "status": "pass"
     },
     {
@@ -202,14 +214,14 @@
     },
     {
       "file": "usb-mmio-access-scan.json",
-      "first_sha256": "11eadaa09faa688aea2d4c46e05aba2263ee4cc69f190bf73b2e17a039900831",
-      "second_sha256": "11eadaa09faa688aea2d4c46e05aba2263ee4cc69f190bf73b2e17a039900831",
+      "first_sha256": "95f783eb053ad041769d221d455bf877554ac9d30ce6a1e2f951d503cc05a8ba",
+      "second_sha256": "95f783eb053ad041769d221d455bf877554ac9d30ce6a1e2f951d503cc05a8ba",
       "status": "pass"
     },
     {
       "file": "usb-mmio-access-scan.md",
-      "first_sha256": "8fb25847c38def0a6e6ff4e07da357b52183efd6d2aa0c2a55a45c0e65f5f77c",
-      "second_sha256": "8fb25847c38def0a6e6ff4e07da357b52183efd6d2aa0c2a55a45c0e65f5f77c",
+      "first_sha256": "0b155ef75a06b5311931177b8a92e342af246f939725e0949cff789006fe6a77",
+      "second_sha256": "0b155ef75a06b5311931177b8a92e342af246f939725e0949cff789006fe6a77",
       "status": "pass"
     }
   ],

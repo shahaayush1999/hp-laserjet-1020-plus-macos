@@ -1,0 +1,251 @@
+{
+  "cases": [
+    {
+      "bytes_staged": 0,
+      "descriptor": "product",
+      "status": "pass",
+      "wLength": 0
+    },
+    {
+      "bytes_staged": 1,
+      "descriptor": "product",
+      "status": "pass",
+      "wLength": 1
+    },
+    {
+      "bytes_staged": 2,
+      "descriptor": "product",
+      "status": "pass",
+      "wLength": 2
+    },
+    {
+      "bytes_staged": 7,
+      "descriptor": "product",
+      "status": "pass",
+      "wLength": 7
+    },
+    {
+      "bytes_staged": 37,
+      "descriptor": "product",
+      "status": "pass",
+      "wLength": 37
+    },
+    {
+      "bytes_staged": 38,
+      "descriptor": "product",
+      "status": "pass",
+      "wLength": 38
+    },
+    {
+      "bytes_staged": 38,
+      "descriptor": "product",
+      "status": "pass",
+      "wLength": 255
+    },
+    {
+      "bytes_staged": 38,
+      "descriptor": "product",
+      "status": "pass",
+      "wLength": 65535
+    },
+    {
+      "bytes_staged": 0,
+      "descriptor": "device",
+      "status": "pass",
+      "wLength": 0
+    },
+    {
+      "bytes_staged": 1,
+      "descriptor": "device",
+      "status": "pass",
+      "wLength": 1
+    },
+    {
+      "bytes_staged": 2,
+      "descriptor": "device",
+      "status": "pass",
+      "wLength": 2
+    },
+    {
+      "bytes_staged": 7,
+      "descriptor": "device",
+      "status": "pass",
+      "wLength": 7
+    },
+    {
+      "bytes_staged": 17,
+      "descriptor": "device",
+      "status": "pass",
+      "wLength": 17
+    },
+    {
+      "bytes_staged": 18,
+      "descriptor": "device",
+      "status": "pass",
+      "wLength": 18
+    },
+    {
+      "bytes_staged": 18,
+      "descriptor": "device",
+      "status": "pass",
+      "wLength": 255
+    },
+    {
+      "bytes_staged": 18,
+      "descriptor": "device",
+      "status": "pass",
+      "wLength": 65535
+    },
+    {
+      "bytes_staged": 0,
+      "descriptor": "config_high",
+      "status": "pass",
+      "wLength": 0
+    },
+    {
+      "bytes_staged": 1,
+      "descriptor": "config_high",
+      "status": "pass",
+      "wLength": 1
+    },
+    {
+      "bytes_staged": 2,
+      "descriptor": "config_high",
+      "status": "pass",
+      "wLength": 2
+    },
+    {
+      "bytes_staged": 7,
+      "descriptor": "config_high",
+      "status": "pass",
+      "wLength": 7
+    },
+    {
+      "bytes_staged": 31,
+      "descriptor": "config_high",
+      "status": "pass",
+      "wLength": 31
+    },
+    {
+      "bytes_staged": 32,
+      "descriptor": "config_high",
+      "status": "pass",
+      "wLength": 32
+    },
+    {
+      "bytes_staged": 32,
+      "descriptor": "config_high",
+      "status": "pass",
+      "wLength": 255
+    },
+    {
+      "bytes_staged": 32,
+      "descriptor": "config_high",
+      "status": "pass",
+      "wLength": 65535
+    },
+    {
+      "bytes_staged": 0,
+      "descriptor": "lang",
+      "status": "pass",
+      "wLength": 0
+    },
+    {
+      "bytes_staged": 1,
+      "descriptor": "lang",
+      "status": "pass",
+      "wLength": 1
+    },
+    {
+      "bytes_staged": 2,
+      "descriptor": "lang",
+      "status": "pass",
+      "wLength": 2
+    },
+    {
+      "bytes_staged": 3,
+      "descriptor": "lang",
+      "status": "pass",
+      "wLength": 3
+    },
+    {
+      "bytes_staged": 4,
+      "descriptor": "lang",
+      "status": "pass",
+      "wLength": 4
+    },
+    {
+      "bytes_staged": 4,
+      "descriptor": "lang",
+      "status": "pass",
+      "wLength": 7
+    },
+    {
+      "bytes_staged": 4,
+      "descriptor": "lang",
+      "status": "pass",
+      "wLength": 255
+    },
+    {
+      "bytes_staged": 4,
+      "descriptor": "lang",
+      "status": "pass",
+      "wLength": 65535
+    },
+    {
+      "bytes_staged": 0,
+      "descriptor": "manufacturer",
+      "status": "pass",
+      "wLength": 0
+    },
+    {
+      "bytes_staged": 1,
+      "descriptor": "manufacturer",
+      "status": "pass",
+      "wLength": 1
+    },
+    {
+      "bytes_staged": 2,
+      "descriptor": "manufacturer",
+      "status": "pass",
+      "wLength": 2
+    },
+    {
+      "bytes_staged": 7,
+      "descriptor": "manufacturer",
+      "status": "pass",
+      "wLength": 7
+    },
+    {
+      "bytes_staged": 31,
+      "descriptor": "manufacturer",
+      "status": "pass",
+      "wLength": 31
+    },
+    {
+      "bytes_staged": 32,
+      "descriptor": "manufacturer",
+      "status": "pass",
+      "wLength": 32
+    },
+    {
+      "bytes_staged": 32,
+      "descriptor": "manufacturer",
+      "status": "pass",
+      "wLength": 255
+    },
+    {
+      "bytes_staged": 32,
+      "descriptor": "manufacturer",
+      "status": "pass",
+      "wLength": 65535
+    }
+  ],
+  "elf_sha256": "d05bf1236b90f9f2995b8967978a8a607e368f6c95096589c4e74b031b56f44f",
+  "mmio_accesses": 0,
+  "regression": "State pointer must survive hex formatting; selected descriptor pointer must survive gate and sequence clobbers.",
+  "scope": "RAM-only descriptor selection, clipped length and staging/transfer-record construction; gate/submit hardware skipped",
+  "status": "pass",
+  "total_cases": 40,
+  "variant": "usb-marker-draft"
+}

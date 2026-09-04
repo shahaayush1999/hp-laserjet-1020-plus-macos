@@ -52,14 +52,14 @@
       "field": "wLength low",
       "instruction": "l8ui\ta3, a11, 6",
       "offset": "0x6",
-      "pc": "0x10005eb2"
+      "pc": "0x10005eb7"
     },
     {
       "description": "candidate USB setup packet buffer at 0x90021348",
       "field": "wLength high",
       "instruction": "l8ui\ta3, a11, 7",
       "offset": "0x7",
-      "pc": "0x10005eb9"
+      "pc": "0x10005ebe"
     }
   ],
   "setup_packet_base_candidate": "0x90021348",

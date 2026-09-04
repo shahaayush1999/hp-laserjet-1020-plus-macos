@@ -570,6 +570,7 @@ hp1020_usb_marker_sequence_b:
 
     .align 4
 hp1020_usb_marker_kick_control_in:
+    mov a2, a12
     l32r a4, hp1020_response_state_base_100212d4
     s32i a6, a4, 0x3c
     mov a5, a6
@@ -726,6 +727,10 @@ hp1020_usb_marker_select_product:
     l32r a7, hp1020_marker_len_0000007c
 
 hp1020_usb_marker_clip_and_dispatch:
+    # Preserve the selected payload across gate reads and MMIO macros.
+    mov a12, a2
+    # Counter formatting clobbers a4; length bookkeeping belongs to state.
+    l32r a4, hp1020_usb_marker_state_ptr
 
     l8ui a3, a11, 0x06
     s32i a3, a4, 0x18

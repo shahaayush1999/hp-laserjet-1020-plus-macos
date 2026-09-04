@@ -358,7 +358,7 @@
         "name": ".text",
         "name_offset": 183,
         "offset": 19584,
-        "size": 1518,
+        "size": 1523,
         "type": 1,
         "type_name": "PROGBITS"
       },
@@ -540,9 +540,9 @@
       }
     ],
     "summary": {
-      "alloc_section_bytes": 4210,
+      "alloc_section_bytes": 4215,
       "elf_bytes": 127256,
-      "executable_section_bytes": 2960,
+      "executable_section_bytes": 2965,
       "load_segment_file_bytes": 109756,
       "load_segment_memory_bytes": 109756
     }

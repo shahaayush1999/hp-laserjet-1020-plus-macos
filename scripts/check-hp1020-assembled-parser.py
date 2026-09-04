@@ -30,8 +30,8 @@ def load_module(name,path):
     return module
 
 
-def load_elf():
-    data=ELF.read_bytes()
+def load_elf(path=ELF):
+    data=path.read_bytes()
     if data[:6]!=b'\x7fELF\x01\x02': raise ValueError('requires BE ELF32')
     phoff=struct.unpack_from('>I',data,28)[0]
     entsize,count=struct.unpack_from('>HH',data,42)
@@ -44,30 +44,49 @@ def load_elf():
     return memory
 
 
-def decode(prefix):
-    text=subprocess.check_output([prefix+'-objdump','-d',str(ELF)],text=True)
-    nm=subprocess.check_output([prefix+'-nm','-n',str(ELF)],text=True)
+def decode(prefix, path=ELF, parser_only=True):
+    text=subprocess.check_output([prefix+'-objdump','-d',str(path)],text=True)
+    nm=subprocess.check_output([prefix+'-nm','-n',str(path)],text=True)
     symbols={name:int(addr,16) for addr,name in re.findall(r'^([0-9a-f]+) \w (\S+)$',nm,re.M)}
-    start=symbols['hp1020_zjs_parse_transfer_loop']
-    end=symbols['hp1020_usb_marker_no_match']
-    memory=load_elf()
-    instructions={}
-    for line in text.splitlines():
+    start=symbols['hp1020_zjs_parse_transfer_loop'] if parser_only else 0
+    end=symbols['hp1020_usb_marker_no_match'] if parser_only else 0xffffffff
+    memory=load_elf(path)
+    def parse_line(line):
         match=re.match(r'\s*([0-9a-f]{8}):\s+([0-9a-f]+)\s+(\S+)\s*(.*)',line)
-        if not match: continue
+        if not match: return None
         address=int(match[1],16)
-        if not start<=address<end: continue
         raw=bytes.fromhex(match[2]); op=match[3]
         if raw!=bytes(memory[address+i] for i in range(len(raw))): raise ValueError('disassembly bytes differ')
         body=match[4].split('<')[0].strip()
         operands=body.split(',') if body else []
         args=[]
-        for x in operands:
-            x=x.strip()
-            if x.startswith('a'): args.append(int(x[1:]))
-            elif re.fullmatch(r'[0-9a-f]{8}',x): args.append(int(x,16))
-            else: args.append(int(x,0))
-        instructions[address]=(op,tuple(args),len(raw))
+        try:
+            for x in operands:
+                x=x.strip()
+                if re.fullmatch(r'a[0-9]+', x): args.append(int(x[1:]))
+                elif re.fullmatch(r'[0-9a-f]{8}',x): args.append(int(x,16))
+                else: args.append(int(x,0))
+        except ValueError:
+            op,args='unsupported',[]
+        return address,(op,tuple(args),len(raw))
+
+    class Instructions(dict):
+        def __missing__(self, pc):
+            if parser_only or pc not in memory: raise ValueError(f'PC outside decoded instructions {pc:#x}')
+            # Linear disassembly may cross padding/literals into a valid branch
+            # target. Decode from the actual reached PC, not that false alignment.
+            result=subprocess.check_output([prefix+'-objdump','-d',f'--start-address={pc}',f'--stop-address={pc+3}',str(path)],text=True)
+            for line in result.splitlines():
+                row=parse_line(line)
+                if row and row[0]==pc:
+                    self[pc]=row[1]
+                    return row[1]
+            raise ValueError(f'cannot decode reached PC {pc:#x}')
+
+    instructions=Instructions()
+    for line in text.splitlines():
+        row=parse_line(line)
+        if row and start<=row[0]<end: instructions[row[0]]=row[1]
     ptr=symbols['hp1020_usb_marker_state_ptr']
     state=int.from_bytes(bytes(memory[ptr+i] for i in range(4)),'big')
     return memory,instructions,symbols,state
@@ -82,6 +101,7 @@ class Machine:
         self.visited=set()
         self.steps=0
         self.writes=set()
+        self.allowed_writes=[(state,state+0xc0)]
 
     @staticmethod
     def physical(address):
@@ -95,7 +115,7 @@ class Machine:
 
     def write(self,address,size,value):
         address=self.physical(address)
-        if not (self.state<=address and address+size<=self.state+0x100):
+        if not any(begin<=address and address+size<=end for begin,end in self.allowed_writes):
             raise ValueError(f'parser write outside state {address:#x}')
         for i,b in enumerate((value&((1<<(8*size))-1)).to_bytes(size,'big')):
             self.memory[address+i]=b; self.writes.add(address+i)
@@ -107,10 +127,12 @@ class Machine:
         r[6],r[12],r[13]=len(payload),0x900216f0,0
         pc=self.symbols['hp1020_zjs_parse_transfer_loop']
         stop=self.symbols['hp1020_usb_bulk_rearm']
+        self.run(r,pc,stop)
+
+    def run(self, r, pc, stop):
         for _ in range(100000):
             if pc==stop: return
             self.visited.add(pc); self.steps+=1
-            if pc not in self.instructions: raise ValueError(f'PC outside parser {pc:#x}')
             op,a,size=self.instructions[pc]; nxt=pc+size
             base=op.removesuffix('.n')
             if base=='movi': r[a[0]]=a[1]&MASK
