@@ -1,7 +1,7 @@
 {
   "checks": [
     {
-      "detail": "sideband census found no selected active-work writer and whole-program target-offset stores are page-param only",
+      "detail": "sideband census identifies three direct active-work stores; this report analyzes zero values counterfactually",
       "name": "sideband_census_passes",
       "status": "present"
     },
@@ -35,7 +35,7 @@
     "Zero active work +0x26 is not an immediate proof that render setup cannot start.",
     "It is a refill/descriptor-path blocker: channel A can be armed, but channel B is not seeded by 0x10014244.",
     "For a narrow print-only replacement, this means a trivial first-transfer probe might appear alive while still being far from a complete page-printing implementation.",
-    "Treat +0x26/+0x30/+0x32 as a deliberate policy decision to resolve with hardware traces, not as page-height fields we can blindly copy."
+    "The direct builder now proves +0x26=VIDEO_Y, +0x30=RET, +0x32=ECONOMODE. This zero-height scenario is a counterfactual, not the default host page."
   ],
   "scenario": [
     {
@@ -69,5 +69,5 @@
     "transfer_ring": "analysis/hardware-boundary/video-transfer-ring.json"
   },
   "status": "pass",
-  "summary": "Consequence model for default-zero active work sideband fields."
+  "summary": "Counterfactual consequence model for zero VIDEO_Y; normal host pages provide nonzero VIDEO_Y."
 }

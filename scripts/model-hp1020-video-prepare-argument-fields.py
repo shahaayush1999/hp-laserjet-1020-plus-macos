@@ -2,8 +2,7 @@
 """Model the fields read from the object passed into video prepare.
 
 This is offline analysis only. It separates fields that are copied from page
-parameters, fields that are filled by JobMgr, and fields that currently appear
-to be defaults or unsourced on the active 0x94 work object.
+parameters, fields that are filled by JobMgr, and fields with documented defaults on the active 0x94 work object.
 """
 
 from __future__ import annotations
@@ -29,99 +28,64 @@ SOURCES = {
     "render": ROOT_DIR / "analysis/dispatch-mmio/decompiled/10015214_hp1020_video_render_or_dma_candidate.c",
 }
 
-FIELD_MODEL = [
-    {
-        "field": "+0x14",
-        "prepare_use": "timing/resolution branch input",
-        "source": "copied by 0x100104c8 from page-param +0x1a",
-        "source_status": "sourced",
-        "evidence_needles": ["*(undefined2 *)(param_1 + 5) = *(undefined2 *)((int)param_2 + 0x1a)"],
-    },
-    {
-        "field": "+0x16",
-        "prepare_use": "timing/resolution branch input",
-        "source": "copied by 0x100104c8 from page-param +0x1e",
-        "source_status": "sourced",
-        "evidence_needles": ["*(undefined2 *)((int)param_1 + 0x16) = *(undefined2 *)((int)param_2 + 0x1e)"],
-    },
-    {
-        "field": "+0x18",
-        "prepare_use": "computed/adjusted vertical timing value",
-        "source": "cleared by common init, then written inside prepare",
-        "source_status": "computed_default",
-        "evidence_needles": ["FUN_1001b4c8(param_1,0,0x46)", "*(ushort *)(param_1 + 0x18) ="],
-    },
-    {
-        "field": "+0x22",
-        "prepare_use": "mode/setup branch selector",
-        "source": "copied by 0x100104c8 from page-param +0x12",
-        "source_status": "sourced",
-        "evidence_needles": ["*(undefined2 *)((int)param_1 + 0x22) = *(undefined2 *)((int)param_2 + 0x12)"],
-    },
-    {
-        "field": "+0x24",
-        "prepare_use": "offset/centering input",
-        "source": "cleared by common init; no visible work-object writer in current static corpus",
-        "source_status": "default_or_unsourced",
-        "evidence_needles": ["FUN_1001b4c8(param_1,0,0x46)", "*(ushort *)(param_1 + 0x24)"],
-    },
-    {
-        "field": "+0x26",
-        "prepare_use": "remaining-unit seed copied to video state +0xd0/+0xd4",
-        "source": "page-param +0x26 is built upstream, but not copied into active 0x94 work object by visible code",
-        "source_status": "unsourced_active_work",
-        "evidence_needles": [
-            "*(undefined2 *)(param_1 + 0x26) = *(undefined2 *)((int)param_2 + 10)",
-            "*(uint *)(puVar15 + 0xd0) = (uint)*(ushort *)(param_1 + 0x26)",
-        ],
-    },
-    {
-        "field": "+0x30",
-        "prepare_use": "copied to video state +0xe8",
-        "source": "page-param +0x30 is built upstream, but not copied into active 0x94 work object by visible code",
-        "source_status": "unsourced_active_work",
-        "evidence_needles": [
-            "*(undefined2 *)(param_1 + 0x30) = *(undefined2 *)((int)param_2 + 10)",
-            "*(uint *)(puVar15 + 0xe8) = (uint)*(ushort *)(param_1 + 0x30)",
-        ],
-    },
-    {
-        "field": "+0x32",
-        "prepare_use": "copied to video state +0xec",
-        "source": "page-param +0x32 is built upstream, but not copied into active 0x94 work object by visible code",
-        "source_status": "unsourced_active_work",
-        "evidence_needles": [
-            "*(undefined2 *)(param_1 + 0x32) = *(undefined2 *)((int)param_2 + 10)",
-            "*(uint *)(puVar15 + 0xec) = (uint)*(ushort *)(param_1 + 0x32)",
-        ],
-    },
-    {
-        "field": "+0x36",
-        "prepare_use": "normal setup branch gate",
-        "source": "cleared by common init for active work; page-param +0x36 case exists but is not visibly copied",
-        "source_status": "default_zero_for_current_path",
-        "evidence_needles": ["FUN_1001b4c8(param_1,0,0x46)", "*(short *)(param_1 + 0x36) == 0"],
-    },
-    {
-        "field": "+0x74",
-        "prepare_use": "descriptor-queue versus raw-linked-list mode flag",
-        "source": "set to zero by work create for descriptor-queue path",
-        "source_status": "default_zero_for_current_path",
-        "evidence_needles": ["*(undefined1 *)(iVar1 + 0x74) = 0", "if (*(char *)(param_1 + 0x74) == '\\0')"],
-    },
-    {
-        "field": "+0x84/+0x88/+0x8c/+0x90",
-        "prepare_use": "host raster geometry and render descriptor controls",
-        "source": "filled by JobMgr from runtime BIH block before engine/video handoff",
-        "source_status": "sourced",
-        "evidence_needles": [
-            "*(undefined4 *)(iVar9 + 0x84) = *(undefined4 *)(PTR_DAT_10006304 + 4)",
-            "*(undefined4 *)(iVar9 + 0x88) = *(undefined4 *)(puVar4 + 8)",
-            "*(undefined4 *)(iVar9 + 0x8c) = *(undefined4 *)(puVar4 + 0xc)",
-            "*(undefined *)(iVar9 + 0x90) = puVar4[0x13]",
-        ],
-    },
-]
+FIELD_MODEL = [{'field': '+0x14',
+  'prepare_use': 'timing/resolution branch input',
+  'source': 'Direct START_PAGE item builder 0x10009b4c writes ZJI_RESOLUTION_X to active work +0x14',
+  'source_status': 'sourced',
+  'evidence_needles': ['*(undefined2 *)(param_1 + 0x14) = *(undefined2 *)((int)param_2 + 10)']},
+ {'field': '+0x16',
+  'prepare_use': 'timing/resolution branch input',
+  'source': 'Direct START_PAGE item builder 0x10009b4c writes ZJI_RESOLUTION_Y to active work +0x16',
+  'source_status': 'sourced',
+  'evidence_needles': ['*(undefined2 *)(param_1 + 0x16) = *(undefined2 *)((int)param_2 + 10)']},
+ {'field': '+0x18',
+  'prepare_use': 'computed/adjusted vertical timing value',
+  'source': 'Direct item OFFSET_X/default zero, then overwritten inside prepare',
+  'source_status': 'computed_default',
+  'evidence_needles': ['FUN_1001b4c8(param_1,0,0x46)', '*(ushort *)(param_1 + 0x18) =']},
+ {'field': '+0x22',
+  'prepare_use': 'mode/setup branch selector',
+  'source': 'Direct START_PAGE item builder 0x10009b4c writes ZJI_VIDEO_BPP to active work +0x22',
+  'source_status': 'sourced',
+  'evidence_needles': ['*(undefined2 *)(param_1 + 0x22) = *(undefined2 *)((int)param_2 + 10)']},
+ {'field': '+0x24',
+  'prepare_use': 'offset/centering input',
+  'source': 'Direct START_PAGE item builder 0x10009b4c writes ZJI_VIDEO_X to active work +0x24',
+  'source_status': 'sourced',
+  'evidence_needles': ['*(undefined2 *)(param_1 + 0x24) = *(undefined2 *)((int)param_2 + 10)']},
+ {'field': '+0x26',
+  'prepare_use': 'remaining-unit seed copied to video state +0xd0/+0xd4',
+  'source': 'Direct START_PAGE item builder 0x10009b4c writes ZJI_VIDEO_Y to active work +0x26',
+  'source_status': 'sourced',
+  'evidence_needles': ['*(undefined2 *)(param_1 + 0x26) = *(undefined2 *)((int)param_2 + 10)']},
+ {'field': '+0x30',
+  'prepare_use': 'copied to video state +0xe8',
+  'source': 'Direct START_PAGE item builder 0x10009b4c writes ZJI_RET (absent => zero) to active work +0x30',
+  'source_status': 'sourced',
+  'evidence_needles': ['*(undefined2 *)(param_1 + 0x30) = *(undefined2 *)((int)param_2 + 10)']},
+ {'field': '+0x32',
+  'prepare_use': 'copied to video state +0xec',
+  'source': 'Direct START_PAGE item builder 0x10009b4c writes ZJI_ECONOMODE to active work +0x32',
+  'source_status': 'sourced',
+  'evidence_needles': ['*(undefined2 *)(param_1 + 0x32) = *(undefined2 *)((int)param_2 + 10)']},
+ {'field': '+0x36',
+  'prepare_use': 'normal setup branch gate',
+  'source': 'Common init zero; special item 0x65 can set one, but is absent from current host fixtures',
+  'source_status': 'default_zero_for_current_path',
+  'evidence_needles': ['FUN_1001b4c8(param_1,0,0x46)', '*(short *)(param_1 + 0x36) == 0']},
+ {'field': '+0x74',
+  'prepare_use': 'descriptor-queue versus raw-linked-list mode flag',
+  'source': 'set to zero by work create for descriptor-queue path',
+  'source_status': 'default_zero_for_current_path',
+  'evidence_needles': ['*(undefined1 *)(iVar1 + 0x74) = 0', "if (*(char *)(param_1 + 0x74) == '\\0')"]},
+ {'field': '+0x84/+0x88/+0x8c/+0x90',
+  'prepare_use': 'host raster geometry and render descriptor controls',
+  'source': 'filled by JobMgr from runtime BIH block before engine/video handoff',
+  'source_status': 'sourced',
+  'evidence_needles': ['*(undefined4 *)(iVar9 + 0x84) = *(undefined4 *)(PTR_DAT_10006304 + 4)',
+                       '*(undefined4 *)(iVar9 + 0x88) = *(undefined4 *)(puVar4 + 8)',
+                       '*(undefined4 *)(iVar9 + 0x8c) = *(undefined4 *)(puVar4 + 0xc)',
+                       '*(undefined *)(iVar9 + 0x90) = puVar4[0x13]']}]
 
 
 def read_text(path: Path) -> str:
@@ -168,7 +132,8 @@ def build_report() -> dict[str, Any]:
     for field in fields:
         by_status[field["source_status"]] = by_status.get(field["source_status"], 0) + 1
 
-    checks = [
+    direct = read_json(ROOT_DIR / "analysis/hardware-boundary/zjs-direct-work.json")
+    checks = [check("direct_builder_elf_verified", direct["status"] == "pass", "direct allocation, call and item stores match stock ELF"),
         check(
             "prepare_argument_is_work_object",
             queue_chain.get("status") == "pass"
@@ -182,10 +147,10 @@ def build_report() -> dict[str, Any]:
             "all modeled prepare-argument fields have current source/use evidence",
         ),
         check(
-            "unsourced_sideband_fields_preserved",
-            {field["field"] for field in fields if field["source_status"] == "unsourced_active_work"}
+            "direct_sideband_fields_sourced",
+            {field["field"] for field in fields if field["source_status"] == "sourced" and field["field"] in {"+0x26", "+0x30", "+0x32"}}
             == {"+0x26", "+0x30", "+0x32"},
-            "active work +0x26/+0x30/+0x32 remain unsourced in current visible code",
+            "active work +0x26/+0x30/+0x32 are written by the direct START_PAGE builder",
         ),
         check(
             "jobmgr_geometry_fields_sourced",
@@ -202,9 +167,9 @@ def build_report() -> dict[str, Any]:
         "field_status_counts": by_status,
         "fields": fields,
         "conclusion": [
-            "Video prepare reads a mix of sourced fields, default/computed fields, and currently unsourced active-work sideband fields.",
+            "Video prepare reads direct START_PAGE item fields, default/computed fields, and JobMgr-filled raster geometry.",
             "The critical sourced render geometry is still strong: JobMgr fills +0x84/+0x88/+0x8c/+0x90 from the BIH/runtime block.",
-            "The weak fields are active work +0x26/+0x30/+0x32: page-param values exist upstream, but current visible code does not copy them into the work object passed to prepare.",
+            "The former sideband gap is resolved: the item builder operates directly on active work; no intermediate copy is needed.",
         ],
         "checks": checks,
     }
@@ -220,7 +185,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         "",
         f"- status: `{report['status']}`",
         f"- prepare argument identity: `{report['prepare_argument_identity']}`",
-        f"- sourced/default/unsourced counts: `{report['field_status_counts']}`",
+        f"- field status counts: `{report['field_status_counts']}`",
         "",
         "## Field Sources",
         "",

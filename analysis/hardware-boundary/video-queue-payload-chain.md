@@ -6,7 +6,7 @@ This generated report is offline only. It does not contact the printer.
 
 - status: `pass`
 - prepare argument identity: `0x94-byte video/page work object`
-- remaining-unit impact: current static evidence weakens the earlier page-param +0x26 -> work +0x26 alias theory; the active work +0x26 source remains unresolved
+- remaining-unit impact: direct START_PAGE builder writes VIDEO_Y to active work +0x26; no copy or alias gap remains
 
 ## Plain-English Meaning
 
@@ -16,8 +16,8 @@ The video code is almost certainly receiving the work object whose geometry is f
 
 | Stage | Function | Object | Confidence | Evidence |
 |---|---|---|---|---|
-| `page_parameter_block` | `0x10009b4c` | page parameter block | `high for page-param object only` | builder writes ZJI item 0x12 into page-param +0x26 |
-| `work_object_creation` | `0x10010398 -> 0x1000f228 -> 0x100104c8` | 0x94-byte video/page work object | `high` | child-page creator allocates work, copies selected fields, then sends JobMgr message 5 with the work pointer |
+| `work_object_allocation` | `0x10009f86 -> 0x1000f228` | 0x94-byte video/page work object | `ELF-byte verified` | START_PAGE allocates work in a10 and saves the pointer in a7 |
+| `work_object_creation` | `0x10009fed -> 0x10009b4c` | 0x94-byte video/page work object | `high` | START_PAGE passes the same a7 work pointer to the item builder and then sends it as JobMgr message 5 payload |
 | `raster_geometry_fill` | `0x1000e414` | same work object | `high` | JobMgr writes BIH/runtime block values into work +0x84/+0x88/+0x8c/+0x90 |
 | `engine_queue_handoff` | `0x1000e414 -> queue 1 message 0x0b` | work pointer in message word 4 | `medium-high` | JobMgr stores iVar9 in iStack_84 and sends engine queue message 0x0b |
 | `engine_active_work` | `0x10016164` | engine state +0x68 active work pointer | `high` | engine dispatch stores param_1[3] into engine state +0x68 for message 0x0b/0x40 |
@@ -56,9 +56,10 @@ The video code is almost certainly receiving the work object whose geometry is f
 
 | Check | Status | Detail |
 |---|---|---|
+| `direct_start_page_work_verified` | `present` | stock ELF verifies direct allocation/builder/message path |
 | `work_object_is_allocated_before_jobmgr_message_5` | `present` | child-page create path creates a 0x94 work object and sends it to JobMgr as message 5 |
 | `work_create_allocates_0x94_and_clears_video_fields` | `present` | work creator allocates the object that later gets video geometry fields |
-| `work_populate_does_not_copy_page_param_0x26` | `present` | selected page-param copier still does not copy +0x26 into the work object |
+| `work_populate_does_not_copy_page_param_0x26` | `present` | alternate constructor copier lacks +0x26; normal START_PAGE uses the direct builder instead |
 | `jobmgr_fills_work_video_geometry` | `present` | JobMgr fills the same work object fields consumed by video prepare/render |
 | `jobmgr_sends_engine_0x0b_with_work_pointer` | `present` | JobMgr sends engine queue 0x0b with the candidate work pointer in the fourth message word |
 | `engine_dispatch_stores_active_work_pointer` | `present` | engine dispatch stores queue message word 4 as active work pointer |

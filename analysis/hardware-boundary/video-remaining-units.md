@@ -5,20 +5,19 @@ This is a generated offline model. It does not contact the printer.
 ## Result
 
 - status: `pass`
-- scope: candidate source for video state `+0xd0/+0xd4` remaining-unit counters
+- scope: direct source for video state `+0xd0/+0xd4` remaining-unit counters
 
-## Candidate Chain
+## Source Chain
 
 | Stage | Field | Status | Evidence |
 |---|---|---|---|
-| `host_page_item` | `ZJI_VIDEO_Y / item id 0x12` | `candidate source` | generated ZjStream page item values and page-parameter builder switch case 0x12 |
-| `page_parameter_builder` | `page-param +0x26` | `proven for page-parameter object` | 0x10009b4c writes item value at param_2 + 10 into param_1 +0x26 |
-| `active_video_parameter` | `prepare param_1 +0x26` | `proven consumer` | 0x10014910 reads param_1 +0x26 into video state +0xd0/+0xd4 |
-| `copy_or_alias_gap` | `page-param +0x26 -> active work/prepare +0x26` | `unresolved and weakened` | 0x100104c8 simple copier does not visibly copy +0x26; video queue payload chain identifies the prepare argument as the 0x94 work object; current explicit-source scan finds no direct work-object writer |
+| `START_PAGE` | `allocated 0x94 work` | `ELF-byte verified` | 0x10009faf call8 allocate; a7 retains result |
+| `direct_builder` | `work +0x26 = low16(ZJI_VIDEO_Y)` | `ELF-byte verified` | 0x10009fe0 a10=a7; 0x10009fed call8 0x10009b4c; item 0x12 store at 0x10009c35 |
+| `prepare` | `video +0xd0/+0xd4 = work +0x26` | `static consumer verified` | 0x10014910 consumer |
 
-## Projection If Alias Holds
+## Initial Refill Projection
 
-| Case | ZJI_VIDEO_Y candidate | +0xcc max chunk units | Stride +0xb8 | First refill units | First channel-B length |
+| Case | ZJI_VIDEO_Y | +0xcc max chunk units | Stride +0xb8 | First refill units | First channel-B length |
 |---|---:|---:|---:|---:|---:|
 | `base` | `6824` | `4` | `1200` | `4` | `4800` |
 | `a4_2400x600` | `6824` | `0` | `2384` | `0` | `0` |
@@ -42,9 +41,9 @@ This is a generated offline model. It does not contact the printer.
 
 ## Current Conclusion
 
-- ZJI_VIDEO_Y through page-param +0x26 is proven upstream, but it is no longer a strong source claim for active work +0x26.
-- The active video prepare argument is statically traced as the 0x94 work object; no direct writer for work +0x26 is visible in the current decompiled corpus.
-- Open firmware planning should treat +0xd0/+0xd4 as unsourced work-object fields, not as page height, until hardware traces or cleaner disassembly close the gap.
+- ZJI_VIDEO_Y directly initializes active work +0x26; prepare copies it into both remaining counters.
+- The alternate 0x100104c8 constructor is not used by the normal START_PAGE handler; its missing copy is irrelevant here.
+- The source is resolved. Hardware must still establish the physical meaning and safe completion behavior of the counters.
 
 ## Checks
 
@@ -54,6 +53,6 @@ This is a generated offline model. It does not contact the printer.
 | `prepare_reads_work_0x26_to_remaining_counters` | `present` | video prepare copies active parameter +0x26 into video state +0xd0/+0xd4 |
 | `simple_work_populate_does_not_copy_0x26` | `present` | 0x100104c8 does not visibly copy page-param +0x26 into work +0x26 |
 | `work_common_init_clears_early_body` | `present` | common initializer clears the early work-object body, including +0x26 unless later populated |
-| `current_search_keeps_gap_explicit` | `present` | explicit +0x26 hits are builder and prepare paths; no direct work-populate copy is currently visible |
-| `queue_payload_chain_identifies_work_object` | `present` | queue payload chain points prepare at the 0x94 work object and weakens the page-param +0x26 alias theory |
+| `direct_start_page_builder_verified` | `present` | ELF bytes prove the builder destination is the same active work pointer |
+| `queue_payload_identity` | `present` | queue payload preserves the directly populated active work object |
 | `candidate_values_match_generated_cases` | `present` | candidate remaining-unit values follow generated page heights |

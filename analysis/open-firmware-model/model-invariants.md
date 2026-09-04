@@ -31,7 +31,7 @@
 | `watch` | `base` | `work_count` | single-page fixture should create one video work object |
 | `watch` | `base` | `raster_count` | single-page fixture should create one raster node |
 | `watch` | `base` | `work_copy_count` | work +0x0c tracks page copy count |
-| `watch` | `base` | `work_plane_count` | work +0x22 tracks page NBIE/plane count |
+| `watch` | `base` | `work_video_bpp` | work +0x22 tracks page VIDEO_BPP |
 | `watch` | `base` | `page_work_link` | page object points at the modeled work object |
 | `watch` | `base` | `runtime_+0x04_to_work_+0x84` | BIH runtime +0x04 must seed work +0x84 |
 | `watch` | `base` | `runtime_+0x08_to_work_+0x88` | BIH runtime +0x08 must seed work +0x88 |
@@ -50,7 +50,7 @@
 | `watch` | `a4_2400x600` | `work_count` | single-page fixture should create one video work object |
 | `watch` | `a4_2400x600` | `raster_count` | single-page fixture should create one raster node |
 | `watch` | `a4_2400x600` | `work_copy_count` | work +0x0c tracks page copy count |
-| `watch` | `a4_2400x600` | `work_plane_count` | work +0x22 tracks page NBIE/plane count |
+| `watch` | `a4_2400x600` | `work_video_bpp` | work +0x22 tracks page VIDEO_BPP |
 | `watch` | `a4_2400x600` | `page_work_link` | page object points at the modeled work object |
 | `watch` | `a4_2400x600` | `runtime_+0x04_to_work_+0x84` | BIH runtime +0x04 must seed work +0x84 |
 | `watch` | `a4_2400x600` | `runtime_+0x08_to_work_+0x88` | BIH runtime +0x08 must seed work +0x88 |
@@ -69,7 +69,7 @@
 | `watch` | `a4_600x600` | `work_count` | single-page fixture should create one video work object |
 | `watch` | `a4_600x600` | `raster_count` | single-page fixture should create one raster node |
 | `watch` | `a4_600x600` | `work_copy_count` | work +0x0c tracks page copy count |
-| `watch` | `a4_600x600` | `work_plane_count` | work +0x22 tracks page NBIE/plane count |
+| `watch` | `a4_600x600` | `work_video_bpp` | work +0x22 tracks page VIDEO_BPP |
 | `watch` | `a4_600x600` | `page_work_link` | page object points at the modeled work object |
 | `watch` | `a4_600x600` | `runtime_+0x04_to_work_+0x84` | BIH runtime +0x04 must seed work +0x84 |
 | `watch` | `a4_600x600` | `runtime_+0x08_to_work_+0x88` | BIH runtime +0x08 must seed work +0x88 |
@@ -88,7 +88,7 @@
 | `watch` | `a4_cardstock_media` | `work_count` | single-page fixture should create one video work object |
 | `watch` | `a4_cardstock_media` | `raster_count` | single-page fixture should create one raster node |
 | `watch` | `a4_cardstock_media` | `work_copy_count` | work +0x0c tracks page copy count |
-| `watch` | `a4_cardstock_media` | `work_plane_count` | work +0x22 tracks page NBIE/plane count |
+| `watch` | `a4_cardstock_media` | `work_video_bpp` | work +0x22 tracks page VIDEO_BPP |
 | `watch` | `a4_cardstock_media` | `page_work_link` | page object points at the modeled work object |
 | `watch` | `a4_cardstock_media` | `runtime_+0x04_to_work_+0x84` | BIH runtime +0x04 must seed work +0x84 |
 | `watch` | `a4_cardstock_media` | `runtime_+0x08_to_work_+0x88` | BIH runtime +0x08 must seed work +0x88 |
@@ -107,7 +107,7 @@
 | `watch` | `a4_default` | `work_count` | single-page fixture should create one video work object |
 | `watch` | `a4_default` | `raster_count` | single-page fixture should create one raster node |
 | `watch` | `a4_default` | `work_copy_count` | work +0x0c tracks page copy count |
-| `watch` | `a4_default` | `work_plane_count` | work +0x22 tracks page NBIE/plane count |
+| `watch` | `a4_default` | `work_video_bpp` | work +0x22 tracks page VIDEO_BPP |
 | `watch` | `a4_default` | `page_work_link` | page object points at the modeled work object |
 | `watch` | `a4_default` | `runtime_+0x04_to_work_+0x84` | BIH runtime +0x04 must seed work +0x84 |
 | `watch` | `a4_default` | `runtime_+0x08_to_work_+0x88` | BIH runtime +0x08 must seed work +0x88 |
@@ -126,7 +126,7 @@
 | `watch` | `a4_draft` | `work_count` | single-page fixture should create one video work object |
 | `watch` | `a4_draft` | `raster_count` | single-page fixture should create one raster node |
 | `watch` | `a4_draft` | `work_copy_count` | work +0x0c tracks page copy count |
-| `watch` | `a4_draft` | `work_plane_count` | work +0x22 tracks page NBIE/plane count |
+| `watch` | `a4_draft` | `work_video_bpp` | work +0x22 tracks page VIDEO_BPP |
 | `watch` | `a4_draft` | `page_work_link` | page object points at the modeled work object |
 | `watch` | `a4_draft` | `runtime_+0x04_to_work_+0x84` | BIH runtime +0x04 must seed work +0x84 |
 | `watch` | `a4_draft` | `runtime_+0x08_to_work_+0x88` | BIH runtime +0x08 must seed work +0x88 |
@@ -145,7 +145,7 @@
 | `watch` | `a4_logical_clip` | `work_count` | single-page fixture should create one video work object |
 | `watch` | `a4_logical_clip` | `raster_count` | single-page fixture should create one raster node |
 | `watch` | `a4_logical_clip` | `work_copy_count` | work +0x0c tracks page copy count |
-| `watch` | `a4_logical_clip` | `work_plane_count` | work +0x22 tracks page NBIE/plane count |
+| `watch` | `a4_logical_clip` | `work_video_bpp` | work +0x22 tracks page VIDEO_BPP |
 | `watch` | `a4_logical_clip` | `page_work_link` | page object points at the modeled work object |
 | `watch` | `a4_logical_clip` | `runtime_+0x04_to_work_+0x84` | BIH runtime +0x04 must seed work +0x84 |
 | `watch` | `a4_logical_clip` | `runtime_+0x08_to_work_+0x88` | BIH runtime +0x08 must seed work +0x88 |
@@ -164,7 +164,7 @@
 | `watch` | `a4_manual_feed` | `work_count` | single-page fixture should create one video work object |
 | `watch` | `a4_manual_feed` | `raster_count` | single-page fixture should create one raster node |
 | `watch` | `a4_manual_feed` | `work_copy_count` | work +0x0c tracks page copy count |
-| `watch` | `a4_manual_feed` | `work_plane_count` | work +0x22 tracks page NBIE/plane count |
+| `watch` | `a4_manual_feed` | `work_video_bpp` | work +0x22 tracks page VIDEO_BPP |
 | `watch` | `a4_manual_feed` | `page_work_link` | page object points at the modeled work object |
 | `watch` | `a4_manual_feed` | `runtime_+0x04_to_work_+0x84` | BIH runtime +0x04 must seed work +0x84 |
 | `watch` | `a4_manual_feed` | `runtime_+0x08_to_work_+0x88` | BIH runtime +0x08 must seed work +0x88 |
@@ -183,7 +183,7 @@
 | `watch` | `a4_two_copies` | `work_count` | single-page fixture should create one video work object |
 | `watch` | `a4_two_copies` | `raster_count` | single-page fixture should create one raster node |
 | `watch` | `a4_two_copies` | `work_copy_count` | work +0x0c tracks page copy count |
-| `watch` | `a4_two_copies` | `work_plane_count` | work +0x22 tracks page NBIE/plane count |
+| `watch` | `a4_two_copies` | `work_video_bpp` | work +0x22 tracks page VIDEO_BPP |
 | `watch` | `a4_two_copies` | `page_work_link` | page object points at the modeled work object |
 | `watch` | `a4_two_copies` | `runtime_+0x04_to_work_+0x84` | BIH runtime +0x04 must seed work +0x84 |
 | `watch` | `a4_two_copies` | `runtime_+0x08_to_work_+0x88` | BIH runtime +0x08 must seed work +0x88 |
@@ -202,7 +202,7 @@
 | `watch` | `legal_default` | `work_count` | single-page fixture should create one video work object |
 | `watch` | `legal_default` | `raster_count` | single-page fixture should create one raster node |
 | `watch` | `legal_default` | `work_copy_count` | work +0x0c tracks page copy count |
-| `watch` | `legal_default` | `work_plane_count` | work +0x22 tracks page NBIE/plane count |
+| `watch` | `legal_default` | `work_video_bpp` | work +0x22 tracks page VIDEO_BPP |
 | `watch` | `legal_default` | `page_work_link` | page object points at the modeled work object |
 | `watch` | `legal_default` | `runtime_+0x04_to_work_+0x84` | BIH runtime +0x04 must seed work +0x84 |
 | `watch` | `legal_default` | `runtime_+0x08_to_work_+0x88` | BIH runtime +0x08 must seed work +0x88 |
@@ -221,7 +221,7 @@
 | `watch` | `letter_default` | `work_count` | single-page fixture should create one video work object |
 | `watch` | `letter_default` | `raster_count` | single-page fixture should create one raster node |
 | `watch` | `letter_default` | `work_copy_count` | work +0x0c tracks page copy count |
-| `watch` | `letter_default` | `work_plane_count` | work +0x22 tracks page NBIE/plane count |
+| `watch` | `letter_default` | `work_video_bpp` | work +0x22 tracks page VIDEO_BPP |
 | `watch` | `letter_default` | `page_work_link` | page object points at the modeled work object |
 | `watch` | `letter_default` | `runtime_+0x04_to_work_+0x84` | BIH runtime +0x04 must seed work +0x84 |
 | `watch` | `letter_default` | `runtime_+0x08_to_work_+0x88` | BIH runtime +0x08 must seed work +0x88 |

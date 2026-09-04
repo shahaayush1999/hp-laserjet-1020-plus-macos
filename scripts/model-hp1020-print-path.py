@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from hp1020_work_fields import direct_work_fields
 import struct
 from dataclasses import dataclass
 from pathlib import Path
@@ -301,8 +302,7 @@ def build_model(path: Path) -> dict[str, Any]:
                 "owner_page": active_page["id"],
                 "host_page_items": active_page["zjs_items"],
                 "fields": {
-                    "+0x0c": active_page["zjs_items"].get("ZJI_DMCOPIES", 1),
-                    "+0x22": active_page["zjs_items"].get("ZJI_NBIE"),
+                    **direct_work_fields(active_page["zjs_items"]),
                     "+0x50": [],
                     "+0x84": None,
                     "+0x88": None,
@@ -496,7 +496,7 @@ def render_markdown(model: dict[str, Any]) -> str:
                 "| Work offset | Modeled value | Meaning |",
                 "|---:|---|---|",
                 f"| `+0x0c` | `{fields.get('+0x0c')}` | copy/reference count candidate |",
-                f"| `+0x22` | `{fields.get('+0x22')}` | plane/count-like page field |",
+                f"| `+0x22` | `{fields.get('+0x22')}` | VIDEO_BPP (NBIE is +0x12) |",
                 f"| `+0x50` | `{', '.join(fields.get('+0x50', []))}` | raster list head/list content |",
                 f"| `+0x84` | `{fields.get('+0x84')}` | BIH-derived video setup field |",
                 f"| `+0x88` | `{fields.get('+0x88')}` | BIH-derived video setup field |",

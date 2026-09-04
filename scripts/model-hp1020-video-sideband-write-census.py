@@ -212,7 +212,7 @@ def classify_overlap_hits(hits: list[dict[str, Any]]) -> list[dict[str, Any]]:
         function = hit["function"]
         address = hit["address"]
         if function.startswith("10009b4c "):
-            role = "upstream_page_param_exact_store"
+            role = "direct_work_exact_store"
             meaning = "real page-param sideband store; it is upstream of the active work object"
         elif function.startswith("10014910 ") and address == "10014a2a":
             role = "video_state_ring_clear"
@@ -231,15 +231,15 @@ def classify_hits(hits: list[dict[str, Any]]) -> list[dict[str, Any]]:
         text = hit["text"]
         if source == "page_param_builder" and "(param_1 + 0x26)" in text:
             meaning = "real page-param +0x26 writer, not active work"
-            role = "upstream_page_param_writer"
+            role = "direct_work_writer"
             byte_offset = "+0x26"
         elif source == "page_param_builder" and "(param_1 + 0x30)" in text:
             meaning = "real page-param +0x30 writer, not active work"
-            role = "upstream_page_param_writer"
+            role = "direct_work_writer"
             byte_offset = "+0x30"
         elif source == "page_param_builder" and "(param_1 + 0x32)" in text:
             meaning = "real page-param +0x32 writer, not active work"
-            role = "upstream_page_param_writer"
+            role = "direct_work_writer"
             byte_offset = "+0x32"
         elif source == "child_page_create" and "puVar1[0x13]" in text:
             meaning = "undefined4* index 0x13 means child/page record byte offset +0x4c"
@@ -294,14 +294,14 @@ def build_report() -> dict[str, Any]:
     active_work_writer_hits = [
         hit
         for hit in hits
-        if hit["role"] not in {"upstream_page_param_writer", "scaled_index_false_lead", "runtime_byte_to_work_0x90", "active_work_consumer"}
+        if hit["role"] == "direct_work_writer"
     ]
 
     checks = [
         check(
             "selected_sideband_hits_classified",
             all(hit["role"] != "unclassified" for hit in hits),
-            "selected sideband-looking hits are classified as upstream writers, consumers, or false leads",
+            "selected sideband-looking hits are classified as direct work writers, consumers, or false leads",
         ),
         check(
             "child_record_0x13_is_not_work_0x26",
@@ -353,17 +353,17 @@ def build_report() -> dict[str, Any]:
             "ghidra_direct_path_overlap_hits_are_classified",
             classified_overlap_hits != []
             and all(hit["role"] != "unclassified_direct_path_overlap" for hit in classified_overlap_hits),
-            "direct-path overlap hits are page-param exact stores or a video-state ring clear, not active work writers",
+            "direct-path overlap hits are direct work stores or a separate video-state ring clear",
         ),
         check(
-            "no_selected_active_work_writer_found",
-            active_work_writer_hits == [],
-            "the selected print-path corpus still has no direct active work sideband writer",
+            "direct_active_work_writers_found",
+            len(active_work_writer_hits) == 3,
+            "three builder stores directly populate active work under START_PAGE",
         ),
         check(
-            "prepare_field_model_keeps_sidebands_unsourced",
-            set(unsourced_fields) == SIDEBAND_FIELDS,
-            "prepare field model still marks +0x26/+0x30/+0x32 as unsourced on active work",
+            "prepare_field_model_resolves_sidebands",
+            set(unsourced_fields) == set(),
+            "prepare field model resolves all three sidebands through the direct builder",
         ),
         check(
             "queue_chain_keeps_prepare_argument_as_work_object",
@@ -388,13 +388,13 @@ def build_report() -> dict[str, Any]:
         "selected_hits": hits,
         "active_work_writer_hits": active_work_writer_hits,
         "conclusion": [
-            "The obvious page-param writes for +0x26/+0x30/+0x32 are upstream page-parameter fields, not active work-object writes.",
+            "The builder writes +0x26/+0x30/+0x32 directly into active work: START_PAGE supplies the allocated work as its destination.",
             "The child-page `puVar1[0x13] = 0` false lead is byte +0x4c because the pointer is `undefined4 *`.",
             "The JobMgr `puVar[0x13]` hits feed work +0x90 from runtime byte +0x13, not work +0x26.",
             "A headless Ghidra instruction probe confirms 0x100104c8 has no stores to active work +0x26/+0x30/+0x32.",
             "A whole-program Ghidra instruction scan finds `s16i` stores to offsets 0x26/0x30/0x32 only in the page-parameter builder.",
-            "A broader overlapping-store scan is noisy by design, but its selected direct-path hits do not identify an active-work sideband writer.",
-            "Within the selected print-path corpus, active work +0x26/+0x30/+0x32 remain unsourced.",
+            "The broad scan includes the same three direct work stores; other selected hits remain classified as false leads or unrelated state writes.",
+            "The old absence claim resulted from missing indirect-switch handlers in saved parser decompilation.",
         ],
         "checks": checks,
     }

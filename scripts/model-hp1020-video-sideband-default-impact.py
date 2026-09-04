@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Model the impact if active work sideband fields remain default/zero.
 
-This is offline analysis only. It answers whether the currently unsourced
+This is offline analysis only. It answers whether the now sourced
 active work +0x26/+0x30/+0x32 fields look harmless or print-path critical.
 """
 
@@ -157,7 +157,7 @@ def build_report() -> dict[str, Any]:
                 "0x100140f8 reads +0xec in the alternate raw-refresh path",
             ],
             "risk": "mode_critical",
-            "current_interpretation": "zero may be correct for generated normal cases, but must be deliberately chosen rather than accidentally defaulted",
+            "current_interpretation": "ECONOMODE determines the value: normal fixtures use zero, draft uses one",
         },
     ]
 
@@ -174,9 +174,9 @@ def build_report() -> dict[str, Any]:
 
     checks = [
         check(
-            "unsourced_fields_are_expected_three",
-            unsourced == {"+0x26", "+0x30", "+0x32"},
-            "prepare field model still exposes exactly the three unsourced active work sideband fields",
+            "field_sources_are_resolved",
+            unsourced == set(),
+            "direct START_PAGE resolves sidebands; default-zero impact below is a counterfactual",
         ),
         check(
             "zero_d0_skips_channel_b_refill",
@@ -236,10 +236,10 @@ def build_report() -> dict[str, Any]:
         "reference_hits": refs,
         "ghidra_video_state_access_scan": ghidra_access_scan,
         "conclusion": [
-            "The unsourced sideband fields are not all equal: +0x26 is immediately critical for channel-B refill and remaining/final accounting.",
-            "+0x32 is mode-critical: zero may be correct for normal generated cases, but it affects setup tables and B-side raw-band flags.",
+            "The sourced sideband fields have different zero-value consequences: +0x26 is immediately critical for channel-B refill and remaining/final accounting.",
+            "+0x32 is mode-critical: ECONOMODE supplies zero normally and one for draft, affecting setup tables and B-side raw-band flags.",
             "+0x30 currently has no selected downstream consumer beyond prepare copying it to +0xe8, so it is tracked but lower priority.",
-            "The next useful static target is still the hidden source or intended default policy for active work +0x26.",
+            "The direct START_PAGE builder resolves the source: VIDEO_Y initializes +0x26; physical counter behavior remains uncalibrated.",
         ],
         "checks": checks,
     }

@@ -7,7 +7,7 @@ It does not send data to the printer and it stops before any hardware register w
 
 ## Input
 
-- source: `analysis/samples/generated/minimal-page-a4.zjs`
+- source: `/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/samples/generated/minimal-page-a4.zjs`
 - file bytes: `6987`
 - ZjStream magic offset: `0x10c`
 - parser entry modeled: `0x10009d34`
@@ -70,7 +70,7 @@ Firmware case `ZJT_JBIG_BIH -> JobMgr 0x29` copies the 20-byte BIH into runtime 
 | Work offset | Modeled value | Meaning |
 |---:|---|---|
 | `+0x0c` | `1` | copy/reference count candidate |
-| `+0x22` | `1` | plane/count-like page field |
+| `+0x22` | `2` | VIDEO_BPP (NBIE is +0x12) |
 | `+0x50` | `raster0` | raster list head/list content |
 | `+0x84` | `9600` | BIH-derived video setup field |
 | `+0x88` | `6824` | BIH-derived video setup field |

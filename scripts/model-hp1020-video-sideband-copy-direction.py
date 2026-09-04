@@ -67,8 +67,8 @@ def build_report() -> dict[str, Any]:
     sideband_call = {
         "function": "0x1000e414 hp1020_job_mgr_thread_candidate",
         "call": "FUN_1001b38c(PTR_DAT_10006304,iStack_84,0x14)",
-        "interpreted_as": "memcpy(dst=PTR_DAT_10006304 runtime block, src=iStack_84 active work, len=0x14)",
-        "effect": "copies early work fields out to the runtime block; does not fill active work +0x26/+0x30/+0x32",
+        "interpreted_as": "memcpy(dst=PTR_DAT_10006304 runtime block, src=iStack_84 BIH payload, len=0x14)",
+        "effect": "copies the 20-byte BIH payload out to the runtime block; does not fill active work +0x26/+0x30/+0x32",
         "present": "FUN_1001b38c(PTR_DAT_10006304,iStack_84,0x14)" in sources["job_mgr"],
     }
 
@@ -104,7 +104,7 @@ def build_report() -> dict[str, Any]:
         check(
             "jobmgr_sideband_copy_is_work_to_runtime_block",
             sideband_call["present"],
-            "JobMgr case 0x29 call copies iStack_84 active work into PTR_DAT_10006304 when interpreted with dest,src,len order",
+            "JobMgr case 0x29 call copies iStack_84 BIH payload into PTR_DAT_10006304 when interpreted with dest,src,len order",
         ),
         check(
             "datastore_comparators_match_direction",
@@ -112,9 +112,9 @@ def build_report() -> dict[str, Any]:
             "datastore read/write callers agree with dest,src,len direction",
         ),
         check(
-            "unsourced_fields_remain_after_copy_direction",
-            set(unsourced_fields) == {"+0x26", "+0x30", "+0x32"},
-            "prepare field model still marks +0x26/+0x30/+0x32 unsourced after ruling out this copy path",
+            "sidebands_resolved_by_direct_builder",
+            set(unsourced_fields) == set(),
+            "direct START_PAGE item builder sources +0x26/+0x30/+0x32; the BIH copy is separate",
         ),
     ]
 

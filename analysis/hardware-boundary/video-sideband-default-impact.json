@@ -1,8 +1,8 @@
 {
   "checks": [
     {
-      "detail": "prepare field model still exposes exactly the three unsourced active work sideband fields",
-      "name": "unsourced_fields_are_expected_three",
+      "detail": "direct START_PAGE resolves sidebands; default-zero impact below is a counterfactual",
+      "name": "field_sources_are_resolved",
       "status": "present"
     },
     {
@@ -47,10 +47,10 @@
     }
   ],
   "conclusion": [
-    "The unsourced sideband fields are not all equal: +0x26 is immediately critical for channel-B refill and remaining/final accounting.",
-    "+0x32 is mode-critical: zero may be correct for normal generated cases, but it affects setup tables and B-side raw-band flags.",
+    "The sourced sideband fields have different zero-value consequences: +0x26 is immediately critical for channel-B refill and remaining/final accounting.",
+    "+0x32 is mode-critical: ECONOMODE supplies zero normally and one for draft, affecting setup tables and B-side raw-band flags.",
     "+0x30 currently has no selected downstream consumer beyond prepare copying it to +0xe8, so it is tracked but lower priority.",
-    "The next useful static target is still the hidden source or intended default policy for active work +0x26."
+    "The direct START_PAGE builder resolves the source: VIDEO_Y initializes +0x26; physical counter behavior remains uncalibrated."
   ],
   "field_impacts": [
     {
@@ -80,7 +80,7 @@
       "work_field": "+0x30"
     },
     {
-      "current_interpretation": "zero may be correct for generated normal cases, but must be deliberately chosen rather than accidentally defaulted",
+      "current_interpretation": "ECONOMODE determines the value: normal fixtures use zero, draft uses one",
       "if_zero": [
         "prepare takes non-secondary timing/table branches when +0xec == 0",
         "0x10013f34 does not OR secondary-output bit 0x19 into B raw-band flags",

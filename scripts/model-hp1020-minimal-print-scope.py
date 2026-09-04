@@ -186,11 +186,9 @@ def build_scope() -> dict[str, Any]:
         if isinstance(item, dict)
     }
     sideband_access_hits = sideband_default_impact.get("ghidra_video_state_access_scan", {}).get("hits", [])
-    sideband_unsourced_gap = any(
-        item.get("stage") == "copy_or_alias_gap" and item.get("status") == "unresolved and weakened"
-        for item in remaining_units.get("candidate_chain", [])
-        if isinstance(item, dict)
-    )
+    direct_work = load_json(ROOT_DIR / "analysis/hardware-boundary/zjs-direct-work.json")
+    sideband_unsourced_gap = direct_work["status"] != "pass"
+
 
     bulk_probe_reports = {
         "combined_contract": usb_bulk_probe_contract,
@@ -330,7 +328,7 @@ def build_scope() -> dict[str, Any]:
             "component": "ZjStream parser and JobMgr object model",
             "current_status": status_from_bool(not missing_messages and fail_count(invariants) == 0),
             "evidence": f"stock-path model has {len(trace)} parsed chunks, {len(work_objects)} work object(s), {len(raster_nodes)} raster node(s), invariant failures={fail_count(invariants)}; the inert probe only frames/counts 0x00..0x06 and discards payloads",
-            "replacement_need": "implement semantic chunk handling, JobMgr messages, work/raster objects, and a deliberately gated print handoff; none exists in the inert probe",
+            "replacement_need": "portable C semantic construction is native-tested separately; integrate on-device only after boot/USB proof, and keep any print handoff explicitly gated",
             "risk": "medium",
         },
         {
@@ -342,9 +340,9 @@ def build_scope() -> dict[str, Any]:
         },
         {
             "component": "Video sideband policy",
-            "current_status": "narrowed but unresolved",
-            "evidence": f"{len(sideband_access_hits)} exact-offset state access hits classified; active work +0x26 source remains {'unresolved' if sideband_unsourced_gap else 'unclear'}",
-            "replacement_need": "decide deliberate values for work +0x26/+0x32 before any print-driving firmware; +0x26 gates channel-B refill and final accounting",
+            "current_status": "direct START_PAGE source verified",
+            "evidence": f"{len(sideband_access_hits)} exact-offset state access hits classified; active work +0x26 source is {'unresolved' if sideband_unsourced_gap else 'verified by stock ELF'}",
+            "replacement_need": "use VIDEO_Y and ECONOMODE from the verified direct builder; calibrate physical counter/completion behavior before print output",
             "risk": "high",
         },
         {

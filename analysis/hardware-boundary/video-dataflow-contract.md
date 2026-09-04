@@ -44,7 +44,7 @@ This is a generated offline model. It does not contact the printer.
 | Field/Register | Value/Formula |
 |---|---|
 | `video state +0xb8 stride` | `1200` |
-| `video state +0xbc dual-output window` | `2400` |
+| `video state +0xbc dual-output window` | `1200` |
 | `video state +0xc4` | `1` |
 | `video state +0xf4` | `2` |
 | `video state +0xc8 / 200` | `2` |
@@ -68,28 +68,28 @@ This is a generated offline model. It does not contact the printer.
 
 - function: `0x10014244 hp1020_video_band_done_or_irq_helper_candidate`
 - meaning: The helper keeps channel B fed from the modulo-4 descriptor side.
-- remaining unknown: active work +0x26 remains unsourced; ZJI_VIDEO_Y reaches page-param +0x26 upstream, but the queue payload chain weakens that alias/copy theory
+- remaining unknown: live counter decrement/completion behavior; the VIDEO_Y source is statically proven
 
 | Field/Register | Value/Formula |
 |---|---|
 | `video state +0xcc max chunk units` | `4` |
-| `video state +0xd0 candidate if alias holds` | `6824` |
+| `video state +0xd0` | `6824` |
 | `chunk_units` | `min(4, video state +0xd0)` |
 | `0xb2080004` | `slot pointer from video state + slot*4` |
 | `0xb2080008` | `min(4, +0xd0) * stride(1200)` |
-| `0xb2080008 candidate if alias holds` | `4800` |
+| `0xb2080008 first refill` | `4800` |
 | `final_flag` | `set when remaining units become zero` |
 
 ### `raw_band_queue_feed`
 
 - function: `0x10013f34 hp1020_video_band_queue_or_list_candidate`
 - meaning: This is the normal raw-band/channel feed boundary after render and refill helper setup.
-- remaining unknown: exact encoding performed by 0x1001b668
+- remaining unknown: physical units of floor-divided descriptor lengths and final flags
 
 | Field/Register | Value/Formula |
 |---|---|
 | `0xb1000008` | `descriptor pointer/control source` |
-| `0xb1000108` | `A pointer plus dual-output window(2400) when dual-block mode is active` |
+| `0xb1000108` | `A pointer plus dual-output window(1200) when dual-block mode is active` |
 | `0xb100000c` | `encoded descriptor units plus final flag bit 0x18` |
 | `0xb100010c` | `encoded descriptor units plus secondary output bit 0x19` |
 | `queue index +0xdc` | `advances modulo 4 unless it would collide with +0xe0 without final flag` |
@@ -109,7 +109,7 @@ This is a generated offline model. It does not contact the printer.
 ## Current Conclusion
 
 - The host-to-render dataflow is now concrete for the generated a4_default case.
-- The remaining unknowns are not parser fields; they are the active work +0x26 source, raw-band helper divide confirmation, video timing, and live IRQ completion behavior.
+- The low work fields and floor division are resolved. Remaining uncertainty concerns video timing, hardware interpretation, and live IRQ completion behavior.
 - This report is still not a reason to upload custom printing firmware; it is the static contract a future implementation must satisfy.
 
 ## Checks

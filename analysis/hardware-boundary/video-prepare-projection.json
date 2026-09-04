@@ -58,8 +58,8 @@
   ],
   "normal_path_summary": [
     "All current generated host variants use ZJI_NBIE=1 and 600x600 declared resolution.",
-    "For datastore 0x20 == 0 and work +0x36 == 0, the prepare code promotes the video state to a two-output 600dpi setup: state +0xc8/200 = 2, +0xf4 = 2, and +0xbc = stride*2.",
-    "The exact vertical offset and remaining-unit fields still depend on work offsets not yet included in the print-path model."
+    "For datastore 0x20 == 0 and work +0x36 == 0, BPP1 doubles the window; BPP2 keeps +0xbc=stride and selects a different callback. BPP4 has no matching setup-table branch in this model.",
+    "VIDEO_X/Y, RET, and ECONOMODE are sourced by the direct START_PAGE builder. Secondary-output scenarios matching the host ECONOMODE are marked explicitly."
   ],
   "projection_count": 10,
   "projections": [
@@ -74,38 +74,37 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "unmodified",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 4768,
+            "state_plus_0xbc": 2384,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 2,
-            "state_plus_0xf4": 2,
+            "state_plus_0xc8_state_200": 4,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
+            "state_plus_0xf4": 0,
             "stride_plus_0xb8": 2384,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 4,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 19072
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005580",
+            "base": "-",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
-            "words": [
-              "0x00000000",
-              "0x0000007f",
-              "0x00000007",
-              "0x00001fff"
-            ]
+            "table": "no_table_branch_modeled",
+            "words": []
           },
           "timing_registers": {
             "constant_registers": {
@@ -123,38 +122,37 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "unmodified",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 4768,
+            "state_plus_0xbc": 2384,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 2,
-            "state_plus_0xf4": 2,
+            "state_plus_0xc8_state_200": 4,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
+            "state_plus_0xf4": 0,
             "stride_plus_0xb8": 2384,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 4,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 19072
           },
           "lane_selector": 0,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x100055a0",
+            "base": "-",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
-            "words": [
-              "0x00000000",
-              "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
-            ]
+            "table": "no_table_branch_modeled",
+            "words": []
           },
           "timing_registers": {
             "constant_registers": {
@@ -172,38 +170,37 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "unmodified",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 4768,
+            "state_plus_0xbc": 2384,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 2,
-            "state_plus_0xf4": 2,
+            "state_plus_0xc8_state_200": 4,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
+            "state_plus_0xf4": 0,
             "stride_plus_0xb8": 2384,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 4,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 19072
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "-",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
-            "words": [
-              "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
-              "0x003fffff"
-            ]
+            "table": "no_table_branch_modeled",
+            "words": []
           },
           "timing_registers": {
             "constant_registers": {
@@ -225,38 +222,37 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "unmodified",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 4768,
+            "state_plus_0xbc": 2384,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 2,
-            "state_plus_0xf4": 2,
+            "state_plus_0xc8_state_200": 4,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
+            "state_plus_0xf4": 0,
             "stride_plus_0xb8": 2384,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 4,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 19072
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "-",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_two_output_table",
-            "words": [
-              "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
-              "0x003fffff"
-            ]
+            "table": "no_table_branch_modeled",
+            "words": []
           },
           "timing_registers": {
             "constant_registers": {
@@ -284,30 +280,31 @@
             "resolution_y": 600,
             "state_plus_0xbc": 2384,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 4,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 2384,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 4,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 19072
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005540",
+            "base": "-",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
-            "words": [
-              "0x00000000",
-              "0xffffffff"
-            ]
+            "table": "no_table_branch_modeled",
+            "words": []
           },
           "timing_registers": {
             "constant_registers": {
@@ -331,32 +328,31 @@
             "resolution_y": 600,
             "state_plus_0xbc": 2384,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 4,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 2384,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 4,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 19072
           },
           "lane_selector": 0,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x100055a0",
+            "base": "-",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
-            "words": [
-              "0x00000000",
-              "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
-            ]
+            "table": "no_table_branch_modeled",
+            "words": []
           },
           "timing_registers": {
             "constant_registers": {
@@ -380,30 +376,31 @@
             "resolution_y": 600,
             "state_plus_0xbc": 2384,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 4,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 2384,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 4,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 19072
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "-",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
-            "words": [
-              "0x00000000",
-              "0xffffffff"
-            ]
+            "table": "no_table_branch_modeled",
+            "words": []
           },
           "timing_registers": {
             "constant_registers": {
@@ -431,30 +428,31 @@
             "resolution_y": 600,
             "state_plus_0xbc": 2384,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 4,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 2384,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 4,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 19072
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "-",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_lane_table",
-            "words": [
-              "0x00000000",
-              "0xffffffff"
-            ]
+            "table": "no_table_branch_modeled",
+            "words": []
           },
           "timing_registers": {
             "constant_registers": {
@@ -494,19 +492,23 @@
             "state_plus_0xbc": 1216,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 608,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 1,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 4864
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
             "base": "0x10005580",
@@ -543,19 +545,23 @@
             "state_plus_0xbc": 1216,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 608,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 1,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 4864
           },
           "lane_selector": 0,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
             "base": "0x100055a0",
@@ -592,19 +598,23 @@
             "state_plus_0xbc": 1216,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 608,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 1,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 4864
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
             "base": "0x10005590",
@@ -645,19 +655,23 @@
             "state_plus_0xbc": 1216,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 608,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 1,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 4864
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
             "base": "0x10005590",
@@ -698,19 +712,23 @@
             "state_plus_0xbc": 608,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 1,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 608,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 1,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 4864
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
             "base": "0x10005540",
@@ -745,19 +763,23 @@
             "state_plus_0xbc": 608,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 1,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 608,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 1,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 4864
           },
           "lane_selector": 0,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
             "base": "0x100055a0",
@@ -794,19 +816,23 @@
             "state_plus_0xbc": 608,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 1,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 608,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 1,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 4864
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
             "base": "0x10005548",
@@ -845,19 +871,23 @@
             "state_plus_0xbc": 608,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 1,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 608,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 1,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 4864
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
             "base": "0x10005548",
@@ -900,36 +930,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005580",
+            "base": "0x10005550",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x0000007f",
-              "0x00000007",
+              "0x0000001f",
+              "0x000001ff",
               "0x00001fff"
             ]
           },
@@ -949,37 +983,41 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x100055a0",
+            "base": "0x10005570",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
+            "table": "two_plane_lane0_table",
             "words": [
               "0x00000000",
+              "0x00000007",
               "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
+              "0x0000007f"
             ]
           },
           "timing_registers": {
@@ -998,36 +1036,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
+              "0x00007f80",
+              "0x0007fff8",
               "0x003fffff"
             ]
           },
@@ -1051,36 +1093,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
+              "0x00007f80",
+              "0x0007fff8",
               "0x003fffff"
             ]
           },
@@ -1110,78 +1156,35 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005540",
+            "base": "0x10005550",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
-            "words": [
-              "0x00000000",
-              "0xffffffff"
-            ]
-          },
-          "timing_registers": {
-            "constant_registers": {
-              "0xb1000024": "0x00000062"
-            },
-            "datastore_0x20_zero": false,
-            "lane_selector": 0,
-            "register": "0xb1000020",
-            "resolution": "not 300",
-            "value": "0x80010598"
-          },
-          "work_plus_0x36_assumed_zero": true
-        },
-        {
-          "datastore_0x20_zero": false,
-          "derived_state": {
-            "callback_enabled": false,
-            "callback_pointer": "unmodified",
-            "nbie": 1,
-            "resolution_x": 600,
-            "resolution_y": 600,
-            "state_plus_0xbc": 1200,
-            "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
-            "state_plus_0xf4": 0,
-            "stride_plus_0xb8": 1200,
-            "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
-            ],
-            "work_plus_0x84": 9600
-          },
-          "lane_selector": 0,
-          "secondary_output_state_plus_0xec_nonzero": true,
-          "table_selection": {
-            "base": "0x100055a0",
-            "lane_selector": 0,
-            "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
               "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
+              "0x000001ff",
+              "0x00001fff"
             ]
           },
           "timing_registers": {
@@ -1206,29 +1209,88 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "matches_host_economode": false,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005570",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "two_plane_lane0_table",
+            "words": [
+              "0x00000000",
+              "0x00000007",
+              "0x0000001f",
+              "0x0000007f"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
+            ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0xffffffff"
+              "0x00007f80",
+              "0x0007fff8",
+              "0x003fffff"
             ]
           },
           "timing_registers": {
@@ -1257,29 +1319,35 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_lane_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0xffffffff"
+              "0x00007f80",
+              "0x0007fff8",
+              "0x003fffff"
             ]
           },
           "timing_registers": {
@@ -1313,36 +1381,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005580",
+            "base": "0x10005550",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x0000007f",
-              "0x00000007",
+              "0x0000001f",
+              "0x000001ff",
               "0x00001fff"
             ]
           },
@@ -1362,37 +1434,41 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x100055a0",
+            "base": "0x10005570",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
+            "table": "two_plane_lane0_table",
             "words": [
               "0x00000000",
+              "0x00000007",
               "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
+              "0x0000007f"
             ]
           },
           "timing_registers": {
@@ -1411,36 +1487,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
+              "0x00007f80",
+              "0x0007fff8",
               "0x003fffff"
             ]
           },
@@ -1464,36 +1544,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
+              "0x00007f80",
+              "0x0007fff8",
               "0x003fffff"
             ]
           },
@@ -1523,78 +1607,35 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005540",
+            "base": "0x10005550",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
-            "words": [
-              "0x00000000",
-              "0xffffffff"
-            ]
-          },
-          "timing_registers": {
-            "constant_registers": {
-              "0xb1000024": "0x00000062"
-            },
-            "datastore_0x20_zero": false,
-            "lane_selector": 0,
-            "register": "0xb1000020",
-            "resolution": "not 300",
-            "value": "0x80010598"
-          },
-          "work_plus_0x36_assumed_zero": true
-        },
-        {
-          "datastore_0x20_zero": false,
-          "derived_state": {
-            "callback_enabled": false,
-            "callback_pointer": "unmodified",
-            "nbie": 1,
-            "resolution_x": 600,
-            "resolution_y": 600,
-            "state_plus_0xbc": 1200,
-            "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
-            "state_plus_0xf4": 0,
-            "stride_plus_0xb8": 1200,
-            "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
-            ],
-            "work_plus_0x84": 9600
-          },
-          "lane_selector": 0,
-          "secondary_output_state_plus_0xec_nonzero": true,
-          "table_selection": {
-            "base": "0x100055a0",
-            "lane_selector": 0,
-            "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
               "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
+              "0x000001ff",
+              "0x00001fff"
             ]
           },
           "timing_registers": {
@@ -1619,29 +1660,88 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "matches_host_economode": false,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005570",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "two_plane_lane0_table",
+            "words": [
+              "0x00000000",
+              "0x00000007",
+              "0x0000001f",
+              "0x0000007f"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
+            ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0xffffffff"
+              "0x00007f80",
+              "0x0007fff8",
+              "0x003fffff"
             ]
           },
           "timing_registers": {
@@ -1670,29 +1770,35 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_lane_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0xffffffff"
+              "0x00007f80",
+              "0x0007fff8",
+              "0x003fffff"
             ]
           },
           "timing_registers": {
@@ -1726,36 +1832,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 1,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005580",
+            "base": "0x10005550",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x0000007f",
-              "0x00000007",
+              "0x0000001f",
+              "0x000001ff",
               "0x00001fff"
             ]
           },
@@ -1775,37 +1885,41 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 1,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x100055a0",
+            "base": "0x10005570",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
+            "table": "two_plane_lane0_table",
             "words": [
               "0x00000000",
+              "0x00000007",
               "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
+              "0x0000007f"
             ]
           },
           "timing_registers": {
@@ -1824,36 +1938,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 1,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
+              "0x00007f80",
+              "0x0007fff8",
               "0x003fffff"
             ]
           },
@@ -1877,36 +1995,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 1,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
+              "0x00007f80",
+              "0x0007fff8",
               "0x003fffff"
             ]
           },
@@ -1936,78 +2058,35 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 1,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005540",
+            "base": "0x10005550",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
-            "words": [
-              "0x00000000",
-              "0xffffffff"
-            ]
-          },
-          "timing_registers": {
-            "constant_registers": {
-              "0xb1000024": "0x00000062"
-            },
-            "datastore_0x20_zero": false,
-            "lane_selector": 0,
-            "register": "0xb1000020",
-            "resolution": "not 300",
-            "value": "0x80010598"
-          },
-          "work_plus_0x36_assumed_zero": true
-        },
-        {
-          "datastore_0x20_zero": false,
-          "derived_state": {
-            "callback_enabled": false,
-            "callback_pointer": "unmodified",
-            "nbie": 1,
-            "resolution_x": 600,
-            "resolution_y": 600,
-            "state_plus_0xbc": 1200,
-            "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
-            "state_plus_0xf4": 0,
-            "stride_plus_0xb8": 1200,
-            "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
-            ],
-            "work_plus_0x84": 9600
-          },
-          "lane_selector": 0,
-          "secondary_output_state_plus_0xec_nonzero": true,
-          "table_selection": {
-            "base": "0x100055a0",
-            "lane_selector": 0,
-            "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
               "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
+              "0x000001ff",
+              "0x00001fff"
             ]
           },
           "timing_registers": {
@@ -2032,29 +2111,88 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 1,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "matches_host_economode": true,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005570",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "two_plane_lane0_table",
+            "words": [
+              "0x00000000",
+              "0x00000007",
+              "0x0000001f",
+              "0x0000007f"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 1,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
+            ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0xffffffff"
+              "0x00007f80",
+              "0x0007fff8",
+              "0x003fffff"
             ]
           },
           "timing_registers": {
@@ -2083,29 +2221,35 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 1,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_lane_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0xffffffff"
+              "0x00007f80",
+              "0x0007fff8",
+              "0x003fffff"
             ]
           },
           "timing_registers": {
@@ -2139,36 +2283,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005580",
+            "base": "0x10005550",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x0000007f",
-              "0x00000007",
+              "0x0000001f",
+              "0x000001ff",
               "0x00001fff"
             ]
           },
@@ -2188,37 +2336,41 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x100055a0",
+            "base": "0x10005570",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
+            "table": "two_plane_lane0_table",
             "words": [
               "0x00000000",
+              "0x00000007",
               "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
+              "0x0000007f"
             ]
           },
           "timing_registers": {
@@ -2237,36 +2389,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
+              "0x00007f80",
+              "0x0007fff8",
               "0x003fffff"
             ]
           },
@@ -2290,36 +2446,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
+              "0x00007f80",
+              "0x0007fff8",
               "0x003fffff"
             ]
           },
@@ -2349,78 +2509,35 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005540",
+            "base": "0x10005550",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
-            "words": [
-              "0x00000000",
-              "0xffffffff"
-            ]
-          },
-          "timing_registers": {
-            "constant_registers": {
-              "0xb1000024": "0x00000062"
-            },
-            "datastore_0x20_zero": false,
-            "lane_selector": 0,
-            "register": "0xb1000020",
-            "resolution": "not 300",
-            "value": "0x80010598"
-          },
-          "work_plus_0x36_assumed_zero": true
-        },
-        {
-          "datastore_0x20_zero": false,
-          "derived_state": {
-            "callback_enabled": false,
-            "callback_pointer": "unmodified",
-            "nbie": 1,
-            "resolution_x": 600,
-            "resolution_y": 600,
-            "state_plus_0xbc": 1200,
-            "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
-            "state_plus_0xf4": 0,
-            "stride_plus_0xb8": 1200,
-            "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
-            ],
-            "work_plus_0x84": 9600
-          },
-          "lane_selector": 0,
-          "secondary_output_state_plus_0xec_nonzero": true,
-          "table_selection": {
-            "base": "0x100055a0",
-            "lane_selector": 0,
-            "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
               "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
+              "0x000001ff",
+              "0x00001fff"
             ]
           },
           "timing_registers": {
@@ -2445,29 +2562,88 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "matches_host_economode": false,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005570",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "two_plane_lane0_table",
+            "words": [
+              "0x00000000",
+              "0x00000007",
+              "0x0000001f",
+              "0x0000007f"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
+            ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0xffffffff"
+              "0x00007f80",
+              "0x0007fff8",
+              "0x003fffff"
             ]
           },
           "timing_registers": {
@@ -2496,29 +2672,35 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_lane_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0xffffffff"
+              "0x00007f80",
+              "0x0007fff8",
+              "0x003fffff"
             ]
           },
           "timing_registers": {
@@ -2552,36 +2734,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005580",
+            "base": "0x10005550",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x0000007f",
-              "0x00000007",
+              "0x0000001f",
+              "0x000001ff",
               "0x00001fff"
             ]
           },
@@ -2601,37 +2787,41 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x100055a0",
+            "base": "0x10005570",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
+            "table": "two_plane_lane0_table",
             "words": [
               "0x00000000",
+              "0x00000007",
               "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
+              "0x0000007f"
             ]
           },
           "timing_registers": {
@@ -2650,36 +2840,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
+              "0x00007f80",
+              "0x0007fff8",
               "0x003fffff"
             ]
           },
@@ -2703,36 +2897,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
+              "0x00007f80",
+              "0x0007fff8",
               "0x003fffff"
             ]
           },
@@ -2762,78 +2960,35 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005540",
+            "base": "0x10005550",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
-            "words": [
-              "0x00000000",
-              "0xffffffff"
-            ]
-          },
-          "timing_registers": {
-            "constant_registers": {
-              "0xb1000024": "0x00000062"
-            },
-            "datastore_0x20_zero": false,
-            "lane_selector": 0,
-            "register": "0xb1000020",
-            "resolution": "not 300",
-            "value": "0x80010598"
-          },
-          "work_plus_0x36_assumed_zero": true
-        },
-        {
-          "datastore_0x20_zero": false,
-          "derived_state": {
-            "callback_enabled": false,
-            "callback_pointer": "unmodified",
-            "nbie": 1,
-            "resolution_x": 600,
-            "resolution_y": 600,
-            "state_plus_0xbc": 1200,
-            "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
-            "state_plus_0xf4": 0,
-            "stride_plus_0xb8": 1200,
-            "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
-            ],
-            "work_plus_0x84": 9600
-          },
-          "lane_selector": 0,
-          "secondary_output_state_plus_0xec_nonzero": true,
-          "table_selection": {
-            "base": "0x100055a0",
-            "lane_selector": 0,
-            "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
               "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
+              "0x000001ff",
+              "0x00001fff"
             ]
           },
           "timing_registers": {
@@ -2858,29 +3013,88 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "matches_host_economode": false,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005570",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "two_plane_lane0_table",
+            "words": [
+              "0x00000000",
+              "0x00000007",
+              "0x0000001f",
+              "0x0000007f"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
+            ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0xffffffff"
+              "0x00007f80",
+              "0x0007fff8",
+              "0x003fffff"
             ]
           },
           "timing_registers": {
@@ -2909,29 +3123,35 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_lane_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0xffffffff"
+              "0x00007f80",
+              "0x0007fff8",
+              "0x003fffff"
             ]
           },
           "timing_registers": {
@@ -2965,36 +3185,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005580",
+            "base": "0x10005550",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x0000007f",
-              "0x00000007",
+              "0x0000001f",
+              "0x000001ff",
               "0x00001fff"
             ]
           },
@@ -3014,37 +3238,41 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x100055a0",
+            "base": "0x10005570",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
+            "table": "two_plane_lane0_table",
             "words": [
               "0x00000000",
+              "0x00000007",
               "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
+              "0x0000007f"
             ]
           },
           "timing_registers": {
@@ -3063,36 +3291,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
+              "0x00007f80",
+              "0x0007fff8",
               "0x003fffff"
             ]
           },
@@ -3116,36 +3348,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2400,
+            "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
+              "0x00007f80",
+              "0x0007fff8",
               "0x003fffff"
             ]
           },
@@ -3175,78 +3411,35 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005540",
+            "base": "0x10005550",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
-            "words": [
-              "0x00000000",
-              "0xffffffff"
-            ]
-          },
-          "timing_registers": {
-            "constant_registers": {
-              "0xb1000024": "0x00000062"
-            },
-            "datastore_0x20_zero": false,
-            "lane_selector": 0,
-            "register": "0xb1000020",
-            "resolution": "not 300",
-            "value": "0x80010598"
-          },
-          "work_plus_0x36_assumed_zero": true
-        },
-        {
-          "datastore_0x20_zero": false,
-          "derived_state": {
-            "callback_enabled": false,
-            "callback_pointer": "unmodified",
-            "nbie": 1,
-            "resolution_x": 600,
-            "resolution_y": 600,
-            "state_plus_0xbc": 1200,
-            "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
-            "state_plus_0xf4": 0,
-            "stride_plus_0xb8": 1200,
-            "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
-            ],
-            "work_plus_0x84": 9600
-          },
-          "lane_selector": 0,
-          "secondary_output_state_plus_0xec_nonzero": true,
-          "table_selection": {
-            "base": "0x100055a0",
-            "lane_selector": 0,
-            "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
               "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
+              "0x000001ff",
+              "0x00001fff"
             ]
           },
           "timing_registers": {
@@ -3271,29 +3464,88 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
+            "work_plus_0x84": 9600
+          },
+          "lane_selector": 0,
+          "matches_host_economode": false,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005570",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "two_plane_lane0_table",
+            "words": [
+              "0x00000000",
+              "0x00000007",
+              "0x0000001f",
+              "0x0000007f"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1200,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1200,
+            "unmodeled_inputs": [
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
+            ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0xffffffff"
+              "0x00007f80",
+              "0x0007fff8",
+              "0x003fffff"
             ]
           },
           "timing_registers": {
@@ -3322,29 +3574,35 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1200,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6824,
+            "state_plus_0xd4": 6824,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1200,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4768,
             "work_plus_0x84": 9600
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_lane_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0xffffffff"
+              "0x00007f80",
+              "0x0007fff8",
+              "0x003fffff"
             ]
           },
           "timing_registers": {
@@ -3378,36 +3636,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2464,
+            "state_plus_0xbc": 1232,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 8208,
+            "state_plus_0xd4": 8208,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1232,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4908,
             "work_plus_0x84": 9856
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005580",
+            "base": "0x10005550",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x0000007f",
-              "0x00000007",
+              "0x0000001f",
+              "0x000001ff",
               "0x00001fff"
             ]
           },
@@ -3427,37 +3689,41 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2464,
+            "state_plus_0xbc": 1232,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 8208,
+            "state_plus_0xd4": 8208,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1232,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4908,
             "work_plus_0x84": 9856
           },
           "lane_selector": 0,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x100055a0",
+            "base": "0x10005570",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
+            "table": "two_plane_lane0_table",
             "words": [
               "0x00000000",
+              "0x00000007",
               "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
+              "0x0000007f"
             ]
           },
           "timing_registers": {
@@ -3476,36 +3742,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2464,
+            "state_plus_0xbc": 1232,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 8208,
+            "state_plus_0xd4": 8208,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1232,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4908,
             "work_plus_0x84": 9856
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
+              "0x00007f80",
+              "0x0007fff8",
               "0x003fffff"
             ]
           },
@@ -3529,36 +3799,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2464,
+            "state_plus_0xbc": 1232,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 8208,
+            "state_plus_0xd4": 8208,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1232,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4908,
             "work_plus_0x84": 9856
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
+              "0x00007f80",
+              "0x0007fff8",
               "0x003fffff"
             ]
           },
@@ -3588,78 +3862,35 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1232,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 8208,
+            "state_plus_0xd4": 8208,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1232,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4908,
             "work_plus_0x84": 9856
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005540",
+            "base": "0x10005550",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
-            "words": [
-              "0x00000000",
-              "0xffffffff"
-            ]
-          },
-          "timing_registers": {
-            "constant_registers": {
-              "0xb1000024": "0x00000062"
-            },
-            "datastore_0x20_zero": false,
-            "lane_selector": 0,
-            "register": "0xb1000020",
-            "resolution": "not 300",
-            "value": "0x80010598"
-          },
-          "work_plus_0x36_assumed_zero": true
-        },
-        {
-          "datastore_0x20_zero": false,
-          "derived_state": {
-            "callback_enabled": false,
-            "callback_pointer": "unmodified",
-            "nbie": 1,
-            "resolution_x": 600,
-            "resolution_y": 600,
-            "state_plus_0xbc": 1232,
-            "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
-            "state_plus_0xf4": 0,
-            "stride_plus_0xb8": 1232,
-            "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
-            ],
-            "work_plus_0x84": 9856
-          },
-          "lane_selector": 0,
-          "secondary_output_state_plus_0xec_nonzero": true,
-          "table_selection": {
-            "base": "0x100055a0",
-            "lane_selector": 0,
-            "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
               "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
+              "0x000001ff",
+              "0x00001fff"
             ]
           },
           "timing_registers": {
@@ -3684,29 +3915,88 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1232,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 8208,
+            "state_plus_0xd4": 8208,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1232,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4908,
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 0,
+          "matches_host_economode": false,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005570",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "two_plane_lane0_table",
+            "words": [
+              "0x00000000",
+              "0x00000007",
+              "0x0000001f",
+              "0x0000007f"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1232,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 8208,
+            "state_plus_0xd4": 8208,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
+            ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4908,
             "work_plus_0x84": 9856
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0xffffffff"
+              "0x00007f80",
+              "0x0007fff8",
+              "0x003fffff"
             ]
           },
           "timing_registers": {
@@ -3735,29 +4025,35 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1232,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 8208,
+            "state_plus_0xd4": 8208,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1232,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4908,
             "work_plus_0x84": 9856
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_lane_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0xffffffff"
+              "0x00007f80",
+              "0x0007fff8",
+              "0x003fffff"
             ]
           },
           "timing_registers": {
@@ -3791,36 +4087,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2464,
+            "state_plus_0xbc": 1232,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6408,
+            "state_plus_0xd4": 6408,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1232,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4908,
             "work_plus_0x84": 9856
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005580",
+            "base": "0x10005550",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x0000007f",
-              "0x00000007",
+              "0x0000001f",
+              "0x000001ff",
               "0x00001fff"
             ]
           },
@@ -3840,37 +4140,41 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2464,
+            "state_plus_0xbc": 1232,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6408,
+            "state_plus_0xd4": 6408,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1232,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4908,
             "work_plus_0x84": 9856
           },
           "lane_selector": 0,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x100055a0",
+            "base": "0x10005570",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
+            "table": "two_plane_lane0_table",
             "words": [
               "0x00000000",
+              "0x00000007",
               "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
+              "0x0000007f"
             ]
           },
           "timing_registers": {
@@ -3889,36 +4193,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2464,
+            "state_plus_0xbc": 1232,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6408,
+            "state_plus_0xd4": 6408,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1232,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4908,
             "work_plus_0x84": 9856
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
+              "0x00007f80",
+              "0x0007fff8",
               "0x003fffff"
             ]
           },
@@ -3942,36 +4250,40 @@
           "datastore_0x20_zero": true,
           "derived_state": {
             "callback_enabled": true,
-            "callback_pointer": "600dpi callback table",
+            "callback_pointer": "BPP2 callback PTR_LAB_1000684c",
             "nbie": 1,
             "resolution_x": 600,
             "resolution_y": 600,
-            "state_plus_0xbc": 2464,
+            "state_plus_0xbc": 1232,
             "state_plus_0xc4": 1,
             "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6408,
+            "state_plus_0xd4": 6408,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 2,
             "stride_plus_0xb8": 1232,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4908,
             "work_plus_0x84": 9856
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005590",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_two_output_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0x00000fff",
-              "0x0000000f",
+              "0x00007f80",
+              "0x0007fff8",
               "0x003fffff"
             ]
           },
@@ -4001,78 +4313,35 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1232,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6408,
+            "state_plus_0xd4": 6408,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1232,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4908,
             "work_plus_0x84": 9856
           },
           "lane_selector": 0,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005540",
+            "base": "0x10005550",
             "lane_selector": 0,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
-            "words": [
-              "0x00000000",
-              "0xffffffff"
-            ]
-          },
-          "timing_registers": {
-            "constant_registers": {
-              "0xb1000024": "0x00000062"
-            },
-            "datastore_0x20_zero": false,
-            "lane_selector": 0,
-            "register": "0xb1000020",
-            "resolution": "not 300",
-            "value": "0x80010598"
-          },
-          "work_plus_0x36_assumed_zero": true
-        },
-        {
-          "datastore_0x20_zero": false,
-          "derived_state": {
-            "callback_enabled": false,
-            "callback_pointer": "unmodified",
-            "nbie": 1,
-            "resolution_x": 600,
-            "resolution_y": 600,
-            "state_plus_0xbc": 1232,
-            "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
-            "state_plus_0xf4": 0,
-            "stride_plus_0xb8": 1232,
-            "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
-            ],
-            "work_plus_0x84": 9856
-          },
-          "lane_selector": 0,
-          "secondary_output_state_plus_0xec_nonzero": true,
-          "table_selection": {
-            "base": "0x100055a0",
-            "lane_selector": 0,
-            "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_alt_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
               "0x0000001f",
-              "0x00000003",
-              "0x000000ff"
+              "0x000001ff",
+              "0x00001fff"
             ]
           },
           "timing_registers": {
@@ -4097,29 +4366,88 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1232,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6408,
+            "state_plus_0xd4": 6408,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1232,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4908,
+            "work_plus_0x84": 9856
+          },
+          "lane_selector": 0,
+          "matches_host_economode": false,
+          "secondary_output_state_plus_0xec_nonzero": true,
+          "table_selection": {
+            "base": "0x10005570",
+            "lane_selector": 0,
+            "secondary_output_state_plus_0xec_nonzero": true,
+            "table": "two_plane_lane0_table",
+            "words": [
+              "0x00000000",
+              "0x00000007",
+              "0x0000001f",
+              "0x0000007f"
+            ]
+          },
+          "timing_registers": {
+            "constant_registers": {
+              "0xb1000024": "0x00000062"
+            },
+            "datastore_0x20_zero": false,
+            "lane_selector": 0,
+            "register": "0xb1000020",
+            "resolution": "not 300",
+            "value": "0x80010598"
+          },
+          "work_plus_0x36_assumed_zero": true
+        },
+        {
+          "datastore_0x20_zero": false,
+          "derived_state": {
+            "callback_enabled": false,
+            "callback_pointer": "unmodified",
+            "nbie": 1,
+            "resolution_x": 600,
+            "resolution_y": 600,
+            "state_plus_0xbc": 1232,
+            "state_plus_0xc4": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6408,
+            "state_plus_0xd4": 6408,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
+            "state_plus_0xf4": 0,
+            "stride_plus_0xb8": 1232,
+            "unmodeled_inputs": [
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
+            ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4908,
             "work_plus_0x84": 9856
           },
           "lane_selector": 1,
+          "matches_host_economode": true,
           "secondary_output_state_plus_0xec_nonzero": false,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": false,
-            "table": "single_plane_600_lane_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0xffffffff"
+              "0x00007f80",
+              "0x0007fff8",
+              "0x003fffff"
             ]
           },
           "timing_registers": {
@@ -4148,29 +4476,35 @@
             "resolution_y": 600,
             "state_plus_0xbc": 1232,
             "state_plus_0xc4": 1,
-            "state_plus_0xc8_state_200": 1,
+            "state_plus_0xc8_state_200": 2,
+            "state_plus_0xd0": 6408,
+            "state_plus_0xd4": 6408,
+            "state_plus_0xe8": 0,
+            "state_plus_0xec": 0,
             "state_plus_0xf4": 0,
             "stride_plus_0xb8": 1232,
             "unmodeled_inputs": [
-              "work +0x18",
-              "work +0x24",
-              "work +0x26",
-              "work +0x30",
-              "work +0x32",
-              "work +0x36"
+              "physical timing calibration",
+              "datastore 0x20",
+              "lane selector"
             ],
+            "video_bpp": 2,
+            "work_plus_0x24_video_x": 4908,
             "work_plus_0x84": 9856
           },
           "lane_selector": 1,
+          "matches_host_economode": false,
           "secondary_output_state_plus_0xec_nonzero": true,
           "table_selection": {
-            "base": "0x10005548",
+            "base": "0x10005560",
             "lane_selector": 1,
             "secondary_output_state_plus_0xec_nonzero": true,
-            "table": "single_plane_600_lane_table",
+            "table": "two_plane_lane_table",
             "words": [
               "0x00000000",
-              "0xffffffff"
+              "0x00007f80",
+              "0x0007fff8",
+              "0x003fffff"
             ]
           },
           "timing_registers": {

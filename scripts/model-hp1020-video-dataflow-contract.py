@@ -93,9 +93,9 @@ def build_report() -> dict[str, Any]:
     bid_bytes = raster_case.get("payload_0x48")
     chunk_case = find_case(chunk_sizing.get("case_matrix", []), case)
     max_chunk_units = chunk_case.get("max_chunk_units_plus_0xcc")
-    remaining_case = find_case(remaining_units.get("case_matrix_if_alias_holds", []), case)
-    remaining_candidate = remaining_case.get("video_y_candidate_from_zji_0x12")
-    candidate_channel_b_len = remaining_case.get("candidate_first_channel_b_length_if_alias_holds")
+    remaining_case = find_case(remaining_units.get("case_matrix", []), case)
+    remaining_candidate = remaining_case.get("video_y_from_zji_0x12")
+    candidate_channel_b_len = remaining_case.get("first_channel_b_length")
 
     stages = [
         {
@@ -144,15 +144,15 @@ def build_report() -> dict[str, Any]:
             "function": "0x10014244 hp1020_video_band_done_or_irq_helper_candidate",
             "known_values": {
                 "video state +0xcc max chunk units": max_chunk_units,
-                "video state +0xd0 candidate if alias holds": remaining_candidate,
+                "video state +0xd0": remaining_candidate,
                 "chunk_units": f"min({max_chunk_units}, video state +0xd0)",
                 "0xb2080004": "slot pointer from video state + slot*4",
                 "0xb2080008": f"min({max_chunk_units}, +0xd0) * stride({stride})",
-                "0xb2080008 candidate if alias holds": candidate_channel_b_len,
+                "0xb2080008 first refill": candidate_channel_b_len,
                 "final_flag": "set when remaining units become zero",
             },
             "meaning": "The helper keeps channel B fed from the modulo-4 descriptor side.",
-            "remaining_unknown": "active work +0x26 remains unsourced; ZJI_VIDEO_Y reaches page-param +0x26 upstream, but the queue payload chain weakens that alias/copy theory",
+            "remaining_unknown": "live counter decrement/completion behavior; the VIDEO_Y source is statically proven",
         },
         {
             "stage": "raw_band_queue_feed",
@@ -165,7 +165,7 @@ def build_report() -> dict[str, Any]:
                 "queue index +0xdc": "advances modulo 4 unless it would collide with +0xe0 without final flag",
             },
             "meaning": "This is the normal raw-band/channel feed boundary after render and refill helper setup.",
-            "remaining_unknown": "exact encoding performed by 0x1001b668",
+            "remaining_unknown": "physical units of floor-divided descriptor lengths and final flags",
         },
         {
             "stage": "irq_refill_loop",
@@ -193,7 +193,7 @@ def build_report() -> dict[str, Any]:
             work_fields == {"+0x84": 9600, "+0x88": 6824, "+0x8c": 128, "+0x90": 0x5C}
             and bid_bytes == 6364
             and stride == 1200
-            and window == 2400
+            and window == 1200
             and max_chunk_units == 4,
             "a4_default work/raster/prepare/chunk values match the current generated model",
         ),
@@ -216,7 +216,7 @@ def build_report() -> dict[str, Any]:
         "checks": checks,
         "current_conclusion": [
             "The host-to-render dataflow is now concrete for the generated a4_default case.",
-            "The remaining unknowns are not parser fields; they are the active work +0x26 source, raw-band helper divide confirmation, video timing, and live IRQ completion behavior.",
+            "The low work fields and floor division are resolved. Remaining uncertainty concerns video timing, hardware interpretation, and live IRQ completion behavior.",
             "This report is still not a reason to upload custom printing firmware; it is the static contract a future implementation must satisfy.",
         ],
     }

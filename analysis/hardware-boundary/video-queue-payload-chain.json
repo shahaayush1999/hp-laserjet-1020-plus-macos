@@ -1,6 +1,11 @@
 {
   "checks": [
     {
+      "detail": "stock ELF verifies direct allocation/builder/message path",
+      "name": "direct_start_page_work_verified",
+      "status": "present"
+    },
+    {
       "detail": "child-page create path creates a 0x94 work object and sends it to JobMgr as message 5",
       "name": "work_object_is_allocated_before_jobmgr_message_5",
       "status": "present"
@@ -11,7 +16,7 @@
       "status": "present"
     },
     {
-      "detail": "selected page-param copier still does not copy +0x26 into the work object",
+      "detail": "alternate constructor copier lacks +0x26; normal START_PAGE uses the direct builder instead",
       "name": "work_populate_does_not_copy_page_param_0x26",
       "status": "present"
     },
@@ -67,22 +72,22 @@
     }
   ],
   "conclusion": {
-    "effect_on_remaining_units": "current static evidence weakens the earlier page-param +0x26 -> work +0x26 alias theory; the active work +0x26 source remains unresolved",
+    "effect_on_remaining_units": "direct START_PAGE builder writes VIDEO_Y to active work +0x26; no copy or alias gap remains",
     "plain_english": "The video code is almost certainly receiving the work object whose geometry is filled by JobMgr. The PrintMgr wrapper/list nodes preserve a pointer payload; they do not create the missing page-height field. The page-height value is proven in the earlier page-param block, but this chain does not show it being copied into the work object field that prepare reads.",
     "prepare_argument_identity": "0x94-byte video/page work object"
   },
   "stages": [
     {
-      "confidence": "high for page-param object only",
-      "evidence": "builder writes ZJI item 0x12 into page-param +0x26",
-      "function": "0x10009b4c",
-      "object": "page parameter block",
-      "stage": "page_parameter_block"
+      "confidence": "ELF-byte verified",
+      "evidence": "START_PAGE allocates work in a10 and saves the pointer in a7",
+      "function": "0x10009f86 -> 0x1000f228",
+      "object": "0x94-byte video/page work object",
+      "stage": "work_object_allocation"
     },
     {
       "confidence": "high",
-      "evidence": "child-page creator allocates work, copies selected fields, then sends JobMgr message 5 with the work pointer",
-      "function": "0x10010398 -> 0x1000f228 -> 0x100104c8",
+      "evidence": "START_PAGE passes the same a7 work pointer to the item builder and then sends it as JobMgr message 5 payload",
+      "function": "0x10009fed -> 0x10009b4c",
       "object": "0x94-byte video/page work object",
       "stage": "work_object_creation"
     },

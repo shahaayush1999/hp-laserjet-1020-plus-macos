@@ -72,17 +72,17 @@ def build_report() -> dict[str, Any]:
 
     stages = [
         {
-            "stage": "page_parameter_block",
-            "function": "0x10009b4c",
-            "object": "page parameter block",
-            "evidence": "builder writes ZJI item 0x12 into page-param +0x26",
-            "confidence": "high for page-param object only",
+            "stage": "work_object_allocation",
+            "function": "0x10009f86 -> 0x1000f228",
+            "object": "0x94-byte video/page work object",
+            "evidence": "START_PAGE allocates work in a10 and saves the pointer in a7",
+            "confidence": "ELF-byte verified",
         },
         {
             "stage": "work_object_creation",
-            "function": "0x10010398 -> 0x1000f228 -> 0x100104c8",
+            "function": "0x10009fed -> 0x10009b4c",
             "object": "0x94-byte video/page work object",
-            "evidence": "child-page creator allocates work, copies selected fields, then sends JobMgr message 5 with the work pointer",
+            "evidence": "START_PAGE passes the same a7 work pointer to the item builder and then sends it as JobMgr message 5 payload",
             "confidence": "high",
         },
         {
@@ -143,7 +143,8 @@ def build_report() -> dict[str, Any]:
         },
     ]
 
-    checks = [
+    direct = json.loads((ROOT_DIR / "analysis/hardware-boundary/zjs-direct-work.json").read_text())
+    checks = [check("direct_start_page_work_verified", direct["status"] == "pass", "stock ELF verifies direct allocation/builder/message path"),
         check(
             "work_object_is_allocated_before_jobmgr_message_5",
             "iVar2 = FUN_1000f228()" in sources["child_page_create"]
@@ -163,7 +164,7 @@ def build_report() -> dict[str, Any]:
             "((int)param_2 + 0x26)" not in sources["work_populate"]
             and "((int)param_1 + 0x26)" not in sources["work_populate"]
             and "(param_1 + 0x26)" not in sources["work_populate"],
-            "selected page-param copier still does not copy +0x26 into the work object",
+            "alternate constructor copier lacks +0x26; normal START_PAGE uses the direct builder instead",
         ),
         check(
             "jobmgr_fills_work_video_geometry",
@@ -250,7 +251,7 @@ def build_report() -> dict[str, Any]:
         },
         "conclusion": {
             "prepare_argument_identity": "0x94-byte video/page work object",
-            "effect_on_remaining_units": "current static evidence weakens the earlier page-param +0x26 -> work +0x26 alias theory; the active work +0x26 source remains unresolved",
+            "effect_on_remaining_units": "direct START_PAGE builder writes VIDEO_Y to active work +0x26; no copy or alias gap remains",
             "plain_english": "The video code is almost certainly receiving the work object whose geometry is filled by JobMgr. The PrintMgr wrapper/list nodes preserve a pointer payload; they do not create the missing page-height field. The page-height value is proven in the earlier page-param block, but this chain does not show it being copied into the work object field that prepare reads.",
         },
         "checks": checks,

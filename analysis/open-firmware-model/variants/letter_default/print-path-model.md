@@ -70,7 +70,7 @@ Firmware case `ZJT_JBIG_BIH -> JobMgr 0x29` copies the 20-byte BIH into runtime 
 | Work offset | Modeled value | Meaning |
 |---:|---|---|
 | `+0x0c` | `1` | copy/reference count candidate |
-| `+0x22` | `1` | plane/count-like page field |
+| `+0x22` | `2` | VIDEO_BPP (NBIE is +0x12) |
 | `+0x50` | `raster0` | raster list head/list content |
 | `+0x84` | `9856` | BIH-derived video setup field |
 | `+0x88` | `6408` | BIH-derived video setup field |

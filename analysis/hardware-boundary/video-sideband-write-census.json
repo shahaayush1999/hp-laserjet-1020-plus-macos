@@ -1,8 +1,36 @@
 {
-  "active_work_writer_hits": [],
+  "active_work_writer_hits": [
+    {
+      "byte_offset": "+0x26",
+      "line": 102,
+      "meaning": "real page-param +0x26 writer, not active work",
+      "path": "analysis/jobmgr-producer-boundary/decompiled/10009b4c_FUN_10009b4c.c",
+      "role": "direct_work_writer",
+      "source": "page_param_builder",
+      "text": "*(undefined2 *)(param_1 + 0x26) = *(undefined2 *)((int)param_2 + 10);"
+    },
+    {
+      "byte_offset": "+0x30",
+      "line": 119,
+      "meaning": "real page-param +0x30 writer, not active work",
+      "path": "analysis/jobmgr-producer-boundary/decompiled/10009b4c_FUN_10009b4c.c",
+      "role": "direct_work_writer",
+      "source": "page_param_builder",
+      "text": "*(undefined2 *)(param_1 + 0x30) = *(undefined2 *)((int)param_2 + 10);"
+    },
+    {
+      "byte_offset": "+0x32",
+      "line": 122,
+      "meaning": "real page-param +0x32 writer, not active work",
+      "path": "analysis/jobmgr-producer-boundary/decompiled/10009b4c_FUN_10009b4c.c",
+      "role": "direct_work_writer",
+      "source": "page_param_builder",
+      "text": "*(undefined2 *)(param_1 + 0x32) = *(undefined2 *)((int)param_2 + 10);"
+    }
+  ],
   "checks": [
     {
-      "detail": "selected sideband-looking hits are classified as upstream writers, consumers, or false leads",
+      "detail": "selected sideband-looking hits are classified as direct work writers, consumers, or false leads",
       "name": "selected_sideband_hits_classified",
       "status": "present"
     },
@@ -42,18 +70,18 @@
       "status": "present"
     },
     {
-      "detail": "direct-path overlap hits are page-param exact stores or a video-state ring clear, not active work writers",
+      "detail": "direct-path overlap hits are direct work stores or a separate video-state ring clear",
       "name": "ghidra_direct_path_overlap_hits_are_classified",
       "status": "present"
     },
     {
-      "detail": "the selected print-path corpus still has no direct active work sideband writer",
-      "name": "no_selected_active_work_writer_found",
+      "detail": "three builder stores directly populate active work under START_PAGE",
+      "name": "direct_active_work_writers_found",
       "status": "present"
     },
     {
-      "detail": "prepare field model still marks +0x26/+0x30/+0x32 as unsourced on active work",
-      "name": "prepare_field_model_keeps_sidebands_unsourced",
+      "detail": "prepare field model resolves all three sidebands through the direct builder",
+      "name": "prepare_field_model_resolves_sidebands",
       "status": "present"
     },
     {
@@ -63,13 +91,13 @@
     }
   ],
   "conclusion": [
-    "The obvious page-param writes for +0x26/+0x30/+0x32 are upstream page-parameter fields, not active work-object writes.",
+    "The builder writes +0x26/+0x30/+0x32 directly into active work: START_PAGE supplies the allocated work as its destination.",
     "The child-page `puVar1[0x13] = 0` false lead is byte +0x4c because the pointer is `undefined4 *`.",
     "The JobMgr `puVar[0x13]` hits feed work +0x90 from runtime byte +0x13, not work +0x26.",
     "A headless Ghidra instruction probe confirms 0x100104c8 has no stores to active work +0x26/+0x30/+0x32.",
     "A whole-program Ghidra instruction scan finds `s16i` stores to offsets 0x26/0x30/0x32 only in the page-parameter builder.",
-    "A broader overlapping-store scan is noisy by design, but its selected direct-path hits do not identify an active-work sideband writer.",
-    "Within the selected print-path corpus, active work +0x26/+0x30/+0x32 remain unsourced."
+    "The broad scan includes the same three direct work stores; other selected hits remain classified as false leads or unrelated state writes.",
+    "The old absence claim resulted from missing indirect-switch handlers in saved parser decompilation."
   ],
   "corpus_summary": {
     "files_scanned": 632,
@@ -126,7 +154,7 @@
         "overlaps": [
           "+0x26"
         ],
-        "role": "upstream_page_param_exact_store",
+        "role": "direct_work_exact_store",
         "width": 2
       },
       {
@@ -140,7 +168,7 @@
         "overlaps": [
           "+0x30"
         ],
-        "role": "upstream_page_param_exact_store",
+        "role": "direct_work_exact_store",
         "width": 2
       },
       {
@@ -154,7 +182,7 @@
         "overlaps": [
           "+0x32"
         ],
-        "role": "upstream_page_param_exact_store",
+        "role": "direct_work_exact_store",
         "width": 2
       },
       {
@@ -1504,14 +1532,14 @@
     ]
   },
   "overlap_role_counts": {
-    "upstream_page_param_exact_store": 3,
+    "direct_work_exact_store": 3,
     "video_state_ring_clear": 1
   },
   "role_counts": {
     "active_work_consumer": 4,
+    "direct_work_writer": 3,
     "runtime_byte_to_work_0x90": 2,
-    "scaled_index_false_lead": 1,
-    "upstream_page_param_writer": 3
+    "scaled_index_false_lead": 1
   },
   "selected_hits": [
     {
@@ -1519,7 +1547,7 @@
       "line": 102,
       "meaning": "real page-param +0x26 writer, not active work",
       "path": "analysis/jobmgr-producer-boundary/decompiled/10009b4c_FUN_10009b4c.c",
-      "role": "upstream_page_param_writer",
+      "role": "direct_work_writer",
       "source": "page_param_builder",
       "text": "*(undefined2 *)(param_1 + 0x26) = *(undefined2 *)((int)param_2 + 10);"
     },
@@ -1528,7 +1556,7 @@
       "line": 119,
       "meaning": "real page-param +0x30 writer, not active work",
       "path": "analysis/jobmgr-producer-boundary/decompiled/10009b4c_FUN_10009b4c.c",
-      "role": "upstream_page_param_writer",
+      "role": "direct_work_writer",
       "source": "page_param_builder",
       "text": "*(undefined2 *)(param_1 + 0x30) = *(undefined2 *)((int)param_2 + 10);"
     },
@@ -1537,7 +1565,7 @@
       "line": 122,
       "meaning": "real page-param +0x32 writer, not active work",
       "path": "analysis/jobmgr-producer-boundary/decompiled/10009b4c_FUN_10009b4c.c",
-      "role": "upstream_page_param_writer",
+      "role": "direct_work_writer",
       "source": "page_param_builder",
       "text": "*(undefined2 *)(param_1 + 0x32) = *(undefined2 *)((int)param_2 + 10);"
     },

@@ -20,13 +20,13 @@ This generated report is offline only. It does not contact the printer.
 - Zero active work +0x26 is not an immediate proof that render setup cannot start.
 - It is a refill/descriptor-path blocker: channel A can be armed, but channel B is not seeded by 0x10014244.
 - For a narrow print-only replacement, this means a trivial first-transfer probe might appear alive while still being far from a complete page-printing implementation.
-- Treat +0x26/+0x30/+0x32 as a deliberate policy decision to resolve with hardware traces, not as page-height fields we can blindly copy.
+- The direct builder now proves +0x26=VIDEO_Y, +0x30=RET, +0x32=ECONOMODE. This zero-height scenario is a counterfactual, not the default host page.
 
 ## Checks
 
 | Check | Status | Detail |
 |---|---|---|
-| `sideband_census_passes` | `present` | sideband census found no selected active-work writer and whole-program target-offset stores are page-param only |
+| `sideband_census_passes` | `present` | sideband census identifies three direct active-work stores; this report analyzes zero values counterfactually |
 | `prepare_seeds_d0_d4_from_work_0x26` | `present` | prepare copies active argument +0x26 into both remaining counters |
 | `render_channel_a_does_not_depend_on_d0` | `present` | render sets channel-A pointer/length and then calls the channel-B helper |
 | `helper_requires_nonzero_d0` | `present` | channel-B helper writes pointer/length only when remaining +0xd0 is nonzero |

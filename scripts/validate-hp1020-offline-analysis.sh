@@ -65,6 +65,11 @@ run_step "Python syntax checks" \
 run_step "Generate base ZjStream sample" \
   "$ROOT_DIR/scripts/generate-zjs-sample.sh"
 
+run_step "Regenerate base print-path model" \
+  "$ROOT_DIR/scripts/model-hp1020-print-path.py" \
+    "$ROOT_DIR/analysis/samples/generated/minimal-page-a4.zjs" \
+    -o "$ROOT_DIR/analysis/open-firmware-model"
+
 run_step "Generate ZjStream model matrix" \
   "$ROOT_DIR/scripts/generate-zjs-model-matrix.py"
 
@@ -74,6 +79,12 @@ mapfile -t model_paths < <(
     find "$ROOT_DIR/analysis/open-firmware-model/variants" -name print-path-model.json -print
   } | sort
 )
+
+run_step "Verify direct START_PAGE work construction against stock ELF" \
+  "$ROOT_DIR/scripts/model-hp1020-zjs-direct-work.py"
+
+run_step "Validate portable semantic core under sanitizers" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-semantic-core.py"
 
 run_step "Print model invariant check" \
   "$ROOT_DIR/scripts/check-hp1020-print-model-invariants.py" \
@@ -150,14 +161,14 @@ run_step "Regenerate video sideband copy-direction model" \
 run_step "Regenerate video sideband default-impact model" \
   "$ROOT_DIR/scripts/model-hp1020-video-sideband-default-impact.py"
 
-run_step "Regenerate video zero-sideband scenario model" \
-  "$ROOT_DIR/scripts/model-hp1020-video-zero-sideband-scenario.py"
-
 run_step "Regenerate video remaining-units model" \
   "$ROOT_DIR/scripts/model-hp1020-video-remaining-units.py"
 
 run_step "Regenerate video dataflow contract" \
   "$ROOT_DIR/scripts/model-hp1020-video-dataflow-contract.py"
+
+run_step "Regenerate video zero-sideband scenario model" \
+  "$ROOT_DIR/scripts/model-hp1020-video-zero-sideband-scenario.py"
 
 run_step "Regenerate open endpoint-0 model" \
   "$ROOT_DIR/scripts/model-hp1020-open-endpoint0.py"

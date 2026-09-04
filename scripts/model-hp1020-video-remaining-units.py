@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Model the source of HP 1020 video remaining-unit counters.
 
-This is offline analysis only. It tracks the candidate source for video state
+This is offline analysis only. It tracks the direct source for video state
 +0xd0/+0xd4 and deliberately records that the page-parameter +0x26 candidate
 is not yet connected to the active 0x94 work object's +0x26 field.
 """
@@ -71,11 +71,11 @@ def build_case_rows(raster_fields: dict[str, Any], chunk_sizing: dict[str, Any])
         rows.append(
             {
                 "case": item.get("case"),
-                "video_y_candidate_from_zji_0x12": video_y,
+                "video_y_from_zji_0x12": video_y,
                 "max_chunk_units_plus_0xcc": max_chunk,
                 "stride_plus_0xb8": stride,
-                "candidate_first_refill_units_if_alias_holds": first_refill_units,
-                "candidate_first_channel_b_length_if_alias_holds": first_refill_units * stride
+                "first_refill_units": first_refill_units,
+                "first_channel_b_length": first_refill_units * stride
                 if isinstance(first_refill_units, int) and isinstance(stride, int)
                 else None,
             }
@@ -105,6 +105,7 @@ def build_report() -> dict[str, Any]:
     work_populate_copies_source_26 = "((int)param_2 + 0x26)" in work_populate_text
     work_populate_writes_dest_26 = "((int)param_1 + 0x26)" in work_populate_text or "(param_1 + 0x26)" in work_populate_text
 
+    direct = read_json(ROOT_DIR / "analysis/hardware-boundary/zjs-direct-work.json")
     checks = [
         check(
             "page_param_builder_maps_zji_video_y_to_0x26",
@@ -128,66 +129,36 @@ def build_report() -> dict[str, Any]:
             "FUN_1001b4c8(param_1,0,0x46)" in sources["work_init"],
             "common initializer clears the early work-object body, including +0x26 unless later populated",
         ),
-        check(
-            "current_search_keeps_gap_explicit",
-            len(work_26_hits) >= 2,
-            "explicit +0x26 hits are builder and prepare paths; no direct work-populate copy is currently visible",
-        ),
-        check(
-            "queue_payload_chain_identifies_work_object",
-            queue_payload_chain.get("status") == "pass"
-            and queue_payload_chain.get("conclusion", {}).get("prepare_argument_identity")
-            == "0x94-byte video/page work object"
-            and "weakens the earlier page-param +0x26 -> work +0x26 alias theory"
-            in queue_payload_chain.get("conclusion", {}).get("effect_on_remaining_units", ""),
-            "queue payload chain points prepare at the 0x94 work object and weakens the page-param +0x26 alias theory",
-        ),
+        check("direct_start_page_builder_verified",
+              direct["status"] == "pass" and all(row["fields"]["+0x26"] == find_case(rows,row["case"])["video_y_from_zji_0x12"] for row in direct["case_matrix"]),
+              "ELF bytes prove the builder destination is the same active work pointer"),
+        check("queue_payload_identity", queue_payload_chain["status"] == "pass",
+              "queue payload preserves the directly populated active work object"),
         check(
             "candidate_values_match_generated_cases",
-            find_case(rows, "a4_default").get("video_y_candidate_from_zji_0x12") == 6824
-            and find_case(rows, "letter_default").get("video_y_candidate_from_zji_0x12") == 6408
-            and find_case(rows, "legal_default").get("video_y_candidate_from_zji_0x12") == 8208,
+            find_case(rows, "a4_default").get("video_y_from_zji_0x12") == 6824
+            and find_case(rows, "letter_default").get("video_y_from_zji_0x12") == 6408
+            and find_case(rows, "legal_default").get("video_y_from_zji_0x12") == 8208,
             "candidate remaining-unit values follow generated page heights",
         ),
     ]
 
     status = "pass" if all(item["status"] == "present" for item in checks) else "fail"
     return {
-        "summary": "Candidate source and unresolved copy gap for video state +0xd0/+0xd4 remaining-unit counters.",
+        "summary": "Directly verified source for video state +0xd0/+0xd4 remaining-unit counters.",
         "status": status,
         "source_reports": {name: str(path.relative_to(ROOT_DIR)) for name, path in INPUTS.items()},
-        "candidate_chain": [
-            {
-                "stage": "host_page_item",
-                "field": "ZJI_VIDEO_Y / item id 0x12",
-                "evidence": "generated ZjStream page item values and page-parameter builder switch case 0x12",
-                "status": "candidate source",
-            },
-            {
-                "stage": "page_parameter_builder",
-                "field": "page-param +0x26",
-                "evidence": "0x10009b4c writes item value at param_2 + 10 into param_1 +0x26",
-                "status": "proven for page-parameter object",
-            },
-            {
-                "stage": "active_video_parameter",
-                "field": "prepare param_1 +0x26",
-                "evidence": "0x10014910 reads param_1 +0x26 into video state +0xd0/+0xd4",
-                "status": "proven consumer",
-            },
-            {
-                "stage": "copy_or_alias_gap",
-                "field": "page-param +0x26 -> active work/prepare +0x26",
-                "evidence": "0x100104c8 simple copier does not visibly copy +0x26; video queue payload chain identifies the prepare argument as the 0x94 work object; current explicit-source scan finds no direct work-object writer",
-                "status": "unresolved and weakened",
-            },
+        "source_chain": [
+            {"stage":"START_PAGE", "field":"allocated 0x94 work", "evidence":"0x10009faf call8 allocate; a7 retains result", "status":"ELF-byte verified"},
+            {"stage":"direct_builder", "field":"work +0x26 = low16(ZJI_VIDEO_Y)", "evidence":"0x10009fe0 a10=a7; 0x10009fed call8 0x10009b4c; item 0x12 store at 0x10009c35", "status":"ELF-byte verified"},
+            {"stage":"prepare", "field":"video +0xd0/+0xd4 = work +0x26", "evidence":"0x10014910 consumer", "status":"static consumer verified"},
         ],
-        "case_matrix_if_alias_holds": rows,
+        "case_matrix": rows,
         "explicit_0x26_write_hits": work_26_hits,
         "current_conclusion": [
-            "ZJI_VIDEO_Y through page-param +0x26 is proven upstream, but it is no longer a strong source claim for active work +0x26.",
-            "The active video prepare argument is statically traced as the 0x94 work object; no direct writer for work +0x26 is visible in the current decompiled corpus.",
-            "Open firmware planning should treat +0xd0/+0xd4 as unsourced work-object fields, not as page height, until hardware traces or cleaner disassembly close the gap.",
+            "ZJI_VIDEO_Y directly initializes active work +0x26; prepare copies it into both remaining counters.",
+            "The alternate 0x100104c8 constructor is not used by the normal START_PAGE handler; its missing copy is irrelevant here.",
+            "The source is resolved. Hardware must still establish the physical meaning and safe completion behavior of the counters.",
         ],
         "checks": checks,
     }
@@ -202,28 +173,28 @@ def render_markdown(report: dict[str, Any]) -> str:
         "## Result",
         "",
         f"- status: `{report['status']}`",
-        "- scope: candidate source for video state `+0xd0/+0xd4` remaining-unit counters",
+        "- scope: direct source for video state `+0xd0/+0xd4` remaining-unit counters",
         "",
-        "## Candidate Chain",
+        "## Source Chain",
         "",
         "| Stage | Field | Status | Evidence |",
         "|---|---|---|---|",
     ]
-    for item in report["candidate_chain"]:
+    for item in report["source_chain"]:
         lines.append(f"| `{item['stage']}` | `{item['field']}` | `{item['status']}` | {item['evidence']} |")
 
     lines.extend(
         [
             "",
-            "## Projection If Alias Holds",
+            "## Initial Refill Projection",
             "",
-            "| Case | ZJI_VIDEO_Y candidate | +0xcc max chunk units | Stride +0xb8 | First refill units | First channel-B length |",
+            "| Case | ZJI_VIDEO_Y | +0xcc max chunk units | Stride +0xb8 | First refill units | First channel-B length |",
             "|---|---:|---:|---:|---:|---:|",
         ]
     )
-    for row in report["case_matrix_if_alias_holds"]:
+    for row in report["case_matrix"]:
         lines.append(
-            "| `{case}` | `{video_y_candidate_from_zji_0x12}` | `{max_chunk_units_plus_0xcc}` | `{stride_plus_0xb8}` | `{candidate_first_refill_units_if_alias_holds}` | `{candidate_first_channel_b_length_if_alias_holds}` |".format(
+            "| `{case}` | `{video_y_from_zji_0x12}` | `{max_chunk_units_plus_0xcc}` | `{stride_plus_0xb8}` | `{first_refill_units}` | `{first_channel_b_length}` |".format(
                 **row
             )
         )
@@ -248,7 +219,7 @@ def main() -> int:
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
     OUT_JSON.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
     OUT_MD.write_text(render_markdown(report))
-    print(f"status={report['status']} checks={len(report['checks'])} cases={len(report['case_matrix_if_alias_holds'])}")
+    print(f"status={report['status']} checks={len(report['checks'])} cases={len(report['case_matrix'])}")
     print(OUT_MD)
     return 0 if report["status"] == "pass" else 1
 

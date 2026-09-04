@@ -99,15 +99,15 @@ def timing_value(prepare_modes: dict[str, Any], *, lane_selector: int, datastore
 def projected_state(work: dict[str, Any], page: dict[str, Any], *, datastore_zero: bool, work_36_zero: bool) -> dict[str, Any]:
     work_84 = int(work.get("+0x84") or 0)
     resolution_x = int(page.get("ZJI_RESOLUTION_X") or 600)
-    nbie = int(page.get("ZJI_NBIE") or work.get("+0x22") or 1)
+    bpp = int(work["+0x22"])
     stride = align32(work_84) >> 3
-    state_200 = nbie
+    state_200 = bpp
     state_f4 = 0
     state_c4 = 1
     state_bc = stride
     callback_enabled = datastore_zero and work_36_zero
     callback_pointer = "unmodified"
-    if callback_enabled and nbie == 1:
+    if callback_enabled and bpp == 1:
         if resolution_x == 300:
             callback_pointer = "cleared"
         elif resolution_x == 600:
@@ -121,10 +121,14 @@ def projected_state(work: dict[str, Any], page: dict[str, Any], *, datastore_zer
             state_c4 = 2
             state_200 = 4
             callback_pointer = "1200dpi callback table"
+    if callback_enabled and bpp == 2 and resolution_x == 600:
+        state_f4 = 2
+        callback_pointer = "BPP2 callback PTR_LAB_1000684c"
     return {
         "resolution_x": resolution_x,
         "resolution_y": int(page.get("ZJI_RESOLUTION_Y") or 600),
-        "nbie": nbie,
+        "nbie": int(page.get("ZJI_NBIE", 0)),
+        "video_bpp": bpp,
         "work_plus_0x84": work_84,
         "stride_plus_0xb8": stride,
         "state_plus_0xbc": state_bc,
@@ -133,7 +137,12 @@ def projected_state(work: dict[str, Any], page: dict[str, Any], *, datastore_zer
         "state_plus_0xc8_state_200": state_200,
         "callback_enabled": callback_enabled,
         "callback_pointer": callback_pointer,
-        "unmodeled_inputs": ["work +0x18", "work +0x24", "work +0x26", "work +0x30", "work +0x32", "work +0x36"],
+        "work_plus_0x24_video_x": work["+0x24"],
+        "state_plus_0xd0": work["+0x26"],
+        "state_plus_0xd4": work["+0x26"],
+        "state_plus_0xe8": work["+0x30"],
+        "state_plus_0xec": work["+0x32"],
+        "unmodeled_inputs": ["physical timing calibration", "datastore 0x20", "lane selector"],
     }
 
 
@@ -147,9 +156,9 @@ def table_selection(
 ) -> dict[str, Any]:
     literals = prepare_modes["literal_values"]
     resolution_x = state["resolution_x"]
-    nbie = state["nbie"]
+    bpp = state["video_bpp"]
     state_200 = state["state_plus_0xc8_state_200"]
-    if nbie == 1 and resolution_x == 300:
+    if bpp == 1 and resolution_x == 300:
         if lane_selector == 0 and not secondary_output:
             name = "single_plane_300_default_table"
             base = int(literals[name], 16)
@@ -158,7 +167,7 @@ def table_selection(
             name = "single_plane_300_lane1_table"
             base = int(literals[name], 16) + lane_selector * 8
             words = elf.read_words(base, 2)
-    elif nbie == 1 and resolution_x == 600:
+    elif bpp == 1 and resolution_x == 600:
         if lane_selector == 0 and secondary_output:
             name = "single_plane_600_alt_table"
             base = int(literals[name], 16)
@@ -171,11 +180,11 @@ def table_selection(
             name = "single_plane_600_lane_table"
             base = int(literals[name], 16) + lane_selector * 8
             words = elf.read_words(base, 2)
-    elif nbie == 1 and resolution_x == 1200:
+    elif bpp == 1 and resolution_x == 1200:
         name = "single_plane_1200_table_sparse"
         base = int(literals["single_plane_1200_table"], 16)
         words = elf.read_words(base, 16)
-    elif nbie == 2:
+    elif bpp == 2:
         if lane_selector == 0 and secondary_output:
             name = "two_plane_lane0_table"
             base = int(literals[name], 16)
@@ -223,6 +232,7 @@ def scenario_projection(elf: ElfImage, prepare_modes: dict[str, Any], variant: d
                         "work_plus_0x36_assumed_zero": True,
                         "lane_selector": lane_selector,
                         "secondary_output_state_plus_0xec_nonzero": secondary_output,
+                        "matches_host_economode": secondary_output == bool(work["+0x32"]),
                         "derived_state": state,
                         "timing_registers": timing,
                         "table_selection": table,
@@ -270,8 +280,8 @@ def build_report() -> dict[str, Any]:
         "projections": projections,
         "normal_path_summary": [
             "All current generated host variants use ZJI_NBIE=1 and 600x600 declared resolution.",
-            "For datastore 0x20 == 0 and work +0x36 == 0, the prepare code promotes the video state to a two-output 600dpi setup: state +0xc8/200 = 2, +0xf4 = 2, and +0xbc = stride*2.",
-            "The exact vertical offset and remaining-unit fields still depend on work offsets not yet included in the print-path model.",
+            "For datastore 0x20 == 0 and work +0x36 == 0, BPP1 doubles the window; BPP2 keeps +0xbc=stride and selects a different callback. BPP4 has no matching setup-table branch in this model.",
+            "VIDEO_X/Y, RET, and ECONOMODE are sourced by the direct START_PAGE builder. Secondary-output scenarios matching the host ECONOMODE are marked explicitly.",
         ],
         "checks": checks,
     }
@@ -351,7 +361,7 @@ def render_markdown(report: dict[str, Any]) -> str:
             "## Open Firmware Meaning",
             "",
             "- This narrows the normal host-generated print cases to a small set of 600dpi setup scenarios instead of the whole firmware branch space.",
-            "- It still does not make 0xb100 safe to drive: vertical offsets, remaining-unit counts, and live status timing remain partly unmapped.",
+            "- It still does not make 0xb100 safe to drive: physical timing and live controller status remain uncalibrated.",
             "- The practical use is planning and comparison, not upload.",
             "",
         ]

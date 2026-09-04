@@ -97,7 +97,7 @@ def validate_model(path: Path) -> list[Check]:
         work = works[0]
         fields = work["fields"]
         check_equal(case, checks, "work_copy_count", page_items.get("ZJI_DMCOPIES", 1), fields.get("+0x0c"), "work +0x0c tracks page copy count")
-        check_equal(case, checks, "work_plane_count", page_items.get("ZJI_NBIE"), fields.get("+0x22"), "work +0x22 tracks page NBIE/plane count")
+        check_equal(case, checks, "work_video_bpp", page_items.get("ZJI_VIDEO_BPP"), fields.get("+0x22"), "work +0x22 tracks page VIDEO_BPP")
         check_equal(case, checks, "page_work_link", work["id"], pages[0].get("work_object"), "page object points at the modeled work object")
 
     if runtime and works:

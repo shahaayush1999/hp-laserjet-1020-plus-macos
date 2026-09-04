@@ -12,8 +12,8 @@ This generated report is offline only. It does not contact the printer.
 ## Sideband Copy Call
 
 - call: `FUN_1001b38c(PTR_DAT_10006304,iStack_84,0x14)`
-- interpreted as: `memcpy(dst=PTR_DAT_10006304 runtime block, src=iStack_84 active work, len=0x14)`
-- effect: copies early work fields out to the runtime block; does not fill active work +0x26/+0x30/+0x32
+- interpreted as: `memcpy(dst=PTR_DAT_10006304 runtime block, src=iStack_84 BIH payload, len=0x14)`
+- effect: copies the 20-byte BIH payload out to the runtime block; does not fill active work +0x26/+0x30/+0x32
 
 ## Direction Evidence
 
@@ -34,13 +34,13 @@ This generated report is offline only. It does not contact the printer.
 ## Effect On Prepare Fields
 
 - ruled out hidden source: 0x1000e414 case 0x29 memcpy does not copy PTR_DAT_10006304 into the active work object
-- still unsourced: `+0x26, +0x30, +0x32`
+- still unsourced: ``
 
 ## Checks
 
 | Check | Status | Detail |
 |---|---|---|
 | `memcpy_helper_direction_is_dest_src_len` | `present` | 0x1001b38c decompile shows reads from param_2 and writes to param_1 before the bad-instruction tail |
-| `jobmgr_sideband_copy_is_work_to_runtime_block` | `present` | JobMgr case 0x29 call copies iStack_84 active work into PTR_DAT_10006304 when interpreted with dest,src,len order |
+| `jobmgr_sideband_copy_is_work_to_runtime_block` | `present` | JobMgr case 0x29 call copies iStack_84 BIH payload into PTR_DAT_10006304 when interpreted with dest,src,len order |
 | `datastore_comparators_match_direction` | `present` | datastore read/write callers agree with dest,src,len direction |
-| `unsourced_fields_remain_after_copy_direction` | `present` | prepare field model still marks +0x26/+0x30/+0x32 unsourced after ruling out this copy path |
+| `sidebands_resolved_by_direct_builder` | `present` | direct START_PAGE item builder sources +0x26/+0x30/+0x32; the BIH copy is separate |

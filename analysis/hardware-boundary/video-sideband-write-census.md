@@ -10,21 +10,21 @@ This generated report is offline only. It does not contact the printer.
 
 ## Conclusion
 
-- The obvious page-param writes for +0x26/+0x30/+0x32 are upstream page-parameter fields, not active work-object writes.
+- The builder writes +0x26/+0x30/+0x32 directly into active work: START_PAGE supplies the allocated work as its destination.
 - The child-page `puVar1[0x13] = 0` false lead is byte +0x4c because the pointer is `undefined4 *`.
 - The JobMgr `puVar[0x13]` hits feed work +0x90 from runtime byte +0x13, not work +0x26.
 - A headless Ghidra instruction probe confirms 0x100104c8 has no stores to active work +0x26/+0x30/+0x32.
 - A whole-program Ghidra instruction scan finds `s16i` stores to offsets 0x26/0x30/0x32 only in the page-parameter builder.
-- A broader overlapping-store scan is noisy by design, but its selected direct-path hits do not identify an active-work sideband writer.
-- Within the selected print-path corpus, active work +0x26/+0x30/+0x32 remain unsourced.
+- The broad scan includes the same three direct work stores; other selected hits remain classified as false leads or unrelated state writes.
+- The old absence claim resulted from missing indirect-switch handlers in saved parser decompilation.
 
 ## Selected Hit Classification
 
 | Source | Line | Role | Byte offset | Text | Meaning |
 |---|---:|---|---|---|---|
-| `page_param_builder` | `102` | `upstream_page_param_writer` | `+0x26` | `*(undefined2 *)(param_1 + 0x26) = *(undefined2 *)((int)param_2 + 10);` | real page-param +0x26 writer, not active work |
-| `page_param_builder` | `119` | `upstream_page_param_writer` | `+0x30` | `*(undefined2 *)(param_1 + 0x30) = *(undefined2 *)((int)param_2 + 10);` | real page-param +0x30 writer, not active work |
-| `page_param_builder` | `122` | `upstream_page_param_writer` | `+0x32` | `*(undefined2 *)(param_1 + 0x32) = *(undefined2 *)((int)param_2 + 10);` | real page-param +0x32 writer, not active work |
+| `page_param_builder` | `102` | `direct_work_writer` | `+0x26` | `*(undefined2 *)(param_1 + 0x26) = *(undefined2 *)((int)param_2 + 10);` | real page-param +0x26 writer, not active work |
+| `page_param_builder` | `119` | `direct_work_writer` | `+0x30` | `*(undefined2 *)(param_1 + 0x30) = *(undefined2 *)((int)param_2 + 10);` | real page-param +0x30 writer, not active work |
+| `page_param_builder` | `122` | `direct_work_writer` | `+0x32` | `*(undefined2 *)(param_1 + 0x32) = *(undefined2 *)((int)param_2 + 10);` | real page-param +0x32 writer, not active work |
 | `child_page_create` | `14` | `scaled_index_false_lead` | `+0x4c` | `puVar1[0x13] = 0;` | undefined4* index 0x13 means child/page record byte offset +0x4c |
 | `job_mgr` | `188` | `runtime_byte_to_work_0x90` | `source +0x13, destination +0x90` | `*(undefined *)(iVar9 + 0x90) = puVar4[0x13];` | undefined* index 0x13 is runtime block byte +0x13 copied into work +0x90 |
 | `job_mgr` | `513` | `runtime_byte_to_work_0x90` | `source +0x13, destination +0x90` | `*(undefined *)(iVar9 + 0x90) = puVar6[0x13];` | undefined* index 0x13 is runtime block byte +0x13 copied into work +0x90 |
@@ -98,16 +98,16 @@ This generated report is offline only. It does not contact the printer.
 
 | Address | Function | Mnemonic | Offset | Width | Overlaps | Role | Meaning |
 |---|---|---|---:|---:|---|---|---|
-| `10009c35` | `10009b4c FUN_10009b4c` | `s16i` | `0x26` | `2` | `+0x26` | `upstream_page_param_exact_store` | real page-param sideband store; it is upstream of the active work object |
-| `10009c86` | `10009b4c FUN_10009b4c` | `s16i` | `0x30` | `2` | `+0x30` | `upstream_page_param_exact_store` | real page-param sideband store; it is upstream of the active work object |
-| `10009c8f` | `10009b4c FUN_10009b4c` | `s16i` | `0x32` | `2` | `+0x32` | `upstream_page_param_exact_store` | real page-param sideband store; it is upstream of the active work object |
+| `10009c35` | `10009b4c FUN_10009b4c` | `s16i` | `0x26` | `2` | `+0x26` | `direct_work_exact_store` | real page-param sideband store; it is upstream of the active work object |
+| `10009c86` | `10009b4c FUN_10009b4c` | `s16i` | `0x30` | `2` | `+0x30` | `direct_work_exact_store` | real page-param sideband store; it is upstream of the active work object |
+| `10009c8f` | `10009b4c FUN_10009b4c` | `s16i` | `0x32` | `2` | `+0x32` | `direct_work_exact_store` | real page-param sideband store; it is upstream of the active work object |
 | `10014a2a` | `10014910 FUN_10014910` | `s32i` | `0x24` | `4` | `+0x26` | `video_state_ring_clear` | 32-bit clear at video state ring entry +0x24; overlaps +0x26 as bytes, but not an active-work field write |
 
 ## Checks
 
 | Check | Status | Detail |
 |---|---|---|
-| `selected_sideband_hits_classified` | `present` | selected sideband-looking hits are classified as upstream writers, consumers, or false leads |
+| `selected_sideband_hits_classified` | `present` | selected sideband-looking hits are classified as direct work writers, consumers, or false leads |
 | `child_record_0x13_is_not_work_0x26` | `present` | 0x10010398 puVar1[0x13] is a 32-bit child/page record slot at byte +0x4c |
 | `runtime_byte_0x13_feeds_work_0x90_not_sideband` | `present` | JobMgr puVar[0x13] references are BIH/runtime byte +0x13 copied to work +0x90 |
 | `work_populate_still_lacks_sideband_copy` | `present` | simple page-param to work-object copier has no visible +0x26/+0x30/+0x32 copy |
@@ -115,7 +115,7 @@ This generated report is offline only. It does not contact the printer.
 | `ghidra_whole_program_sideband_stores_are_page_param_only` | `present` | whole-program Ghidra scan finds target-offset halfword stores only in the page-parameter builder |
 | `ghidra_overlap_scan_is_broad_not_exact_sideband_proof` | `present` | whole-program overlap scan is intentionally broader than exact target stores and catches noisy wider stores |
 | `ghidra_overlap_scan_finds_no_work_populate_or_jobmgr_sideband_writer` | `present` | no overlapping store hit appears in the selected active-work create/populate/JobMgr functions |
-| `ghidra_direct_path_overlap_hits_are_classified` | `present` | direct-path overlap hits are page-param exact stores or a video-state ring clear, not active work writers |
-| `no_selected_active_work_writer_found` | `present` | the selected print-path corpus still has no direct active work sideband writer |
-| `prepare_field_model_keeps_sidebands_unsourced` | `present` | prepare field model still marks +0x26/+0x30/+0x32 as unsourced on active work |
+| `ghidra_direct_path_overlap_hits_are_classified` | `present` | direct-path overlap hits are direct work stores or a separate video-state ring clear |
+| `direct_active_work_writers_found` | `present` | three builder stores directly populate active work under START_PAGE |
+| `prepare_field_model_resolves_sidebands` | `present` | prepare field model resolves all three sidebands through the direct builder |
 | `queue_chain_keeps_prepare_argument_as_work_object` | `present` | queue chain still identifies the active prepare argument as the 0x94 work object |

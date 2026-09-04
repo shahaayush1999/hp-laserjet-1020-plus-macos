@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `64`
+- checks: `65`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -37,13 +37,14 @@ It does not contact the printer.
 | `hardware_boundary_keeps_engine_video_unsafe` | `watch` | The do-not-touch boundary for early custom firmware must still include video and engine paths. | `analysis/hardware-boundary/hardware-boundary.json` |
 | `first_page_sequence_keeps_video_engine_registers_ordered` | `watch` | The first-page hardware sequence must preserve the ordered engine/video/refill risk boundary. | `analysis/hardware-boundary/first-page-hardware-sequence.json` |
 | `video_dataflow_contract_keeps_a4_default_path` | `watch` | The video dataflow contract must preserve concrete a4_default values through render/refill boundary formulas. | `analysis/hardware-boundary/video-dataflow-contract.json` |
-| `video_queue_payload_chain_identifies_prepare_work_object` | `watch` | The video queue payload chain must preserve that prepare receives the 0x94 work object, while work +0x26 remains unsourced. | `analysis/hardware-boundary/video-queue-payload-chain.json` |
-| `video_prepare_argument_fields_separate_sourced_and_unsourced` | `watch` | The prepare argument field model must keep render geometry sourced while +0x26/+0x30/+0x32 remain unsourced on active work. | `analysis/hardware-boundary/video-prepare-argument-fields.json` |
-| `video_sideband_write_census_rules_out_false_leads` | `watch` | The sideband write census must preserve that selected +0x26/+0x30/+0x32 hits and overlap hits are upstream writers, consumers, or false leads, not active work-object writers. | `analysis/hardware-boundary/video-sideband-write-census.json` |
-| `video_sideband_copy_direction_rules_out_hidden_source` | `watch` | The sideband copy-direction model must preserve that case 0x29 copies active work out to runtime block, not into work +0x26/+0x30/+0x32. | `analysis/hardware-boundary/video-sideband-copy-direction.json` |
+| `direct_start_page_and_native_semantics_verified` | `watch` | Direct stock ELF work creation and native semantic parser must both pass. | `analysis/hardware-boundary/zjs-direct-work.json` |
+| `video_queue_payload_chain_identifies_prepare_work_object` | `watch` | The video queue payload chain must preserve that prepare receives the 0x94 work object, with VIDEO_Y written directly into work +0x26. | `analysis/hardware-boundary/video-queue-payload-chain.json` |
+| `video_prepare_argument_fields_resolve_direct_sources` | `watch` | The prepare argument field model must keep render geometry sourced with +0x26/+0x30/+0x32 sourced directly on active work. | `analysis/hardware-boundary/video-prepare-argument-fields.json` |
+| `video_sideband_write_census_rules_out_false_leads` | `watch` | The sideband write census must preserve that selected +0x26/+0x30/+0x32 hits and overlap hits include three direct active work-object writers alongside consumers and false leads. | `analysis/hardware-boundary/video-sideband-write-census.json` |
+| `video_sideband_copy_direction_rules_out_hidden_source` | `watch` | The sideband copy-direction model must preserve that case 0x29 copies BIH payload out to runtime block, not into work +0x26/+0x30/+0x32. | `analysis/hardware-boundary/video-sideband-copy-direction.json` |
 | `video_sideband_default_impact_keeps_0x26_critical` | `watch` | The sideband default-impact model must keep +0x26 as print-path critical, +0x32 mode-critical, +0x30 lower priority, and classify the exact-offset Ghidra access scan. | `analysis/hardware-boundary/video-sideband-default-impact.json` |
 | `video_zero_sideband_scenario_keeps_refill_blocker_narrow` | `watch` | The zero-sideband scenario must keep the refined conclusion: initial channel A can arm, but channel-B refill/descriptor state is not seeded. | `analysis/hardware-boundary/video-zero-sideband-scenario.json` |
-| `video_remaining_units_keeps_alias_gap_explicit` | `watch` | Video remaining-unit model must preserve ZJI_VIDEO_Y upstream values while keeping active work +0x26 unsourced. | `analysis/hardware-boundary/video-remaining-units.json` |
+| `video_remaining_units_direct_source_verified` | `watch` | Video remaining-unit model must preserve the direct VIDEO_Y-to-work-to-counter chain. | `analysis/hardware-boundary/video-remaining-units.json` |
 | `video_chunk_sizing_projects_stride_and_cc` | `watch` | Video chunk sizing must preserve the stride-derived +0xcc projection and helper caveat. | `analysis/hardware-boundary/video-chunk-sizing.json` |
 | `video_helper_unsigned_division_instruction_verified` | `watch` | Unsigned floor division must be verified against complete ELF-matched helper instructions, including loop execution. | `analysis/hardware-boundary/video-helper-disassembly.json` |
 | `video_engine_register_semantics_resolved` | `watch` | The video/engine register-semantics report must keep the key engine, video, channel, and raw-band roles resolved. | `analysis/hardware-boundary/video-engine-register-semantics.json` |
@@ -57,7 +58,7 @@ It does not contact the printer.
 | `video_band_queue_model_resolved` | `watch` | The video band queue model must preserve +0xdc/+0xe0 collision behavior and raw-band A/B register writes. | `analysis/hardware-boundary/video-band-queue.json` |
 | `video_mode_flag_model_resolved` | `watch` | The video mode-flag model must preserve the work +0x74 to state +0xfc sign-bit fork between descriptor queue and raw linked-list refill. | `analysis/hardware-boundary/video-mode-flag.json` |
 | `video_refill_topology_model_resolved` | `watch` | The video refill topology must preserve the normal descriptor-queue path and the alternate raw linked-list path as separate unsafe video refills. | `analysis/hardware-boundary/video-refill-topology.json` |
-| `video_prepare_projection_narrows_generated_variants` | `watch` | The video prepare projection must keep the generated host variants narrowed to 600dpi/NBIE=1 setup scenarios with the expected two-output callback state. | `analysis/hardware-boundary/video-prepare-projection.json` |
+| `video_prepare_projection_narrows_generated_variants` | `watch` | The video prepare projection must keep the generated host variants at 600dpi with distinct BPP1/2/4 setup branches, sourced independently of NBIE. | `analysis/hardware-boundary/video-prepare-projection.json` |
 | `usb_family_remains_only_low_risk_target` | `watch` | USB 0xb300 must remain the only plausible early open-firmware hardware target. | `analysis/hardware-boundary/hardware-boundary.json` |
 | `pjl_first_query_is_echo` | `watch` | The first stock/open comparison must remain the non-printing PJL ECHO probe. | `analysis/non-printing-status-probe/pjl-status-contract.json` |
 | `pjl_contract_is_non_printing` | `watch` | The status query contract must stay outside print/video/engine execution. | `analysis/non-printing-status-probe/pjl-status-contract.json` |

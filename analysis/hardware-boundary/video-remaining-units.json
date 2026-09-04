@@ -1,118 +1,92 @@
 {
-  "candidate_chain": [
+  "case_matrix": [
     {
-      "evidence": "generated ZjStream page item values and page-parameter builder switch case 0x12",
-      "field": "ZJI_VIDEO_Y / item id 0x12",
-      "stage": "host_page_item",
-      "status": "candidate source"
-    },
-    {
-      "evidence": "0x10009b4c writes item value at param_2 + 10 into param_1 +0x26",
-      "field": "page-param +0x26",
-      "stage": "page_parameter_builder",
-      "status": "proven for page-parameter object"
-    },
-    {
-      "evidence": "0x10014910 reads param_1 +0x26 into video state +0xd0/+0xd4",
-      "field": "prepare param_1 +0x26",
-      "stage": "active_video_parameter",
-      "status": "proven consumer"
-    },
-    {
-      "evidence": "0x100104c8 simple copier does not visibly copy +0x26; video queue payload chain identifies the prepare argument as the 0x94 work object; current explicit-source scan finds no direct work-object writer",
-      "field": "page-param +0x26 -> active work/prepare +0x26",
-      "stage": "copy_or_alias_gap",
-      "status": "unresolved and weakened"
-    }
-  ],
-  "case_matrix_if_alias_holds": [
-    {
-      "candidate_first_channel_b_length_if_alias_holds": 4800,
-      "candidate_first_refill_units_if_alias_holds": 4,
       "case": "base",
+      "first_channel_b_length": 4800,
+      "first_refill_units": 4,
       "max_chunk_units_plus_0xcc": 4,
       "stride_plus_0xb8": 1200,
-      "video_y_candidate_from_zji_0x12": 6824
+      "video_y_from_zji_0x12": 6824
     },
     {
-      "candidate_first_channel_b_length_if_alias_holds": 0,
-      "candidate_first_refill_units_if_alias_holds": 0,
       "case": "a4_2400x600",
+      "first_channel_b_length": 0,
+      "first_refill_units": 0,
       "max_chunk_units_plus_0xcc": 0,
       "stride_plus_0xb8": 2384,
-      "video_y_candidate_from_zji_0x12": 6824
+      "video_y_from_zji_0x12": 6824
     },
     {
-      "candidate_first_channel_b_length_if_alias_holds": 7296,
-      "candidate_first_refill_units_if_alias_holds": 12,
       "case": "a4_600x600",
+      "first_channel_b_length": 7296,
+      "first_refill_units": 12,
       "max_chunk_units_plus_0xcc": 12,
       "stride_plus_0xb8": 608,
-      "video_y_candidate_from_zji_0x12": 6824
+      "video_y_from_zji_0x12": 6824
     },
     {
-      "candidate_first_channel_b_length_if_alias_holds": 4800,
-      "candidate_first_refill_units_if_alias_holds": 4,
       "case": "a4_cardstock_media",
+      "first_channel_b_length": 4800,
+      "first_refill_units": 4,
       "max_chunk_units_plus_0xcc": 4,
       "stride_plus_0xb8": 1200,
-      "video_y_candidate_from_zji_0x12": 6824
+      "video_y_from_zji_0x12": 6824
     },
     {
-      "candidate_first_channel_b_length_if_alias_holds": 4800,
-      "candidate_first_refill_units_if_alias_holds": 4,
       "case": "a4_default",
+      "first_channel_b_length": 4800,
+      "first_refill_units": 4,
       "max_chunk_units_plus_0xcc": 4,
       "stride_plus_0xb8": 1200,
-      "video_y_candidate_from_zji_0x12": 6824
+      "video_y_from_zji_0x12": 6824
     },
     {
-      "candidate_first_channel_b_length_if_alias_holds": 4800,
-      "candidate_first_refill_units_if_alias_holds": 4,
       "case": "a4_draft",
+      "first_channel_b_length": 4800,
+      "first_refill_units": 4,
       "max_chunk_units_plus_0xcc": 4,
       "stride_plus_0xb8": 1200,
-      "video_y_candidate_from_zji_0x12": 6824
+      "video_y_from_zji_0x12": 6824
     },
     {
-      "candidate_first_channel_b_length_if_alias_holds": 4800,
-      "candidate_first_refill_units_if_alias_holds": 4,
       "case": "a4_logical_clip",
+      "first_channel_b_length": 4800,
+      "first_refill_units": 4,
       "max_chunk_units_plus_0xcc": 4,
       "stride_plus_0xb8": 1200,
-      "video_y_candidate_from_zji_0x12": 6824
+      "video_y_from_zji_0x12": 6824
     },
     {
-      "candidate_first_channel_b_length_if_alias_holds": 4800,
-      "candidate_first_refill_units_if_alias_holds": 4,
       "case": "a4_manual_feed",
+      "first_channel_b_length": 4800,
+      "first_refill_units": 4,
       "max_chunk_units_plus_0xcc": 4,
       "stride_plus_0xb8": 1200,
-      "video_y_candidate_from_zji_0x12": 6824
+      "video_y_from_zji_0x12": 6824
     },
     {
-      "candidate_first_channel_b_length_if_alias_holds": 4800,
-      "candidate_first_refill_units_if_alias_holds": 4,
       "case": "a4_two_copies",
+      "first_channel_b_length": 4800,
+      "first_refill_units": 4,
       "max_chunk_units_plus_0xcc": 4,
       "stride_plus_0xb8": 1200,
-      "video_y_candidate_from_zji_0x12": 6824
+      "video_y_from_zji_0x12": 6824
     },
     {
-      "candidate_first_channel_b_length_if_alias_holds": 4928,
-      "candidate_first_refill_units_if_alias_holds": 4,
       "case": "legal_default",
+      "first_channel_b_length": 4928,
+      "first_refill_units": 4,
       "max_chunk_units_plus_0xcc": 4,
       "stride_plus_0xb8": 1232,
-      "video_y_candidate_from_zji_0x12": 8208
+      "video_y_from_zji_0x12": 8208
     },
     {
-      "candidate_first_channel_b_length_if_alias_holds": 4928,
-      "candidate_first_refill_units_if_alias_holds": 4,
       "case": "letter_default",
+      "first_channel_b_length": 4928,
+      "first_refill_units": 4,
       "max_chunk_units_plus_0xcc": 4,
       "stride_plus_0xb8": 1232,
-      "video_y_candidate_from_zji_0x12": 6408
+      "video_y_from_zji_0x12": 6408
     }
   ],
   "checks": [
@@ -137,13 +111,13 @@
       "status": "present"
     },
     {
-      "detail": "explicit +0x26 hits are builder and prepare paths; no direct work-populate copy is currently visible",
-      "name": "current_search_keeps_gap_explicit",
+      "detail": "ELF bytes prove the builder destination is the same active work pointer",
+      "name": "direct_start_page_builder_verified",
       "status": "present"
     },
     {
-      "detail": "queue payload chain points prepare at the 0x94 work object and weakens the page-param +0x26 alias theory",
-      "name": "queue_payload_chain_identifies_work_object",
+      "detail": "queue payload preserves the directly populated active work object",
+      "name": "queue_payload_identity",
       "status": "present"
     },
     {
@@ -153,9 +127,9 @@
     }
   ],
   "current_conclusion": [
-    "ZJI_VIDEO_Y through page-param +0x26 is proven upstream, but it is no longer a strong source claim for active work +0x26.",
-    "The active video prepare argument is statically traced as the 0x94 work object; no direct writer for work +0x26 is visible in the current decompiled corpus.",
-    "Open firmware planning should treat +0xd0/+0xd4 as unsourced work-object fields, not as page height, until hardware traces or cleaner disassembly close the gap."
+    "ZJI_VIDEO_Y directly initializes active work +0x26; prepare copies it into both remaining counters.",
+    "The alternate 0x100104c8 constructor is not used by the normal START_PAGE handler; its missing copy is irrelevant here.",
+    "The source is resolved. Hardware must still establish the physical meaning and safe completion behavior of the counters."
   ],
   "explicit_0x26_write_hits": [
     {
@@ -174,11 +148,31 @@
       "text": "*(uint *)(puVar15 + 0xd4) = (uint)*(ushort *)(param_1 + 0x26);"
     }
   ],
+  "source_chain": [
+    {
+      "evidence": "0x10009faf call8 allocate; a7 retains result",
+      "field": "allocated 0x94 work",
+      "stage": "START_PAGE",
+      "status": "ELF-byte verified"
+    },
+    {
+      "evidence": "0x10009fe0 a10=a7; 0x10009fed call8 0x10009b4c; item 0x12 store at 0x10009c35",
+      "field": "work +0x26 = low16(ZJI_VIDEO_Y)",
+      "stage": "direct_builder",
+      "status": "ELF-byte verified"
+    },
+    {
+      "evidence": "0x10014910 consumer",
+      "field": "video +0xd0/+0xd4 = work +0x26",
+      "stage": "prepare",
+      "status": "static consumer verified"
+    }
+  ],
   "source_reports": {
     "chunk_sizing": "analysis/hardware-boundary/video-chunk-sizing.json",
     "queue_payload_chain": "analysis/hardware-boundary/video-queue-payload-chain.json",
     "raster_fields": "analysis/open-firmware-model/raster-field-semantics.json"
   },
   "status": "pass",
-  "summary": "Candidate source and unresolved copy gap for video state +0xd0/+0xd4 remaining-unit counters."
+  "summary": "Directly verified source for video state +0xd0/+0xd4 remaining-unit counters."
 }

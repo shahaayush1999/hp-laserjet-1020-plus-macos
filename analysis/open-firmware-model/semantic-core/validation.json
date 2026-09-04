@@ -1,0 +1,2584 @@
+{
+  "cases": [
+    {
+      "case": "matrix-a4_2400x600/fragment=1",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_2400x600/fragment=7",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_2400x600/fragment=64",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_2400x600/fragment=1024",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_2400x600/fragment=65536",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_2400x600/exact-arena",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_2400x600/arena-short",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_600x600/fragment=1",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_600x600/fragment=7",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_600x600/fragment=64",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_600x600/fragment=1024",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_600x600/fragment=65536",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_600x600/exact-arena",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_600x600/arena-short",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_cardstock_media/fragment=1",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_cardstock_media/fragment=7",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_cardstock_media/fragment=64",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_cardstock_media/fragment=1024",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_cardstock_media/fragment=65536",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_cardstock_media/exact-arena",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_cardstock_media/arena-short",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_default/fragment=1",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_default/fragment=7",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_default/fragment=64",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_default/fragment=1024",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_default/fragment=65536",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_default/exact-arena",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_default/arena-short",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_draft/fragment=1",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_draft/fragment=7",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_draft/fragment=64",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_draft/fragment=1024",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_draft/fragment=65536",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_draft/exact-arena",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_draft/arena-short",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_logical_clip/fragment=1",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_logical_clip/fragment=7",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_logical_clip/fragment=64",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_logical_clip/fragment=1024",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_logical_clip/fragment=65536",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_logical_clip/exact-arena",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_logical_clip/arena-short",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_manual_feed/fragment=1",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_manual_feed/fragment=7",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_manual_feed/fragment=64",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_manual_feed/fragment=1024",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_manual_feed/fragment=65536",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_manual_feed/exact-arena",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_manual_feed/arena-short",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_two_copies/fragment=1",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_two_copies/fragment=7",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_two_copies/fragment=64",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_two_copies/fragment=1024",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_two_copies/fragment=65536",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_two_copies/exact-arena",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_two_copies/arena-short",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-legal_default/fragment=1",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-legal_default/fragment=7",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-legal_default/fragment=64",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-legal_default/fragment=1024",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-legal_default/fragment=65536",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-legal_default/exact-arena",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-legal_default/arena-short",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-letter_default/fragment=1",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-letter_default/fragment=7",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-letter_default/fragment=64",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-letter_default/fragment=1024",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-letter_default/fragment=65536",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-letter_default/exact-arena",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-letter_default/arena-short",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "case": "minimal-page-a4/fragment=1",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "minimal-page-a4/fragment=7",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "minimal-page-a4/fragment=64",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "minimal-page-a4/fragment=1024",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "minimal-page-a4/fragment=65536",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "minimal-page-a4/exact-arena",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "minimal-page-a4/arena-short",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "case": "empty",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "no-magic",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "missing-end-doc",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "nested-doc",
+      "result": 2,
+      "status": "pass"
+    },
+    {
+      "case": "page-before-doc",
+      "result": 2,
+      "status": "pass"
+    },
+    {
+      "case": "bih-before-page",
+      "result": 2,
+      "status": "pass"
+    },
+    {
+      "case": "bid-before-bih",
+      "result": 2,
+      "status": "pass"
+    },
+    {
+      "case": "end-jbig-before-bid",
+      "result": 2,
+      "status": "pass"
+    },
+    {
+      "case": "end-page-before-jbig",
+      "result": 2,
+      "status": "pass"
+    },
+    {
+      "case": "unknown-chunk",
+      "result": 4,
+      "status": "pass"
+    },
+    {
+      "case": "zero-arena",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "case": "bih-short",
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "end-doc-item-count",
+      "result": 4,
+      "status": "pass"
+    },
+    {
+      "case": "chunk-size-underflow",
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "chunk-size-overflow",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "case": "bad-signature",
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "metadata-too-large",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "case": "item-count-too-large",
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "item-size-zero",
+      "result": 4,
+      "status": "pass"
+    },
+    {
+      "case": "item-size-overflow",
+      "result": 4,
+      "status": "pass"
+    },
+    {
+      "case": "reserved-overflow",
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "duplicate-item",
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "item-count-short",
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "empty-bid",
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "duplicate-bih",
+      "result": 2,
+      "status": "pass"
+    },
+    {
+      "case": "reserved-zero-is-opaque",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "sideband-low16/0",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "sideband-low16/65537",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "sideband-low16/65535",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "BIH-byte-0",
+      "result": 4,
+      "status": "pass"
+    },
+    {
+      "case": "BIH-byte-1",
+      "result": 4,
+      "status": "pass"
+    },
+    {
+      "case": "BIH-byte-2",
+      "result": 4,
+      "status": "pass"
+    },
+    {
+      "case": "BIH-byte-3",
+      "result": 4,
+      "status": "pass"
+    },
+    {
+      "case": "BIH-zero-word-4",
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "BIH-zero-word-8",
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "BIH-zero-word-12",
+      "result": 1,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/0",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/1",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/2",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/3",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/4",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/5",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/6",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/7",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/8",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/9",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/10",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/11",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/12",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/13",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/14",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/15",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/16",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/17",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/18",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/19",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/20",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/21",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/22",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/23",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/24",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/25",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/26",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/27",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/28",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/29",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/30",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/31",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/32",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/33",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/34",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/35",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/36",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/37",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/38",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/39",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/40",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/41",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/42",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/43",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/44",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/45",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/46",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/47",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/48",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/49",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/50",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/51",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/52",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/53",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/54",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/55",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/56",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/57",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/58",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/59",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/60",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/61",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/62",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/63",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/64",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/65",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/66",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/67",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/68",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/69",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/70",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/71",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/72",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/73",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/74",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/75",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/76",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/77",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/78",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/79",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/80",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/81",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/82",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/83",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/84",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/85",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/86",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/87",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/88",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/89",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/90",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/91",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/92",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/93",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/94",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/95",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/96",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/97",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/98",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/99",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/100",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/101",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/102",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/103",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/104",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/105",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/106",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/107",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/108",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/109",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/110",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/111",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/112",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/113",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/114",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/115",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/116",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/117",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/118",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/119",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/120",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/121",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/122",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/123",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/124",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/125",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/126",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/127",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/128",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/129",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/130",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/131",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/132",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/133",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/134",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/135",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/136",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/137",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/138",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/139",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/140",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/141",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/142",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/143",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/144",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/145",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/146",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/147",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/148",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/149",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/150",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/151",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/152",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/153",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/154",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/155",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/156",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/157",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/158",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/159",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/160",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/161",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/162",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/163",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/164",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/165",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/166",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/167",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/168",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/169",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/170",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/171",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/172",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/173",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/174",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/175",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/176",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/177",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/178",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/179",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/180",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/181",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/182",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/183",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/184",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/185",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/186",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/187",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/188",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/189",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/190",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/191",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/192",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/193",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/194",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/195",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/196",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/197",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/198",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/199",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/200",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/201",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/202",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/203",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/204",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/205",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/206",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/207",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/208",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/209",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/210",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/211",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/212",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/213",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/214",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/215",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/216",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/217",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/218",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/219",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/220",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/221",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/222",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/223",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/224",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/225",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/226",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/227",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/228",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/229",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/230",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/231",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/232",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/233",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/234",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/235",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/236",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/237",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/238",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/239",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/240",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/241",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/242",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/243",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/244",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/245",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/246",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/247",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/248",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/249",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/250",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/251",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/252",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/253",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/254",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/255",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/256",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/257",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/258",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/259",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/260",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/261",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/262",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/263",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/264",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/265",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/266",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/267",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/268",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/269",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/270",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/271",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/272",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/273",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/274",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/275",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/276",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/277",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/278",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/279",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/280",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/281",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/282",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/283",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/284",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/285",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/286",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/287",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/288",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/289",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/290",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/291",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/292",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/293",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/294",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/295",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/296",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/297",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/298",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/299",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/300",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/301",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/302",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/303",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/304",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/305",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/306",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/307",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/308",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/309",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/310",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/311",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/312",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/313",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/314",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/315",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/316",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/317",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/318",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/319",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/320",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/321",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/322",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/323",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/324",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/325",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/326",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/327",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/328",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/329",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "truncated/330",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "case": "two-pages",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "two-raster-nodes",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "page-limit",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "case": "raster-limit",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/0",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/1",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/2",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/3",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/4",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/5",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/6",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/7",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/8",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/9",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/10",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/11",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/12",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/13",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/14",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/15",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/16",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/17",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/18",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/19",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/20",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/21",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/22",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/23",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/24",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/25",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/26",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/27",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/28",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/29",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/30",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/31",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/32",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/33",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/34",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/35",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/36",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/37",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/38",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/39",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/40",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/41",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/42",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/43",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/44",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/45",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/46",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/47",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/48",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/49",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/50",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/51",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/52",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/53",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/54",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/55",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/56",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/57",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/58",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/59",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/60",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/61",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/62",
+      "result": 0,
+      "status": "pass"
+    },
+    {
+      "case": "binary-payload/63",
+      "result": 0,
+      "status": "pass"
+    }
+  ],
+  "generated_samples": 11,
+  "limits": {
+    "chunk_bytes": 16777216,
+    "metadata_bytes": 4096,
+    "pages": 16,
+    "raster_nodes": 128
+  },
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "scope": "portable host-only semantic core; no firmware upload or hardware output",
+  "sideband_source_known": true,
+  "source_sha256": {
+    "host-check.c": "b1f32ca3a38d705bafc472f9725cc1a59a519bfc9779dc5a2d534441f1829c55",
+    "hp1020_semantic.c": "6cf62c5fa48a1113832004d033187832dad823337942fbcd566c34e42aa9c8ae",
+    "hp1020_semantic.h": "456b35a3710f63f696fa83abceb56d1dce6e54706c663cc2c575327a7b2521c5"
+  },
+  "status": "pass",
+  "total_cases": 512
+}

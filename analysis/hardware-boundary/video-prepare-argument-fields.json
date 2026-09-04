@@ -1,6 +1,11 @@
 {
   "checks": [
     {
+      "detail": "direct allocation, call and item stores match stock ELF",
+      "name": "direct_builder_elf_verified",
+      "status": "present"
+    },
+    {
       "detail": "queue payload chain identifies the prepare argument as the active 0x94 work object",
       "name": "prepare_argument_is_work_object",
       "status": "present"
@@ -11,8 +16,8 @@
       "status": "present"
     },
     {
-      "detail": "active work +0x26/+0x30/+0x32 remain unsourced in current visible code",
-      "name": "unsourced_sideband_fields_preserved",
+      "detail": "active work +0x26/+0x30/+0x32 are written by the direct START_PAGE builder",
+      "name": "direct_sideband_fields_sourced",
       "status": "present"
     },
     {
@@ -22,47 +27,45 @@
     }
   ],
   "conclusion": [
-    "Video prepare reads a mix of sourced fields, default/computed fields, and currently unsourced active-work sideband fields.",
+    "Video prepare reads direct START_PAGE item fields, default/computed fields, and JobMgr-filled raster geometry.",
     "The critical sourced render geometry is still strong: JobMgr fills +0x84/+0x88/+0x8c/+0x90 from the BIH/runtime block.",
-    "The weak fields are active work +0x26/+0x30/+0x32: page-param values exist upstream, but current visible code does not copy them into the work object passed to prepare."
+    "The former sideband gap is resolved: the item builder operates directly on active work; no intermediate copy is needed."
   ],
   "field_status_counts": {
     "computed_default": 1,
-    "default_or_unsourced": 1,
     "default_zero_for_current_path": 2,
-    "sourced": 4,
-    "unsourced_active_work": 3
+    "sourced": 8
   },
   "fields": [
     {
       "evidence": [
         {
-          "needle": "*(undefined2 *)(param_1 + 5) = *(undefined2 *)((int)param_2 + 0x1a)",
+          "needle": "*(undefined2 *)(param_1 + 0x14) = *(undefined2 *)((int)param_2 + 10)",
           "status": "present"
         }
       ],
       "evidence_needles": [
-        "*(undefined2 *)(param_1 + 5) = *(undefined2 *)((int)param_2 + 0x1a)"
+        "*(undefined2 *)(param_1 + 0x14) = *(undefined2 *)((int)param_2 + 10)"
       ],
       "field": "+0x14",
       "prepare_use": "timing/resolution branch input",
-      "source": "copied by 0x100104c8 from page-param +0x1a",
+      "source": "Direct START_PAGE item builder 0x10009b4c writes ZJI_RESOLUTION_X to active work +0x14",
       "source_status": "sourced",
       "status": "present"
     },
     {
       "evidence": [
         {
-          "needle": "*(undefined2 *)((int)param_1 + 0x16) = *(undefined2 *)((int)param_2 + 0x1e)",
+          "needle": "*(undefined2 *)(param_1 + 0x16) = *(undefined2 *)((int)param_2 + 10)",
           "status": "present"
         }
       ],
       "evidence_needles": [
-        "*(undefined2 *)((int)param_1 + 0x16) = *(undefined2 *)((int)param_2 + 0x1e)"
+        "*(undefined2 *)(param_1 + 0x16) = *(undefined2 *)((int)param_2 + 10)"
       ],
       "field": "+0x16",
       "prepare_use": "timing/resolution branch input",
-      "source": "copied by 0x100104c8 from page-param +0x1e",
+      "source": "Direct START_PAGE item builder 0x10009b4c writes ZJI_RESOLUTION_Y to active work +0x16",
       "source_status": "sourced",
       "status": "present"
     },
@@ -83,45 +86,40 @@
       ],
       "field": "+0x18",
       "prepare_use": "computed/adjusted vertical timing value",
-      "source": "cleared by common init, then written inside prepare",
+      "source": "Direct item OFFSET_X/default zero, then overwritten inside prepare",
       "source_status": "computed_default",
       "status": "present"
     },
     {
       "evidence": [
         {
-          "needle": "*(undefined2 *)((int)param_1 + 0x22) = *(undefined2 *)((int)param_2 + 0x12)",
+          "needle": "*(undefined2 *)(param_1 + 0x22) = *(undefined2 *)((int)param_2 + 10)",
           "status": "present"
         }
       ],
       "evidence_needles": [
-        "*(undefined2 *)((int)param_1 + 0x22) = *(undefined2 *)((int)param_2 + 0x12)"
+        "*(undefined2 *)(param_1 + 0x22) = *(undefined2 *)((int)param_2 + 10)"
       ],
       "field": "+0x22",
       "prepare_use": "mode/setup branch selector",
-      "source": "copied by 0x100104c8 from page-param +0x12",
+      "source": "Direct START_PAGE item builder 0x10009b4c writes ZJI_VIDEO_BPP to active work +0x22",
       "source_status": "sourced",
       "status": "present"
     },
     {
       "evidence": [
         {
-          "needle": "FUN_1001b4c8(param_1,0,0x46)",
-          "status": "present"
-        },
-        {
-          "needle": "*(ushort *)(param_1 + 0x24)",
+          "needle": "*(undefined2 *)(param_1 + 0x24) = *(undefined2 *)((int)param_2 + 10)",
           "status": "present"
         }
       ],
       "evidence_needles": [
-        "FUN_1001b4c8(param_1,0,0x46)",
-        "*(ushort *)(param_1 + 0x24)"
+        "*(undefined2 *)(param_1 + 0x24) = *(undefined2 *)((int)param_2 + 10)"
       ],
       "field": "+0x24",
       "prepare_use": "offset/centering input",
-      "source": "cleared by common init; no visible work-object writer in current static corpus",
-      "source_status": "default_or_unsourced",
+      "source": "Direct START_PAGE item builder 0x10009b4c writes ZJI_VIDEO_X to active work +0x24",
+      "source_status": "sourced",
       "status": "present"
     },
     {
@@ -129,20 +127,15 @@
         {
           "needle": "*(undefined2 *)(param_1 + 0x26) = *(undefined2 *)((int)param_2 + 10)",
           "status": "present"
-        },
-        {
-          "needle": "*(uint *)(puVar15 + 0xd0) = (uint)*(ushort *)(param_1 + 0x26)",
-          "status": "present"
         }
       ],
       "evidence_needles": [
-        "*(undefined2 *)(param_1 + 0x26) = *(undefined2 *)((int)param_2 + 10)",
-        "*(uint *)(puVar15 + 0xd0) = (uint)*(ushort *)(param_1 + 0x26)"
+        "*(undefined2 *)(param_1 + 0x26) = *(undefined2 *)((int)param_2 + 10)"
       ],
       "field": "+0x26",
       "prepare_use": "remaining-unit seed copied to video state +0xd0/+0xd4",
-      "source": "page-param +0x26 is built upstream, but not copied into active 0x94 work object by visible code",
-      "source_status": "unsourced_active_work",
+      "source": "Direct START_PAGE item builder 0x10009b4c writes ZJI_VIDEO_Y to active work +0x26",
+      "source_status": "sourced",
       "status": "present"
     },
     {
@@ -150,20 +143,15 @@
         {
           "needle": "*(undefined2 *)(param_1 + 0x30) = *(undefined2 *)((int)param_2 + 10)",
           "status": "present"
-        },
-        {
-          "needle": "*(uint *)(puVar15 + 0xe8) = (uint)*(ushort *)(param_1 + 0x30)",
-          "status": "present"
         }
       ],
       "evidence_needles": [
-        "*(undefined2 *)(param_1 + 0x30) = *(undefined2 *)((int)param_2 + 10)",
-        "*(uint *)(puVar15 + 0xe8) = (uint)*(ushort *)(param_1 + 0x30)"
+        "*(undefined2 *)(param_1 + 0x30) = *(undefined2 *)((int)param_2 + 10)"
       ],
       "field": "+0x30",
       "prepare_use": "copied to video state +0xe8",
-      "source": "page-param +0x30 is built upstream, but not copied into active 0x94 work object by visible code",
-      "source_status": "unsourced_active_work",
+      "source": "Direct START_PAGE item builder 0x10009b4c writes ZJI_RET (absent => zero) to active work +0x30",
+      "source_status": "sourced",
       "status": "present"
     },
     {
@@ -171,20 +159,15 @@
         {
           "needle": "*(undefined2 *)(param_1 + 0x32) = *(undefined2 *)((int)param_2 + 10)",
           "status": "present"
-        },
-        {
-          "needle": "*(uint *)(puVar15 + 0xec) = (uint)*(ushort *)(param_1 + 0x32)",
-          "status": "present"
         }
       ],
       "evidence_needles": [
-        "*(undefined2 *)(param_1 + 0x32) = *(undefined2 *)((int)param_2 + 10)",
-        "*(uint *)(puVar15 + 0xec) = (uint)*(ushort *)(param_1 + 0x32)"
+        "*(undefined2 *)(param_1 + 0x32) = *(undefined2 *)((int)param_2 + 10)"
       ],
       "field": "+0x32",
       "prepare_use": "copied to video state +0xec",
-      "source": "page-param +0x32 is built upstream, but not copied into active 0x94 work object by visible code",
-      "source_status": "unsourced_active_work",
+      "source": "Direct START_PAGE item builder 0x10009b4c writes ZJI_ECONOMODE to active work +0x32",
+      "source_status": "sourced",
       "status": "present"
     },
     {
@@ -204,7 +187,7 @@
       ],
       "field": "+0x36",
       "prepare_use": "normal setup branch gate",
-      "source": "cleared by common init for active work; page-param +0x36 case exists but is not visibly copied",
+      "source": "Common init zero; special item 0x65 can set one, but is absent from current host fixtures",
       "source_status": "default_zero_for_current_path",
       "status": "present"
     },

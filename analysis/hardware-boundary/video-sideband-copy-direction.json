@@ -6,7 +6,7 @@
       "status": "present"
     },
     {
-      "detail": "JobMgr case 0x29 call copies iStack_84 active work into PTR_DAT_10006304 when interpreted with dest,src,len order",
+      "detail": "JobMgr case 0x29 call copies iStack_84 BIH payload into PTR_DAT_10006304 when interpreted with dest,src,len order",
       "name": "jobmgr_sideband_copy_is_work_to_runtime_block",
       "status": "present"
     },
@@ -16,8 +16,8 @@
       "status": "present"
     },
     {
-      "detail": "prepare field model still marks +0x26/+0x30/+0x32 unsourced after ruling out this copy path",
-      "name": "unsourced_fields_remain_after_copy_direction",
+      "detail": "direct START_PAGE item builder sources +0x26/+0x30/+0x32; the BIH copy is separate",
+      "name": "sidebands_resolved_by_direct_builder",
       "status": "present"
     }
   ],
@@ -37,11 +37,7 @@
   ],
   "effect_on_prepare_fields": {
     "ruled_out_hidden_source": "0x1000e414 case 0x29 memcpy does not copy PTR_DAT_10006304 into the active work object",
-    "still_unsourced": [
-      "+0x26",
-      "+0x30",
-      "+0x32"
-    ]
+    "still_unsourced": []
   },
   "helper": {
     "argument_order": "destination, source, length",
@@ -73,9 +69,9 @@
   ],
   "sideband_call": {
     "call": "FUN_1001b38c(PTR_DAT_10006304,iStack_84,0x14)",
-    "effect": "copies early work fields out to the runtime block; does not fill active work +0x26/+0x30/+0x32",
+    "effect": "copies the 20-byte BIH payload out to the runtime block; does not fill active work +0x26/+0x30/+0x32",
     "function": "0x1000e414 hp1020_job_mgr_thread_candidate",
-    "interpreted_as": "memcpy(dst=PTR_DAT_10006304 runtime block, src=iStack_84 active work, len=0x14)",
+    "interpreted_as": "memcpy(dst=PTR_DAT_10006304 runtime block, src=iStack_84 BIH payload, len=0x14)",
     "present": true
   },
   "status": "pass",

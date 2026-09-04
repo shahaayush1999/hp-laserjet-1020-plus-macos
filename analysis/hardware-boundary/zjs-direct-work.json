@@ -1,0 +1,720 @@
+{
+  "case_matrix": [
+    {
+      "case": "a4_2400x600",
+      "fields": {
+        "+0x0a": 9,
+        "+0x0c": 1,
+        "+0x10": 1,
+        "+0x12": 1,
+        "+0x14": 600,
+        "+0x16": 600,
+        "+0x18": 0,
+        "+0x1c": 0,
+        "+0x1e": 19072,
+        "+0x20": 6824,
+        "+0x22": 4,
+        "+0x24": 4768,
+        "+0x26": 6824,
+        "+0x2a": 0,
+        "+0x30": 0,
+        "+0x32": 0,
+        "+0x36": 0,
+        "+0x74": 0
+      }
+    },
+    {
+      "case": "a4_600x600",
+      "fields": {
+        "+0x0a": 9,
+        "+0x0c": 1,
+        "+0x10": 1,
+        "+0x12": 1,
+        "+0x14": 600,
+        "+0x16": 600,
+        "+0x18": 0,
+        "+0x1c": 0,
+        "+0x1e": 4768,
+        "+0x20": 6824,
+        "+0x22": 1,
+        "+0x24": 4768,
+        "+0x26": 6824,
+        "+0x2a": 0,
+        "+0x30": 0,
+        "+0x32": 0,
+        "+0x36": 0,
+        "+0x74": 0
+      }
+    },
+    {
+      "case": "a4_cardstock_media",
+      "fields": {
+        "+0x0a": 9,
+        "+0x0c": 1,
+        "+0x10": 261,
+        "+0x12": 1,
+        "+0x14": 600,
+        "+0x16": 600,
+        "+0x18": 0,
+        "+0x1c": 0,
+        "+0x1e": 9536,
+        "+0x20": 6824,
+        "+0x22": 2,
+        "+0x24": 4768,
+        "+0x26": 6824,
+        "+0x2a": 0,
+        "+0x30": 0,
+        "+0x32": 0,
+        "+0x36": 0,
+        "+0x74": 0
+      }
+    },
+    {
+      "case": "a4_default",
+      "fields": {
+        "+0x0a": 9,
+        "+0x0c": 1,
+        "+0x10": 1,
+        "+0x12": 1,
+        "+0x14": 600,
+        "+0x16": 600,
+        "+0x18": 0,
+        "+0x1c": 0,
+        "+0x1e": 9536,
+        "+0x20": 6824,
+        "+0x22": 2,
+        "+0x24": 4768,
+        "+0x26": 6824,
+        "+0x2a": 0,
+        "+0x30": 0,
+        "+0x32": 0,
+        "+0x36": 0,
+        "+0x74": 0
+      }
+    },
+    {
+      "case": "a4_draft",
+      "fields": {
+        "+0x0a": 9,
+        "+0x0c": 1,
+        "+0x10": 1,
+        "+0x12": 1,
+        "+0x14": 600,
+        "+0x16": 600,
+        "+0x18": 0,
+        "+0x1c": 0,
+        "+0x1e": 9536,
+        "+0x20": 6824,
+        "+0x22": 2,
+        "+0x24": 4768,
+        "+0x26": 6824,
+        "+0x2a": 0,
+        "+0x30": 0,
+        "+0x32": 1,
+        "+0x36": 0,
+        "+0x74": 0
+      }
+    },
+    {
+      "case": "a4_logical_clip",
+      "fields": {
+        "+0x0a": 9,
+        "+0x0c": 1,
+        "+0x10": 1,
+        "+0x12": 1,
+        "+0x14": 600,
+        "+0x16": 600,
+        "+0x18": 192,
+        "+0x1c": 96,
+        "+0x1e": 9536,
+        "+0x20": 6824,
+        "+0x22": 2,
+        "+0x24": 4768,
+        "+0x26": 6824,
+        "+0x2a": 0,
+        "+0x30": 0,
+        "+0x32": 0,
+        "+0x36": 0,
+        "+0x74": 0
+      }
+    },
+    {
+      "case": "a4_manual_feed",
+      "fields": {
+        "+0x0a": 9,
+        "+0x0c": 1,
+        "+0x10": 1,
+        "+0x12": 1,
+        "+0x14": 600,
+        "+0x16": 600,
+        "+0x18": 0,
+        "+0x1c": 0,
+        "+0x1e": 9536,
+        "+0x20": 6824,
+        "+0x22": 2,
+        "+0x24": 4768,
+        "+0x26": 6824,
+        "+0x2a": 0,
+        "+0x30": 0,
+        "+0x32": 0,
+        "+0x36": 0,
+        "+0x74": 0
+      }
+    },
+    {
+      "case": "a4_two_copies",
+      "fields": {
+        "+0x0a": 9,
+        "+0x0c": 2,
+        "+0x10": 1,
+        "+0x12": 1,
+        "+0x14": 600,
+        "+0x16": 600,
+        "+0x18": 0,
+        "+0x1c": 0,
+        "+0x1e": 9536,
+        "+0x20": 6824,
+        "+0x22": 2,
+        "+0x24": 4768,
+        "+0x26": 6824,
+        "+0x2a": 0,
+        "+0x30": 0,
+        "+0x32": 0,
+        "+0x36": 0,
+        "+0x74": 0
+      }
+    },
+    {
+      "case": "legal_default",
+      "fields": {
+        "+0x0a": 5,
+        "+0x0c": 1,
+        "+0x10": 1,
+        "+0x12": 1,
+        "+0x14": 600,
+        "+0x16": 600,
+        "+0x18": 0,
+        "+0x1c": 0,
+        "+0x1e": 9816,
+        "+0x20": 8208,
+        "+0x22": 2,
+        "+0x24": 4908,
+        "+0x26": 8208,
+        "+0x2a": 0,
+        "+0x30": 0,
+        "+0x32": 0,
+        "+0x36": 0,
+        "+0x74": 0
+      }
+    },
+    {
+      "case": "letter_default",
+      "fields": {
+        "+0x0a": 1,
+        "+0x0c": 1,
+        "+0x10": 1,
+        "+0x12": 1,
+        "+0x14": 600,
+        "+0x16": 600,
+        "+0x18": 0,
+        "+0x1c": 0,
+        "+0x1e": 9816,
+        "+0x20": 6408,
+        "+0x22": 2,
+        "+0x24": 4908,
+        "+0x26": 6408,
+        "+0x2a": 0,
+        "+0x30": 0,
+        "+0x32": 0,
+        "+0x36": 0,
+        "+0x74": 0
+      }
+    }
+  ],
+  "checks": [
+    {
+      "address": "0x1000600c",
+      "bytes": "100036f0",
+      "expected": "100036f0",
+      "meaning": "chunk-type switch table",
+      "name": "chunk_switch_base",
+      "status": "present"
+    },
+    {
+      "address": "0x100036f8",
+      "bytes": "10009f86",
+      "expected": "10009f86",
+      "meaning": "ZjStream type 2 selects this handler",
+      "name": "start_page_target",
+      "status": "present"
+    },
+    {
+      "address": "0x10009faf",
+      "bytes": "58149e",
+      "expected": "58149e",
+      "meaning": "call8 0x1000f228; returns 0x94 work in a10",
+      "name": "work_allocate",
+      "status": "present"
+    },
+    {
+      "address": "0x10009fb5",
+      "bytes": "d7a0",
+      "expected": "d7a0",
+      "meaning": "mov.n a7,a10",
+      "name": "save_work",
+      "status": "present"
+    },
+    {
+      "address": "0x10009fe0",
+      "bytes": "da702e7477",
+      "expected": "da702e7477",
+      "meaning": "mov.n a10,a7; only writes flag byte +0x77",
+      "name": "builder_destination",
+      "status": "present"
+    },
+    {
+      "address": "0x10009fe5",
+      "bytes": "2b12652c1267dd305bfed7",
+      "expected": "2b12652c1267dd305bfed7",
+      "meaning": "a11=item buffer, a12=reserved length, a13=item count; call8 0x10009b4c",
+      "name": "builder_arguments",
+      "status": "present"
+    },
+    {
+      "address": "0x10009ffd",
+      "bytes": "c08598109713",
+      "expected": "c08598109713",
+      "meaning": "queue message 5, payload a7 at stack+12",
+      "name": "work_queue_message",
+      "status": "present"
+    },
+    {
+      "address": "0x10009b4f",
+      "bytes": "d720",
+      "expected": "d720",
+      "meaning": "mov.n a7,a2 saves incoming call8 destination",
+      "name": "builder_preserves_destination",
+      "status": "present"
+    },
+    {
+      "address": "0x10009b67",
+      "bytes": "d270",
+      "expected": "d270",
+      "meaning": "mov.n a2,a7 restores destination before item dispatch",
+      "name": "builder_destination_for_stores",
+      "status": "present"
+    },
+    {
+      "address": "0x10009ff3",
+      "bytes": "287106cc83c0f12f7506",
+      "expected": "287106cc83c0f12f7506",
+      "meaning": "zero copies become one",
+      "name": "default_copies",
+      "status": "present"
+    },
+    {
+      "address": "0x10009bae",
+      "bytes": "283105",
+      "expected": "283105",
+      "meaning": "l16ui a8,a3,10 takes low half of BE uint32 item",
+      "name": "ZJI_DMPAPER_load",
+      "status": "present"
+    },
+    {
+      "address": "0x10009bb1",
+      "bytes": "282505",
+      "expected": "282505",
+      "meaning": "s16i a8,a2,10",
+      "name": "ZJI_DMPAPER_store",
+      "status": "present"
+    },
+    {
+      "address": "0x10009bb7",
+      "bytes": "283105",
+      "expected": "283105",
+      "meaning": "l16ui a8,a3,10 takes low half of BE uint32 item",
+      "name": "ZJI_DMCOPIES_load",
+      "status": "present"
+    },
+    {
+      "address": "0x10009bba",
+      "bytes": "282506",
+      "expected": "282506",
+      "meaning": "s16i a8,a2,12",
+      "name": "ZJI_DMCOPIES_store",
+      "status": "present"
+    },
+    {
+      "address": "0x10009bcf",
+      "bytes": "283105",
+      "expected": "283105",
+      "meaning": "l16ui a8,a3,10 takes low half of BE uint32 item",
+      "name": "ZJI_DMMEDIATYPE_load",
+      "status": "present"
+    },
+    {
+      "address": "0x10009bd2",
+      "bytes": "282508",
+      "expected": "282508",
+      "meaning": "s16i a8,a2,16",
+      "name": "ZJI_DMMEDIATYPE_store",
+      "status": "present"
+    },
+    {
+      "address": "0x10009bd8",
+      "bytes": "283105",
+      "expected": "283105",
+      "meaning": "l16ui a8,a3,10 takes low half of BE uint32 item",
+      "name": "ZJI_NBIE_load",
+      "status": "present"
+    },
+    {
+      "address": "0x10009bdb",
+      "bytes": "282509",
+      "expected": "282509",
+      "meaning": "s16i a8,a2,18",
+      "name": "ZJI_NBIE_store",
+      "status": "present"
+    },
+    {
+      "address": "0x10009be1",
+      "bytes": "283105",
+      "expected": "283105",
+      "meaning": "l16ui a8,a3,10 takes low half of BE uint32 item",
+      "name": "ZJI_RESOLUTION_X_load",
+      "status": "present"
+    },
+    {
+      "address": "0x10009be7",
+      "bytes": "28250a",
+      "expected": "28250a",
+      "meaning": "s16i a8,a2,20",
+      "name": "ZJI_RESOLUTION_X_store",
+      "status": "present"
+    },
+    {
+      "address": "0x10009bf0",
+      "bytes": "283105",
+      "expected": "283105",
+      "meaning": "l16ui a8,a3,10 takes low half of BE uint32 item",
+      "name": "ZJI_RESOLUTION_Y_load",
+      "status": "present"
+    },
+    {
+      "address": "0x10009bf6",
+      "bytes": "28250b",
+      "expected": "28250b",
+      "meaning": "s16i a8,a2,22",
+      "name": "ZJI_RESOLUTION_Y_store",
+      "status": "present"
+    },
+    {
+      "address": "0x10009bff",
+      "bytes": "283105",
+      "expected": "283105",
+      "meaning": "l16ui a8,a3,10 takes low half of BE uint32 item",
+      "name": "ZJI_OFFSET_X_load",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c02",
+      "bytes": "28250c",
+      "expected": "28250c",
+      "meaning": "s16i a8,a2,24",
+      "name": "ZJI_OFFSET_X_store",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c08",
+      "bytes": "283105",
+      "expected": "283105",
+      "meaning": "l16ui a8,a3,10 takes low half of BE uint32 item",
+      "name": "ZJI_OFFSET_Y_load",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c0b",
+      "bytes": "28250e",
+      "expected": "28250e",
+      "meaning": "s16i a8,a2,28",
+      "name": "ZJI_OFFSET_Y_store",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c3b",
+      "bytes": "283105",
+      "expected": "283105",
+      "meaning": "l16ui a8,a3,10 takes low half of BE uint32 item",
+      "name": "ZJI_RASTER_X_load",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c3e",
+      "bytes": "28250f",
+      "expected": "28250f",
+      "meaning": "s16i a8,a2,30",
+      "name": "ZJI_RASTER_X_store",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c44",
+      "bytes": "283105",
+      "expected": "283105",
+      "meaning": "l16ui a8,a3,10 takes low half of BE uint32 item",
+      "name": "ZJI_RASTER_Y_load",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c47",
+      "bytes": "282510",
+      "expected": "282510",
+      "meaning": "s16i a8,a2,32",
+      "name": "ZJI_RASTER_Y_store",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c20",
+      "bytes": "283105",
+      "expected": "283105",
+      "meaning": "l16ui a8,a3,10 takes low half of BE uint32 item",
+      "name": "ZJI_VIDEO_BPP_load",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c23",
+      "bytes": "282511",
+      "expected": "282511",
+      "meaning": "s16i a8,a2,34",
+      "name": "ZJI_VIDEO_BPP_store",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c29",
+      "bytes": "283105",
+      "expected": "283105",
+      "meaning": "l16ui a8,a3,10 takes low half of BE uint32 item",
+      "name": "ZJI_VIDEO_X_load",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c2c",
+      "bytes": "282512",
+      "expected": "282512",
+      "meaning": "s16i a8,a2,36",
+      "name": "ZJI_VIDEO_X_store",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c32",
+      "bytes": "283105",
+      "expected": "283105",
+      "meaning": "l16ui a8,a3,10 takes low half of BE uint32 item",
+      "name": "ZJI_VIDEO_Y_load",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c35",
+      "bytes": "282513",
+      "expected": "282513",
+      "meaning": "s16i a8,a2,38",
+      "name": "ZJI_VIDEO_Y_store",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c4d",
+      "bytes": "283105",
+      "expected": "283105",
+      "meaning": "l16ui a8,a3,10 takes low half of BE uint32 item",
+      "name": "ZJI_INTERLACE_load",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c50",
+      "bytes": "282515",
+      "expected": "282515",
+      "meaning": "s16i a8,a2,42",
+      "name": "ZJI_INTERLACE_store",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c83",
+      "bytes": "283105",
+      "expected": "283105",
+      "meaning": "l16ui a8,a3,10 takes low half of BE uint32 item",
+      "name": "ZJI_RET_load",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c86",
+      "bytes": "282518",
+      "expected": "282518",
+      "meaning": "s16i a8,a2,48",
+      "name": "ZJI_RET_store",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c8c",
+      "bytes": "283105",
+      "expected": "283105",
+      "meaning": "l16ui a8,a3,10 takes low half of BE uint32 item",
+      "name": "ZJI_ECONOMODE_load",
+      "status": "present"
+    },
+    {
+      "address": "0x10009c8f",
+      "bytes": "282519",
+      "expected": "282519",
+      "meaning": "s16i a8,a2,50",
+      "name": "ZJI_ECONOMODE_store",
+      "status": "present"
+    },
+    {
+      "meaning": "common init zeros low body; missing RET defaults zero",
+      "name": "early_fields_zero_initialized",
+      "status": "present"
+    }
+  ],
+  "conclusion": "START_PAGE calls the item builder directly on the allocated 0x94 work; no hidden copy or alias is required.",
+  "correction": [
+    "+0x26 is VIDEO_Y; +0x30 is RET (absent => zero); +0x32 is ECONOMODE.",
+    "+0x22 is VIDEO_BPP, while NBIE is +0x12. Default BPP=2; 600x600 variant=1; 2400x600 variant=4.",
+    "0x10010398 -> 0x100104c8 is a different constructor path; its missing stores do not establish missing START_PAGE fields.",
+    "The saved 0x10009d34 decompilation stops at the indirect switch and omitted these handlers."
+  ],
+  "fields": [
+    {
+      "default": 0,
+      "item": "ZJI_DMPAPER",
+      "item_id": "0x03",
+      "switch_target": "0x10009bae",
+      "width": 16,
+      "work_offset": "+0x0a"
+    },
+    {
+      "default": 1,
+      "item": "ZJI_DMCOPIES",
+      "item_id": "0x04",
+      "switch_target": "0x10009bb7",
+      "width": 16,
+      "work_offset": "+0x0c"
+    },
+    {
+      "default": 0,
+      "item": "ZJI_DMMEDIATYPE",
+      "item_id": "0x06",
+      "switch_target": "0x10009bcf",
+      "width": 16,
+      "work_offset": "+0x10"
+    },
+    {
+      "default": 0,
+      "item": "ZJI_NBIE",
+      "item_id": "0x07",
+      "switch_target": "0x10009bd8",
+      "width": 16,
+      "work_offset": "+0x12"
+    },
+    {
+      "default": 0,
+      "item": "ZJI_RESOLUTION_X",
+      "item_id": "0x08",
+      "switch_target": "0x10009be1",
+      "width": 16,
+      "work_offset": "+0x14"
+    },
+    {
+      "default": 0,
+      "item": "ZJI_RESOLUTION_Y",
+      "item_id": "0x09",
+      "switch_target": "0x10009bf0",
+      "width": 16,
+      "work_offset": "+0x16"
+    },
+    {
+      "default": 0,
+      "item": "ZJI_OFFSET_X",
+      "item_id": "0x0a",
+      "switch_target": "0x10009bff",
+      "width": 16,
+      "work_offset": "+0x18"
+    },
+    {
+      "default": 0,
+      "item": "ZJI_OFFSET_Y",
+      "item_id": "0x0b",
+      "switch_target": "0x10009c08",
+      "width": 16,
+      "work_offset": "+0x1c"
+    },
+    {
+      "default": 0,
+      "item": "ZJI_RASTER_X",
+      "item_id": "0x0c",
+      "switch_target": "0x10009c3b",
+      "width": 16,
+      "work_offset": "+0x1e"
+    },
+    {
+      "default": 0,
+      "item": "ZJI_RASTER_Y",
+      "item_id": "0x0d",
+      "switch_target": "0x10009c44",
+      "width": 16,
+      "work_offset": "+0x20"
+    },
+    {
+      "default": 0,
+      "item": "ZJI_VIDEO_BPP",
+      "item_id": "0x10",
+      "switch_target": "0x10009c20",
+      "width": 16,
+      "work_offset": "+0x22"
+    },
+    {
+      "default": 0,
+      "item": "ZJI_VIDEO_X",
+      "item_id": "0x11",
+      "switch_target": "0x10009c29",
+      "width": 16,
+      "work_offset": "+0x24"
+    },
+    {
+      "default": 0,
+      "item": "ZJI_VIDEO_Y",
+      "item_id": "0x12",
+      "switch_target": "0x10009c32",
+      "width": 16,
+      "work_offset": "+0x26"
+    },
+    {
+      "default": 0,
+      "item": "ZJI_INTERLACE",
+      "item_id": "0x13",
+      "switch_target": "0x10009c4d",
+      "width": 16,
+      "work_offset": "+0x2a"
+    },
+    {
+      "default": 0,
+      "item": "ZJI_RET",
+      "item_id": "0x16",
+      "switch_target": "0x10009c83",
+      "width": 16,
+      "work_offset": "+0x30"
+    },
+    {
+      "default": 0,
+      "item": "ZJI_ECONOMODE",
+      "item_id": "0x17",
+      "switch_target": "0x10009c8c",
+      "width": 16,
+      "work_offset": "+0x32"
+    }
+  ],
+  "limits": [
+    "Static source/dataflow proof, not proof of a live page.",
+    "Page items use low 16 bits. Malformed reserved lengths and physical timing still require separate analysis."
+  ],
+  "source_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "status": "pass"
+}

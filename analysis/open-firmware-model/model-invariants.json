@@ -43,8 +43,8 @@
   },
   {
     "case": "base",
-    "detail": "work +0x22 tracks page NBIE/plane count",
-    "name": "work_plane_count",
+    "detail": "work +0x22 tracks page VIDEO_BPP",
+    "name": "work_video_bpp",
     "severity": "watch"
   },
   {
@@ -157,8 +157,8 @@
   },
   {
     "case": "a4_2400x600",
-    "detail": "work +0x22 tracks page NBIE/plane count",
-    "name": "work_plane_count",
+    "detail": "work +0x22 tracks page VIDEO_BPP",
+    "name": "work_video_bpp",
     "severity": "watch"
   },
   {
@@ -271,8 +271,8 @@
   },
   {
     "case": "a4_600x600",
-    "detail": "work +0x22 tracks page NBIE/plane count",
-    "name": "work_plane_count",
+    "detail": "work +0x22 tracks page VIDEO_BPP",
+    "name": "work_video_bpp",
     "severity": "watch"
   },
   {
@@ -385,8 +385,8 @@
   },
   {
     "case": "a4_cardstock_media",
-    "detail": "work +0x22 tracks page NBIE/plane count",
-    "name": "work_plane_count",
+    "detail": "work +0x22 tracks page VIDEO_BPP",
+    "name": "work_video_bpp",
     "severity": "watch"
   },
   {
@@ -499,8 +499,8 @@
   },
   {
     "case": "a4_default",
-    "detail": "work +0x22 tracks page NBIE/plane count",
-    "name": "work_plane_count",
+    "detail": "work +0x22 tracks page VIDEO_BPP",
+    "name": "work_video_bpp",
     "severity": "watch"
   },
   {
@@ -613,8 +613,8 @@
   },
   {
     "case": "a4_draft",
-    "detail": "work +0x22 tracks page NBIE/plane count",
-    "name": "work_plane_count",
+    "detail": "work +0x22 tracks page VIDEO_BPP",
+    "name": "work_video_bpp",
     "severity": "watch"
   },
   {
@@ -727,8 +727,8 @@
   },
   {
     "case": "a4_logical_clip",
-    "detail": "work +0x22 tracks page NBIE/plane count",
-    "name": "work_plane_count",
+    "detail": "work +0x22 tracks page VIDEO_BPP",
+    "name": "work_video_bpp",
     "severity": "watch"
   },
   {
@@ -841,8 +841,8 @@
   },
   {
     "case": "a4_manual_feed",
-    "detail": "work +0x22 tracks page NBIE/plane count",
-    "name": "work_plane_count",
+    "detail": "work +0x22 tracks page VIDEO_BPP",
+    "name": "work_video_bpp",
     "severity": "watch"
   },
   {
@@ -955,8 +955,8 @@
   },
   {
     "case": "a4_two_copies",
-    "detail": "work +0x22 tracks page NBIE/plane count",
-    "name": "work_plane_count",
+    "detail": "work +0x22 tracks page VIDEO_BPP",
+    "name": "work_video_bpp",
     "severity": "watch"
   },
   {
@@ -1069,8 +1069,8 @@
   },
   {
     "case": "legal_default",
-    "detail": "work +0x22 tracks page NBIE/plane count",
-    "name": "work_plane_count",
+    "detail": "work +0x22 tracks page VIDEO_BPP",
+    "name": "work_video_bpp",
     "severity": "watch"
   },
   {
@@ -1183,8 +1183,8 @@
   },
   {
     "case": "letter_default",
-    "detail": "work +0x22 tracks page NBIE/plane count",
-    "name": "work_plane_count",
+    "detail": "work +0x22 tracks page VIDEO_BPP",
+    "name": "work_video_bpp",
     "severity": "watch"
   },
   {

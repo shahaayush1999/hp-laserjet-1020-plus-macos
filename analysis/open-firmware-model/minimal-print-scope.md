@@ -43,7 +43,7 @@ USB bulk receive and framing now have an offline-validated inert implementation.
 - USB bulk re-arm model: `pass`, descriptor pool `0x90021370`, submit register `0xb3000234`
 - sideband access hits classified: `19`
 - sideband risk split: `+0x26=critical`, `+0x32=mode_critical`, `+0x30=unknown_low_in_current_static_view`
-- remaining-unit active-work source gap: `true`
+- remaining-unit active-work source gap: `false`
 
 ## Open Bulk Parser Probe Evidence
 
@@ -71,9 +71,9 @@ USB bulk receive and framing now have an offline-validated inert implementation.
 | USB upload envelope | `available` | keep ACL/PJL upload wrapper for volatile firmware load | `low` |
 | USB endpoint-0 descriptor/control path | `partially implemented` | live prove marker descriptor; marker now has a tiny gate-clear rearm loop, but not full stock ThreadX/event completion handling | `medium` |
 | USB bulk receive to ZjStream parser | `implemented and offline validated` | guarded hardware execution must prove custom-code execution and real controller completion, length, acknowledgement, and repeated descriptor re-arm behavior; this probe discards payloads and has no print handoff | `medium` |
-| ZjStream parser and JobMgr object model | `mapped` | implement semantic chunk handling, JobMgr messages, work/raster objects, and a deliberately gated print handoff; none exists in the inert probe | `medium` |
+| ZjStream parser and JobMgr object model | `mapped` | portable C semantic construction is native-tested separately; integrate on-device only after boot/USB proof, and keep any print handoff explicitly gated | `medium` |
 | JBIG compressed raster handling | `mapped to handoff boundary` | likely no full JBIG decode in firmware if hardware consumes the compressed stream like stock firmware | `high until hardware consumer semantics are proven` |
-| Video sideband policy | `narrowed but unresolved` | decide deliberate values for work +0x26/+0x32 before any print-driving firmware; +0x26 gates channel-B refill and final accounting | `high` |
+| Video sideband policy | `direct START_PAGE source verified` | use VIDEO_Y and ECONOMODE from the verified direct builder; calibrate physical counter/completion behavior before print output | `high` |
 | Video/raw-band hardware feed | `danger boundary mapped, semantics incomplete` | reproduce page timing, raw-band pointers, channel enable/reset/wait sequence | `high` |
 | Engine paper/fuser/motor coordination | `dispatch/status paths mapped, behavior incomplete` | coordinate mechanical state before and during video transfer | `high` |
 | Scanner/fax/network/multi-product features | `out of scope` | none for Aayush's narrow goal | `none` |

@@ -303,13 +303,13 @@ def build_report() -> dict[str, Any]:
             == "implemented and offline validated"
             and "no print handoff"
             in scope_components.get("USB bulk receive to ZjStream parser", {}).get("replacement_need", "")
-            and scope_components.get("Video sideband policy", {}).get("current_status") == "narrowed but unresolved"
+            and scope_components.get("Video sideband policy", {}).get("current_status") == "direct START_PAGE source verified"
             and scope_components.get("Video sideband policy", {}).get("risk") == "high"
             and scope_components.get("Video/raw-band hardware feed", {}).get("risk") == "high"
             and scope_components.get("Engine paper/fuser/motor coordination", {}).get("risk") == "high"
             and scope_evidence.get("sideband_access_hits") == 19
             and scope_evidence.get("sideband_0x26_risk") == "critical"
-            and scope_evidence.get("remaining_units_source_gap") is True
+            and scope_evidence.get("remaining_units_source_gap") is False
             and open_probe_evidence.get("status") == "implemented and offline validated"
             and open_probe_evidence.get("offline_validated") is True
             and open_probe_evidence.get("mechanically_inert_cases") is True
@@ -787,7 +787,7 @@ def build_report() -> dict[str, Any]:
             == "analysis/hardware-boundary/video-refill-topology.json"
             and sequence_by_step.get(2, {}).get("risk") == "high"
             and sequence_by_step.get(5, {}).get("projected_state", {}).get("stride_plus_0xb8") == 1200
-            and sequence_by_step.get(5, {}).get("projected_state", {}).get("state_plus_0xbc") == 2400
+            and sequence_by_step.get(5, {}).get("projected_state", {}).get("state_plus_0xbc") == 1200
             and sequence_by_step.get(5, {}).get("projected_state", {}).get("state_plus_0xc8_state_200") == 2
             and sequence_by_step.get(6, {}).get("projected_registers", {}).get("0xb2000008", {}).get("value") == 9600
             and "0x10014244 -> 0x10013f34" in sequence_by_step.get(7, {}).get("function", "")
@@ -816,19 +816,29 @@ def build_report() -> dict[str, Any]:
             and dataflow_stages.get("video_prepare_geometry", {}).get("known_values", {}).get("video state +0xb8 stride") == 1200
             and dataflow_stages.get("render_initial_transfer", {}).get("known_values", {}).get("0xb2040008") == 6364
             and dataflow_stages.get("helper_channel_b_refill", {}).get("known_values", {}).get("video state +0xcc max chunk units") == 4
-            and dataflow_stages.get("helper_channel_b_refill", {}).get("known_values", {}).get("video state +0xd0 candidate if alias holds") == 6824
+            and dataflow_stages.get("helper_channel_b_refill", {}).get("known_values", {}).get("video state +0xd0") == 6824
             and dataflow_stages.get("helper_channel_b_refill", {}).get("remaining_unknown")
-            == "active work +0x26 remains unsourced; ZJI_VIDEO_Y reaches page-param +0x26 upstream, but the queue payload chain weakens that alias/copy theory"
-            and dataflow_stages.get("helper_channel_b_refill", {}).get("known_values", {}).get("0xb2080008 candidate if alias holds") == 4800
+            == "live counter decrement/completion behavior; the VIDEO_Y source is statically proven"
+            and dataflow_stages.get("helper_channel_b_refill", {}).get("known_values", {}).get("0xb2080008 first refill") == 4800
             and "min(4, +0xd0) * stride(1200)"
             == dataflow_stages.get("helper_channel_b_refill", {}).get("known_values", {}).get("0xb2080008")
-            and "A pointer plus dual-output window(2400) when dual-block mode is active"
+            and "A pointer plus dual-output window(1200) when dual-block mode is active"
             == dataflow_stages.get("raw_band_queue_feed", {}).get("known_values", {}).get("0xb1000108")
             and all(item.get("status") == "present" for item in video_dataflow.get("checks", [])),
             "The video dataflow contract must preserve concrete a4_default values through render/refill boundary formulas.",
             evidence="analysis/hardware-boundary/video-dataflow-contract.json",
         )
     )
+    direct_work = read_json("analysis/hardware-boundary/zjs-direct-work.json")
+    semantic_core = read_json("analysis/open-firmware-model/semantic-core/validation.json")
+    checks.append(check("direct_start_page_and_native_semantics_verified",
+                        direct_work["status"] == "pass" and len(direct_work["checks"]) == 43
+                        and all(c["status"] == "present" for c in direct_work["checks"])
+                        and semantic_core["status"] == "pass" and semantic_core["total_cases"] >= 509
+                        and semantic_core["sideband_source_known"] is True
+                        and set(semantic_core["sanitizers"]) == {"address", "undefined"},
+                        "Direct stock ELF work creation and native semantic parser must both pass.",
+                        evidence="analysis/hardware-boundary/zjs-direct-work.json"))
     queue_payload_chain = read_json("analysis/hardware-boundary/video-queue-payload-chain.json")
     queue_chain_checks = {
         item.get("name"): item
@@ -841,7 +851,7 @@ def build_report() -> dict[str, Any]:
             queue_payload_chain.get("status") == "pass"
             and queue_payload_chain.get("conclusion", {}).get("prepare_argument_identity")
             == "0x94-byte video/page work object"
-            and "weakens the earlier page-param +0x26 -> work +0x26 alias theory"
+            and "direct START_PAGE builder writes VIDEO_Y to active work +0x26"
             in queue_payload_chain.get("conclusion", {}).get("effect_on_remaining_units", "")
             and len(queue_payload_chain.get("stages", [])) == 10
             and queue_chain_checks.get("pending_node_payload_is_direct_param_2", {}).get("status") == "present"
@@ -850,7 +860,7 @@ def build_report() -> dict[str, Any]:
             and queue_chain_checks.get("video_thread_uses_payload_as_prepare_argument", {}).get("status") == "present"
             and queue_chain_checks.get("work_populate_does_not_copy_page_param_0x26", {}).get("status") == "present"
             and all(item.get("status") == "present" for item in queue_payload_chain.get("checks", [])),
-            "The video queue payload chain must preserve that prepare receives the 0x94 work object, while work +0x26 remains unsourced.",
+            "The video queue payload chain must preserve that prepare receives the 0x94 work object, with VIDEO_Y written directly into work +0x26.",
             evidence="analysis/hardware-boundary/video-queue-payload-chain.json",
         )
     )
@@ -862,17 +872,17 @@ def build_report() -> dict[str, Any]:
     }
     checks.append(
         check(
-            "video_prepare_argument_fields_separate_sourced_and_unsourced",
+            "video_prepare_argument_fields_resolve_direct_sources",
             prepare_fields.get("status") == "pass"
             and prepare_fields.get("prepare_argument_identity") == "0x94-byte video/page work object"
             and prepare_field_rows.get("+0x84/+0x88/+0x8c/+0x90", {}).get("source_status") == "sourced"
-            and prepare_field_rows.get("+0x26", {}).get("source_status") == "unsourced_active_work"
-            and prepare_field_rows.get("+0x30", {}).get("source_status") == "unsourced_active_work"
-            and prepare_field_rows.get("+0x32", {}).get("source_status") == "unsourced_active_work"
+            and prepare_field_rows.get("+0x26", {}).get("source_status") == "sourced"
+            and prepare_field_rows.get("+0x30", {}).get("source_status") == "sourced"
+            and prepare_field_rows.get("+0x32", {}).get("source_status") == "sourced"
             and prepare_field_rows.get("+0x74", {}).get("source_status") == "default_zero_for_current_path"
-            and prepare_fields.get("field_status_counts", {}).get("unsourced_active_work") == 3
+            and prepare_fields.get("field_status_counts", {}).get("unsourced_active_work", 0) == 0
             and all(item.get("status") == "present" for item in prepare_fields.get("checks", [])),
-            "The prepare argument field model must keep render geometry sourced while +0x26/+0x30/+0x32 remain unsourced on active work.",
+            "The prepare argument field model must keep render geometry sourced with +0x26/+0x30/+0x32 sourced directly on active work.",
             evidence="analysis/hardware-boundary/video-prepare-argument-fields.json",
         )
     )
@@ -889,21 +899,21 @@ def build_report() -> dict[str, Any]:
             "video_sideband_write_census_rules_out_false_leads",
             sideband_census.get("status") == "pass"
             and sideband_census.get("corpus_summary", {}).get("files_scanned", 0) >= 600
-            and census_roles.get("upstream_page_param_writer") == 3
+            and census_roles.get("direct_work_writer") == 3
             and census_roles.get("active_work_consumer") == 4
             and census_roles.get("scaled_index_false_lead") == 1
             and census_roles.get("runtime_byte_to_work_0x90") == 2
-            and sideband_census.get("active_work_writer_hits") == []
+            and len(sideband_census.get("active_work_writer_hits", [])) == 3
             and len(sideband_census.get("ghidra_sideband_overlap_store_scan", {}).get("hits", [])) == 103
-            and overlap_roles.get("upstream_page_param_exact_store") == 3
+            and overlap_roles.get("direct_work_exact_store") == 3
             and overlap_roles.get("video_state_ring_clear") == 1
             and census_checks.get("child_record_0x13_is_not_work_0x26", {}).get("status") == "present"
             and census_checks.get("runtime_byte_0x13_feeds_work_0x90_not_sideband", {}).get("status") == "present"
             and census_checks.get("ghidra_overlap_scan_finds_no_work_populate_or_jobmgr_sideband_writer", {}).get("status")
             == "present"
-            and census_checks.get("no_selected_active_work_writer_found", {}).get("status") == "present"
+            and census_checks.get("direct_active_work_writers_found", {}).get("status") == "present"
             and all(item.get("status") == "present" for item in sideband_census.get("checks", [])),
-            "The sideband write census must preserve that selected +0x26/+0x30/+0x32 hits and overlap hits are upstream writers, consumers, or false leads, not active work-object writers.",
+            "The sideband write census must preserve that selected +0x26/+0x30/+0x32 hits and overlap hits include three direct active work-object writers alongside consumers and false leads.",
             evidence="analysis/hardware-boundary/video-sideband-write-census.json",
         )
     )
@@ -914,11 +924,11 @@ def build_report() -> dict[str, Any]:
             sideband_copy.get("status") == "pass"
             and sideband_copy.get("helper", {}).get("argument_order") == "destination, source, length"
             and sideband_copy.get("sideband_call", {}).get("interpreted_as")
-            == "memcpy(dst=PTR_DAT_10006304 runtime block, src=iStack_84 active work, len=0x14)"
+            == "memcpy(dst=PTR_DAT_10006304 runtime block, src=iStack_84 BIH payload, len=0x14)"
             and set(sideband_copy.get("effect_on_prepare_fields", {}).get("still_unsourced", []))
-            == {"+0x26", "+0x30", "+0x32"}
+            == set()
             and all(item.get("status") == "present" for item in sideband_copy.get("checks", [])),
-            "The sideband copy-direction model must preserve that case 0x29 copies active work out to runtime block, not into work +0x26/+0x30/+0x32.",
+            "The sideband copy-direction model must preserve that case 0x29 copies BIH payload out to runtime block, not into work +0x26/+0x30/+0x32.",
             evidence="analysis/hardware-boundary/video-sideband-copy-direction.json",
         )
     )
@@ -982,25 +992,25 @@ def build_report() -> dict[str, Any]:
     remaining_units = read_json("analysis/hardware-boundary/video-remaining-units.json")
     remaining_cases = {
         item.get("case"): item
-        for item in remaining_units.get("case_matrix_if_alias_holds", [])
+        for item in remaining_units.get("case_matrix", [])
         if isinstance(item, dict)
     }
     copy_gap = {
         item.get("stage"): item
-        for item in remaining_units.get("candidate_chain", [])
+        for item in remaining_units.get("source_chain", [])
         if isinstance(item, dict)
     }
     checks.append(
         check(
-            "video_remaining_units_keeps_alias_gap_explicit",
+            "video_remaining_units_direct_source_verified",
             remaining_units.get("status") == "pass"
-            and copy_gap.get("copy_or_alias_gap", {}).get("status") == "unresolved and weakened"
-            and remaining_cases.get("a4_default", {}).get("video_y_candidate_from_zji_0x12") == 6824
-            and remaining_cases.get("a4_default", {}).get("candidate_first_channel_b_length_if_alias_holds") == 4800
-            and remaining_cases.get("letter_default", {}).get("video_y_candidate_from_zji_0x12") == 6408
-            and remaining_cases.get("legal_default", {}).get("video_y_candidate_from_zji_0x12") == 8208
+            and copy_gap.get("direct_builder", {}).get("status") == "ELF-byte verified"
+            and remaining_cases.get("a4_default", {}).get("video_y_from_zji_0x12") == 6824
+            and remaining_cases.get("a4_default", {}).get("first_channel_b_length") == 4800
+            and remaining_cases.get("letter_default", {}).get("video_y_from_zji_0x12") == 6408
+            and remaining_cases.get("legal_default", {}).get("video_y_from_zji_0x12") == 8208
             and all(item.get("status") == "present" for item in remaining_units.get("checks", [])),
-            "Video remaining-unit model must preserve ZJI_VIDEO_Y upstream values while keeping active work +0x26 unsourced.",
+            "Video remaining-unit model must preserve the direct VIDEO_Y-to-work-to-counter chain.",
             evidence="analysis/hardware-boundary/video-remaining-units.json",
         )
     )
@@ -1412,11 +1422,12 @@ def build_report() -> dict[str, Any]:
             and video_prepare_projection.get("scenario_count") == 80
             and all(projection.get("resolution") == "600x600" for projection in prepare_projection_rows)
             and all(state.get("nbie") == 1 for state in callback_states)
-            and all(state.get("state_plus_0xc8_state_200") == 2 for state in callback_states)
-            and all(state.get("state_plus_0xf4") == 2 for state in callback_states)
-            and all(state.get("state_plus_0xbc") == state.get("stride_plus_0xb8") * 2 for state in callback_states)
+            and {state.get("video_bpp") for state in callback_states} == {1, 2, 4}
+            and all(state.get("state_plus_0xc8_state_200") == (2 if state["video_bpp"] == 1 else state["video_bpp"]) for state in callback_states)
+            and all(state.get("state_plus_0xf4") == (2 if state["video_bpp"] in (1, 2) else 0) for state in callback_states)
+            and all(state.get("state_plus_0xbc") == state.get("stride_plus_0xb8") * (2 if state["video_bpp"] == 1 else 1) for state in callback_states)
             and all(check.get("status") == "present" for check in video_prepare_projection.get("checks", [])),
-            "The video prepare projection must keep the generated host variants narrowed to 600dpi/NBIE=1 setup scenarios with the expected two-output callback state.",
+            "The video prepare projection must keep the generated host variants at 600dpi with distinct BPP1/2/4 setup branches, sourced independently of NBIE.",
             evidence="analysis/hardware-boundary/video-prepare-projection.json",
         )
     )

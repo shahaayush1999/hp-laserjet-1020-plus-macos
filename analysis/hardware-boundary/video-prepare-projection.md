@@ -11,36 +11,36 @@ This is a generated offline projection. It does not contact the printer.
 ## Normal Path Summary
 
 - All current generated host variants use ZJI_NBIE=1 and 600x600 declared resolution.
-- For datastore 0x20 == 0 and work +0x36 == 0, the prepare code promotes the video state to a two-output 600dpi setup: state +0xc8/200 = 2, +0xf4 = 2, and +0xbc = stride*2.
-- The exact vertical offset and remaining-unit fields still depend on work offsets not yet included in the print-path model.
+- For datastore 0x20 == 0 and work +0x36 == 0, BPP1 doubles the window; BPP2 keeps +0xbc=stride and selects a different callback. BPP4 has no matching setup-table branch in this model.
+- VIDEO_X/Y, RET, and ECONOMODE are sourced by the direct START_PAGE builder. Secondary-output scenarios matching the host ECONOMODE are marked explicitly.
 
 ## Variant Summary
 
 | Case | Resolution | Raster X/Y | Video BPP | Work +0x84 | Stride +0xb8 | Callback 600dpi state |
 |---|---|---|---:|---:|---:|---|
-| `a4_2400x600` | `600x600` | `19072`/`6824` | `4` | `19072` | `2384` | `+0xc8/200=2, +0xf4=2, +0xbc=4768` |
+| `a4_2400x600` | `600x600` | `19072`/`6824` | `4` | `19072` | `2384` | `+0xc8/200=4, +0xf4=0, +0xbc=2384` |
 | `a4_600x600` | `600x600` | `4768`/`6824` | `1` | `4864` | `608` | `+0xc8/200=2, +0xf4=2, +0xbc=1216` |
-| `a4_cardstock_media` | `600x600` | `9536`/`6824` | `2` | `9600` | `1200` | `+0xc8/200=2, +0xf4=2, +0xbc=2400` |
-| `a4_default` | `600x600` | `9536`/`6824` | `2` | `9600` | `1200` | `+0xc8/200=2, +0xf4=2, +0xbc=2400` |
-| `a4_draft` | `600x600` | `9536`/`6824` | `2` | `9600` | `1200` | `+0xc8/200=2, +0xf4=2, +0xbc=2400` |
-| `a4_logical_clip` | `600x600` | `9536`/`6824` | `2` | `9600` | `1200` | `+0xc8/200=2, +0xf4=2, +0xbc=2400` |
-| `a4_manual_feed` | `600x600` | `9536`/`6824` | `2` | `9600` | `1200` | `+0xc8/200=2, +0xf4=2, +0xbc=2400` |
-| `a4_two_copies` | `600x600` | `9536`/`6824` | `2` | `9600` | `1200` | `+0xc8/200=2, +0xf4=2, +0xbc=2400` |
-| `legal_default` | `600x600` | `9816`/`8208` | `2` | `9856` | `1232` | `+0xc8/200=2, +0xf4=2, +0xbc=2464` |
-| `letter_default` | `600x600` | `9816`/`6408` | `2` | `9856` | `1232` | `+0xc8/200=2, +0xf4=2, +0xbc=2464` |
+| `a4_cardstock_media` | `600x600` | `9536`/`6824` | `2` | `9600` | `1200` | `+0xc8/200=2, +0xf4=2, +0xbc=1200` |
+| `a4_default` | `600x600` | `9536`/`6824` | `2` | `9600` | `1200` | `+0xc8/200=2, +0xf4=2, +0xbc=1200` |
+| `a4_draft` | `600x600` | `9536`/`6824` | `2` | `9600` | `1200` | `+0xc8/200=2, +0xf4=2, +0xbc=1200` |
+| `a4_logical_clip` | `600x600` | `9536`/`6824` | `2` | `9600` | `1200` | `+0xc8/200=2, +0xf4=2, +0xbc=1200` |
+| `a4_manual_feed` | `600x600` | `9536`/`6824` | `2` | `9600` | `1200` | `+0xc8/200=2, +0xf4=2, +0xbc=1200` |
+| `a4_two_copies` | `600x600` | `9536`/`6824` | `2` | `9600` | `1200` | `+0xc8/200=2, +0xf4=2, +0xbc=1200` |
+| `legal_default` | `600x600` | `9816`/`8208` | `2` | `9856` | `1232` | `+0xc8/200=2, +0xf4=2, +0xbc=1232` |
+| `letter_default` | `600x600` | `9816`/`6408` | `2` | `9856` | `1232` | `+0xc8/200=2, +0xf4=2, +0xbc=1232` |
 
 ## Setup Scenario Matrix
 
 | Case | Datastore 0x20 zero | Lane | Secondary +0xec | Timing register value | Table | Table words |
 |---|---|---:|---|---:|---|---|
-| `a4_2400x600` | `True` | `0` | `False` | `0x800236ca` | `single_plane_600_two_output_table` | `0x00000000` `0x0000007f` `0x00000007` `0x00001fff` |
-| `a4_2400x600` | `True` | `0` | `True` | `0x800236ca` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `a4_2400x600` | `True` | `1` | `False` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `a4_2400x600` | `True` | `1` | `True` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `a4_2400x600` | `False` | `0` | `False` | `0x80010598` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_2400x600` | `False` | `0` | `True` | `0x80010598` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `a4_2400x600` | `False` | `1` | `False` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_2400x600` | `False` | `1` | `True` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
+| `a4_2400x600` | `True` | `0` | `False` | `0x800236ca` | `no_table_branch_modeled` | - |
+| `a4_2400x600` | `True` | `0` | `True` | `0x800236ca` | `no_table_branch_modeled` | - |
+| `a4_2400x600` | `True` | `1` | `False` | `0x80028688` | `no_table_branch_modeled` | - |
+| `a4_2400x600` | `True` | `1` | `True` | `0x80028688` | `no_table_branch_modeled` | - |
+| `a4_2400x600` | `False` | `0` | `False` | `0x80010598` | `no_table_branch_modeled` | - |
+| `a4_2400x600` | `False` | `0` | `True` | `0x80010598` | `no_table_branch_modeled` | - |
+| `a4_2400x600` | `False` | `1` | `False` | `0x8001087d` | `no_table_branch_modeled` | - |
+| `a4_2400x600` | `False` | `1` | `True` | `0x8001087d` | `no_table_branch_modeled` | - |
 | `a4_600x600` | `True` | `0` | `False` | `0x800236ca` | `single_plane_600_two_output_table` | `0x00000000` `0x0000007f` `0x00000007` `0x00001fff` |
 | `a4_600x600` | `True` | `0` | `True` | `0x800236ca` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
 | `a4_600x600` | `True` | `1` | `False` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
@@ -49,70 +49,70 @@ This is a generated offline projection. It does not contact the printer.
 | `a4_600x600` | `False` | `0` | `True` | `0x80010598` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
 | `a4_600x600` | `False` | `1` | `False` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
 | `a4_600x600` | `False` | `1` | `True` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_cardstock_media` | `True` | `0` | `False` | `0x800236ca` | `single_plane_600_two_output_table` | `0x00000000` `0x0000007f` `0x00000007` `0x00001fff` |
-| `a4_cardstock_media` | `True` | `0` | `True` | `0x800236ca` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `a4_cardstock_media` | `True` | `1` | `False` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `a4_cardstock_media` | `True` | `1` | `True` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `a4_cardstock_media` | `False` | `0` | `False` | `0x80010598` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_cardstock_media` | `False` | `0` | `True` | `0x80010598` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `a4_cardstock_media` | `False` | `1` | `False` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_cardstock_media` | `False` | `1` | `True` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_default` | `True` | `0` | `False` | `0x800236ca` | `single_plane_600_two_output_table` | `0x00000000` `0x0000007f` `0x00000007` `0x00001fff` |
-| `a4_default` | `True` | `0` | `True` | `0x800236ca` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `a4_default` | `True` | `1` | `False` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `a4_default` | `True` | `1` | `True` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `a4_default` | `False` | `0` | `False` | `0x80010598` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_default` | `False` | `0` | `True` | `0x80010598` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `a4_default` | `False` | `1` | `False` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_default` | `False` | `1` | `True` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_draft` | `True` | `0` | `False` | `0x800236ca` | `single_plane_600_two_output_table` | `0x00000000` `0x0000007f` `0x00000007` `0x00001fff` |
-| `a4_draft` | `True` | `0` | `True` | `0x800236ca` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `a4_draft` | `True` | `1` | `False` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `a4_draft` | `True` | `1` | `True` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `a4_draft` | `False` | `0` | `False` | `0x80010598` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_draft` | `False` | `0` | `True` | `0x80010598` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `a4_draft` | `False` | `1` | `False` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_draft` | `False` | `1` | `True` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_logical_clip` | `True` | `0` | `False` | `0x800236ca` | `single_plane_600_two_output_table` | `0x00000000` `0x0000007f` `0x00000007` `0x00001fff` |
-| `a4_logical_clip` | `True` | `0` | `True` | `0x800236ca` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `a4_logical_clip` | `True` | `1` | `False` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `a4_logical_clip` | `True` | `1` | `True` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `a4_logical_clip` | `False` | `0` | `False` | `0x80010598` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_logical_clip` | `False` | `0` | `True` | `0x80010598` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `a4_logical_clip` | `False` | `1` | `False` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_logical_clip` | `False` | `1` | `True` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_manual_feed` | `True` | `0` | `False` | `0x800236ca` | `single_plane_600_two_output_table` | `0x00000000` `0x0000007f` `0x00000007` `0x00001fff` |
-| `a4_manual_feed` | `True` | `0` | `True` | `0x800236ca` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `a4_manual_feed` | `True` | `1` | `False` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `a4_manual_feed` | `True` | `1` | `True` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `a4_manual_feed` | `False` | `0` | `False` | `0x80010598` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_manual_feed` | `False` | `0` | `True` | `0x80010598` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `a4_manual_feed` | `False` | `1` | `False` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_manual_feed` | `False` | `1` | `True` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_two_copies` | `True` | `0` | `False` | `0x800236ca` | `single_plane_600_two_output_table` | `0x00000000` `0x0000007f` `0x00000007` `0x00001fff` |
-| `a4_two_copies` | `True` | `0` | `True` | `0x800236ca` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `a4_two_copies` | `True` | `1` | `False` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `a4_two_copies` | `True` | `1` | `True` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `a4_two_copies` | `False` | `0` | `False` | `0x80010598` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_two_copies` | `False` | `0` | `True` | `0x80010598` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `a4_two_copies` | `False` | `1` | `False` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `a4_two_copies` | `False` | `1` | `True` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `legal_default` | `True` | `0` | `False` | `0x800236ca` | `single_plane_600_two_output_table` | `0x00000000` `0x0000007f` `0x00000007` `0x00001fff` |
-| `legal_default` | `True` | `0` | `True` | `0x800236ca` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `legal_default` | `True` | `1` | `False` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `legal_default` | `True` | `1` | `True` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `legal_default` | `False` | `0` | `False` | `0x80010598` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `legal_default` | `False` | `0` | `True` | `0x80010598` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `legal_default` | `False` | `1` | `False` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `legal_default` | `False` | `1` | `True` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `letter_default` | `True` | `0` | `False` | `0x800236ca` | `single_plane_600_two_output_table` | `0x00000000` `0x0000007f` `0x00000007` `0x00001fff` |
-| `letter_default` | `True` | `0` | `True` | `0x800236ca` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `letter_default` | `True` | `1` | `False` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `letter_default` | `True` | `1` | `True` | `0x80028688` | `single_plane_600_two_output_table` | `0x00000000` `0x00000fff` `0x0000000f` `0x003fffff` |
-| `letter_default` | `False` | `0` | `False` | `0x80010598` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `letter_default` | `False` | `0` | `True` | `0x80010598` | `single_plane_600_alt_table` | `0x00000000` `0x0000001f` `0x00000003` `0x000000ff` |
-| `letter_default` | `False` | `1` | `False` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
-| `letter_default` | `False` | `1` | `True` | `0x8001087d` | `single_plane_600_lane_table` | `0x00000000` `0xffffffff` |
+| `a4_cardstock_media` | `True` | `0` | `False` | `0x800236ca` | `two_plane_lane_table` | `0x00000000` `0x0000001f` `0x000001ff` `0x00001fff` |
+| `a4_cardstock_media` | `True` | `0` | `True` | `0x800236ca` | `two_plane_lane0_table` | `0x00000000` `0x00000007` `0x0000001f` `0x0000007f` |
+| `a4_cardstock_media` | `True` | `1` | `False` | `0x80028688` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_cardstock_media` | `True` | `1` | `True` | `0x80028688` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_cardstock_media` | `False` | `0` | `False` | `0x80010598` | `two_plane_lane_table` | `0x00000000` `0x0000001f` `0x000001ff` `0x00001fff` |
+| `a4_cardstock_media` | `False` | `0` | `True` | `0x80010598` | `two_plane_lane0_table` | `0x00000000` `0x00000007` `0x0000001f` `0x0000007f` |
+| `a4_cardstock_media` | `False` | `1` | `False` | `0x8001087d` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_cardstock_media` | `False` | `1` | `True` | `0x8001087d` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_default` | `True` | `0` | `False` | `0x800236ca` | `two_plane_lane_table` | `0x00000000` `0x0000001f` `0x000001ff` `0x00001fff` |
+| `a4_default` | `True` | `0` | `True` | `0x800236ca` | `two_plane_lane0_table` | `0x00000000` `0x00000007` `0x0000001f` `0x0000007f` |
+| `a4_default` | `True` | `1` | `False` | `0x80028688` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_default` | `True` | `1` | `True` | `0x80028688` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_default` | `False` | `0` | `False` | `0x80010598` | `two_plane_lane_table` | `0x00000000` `0x0000001f` `0x000001ff` `0x00001fff` |
+| `a4_default` | `False` | `0` | `True` | `0x80010598` | `two_plane_lane0_table` | `0x00000000` `0x00000007` `0x0000001f` `0x0000007f` |
+| `a4_default` | `False` | `1` | `False` | `0x8001087d` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_default` | `False` | `1` | `True` | `0x8001087d` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_draft` | `True` | `0` | `False` | `0x800236ca` | `two_plane_lane_table` | `0x00000000` `0x0000001f` `0x000001ff` `0x00001fff` |
+| `a4_draft` | `True` | `0` | `True` | `0x800236ca` | `two_plane_lane0_table` | `0x00000000` `0x00000007` `0x0000001f` `0x0000007f` |
+| `a4_draft` | `True` | `1` | `False` | `0x80028688` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_draft` | `True` | `1` | `True` | `0x80028688` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_draft` | `False` | `0` | `False` | `0x80010598` | `two_plane_lane_table` | `0x00000000` `0x0000001f` `0x000001ff` `0x00001fff` |
+| `a4_draft` | `False` | `0` | `True` | `0x80010598` | `two_plane_lane0_table` | `0x00000000` `0x00000007` `0x0000001f` `0x0000007f` |
+| `a4_draft` | `False` | `1` | `False` | `0x8001087d` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_draft` | `False` | `1` | `True` | `0x8001087d` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_logical_clip` | `True` | `0` | `False` | `0x800236ca` | `two_plane_lane_table` | `0x00000000` `0x0000001f` `0x000001ff` `0x00001fff` |
+| `a4_logical_clip` | `True` | `0` | `True` | `0x800236ca` | `two_plane_lane0_table` | `0x00000000` `0x00000007` `0x0000001f` `0x0000007f` |
+| `a4_logical_clip` | `True` | `1` | `False` | `0x80028688` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_logical_clip` | `True` | `1` | `True` | `0x80028688` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_logical_clip` | `False` | `0` | `False` | `0x80010598` | `two_plane_lane_table` | `0x00000000` `0x0000001f` `0x000001ff` `0x00001fff` |
+| `a4_logical_clip` | `False` | `0` | `True` | `0x80010598` | `two_plane_lane0_table` | `0x00000000` `0x00000007` `0x0000001f` `0x0000007f` |
+| `a4_logical_clip` | `False` | `1` | `False` | `0x8001087d` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_logical_clip` | `False` | `1` | `True` | `0x8001087d` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_manual_feed` | `True` | `0` | `False` | `0x800236ca` | `two_plane_lane_table` | `0x00000000` `0x0000001f` `0x000001ff` `0x00001fff` |
+| `a4_manual_feed` | `True` | `0` | `True` | `0x800236ca` | `two_plane_lane0_table` | `0x00000000` `0x00000007` `0x0000001f` `0x0000007f` |
+| `a4_manual_feed` | `True` | `1` | `False` | `0x80028688` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_manual_feed` | `True` | `1` | `True` | `0x80028688` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_manual_feed` | `False` | `0` | `False` | `0x80010598` | `two_plane_lane_table` | `0x00000000` `0x0000001f` `0x000001ff` `0x00001fff` |
+| `a4_manual_feed` | `False` | `0` | `True` | `0x80010598` | `two_plane_lane0_table` | `0x00000000` `0x00000007` `0x0000001f` `0x0000007f` |
+| `a4_manual_feed` | `False` | `1` | `False` | `0x8001087d` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_manual_feed` | `False` | `1` | `True` | `0x8001087d` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_two_copies` | `True` | `0` | `False` | `0x800236ca` | `two_plane_lane_table` | `0x00000000` `0x0000001f` `0x000001ff` `0x00001fff` |
+| `a4_two_copies` | `True` | `0` | `True` | `0x800236ca` | `two_plane_lane0_table` | `0x00000000` `0x00000007` `0x0000001f` `0x0000007f` |
+| `a4_two_copies` | `True` | `1` | `False` | `0x80028688` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_two_copies` | `True` | `1` | `True` | `0x80028688` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_two_copies` | `False` | `0` | `False` | `0x80010598` | `two_plane_lane_table` | `0x00000000` `0x0000001f` `0x000001ff` `0x00001fff` |
+| `a4_two_copies` | `False` | `0` | `True` | `0x80010598` | `two_plane_lane0_table` | `0x00000000` `0x00000007` `0x0000001f` `0x0000007f` |
+| `a4_two_copies` | `False` | `1` | `False` | `0x8001087d` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `a4_two_copies` | `False` | `1` | `True` | `0x8001087d` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `legal_default` | `True` | `0` | `False` | `0x800236ca` | `two_plane_lane_table` | `0x00000000` `0x0000001f` `0x000001ff` `0x00001fff` |
+| `legal_default` | `True` | `0` | `True` | `0x800236ca` | `two_plane_lane0_table` | `0x00000000` `0x00000007` `0x0000001f` `0x0000007f` |
+| `legal_default` | `True` | `1` | `False` | `0x80028688` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `legal_default` | `True` | `1` | `True` | `0x80028688` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `legal_default` | `False` | `0` | `False` | `0x80010598` | `two_plane_lane_table` | `0x00000000` `0x0000001f` `0x000001ff` `0x00001fff` |
+| `legal_default` | `False` | `0` | `True` | `0x80010598` | `two_plane_lane0_table` | `0x00000000` `0x00000007` `0x0000001f` `0x0000007f` |
+| `legal_default` | `False` | `1` | `False` | `0x8001087d` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `legal_default` | `False` | `1` | `True` | `0x8001087d` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `letter_default` | `True` | `0` | `False` | `0x800236ca` | `two_plane_lane_table` | `0x00000000` `0x0000001f` `0x000001ff` `0x00001fff` |
+| `letter_default` | `True` | `0` | `True` | `0x800236ca` | `two_plane_lane0_table` | `0x00000000` `0x00000007` `0x0000001f` `0x0000007f` |
+| `letter_default` | `True` | `1` | `False` | `0x80028688` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `letter_default` | `True` | `1` | `True` | `0x80028688` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `letter_default` | `False` | `0` | `False` | `0x80010598` | `two_plane_lane_table` | `0x00000000` `0x0000001f` `0x000001ff` `0x00001fff` |
+| `letter_default` | `False` | `0` | `True` | `0x80010598` | `two_plane_lane0_table` | `0x00000000` `0x00000007` `0x0000001f` `0x0000007f` |
+| `letter_default` | `False` | `1` | `False` | `0x8001087d` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
+| `letter_default` | `False` | `1` | `True` | `0x8001087d` | `two_plane_lane_table` | `0x00000000` `0x00007f80` `0x0007fff8` `0x003fffff` |
 
 ## Evidence Checks
 
@@ -133,5 +133,5 @@ This is a generated offline projection. It does not contact the printer.
 ## Open Firmware Meaning
 
 - This narrows the normal host-generated print cases to a small set of 600dpi setup scenarios instead of the whole firmware branch space.
-- It still does not make 0xb100 safe to drive: vertical offsets, remaining-unit counts, and live status timing remain partly unmapped.
+- It still does not make 0xb100 safe to drive: physical timing and live controller status remain uncalibrated.
 - The practical use is planning and comparison, not upload.

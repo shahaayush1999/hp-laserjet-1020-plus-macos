@@ -21,8 +21,9 @@ network, multi-model, and unrelated firmware features are out of scope.
   engine, video, fuser, motor, laser, or paper-feed MMIO accesses.
 - The probe has never been uploaded. Real custom-code execution, endpoint-0,
   bulk completion length, acknowledgement, and repeated re-arm remain unproven.
-- Semantic print dispatch, raster/video output, and engine control are not
-  implemented in open firmware.
+- A separate portable C semantic parser retains page metadata and compressed
+  raster records in bounded RAM. It is native-tested, not linked into a probe.
+  Raster/video output and engine control remain unimplemented.
 
 ## Latest Offline Audit (2026-09-05)
 
@@ -35,23 +36,28 @@ network, multi-model, and unrelated firmware features are out of scope.
   independent RAM-only interpreter: 1,178,483 instructions; zero MMIO accesses.
 - Fixed endpoint-0 descriptor/state pointer clobbers in both USB probes;
   104 assembled control-IN RAM tests verify exact payloads and transfer records.
+- Resolved the missing low work fields: START_PAGE calls the item builder
+  directly on active work. VIDEO_Y/RET/ECONOMODE source +0x26/+0x30/+0x32.
+- Corrected +0x22 to VIDEO_BPP (NBIE is +0x12); default A4 window is 1200,
+  not 2400 bytes. All dependent reports and consistency checks are updated.
+- Portable semantic C passes 512 ASan/UBSan cases across 11 generated streams.
 - Both validation suites and bulk-probe reproducibility pass. Research continues
-  on unresolved work sideband fields and offline semantic construction.
+  on the raster callbacks selected by the corrected BPP branch.
 
 ## Main Unknowns
 
 1. Whether boot-ROM USB initialization is sufficient for the standalone probe.
 2. Whether real bulk descriptor completion and length encoding match the static
    model.
-3. Video work sideband values, especially active-work `+0x26` and `+0x32`.
+3. Custom instruction semantics inside stock raster-processing callbacks.
 4. Exact safe video-transfer and mechanical engine sequencing for a first page.
 
 ## Productive Offline Work
 
 - Independently audit the recovered contracts against stock ELF instructions.
-- Improve function/field naming and resolve the active-work sideband sources.
+- Recover the selected raster callbacks and isolate undecoded custom instructions.
 - Lift or model remaining video helpers and engine state transitions.
-- Implement and test semantic ZjStream object construction without MMIO output.
+- Extend the tested portable semantic component and host-side transfer planning.
 - Build executable host models for video descriptors and engine state machines.
 - Extend static safety gates before any printing-capable firmware is created.
 

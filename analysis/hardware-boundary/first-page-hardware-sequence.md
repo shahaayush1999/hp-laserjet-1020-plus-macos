@@ -33,7 +33,7 @@ The parser/object path is mapped well enough for the current foo2zjs sample. Thi
 | `4` | VideoThread stores active work | `0x10013c18 hp1020_video_thread_candidate` | none | State bookkeeping before touching video hardware. | `medium` |
 | `5` | video page preparation | `0x10014910 hp1020_video_prepare_page_candidate` | `0xb1000000 / 0xb1000100` video block reset/enable<br>`0xb1000004 / 0xb1000104` video block busy/status wait | Programs video block setup/timing. This is not safe to approximate blindly. | `high` |
 |  | projected video state `stride_plus_0xb8` | `analysis/hardware-boundary/video-prepare-projection.md` | `1200` | setup projection |  |
-|  | projected video state `state_plus_0xbc` | `analysis/hardware-boundary/video-prepare-projection.md` | `2400` | setup projection |  |
+|  | projected video state `state_plus_0xbc` | `analysis/hardware-boundary/video-prepare-projection.md` | `1200` | setup projection |  |
 |  | projected video state `state_plus_0xc4` | `analysis/hardware-boundary/video-prepare-projection.md` | `1` | setup projection |  |
 |  | projected video state `state_plus_0xf4` | `analysis/hardware-boundary/video-prepare-projection.md` | `2` | setup projection |  |
 |  | projected video state `state_plus_0xc8_state_200` | `analysis/hardware-boundary/video-prepare-projection.md` | `2` | setup projection |  |

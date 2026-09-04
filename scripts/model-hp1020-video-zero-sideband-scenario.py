@@ -85,8 +85,8 @@ def build_report() -> dict[str, Any]:
         check(
             "sideband_census_passes",
             inputs["sideband_census"].get("status") == "pass"
-            and inputs["sideband_census"].get("active_work_writer_hits") == [],
-            "sideband census found no selected active-work writer and whole-program target-offset stores are page-param only",
+            and len(inputs["sideband_census"].get("active_work_writer_hits", [])) == 3,
+            "sideband census identifies three direct active-work stores; this report analyzes zero values counterfactually",
         ),
         check(
             "prepare_seeds_d0_d4_from_work_0x26",
@@ -126,7 +126,7 @@ def build_report() -> dict[str, Any]:
 
     status = "pass" if all(item["status"] == "present" for item in checks) else "fail"
     return {
-        "summary": "Consequence model for default-zero active work sideband fields.",
+        "summary": "Counterfactual consequence model for zero VIDEO_Y; normal host pages provide nonzero VIDEO_Y.",
         "status": status,
         "source_reports": {name: str(path.relative_to(ROOT_DIR)) for name, path in INPUTS.items()},
         "scenario": scenario,
@@ -134,7 +134,7 @@ def build_report() -> dict[str, Any]:
             "Zero active work +0x26 is not an immediate proof that render setup cannot start.",
             "It is a refill/descriptor-path blocker: channel A can be armed, but channel B is not seeded by 0x10014244.",
             "For a narrow print-only replacement, this means a trivial first-transfer probe might appear alive while still being far from a complete page-printing implementation.",
-            "Treat +0x26/+0x30/+0x32 as a deliberate policy decision to resolve with hardware traces, not as page-height fields we can blindly copy.",
+            "The direct builder now proves +0x26=VIDEO_Y, +0x30=RET, +0x32=ECONOMODE. This zero-height scenario is a counterfactual, not the default host page.",
         ],
         "checks": checks,
     }

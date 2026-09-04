@@ -106,7 +106,7 @@
       ],
       "open_replacement_meaning": "Programs video block setup/timing. This is not safe to approximate blindly.",
       "projected_state": {
-        "state_plus_0xbc": 2400,
+        "state_plus_0xbc": 1200,
         "state_plus_0xc4": 1,
         "state_plus_0xc8_state_200": 2,
         "state_plus_0xf4": 2,
