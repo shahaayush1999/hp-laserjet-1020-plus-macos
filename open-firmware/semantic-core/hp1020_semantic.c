@@ -77,6 +77,7 @@ static enum hp1020_result complete_chunk(struct hp1020_semantic *s) {
         p->work_ret=(uint16_t)p->item_values[22];
         p->work_economode=(uint16_t)p->item_values[23];
         p->video_sideband_known=1;
+        p->stock_metadata_bounded=s->reserved>=s->payload_size;
         p->first_raster=s->raster_count;
         s->page_count++; s->phase=EXPECT_BIH;
         break;

@@ -25,7 +25,7 @@ struct hp1020_page {
        Source knowledge is not hardware calibration or permission to print. */
     uint16_t work_remaining_units, work_ret, work_economode;
     uint32_t item_values[24]; /* Preserve supported metadata, including offsets. */
-    uint8_t video_sideband_known;
+    uint8_t video_sideband_known, stock_metadata_bounded;
 };
 struct hp1020_raster { uint32_t page, offset, length; };
 struct hp1020_semantic {

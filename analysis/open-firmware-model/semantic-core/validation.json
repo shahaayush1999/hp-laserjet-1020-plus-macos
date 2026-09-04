@@ -2575,9 +2575,12 @@
   "scope": "portable host-only semantic core; no firmware upload or hardware output",
   "sideband_source_known": true,
   "source_sha256": {
-    "host-check.c": "b1f32ca3a38d705bafc472f9725cc1a59a519bfc9779dc5a2d534441f1829c55",
-    "hp1020_semantic.c": "6cf62c5fa48a1113832004d033187832dad823337942fbcd566c34e42aa9c8ae",
-    "hp1020_semantic.h": "456b35a3710f63f696fa83abceb56d1dce6e54706c663cc2c575327a7b2521c5"
+    "host-check.c": "0c42a6fe7c273c677ff1dda9b90b86bba02e000cc9712242b55ff1aecbc6ce40",
+    "hp1020_page_plan.c": "16f6608918c620f437d09fe1f56c8f1043d9c60a4e6b8b3f2cd5220ff57e0517",
+    "hp1020_page_plan.h": "1df6b7a2f4ccf752d3ac127e70b48ac8fb93cd6ce4c02431622d5d0ea1326f23",
+    "hp1020_semantic.c": "dbe994d79b62d86f8c6e61d2a1da8e3c644bd5fc5303821eddefdcdc82e0a725",
+    "hp1020_semantic.h": "fc6c647f443a96eeb1ab45bb26652a85cca7768ebcc41cc6777d41285ed25fce",
+    "plan-check.c": "05191d900d643cd81092a267b3261e412bc7aec23fef31eedc6b62faefd88cec"
   },
   "status": "pass",
   "total_cases": 512

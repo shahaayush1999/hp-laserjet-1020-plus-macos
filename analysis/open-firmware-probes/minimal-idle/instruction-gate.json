@@ -1,0 +1,152 @@
+{
+  "constant_indirect_jumps": 6,
+  "elf_sha256": "8ae5534a42e4f613bc1830d9776c2b91877972cfd82f21f372c168dfe813f5c6",
+  "instructions": [
+    {
+      "address": "0x10000000",
+      "bytes": "600004",
+      "mnemonic": "j",
+      "operands": "10000008"
+    },
+    {
+      "address": "0x10000008",
+      "bytes": "12ffff",
+      "mnemonic": "l32r",
+      "operands": "a2, 10000004"
+    },
+    {
+      "address": "0x1000000b",
+      "bytes": "0a2000",
+      "mnemonic": "jx",
+      "operands": "a2"
+    },
+    {
+      "address": "0x10000200",
+      "bytes": "600004",
+      "mnemonic": "j",
+      "operands": "10000208"
+    },
+    {
+      "address": "0x10000208",
+      "bytes": "12ffff",
+      "mnemonic": "l32r",
+      "operands": "a2, 10000204"
+    },
+    {
+      "address": "0x1000020b",
+      "bytes": "0a2000",
+      "mnemonic": "jx",
+      "operands": "a2"
+    },
+    {
+      "address": "0x10000220",
+      "bytes": "600004",
+      "mnemonic": "j",
+      "operands": "10000228"
+    },
+    {
+      "address": "0x10000228",
+      "bytes": "12ffff",
+      "mnemonic": "l32r",
+      "operands": "a2, 10000224"
+    },
+    {
+      "address": "0x1000022b",
+      "bytes": "0a2000",
+      "mnemonic": "jx",
+      "operands": "a2"
+    },
+    {
+      "address": "0x10000270",
+      "bytes": "600004",
+      "mnemonic": "j",
+      "operands": "10000278"
+    },
+    {
+      "address": "0x10000278",
+      "bytes": "12ffff",
+      "mnemonic": "l32r",
+      "operands": "a2, 10000274"
+    },
+    {
+      "address": "0x1000027b",
+      "bytes": "0a2000",
+      "mnemonic": "jx",
+      "operands": "a2"
+    },
+    {
+      "address": "0x10005c80",
+      "bytes": "c020",
+      "mnemonic": "movi.n",
+      "operands": "a2, 0"
+    },
+    {
+      "address": "0x10005c82",
+      "bytes": "63fffc",
+      "mnemonic": "j",
+      "operands": "10005c82"
+    },
+    {
+      "address": "0x100167a8",
+      "bytes": "600004",
+      "mnemonic": "j",
+      "operands": "100167b0"
+    },
+    {
+      "address": "0x100167b0",
+      "bytes": "12ffff",
+      "mnemonic": "l32r",
+      "operands": "a2, 100167ac"
+    },
+    {
+      "address": "0x100167b3",
+      "bytes": "0a2000",
+      "mnemonic": "jx",
+      "operands": "a2"
+    },
+    {
+      "address": "0x10100020",
+      "bytes": "600004",
+      "mnemonic": "j",
+      "operands": "10100028"
+    },
+    {
+      "address": "0x10100028",
+      "bytes": "12ffff",
+      "mnemonic": "l32r",
+      "operands": "a2, 10100024"
+    },
+    {
+      "address": "0x1010002b",
+      "bytes": "0a2000",
+      "mnemonic": "jx",
+      "operands": "a2"
+    },
+    {
+      "address": "0x10100320",
+      "bytes": "63fffc",
+      "mnemonic": "j",
+      "operands": "10100320"
+    }
+  ],
+  "reachable_instructions": 21,
+  "rejected_mutations": [
+    "custom_bpp2",
+    "custom_memory",
+    "user_register",
+    "indirect_unproven",
+    "illegal"
+  ],
+  "roots": [
+    "0x10000000",
+    "0x10000200",
+    "0x10000220",
+    "0x10000270",
+    "0x100167a8",
+    "0x10100020",
+    "0x10100320"
+  ],
+  "scope": "CPU instruction/control-flow gate only; existing memory and MMIO audits remain mandatory",
+  "status": "pass",
+  "unknown_instructions": 0
+}

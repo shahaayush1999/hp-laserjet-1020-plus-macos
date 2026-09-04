@@ -48,7 +48,7 @@ This is a generated offline model. It does not contact the printer.
 
 1. when state +0xc0 and callback pointer are nonzero, optionally zero padding after the descriptor band
 2. if remaining +0xd4 is within the current descriptor size, set high bit 0x80000000 on the per-slot control word
-3. call the callback with adjusted pointer, per-slot control word, and descriptor units masked to a multiple of four
+3. call the callback with adjusted source pointer, transformed destination pointer, units masked to a multiple of four, and stride; ELF at 0x10013fdc proves the fourth argument omitted by decompilation
 4. after callback, use the per-slot control word as the raw-band pointer/control source
 
 ### `raw_band_single_block_write`

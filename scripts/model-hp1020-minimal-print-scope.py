@@ -346,6 +346,13 @@ def build_scope() -> dict[str, Any]:
             "risk": "high",
         },
         {
+            "component": "Raster processing callbacks",
+            "current_status": "call contract verified; custom ISA semantics unresolved",
+            "evidence": "four-argument callback call verified in stock ELF; BPP2/600 has 16 unresolved extension instructions, BPP1/600 has 84",
+            "replacement_need": "recover custom instruction effects from core-specific ISA definitions or stock input/output traces, or validate the stock-supported callback bypass",
+            "risk": "unknown custom instruction side effects; not approved for probe inclusion",
+        },
+        {
             "component": "Video/raw-band hardware feed",
             "current_status": "danger boundary mapped, semantics incomplete",
             "evidence": f"{projected_cases} generated print variants project host fields into video registers",

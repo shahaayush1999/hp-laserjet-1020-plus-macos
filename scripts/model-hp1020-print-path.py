@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import json
 from hp1020_work_fields import direct_work_fields
+from hp1020_metadata_bounds import metadata_bounds
 import struct
 from dataclasses import dataclass
 from pathlib import Path
@@ -293,6 +294,7 @@ def build_model(path: Path) -> dict[str, Any]:
                 "id": f"page{len(model['objects']['pages'])}",
                 "size": "0x50",
                 "firmware_source": "ZJT_START_PAGE parser case 0x10009f86",
+                "stock_metadata_bounds": metadata_bounds(chunk.payload, chunk.item_count, chunk.reserved),
                 "zjs_items": item_map(items),
             }
             active_work = {
@@ -301,6 +303,7 @@ def build_model(path: Path) -> dict[str, Any]:
                 "firmware_source": "0x1000f228 hp1020_video_work_create_candidate",
                 "owner_page": active_page["id"],
                 "host_page_items": active_page["zjs_items"],
+                "stock_metadata_status": active_page["stock_metadata_bounds"]["status"],
                 "fields": {
                     **direct_work_fields(active_page["zjs_items"]),
                     "+0x50": [],
@@ -319,6 +322,8 @@ def build_model(path: Path) -> dict[str, Any]:
                     {"queue": 3, "message": 5, "meaning": "video work object ready"},
                 ]
             )
+            if active_page["stock_metadata_bounds"]["status"] != "bounded":
+                effects.append("CAUTION: full-payload semantic model differs from stock declared-metadata allocation; paper/media values are not established on stock for this fixture")
             effects.append(f"created page object {active_page['id']} and work object {active_work['id']}")
 
         elif chunk.chunk_type == 0x04:

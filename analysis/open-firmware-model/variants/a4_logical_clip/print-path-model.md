@@ -99,7 +99,7 @@ Each modeled raster node uses the firmware shape identified from parser and vide
 | Chunk | Type | Parser target | JobMgr messages | Object/model effects |
 |---:|---|---:|---|---|
 | `0` | `ZJT_START_DOC` | `0x10009efe` | q3:`1` | created document object doc0 from 3 ZjStream items |
-| `1` | `ZJT_START_PAGE` | `0x10009f86` | q3:`3`, q3:`5` | created page object page0 and work object work0 |
+| `1` | `ZJT_START_PAGE` | `0x10009f86` | q3:`3`, q3:`5` | CAUTION: full-payload semantic model differs from stock declared-metadata allocation; paper/media values are not established on stock for this fixture<br>created page object page0 and work object work0 |
 | `2` | `ZJT_JBIG_BIH` | `0x1000a006` | q3:`0x29` | copied 20-byte BIH into runtime block 0x10023e28<br>seeded late video fields on work0 at +0x84/+0x88/+0x8c/+0x90 |
 | `3` | `ZJT_JBIG_BID` | `0x1000a014` | q3:`0x2a` | created raster list node raster0 for 6364 compressed bytes<br>appended raster0 to work0 field +0x50 |
 | `4` | `ZJT_END_JBIG` | `0x1000a053` | q3:`0x2b` | closed current JBIG stream |

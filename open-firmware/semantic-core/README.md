@@ -33,3 +33,16 @@ Validation compiles with AddressSanitizer and UndefinedBehaviorSanitizer, compar
 all generated streams with the print-path model, and exercises fragmentation,
 malformed inputs, capacity limits, truncation, multipage/multi-raster inputs and
 opaque binary payloads. Compressed bytes are retained; they are not decoded.
+
+`hp1020_page_plan.c` consumes a successfully completed page and its metadata-bound
+flag. Its narrow policy accepts 600dpi, NBIE1, BPP1/2, RET0, ECONOMODE0/1 and
+positive heights divisible by four. It rejects the BPP4 zero-refill case and the
+logical-clip declared-length mismatch. The semantic parser still retains these
+inputs for analysis. The planner emits row offsets, counts and byte lengths;
+it contains no device addresses or output callbacks and makes no hardware-ready
+claim. Each band's bytes are at most 8192, all rows are covered exactly once per
+copy, and only the final band is marked final. A4 gives 1706 four-row bands.
+
+`python3 scripts/validate-hp1020-page-plan.py` checks 1398 cases and more than
+five million band partitions under ASan/UBSan. Callback transformations, live
+buffer ownership and mechanical sequencing remain outside this component.

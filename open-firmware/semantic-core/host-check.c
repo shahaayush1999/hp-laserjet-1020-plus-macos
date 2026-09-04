@@ -1,4 +1,5 @@
 #include "hp1020_semantic.h"
+#include "hp1020_page_plan.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <inttypes.h>
@@ -22,12 +23,14 @@ int main(int argc,char **argv) {
     printf("{\"result\":%u,\"documents\":%" PRIu32 ",\"arena_used\":%" PRIu32 ",\"pages\":[",result,s->documents,s->arena_used);
     for (uint32_t i=0;i<s->page_count;i++) {
         struct hp1020_page *p=&s->pages[i];
+        struct hp1020_page_plan plan;
+        unsigned plan_result=hp1020_plan_page(p,&plan);
         printf("%s{\"copies\":%" PRIu32 ",\"nbie\":%" PRIu32 ",\"resolution_x\":%" PRIu32 ",\"resolution_y\":%" PRIu32
                ",\"video_x\":%" PRIu32 ",\"video_y\":%" PRIu32 ",\"bpp\":%" PRIu32 ",\"xd\":%" PRIu32
                ",\"yd\":%" PRIu32 ",\"l0\":%" PRIu32 ",\"options\":%u,\"rasters\":%" PRIu32
-               ",\"compressed_bytes\":%" PRIu32 ",\"complete\":%u,\"sideband_known\":%u,\"work26\":%u,\"work30\":%u,\"work32\":%u}",
+               ",\"compressed_bytes\":%" PRIu32 ",\"complete\":%u,\"sideband_known\":%u,\"work26\":%u,\"work30\":%u,\"work32\":%u,\"plan_result\":%u}",
                i?",":"",p->copies,p->nbie,p->resolution_x,p->resolution_y,p->host_video_x,p->host_video_y,p->host_video_bpp,
-               p->bih_xd,p->bih_yd,p->bih_l0,p->bih_options,p->raster_count,p->compressed_bytes,p->complete,p->video_sideband_known,p->work_remaining_units,p->work_ret,p->work_economode);
+               p->bih_xd,p->bih_yd,p->bih_l0,p->bih_options,p->raster_count,p->compressed_bytes,p->complete,p->video_sideband_known,p->work_remaining_units,p->work_ret,p->work_economode,plan_result);
     }
     printf("],\"rasters\":[");
     for (uint32_t i=0;i<s->raster_count;i++) {

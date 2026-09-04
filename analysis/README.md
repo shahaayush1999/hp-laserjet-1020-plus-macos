@@ -318,3 +318,10 @@ Useful current conclusions:
 - `analysis/hardware-boundary/zjs-direct-work.md` verifies 43 stock-byte/source checks for the START_PAGE allocation, direct item-builder call, queue payload and low-field stores.
 - `open-firmware/semantic-core/` is a portable C streaming semantic parser with bounded caller-owned raster storage, no hardware addresses or output callbacks, and 512 ASan/UBSan cases. It is not linked into a device probe.
 - `scripts/validate-hp1020-offline-analysis.sh` now regenerates the base model as well as variants, verifies the direct work contract, and runs the native semantic tests.
+
+### Raster callback and metadata boundaries (2026-09-05)
+
+- `analysis/hardware-boundary/raster-callbacks.md` verifies four callback arguments, including stride omitted by decompilation, and inventories unresolved custom instruction effects. Do not treat those opcodes as safe or substitute guessed semantics.
+- `scripts/check-hp1020-probe-instructions.py` traverses entry plus six vector roots, skips literal pools, proves constant trampolines, and rejects reachable custom/unknown opcodes. Every probe build runs it and five negative mutations. Current reachable counts are idle 21, snapshot 111, marker 240, bulk 560.
+- `analysis/open-firmware-model/metadata-bounds.md` identifies the logical-clip fixture's 180-byte item list versus 156-byte declared allocation. Paper/media items exceed the initialized stock metadata region. Its full-payload model is not proof of stock equivalence.
+- `analysis/open-firmware-model/page-plan.md` verifies the portable C page/band planner with 1398 cases and 5,394,344 band partitions. It has no hardware output and rejects BPP4 and the logical-clip mismatch.

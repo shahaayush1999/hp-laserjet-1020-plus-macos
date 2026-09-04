@@ -1,6 +1,6 @@
 {
   "clean_generated_output_between_builds": true,
-  "compared_files": 37,
+  "compared_files": 39,
   "files": [
     {
       "file": "assembled-control-in-check.json",
@@ -114,6 +114,18 @@
       "file": "hp1020-usb-bulk-parser-draft.map",
       "first_sha256": "6d67a0b4f003f4b1553a09e2d7953efc1f7ac06f9b47a8d11c9b92ed27261be8",
       "second_sha256": "6d67a0b4f003f4b1553a09e2d7953efc1f7ac06f9b47a8d11c9b92ed27261be8",
+      "status": "pass"
+    },
+    {
+      "file": "instruction-gate.json",
+      "first_sha256": "55ecc1d92fbf640c769260c1eccc5075adcd2572723d00dc62dee50a591fa6fa",
+      "second_sha256": "55ecc1d92fbf640c769260c1eccc5075adcd2572723d00dc62dee50a591fa6fa",
+      "status": "pass"
+    },
+    {
+      "file": "instruction-gate.md",
+      "first_sha256": "9d28fac511c589159b240c3686369b3eb83fbf81f2f247de498354b379e91dd2",
+      "second_sha256": "9d28fac511c589159b240c3686369b3eb83fbf81f2f247de498354b379e91dd2",
       "status": "pass"
     },
     {

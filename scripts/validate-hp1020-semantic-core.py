@@ -39,7 +39,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='hp1020-semantic-') as tmp:
         temp=Path(tmp);binary=temp/'host-check';casefile=temp/'input.zjs'
         subprocess.run([os.environ.get('CC','clang'),'-std=c11','-Wall','-Wextra','-Werror','-g','-fsanitize=address,undefined',
-                        str(SOURCE/'hp1020_semantic.c'),str(SOURCE/'host-check.c'),'-o',str(binary)],check=True)
+                        str(SOURCE/'hp1020_semantic.c'),str(SOURCE/'hp1020_page_plan.c'),str(SOURCE/'host-check.c'),'-o',str(binary)],check=True)
         def run(name,data,fragment=1024,capacity=1048576,error=None,expected=None):
             casefile.write_bytes(data)
             result=subprocess.run([str(binary),str(casefile),str(fragment),str(capacity)],capture_output=True,text=True)
@@ -63,7 +63,7 @@ def main():
                 'copies':items['ZJI_DMCOPIES'],'nbie':items['ZJI_NBIE'],'resolution_x':items['ZJI_RESOLUTION_X'],
                 'resolution_y':items['ZJI_RESOLUTION_Y'],'video_x':items['ZJI_VIDEO_X'],'video_y':items['ZJI_VIDEO_Y'],
                 'bpp':items['ZJI_VIDEO_BPP'],'xd':fields['+0x84'],'yd':fields['+0x88'],'l0':fields['+0x8c'],
-                'options':fields['+0x90'],'rasters':len(bids),'compressed_bytes':offset,'complete':1,'sideband_known':1,'work26':fields['+0x26'],'work30':fields['+0x30'],'work32':fields['+0x32']}],
+                'options':fields['+0x90'],'rasters':len(bids),'compressed_bytes':offset,'complete':1,'sideband_known':1,'work26':fields['+0x26'],'work30':fields['+0x30'],'work32':fields['+0x32'],'plan_result':1 if 'logical_clip' in sample.stem else 2 if items['ZJI_VIDEO_BPP']==4 else 0}],
                 'rasters':rasters}
             for fragment in (1,7,64,1024,65536): run(sample.stem+f'/fragment={fragment}',data,fragment,expected=expected)
             run(sample.stem+'/exact-arena',data,capacity=offset,expected=expected)

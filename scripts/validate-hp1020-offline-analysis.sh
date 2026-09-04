@@ -83,8 +83,14 @@ mapfile -t model_paths < <(
 run_step "Verify direct START_PAGE work construction against stock ELF" \
   "$ROOT_DIR/scripts/model-hp1020-zjs-direct-work.py"
 
+run_step "Verify stock metadata allocation bounds" \
+  "$ROOT_DIR/scripts/model-hp1020-metadata-bounds.py"
+
 run_step "Validate portable semantic core under sanitizers" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-semantic-core.py"
+
+run_step "Validate portable page and band planner" \
+  "$ROOT_DIR/scripts/validate-hp1020-page-plan.py"
 
 run_step "Print model invariant check" \
   "$ROOT_DIR/scripts/check-hp1020-print-model-invariants.py" \
@@ -121,6 +127,9 @@ run_step "Regenerate video transfer ring model" \
 
 run_step "Regenerate video IRQ decision model" \
   "$ROOT_DIR/scripts/model-hp1020-video-irq-decisions.py"
+
+run_step "Audit stock raster callback arguments and custom instructions" \
+  "$ROOT_DIR/scripts/model-hp1020-raster-callbacks.py"
 
 run_step "Regenerate video band queue/list model" \
   "$ROOT_DIR/scripts/model-hp1020-video-band-queue.py"

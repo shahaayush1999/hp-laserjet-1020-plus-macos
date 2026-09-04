@@ -839,6 +839,34 @@ def build_report() -> dict[str, Any]:
                         and set(semantic_core["sanitizers"]) == {"address", "undefined"},
                         "Direct stock ELF work creation and native semantic parser must both pass.",
                         evidence="analysis/hardware-boundary/zjs-direct-work.json"))
+    page_plan = read_json("analysis/open-firmware-model/page-plan.json")
+    checks.append(check("portable_page_plan_boundary",
+                        page_plan["status"] == "pass" and page_plan["total_cases"] == 1398
+                        and page_plan["bands_checked"] > 5000000
+                        and page_plan["generated_cases"]["a4_default"]["bands"] == 1706
+                        and page_plan["generated_cases"]["a4_2400x600"]["result"] == 2
+                        and page_plan["generated_cases"]["a4_logical_clip"]["result"] == 1,
+                        "Native page planning must retain corrected window arithmetic and reject unsupported/mismatched fixtures.",
+                        evidence="analysis/open-firmware-model/page-plan.json"))
+    metadata = read_json("analysis/open-firmware-model/metadata-bounds.json")
+    checks.append(check("stock_metadata_split_boundary_explicit",
+                        metadata["status"] == "pass" and metadata["bounded_cases"] == 10 and metadata["invalid_cases"] == 1
+                        and [c["case"] for c in metadata["cases"] if c["status"] == "invalid"] == ["matrix-a4_logical_clip"],
+                        "The logical-clip full-payload model must not be mistaken for bounded stock metadata handling.",
+                        evidence="analysis/open-firmware-model/metadata-bounds.json"))
+    callbacks = read_json("analysis/hardware-boundary/raster-callbacks.json")
+    checks.append(check("raster_callback_argument_and_unknown_isa_boundary",
+                        callbacks["status"] == "pass" and callbacks["call_contract"]["argument_count"] == 4
+                        and [len(f["unknown_instructions"]) for f in callbacks["functions"]] == [16,40,84],
+                        "Stock raster callbacks must preserve fourth stride argument and explicit unresolved ISA effects.",
+                        evidence="analysis/hardware-boundary/raster-callbacks.json"))
+    for variant in ("minimal-idle","usb-register-snapshot","usb-marker-draft","usb-bulk-parser-draft"):
+        gate = read_json(f"analysis/open-firmware-probes/{variant}/instruction-gate.json")
+        checks.append(check(f"{variant}_reachable_instructions_defined",
+                            gate["status"] == "pass" and gate["unknown_instructions"] == 0
+                            and len(gate["roots"]) == 7 and len(gate["rejected_mutations"]) == 5,
+                            "Inert probes may execute only defined allowed instructions and proven constant trampolines.",
+                            evidence=f"analysis/open-firmware-probes/{variant}/instruction-gate.json"))
     queue_payload_chain = read_json("analysis/hardware-boundary/video-queue-payload-chain.json")
     queue_chain_checks = {
         item.get("name"): item

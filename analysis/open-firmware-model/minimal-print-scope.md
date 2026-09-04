@@ -74,6 +74,7 @@ USB bulk receive and framing now have an offline-validated inert implementation.
 | ZjStream parser and JobMgr object model | `mapped` | portable C semantic construction is native-tested separately; integrate on-device only after boot/USB proof, and keep any print handoff explicitly gated | `medium` |
 | JBIG compressed raster handling | `mapped to handoff boundary` | likely no full JBIG decode in firmware if hardware consumes the compressed stream like stock firmware | `high until hardware consumer semantics are proven` |
 | Video sideband policy | `direct START_PAGE source verified` | use VIDEO_Y and ECONOMODE from the verified direct builder; calibrate physical counter/completion behavior before print output | `high` |
+| Raster processing callbacks | `call contract verified; custom ISA semantics unresolved` | recover custom instruction effects from core-specific ISA definitions or stock input/output traces, or validate the stock-supported callback bypass | `unknown custom instruction side effects; not approved for probe inclusion` |
 | Video/raw-band hardware feed | `danger boundary mapped, semantics incomplete` | reproduce page timing, raw-band pointers, channel enable/reset/wait sequence | `high` |
 | Engine paper/fuser/motor coordination | `dispatch/status paths mapped, behavior incomplete` | coordinate mechanical state before and during video transfer | `high` |
 | Scanner/fax/network/multi-product features | `out of scope` | none for Aayush's narrow goal | `none` |

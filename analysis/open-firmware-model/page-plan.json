@@ -1,0 +1,107 @@
+{
+  "bands_checked": 5394344,
+  "generated_cases": {
+    "a4_2400x600": {
+      "bands": 0,
+      "bytes": 0,
+      "chunk_rows": 0,
+      "last_rows": 0,
+      "result": 2,
+      "stride": 0,
+      "window": 0
+    },
+    "a4_600x600": {
+      "bands": 569,
+      "bytes": 4148992,
+      "chunk_rows": 12,
+      "last_rows": 8,
+      "result": 0,
+      "stride": 608,
+      "window": 1216
+    },
+    "a4_cardstock_media": {
+      "bands": 1706,
+      "bytes": 8188800,
+      "chunk_rows": 4,
+      "last_rows": 4,
+      "result": 0,
+      "stride": 1200,
+      "window": 1200
+    },
+    "a4_default": {
+      "bands": 1706,
+      "bytes": 8188800,
+      "chunk_rows": 4,
+      "last_rows": 4,
+      "result": 0,
+      "stride": 1200,
+      "window": 1200
+    },
+    "a4_draft": {
+      "bands": 1706,
+      "bytes": 8188800,
+      "chunk_rows": 4,
+      "last_rows": 4,
+      "result": 0,
+      "stride": 1200,
+      "window": 1200
+    },
+    "a4_logical_clip": {
+      "bands": 0,
+      "bytes": 0,
+      "chunk_rows": 0,
+      "last_rows": 0,
+      "result": 1,
+      "stride": 0,
+      "window": 0
+    },
+    "a4_manual_feed": {
+      "bands": 1706,
+      "bytes": 8188800,
+      "chunk_rows": 4,
+      "last_rows": 4,
+      "result": 0,
+      "stride": 1200,
+      "window": 1200
+    },
+    "a4_two_copies": {
+      "bands": 1706,
+      "bytes": 8188800,
+      "chunk_rows": 4,
+      "last_rows": 4,
+      "result": 0,
+      "stride": 1200,
+      "window": 1200
+    },
+    "legal_default": {
+      "bands": 2052,
+      "bytes": 10112256,
+      "chunk_rows": 4,
+      "last_rows": 4,
+      "result": 0,
+      "stride": 1232,
+      "window": 1232
+    },
+    "letter_default": {
+      "bands": 1602,
+      "bytes": 7894656,
+      "chunk_rows": 4,
+      "last_rows": 4,
+      "result": 0,
+      "stride": 1232,
+      "window": 1232
+    }
+  },
+  "policy": "RAM arithmetic only; complete page, bounded stock metadata, NBIE1, 600dpi BPP1/2, height divisible by four, RET0, ECONOMODE0/1; no hardware authorization",
+  "remaining": "Custom callback transformations, asynchronous buffer ownership, USB/device execution, and physical engine/video sequencing remain outside this component.",
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "source_sha256": {
+    "hp1020_page_plan.c": "16f6608918c620f437d09fe1f56c8f1043d9c60a4e6b8b3f2cd5220ff57e0517",
+    "hp1020_page_plan.h": "1df6b7a2f4ccf752d3ac127e70b48ac8fb93cd6ce4c02431622d5d0ea1326f23"
+  },
+  "status": "pass",
+  "total_cases": 1398
+}

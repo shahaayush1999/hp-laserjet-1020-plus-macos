@@ -1,0 +1,1596 @@
+{
+  "bounded_cases": 10,
+  "cases": [
+    {
+      "case": "matrix-a4_2400x600",
+      "chunks": [
+        {
+          "chunk": "ZJT_START_DOC",
+          "item_bytes": 36,
+          "items": [
+            {
+              "id": 1,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 2,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 0,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 36,
+          "reserved": 36,
+          "status": "bounded",
+          "violations": []
+        },
+        {
+          "chunk": "ZJT_START_PAGE",
+          "item_bytes": 156,
+          "items": [
+            {
+              "id": 23,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 17,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 18,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 16,
+              "index": 3,
+              "offset": 36,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 12,
+              "index": 4,
+              "offset": 48,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 13,
+              "index": 5,
+              "offset": 60,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 7,
+              "index": 6,
+              "offset": 72,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 8,
+              "index": 7,
+              "offset": 84,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 9,
+              "index": 8,
+              "offset": 96,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 5,
+              "index": 9,
+              "offset": 108,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 4,
+              "index": 10,
+              "offset": 120,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 3,
+              "index": 11,
+              "offset": 132,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 6,
+              "index": 12,
+              "offset": 144,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 156,
+          "reserved": 156,
+          "status": "bounded",
+          "violations": []
+        }
+      ],
+      "status": "bounded"
+    },
+    {
+      "case": "matrix-a4_600x600",
+      "chunks": [
+        {
+          "chunk": "ZJT_START_DOC",
+          "item_bytes": 36,
+          "items": [
+            {
+              "id": 1,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 2,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 0,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 36,
+          "reserved": 36,
+          "status": "bounded",
+          "violations": []
+        },
+        {
+          "chunk": "ZJT_START_PAGE",
+          "item_bytes": 156,
+          "items": [
+            {
+              "id": 23,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 17,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 18,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 16,
+              "index": 3,
+              "offset": 36,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 12,
+              "index": 4,
+              "offset": 48,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 13,
+              "index": 5,
+              "offset": 60,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 7,
+              "index": 6,
+              "offset": 72,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 8,
+              "index": 7,
+              "offset": 84,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 9,
+              "index": 8,
+              "offset": 96,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 5,
+              "index": 9,
+              "offset": 108,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 4,
+              "index": 10,
+              "offset": 120,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 3,
+              "index": 11,
+              "offset": 132,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 6,
+              "index": 12,
+              "offset": 144,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 156,
+          "reserved": 156,
+          "status": "bounded",
+          "violations": []
+        }
+      ],
+      "status": "bounded"
+    },
+    {
+      "case": "matrix-a4_cardstock_media",
+      "chunks": [
+        {
+          "chunk": "ZJT_START_DOC",
+          "item_bytes": 36,
+          "items": [
+            {
+              "id": 1,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 2,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 0,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 36,
+          "reserved": 36,
+          "status": "bounded",
+          "violations": []
+        },
+        {
+          "chunk": "ZJT_START_PAGE",
+          "item_bytes": 156,
+          "items": [
+            {
+              "id": 23,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 17,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 18,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 16,
+              "index": 3,
+              "offset": 36,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 12,
+              "index": 4,
+              "offset": 48,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 13,
+              "index": 5,
+              "offset": 60,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 7,
+              "index": 6,
+              "offset": 72,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 8,
+              "index": 7,
+              "offset": 84,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 9,
+              "index": 8,
+              "offset": 96,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 5,
+              "index": 9,
+              "offset": 108,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 4,
+              "index": 10,
+              "offset": 120,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 3,
+              "index": 11,
+              "offset": 132,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 6,
+              "index": 12,
+              "offset": 144,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 156,
+          "reserved": 156,
+          "status": "bounded",
+          "violations": []
+        }
+      ],
+      "status": "bounded"
+    },
+    {
+      "case": "matrix-a4_default",
+      "chunks": [
+        {
+          "chunk": "ZJT_START_DOC",
+          "item_bytes": 36,
+          "items": [
+            {
+              "id": 1,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 2,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 0,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 36,
+          "reserved": 36,
+          "status": "bounded",
+          "violations": []
+        },
+        {
+          "chunk": "ZJT_START_PAGE",
+          "item_bytes": 156,
+          "items": [
+            {
+              "id": 23,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 17,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 18,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 16,
+              "index": 3,
+              "offset": 36,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 12,
+              "index": 4,
+              "offset": 48,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 13,
+              "index": 5,
+              "offset": 60,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 7,
+              "index": 6,
+              "offset": 72,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 8,
+              "index": 7,
+              "offset": 84,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 9,
+              "index": 8,
+              "offset": 96,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 5,
+              "index": 9,
+              "offset": 108,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 4,
+              "index": 10,
+              "offset": 120,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 3,
+              "index": 11,
+              "offset": 132,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 6,
+              "index": 12,
+              "offset": 144,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 156,
+          "reserved": 156,
+          "status": "bounded",
+          "violations": []
+        }
+      ],
+      "status": "bounded"
+    },
+    {
+      "case": "matrix-a4_draft",
+      "chunks": [
+        {
+          "chunk": "ZJT_START_DOC",
+          "item_bytes": 36,
+          "items": [
+            {
+              "id": 1,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 2,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 0,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 36,
+          "reserved": 36,
+          "status": "bounded",
+          "violations": []
+        },
+        {
+          "chunk": "ZJT_START_PAGE",
+          "item_bytes": 156,
+          "items": [
+            {
+              "id": 23,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 17,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 18,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 16,
+              "index": 3,
+              "offset": 36,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 12,
+              "index": 4,
+              "offset": 48,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 13,
+              "index": 5,
+              "offset": 60,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 7,
+              "index": 6,
+              "offset": 72,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 8,
+              "index": 7,
+              "offset": 84,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 9,
+              "index": 8,
+              "offset": 96,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 5,
+              "index": 9,
+              "offset": 108,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 4,
+              "index": 10,
+              "offset": 120,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 3,
+              "index": 11,
+              "offset": 132,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 6,
+              "index": 12,
+              "offset": 144,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 156,
+          "reserved": 156,
+          "status": "bounded",
+          "violations": []
+        }
+      ],
+      "status": "bounded"
+    },
+    {
+      "case": "matrix-a4_logical_clip",
+      "chunks": [
+        {
+          "chunk": "ZJT_START_DOC",
+          "item_bytes": 36,
+          "items": [
+            {
+              "id": 1,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 2,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 0,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 36,
+          "reserved": 36,
+          "status": "bounded",
+          "violations": []
+        },
+        {
+          "chunk": "ZJT_START_PAGE",
+          "item_bytes": 180,
+          "items": [
+            {
+              "id": 23,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 17,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 18,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 16,
+              "index": 3,
+              "offset": 36,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 12,
+              "index": 4,
+              "offset": 48,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 13,
+              "index": 5,
+              "offset": 60,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 10,
+              "index": 6,
+              "offset": 72,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 11,
+              "index": 7,
+              "offset": 84,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 7,
+              "index": 8,
+              "offset": 96,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 8,
+              "index": 9,
+              "offset": 108,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 9,
+              "index": 10,
+              "offset": 120,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 5,
+              "index": 11,
+              "offset": 132,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 4,
+              "index": 12,
+              "offset": 144,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 3,
+              "index": 13,
+              "offset": 156,
+              "size": 12,
+              "within_reserved": false
+            },
+            {
+              "id": 6,
+              "index": 14,
+              "offset": 168,
+              "size": 12,
+              "within_reserved": false
+            }
+          ],
+          "payload_bytes": 180,
+          "reserved": 156,
+          "status": "invalid",
+          "violations": [
+            "item 13 id 0x3 occupies [156,168) beyond declared metadata 156",
+            "item 14 id 0x6 occupies [168,180) beyond declared metadata 156"
+          ]
+        }
+      ],
+      "status": "invalid"
+    },
+    {
+      "case": "matrix-a4_manual_feed",
+      "chunks": [
+        {
+          "chunk": "ZJT_START_DOC",
+          "item_bytes": 36,
+          "items": [
+            {
+              "id": 1,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 2,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 0,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 36,
+          "reserved": 36,
+          "status": "bounded",
+          "violations": []
+        },
+        {
+          "chunk": "ZJT_START_PAGE",
+          "item_bytes": 156,
+          "items": [
+            {
+              "id": 23,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 17,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 18,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 16,
+              "index": 3,
+              "offset": 36,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 12,
+              "index": 4,
+              "offset": 48,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 13,
+              "index": 5,
+              "offset": 60,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 7,
+              "index": 6,
+              "offset": 72,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 8,
+              "index": 7,
+              "offset": 84,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 9,
+              "index": 8,
+              "offset": 96,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 5,
+              "index": 9,
+              "offset": 108,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 4,
+              "index": 10,
+              "offset": 120,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 3,
+              "index": 11,
+              "offset": 132,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 6,
+              "index": 12,
+              "offset": 144,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 156,
+          "reserved": 156,
+          "status": "bounded",
+          "violations": []
+        }
+      ],
+      "status": "bounded"
+    },
+    {
+      "case": "matrix-a4_two_copies",
+      "chunks": [
+        {
+          "chunk": "ZJT_START_DOC",
+          "item_bytes": 36,
+          "items": [
+            {
+              "id": 1,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 2,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 0,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 36,
+          "reserved": 36,
+          "status": "bounded",
+          "violations": []
+        },
+        {
+          "chunk": "ZJT_START_PAGE",
+          "item_bytes": 156,
+          "items": [
+            {
+              "id": 23,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 17,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 18,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 16,
+              "index": 3,
+              "offset": 36,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 12,
+              "index": 4,
+              "offset": 48,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 13,
+              "index": 5,
+              "offset": 60,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 7,
+              "index": 6,
+              "offset": 72,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 8,
+              "index": 7,
+              "offset": 84,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 9,
+              "index": 8,
+              "offset": 96,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 5,
+              "index": 9,
+              "offset": 108,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 4,
+              "index": 10,
+              "offset": 120,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 3,
+              "index": 11,
+              "offset": 132,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 6,
+              "index": 12,
+              "offset": 144,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 156,
+          "reserved": 156,
+          "status": "bounded",
+          "violations": []
+        }
+      ],
+      "status": "bounded"
+    },
+    {
+      "case": "matrix-legal_default",
+      "chunks": [
+        {
+          "chunk": "ZJT_START_DOC",
+          "item_bytes": 36,
+          "items": [
+            {
+              "id": 1,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 2,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 0,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 36,
+          "reserved": 36,
+          "status": "bounded",
+          "violations": []
+        },
+        {
+          "chunk": "ZJT_START_PAGE",
+          "item_bytes": 156,
+          "items": [
+            {
+              "id": 23,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 17,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 18,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 16,
+              "index": 3,
+              "offset": 36,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 12,
+              "index": 4,
+              "offset": 48,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 13,
+              "index": 5,
+              "offset": 60,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 7,
+              "index": 6,
+              "offset": 72,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 8,
+              "index": 7,
+              "offset": 84,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 9,
+              "index": 8,
+              "offset": 96,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 5,
+              "index": 9,
+              "offset": 108,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 4,
+              "index": 10,
+              "offset": 120,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 3,
+              "index": 11,
+              "offset": 132,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 6,
+              "index": 12,
+              "offset": 144,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 156,
+          "reserved": 156,
+          "status": "bounded",
+          "violations": []
+        }
+      ],
+      "status": "bounded"
+    },
+    {
+      "case": "matrix-letter_default",
+      "chunks": [
+        {
+          "chunk": "ZJT_START_DOC",
+          "item_bytes": 36,
+          "items": [
+            {
+              "id": 1,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 2,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 0,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 36,
+          "reserved": 36,
+          "status": "bounded",
+          "violations": []
+        },
+        {
+          "chunk": "ZJT_START_PAGE",
+          "item_bytes": 156,
+          "items": [
+            {
+              "id": 23,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 17,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 18,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 16,
+              "index": 3,
+              "offset": 36,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 12,
+              "index": 4,
+              "offset": 48,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 13,
+              "index": 5,
+              "offset": 60,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 7,
+              "index": 6,
+              "offset": 72,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 8,
+              "index": 7,
+              "offset": 84,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 9,
+              "index": 8,
+              "offset": 96,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 5,
+              "index": 9,
+              "offset": 108,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 4,
+              "index": 10,
+              "offset": 120,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 3,
+              "index": 11,
+              "offset": 132,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 6,
+              "index": 12,
+              "offset": 144,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 156,
+          "reserved": 156,
+          "status": "bounded",
+          "violations": []
+        }
+      ],
+      "status": "bounded"
+    },
+    {
+      "case": "minimal-page-a4",
+      "chunks": [
+        {
+          "chunk": "ZJT_START_DOC",
+          "item_bytes": 36,
+          "items": [
+            {
+              "id": 1,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 2,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 0,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 36,
+          "reserved": 36,
+          "status": "bounded",
+          "violations": []
+        },
+        {
+          "chunk": "ZJT_START_PAGE",
+          "item_bytes": 156,
+          "items": [
+            {
+              "id": 23,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 17,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 18,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 16,
+              "index": 3,
+              "offset": 36,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 12,
+              "index": 4,
+              "offset": 48,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 13,
+              "index": 5,
+              "offset": 60,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 7,
+              "index": 6,
+              "offset": 72,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 8,
+              "index": 7,
+              "offset": 84,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 9,
+              "index": 8,
+              "offset": 96,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 5,
+              "index": 9,
+              "offset": 108,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 4,
+              "index": 10,
+              "offset": 120,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 3,
+              "index": 11,
+              "offset": 132,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 6,
+              "index": 12,
+              "offset": 144,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 156,
+          "reserved": 156,
+          "status": "bounded",
+          "violations": []
+        }
+      ],
+      "status": "bounded"
+    }
+  ],
+  "checks": [
+    {
+      "address": "0x10009e19",
+      "bytes": "288106",
+      "meaning": "l16ui a8,a8,12: header reserved bytes",
+      "status": "present"
+    },
+    {
+      "address": "0x10009e1f",
+      "bytes": "28166708550c",
+      "meaning": "save reserved; remaining payload subtracts it",
+      "status": "present"
+    },
+    {
+      "address": "0x10009e27",
+      "bytes": "088a022b0a02",
+      "meaning": "allocation argument is reserved, flags=2",
+      "status": "present"
+    },
+    {
+      "address": "0x10009e30",
+      "bytes": "5824c3",
+      "meaning": "call8 allocator 0x10013140",
+      "status": "present"
+    },
+    {
+      "address": "0x10009e4c",
+      "bytes": "2b1265dce0",
+      "meaning": "read callback destination is reserved buffer; count is reserved",
+      "status": "present"
+    },
+    {
+      "address": "0x10009e74",
+      "bytes": "da20db40dc50",
+      "meaning": "remaining payload read goes to separate buffer",
+      "status": "present"
+    },
+    {
+      "address": "0x10009fe5",
+      "bytes": "2b12652c1267dd305bfed7",
+      "meaning": "START_PAGE builder receives reserved buffer plus original item count",
+      "status": "present"
+    },
+    {
+      "address": "0x10009d24",
+      "bytes": "8830b144a833754b0263fe44",
+      "meaning": "builder advances by item size and stops by item count, with no remaining-byte bound",
+      "status": "present"
+    }
+  ],
+  "conclusion": "The logical-clip fixture requests 15 items but supplies only 13 in the declared metadata buffer. Paper and media items lie outside that initialized allocation.",
+  "distinction": "The portable core safely parses all 180 payload bytes. That model result is not proof of equivalent stock behavior for this fixture.",
+  "invalid_cases": 1,
+  "limitation": "Allocator rounding does not establish initialization or contiguity of separately allocated data. Actual erroneous stock output is not predicted or tested.",
+  "scope": "offline analysis; no fixture was sent and no installed runtime was changed",
+  "status": "pass"
+}

@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `65`
+- checks: `72`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -38,6 +38,13 @@ It does not contact the printer.
 | `first_page_sequence_keeps_video_engine_registers_ordered` | `watch` | The first-page hardware sequence must preserve the ordered engine/video/refill risk boundary. | `analysis/hardware-boundary/first-page-hardware-sequence.json` |
 | `video_dataflow_contract_keeps_a4_default_path` | `watch` | The video dataflow contract must preserve concrete a4_default values through render/refill boundary formulas. | `analysis/hardware-boundary/video-dataflow-contract.json` |
 | `direct_start_page_and_native_semantics_verified` | `watch` | Direct stock ELF work creation and native semantic parser must both pass. | `analysis/hardware-boundary/zjs-direct-work.json` |
+| `portable_page_plan_boundary` | `watch` | Native page planning must retain corrected window arithmetic and reject unsupported/mismatched fixtures. | `analysis/open-firmware-model/page-plan.json` |
+| `stock_metadata_split_boundary_explicit` | `watch` | The logical-clip full-payload model must not be mistaken for bounded stock metadata handling. | `analysis/open-firmware-model/metadata-bounds.json` |
+| `raster_callback_argument_and_unknown_isa_boundary` | `watch` | Stock raster callbacks must preserve fourth stride argument and explicit unresolved ISA effects. | `analysis/hardware-boundary/raster-callbacks.json` |
+| `minimal-idle_reachable_instructions_defined` | `watch` | Inert probes may execute only defined allowed instructions and proven constant trampolines. | `analysis/open-firmware-probes/minimal-idle/instruction-gate.json` |
+| `usb-register-snapshot_reachable_instructions_defined` | `watch` | Inert probes may execute only defined allowed instructions and proven constant trampolines. | `analysis/open-firmware-probes/usb-register-snapshot/instruction-gate.json` |
+| `usb-marker-draft_reachable_instructions_defined` | `watch` | Inert probes may execute only defined allowed instructions and proven constant trampolines. | `analysis/open-firmware-probes/usb-marker-draft/instruction-gate.json` |
+| `usb-bulk-parser-draft_reachable_instructions_defined` | `watch` | Inert probes may execute only defined allowed instructions and proven constant trampolines. | `analysis/open-firmware-probes/usb-bulk-parser-draft/instruction-gate.json` |
 | `video_queue_payload_chain_identifies_prepare_work_object` | `watch` | The video queue payload chain must preserve that prepare receives the 0x94 work object, with VIDEO_Y written directly into work +0x26. | `analysis/hardware-boundary/video-queue-payload-chain.json` |
 | `video_prepare_argument_fields_resolve_direct_sources` | `watch` | The prepare argument field model must keep render geometry sourced with +0x26/+0x30/+0x32 sourced directly on active work. | `analysis/hardware-boundary/video-prepare-argument-fields.json` |
 | `video_sideband_write_census_rules_out_false_leads` | `watch` | The sideband write census must preserve that selected +0x26/+0x30/+0x32 hits and overlap hits include three direct active work-object writers alongside consumers and false leads. | `analysis/hardware-boundary/video-sideband-write-census.json` |

@@ -1,5 +1,5 @@
 {
-  "check_count": 65,
+  "check_count": 72,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -143,6 +143,48 @@
       "detail": "Direct stock ELF work creation and native semantic parser must both pass.",
       "evidence": "analysis/hardware-boundary/zjs-direct-work.json",
       "name": "direct_start_page_and_native_semantics_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Native page planning must retain corrected window arithmetic and reject unsupported/mismatched fixtures.",
+      "evidence": "analysis/open-firmware-model/page-plan.json",
+      "name": "portable_page_plan_boundary",
+      "severity": "watch"
+    },
+    {
+      "detail": "The logical-clip full-payload model must not be mistaken for bounded stock metadata handling.",
+      "evidence": "analysis/open-firmware-model/metadata-bounds.json",
+      "name": "stock_metadata_split_boundary_explicit",
+      "severity": "watch"
+    },
+    {
+      "detail": "Stock raster callbacks must preserve fourth stride argument and explicit unresolved ISA effects.",
+      "evidence": "analysis/hardware-boundary/raster-callbacks.json",
+      "name": "raster_callback_argument_and_unknown_isa_boundary",
+      "severity": "watch"
+    },
+    {
+      "detail": "Inert probes may execute only defined allowed instructions and proven constant trampolines.",
+      "evidence": "analysis/open-firmware-probes/minimal-idle/instruction-gate.json",
+      "name": "minimal-idle_reachable_instructions_defined",
+      "severity": "watch"
+    },
+    {
+      "detail": "Inert probes may execute only defined allowed instructions and proven constant trampolines.",
+      "evidence": "analysis/open-firmware-probes/usb-register-snapshot/instruction-gate.json",
+      "name": "usb-register-snapshot_reachable_instructions_defined",
+      "severity": "watch"
+    },
+    {
+      "detail": "Inert probes may execute only defined allowed instructions and proven constant trampolines.",
+      "evidence": "analysis/open-firmware-probes/usb-marker-draft/instruction-gate.json",
+      "name": "usb-marker-draft_reachable_instructions_defined",
+      "severity": "watch"
+    },
+    {
+      "detail": "Inert probes may execute only defined allowed instructions and proven constant trampolines.",
+      "evidence": "analysis/open-firmware-probes/usb-bulk-parser-draft/instruction-gate.json",
+      "name": "usb-bulk-parser-draft_reachable_instructions_defined",
       "severity": "watch"
     },
     {

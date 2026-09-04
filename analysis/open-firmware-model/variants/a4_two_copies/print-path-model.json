@@ -32,6 +32,106 @@
         "firmware_source": "ZJT_START_PAGE parser case 0x10009f86",
         "id": "page0",
         "size": "0x50",
+        "stock_metadata_bounds": {
+          "item_bytes": 156,
+          "items": [
+            {
+              "id": 23,
+              "index": 0,
+              "offset": 0,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 17,
+              "index": 1,
+              "offset": 12,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 18,
+              "index": 2,
+              "offset": 24,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 16,
+              "index": 3,
+              "offset": 36,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 12,
+              "index": 4,
+              "offset": 48,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 13,
+              "index": 5,
+              "offset": 60,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 7,
+              "index": 6,
+              "offset": 72,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 8,
+              "index": 7,
+              "offset": 84,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 9,
+              "index": 8,
+              "offset": 96,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 5,
+              "index": 9,
+              "offset": 108,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 4,
+              "index": 10,
+              "offset": 120,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 3,
+              "index": 11,
+              "offset": 132,
+              "size": 12,
+              "within_reserved": true
+            },
+            {
+              "id": 6,
+              "index": 12,
+              "offset": 144,
+              "size": 12,
+              "within_reserved": true
+            }
+          ],
+          "payload_bytes": 156,
+          "reserved": 156,
+          "status": "bounded",
+          "violations": []
+        },
         "work_object": "work0",
         "zjs_items": {
           "ZJI_DMCOPIES": 2,
@@ -122,7 +222,8 @@
         },
         "id": "work0",
         "owner_page": "page0",
-        "size": "0x94"
+        "size": "0x94",
+        "stock_metadata_status": "bounded"
       }
     ]
   },

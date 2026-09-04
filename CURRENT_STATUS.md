@@ -41,8 +41,14 @@ network, multi-model, and unrelated firmware features are out of scope.
 - Corrected +0x22 to VIDEO_BPP (NBIE is +0x12); default A4 window is 1200,
   not 2400 bytes. All dependent reports and consistency checks are updated.
 - Portable semantic C passes 512 ASan/UBSan cases across 11 generated streams.
-- Both validation suites and bulk-probe reproducibility pass. Research continues
-  on the raster callbacks selected by the corrected BPP branch.
+- Verified four raster callback arguments and isolated their custom instructions;
+  their transformations/side effects remain unknown. Probe instruction gates
+  now reject unknown/custom code from entry and all six vector roots.
+- Identified logical-clip metadata length mismatch (180 actual / 156 declared).
+- RAM-only C page planner passes 1398 cases and 5,394,344 band partitions;
+  rejects BPP4 and inconsistent metadata. A4: 1706 bands, four rows each.
+- Both validation suites, 72 consistency checks and reproducibility pass.
+  A clean freestanding C cross-compiler build is in progress outside the repo.
 
 ## Main Unknowns
 
@@ -55,7 +61,7 @@ network, multi-model, and unrelated firmware features are out of scope.
 ## Productive Offline Work
 
 - Independently audit the recovered contracts against stock ELF instructions.
-- Recover the selected raster callbacks and isolate undecoded custom instructions.
+- Build and validate target C output for the portable semantic components.
 - Lift or model remaining video helpers and engine state transitions.
 - Extend the tested portable semantic component and host-side transfer planning.
 - Build executable host models for video descriptors and engine state machines.

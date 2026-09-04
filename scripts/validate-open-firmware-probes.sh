@@ -80,6 +80,11 @@ from pathlib import Path
 
 root = Path(sys.argv[1])
 reports = [
+    "analysis/open-firmware-probes/minimal-idle/instruction-gate.json",
+    "analysis/open-firmware-probes/usb-register-snapshot/instruction-gate.json",
+    "analysis/open-firmware-probes/usb-marker-draft/instruction-gate.json",
+    "analysis/open-firmware-probes/usb-bulk-parser-draft/instruction-gate.json",
+
     "analysis/open-firmware-probes/minimal-idle/safety-scan.json",
     "analysis/open-firmware-probes/minimal-idle/usb-contract-scan.json",
     "analysis/open-firmware-probes/usb-register-snapshot/safety-scan.json",

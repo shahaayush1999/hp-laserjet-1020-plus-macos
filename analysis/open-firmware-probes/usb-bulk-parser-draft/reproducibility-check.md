@@ -2,7 +2,7 @@
 
 - status: `pass`
 - generated output removed before each build: `yes`
-- byte-identical files: `37/37`
+- byte-identical files: `39/39`
 - missing required artifacts: `0`
 
 | File | First SHA-256 | Second SHA-256 | Status |
@@ -26,6 +26,8 @@
 | `hp1020-usb-bulk-parser-draft.elf` | `ec0b664e52bedee5169a1ffb45d9f0fd954a8d977f69801874b6e8f834b1042c` | `ec0b664e52bedee5169a1ffb45d9f0fd954a8d977f69801874b6e8f834b1042c` | `pass` |
 | `hp1020-usb-bulk-parser-draft.img` | `0453f7290e1565a8d92690f86b4040671b2d9d16d3c798735f207551359eb852` | `0453f7290e1565a8d92690f86b4040671b2d9d16d3c798735f207551359eb852` | `pass` |
 | `hp1020-usb-bulk-parser-draft.map` | `6d67a0b4f003f4b1553a09e2d7953efc1f7ac06f9b47a8d11c9b92ed27261be8` | `6d67a0b4f003f4b1553a09e2d7953efc1f7ac06f9b47a8d11c9b92ed27261be8` | `pass` |
+| `instruction-gate.json` | `55ecc1d92fbf640c769260c1eccc5075adcd2572723d00dc62dee50a591fa6fa` | `55ecc1d92fbf640c769260c1eccc5075adcd2572723d00dc62dee50a591fa6fa` | `pass` |
+| `instruction-gate.md` | `9d28fac511c589159b240c3686369b3eb83fbf81f2f247de498354b379e91dd2` | `9d28fac511c589159b240c3686369b3eb83fbf81f2f247de498354b379e91dd2` | `pass` |
 | `layout.json` | `52b95febd6eabd665f05f792433e2cf5ada6e134c4ecb11c2c9a05f6ced314dc` | `52b95febd6eabd665f05f792433e2cf5ada6e134c4ecb11c2c9a05f6ced314dc` | `pass` |
 | `layout.md` | `a3299fe4852beae9cbfc02275cef226073422a51cb7c029d6f9a13b3d522c5d0` | `a3299fe4852beae9cbfc02275cef226073422a51cb7c029d6f9a13b3d522c5d0` | `pass` |
 | `memory-boundary-scan.json` | `391e6144443dbaeab7ae79fccc03c1543bf2e13b010f7f2cd158018cf4868a9a` | `391e6144443dbaeab7ae79fccc03c1543bf2e13b010f7f2cd158018cf4868a9a` | `pass` |
