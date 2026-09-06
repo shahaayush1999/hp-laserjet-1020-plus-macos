@@ -20,7 +20,11 @@ Aayush wants plain-language chat updates; these notes are for agents only.
 - Original stock parser/libc execution now has 9841 cases; page fields and raster
   records are compared against the sanitizer-built C replacement. Original status
   decisions are also checked over exhaustive single-status axes and mixed cases.
-  All device I/O and queue consumers remain outside these host harnesses.
+  Original JobMgr/list/page scheduling now executes too: 118 pipeline cases and
+  36 allocator cases, plus 256 complete MMIO-free render paths. Hardware-facing
+  consumer paths remain outside.
+- Stock compiler annotations recover 623 instruction starts missed by linear
+  decoding. All direct targets validate; stock execution now rejects other PCs.
 
 ## Corrections agents must not regress
 
@@ -33,6 +37,8 @@ Aayush wants plain-language chat updates; these notes are for agents only.
   `+0x26/+0x30/+0x32`. The old unresolved-field hypothesis is superseded.
 - `+0x22` is VIDEO_BPP; NBIE is `+0x12`. Default A4 window is 1200 bytes.
 - Endpoint-0 pointer clobbers are fixed and instruction-tested in host RAM.
+- Original render changes list pointers before returning busy; the old ring
+  model incorrectly placed these stores after rejection.
 - Logical-clip metadata declares 156 bytes for 180 bytes of items. The narrow
   planner rejects it and BPP4. Custom raster instruction effects remain unknown.
 
@@ -41,6 +47,11 @@ Aayush wants plain-language chat updates; these notes are for agents only.
 Current mode: **offline only; no hardware test is authorized**.
 Continue the evaluation from the original-byte execution harnesses in
 `scripts/validate-hp1020-stock-execution.py` and `validate-hp1020-stock-status.py`.
+Next: extend independent execution through software parts of compressed-input
+completion/refill or validate ISA semantics with a second execution engine.
+Nonfinal payload `+0x4c` retains allocation bytes; tested MMIO-free compressed
+render paths ignore it. Its known flag consumer is the alternate raw path.
+Do not turn that out-of-scope dependency into a first-printing blocker.
 These challenge inferred models using unchanged stock instructions. Environment
 substitutes and untested device behavior must stay explicit. The next live USB
 experiment remains available in the existing guarded test plan, but is not the

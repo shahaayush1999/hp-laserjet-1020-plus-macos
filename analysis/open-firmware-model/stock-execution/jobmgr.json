@@ -1,0 +1,3879 @@
+{
+  "additional_code_ranges": [
+    [
+      "0x1000e414",
+      "0x1000ee6c"
+    ],
+    [
+      "0x1000eeb8",
+      "0x1000efd8"
+    ],
+    [
+      "0x1000f280",
+      "0x1000f29c"
+    ],
+    [
+      "0x10011178",
+      "0x100111b4"
+    ],
+    [
+      "0x10013000",
+      "0x10013050"
+    ],
+    [
+      "0x1001b34d",
+      "0x1001b485"
+    ]
+  ],
+  "allocator_checks": [
+    {
+      "fill": 0,
+      "instructions": 125,
+      "size": 1,
+      "status": "preserved"
+    },
+    {
+      "fill": 0,
+      "instructions": 125,
+      "size": 2,
+      "status": "preserved"
+    },
+    {
+      "fill": 0,
+      "instructions": 125,
+      "size": 3,
+      "status": "preserved"
+    },
+    {
+      "fill": 0,
+      "instructions": 122,
+      "size": 4,
+      "status": "preserved"
+    },
+    {
+      "fill": 0,
+      "instructions": 122,
+      "size": 8,
+      "status": "preserved"
+    },
+    {
+      "fill": 0,
+      "instructions": 122,
+      "size": 16,
+      "status": "preserved"
+    },
+    {
+      "fill": 0,
+      "instructions": 122,
+      "size": 120,
+      "status": "preserved"
+    },
+    {
+      "fill": 0,
+      "instructions": 122,
+      "size": 148,
+      "status": "preserved"
+    },
+    {
+      "fill": 0,
+      "instructions": 122,
+      "size": 4096,
+      "status": "preserved"
+    },
+    {
+      "fill": 1,
+      "instructions": 125,
+      "size": 1,
+      "status": "preserved"
+    },
+    {
+      "fill": 1,
+      "instructions": 125,
+      "size": 2,
+      "status": "preserved"
+    },
+    {
+      "fill": 1,
+      "instructions": 125,
+      "size": 3,
+      "status": "preserved"
+    },
+    {
+      "fill": 1,
+      "instructions": 122,
+      "size": 4,
+      "status": "preserved"
+    },
+    {
+      "fill": 1,
+      "instructions": 122,
+      "size": 8,
+      "status": "preserved"
+    },
+    {
+      "fill": 1,
+      "instructions": 122,
+      "size": 16,
+      "status": "preserved"
+    },
+    {
+      "fill": 1,
+      "instructions": 122,
+      "size": 120,
+      "status": "preserved"
+    },
+    {
+      "fill": 1,
+      "instructions": 122,
+      "size": 148,
+      "status": "preserved"
+    },
+    {
+      "fill": 1,
+      "instructions": 122,
+      "size": 4096,
+      "status": "preserved"
+    },
+    {
+      "fill": 204,
+      "instructions": 125,
+      "size": 1,
+      "status": "preserved"
+    },
+    {
+      "fill": 204,
+      "instructions": 125,
+      "size": 2,
+      "status": "preserved"
+    },
+    {
+      "fill": 204,
+      "instructions": 125,
+      "size": 3,
+      "status": "preserved"
+    },
+    {
+      "fill": 204,
+      "instructions": 122,
+      "size": 4,
+      "status": "preserved"
+    },
+    {
+      "fill": 204,
+      "instructions": 122,
+      "size": 8,
+      "status": "preserved"
+    },
+    {
+      "fill": 204,
+      "instructions": 122,
+      "size": 16,
+      "status": "preserved"
+    },
+    {
+      "fill": 204,
+      "instructions": 122,
+      "size": 120,
+      "status": "preserved"
+    },
+    {
+      "fill": 204,
+      "instructions": 122,
+      "size": 148,
+      "status": "preserved"
+    },
+    {
+      "fill": 204,
+      "instructions": 122,
+      "size": 4096,
+      "status": "preserved"
+    },
+    {
+      "fill": 255,
+      "instructions": 125,
+      "size": 1,
+      "status": "preserved"
+    },
+    {
+      "fill": 255,
+      "instructions": 125,
+      "size": 2,
+      "status": "preserved"
+    },
+    {
+      "fill": 255,
+      "instructions": 125,
+      "size": 3,
+      "status": "preserved"
+    },
+    {
+      "fill": 255,
+      "instructions": 122,
+      "size": 4,
+      "status": "preserved"
+    },
+    {
+      "fill": 255,
+      "instructions": 122,
+      "size": 8,
+      "status": "preserved"
+    },
+    {
+      "fill": 255,
+      "instructions": 122,
+      "size": 16,
+      "status": "preserved"
+    },
+    {
+      "fill": 255,
+      "instructions": 122,
+      "size": 120,
+      "status": "preserved"
+    },
+    {
+      "fill": 255,
+      "instructions": 122,
+      "size": 148,
+      "status": "preserved"
+    },
+    {
+      "fill": 255,
+      "instructions": 122,
+      "size": 4096,
+      "status": "preserved"
+    }
+  ],
+  "case_count": 118,
+  "cases": [
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 0,
+      "input_sha256": "6c4980e3b22af4b7fa799c6765fe82256e814354ad58843f1baf499aa3d3ef4e",
+      "jobmgr_instructions": 480,
+      "name": "matrix-a4_2400x600/fill=0",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "6c4980e3b22af4b7fa799c6765fe82256e814354ad58843f1baf499aa3d3ef4e",
+      "jobmgr_instructions": 480,
+      "name": "matrix-a4_2400x600/fill=204",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 0,
+      "input_sha256": "b7f3569d41b9187f71b6588a29dd1656643ff6710780a7ce3e90381ac0179298",
+      "jobmgr_instructions": 480,
+      "name": "matrix-a4_600x600/fill=0",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "b7f3569d41b9187f71b6588a29dd1656643ff6710780a7ce3e90381ac0179298",
+      "jobmgr_instructions": 480,
+      "name": "matrix-a4_600x600/fill=204",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 0,
+      "input_sha256": "25a5c0be75d68bea2be9ceccd26bde979856dfea1e60988f8b5b881a0e74ad79",
+      "jobmgr_instructions": 480,
+      "name": "matrix-a4_cardstock_media/fill=0",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "25a5c0be75d68bea2be9ceccd26bde979856dfea1e60988f8b5b881a0e74ad79",
+      "jobmgr_instructions": 480,
+      "name": "matrix-a4_cardstock_media/fill=204",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 0,
+      "input_sha256": "49fbe350afcf72418a4fd147e6e8d9efc68367995ad2f0bd73c6500013519402",
+      "jobmgr_instructions": 480,
+      "name": "matrix-a4_default/fill=0",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "49fbe350afcf72418a4fd147e6e8d9efc68367995ad2f0bd73c6500013519402",
+      "jobmgr_instructions": 480,
+      "name": "matrix-a4_default/fill=204",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 0,
+      "input_sha256": "becf1e288b1db057142f1ca0b2190771232581e8d13cee0831e293f708f52a18",
+      "jobmgr_instructions": 480,
+      "name": "matrix-a4_draft/fill=0",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "becf1e288b1db057142f1ca0b2190771232581e8d13cee0831e293f708f52a18",
+      "jobmgr_instructions": 480,
+      "name": "matrix-a4_draft/fill=204",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 0,
+      "input_sha256": "3254ddfc16c2f9a21f12d8025b5c6913c8de804cf5953104a1519b3da60f5021",
+      "jobmgr_instructions": 480,
+      "name": "matrix-a4_manual_feed/fill=0",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "3254ddfc16c2f9a21f12d8025b5c6913c8de804cf5953104a1519b3da60f5021",
+      "jobmgr_instructions": 480,
+      "name": "matrix-a4_manual_feed/fill=204",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 0,
+      "input_sha256": "5f4d5f28d3d126398c6e84360edc5fd3cfe68ffb5d68ca38dc5ff624e2034708",
+      "jobmgr_instructions": 498,
+      "name": "matrix-a4_two_copies/fill=0",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 18,
+      "scheduled_requests": 2,
+      "status": "pass",
+      "stock_instructions": 1702
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "5f4d5f28d3d126398c6e84360edc5fd3cfe68ffb5d68ca38dc5ff624e2034708",
+      "jobmgr_instructions": 498,
+      "name": "matrix-a4_two_copies/fill=204",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 18,
+      "scheduled_requests": 2,
+      "status": "pass",
+      "stock_instructions": 1702
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 0,
+      "input_sha256": "608f73e21bd9d55334e26513ce8c3c080ae63bd43cf8e54f6eba0ebc8e715394",
+      "jobmgr_instructions": 480,
+      "name": "matrix-legal_default/fill=0",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "608f73e21bd9d55334e26513ce8c3c080ae63bd43cf8e54f6eba0ebc8e715394",
+      "jobmgr_instructions": 480,
+      "name": "matrix-legal_default/fill=204",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 0,
+      "input_sha256": "fcd946263717b138787718765866421393993415edbf58c65ef24c14a0c3a83f",
+      "jobmgr_instructions": 480,
+      "name": "matrix-letter_default/fill=0",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "fcd946263717b138787718765866421393993415edbf58c65ef24c14a0c3a83f",
+      "jobmgr_instructions": 480,
+      "name": "matrix-letter_default/fill=204",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 0,
+      "input_sha256": "49fbe350afcf72418a4fd147e6e8d9efc68367995ad2f0bd73c6500013519402",
+      "jobmgr_instructions": 480,
+      "name": "minimal-page-a4/fill=0",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "49fbe350afcf72418a4fd147e6e8d9efc68367995ad2f0bd73c6500013519402",
+      "jobmgr_instructions": 480,
+      "name": "minimal-page-a4/fill=204",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "81ab8038cea9a0c6e69420d10221d679121851898e93185a79e31a59ca297e22",
+      "jobmgr_instructions": 744,
+      "name": "pages=2/copies=1/credits=0",
+      "pages": 2,
+      "rasters": 2,
+      "remaining_credits": 0,
+      "scheduled_requests": 0,
+      "status": "pass",
+      "stock_instructions": 2755
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "81ab8038cea9a0c6e69420d10221d679121851898e93185a79e31a59ca297e22",
+      "jobmgr_instructions": 800,
+      "name": "pages=2/copies=1/credits=1",
+      "pages": 2,
+      "rasters": 2,
+      "remaining_credits": 0,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 2811
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "81ab8038cea9a0c6e69420d10221d679121851898e93185a79e31a59ca297e22",
+      "jobmgr_instructions": 868,
+      "name": "pages=2/copies=1/credits=5",
+      "pages": 2,
+      "rasters": 2,
+      "remaining_credits": 3,
+      "scheduled_requests": 2,
+      "status": "pass",
+      "stock_instructions": 2879
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "81ab8038cea9a0c6e69420d10221d679121851898e93185a79e31a59ca297e22",
+      "jobmgr_instructions": 868,
+      "name": "pages=2/copies=1/credits=20",
+      "pages": 2,
+      "rasters": 2,
+      "remaining_credits": 18,
+      "scheduled_requests": 2,
+      "status": "pass",
+      "stock_instructions": 2879
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "e484d7c0d2a67604f54a949e4d95a7446577584a33e5aa57f7ed6e13fa139be8",
+      "jobmgr_instructions": 744,
+      "name": "pages=2/copies=3/credits=0",
+      "pages": 2,
+      "rasters": 2,
+      "remaining_credits": 0,
+      "scheduled_requests": 0,
+      "status": "pass",
+      "stock_instructions": 2755
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "e484d7c0d2a67604f54a949e4d95a7446577584a33e5aa57f7ed6e13fa139be8",
+      "jobmgr_instructions": 802,
+      "name": "pages=2/copies=3/credits=1",
+      "pages": 2,
+      "rasters": 2,
+      "remaining_credits": 0,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 2813
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "e484d7c0d2a67604f54a949e4d95a7446577584a33e5aa57f7ed6e13fa139be8",
+      "jobmgr_instructions": 924,
+      "name": "pages=2/copies=3/credits=5",
+      "pages": 2,
+      "rasters": 2,
+      "remaining_credits": 0,
+      "scheduled_requests": 5,
+      "status": "pass",
+      "stock_instructions": 2935
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "e484d7c0d2a67604f54a949e4d95a7446577584a33e5aa57f7ed6e13fa139be8",
+      "jobmgr_instructions": 940,
+      "name": "pages=2/copies=3/credits=20",
+      "pages": 2,
+      "rasters": 2,
+      "remaining_credits": 14,
+      "scheduled_requests": 6,
+      "status": "pass",
+      "stock_instructions": 2951
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "c94c5c68af2b1254aaaf52865fd0051f8b25df38c9b0dbd4d6c9b89fb0390918",
+      "jobmgr_instructions": 744,
+      "name": "pages=2/copies=21/credits=0",
+      "pages": 2,
+      "rasters": 2,
+      "remaining_credits": 0,
+      "scheduled_requests": 0,
+      "status": "pass",
+      "stock_instructions": 2755
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "c94c5c68af2b1254aaaf52865fd0051f8b25df38c9b0dbd4d6c9b89fb0390918",
+      "jobmgr_instructions": 802,
+      "name": "pages=2/copies=21/credits=1",
+      "pages": 2,
+      "rasters": 2,
+      "remaining_credits": 0,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 2813
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "c94c5c68af2b1254aaaf52865fd0051f8b25df38c9b0dbd4d6c9b89fb0390918",
+      "jobmgr_instructions": 874,
+      "name": "pages=2/copies=21/credits=5",
+      "pages": 2,
+      "rasters": 2,
+      "remaining_credits": 0,
+      "scheduled_requests": 5,
+      "status": "pass",
+      "stock_instructions": 2885
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "c94c5c68af2b1254aaaf52865fd0051f8b25df38c9b0dbd4d6c9b89fb0390918",
+      "jobmgr_instructions": 1144,
+      "name": "pages=2/copies=21/credits=20",
+      "pages": 2,
+      "rasters": 2,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 3155
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "3d34a33768c45403626e7672934c397da72b20667c7565589dd817be1fef330c",
+      "jobmgr_instructions": 1064,
+      "name": "pages=3/copies=1/credits=0",
+      "pages": 3,
+      "rasters": 3,
+      "remaining_credits": 0,
+      "scheduled_requests": 0,
+      "status": "pass",
+      "stock_instructions": 3882
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "3d34a33768c45403626e7672934c397da72b20667c7565589dd817be1fef330c",
+      "jobmgr_instructions": 1120,
+      "name": "pages=3/copies=1/credits=1",
+      "pages": 3,
+      "rasters": 3,
+      "remaining_credits": 0,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 3938
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "3d34a33768c45403626e7672934c397da72b20667c7565589dd817be1fef330c",
+      "jobmgr_instructions": 1268,
+      "name": "pages=3/copies=1/credits=5",
+      "pages": 3,
+      "rasters": 3,
+      "remaining_credits": 2,
+      "scheduled_requests": 3,
+      "status": "pass",
+      "stock_instructions": 4086
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "3d34a33768c45403626e7672934c397da72b20667c7565589dd817be1fef330c",
+      "jobmgr_instructions": 1268,
+      "name": "pages=3/copies=1/credits=20",
+      "pages": 3,
+      "rasters": 3,
+      "remaining_credits": 17,
+      "scheduled_requests": 3,
+      "status": "pass",
+      "stock_instructions": 4086
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "bae883b9c65684e5d8a9ff66ea93529448177c700de6ebe6c1a5f18689412097",
+      "jobmgr_instructions": 1064,
+      "name": "pages=3/copies=3/credits=0",
+      "pages": 3,
+      "rasters": 3,
+      "remaining_credits": 0,
+      "scheduled_requests": 0,
+      "status": "pass",
+      "stock_instructions": 3882
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "bae883b9c65684e5d8a9ff66ea93529448177c700de6ebe6c1a5f18689412097",
+      "jobmgr_instructions": 1122,
+      "name": "pages=3/copies=3/credits=1",
+      "pages": 3,
+      "rasters": 3,
+      "remaining_credits": 0,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 3940
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "bae883b9c65684e5d8a9ff66ea93529448177c700de6ebe6c1a5f18689412097",
+      "jobmgr_instructions": 1244,
+      "name": "pages=3/copies=3/credits=5",
+      "pages": 3,
+      "rasters": 3,
+      "remaining_credits": 0,
+      "scheduled_requests": 5,
+      "status": "pass",
+      "stock_instructions": 4062
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "bae883b9c65684e5d8a9ff66ea93529448177c700de6ebe6c1a5f18689412097",
+      "jobmgr_instructions": 1376,
+      "name": "pages=3/copies=3/credits=20",
+      "pages": 3,
+      "rasters": 3,
+      "remaining_credits": 11,
+      "scheduled_requests": 9,
+      "status": "pass",
+      "stock_instructions": 4194
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "542f51823a39b5ea2c235fb910d97d05d9ed1651600cf9145a95f6d41c3ec9cb",
+      "jobmgr_instructions": 1064,
+      "name": "pages=3/copies=21/credits=0",
+      "pages": 3,
+      "rasters": 3,
+      "remaining_credits": 0,
+      "scheduled_requests": 0,
+      "status": "pass",
+      "stock_instructions": 3882
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "542f51823a39b5ea2c235fb910d97d05d9ed1651600cf9145a95f6d41c3ec9cb",
+      "jobmgr_instructions": 1122,
+      "name": "pages=3/copies=21/credits=1",
+      "pages": 3,
+      "rasters": 3,
+      "remaining_credits": 0,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 3940
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "542f51823a39b5ea2c235fb910d97d05d9ed1651600cf9145a95f6d41c3ec9cb",
+      "jobmgr_instructions": 1194,
+      "name": "pages=3/copies=21/credits=5",
+      "pages": 3,
+      "rasters": 3,
+      "remaining_credits": 0,
+      "scheduled_requests": 5,
+      "status": "pass",
+      "stock_instructions": 4012
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "542f51823a39b5ea2c235fb910d97d05d9ed1651600cf9145a95f6d41c3ec9cb",
+      "jobmgr_instructions": 1464,
+      "name": "pages=3/copies=21/credits=20",
+      "pages": 3,
+      "rasters": 3,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 4282
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "8eea5fa1a6a39033c6171870dd0d5840e92745d2b4e0e90cfdf1561d9755025e",
+      "jobmgr_instructions": 2664,
+      "name": "pages=8/copies=1/credits=0",
+      "pages": 8,
+      "rasters": 8,
+      "remaining_credits": 0,
+      "scheduled_requests": 0,
+      "status": "pass",
+      "stock_instructions": 9517
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "8eea5fa1a6a39033c6171870dd0d5840e92745d2b4e0e90cfdf1561d9755025e",
+      "jobmgr_instructions": 2720,
+      "name": "pages=8/copies=1/credits=1",
+      "pages": 8,
+      "rasters": 8,
+      "remaining_credits": 0,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 9573
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "8eea5fa1a6a39033c6171870dd0d5840e92745d2b4e0e90cfdf1561d9755025e",
+      "jobmgr_instructions": 3064,
+      "name": "pages=8/copies=1/credits=5",
+      "pages": 8,
+      "rasters": 8,
+      "remaining_credits": 0,
+      "scheduled_requests": 5,
+      "status": "pass",
+      "stock_instructions": 9917
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "8eea5fa1a6a39033c6171870dd0d5840e92745d2b4e0e90cfdf1561d9755025e",
+      "jobmgr_instructions": 3448,
+      "name": "pages=8/copies=1/credits=20",
+      "pages": 8,
+      "rasters": 8,
+      "remaining_credits": 12,
+      "scheduled_requests": 8,
+      "status": "pass",
+      "stock_instructions": 10301
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "79f9706945e91460059cb48a773b0f241364cc6311c9c89295160f4b15122595",
+      "jobmgr_instructions": 2664,
+      "name": "pages=8/copies=3/credits=0",
+      "pages": 8,
+      "rasters": 8,
+      "remaining_credits": 0,
+      "scheduled_requests": 0,
+      "status": "pass",
+      "stock_instructions": 9517
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "79f9706945e91460059cb48a773b0f241364cc6311c9c89295160f4b15122595",
+      "jobmgr_instructions": 2722,
+      "name": "pages=8/copies=3/credits=1",
+      "pages": 8,
+      "rasters": 8,
+      "remaining_credits": 0,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 9575
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "79f9706945e91460059cb48a773b0f241364cc6311c9c89295160f4b15122595",
+      "jobmgr_instructions": 2844,
+      "name": "pages=8/copies=3/credits=5",
+      "pages": 8,
+      "rasters": 8,
+      "remaining_credits": 0,
+      "scheduled_requests": 5,
+      "status": "pass",
+      "stock_instructions": 9697
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "79f9706945e91460059cb48a773b0f241364cc6311c9c89295160f4b15122595",
+      "jobmgr_instructions": 3544,
+      "name": "pages=8/copies=3/credits=20",
+      "pages": 8,
+      "rasters": 8,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 10397
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "53d0ef422ba21ee8216c40bf8ef147de07414e7c70935cdac6df6b58ac6c7ace",
+      "jobmgr_instructions": 2664,
+      "name": "pages=8/copies=21/credits=0",
+      "pages": 8,
+      "rasters": 8,
+      "remaining_credits": 0,
+      "scheduled_requests": 0,
+      "status": "pass",
+      "stock_instructions": 9517
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "53d0ef422ba21ee8216c40bf8ef147de07414e7c70935cdac6df6b58ac6c7ace",
+      "jobmgr_instructions": 2722,
+      "name": "pages=8/copies=21/credits=1",
+      "pages": 8,
+      "rasters": 8,
+      "remaining_credits": 0,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 9575
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "53d0ef422ba21ee8216c40bf8ef147de07414e7c70935cdac6df6b58ac6c7ace",
+      "jobmgr_instructions": 2794,
+      "name": "pages=8/copies=21/credits=5",
+      "pages": 8,
+      "rasters": 8,
+      "remaining_credits": 0,
+      "scheduled_requests": 5,
+      "status": "pass",
+      "stock_instructions": 9647
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "53d0ef422ba21ee8216c40bf8ef147de07414e7c70935cdac6df6b58ac6c7ace",
+      "jobmgr_instructions": 3064,
+      "name": "pages=8/copies=21/credits=20",
+      "pages": 8,
+      "rasters": 8,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 9917
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "bd99fabe51476e79e3d235b3cc294401094b6b65ae2e6b3520bcf50f86e09364",
+      "jobmgr_instructions": 5224,
+      "name": "pages=16/copies=1/credits=0",
+      "pages": 16,
+      "rasters": 16,
+      "remaining_credits": 0,
+      "scheduled_requests": 0,
+      "status": "pass",
+      "stock_instructions": 18533
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "bd99fabe51476e79e3d235b3cc294401094b6b65ae2e6b3520bcf50f86e09364",
+      "jobmgr_instructions": 5280,
+      "name": "pages=16/copies=1/credits=1",
+      "pages": 16,
+      "rasters": 16,
+      "remaining_credits": 0,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 18589
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "bd99fabe51476e79e3d235b3cc294401094b6b65ae2e6b3520bcf50f86e09364",
+      "jobmgr_instructions": 5624,
+      "name": "pages=16/copies=1/credits=5",
+      "pages": 16,
+      "rasters": 16,
+      "remaining_credits": 0,
+      "scheduled_requests": 5,
+      "status": "pass",
+      "stock_instructions": 18933
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "bd99fabe51476e79e3d235b3cc294401094b6b65ae2e6b3520bcf50f86e09364",
+      "jobmgr_instructions": 7560,
+      "name": "pages=16/copies=1/credits=20",
+      "pages": 16,
+      "rasters": 16,
+      "remaining_credits": 4,
+      "scheduled_requests": 16,
+      "status": "pass",
+      "stock_instructions": 20869
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "71408e5ee84c007a39f58a1f179066d2f0ed19c1bfc33d28985d25080dce4b3e",
+      "jobmgr_instructions": 5224,
+      "name": "pages=16/copies=3/credits=0",
+      "pages": 16,
+      "rasters": 16,
+      "remaining_credits": 0,
+      "scheduled_requests": 0,
+      "status": "pass",
+      "stock_instructions": 18533
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "71408e5ee84c007a39f58a1f179066d2f0ed19c1bfc33d28985d25080dce4b3e",
+      "jobmgr_instructions": 5282,
+      "name": "pages=16/copies=3/credits=1",
+      "pages": 16,
+      "rasters": 16,
+      "remaining_credits": 0,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 18591
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "71408e5ee84c007a39f58a1f179066d2f0ed19c1bfc33d28985d25080dce4b3e",
+      "jobmgr_instructions": 5404,
+      "name": "pages=16/copies=3/credits=5",
+      "pages": 16,
+      "rasters": 16,
+      "remaining_credits": 0,
+      "scheduled_requests": 5,
+      "status": "pass",
+      "stock_instructions": 18713
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "71408e5ee84c007a39f58a1f179066d2f0ed19c1bfc33d28985d25080dce4b3e",
+      "jobmgr_instructions": 6104,
+      "name": "pages=16/copies=3/credits=20",
+      "pages": 16,
+      "rasters": 16,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 19413
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "dabab2c6e6064c0aaae206d90b4a5bf3908a211469d9e26d722504c71da63114",
+      "jobmgr_instructions": 5224,
+      "name": "pages=16/copies=21/credits=0",
+      "pages": 16,
+      "rasters": 16,
+      "remaining_credits": 0,
+      "scheduled_requests": 0,
+      "status": "pass",
+      "stock_instructions": 18533
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "dabab2c6e6064c0aaae206d90b4a5bf3908a211469d9e26d722504c71da63114",
+      "jobmgr_instructions": 5282,
+      "name": "pages=16/copies=21/credits=1",
+      "pages": 16,
+      "rasters": 16,
+      "remaining_credits": 0,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 18591
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "dabab2c6e6064c0aaae206d90b4a5bf3908a211469d9e26d722504c71da63114",
+      "jobmgr_instructions": 5354,
+      "name": "pages=16/copies=21/credits=5",
+      "pages": 16,
+      "rasters": 16,
+      "remaining_credits": 0,
+      "scheduled_requests": 5,
+      "status": "pass",
+      "stock_instructions": 18663
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "dabab2c6e6064c0aaae206d90b4a5bf3908a211469d9e26d722504c71da63114",
+      "jobmgr_instructions": 5624,
+      "name": "pages=16/copies=21/credits=20",
+      "pages": 16,
+      "rasters": 16,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 18933
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 0,
+      "input_sha256": "d4df5a632ae87eef1979540e233cc81889a6266e2a54d4355b136f7133b63676",
+      "jobmgr_instructions": 572,
+      "name": "split=2/duplex=0/fill=0",
+      "pages": 1,
+      "rasters": 2,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1859
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "d4df5a632ae87eef1979540e233cc81889a6266e2a54d4355b136f7133b63676",
+      "jobmgr_instructions": 572,
+      "name": "split=2/duplex=0/fill=204",
+      "pages": 1,
+      "rasters": 2,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1859
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 0,
+      "input_sha256": "d4df5a632ae87eef1979540e233cc81889a6266e2a54d4355b136f7133b63676",
+      "jobmgr_instructions": 592,
+      "name": "split=2/duplex=1/fill=0",
+      "pages": 1,
+      "rasters": 2,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1879
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "d4df5a632ae87eef1979540e233cc81889a6266e2a54d4355b136f7133b63676",
+      "jobmgr_instructions": 592,
+      "name": "split=2/duplex=1/fill=204",
+      "pages": 1,
+      "rasters": 2,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1879
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 0,
+      "input_sha256": "a0154f989cf8230b439886275a9149cb8cf232585c4bc056c157bf0c9825bb48",
+      "jobmgr_instructions": 664,
+      "name": "split=3/duplex=0/fill=0",
+      "pages": 1,
+      "rasters": 3,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 2034
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "a0154f989cf8230b439886275a9149cb8cf232585c4bc056c157bf0c9825bb48",
+      "jobmgr_instructions": 664,
+      "name": "split=3/duplex=0/fill=204",
+      "pages": 1,
+      "rasters": 3,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 2034
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 0,
+      "input_sha256": "a0154f989cf8230b439886275a9149cb8cf232585c4bc056c157bf0c9825bb48",
+      "jobmgr_instructions": 694,
+      "name": "split=3/duplex=1/fill=0",
+      "pages": 1,
+      "rasters": 3,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 2064
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "a0154f989cf8230b439886275a9149cb8cf232585c4bc056c157bf0c9825bb48",
+      "jobmgr_instructions": 694,
+      "name": "split=3/duplex=1/fill=204",
+      "pages": 1,
+      "rasters": 3,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 2064
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 0,
+      "input_sha256": "7309f0cd5d393c80a8042af8aeaf9c97dc8f4891a2f7c5dc5fde193ac7cb1170",
+      "jobmgr_instructions": 1032,
+      "name": "split=7/duplex=0/fill=0",
+      "pages": 1,
+      "rasters": 7,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 2734
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "7309f0cd5d393c80a8042af8aeaf9c97dc8f4891a2f7c5dc5fde193ac7cb1170",
+      "jobmgr_instructions": 1032,
+      "name": "split=7/duplex=0/fill=204",
+      "pages": 1,
+      "rasters": 7,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 2734
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 0,
+      "input_sha256": "7309f0cd5d393c80a8042af8aeaf9c97dc8f4891a2f7c5dc5fde193ac7cb1170",
+      "jobmgr_instructions": 1102,
+      "name": "split=7/duplex=1/fill=0",
+      "pages": 1,
+      "rasters": 7,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 2804
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "7309f0cd5d393c80a8042af8aeaf9c97dc8f4891a2f7c5dc5fde193ac7cb1170",
+      "jobmgr_instructions": 1102,
+      "name": "split=7/duplex=1/fill=204",
+      "pages": 1,
+      "rasters": 7,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 2804
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 0,
+      "input_sha256": "b2214346eaf1d1dfa3227fd056a3b765617f3adc661feafed4314c76ad41dab7",
+      "jobmgr_instructions": 6276,
+      "name": "split=64/duplex=0/fill=0",
+      "pages": 1,
+      "rasters": 64,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 12709
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "b2214346eaf1d1dfa3227fd056a3b765617f3adc661feafed4314c76ad41dab7",
+      "jobmgr_instructions": 6276,
+      "name": "split=64/duplex=0/fill=204",
+      "pages": 1,
+      "rasters": 64,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 12709
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 0,
+      "input_sha256": "b2214346eaf1d1dfa3227fd056a3b765617f3adc661feafed4314c76ad41dab7",
+      "jobmgr_instructions": 6916,
+      "name": "split=64/duplex=1/fill=0",
+      "pages": 1,
+      "rasters": 64,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 13349
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "b2214346eaf1d1dfa3227fd056a3b765617f3adc661feafed4314c76ad41dab7",
+      "jobmgr_instructions": 6916,
+      "name": "split=64/duplex=1/fill=204",
+      "pages": 1,
+      "rasters": 64,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 13349
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "6b9dc98f083ae61b4e68502c8b40fe73a71b41e598921b477213c2f09d15f15e",
+      "jobmgr_instructions": 480,
+      "name": "copy-width=1/duplex=0",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1684
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "6b9dc98f083ae61b4e68502c8b40fe73a71b41e598921b477213c2f09d15f15e",
+      "jobmgr_instructions": 490,
+      "name": "copy-width=1/duplex=1",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 19,
+      "scheduled_requests": 1,
+      "status": "pass",
+      "stock_instructions": 1694
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "7b15bf0d165598ca64e2fc854ac2d48297cf8090860fcb0bdab9c9871ec73421",
+      "jobmgr_instructions": 498,
+      "name": "copy-width=2/duplex=0",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 18,
+      "scheduled_requests": 2,
+      "status": "pass",
+      "stock_instructions": 1702
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "7b15bf0d165598ca64e2fc854ac2d48297cf8090860fcb0bdab9c9871ec73421",
+      "jobmgr_instructions": 508,
+      "name": "copy-width=2/duplex=1",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 18,
+      "scheduled_requests": 2,
+      "status": "pass",
+      "stock_instructions": 1712
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "78b49b72d77e92876b1fcf52a5a897a4c325e8889e6faafb8dbad37c4aadcad2",
+      "jobmgr_instructions": 824,
+      "name": "copy-width=32767/duplex=0",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2028
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "78b49b72d77e92876b1fcf52a5a897a4c325e8889e6faafb8dbad37c4aadcad2",
+      "jobmgr_instructions": 834,
+      "name": "copy-width=32767/duplex=1",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2038
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "2899e2a335caeee7ee061eb8ddbeb7a291270bac48ad11915cfbe1970c9cc8cc",
+      "jobmgr_instructions": 824,
+      "name": "copy-width=32768/duplex=0",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2028
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "2899e2a335caeee7ee061eb8ddbeb7a291270bac48ad11915cfbe1970c9cc8cc",
+      "jobmgr_instructions": 834,
+      "name": "copy-width=32768/duplex=1",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2038
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "37c2f93b231c180b302d17fef1a06c25ad10ff206a56379a04f503694d83aa97",
+      "jobmgr_instructions": 824,
+      "name": "copy-width=65535/duplex=0",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2028
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "37c2f93b231c180b302d17fef1a06c25ad10ff206a56379a04f503694d83aa97",
+      "jobmgr_instructions": 834,
+      "name": "copy-width=65535/duplex=1",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2038
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "d38d8b95e4922256d4bc7ee19ed22f7ca251ae312de56fa918993709d3bc906c",
+      "jobmgr_instructions": 678,
+      "name": "bih-field-preservation/0",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 8,
+      "scheduled_requests": 12,
+      "status": "pass",
+      "stock_instructions": 1899
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "2016bdd5db04da3c329d0dc61e52b839c3c929b0c07e6014e62e3f3ff4799ef2",
+      "jobmgr_instructions": 688,
+      "name": "bih-field-preservation/1",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 8,
+      "scheduled_requests": 12,
+      "status": "pass",
+      "stock_instructions": 1909
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "97f9cde0abd9de48c9cecf804660aa45814ed73e9626e41ca18830b73c219f07",
+      "jobmgr_instructions": 624,
+      "name": "bih-field-preservation/2",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 11,
+      "scheduled_requests": 9,
+      "status": "pass",
+      "stock_instructions": 1845
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "2fa54bce512845ddfcbb3689ff95ec8673dcfce47fac834e43dcf0899ecebfe4",
+      "jobmgr_instructions": 834,
+      "name": "bih-field-preservation/3",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2055
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "4a1a940ec57084a62a3c60327f730dfef3f395b4297634a94f368537f493030d",
+      "jobmgr_instructions": 824,
+      "name": "bih-field-preservation/4",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2045
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "42fd67ced8949a8e47b4b1bb8ae1d035cc4b934295f0c36bd14548e38670d476",
+      "jobmgr_instructions": 834,
+      "name": "bih-field-preservation/5",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2055
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "5b131f9887ba5bafe85e3b5b56482e0c177db0de7fa933ad5ba9312b0fc31196",
+      "jobmgr_instructions": 824,
+      "name": "bih-field-preservation/6",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2045
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "00ea09735dd7aa3c7c8f67b5ca18de3a3b30be29167087aaf94ef461d25b1c9e",
+      "jobmgr_instructions": 834,
+      "name": "bih-field-preservation/7",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2055
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "2efbe3485e4b056cdd31ab1c365d0825ab037b2db41116ea90ac1d9c9df0e39c",
+      "jobmgr_instructions": 824,
+      "name": "bih-field-preservation/8",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2045
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "6aebd5553b0908fdf9d980f58883da5356b96b4d62a49a05da8e0cfdab2fa58a",
+      "jobmgr_instructions": 688,
+      "name": "bih-field-preservation/9",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 8,
+      "scheduled_requests": 12,
+      "status": "pass",
+      "stock_instructions": 1909
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "25eb4323b784da6e61bcc57a39a4cbcf8d8ec09d7a3ab2a694304b922506324e",
+      "jobmgr_instructions": 824,
+      "name": "bih-field-preservation/10",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2045
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "d9b13db451601745b6c30cda989c0a94ae78ad4418c5cc8f9fee9520f6f8e52e",
+      "jobmgr_instructions": 616,
+      "name": "bih-field-preservation/11",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 12,
+      "scheduled_requests": 8,
+      "status": "pass",
+      "stock_instructions": 1837
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "659ebb537ac4914559488cded12ee9b6dc404e72dc01c54f431e27c26295c838",
+      "jobmgr_instructions": 714,
+      "name": "bih-field-preservation/12",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 6,
+      "scheduled_requests": 14,
+      "status": "pass",
+      "stock_instructions": 1935
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "8ab61a2abd8582cbb43bc9a2f493df48ce6c7e06f8d2e8eb7994d9aee69ff155",
+      "jobmgr_instructions": 834,
+      "name": "bih-field-preservation/13",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2055
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "e5e365bc94da8dd7183b101d7582d1ef87e7774670df746185fd021cbea2aca7",
+      "jobmgr_instructions": 824,
+      "name": "bih-field-preservation/14",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2045
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "d2ec6e6a0d703d967fd8d9bca040c354b23a34016b588cfb3bcb2d31271a0b3f",
+      "jobmgr_instructions": 834,
+      "name": "bih-field-preservation/15",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2055
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "d6de9f618b1c4449c94d9f8fa911badc41f093a4943de5e0318a939aa1b49525",
+      "jobmgr_instructions": 696,
+      "name": "bih-field-preservation/16",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 7,
+      "scheduled_requests": 13,
+      "status": "pass",
+      "stock_instructions": 1917
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "8754fa77f8f41213ad4dc4918af3e0e80de69bc35db76b2efb622a9ed6d60d49",
+      "jobmgr_instructions": 760,
+      "name": "bih-field-preservation/17",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 4,
+      "scheduled_requests": 16,
+      "status": "pass",
+      "stock_instructions": 1981
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "d64b8af9c17d1cacbd453ba64221b84827464a0fbc771b4ef8ab8097529cb2b8",
+      "jobmgr_instructions": 824,
+      "name": "bih-field-preservation/18",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2045
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "bb2a547103e04ab043749be05f7719deae8ae75cd4969a2bf66261618a02eaea",
+      "jobmgr_instructions": 616,
+      "name": "bih-field-preservation/19",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 12,
+      "scheduled_requests": 8,
+      "status": "pass",
+      "stock_instructions": 1837
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "29e198d738b8522555455d1c0bf9adb5dca1d52eb174e705cdfd3bf8b864f349",
+      "jobmgr_instructions": 824,
+      "name": "bih-field-preservation/20",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2045
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "ac05c301605a9f5cdb66f98a4923912e08a93f1dc1d6d22d770033fded10624e",
+      "jobmgr_instructions": 834,
+      "name": "bih-field-preservation/21",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2055
+    },
+    {
+      "duplex_fixture": 0,
+      "heap_fill": 204,
+      "input_sha256": "94cffc5c4463c5451cd00cf7bd2db21f6bae2dea62f32dd5c3d519b7ddd38a6f",
+      "jobmgr_instructions": 824,
+      "name": "bih-field-preservation/22",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2045
+    },
+    {
+      "duplex_fixture": 1,
+      "heap_fill": 204,
+      "input_sha256": "a86fcb80b550c0ba983e2de538b9211140c7ffcae297148734f6e62c96bf6a9f",
+      "jobmgr_instructions": 834,
+      "name": "bih-field-preservation/23",
+      "pages": 1,
+      "rasters": 1,
+      "remaining_credits": 0,
+      "scheduled_requests": 20,
+      "status": "pass",
+      "stock_instructions": 2055
+    }
+  ],
+  "distinct_instructions": 1057,
+  "evidence": [
+    "Page and raster fields agree with sanitizer-built C, and every compressed chunk agrees byte-for-byte with its input.",
+    "Original list links preserve page/raster ordering and correct head/tail; END_JBIG overwrites the last raster marker with 1.",
+    "Earlier raster markers retain allocator contents copied from payload +0x2c: zero in the zero-fill fixture, CCCC in the poison-fill fixture. The parser/JobMgr path does not establish zero initialization.",
+    "Separate original type-1 allocator execution preserves all requested payload bytes across 36 poisoned/zero-memory cases; a zero-fill guarantee cannot be attributed to that path.",
+    "BIH buffers are copied then freed; BID wrappers and payload bytes remain on page-owned lists.",
+    "Original scheduling emits at most available credits, preserving page order; no consumer replenishes credits in this fixture.",
+    "Complete MMIO-free render paths ignore the raw marker and change video +0x9c/+0xa0 even when returning busy. Earlier ring-model ordering incorrectly put these stores after rejection.",
+    "Duplex fixture doubles the raster copy halfword, wrapping at 16 bits. This is observed stock behavior; no duplex support is added to the narrow replacement."
+  ],
+  "executed_instructions": 616668,
+  "host_boundaries": {
+    "0x1000f164": "document_publish",
+    "0x1001214c": "task_ready",
+    "0x1001262c": "document_begin",
+    "0x100126b0": "document_end",
+    "0x10013140": "allocate",
+    "0x10013408": "free",
+    "0x10013658": "queue_send",
+    "0x1001809c": "queue_receive",
+    "0x100181a4": "datastore_lock",
+    "0x10018214": "datastore_unlock",
+    "0x1001b770": "critical_section",
+    "0x30000000": "read",
+    "0x30000004": "pushback"
+  },
+  "isolated_allocator_range": [
+    "0x10013140",
+    "0x10013408"
+  ],
+  "isolated_render_range": [
+    "0x10015214",
+    "0x10015438"
+  ],
+  "jobmgr_instructions": 197516,
+  "limitations": [
+    "Parser is run before serialized queue replay; concurrent production/consumption, interrupts, queue backpressure and allocation failure are not exercised.",
+    "Pipeline task startup, document publication, RTOS critical sections, allocation and queue delivery are host substitutes; the separate allocator experiment executes original allocation with only mutex substitutes.",
+    "Document publication substitute writes its bookkeeping flag; datastore/queue-10 effects are omitted.",
+    "Only MMIO-free rejection/queued render paths execute; initial hardware arming, decompression, custom raster instructions, USB and mechanical timing remain outside.",
+    "No empty documents, cancellation, malformed message ordering or multi-document lifecycle are claimed."
+  ],
+  "render_checks": [
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 0,
+      "tail": 0
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 0,
+      "tail": 0
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 0,
+      "tail": 0
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 0,
+      "tail": 0
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 0,
+      "tail": 1
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 0,
+      "tail": 1
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 0,
+      "tail": 1
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 0,
+      "tail": 1
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 0,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 0,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 0,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 0,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 0,
+      "tail": 3
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 0,
+      "tail": 3
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 0,
+      "tail": 3
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 0,
+      "tail": 3
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 0,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 0,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 0,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 0,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 0,
+      "tail": 1
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 0,
+      "tail": 1
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 0,
+      "tail": 1
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 0,
+      "tail": 1
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 0,
+      "tail": 2
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 0,
+      "tail": 2
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 0,
+      "tail": 2
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 0,
+      "tail": 2
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 0,
+      "tail": 3
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 0,
+      "tail": 3
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 0,
+      "tail": 3
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 0,
+      "tail": 3
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 0,
+      "tail": 0
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 0,
+      "tail": 0
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 0,
+      "tail": 0
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 0,
+      "tail": 0
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 0,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 0,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 0,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 0,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 0,
+      "tail": 2
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 0,
+      "tail": 2
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 0,
+      "tail": 2
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 0,
+      "tail": 2
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 0,
+      "tail": 3
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 0,
+      "tail": 3
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 0,
+      "tail": 3
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 0,
+      "tail": 3
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 0,
+      "tail": 0
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 0,
+      "tail": 0
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 0,
+      "tail": 0
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 0,
+      "tail": 0
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 0,
+      "tail": 1
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 0,
+      "tail": 1
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 0,
+      "tail": 1
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 0,
+      "tail": 1
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 0,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 0,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 0,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 0,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 0,
+      "tail": 3
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 0,
+      "tail": 3
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 0,
+      "tail": 3
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 0,
+      "tail": 3
+    },
+    {
+      "head": 0,
+      "instructions": 25,
+      "marker": 0,
+      "result": 4099,
+      "state": 1,
+      "tail": 3
+    },
+    {
+      "head": 0,
+      "instructions": 25,
+      "marker": 1,
+      "result": 4099,
+      "state": 1,
+      "tail": 3
+    },
+    {
+      "head": 0,
+      "instructions": 25,
+      "marker": 52428,
+      "result": 4099,
+      "state": 1,
+      "tail": 3
+    },
+    {
+      "head": 0,
+      "instructions": 25,
+      "marker": 65535,
+      "result": 4099,
+      "state": 1,
+      "tail": 3
+    },
+    {
+      "head": 1,
+      "instructions": 25,
+      "marker": 0,
+      "result": 4099,
+      "state": 1,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 25,
+      "marker": 1,
+      "result": 4099,
+      "state": 1,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 25,
+      "marker": 52428,
+      "result": 4099,
+      "state": 1,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 25,
+      "marker": 65535,
+      "result": 4099,
+      "state": 1,
+      "tail": 0
+    },
+    {
+      "head": 2,
+      "instructions": 25,
+      "marker": 0,
+      "result": 4099,
+      "state": 1,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 25,
+      "marker": 1,
+      "result": 4099,
+      "state": 1,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 25,
+      "marker": 52428,
+      "result": 4099,
+      "state": 1,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 25,
+      "marker": 65535,
+      "result": 4099,
+      "state": 1,
+      "tail": 1
+    },
+    {
+      "head": 3,
+      "instructions": 25,
+      "marker": 0,
+      "result": 4099,
+      "state": 1,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 25,
+      "marker": 1,
+      "result": 4099,
+      "state": 1,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 25,
+      "marker": 52428,
+      "result": 4099,
+      "state": 1,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 25,
+      "marker": 65535,
+      "result": 4099,
+      "state": 1,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 38,
+      "marker": 0,
+      "result": 0,
+      "state": 2,
+      "tail": 1
+    },
+    {
+      "head": 0,
+      "instructions": 38,
+      "marker": 1,
+      "result": 0,
+      "state": 2,
+      "tail": 1
+    },
+    {
+      "head": 0,
+      "instructions": 38,
+      "marker": 52428,
+      "result": 0,
+      "state": 2,
+      "tail": 1
+    },
+    {
+      "head": 0,
+      "instructions": 38,
+      "marker": 65535,
+      "result": 0,
+      "state": 2,
+      "tail": 1
+    },
+    {
+      "head": 0,
+      "instructions": 38,
+      "marker": 0,
+      "result": 0,
+      "state": 2,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 38,
+      "marker": 1,
+      "result": 0,
+      "state": 2,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 38,
+      "marker": 52428,
+      "result": 0,
+      "state": 2,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 38,
+      "marker": 65535,
+      "result": 0,
+      "state": 2,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 25,
+      "marker": 0,
+      "result": 4099,
+      "state": 2,
+      "tail": 3
+    },
+    {
+      "head": 0,
+      "instructions": 25,
+      "marker": 1,
+      "result": 4099,
+      "state": 2,
+      "tail": 3
+    },
+    {
+      "head": 0,
+      "instructions": 25,
+      "marker": 52428,
+      "result": 4099,
+      "state": 2,
+      "tail": 3
+    },
+    {
+      "head": 0,
+      "instructions": 25,
+      "marker": 65535,
+      "result": 4099,
+      "state": 2,
+      "tail": 3
+    },
+    {
+      "head": 1,
+      "instructions": 25,
+      "marker": 0,
+      "result": 4099,
+      "state": 2,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 25,
+      "marker": 1,
+      "result": 4099,
+      "state": 2,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 25,
+      "marker": 52428,
+      "result": 4099,
+      "state": 2,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 25,
+      "marker": 65535,
+      "result": 4099,
+      "state": 2,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 38,
+      "marker": 0,
+      "result": 0,
+      "state": 2,
+      "tail": 2
+    },
+    {
+      "head": 1,
+      "instructions": 38,
+      "marker": 1,
+      "result": 0,
+      "state": 2,
+      "tail": 2
+    },
+    {
+      "head": 1,
+      "instructions": 38,
+      "marker": 52428,
+      "result": 0,
+      "state": 2,
+      "tail": 2
+    },
+    {
+      "head": 1,
+      "instructions": 38,
+      "marker": 65535,
+      "result": 0,
+      "state": 2,
+      "tail": 2
+    },
+    {
+      "head": 1,
+      "instructions": 38,
+      "marker": 0,
+      "result": 0,
+      "state": 2,
+      "tail": 3
+    },
+    {
+      "head": 1,
+      "instructions": 38,
+      "marker": 1,
+      "result": 0,
+      "state": 2,
+      "tail": 3
+    },
+    {
+      "head": 1,
+      "instructions": 38,
+      "marker": 52428,
+      "result": 0,
+      "state": 2,
+      "tail": 3
+    },
+    {
+      "head": 1,
+      "instructions": 38,
+      "marker": 65535,
+      "result": 0,
+      "state": 2,
+      "tail": 3
+    },
+    {
+      "head": 2,
+      "instructions": 38,
+      "marker": 0,
+      "result": 0,
+      "state": 2,
+      "tail": 0
+    },
+    {
+      "head": 2,
+      "instructions": 38,
+      "marker": 1,
+      "result": 0,
+      "state": 2,
+      "tail": 0
+    },
+    {
+      "head": 2,
+      "instructions": 38,
+      "marker": 52428,
+      "result": 0,
+      "state": 2,
+      "tail": 0
+    },
+    {
+      "head": 2,
+      "instructions": 38,
+      "marker": 65535,
+      "result": 0,
+      "state": 2,
+      "tail": 0
+    },
+    {
+      "head": 2,
+      "instructions": 25,
+      "marker": 0,
+      "result": 4099,
+      "state": 2,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 25,
+      "marker": 1,
+      "result": 4099,
+      "state": 2,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 25,
+      "marker": 52428,
+      "result": 4099,
+      "state": 2,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 25,
+      "marker": 65535,
+      "result": 4099,
+      "state": 2,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 38,
+      "marker": 0,
+      "result": 0,
+      "state": 2,
+      "tail": 3
+    },
+    {
+      "head": 2,
+      "instructions": 38,
+      "marker": 1,
+      "result": 0,
+      "state": 2,
+      "tail": 3
+    },
+    {
+      "head": 2,
+      "instructions": 38,
+      "marker": 52428,
+      "result": 0,
+      "state": 2,
+      "tail": 3
+    },
+    {
+      "head": 2,
+      "instructions": 38,
+      "marker": 65535,
+      "result": 0,
+      "state": 2,
+      "tail": 3
+    },
+    {
+      "head": 3,
+      "instructions": 38,
+      "marker": 0,
+      "result": 0,
+      "state": 2,
+      "tail": 0
+    },
+    {
+      "head": 3,
+      "instructions": 38,
+      "marker": 1,
+      "result": 0,
+      "state": 2,
+      "tail": 0
+    },
+    {
+      "head": 3,
+      "instructions": 38,
+      "marker": 52428,
+      "result": 0,
+      "state": 2,
+      "tail": 0
+    },
+    {
+      "head": 3,
+      "instructions": 38,
+      "marker": 65535,
+      "result": 0,
+      "state": 2,
+      "tail": 0
+    },
+    {
+      "head": 3,
+      "instructions": 38,
+      "marker": 0,
+      "result": 0,
+      "state": 2,
+      "tail": 1
+    },
+    {
+      "head": 3,
+      "instructions": 38,
+      "marker": 1,
+      "result": 0,
+      "state": 2,
+      "tail": 1
+    },
+    {
+      "head": 3,
+      "instructions": 38,
+      "marker": 52428,
+      "result": 0,
+      "state": 2,
+      "tail": 1
+    },
+    {
+      "head": 3,
+      "instructions": 38,
+      "marker": 65535,
+      "result": 0,
+      "state": 2,
+      "tail": 1
+    },
+    {
+      "head": 3,
+      "instructions": 25,
+      "marker": 0,
+      "result": 4099,
+      "state": 2,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 25,
+      "marker": 1,
+      "result": 4099,
+      "state": 2,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 25,
+      "marker": 52428,
+      "result": 4099,
+      "state": 2,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 25,
+      "marker": 65535,
+      "result": 4099,
+      "state": 2,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 3,
+      "tail": 0
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 3,
+      "tail": 0
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 3,
+      "tail": 0
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 3,
+      "tail": 0
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 3,
+      "tail": 1
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 3,
+      "tail": 1
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 3,
+      "tail": 1
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 3,
+      "tail": 1
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 3,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 3,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 3,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 3,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 3,
+      "tail": 3
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 3,
+      "tail": 3
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 3,
+      "tail": 3
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 3,
+      "tail": 3
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 3,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 3,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 3,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 3,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 3,
+      "tail": 1
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 3,
+      "tail": 1
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 3,
+      "tail": 1
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 3,
+      "tail": 1
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 3,
+      "tail": 2
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 3,
+      "tail": 2
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 3,
+      "tail": 2
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 3,
+      "tail": 2
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 3,
+      "tail": 3
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 3,
+      "tail": 3
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 3,
+      "tail": 3
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 3,
+      "tail": 3
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 3,
+      "tail": 0
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 3,
+      "tail": 0
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 3,
+      "tail": 0
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 3,
+      "tail": 0
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 3,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 3,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 3,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 3,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 3,
+      "tail": 2
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 3,
+      "tail": 2
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 3,
+      "tail": 2
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 3,
+      "tail": 2
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 3,
+      "tail": 3
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 3,
+      "tail": 3
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 3,
+      "tail": 3
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 3,
+      "tail": 3
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 3,
+      "tail": 0
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 3,
+      "tail": 0
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 3,
+      "tail": 0
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 3,
+      "tail": 0
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 3,
+      "tail": 1
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 3,
+      "tail": 1
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 3,
+      "tail": 1
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 3,
+      "tail": 1
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 3,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 3,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 3,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 3,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 3,
+      "tail": 3
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 3,
+      "tail": 3
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 3,
+      "tail": 3
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 3,
+      "tail": 3
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 0
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 0
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 0
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 0
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 1
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 1
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 1
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 1
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 2
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 3
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 3
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 3
+    },
+    {
+      "head": 0,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 3
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 0
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 1
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 1
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 1
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 1
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 2
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 2
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 2
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 2
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 3
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 3
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 3
+    },
+    {
+      "head": 1,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 3
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 0
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 0
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 0
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 0
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 1
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 2
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 2
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 2
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 2
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 3
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 3
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 3
+    },
+    {
+      "head": 2,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 3
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 0
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 0
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 0
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 0
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 1
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 1
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 1
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 1
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 2
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 0,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 3
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 1,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 3
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 52428,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 3
+    },
+    {
+      "head": 3,
+      "instructions": 22,
+      "marker": 65535,
+      "result": 4099,
+      "state": 4294967295,
+      "tail": 3
+    }
+  ],
+  "scope": "Serialized original parser, JobMgr, list append, memcpy, page scheduling and selected MMIO-free render paths in isolated RAM; queue 1 requests are captured, never delivered to hardware.",
+  "status": "pass",
+  "stock_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d"
+}

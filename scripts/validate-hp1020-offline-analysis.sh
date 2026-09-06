@@ -98,8 +98,14 @@ run_step "Build and reproduce semantic core for synthetic Xtensa RAM" \
 run_step "Execute compiled semantic core and planner" \
   "$ROOT_DIR/scripts/validate-hp1020-semantic-target.py"
 
+run_step "Audit original instruction annotations and unresolved encodings" \
+  "$ROOT_DIR/scripts/audit-hp1020-instruction-properties.py"
+
 run_step "Compare original stock routines with independent memory and semantic oracles" \
   "$ROOT_DIR/scripts/validate-hp1020-stock-execution.py"
+
+run_step "Execute original parser through JobMgr and page scheduling" \
+  "$ROOT_DIR/scripts/validate-hp1020-stock-jobmgr.py"
 
 run_step "Print model invariant check" \
   "$ROOT_DIR/scripts/check-hp1020-print-model-invariants.py" \

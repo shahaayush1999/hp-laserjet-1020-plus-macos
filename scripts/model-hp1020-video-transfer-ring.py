@@ -172,8 +172,8 @@ def ownership_sequences(literals: dict[str, str]) -> list[dict[str, Any]]:
             "function": "0x10015214 hp1020_video_render_or_dma_candidate",
             "steps": [
                 "compute next producer slot as `(video_state +0x98 + 1) & 3`",
+                "store work +0x50 raster list at +0x9c and clear +0xa0 before checking busy; rejection therefore changes these pointers",
                 "return busy/error 0x1003 if state +0x6c is outside the accepted range or next slot equals +0x94",
-                "store work +0x50 raster list at +0x9c and clear +0xa0",
                 "arm channel A/B if not already in running state +0x6c == 2",
                 "write work +0x84/+0x88/+0x8c/+0x90 into 0xb200 descriptor/control registers",
                 "advance +0x98 to the claimed next slot",

@@ -71,8 +71,8 @@ This is a generated offline model. It does not contact the printer.
 - registers: `0xb2000008`, `0xb200000c`, `0xb2000024`, `0xb2000000`
 
 1. compute next producer slot as `(video_state +0x98 + 1) & 3`
-2. return busy/error 0x1003 if state +0x6c is outside the accepted range or next slot equals +0x94
-3. store work +0x50 raster list at +0x9c and clear +0xa0
+2. store work +0x50 raster list at +0x9c and clear +0xa0 before checking busy; rejection therefore changes these pointers
+3. return busy/error 0x1003 if state +0x6c is outside the accepted range or next slot equals +0x94
 4. arm channel A/B if not already in running state +0x6c == 2
 5. write work +0x84/+0x88/+0x8c/+0x90 into 0xb200 descriptor/control registers
 6. advance +0x98 to the claimed next slot

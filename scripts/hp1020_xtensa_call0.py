@@ -7,6 +7,7 @@ from pathlib import Path
 import re
 import struct
 import subprocess
+from hp1020_xtensa_properties import properties, section_bytes
 
 MASK=0xffffffff
 STOP=0xfffffffc
@@ -31,10 +32,24 @@ class Program:
             _,_,flags,addr,_,size,_,_,_,_=struct.unpack_from('>10I',data,shoff+i*shsize)
             if flags&3==3 and size:self.write_ranges.append((addr,addr+size))
             if flags&4 and size:self.execute_ranges.append((addr,addr+size))
-        text=subprocess.check_output([prefix+'-objdump','-d',str(path)],text=True)
+        sections,tables=properties(data)
+        self.annotated_code=tables.get('.xt.insn')
         nm=subprocess.check_output([prefix+'-nm','-n',str(path)],text=True,stderr=subprocess.DEVNULL)
         self.symbols={name:int(addr,16) for addr,name in re.findall(r'^([0-9a-f]+) \w (\S+)$',nm,re.M)}
-        self.instructions=dict(self.parse(text))
+        self.instructions={}
+        ranges=self.annotated_code or [(None,None)]
+        for address,size in ranges:
+            bounds=[] if address is None else [f'--start-address={address}',f'--stop-address={address+size}']
+            text=subprocess.check_output([prefix+'-objdump','-d',*bounds,str(path)],text=True)
+            rows=dict(self.parse(text))
+            if address is not None:
+                pc=address
+                for at,(_,_,raw) in rows.items():
+                    if at!=pc or raw!=section_bytes(data,sections,at,len(raw)):
+                        raise ValueError('property decode is incomplete or differs from ELF')
+                    pc+=len(raw)
+                if pc!=address+size:raise ValueError('property decode does not cover region')
+            self.instructions.update(rows)
     @staticmethod
     def parse(text):
         for line in text.splitlines():
@@ -52,6 +67,8 @@ class Program:
             yield pc,(op,tuple(args),bytes.fromhex(m[2]))
     def instruction(self,pc):
         if pc not in self.instructions:
+            if self.annotated_code is not None:
+                raise ValueError(f'PC is not an annotated instruction boundary: {pc:#x}')
             text=subprocess.check_output([self.prefix+'-objdump','-d',f'--start-address={pc}',f'--stop-address={pc+3}',str(self.path)],text=True)
             self.instructions.update(self.parse(text))
         if pc not in self.instructions:raise ValueError(f'cannot decode reached PC {pc:#x}')
