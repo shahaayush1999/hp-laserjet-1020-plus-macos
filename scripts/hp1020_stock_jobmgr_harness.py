@@ -21,10 +21,18 @@ class JobMgrHarness(ParserHarness):
         self.duplex=duplex;self.credits=credits
         self.job_events=[];self.delivered=0;self.snapshots=[];self.scheduled=[]
 
-    def replay(self):
+    def parse_input(self):
         self.run([CONTEXT])
+
+    def replay(self):
+        self.parse_input()
         self.parser_steps=self.steps
         self.pending=[m['words'] for m in self.messages]
+        self.initialize_job()
+        self.run()
+        return self
+
+    def initialize_job(self):
         self.job_mode=True
         self.code_ranges=self.code_ranges+JOB_CODE
         self.registers=[0]*16;self.registers[0]=STOP;self.registers[1]=STACK+STACK_SIZE-16
@@ -38,8 +46,6 @@ class JobMgrHarness(ParserHarness):
         self.write(table+36*24+4,4,CONTEXT+0x100)
         self.write(table+36*24+8,4,0)
         self.write(CONTEXT+0x100,1,self.duplex)
-        self.run()
-        return self
 
     def snapshot(self):
         if not self.delivered:return

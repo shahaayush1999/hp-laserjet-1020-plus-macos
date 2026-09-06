@@ -10,7 +10,7 @@ Paths below are relative to the repository root unless linked explicitly.
 |---|---|
 | What is still unknown, and what would resolve it? | [Next evidence](open-firmware-model/next-evidence.md) |
 | Which components are implemented? | `open-firmware/semantic-core/`, `open-firmware/usb-bulk-parser-draft/`; each has its own README |
-| Original binary as an oracle? | [Parser/libc differential execution](open-firmware-model/stock-execution/validation.md), [status decision execution](hardware-boundary/stock-status-execution.md), [JobMgr/allocator execution](open-firmware-model/stock-execution/jobmgr.md); standard ISA only, explicit host substitutes |
+| Original binary as an oracle? | [Parser/libc differential execution](open-firmware-model/stock-execution/validation.md), [status decision execution](hardware-boundary/stock-status-execution.md), [JobMgr/allocator execution](open-firmware-model/stock-execution/jobmgr.md), [completion/cooperative lifecycle](open-firmware-model/stock-execution/lifecycle.md); standard ISA only, explicit host substitutes |
 | What proves current offline agreement? | [Consistency gate](offline-consistency/offline-consistency.md), [target C execution](open-firmware-model/semantic-target/validation.md), [page planning](open-firmware-model/page-plan.md) |
 | Correct toolchain and old encoding failure? | [BE encoding audit](toolchain-probe/big-endian-encoding-audit.md), [C compiler](toolchain-probe/freestanding-c-compiler.md) |
 | Boot wrapper and standalone handoff? | `analysis/upload-wrapper-report.md`, `analysis/boot-handoff/boot-handoff.md` |
@@ -30,7 +30,7 @@ scripts/validate.sh
 ```
 
 This runs the analysis suite followed by the probe suite, including native/target
-execution, original stock parser/libc/status/JobMgr differential tests, instruction annotation audit, scanner negative cases, reproducibility and dry-run harnesses. Logs
+execution, original stock parser/libc/status/JobMgr/lifecycle differential tests, instruction annotation audit, scanner negative cases, reproducibility and dry-run harnesses. Logs
 are saved outside the repo and printed on failure. It never opts into USB or
 printing. Do not run suites in parallel: they regenerate shared files.
 For a narrow edit, use its existing generator/check first; for documentation

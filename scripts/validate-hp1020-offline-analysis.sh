@@ -107,6 +107,9 @@ run_step "Compare original stock routines with independent memory and semantic o
 run_step "Execute original parser through JobMgr and page scheduling" \
   "$ROOT_DIR/scripts/validate-hp1020-stock-jobmgr.py"
 
+run_step "Execute stock completion, cleanup and cooperative document lifecycles" \
+  "$ROOT_DIR/scripts/validate-hp1020-stock-lifecycle.py"
+
 run_step "Print model invariant check" \
   "$ROOT_DIR/scripts/check-hp1020-print-model-invariants.py" \
     "${model_paths[@]}" \

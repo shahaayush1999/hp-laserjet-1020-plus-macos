@@ -37,6 +37,17 @@ Do not infer a physical failure, a zero-fill guarantee, or a new first-printing
 blocker. Original render also changes list pointers before busy rejection; the
 ring model ordering is corrected. See `stock-execution/jobmgr.md` for boundaries.
 
+Original completion/release and datastore bookkeeping now execute under
+serialized and cooperative queue-boundary schedules. The host explicitly
+injects successful FIFO completion; it does not model DMA/engine success.
+Nonempty jobs drain and recover credits. A conditional counterexample exists:
+queuing an empty document behind an unfinished page can make the empty-document
+finalizer free the global head; later completion reads a missing child. Eager
+completion avoids it. The parser itself locks a producer mutex without waiting
+for the job list to drain, but outer transport admission remains unverified.
+Exact positive scopes, reproductions and assumptions: `stock-execution/lifecycle.md`.
+This is an offline correctness question, not evidence of a physical printer fault.
+
 The next **live** experiment remains the existing non-printing USB ladder.
 Further combined firmware integration cannot establish any of the device facts
 above. Once boot/USB behavior is proven, the validated C component can be joined
