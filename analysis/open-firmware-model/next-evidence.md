@@ -3,7 +3,7 @@
 The offline work now has a byte-verified BE toolchain, corrected direct work
 construction, instruction-tested framing and endpoint-0 staging, a bounded C
 semantic parser, a page/band planner, and execution of the actual compiled C
-components in synthetic RAM. The remaining questions concern device behavior or
+components in synthetic RAM. The remaining live questions concern device behavior or
 core-specific operations absent from the available instruction definitions.
 
 | Priority | Exact question | Existing evidence | Evidence that would resolve it |
@@ -19,7 +19,14 @@ and rejected by the narrow page planner; they are not reasons to expand the
 first hardware test. Other modes, malformed-input compatibility and optimization
 are outside this first printing scope.
 
-The immediate next experiment remains the existing non-printing USB ladder.
+The owner has reframed the task as an offline capability evaluation. Original
+stock parser/libc and status routines now execute in isolated host harnesses and
+challenge the inferred models directly. These harnesses intercept all device
+I/O and record explicit environment substitutes; passing them does not answer
+the live questions above. Continue looking for independent binary-derived
+checks before requesting physical assistance.
+
+The next **live** experiment remains the existing non-printing USB ladder.
 Further combined firmware integration cannot establish any of the device facts
 above. Once boot/USB behavior is proven, the validated C component can be joined
 to that transport; any later print-driving video/engine work still requires

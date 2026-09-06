@@ -1,6 +1,6 @@
 # Compiled semantic target validation
 
-Status: pass. 66 cases, 19,991,177 executed instructions, 859 distinct reached instructions.
+Status: pass. 78 cases, 23,346,275 executed instructions, 864 distinct reached instructions.
 
 The real compiled C parser, memory helpers, software unsigned division and page planner execute without a peripheral model. No upload image is produced.
 

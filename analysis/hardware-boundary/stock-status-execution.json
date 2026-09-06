@@ -1,0 +1,23 @@
+{
+  "all_branch_outcomes_covered": true,
+  "all_instructions_covered": true,
+  "boundaries": {
+    "0x10013658": "captured queue 0x17 event words",
+    "0x10013d4c": "captured reset intent",
+    "0x10015c68": "supplied status values / captured command intents",
+    "0x10015dd0": "captured datastore mode updates"
+  },
+  "cases": 133941,
+  "conditional_branch_outcomes": 70,
+  "counterexamples": [],
+  "distinct_instructions": 203,
+  "distinct_observed_outcomes": 34,
+  "executed_instructions": 12508027,
+  "executed_range": [
+    "0x10015df8",
+    "0x10016024"
+  ],
+  "scope": "Original decision code only; all MMIO forbidden. Exhaustive status_2 and substatus_16 axes are not exhaustive joint inputs or physical calibration.",
+  "source_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "status": "pass"
+}

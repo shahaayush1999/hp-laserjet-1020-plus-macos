@@ -1,5 +1,5 @@
 {
-  "check_count": 73,
+  "check_count": 75,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -149,6 +149,18 @@
       "detail": "Actual BE/call0 parser and planner must agree with native and independent model expectations in RAM-only execution.",
       "evidence": "analysis/open-firmware-model/semantic-target/validation.json",
       "name": "compiled_semantic_target_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Original parser and libc bytes must agree with independent oracles, with environment substitutes explicit.",
+      "evidence": "analysis/open-firmware-model/stock-execution/validation.json",
+      "name": "original_parser_differential_execution",
+      "severity": "watch"
+    },
+    {
+      "detail": "Original status decision instructions must agree with the model; I/O and command intent boundaries remain intercepted.",
+      "evidence": "analysis/hardware-boundary/stock-status-execution.json",
+      "name": "original_status_differential_execution",
       "severity": "watch"
     },
     {

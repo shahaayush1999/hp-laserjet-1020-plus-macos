@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import struct
 import sys
 import tempfile
 from hp1020_xtensa_call0 import Program,Machine
@@ -48,7 +49,7 @@ int main(int argc,char **argv) {
 ''')
         subprocess.run([os.environ.get('CC','clang'),'-O2','-fno-common','-fsanitize=address,undefined','-I'+str(SRC),
                         str(SRC/'hp1020_semantic.c'),str(SRC/'hp1020_page_plan.c'),str(SRC/'freestanding/target-check.c'),str(bridge),'-o',str(binary)],check=True)
-        def run(name,data,fragment,expected=None):
+        def run(name,data,fragment,expected=None,error=None):
             nonlocal total
             assert len(data)<=65536
             machine=Machine(program);machine.put(program.symbols['hp1020_test_input'],data)
@@ -59,6 +60,7 @@ int main(int argc,char **argv) {
             assert oracle.returncode==0 and not oracle.stderr,(name,oracle.stderr)
             assert actual==json.loads(oracle.stdout),(name,actual,oracle.stdout)
             assert returned==actual[0]
+            if error is not None:assert actual[0]==error,(name,actual[0],error)
             if expected is not None:assert actual==expected,(name,actual,expected)
             total+=machine.steps;all_visited.update(machine.visited);opcodes.update(machine.opcodes)
             cases.append(dict(case=name,fragment=fragment,instructions=machine.steps,result=returned,status='pass'))
@@ -75,6 +77,17 @@ int main(int argc,char **argv) {
                 expected[24:30]=[stride,stride*(2 if bpp==1 else 1),n,(rows+n-1)//n,rows*stride,1]
             for fragment in (1,7,1024):run(path.stem,data,fragment,expected)
         for c in framing.synthetic_cases():run('boundary/'+c.name,b''.join(c.transfers),7)
+        # Reach the real C zero-payload gate for END_DOC/END_PAGE/END_JBIG.
+        # Earlier framing-only invalid cases failed sooner and did not detect
+        # reversed BE bit numbering at the compiled BBCI instruction.
+        _,_,parts,_=model.parse_chunks(ROOT/'analysis/samples/generated/matrix-a4_default.zjs')
+        for kind in (1,3,6):
+            for size in (1,2,4,8):
+                data=b'JZJZ'
+                for part in parts:
+                    payload=b'X'*size if part.chunk_type==kind else part.payload
+                    data+=struct.pack('>IIIHH',16+len(payload),part.chunk_type,part.item_count,part.reserved,0x5a5a)+payload
+                run(f'control-payload/{kind}/{size}',data,7,error=1)
     # Explicitly fail closed on MMIO, unaligned loads and code writes.
     machine=Machine(program);rejected=0
     for action in (lambda:machine.read(0xb1000000,4),lambda:machine.read(0x21000001,4),lambda:machine.write(program.entry,4,0),lambda:machine.span(program.symbols["hp1020_test_input"],3,True)):
@@ -82,7 +95,8 @@ int main(int argc,char **argv) {
         except ValueError:rejected+=1
     assert rejected==4
     report=dict(status='pass',total_cases=len(cases),executed_instructions=total,distinct_instructions=len(all_visited),
-                executed_opcodes=sorted(opcodes),cases=cases,negative_memory_checks=rejected,
+                executed_opcodes=sorted(opcodes),cases=cases,negative_memory_checks=rejected,negative_control_payload_cases=12,
+                emulator_sha256=hashlib.sha256((ROOT/'scripts/hp1020_xtensa_call0.py').read_bytes()).hexdigest(),
                 elf_sha256=hashlib.sha256((OUT/'target-check.elf').read_bytes()).hexdigest(),
                 target='GCC 14.3.0, big-endian Xtensa call0, synthetic RAM at 0x20000000',
                 scope='The real compiled C parser, memory helpers, software unsigned division and page planner execute without a peripheral model. No upload image is produced.',

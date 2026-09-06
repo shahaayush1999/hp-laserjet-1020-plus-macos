@@ -1,7 +1,8 @@
 # Current handoff
 
-Updated: 2026-09-05. Owner-facing answer: **the open replacement cannot print yet**.
+Updated: 2026-09-06. Owner-facing answer: **the open replacement cannot print yet**.
 The separate HP-firmware-based macOS printing setup already works and is untouched.
+Current aim: evaluate how far independent offline reverse engineering can go.
 Aayush wants plain-language chat updates; these notes are for agents only.
 
 ## Implemented and verified offline
@@ -12,12 +13,19 @@ Aayush wants plain-language chat updates; these notes are for agents only.
   BE/call0 Xtensa C executes in synthetic host RAM; it is not a device boot image.
 - Byte-verified assembler and conservative GCC 14.3.0 configuration, reproducible
   outputs, native sanitizers, instruction interpreters and MMIO/unknown-opcode gates.
-- Latest research validation: both suites pass; 73 consistency checks, 512 native
-  semantic cases, 1398 planner cases, 66 compiled-target cases. Detailed results
+- Latest research validation: both suites pass; 75 consistency checks, 512 native
+  semantic cases, 1398 planner cases, 78 compiled-target cases. Detailed results
   live with the components, not in additional handoff summaries.
+
+- Original stock parser/libc execution now has 9841 cases; page fields and raster
+  records are compared against the sanitizer-built C replacement. Original status
+  decisions are also checked over exhaustive single-status axes and mixed cases.
+  All device I/O and queue consumers remain outside these host harnesses.
 
 ## Corrections agents must not regress
 
+- The target interpreter originally reversed BE bit-branch numbering. Fixed;
+  original libc and 12 control-payload rejection regressions now detect that error.
 - Earlier probes put LE instructions inside BE ELF containers. All rebuilt;
   the old quiet idle upload does not prove execution. Use repaired manual binutils.
 - Stock helper `0x1001b668` is unsigned floor division, not ceiling division.
@@ -31,11 +39,12 @@ Aayush wants plain-language chat updates; these notes are for agents only.
 ## Next action and blockers
 
 Current mode: **offline only; no hardware test is authorized**.
-The next useful device experiment is the guarded non-printing USB test in
-`analysis/open-firmware-probes/usb-bulk-parser-draft/hardware-test-plan.md`,
-subject to its prerequisites, a fresh power cycle and explicit user authorization.
-Success must show the custom descriptor, then the fixed 36-byte transaction's
-counters; stock identity or quiet LEDs are insufficient.
+Continue the evaluation from the original-byte execution harnesses in
+`scripts/validate-hp1020-stock-execution.py` and `validate-hp1020-stock-status.py`.
+These challenge inferred models using unchanged stock instructions. Environment
+substitutes and untested device behavior must stay explicit. The next live USB
+experiment remains available in the existing guarded test plan, but is not the
+current task or a prerequisite for further offline investigation.
 
 Remaining questions: corrected boot/endpoint-0 execution, repeated bulk receive,
 custom raster ISA (or measured stock bypass), video channel/cache ownership,

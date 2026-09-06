@@ -98,6 +98,9 @@ run_step "Build and reproduce semantic core for synthetic Xtensa RAM" \
 run_step "Execute compiled semantic core and planner" \
   "$ROOT_DIR/scripts/validate-hp1020-semantic-target.py"
 
+run_step "Compare original stock routines with independent memory and semantic oracles" \
+  "$ROOT_DIR/scripts/validate-hp1020-stock-execution.py"
+
 run_step "Print model invariant check" \
   "$ROOT_DIR/scripts/check-hp1020-print-model-invariants.py" \
     "${model_paths[@]}" \
@@ -121,6 +124,9 @@ run_step "Regenerate engine command/status model" \
 
 run_step "Regenerate engine status decision model" \
   "$ROOT_DIR/scripts/model-hp1020-engine-status-decisions.py"
+
+run_step "Compare original status decision instructions with the model" \
+  "$ROOT_DIR/scripts/validate-hp1020-stock-status.py"
 
 run_step "Regenerate engine print topology model" \
   "$ROOT_DIR/scripts/model-hp1020-engine-print-topology.py"

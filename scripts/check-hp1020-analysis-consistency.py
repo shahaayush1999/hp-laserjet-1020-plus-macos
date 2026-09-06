@@ -841,7 +841,8 @@ def build_report() -> dict[str, Any]:
                         evidence="analysis/hardware-boundary/zjs-direct-work.json"))
     target_c = read_json("analysis/open-firmware-model/semantic-target/validation.json")
     checks.append(check("compiled_semantic_target_verified",
-                        target_c["status"] == "pass" and target_c["total_cases"] == 66
+                        target_c["status"] == "pass" and target_c["total_cases"] == 78
+                        and target_c["negative_control_payload_cases"] == 12
                         and read_json("analysis/open-firmware-model/semantic-target/reproducibility.json")["status"] == "pass"
                         and target_c["executed_instructions"] > 19000000
                         and target_c["negative_memory_checks"] == 4
@@ -849,6 +850,21 @@ def build_report() -> dict[str, Any]:
                         and not {"quou","quos","loop","loopnez","entry","retw","retw.n","cust0","minu","maxu","min","max","sext","abs","mul16u","mul16s"}.intersection(target_c["executed_opcodes"]),
                         "Actual BE/call0 parser and planner must agree with native and independent model expectations in RAM-only execution.",
                         evidence="analysis/open-firmware-model/semantic-target/validation.json"))
+    original = read_json("analysis/open-firmware-model/stock-execution/validation.json")
+    checks.append(check("original_parser_differential_execution",
+                        original["status"] == "pass" and original["totals"]["parser_agreement"] == 59
+                        and sum(original["totals"].values()) == 9841
+                        and all(c["status"] == "pass" for c in original["checks"])
+                        and any(c["name"] == "be_bit_branch_regression" for c in original["checks"]),
+                        "Original parser and libc bytes must agree with independent oracles, with environment substitutes explicit.",
+                        evidence="analysis/open-firmware-model/stock-execution/validation.json"))
+    original_status = read_json("analysis/hardware-boundary/stock-status-execution.json")
+    checks.append(check("original_status_differential_execution",
+                        original_status["status"] == "pass" and original_status["cases"] >= 133941
+                        and not original_status["counterexamples"]
+                        and original_status["all_instructions_covered"] and original_status["all_branch_outcomes_covered"],
+                        "Original status decision instructions must agree with the model; I/O and command intent boundaries remain intercepted.",
+                        evidence="analysis/hardware-boundary/stock-status-execution.json"))
     page_plan = read_json("analysis/open-firmware-model/page-plan.json")
     checks.append(check("portable_page_plan_boundary",
                         page_plan["status"] == "pass" and page_plan["total_cases"] == 1398

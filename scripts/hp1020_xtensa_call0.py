@@ -32,7 +32,7 @@ class Program:
             if flags&3==3 and size:self.write_ranges.append((addr,addr+size))
             if flags&4 and size:self.execute_ranges.append((addr,addr+size))
         text=subprocess.check_output([prefix+'-objdump','-d',str(path)],text=True)
-        nm=subprocess.check_output([prefix+'-nm','-n',str(path)],text=True)
+        nm=subprocess.check_output([prefix+'-nm','-n',str(path)],text=True,stderr=subprocess.DEVNULL)
         self.symbols={name:int(addr,16) for addr,name in re.findall(r'^([0-9a-f]+) \w (\S+)$',nm,re.M)}
         self.instructions=dict(self.parse(text))
     @staticmethod
@@ -81,6 +81,10 @@ class Machine:
     def put(self,address,value):
         if not any(a<=address and address+len(value)<=b for a,b in self.write_ranges):raise ValueError('input outside RAM')
         data,off=self.span(address,len(value));data[off:off+len(value)]=value
+    def extension(self,op,args,next_pc):
+        raise ValueError(f'unsupported target instruction at {self.pc:#x}: {op} {args}')
+    def after_instruction(self,pc,next_pc):
+        return next_pc
     def run(self,args=(),budget=10000000):
         r=self.registers
         for i,v in enumerate(args,2):r[i]=v&MASK
@@ -90,6 +94,7 @@ class Machine:
             data,off=self.span(pc,len(raw),True)
             if bytes(data[off:off+len(raw)])!=raw:raise ValueError('executed bytes differ from disassembly')
             self.steps+=1;self.visited.add(pc);self.opcodes.add(op)
+            self.branch_taken=False
             nxt=pc+len(raw);base=op.removesuffix('.n')
             if base=='movi':r[a[0]]=a[1]&MASK
             elif base=='mov':r[a[0]]=r[a[1]]
@@ -111,6 +116,8 @@ class Machine:
             elif base=='ssl':self.sar=32-(r[a[0]]&31)
             elif base=='ssr':self.sar=r[a[0]]&31
             elif base=='ssai':self.sar=a[0]
+            elif base=='ssa8b':self.sar=32-((r[a[0]]&3)*8)
+            elif base=='ssa8l':self.sar=(r[a[0]]&3)*8
             elif base=='sll':r[a[0]]=(r[a[1]]<<(32-self.sar))&MASK
             elif base=='srl':r[a[0]]=r[a[1]]>>self.sar
             elif base=='sra':r[a[0]]=(signed(r[a[1]])>>self.sar)&MASK
@@ -128,13 +135,13 @@ class Machine:
                 r[a[0]]=(value-65536 if base=='l16si' and value&32768 else value)&MASK
             elif base in ('s8i','s16i','s32i'):self.write((r[a[1]]+a[2])&MASK,{'s8i':1,'s16i':2,'s32i':4}[base],r[a[0]])
             elif base in ('call0','callx0'):
-                target=a[0] if base=='call0' else r[a[0]];r[0]=nxt;nxt=target
-            elif base=='ret':nxt=r[0]
-            elif base=='j':nxt=a[0]
-            elif base=='jx':nxt=r[a[0]]
+                target=a[0] if base=='call0' else r[a[0]];r[0]=nxt;nxt=target;self.branch_taken=True
+            elif base=='ret':nxt=r[0];self.branch_taken=True
+            elif base=='j':nxt=a[0];self.branch_taken=True
+            elif base=='jx':nxt=r[a[0]];self.branch_taken=True
             elif base in ('beqz','bnez','bltz','bgez'):
                 x=r[a[0]];take={'beqz':x==0,'bnez':x!=0,'bltz':signed(x)<0,'bgez':signed(x)>=0}[base]
-                if take:nxt=a[-1]
+                if take:nxt=a[-1];self.branch_taken=True
             elif base in ('beq','bne','blt','bge','bltu','bgeu','beqi','bnei','blti','bgei','bltui','bgeui'):
                 x=r[a[0]];y=(a[1]&MASK) if base.endswith('i') else r[a[1]]
                 kind=base.removesuffix('i')
@@ -143,16 +150,17 @@ class Machine:
                 else:
                     sx,sy=(x,y) if kind.endswith('u') else (signed(x),signed(y))
                     take=sx<sy if kind.startswith('blt') else sx>=sy
-                if take:nxt=a[-1]
+                if take:nxt=a[-1];self.branch_taken=True
             elif base in ('bbci','bbsi','bbc','bbs'):
                 bit=a[1] if base.endswith('i') else r[a[1]]&31
-                take=bool(r[a[0]]&(1<<bit))==base.startswith('bbs')
-                if take:nxt=a[-1]
+                # Xtensa BE bit-branch indices count from the MSB, unlike EXTUI.
+                take=bool(r[a[0]]&(0x80000000>>bit))==base.startswith('bbs')
+                if take:nxt=a[-1];self.branch_taken=True
             elif base in ('bany','bnone','ball','bnall'):
                 x,y=r[a[0]],r[a[1]]
                 take={'bany':bool(x&y),'bnone':not(x&y),'ball':x&y==y,'bnall':x&y!=y}[base]
-                if take:nxt=a[-1]
+                if take:nxt=a[-1];self.branch_taken=True
             elif base in ('nop','memw'):pass
-            else:raise ValueError(f'unsupported target instruction at {pc:#x}: {op} {a}')
-            self.pc=nxt
+            else:nxt=self.extension(op,a,nxt)
+            self.pc=self.after_instruction(pc,nxt)
         return r[2]

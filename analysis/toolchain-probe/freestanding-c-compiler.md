@@ -38,13 +38,18 @@ an ELF linked at synthetic address `0x20000000`. It has 2536 bytes of text and
 139668 bytes of BSS, mostly test input/arena buffers. There is no boot-ROM layout,
 ACL wrapper, USB transport or device output entry point.
 
-`scripts/validate-hp1020-semantic-target.py` executes 66 cases: **19,991,177
-instructions**, 859 distinct reached instructions, zero MMIO. Generated streams
+`scripts/validate-hp1020-semantic-target.py` executes 78 cases: **23,346,275
+instructions**, 864 distinct reached instructions, zero MMIO. Generated streams
 match independent Python expectations at three fragment sizes; all cases also
 match an ASan/UBSan native build. The interpreter rejects unmapped memory,
 unaligned accesses, code writes, execution from data sections and
 unsupported/custom instructions. It does not
 model register windows, caches, peripherals or hardware division.
+
+The original firmware execution audit exposed reversed BE bit-branch indices in
+the first interpreter. That is corrected, and 12 malformed control-payload cases
+now exercise the compiled branch that the earlier cases missed. See
+`analysis/open-firmware-model/stock-execution/validation.md`.
 
 Two successive target builds produce identical ELF and map files. This is a
 compiler/ABI/RAM checkpoint, not evidence of execution on the printer.

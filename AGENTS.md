@@ -27,6 +27,12 @@ Documentation is agent memory, never a deliverable he must review.
 
 ## Objective and authority
 
+The current task is an offline capability evaluation: Aayush wants to see how
+far agents can reverse engineer and independently verify the binary without his
+assistance or a printer. Revisit claimed blockers and pursue useful offline
+experiments. Missing hardware is a limit on live proof, not a reason to end the
+evaluation while meaningful binary analysis or differential execution remains.
+
 Build a narrow open replacement for the HP LaserJet 1020 Plus device firmware
 that prints host-generated ZjStream. Keep the working macOS/foo2zjs setup intact.
 Other models, networking, scanning and unrelated features are out of scope.
