@@ -1,0 +1,425 @@
+{
+  "arithmetic_cases": {
+    "signed_divide": 768,
+    "signed_remainder": 768,
+    "unsigned_divide": 768,
+    "unsigned_remainder": 768
+  },
+  "arithmetic_distinct_instructions": 111,
+  "cases": [
+    {
+      "case": "matrix-a4_2400x600",
+      "fragment": 1,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_2400x600",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_2400x600",
+      "fragment": 1024,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_600x600",
+      "fragment": 1,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_600x600",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_600x600",
+      "fragment": 1024,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_cardstock_media",
+      "fragment": 1,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_cardstock_media",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_cardstock_media",
+      "fragment": 1024,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_default",
+      "fragment": 1,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_default",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_default",
+      "fragment": 1024,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_draft",
+      "fragment": 1,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_draft",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_draft",
+      "fragment": 1024,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_logical_clip",
+      "fragment": 1,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_logical_clip",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_logical_clip",
+      "fragment": 1024,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_manual_feed",
+      "fragment": 1,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_manual_feed",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_manual_feed",
+      "fragment": 1024,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_two_copies",
+      "fragment": 1,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_two_copies",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-a4_two_copies",
+      "fragment": 1024,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-legal_default",
+      "fragment": 1,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-legal_default",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-legal_default",
+      "fragment": 1024,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-letter_default",
+      "fragment": 1,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-letter_default",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "matrix-letter_default",
+      "fragment": 1024,
+      "status": "pass"
+    },
+    {
+      "case": "minimal-page-a4",
+      "fragment": 1,
+      "status": "pass"
+    },
+    {
+      "case": "minimal-page-a4",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "minimal-page-a4",
+      "fragment": 1024,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_01_of_16",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_02_of_16",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_03_of_16",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_04_of_16",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_05_of_16",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_06_of_16",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_07_of_16",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_08_of_16",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_09_of_16",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_10_of_16",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_11_of_16",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_12_of_16",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_13_of_16",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_14_of_16",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/header_split_15_of_16",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/magic_split_01_of_4",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/magic_split_02_of_4",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/magic_split_03_of_4",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/payload_split_across_four_boundaries",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/multiple_chunks_single_transfer",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/stock_types_outside_probe_scope_are_unknown",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/valid_zero_payload_chunks",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/zero_size_chunk_recovery",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/oversize_chunk_policy_recovery",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/bad_signature_recovery",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/reserved_exceeds_payload_recovery",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/unknown_chunk_is_counted_and_skipped",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/ring_and_descriptor_wrap_boundary",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/payload_crosses_ring_wrap_boundary",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/three_repeated_documents",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/truncated_chunk_header_at_eof",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/truncated_chunk_payload_at_eof",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "boundary/zero_byte_receive_descriptors",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "control-payload/1/1",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "control-payload/1/2",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "control-payload/1/4",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "control-payload/1/8",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "control-payload/3/1",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "control-payload/3/2",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "control-payload/3/4",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "control-payload/3/8",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "control-payload/6/1",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "control-payload/6/2",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "control-payload/6/4",
+      "fragment": 7,
+      "status": "pass"
+    },
+    {
+      "case": "control-payload/6/8",
+      "fragment": 7,
+      "status": "pass"
+    }
+  ],
+  "comparison": "Compiled C target results agree across QEMU, our instruction interpreter, ASan/UBSan native C and fixture expectations. Stock libc agrees with complete bytearray oracles; four stock division/remainder helpers agree with independent Python arithmetic, including zero-divisor return-zero and signed-overflow wrapping.",
+  "cpu": "test_kc705_be",
+  "elf_sha256": "9912d44e3a01e927629dee98974d98b78092b453a069e2c14b6612000e883021",
+  "engine": "QEMU emulator version 11.1.1",
+  "libc_cases": {
+    "memcpy": 6208,
+    "memmove": 468,
+    "memset": 2328,
+    "strlen": 776
+  },
+  "limits": "The QEMU CPU is not the printer CPU configuration. This does not test firmware boot, register-window spills, custom raster instructions, caches, interrupts, transport or physical printing.",
+  "machine": "sim, 1 GiB RAM",
+  "register_map_source": "https://github.com/qemu/qemu/blob/v11.1.1/target/xtensa/core-test_kc705_be/gdb-config.c.inc",
+  "scope": "Original compiled BE/call0 target ELF bytes loaded through a private Unix GDB socket. Original stock memset/memcpy/memmove/strlen also run through actual windowed CALL8/ENTRY/RETW and hardware loops, matching complete 1024-byte RAM oracles. No QEMU instruction decoding is delegated to our interpreter. No printer or host USB backend exists.",
+  "source_sha256": {
+    "hp1020_qemu_ram.py": "bdd49211dec3ed685f66a698c142d4cf47db1da9853e0c3cb8b102a14fbe91ee",
+    "validate-hp1020-qemu.py": "427bd2dc8fc26a50f7cf35c8544b252085b6eec4b56918516469c8ab9368404d",
+    "validate-hp1020-semantic-target.py": "bb1eac5e7a220df61fcfbf31b9d91c4a70ecce30ce98a04b443141b599bc0fc9",
+    "validate-hp1020-stock-execution.py": "ba92dbed7f931470d67a453078d39bcebf6a26d1793c1f522210109f7e4f4942"
+  },
+  "status": "pass",
+  "stock_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "target_cases": 78,
+  "total_cases": 12930
+}

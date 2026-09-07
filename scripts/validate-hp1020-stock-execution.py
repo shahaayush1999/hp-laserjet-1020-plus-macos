@@ -41,7 +41,7 @@ def fnv(data):
     return value
 
 
-def main():
+def main(libc_observer=None):
     program=Program(ROOT/'analysis/sihp1020.elf',os.environ.get('XTENSA_PREFIX','/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf'))
     totals={};steps=0;visited=set();opcodes=set();checks=[]
     def account(kind,m):
@@ -61,6 +61,7 @@ def main():
                 assert m.run([RAM+16+offset,value,n])==RAM+16+offset
                 expected=bytearray(initial);expected[16+offset:16+offset+n]=bytes([value&255])*n
                 assert dump(m)==expected,('memset',offset,n,value)
+                if libc_observer:libc_observer('memset',0x1001b4c8,[RAM+16+offset,value,n],initial,bytes(expected),RAM+16+offset)
                 account('memset',m)
     rng=random.Random(102006)
     for dest in range(8):
@@ -71,6 +72,7 @@ def main():
                 assert m.run([RAM+512+dest,RAM+16+src,n])==RAM+512+dest
                 expected=bytearray(initial);expected[512+dest:512+dest+n]=initial[16+src:16+src+n]
                 assert dump(m)==expected,('memcpy',dest,src,n)
+                if libc_observer:libc_observer('memcpy',0x1001b38c,[RAM+512+dest,RAM+16+src,n],initial,bytes(expected),RAM+512+dest)
                 account('memcpy',m)
     for dest in (0,1,2,3,8,16):
         for src in (0,1,2,3,8,16):
@@ -80,12 +82,14 @@ def main():
                 assert m.run([RAM+dest,RAM+src,n])==RAM+dest
                 expected=bytearray(initial);expected[dest:dest+n]=initial[src:src+n]
                 assert dump(m)==expected,('memmove',dest,src,n)
+                if libc_observer:libc_observer('memmove',0x1001b488,[RAM+dest,RAM+src,n],initial,bytes(expected),RAM+dest)
                 account('memmove',m)
     for offset in range(8):
         for n in range(97):
             m=memory(0x100169d4,[(0x100169d4,0x10016a38)])
             m.put(RAM,b'\xff'*1024);m.put(RAM+16+offset,bytes(rng.randrange(1,256) for _ in range(n))+b'\0')
             assert m.run([RAM+16+offset])==n,('strlen',offset,n)
+            if libc_observer:libc_observer('strlen',0x100169d4,[RAM+16+offset],dump(m),dump(m),n)
             account('strlen',m)
     print('original libc cases:',totals,flush=True)
     cases=[]

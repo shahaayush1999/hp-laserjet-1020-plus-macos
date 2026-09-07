@@ -10,6 +10,9 @@ Documentation is agent memory, never a deliverable he must review.
   what changed, what matters next, and whether anything is needed from him.
 - Distinguish the already-working HP-based printing setup from the unfinished
   open firmware replacement. Never call the overall task done because tests pass.
+- Sustain autonomous work across multiple research checkpoints. A passing suite
+  or a commit is not a reason to yield while a concrete productive avenue remains.
+  Keep chat updates short during the longer run; do not ask the owner to restart work.
 - Default to short updates. Omit addresses, instruction counts, commit hashes,
   document links and jargon unless requested or needed for a decision.
 - Do not invent percentage-complete estimates or promise a completion date.

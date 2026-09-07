@@ -23,7 +23,7 @@ Original software lifecycle in serialized/cooperative schedules under injected o
 
 ## Limits
 
-- The counterexample assumes a second parser invocation is admitted while an earlier document still has unfinished pages; live transport/producer admission and external completion timing remain unverified.
+- This harness manually re-invokes the parser between documents. Separate admission.json now reproduces the counterexample through original single-language recognition/buffering/dispatch; actual USB delivery and external completion timing remain unverified.
 - Only queue-boundary cooperative interleavings are exercised; instruction-level preemption, allocation failure, cancellation, out-of-order completions, reset/power cycle and physical consumption remain unverified.
 - Duplex cases exercise stock bookkeeping only; the replacement remains narrow simplex.
 - Completion injection is an assumption to verify software lifetime, not a claim that the open replacement can produce that event.

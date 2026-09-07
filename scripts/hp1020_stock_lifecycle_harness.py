@@ -162,12 +162,22 @@ accuracy or hardware completion mechanism is claimed.
                 if self.pending[self.delivered][0]==2:self.retirement_eligible=True
         return super().extension(op,args,nxt)
 
+    def initialize_parser(self):
+        self.registers=[0]*16;self.registers[0]=STOP;self.registers[1]=STACK+STACK_SIZE-16
+        self.pc=0x10009d34;self.frames=[];self.loop=None;self.sar=0
+
+    def parser_returned(self):
+        if self.input[self.input_pos:].startswith(b'JZJZ'):
+            self.initialize_parser()
+        else:
+            self.parser_done=True
+
     def replay(self):
         self.initialize_job()
         self.registers[1]=STACK+STACK_SIZE//2-16
         job=self.capture_cpu()
-        self.registers=[0]*16;self.registers[0]=STOP;self.registers[1]=STACK+STACK_SIZE-16
-        self.pc=0x10009d34;self.frames=[];self.loop=None;self.sar=0
+        self.job_mode=False;self.thread='parser'
+        self.initialize_parser()
         parser=self.capture_cpu()
         while True:
             if not self.parser_done:
@@ -177,11 +187,8 @@ accuracy or hardware completion mechanism is claimed.
                     try:self.run([CONTEXT] if self.pc==0x10009d34 else [])
                     except CooperativePause:continue
                     if self.pc!=STOP:raise ValueError('unexpected parser suspension')
-                    if self.input[self.input_pos:].startswith(b'JZJZ'):
-                        self.registers=[0]*16;self.registers[0]=STOP;self.registers[1]=STACK+STACK_SIZE-16
-                        self.pc=0x10009d34;self.frames=[];self.loop=None;self.sar=0
-                    else:
-                        self.parser_done=True;break
+                    self.parser_returned()
+                    if self.parser_done:break
                 self.parser_steps+=self.steps-before;parser=self.capture_cpu()
             self.restore_cpu(job,'job')
             try:self.run()

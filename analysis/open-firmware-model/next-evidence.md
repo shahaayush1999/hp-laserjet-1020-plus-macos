@@ -44,9 +44,19 @@ Nonempty jobs drain and recover credits. A conditional counterexample exists:
 queuing an empty document behind an unfinished page can make the empty-document
 finalizer free the global head; later completion reads a missing child. Eager
 completion avoids it. The parser itself locks a producer mutex without waiting
-for the job list to drain, but outer transport admission remains unverified.
-Exact positive scopes, reproductions and assumptions: `stock-execution/lifecycle.md`.
+for the job list to drain. Original single-language recognition, pushback, buffered
+reads and dispatcher now reproduce that admission and failure across input splits,
+including cooperative execution. The broad software-admission question is reduced
+to actual transport delivery, multi-language state and RTOS/engine ordering.
+Exact scopes and assumptions: `stock-execution/lifecycle.md` and `stock-execution/admission.md`.
 This is an offline correctness question, not evidence of a physical printer fault.
+
+Independent QEMU now checks the same compiled C target, all original libc cases
+and stock signed/unsigned division/remainder helpers. It executes actual standard
+register-window and hardware-loop instructions. Its CPU configuration is not the
+printer core; it provides no custom-ISA, cache, USB or window-spill proof. Further
+useful offline work includes independent execution of larger original routines
+and tracing software ownership under cancellation/resource pressure.
 
 The next **live** experiment remains the existing non-printing USB ladder.
 Further combined firmware integration cannot establish any of the device facts

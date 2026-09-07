@@ -1,6 +1,6 @@
 # Current handoff
 
-Updated: 2026-09-06. **The open replacement cannot print yet.**
+Updated: 2026-09-08. **The open replacement cannot print yet.**
 The working HP-based macOS printing setup is untouched. Current aim: evaluate
 independent offline reverse engineering; the owner consumes progress through chat.
 
@@ -11,11 +11,14 @@ independent offline reverse engineering; the owner consumes progress through cha
 - Bounded C parser and page/band planner, including execution of compiled BE/call0
   Xtensa code in synthetic RAM. Reproducible compiler/assembler, sanitizers,
   instruction interpreters and MMIO/unknown-opcode gates support these components.
+  Independent QEMU agrees on the C target, original libc and stock arithmetic.
 - Original parser/libc, status decisions, JobMgr scheduling, allocator and selected
   MMIO-free render paths execute against independent oracles. Original completion,
   release and datastore bookkeeping now run with injected FIFO completion events;
   cooperative parser/JobMgr schedules exercise repeated documents and cleanup.
-- Both checkpoint suites pass; detailed counts and boundaries remain beside each
+  Original stream recognition, buffering and dispatch now run in those schedules.
+- Latest aggregate validation passed both suites (77 consistency checks); detailed
+  counts and boundaries remain beside each
   component. `scripts/validate.sh` runs the offline-only aggregate validation.
 
 ## Corrections agents must not regress
@@ -36,13 +39,13 @@ independent offline reverse engineering; the owner consumes progress through cha
 ## Next action and limits
 
 **Offline only; no hardware test is authorized.**
-Continue from `scripts/validate-hp1020-stock-lifecycle.py`. Queuing an empty
-non-head document can free an earlier unfinished document in two reproducible
-host schedules. Eager completion avoids it. The original parser mutex wrapper
-does not wait for job-list drain, but outer transport admission remains unverified.
-Trace that admission before calling this a device bug; alternatively pursue
-independent ISA execution with a second engine. Do not make this conditional
-counterexample a blocker for the narrow replacement.
+Continue independent stock execution or cancellation/resource-pressure ownership
+analysis. Original stream admission now reproduces the delayed empty-document
+cleanup failure without manually reinvoking the parser. Eager completion avoids
+it; actual USB delivery, multi-language context and real scheduling remain
+unverified. This conditional finding is not a narrow-replacement blocker.
+QEMU's standard BE CPU provides a second ISA engine; it is not the printer CPU,
+and register-window spills/custom raster instructions remain outside its scope.
 
 Completion events and consumed raster slots are explicit host inputs. Passing
 lifetime checks does not establish DMA, printing, IRQ timing or recovery.

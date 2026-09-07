@@ -27,7 +27,7 @@ def fnv(data):
     return h
 
 
-def main():
+def main(observer=None):
     program=Program(OUT/'target-check.elf',os.environ.get('XTENSA_PREFIX','/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf'))
     model=module('target_print_model',ROOT/'scripts/model-hp1020-print-path.py')
     framing=module('target_framing_cases',ROOT/'scripts/model-hp1020-usb-bulk-parser-draft.py')
@@ -60,6 +60,7 @@ int main(int argc,char **argv) {
             assert oracle.returncode==0 and not oracle.stderr,(name,oracle.stderr)
             assert actual==json.loads(oracle.stdout),(name,actual,oracle.stdout)
             assert returned==actual[0]
+            if observer is not None:observer(name,data,fragment,program,actual,returned)
             if error is not None:assert actual[0]==error,(name,actual[0],error)
             if expected is not None:assert actual==expected,(name,actual,expected)
             total+=machine.steps;all_visited.update(machine.visited);opcodes.update(machine.opcodes)

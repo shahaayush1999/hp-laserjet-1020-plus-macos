@@ -1,5 +1,5 @@
 {
-  "check_count": 75,
+  "check_count": 77,
   "checks": [
     {
       "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
@@ -155,6 +155,18 @@
       "detail": "Original parser and libc bytes must agree with independent oracles, with environment substitutes explicit.",
       "evidence": "analysis/open-firmware-model/stock-execution/validation.json",
       "name": "original_parser_differential_execution",
+      "severity": "watch"
+    },
+    {
+      "detail": "Independent QEMU must agree on target C, original libc and software arithmetic; source provenance must be current.",
+      "evidence": "analysis/open-firmware-model/semantic-target/qemu.json",
+      "name": "independent_qemu_execution",
+      "severity": "watch"
+    },
+    {
+      "detail": "Original language recognition and buffering must preserve normal admission and reproduce the conditional delayed-empty-document witness.",
+      "evidence": "analysis/open-firmware-model/stock-execution/admission.json",
+      "name": "original_stream_admission_execution",
       "severity": "watch"
     },
     {

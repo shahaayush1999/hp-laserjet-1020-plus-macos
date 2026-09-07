@@ -95,20 +95,20 @@ run_step "Validate portable page and band planner" \
 run_step "Build and reproduce semantic core for synthetic Xtensa RAM" \
   "$ROOT_DIR/scripts/check-hp1020-semantic-target-reproducibility.sh"
 
-run_step "Execute compiled semantic core and planner" \
-  "$ROOT_DIR/scripts/validate-hp1020-semantic-target.py"
+run_step "Cross-check compiled C and stock routines with independent QEMU" \
+  "$ROOT_DIR/scripts/validate-hp1020-qemu.py"
 
 run_step "Audit original instruction annotations and unresolved encodings" \
   "$ROOT_DIR/scripts/audit-hp1020-instruction-properties.py"
-
-run_step "Compare original stock routines with independent memory and semantic oracles" \
-  "$ROOT_DIR/scripts/validate-hp1020-stock-execution.py"
 
 run_step "Execute original parser through JobMgr and page scheduling" \
   "$ROOT_DIR/scripts/validate-hp1020-stock-jobmgr.py"
 
 run_step "Execute stock completion, cleanup and cooperative document lifecycles" \
   "$ROOT_DIR/scripts/validate-hp1020-stock-lifecycle.py"
+
+run_step "Execute original stream recognition, buffering and document admission" \
+  "$ROOT_DIR/scripts/validate-hp1020-stock-admission.py"
 
 run_step "Print model invariant check" \
   "$ROOT_DIR/scripts/check-hp1020-print-model-invariants.py" \

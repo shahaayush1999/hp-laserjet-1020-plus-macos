@@ -1,0 +1,2054 @@
+{
+  "assumptions": [
+    "One transport and one registered language (ZjStream); other language handlers are not modeled.",
+    "Host readiness bit and low-level read callback deliver the supplied bytes. Nonblocking probe reads are fragmented; timed reads supply requested available bytes. No elapsed-time, timeout, disconnect or USB controller simulation.",
+    "RTOS setup, allocation, locks and queues retain prior host substitutes. Successful FIFO raster consumption and completion ordering are injected.",
+    "This reduces the unresolved software admission question. Actual host USB delivery, RTOS/IRQ scheduling, engine backpressure and physical occurrence remain unverified. It is not a demonstrated printer bug."
+  ],
+  "cases": [
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "6b9dc98f083ae61b4e68502c8b40fe73a71b41e598921b477213c2f09d15f15e",
+      "instructions": 4236,
+      "name": "scan/fragment=1/prefix=0",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "af808f5c72a521b0f36b8a6c14bbbe87e3737f6a45a80b71969ad37ed0905e24",
+      "instructions": 6152,
+      "name": "scan/fragment=1/prefix=16",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 20
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "211db65a18dee30a4e0761cb36bd0ad6fa2f08344d4606a42acb76b6bc0f3a66",
+      "instructions": 8092,
+      "name": "scan/fragment=1/prefix=33",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 37
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "74c57d43449e3c3295c81c5df7e8288662f7d84c1c77c07839a1c8aa8b15601c",
+      "instructions": 8946,
+      "name": "two-documents/fragment=1",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6702
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 2,
+      "impressions": 0,
+      "input_sha256": "fb3905e42ed9e3890d097adc357e29cecfd2190018bdedce2e1834a72804cc9d",
+      "instructions": 4107,
+      "name": "empty-pair/fragment=1",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 76
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "6b9dc98f083ae61b4e68502c8b40fe73a71b41e598921b477213c2f09d15f15e",
+      "instructions": 4032,
+      "name": "scan/fragment=2/prefix=0",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        }
+      ],
+      "probe_fragment": 2,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "af808f5c72a521b0f36b8a6c14bbbe87e3737f6a45a80b71969ad37ed0905e24",
+      "instructions": 5318,
+      "name": "scan/fragment=2/prefix=16",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 20
+        }
+      ],
+      "probe_fragment": 2,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "211db65a18dee30a4e0761cb36bd0ad6fa2f08344d4606a42acb76b6bc0f3a66",
+      "instructions": 6789,
+      "name": "scan/fragment=2/prefix=33",
+      "parser_entries": [
+        {
+          "buffered": 5,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 38
+        }
+      ],
+      "probe_fragment": 2,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "74c57d43449e3c3295c81c5df7e8288662f7d84c1c77c07839a1c8aa8b15601c",
+      "instructions": 8325,
+      "name": "two-documents/fragment=2",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6702
+        }
+      ],
+      "probe_fragment": 2,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 2,
+      "impressions": 0,
+      "input_sha256": "fb3905e42ed9e3890d097adc357e29cecfd2190018bdedce2e1834a72804cc9d",
+      "instructions": 3699,
+      "name": "empty-pair/fragment=2",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 76
+        }
+      ],
+      "probe_fragment": 2,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "6b9dc98f083ae61b4e68502c8b40fe73a71b41e598921b477213c2f09d15f15e",
+      "instructions": 4073,
+      "name": "scan/fragment=3/prefix=0",
+      "parser_entries": [
+        {
+          "buffered": 6,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6
+        }
+      ],
+      "probe_fragment": 3,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "af808f5c72a521b0f36b8a6c14bbbe87e3737f6a45a80b71969ad37ed0905e24",
+      "instructions": 5142,
+      "name": "scan/fragment=3/prefix=16",
+      "parser_entries": [
+        {
+          "buffered": 5,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 21
+        }
+      ],
+      "probe_fragment": 3,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "211db65a18dee30a4e0761cb36bd0ad6fa2f08344d4606a42acb76b6bc0f3a66",
+      "instructions": 6342,
+      "name": "scan/fragment=3/prefix=33",
+      "parser_entries": [
+        {
+          "buffered": 6,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 39
+        }
+      ],
+      "probe_fragment": 3,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "74c57d43449e3c3295c81c5df7e8288662f7d84c1c77c07839a1c8aa8b15601c",
+      "instructions": 8336,
+      "name": "two-documents/fragment=3",
+      "parser_entries": [
+        {
+          "buffered": 6,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6
+        },
+        {
+          "buffered": 6,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6704
+        }
+      ],
+      "probe_fragment": 3,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 2,
+      "impressions": 0,
+      "input_sha256": "fb3905e42ed9e3890d097adc357e29cecfd2190018bdedce2e1834a72804cc9d",
+      "instructions": 3781,
+      "name": "empty-pair/fragment=3",
+      "parser_entries": [
+        {
+          "buffered": 6,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6
+        },
+        {
+          "buffered": 6,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 78
+        }
+      ],
+      "probe_fragment": 3,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "6b9dc98f083ae61b4e68502c8b40fe73a71b41e598921b477213c2f09d15f15e",
+      "instructions": 3930,
+      "name": "scan/fragment=4/prefix=0",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        }
+      ],
+      "probe_fragment": 4,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "af808f5c72a521b0f36b8a6c14bbbe87e3737f6a45a80b71969ad37ed0905e24",
+      "instructions": 4940,
+      "name": "scan/fragment=4/prefix=16",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 20
+        }
+      ],
+      "probe_fragment": 4,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "211db65a18dee30a4e0761cb36bd0ad6fa2f08344d4606a42acb76b6bc0f3a66",
+      "instructions": 6133,
+      "name": "scan/fragment=4/prefix=33",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 40
+        }
+      ],
+      "probe_fragment": 4,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "74c57d43449e3c3295c81c5df7e8288662f7d84c1c77c07839a1c8aa8b15601c",
+      "instructions": 8118,
+      "name": "two-documents/fragment=4",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 6,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6704
+        }
+      ],
+      "probe_fragment": 4,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 2,
+      "impressions": 0,
+      "input_sha256": "fb3905e42ed9e3890d097adc357e29cecfd2190018bdedce2e1834a72804cc9d",
+      "instructions": 3495,
+      "name": "empty-pair/fragment=4",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 76
+        }
+      ],
+      "probe_fragment": 4,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "6b9dc98f083ae61b4e68502c8b40fe73a71b41e598921b477213c2f09d15f15e",
+      "instructions": 3969,
+      "name": "scan/fragment=7/prefix=0",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "af808f5c72a521b0f36b8a6c14bbbe87e3737f6a45a80b71969ad37ed0905e24",
+      "instructions": 4823,
+      "name": "scan/fragment=7/prefix=16",
+      "parser_entries": [
+        {
+          "buffered": 5,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 21
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "211db65a18dee30a4e0761cb36bd0ad6fa2f08344d4606a42acb76b6bc0f3a66",
+      "instructions": 5816,
+      "name": "scan/fragment=7/prefix=33",
+      "parser_entries": [
+        {
+          "buffered": 9,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 42
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "74c57d43449e3c3295c81c5df7e8288662f7d84c1c77c07839a1c8aa8b15601c",
+      "instructions": 8078,
+      "name": "two-documents/fragment=7",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        },
+        {
+          "buffered": 8,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6706
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 2,
+      "impressions": 0,
+      "input_sha256": "fb3905e42ed9e3890d097adc357e29cecfd2190018bdedce2e1834a72804cc9d",
+      "instructions": 3573,
+      "name": "empty-pair/fragment=7",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        },
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 79
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "6b9dc98f083ae61b4e68502c8b40fe73a71b41e598921b477213c2f09d15f15e",
+      "instructions": 4012,
+      "name": "scan/fragment=31/prefix=0",
+      "parser_entries": [
+        {
+          "buffered": 31,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 31
+        }
+      ],
+      "probe_fragment": 31,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "af808f5c72a521b0f36b8a6c14bbbe87e3737f6a45a80b71969ad37ed0905e24",
+      "instructions": 4668,
+      "name": "scan/fragment=31/prefix=16",
+      "parser_entries": [
+        {
+          "buffered": 15,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 31
+        }
+      ],
+      "probe_fragment": 31,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "211db65a18dee30a4e0761cb36bd0ad6fa2f08344d4606a42acb76b6bc0f3a66",
+      "instructions": 5578,
+      "name": "scan/fragment=31/prefix=33",
+      "parser_entries": [
+        {
+          "buffered": 29,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 62
+        }
+      ],
+      "probe_fragment": 31,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "74c57d43449e3c3295c81c5df7e8288662f7d84c1c77c07839a1c8aa8b15601c",
+      "instructions": 8071,
+      "name": "two-documents/fragment=31",
+      "parser_entries": [
+        {
+          "buffered": 31,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 31
+        },
+        {
+          "buffered": 25,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6723
+        }
+      ],
+      "probe_fragment": 31,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 2,
+      "impressions": 0,
+      "input_sha256": "fb3905e42ed9e3890d097adc357e29cecfd2190018bdedce2e1834a72804cc9d",
+      "instructions": 3659,
+      "name": "empty-pair/fragment=31",
+      "parser_entries": [
+        {
+          "buffered": 31,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 31
+        },
+        {
+          "buffered": 31,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 103
+        }
+      ],
+      "probe_fragment": 31,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "6b9dc98f083ae61b4e68502c8b40fe73a71b41e598921b477213c2f09d15f15e",
+      "instructions": 5324,
+      "name": "scan/fragment=1023/prefix=0",
+      "parser_entries": [
+        {
+          "buffered": 1023,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1023
+        }
+      ],
+      "probe_fragment": 1023,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "af808f5c72a521b0f36b8a6c14bbbe87e3737f6a45a80b71969ad37ed0905e24",
+      "instructions": 5991,
+      "name": "scan/fragment=1023/prefix=16",
+      "parser_entries": [
+        {
+          "buffered": 1007,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1023
+        }
+      ],
+      "probe_fragment": 1023,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "211db65a18dee30a4e0761cb36bd0ad6fa2f08344d4606a42acb76b6bc0f3a66",
+      "instructions": 7000,
+      "name": "scan/fragment=1023/prefix=33",
+      "parser_entries": [
+        {
+          "buffered": 990,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1023
+        }
+      ],
+      "probe_fragment": 1023,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "74c57d43449e3c3295c81c5df7e8288662f7d84c1c77c07839a1c8aa8b15601c",
+      "instructions": 10941,
+      "name": "two-documents/fragment=1023",
+      "parser_entries": [
+        {
+          "buffered": 1023,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1023
+        },
+        {
+          "buffered": 1017,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7715
+        }
+      ],
+      "probe_fragment": 1023,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 2,
+      "impressions": 0,
+      "input_sha256": "fb3905e42ed9e3890d097adc357e29cecfd2190018bdedce2e1834a72804cc9d",
+      "instructions": 3850,
+      "name": "empty-pair/fragment=1023",
+      "parser_entries": [
+        {
+          "buffered": 144,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 144
+        },
+        {
+          "buffered": 72,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 144
+        }
+      ],
+      "probe_fragment": 1023,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "6b9dc98f083ae61b4e68502c8b40fe73a71b41e598921b477213c2f09d15f15e",
+      "instructions": 5314,
+      "name": "scan/fragment=1024/prefix=0",
+      "parser_entries": [
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "af808f5c72a521b0f36b8a6c14bbbe87e3737f6a45a80b71969ad37ed0905e24",
+      "instructions": 5981,
+      "name": "scan/fragment=1024/prefix=16",
+      "parser_entries": [
+        {
+          "buffered": 1008,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 1,
+      "impressions": 1,
+      "input_sha256": "211db65a18dee30a4e0761cb36bd0ad6fa2f08344d4606a42acb76b6bc0f3a66",
+      "instructions": 7004,
+      "name": "scan/fragment=1024/prefix=33",
+      "parser_entries": [
+        {
+          "buffered": 991,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "74c57d43449e3c3295c81c5df7e8288662f7d84c1c77c07839a1c8aa8b15601c",
+      "instructions": 10937,
+      "name": "two-documents/fragment=1024",
+      "parser_entries": [
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        },
+        {
+          "buffered": 1018,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7716
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": null,
+      "documents": 2,
+      "impressions": 0,
+      "input_sha256": "fb3905e42ed9e3890d097adc357e29cecfd2190018bdedce2e1834a72804cc9d",
+      "instructions": 3850,
+      "name": "empty-pair/fragment=1024",
+      "parser_entries": [
+        {
+          "buffered": 144,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 144
+        },
+        {
+          "buffered": 72,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 144
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "serialized",
+      "status": "pass"
+    },
+    {
+      "batch": 1,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 8211,
+      "name": "cooperative/batch=1/eager/fragment=1",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6696
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "eager",
+      "status": "pass"
+    },
+    {
+      "batch": 1,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 7677,
+      "name": "cooperative/batch=1/eager/fragment=7",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        },
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6699
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "eager",
+      "status": "pass"
+    },
+    {
+      "batch": 1,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 10367,
+      "name": "cooperative/batch=1/eager/fragment=1024",
+      "parser_entries": [
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        },
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7716
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "eager",
+      "status": "pass"
+    },
+    {
+      "batch": 1,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 8227,
+      "name": "cooperative/batch=1/after_document/fragment=1",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6696
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "after_document",
+      "status": "pass"
+    },
+    {
+      "batch": 1,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 7693,
+      "name": "cooperative/batch=1/after_document/fragment=7",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        },
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6699
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "after_document",
+      "status": "pass"
+    },
+    {
+      "batch": 1,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 10383,
+      "name": "cooperative/batch=1/after_document/fragment=1024",
+      "parser_entries": [
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        },
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7716
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "after_document",
+      "status": "pass"
+    },
+    {
+      "batch": 1,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 8266,
+      "name": "cooperative/batch=1/after_parser/fragment=1",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6696
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "after_parser",
+      "status": "pass"
+    },
+    {
+      "batch": 1,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 7732,
+      "name": "cooperative/batch=1/after_parser/fragment=7",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        },
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6699
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "after_parser",
+      "status": "pass"
+    },
+    {
+      "batch": 1,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 10422,
+      "name": "cooperative/batch=1/after_parser/fragment=1024",
+      "parser_entries": [
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        },
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7716
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "after_parser",
+      "status": "pass"
+    },
+    {
+      "batch": 2,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 8219,
+      "name": "cooperative/batch=2/eager/fragment=1",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6696
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "eager",
+      "status": "pass"
+    },
+    {
+      "batch": 2,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 7685,
+      "name": "cooperative/batch=2/eager/fragment=7",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        },
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6699
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "eager",
+      "status": "pass"
+    },
+    {
+      "batch": 2,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 10375,
+      "name": "cooperative/batch=2/eager/fragment=1024",
+      "parser_entries": [
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        },
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7716
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "eager",
+      "status": "pass"
+    },
+    {
+      "batch": 2,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 8219,
+      "name": "cooperative/batch=2/after_document/fragment=1",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6696
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "after_document",
+      "status": "pass"
+    },
+    {
+      "batch": 2,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 7685,
+      "name": "cooperative/batch=2/after_document/fragment=7",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        },
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6699
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "after_document",
+      "status": "pass"
+    },
+    {
+      "batch": 2,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 10375,
+      "name": "cooperative/batch=2/after_document/fragment=1024",
+      "parser_entries": [
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        },
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7716
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "after_document",
+      "status": "pass"
+    },
+    {
+      "batch": 2,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 8258,
+      "name": "cooperative/batch=2/after_parser/fragment=1",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6696
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "after_parser",
+      "status": "pass"
+    },
+    {
+      "batch": 2,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 7724,
+      "name": "cooperative/batch=2/after_parser/fragment=7",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        },
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6699
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "after_parser",
+      "status": "pass"
+    },
+    {
+      "batch": 2,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 10414,
+      "name": "cooperative/batch=2/after_parser/fragment=1024",
+      "parser_entries": [
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        },
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7716
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "after_parser",
+      "status": "pass"
+    },
+    {
+      "batch": 7,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 8205,
+      "name": "cooperative/batch=7/eager/fragment=1",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6696
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "eager",
+      "status": "pass"
+    },
+    {
+      "batch": 7,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 7671,
+      "name": "cooperative/batch=7/eager/fragment=7",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        },
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6699
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "eager",
+      "status": "pass"
+    },
+    {
+      "batch": 7,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 10361,
+      "name": "cooperative/batch=7/eager/fragment=1024",
+      "parser_entries": [
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        },
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7716
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "eager",
+      "status": "pass"
+    },
+    {
+      "batch": 7,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 8252,
+      "name": "cooperative/batch=7/after_document/fragment=1",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6696
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "after_document",
+      "status": "pass"
+    },
+    {
+      "batch": 7,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 7718,
+      "name": "cooperative/batch=7/after_document/fragment=7",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        },
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6699
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "after_document",
+      "status": "pass"
+    },
+    {
+      "batch": 7,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 10408,
+      "name": "cooperative/batch=7/after_document/fragment=1024",
+      "parser_entries": [
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        },
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7716
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "after_document",
+      "status": "pass"
+    },
+    {
+      "batch": 7,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 8252,
+      "name": "cooperative/batch=7/after_parser/fragment=1",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6696
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "after_parser",
+      "status": "pass"
+    },
+    {
+      "batch": 7,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 7718,
+      "name": "cooperative/batch=7/after_parser/fragment=7",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        },
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6699
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "after_parser",
+      "status": "pass"
+    },
+    {
+      "batch": 7,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 10408,
+      "name": "cooperative/batch=7/after_parser/fragment=1024",
+      "parser_entries": [
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        },
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7716
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "after_parser",
+      "status": "pass"
+    },
+    {
+      "batch": 32,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 8250,
+      "name": "cooperative/batch=32/eager/fragment=1",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6696
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "eager",
+      "status": "pass"
+    },
+    {
+      "batch": 32,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 7716,
+      "name": "cooperative/batch=32/eager/fragment=7",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        },
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6699
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "eager",
+      "status": "pass"
+    },
+    {
+      "batch": 32,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 10406,
+      "name": "cooperative/batch=32/eager/fragment=1024",
+      "parser_entries": [
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        },
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7716
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "eager",
+      "status": "pass"
+    },
+    {
+      "batch": 32,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 8250,
+      "name": "cooperative/batch=32/after_document/fragment=1",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6696
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "after_document",
+      "status": "pass"
+    },
+    {
+      "batch": 32,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 7716,
+      "name": "cooperative/batch=32/after_document/fragment=7",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        },
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6699
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "after_document",
+      "status": "pass"
+    },
+    {
+      "batch": 32,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 10406,
+      "name": "cooperative/batch=32/after_document/fragment=1024",
+      "parser_entries": [
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        },
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7716
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "after_document",
+      "status": "pass"
+    },
+    {
+      "batch": 32,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 8250,
+      "name": "cooperative/batch=32/after_parser/fragment=1",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6696
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "after_parser",
+      "status": "pass"
+    },
+    {
+      "batch": 32,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 7716,
+      "name": "cooperative/batch=32/after_parser/fragment=7",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        },
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6699
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "after_parser",
+      "status": "pass"
+    },
+    {
+      "batch": 32,
+      "documents": 2,
+      "impressions": 2,
+      "input_sha256": "65f9109e38e9e7b602161e3bf3271b1f631cb195a8bbf909272f0c4ae08baea1",
+      "instructions": 10406,
+      "name": "cooperative/batch=32/after_parser/fragment=1024",
+      "parser_entries": [
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        },
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7716
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "after_parser",
+      "status": "pass"
+    },
+    {
+      "batch": 1,
+      "documents": 2,
+      "impressions": 1,
+      "input_sha256": "0a1f631a95cf33435965a2322f4d977e7f4ea6b57869f65f359deafbad08b2a1",
+      "instructions": 6161,
+      "name": "empty-after-page/eager/1",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6696
+        }
+      ],
+      "probe_fragment": 1,
+      "schedule": "eager",
+      "status": "pass"
+    },
+    {
+      "batch": 1,
+      "documents": 2,
+      "impressions": 1,
+      "input_sha256": "0a1f631a95cf33435965a2322f4d977e7f4ea6b57869f65f359deafbad08b2a1",
+      "instructions": 5627,
+      "name": "empty-after-page/eager/7",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        },
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6699
+        }
+      ],
+      "probe_fragment": 7,
+      "schedule": "eager",
+      "status": "pass"
+    },
+    {
+      "batch": 1,
+      "documents": 2,
+      "impressions": 1,
+      "input_sha256": "0a1f631a95cf33435965a2322f4d977e7f4ea6b57869f65f359deafbad08b2a1",
+      "instructions": 7052,
+      "name": "empty-after-page/eager/1024",
+      "parser_entries": [
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        },
+        {
+          "buffered": 72,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6764
+        }
+      ],
+      "probe_fragment": 1024,
+      "schedule": "eager",
+      "status": "pass"
+    }
+  ],
+  "counterexamples": [
+    {
+      "error": "unmapped RAM 0x4c+4",
+      "input_sha256": "0a1f631a95cf33435965a2322f4d977e7f4ea6b57869f65f359deafbad08b2a1",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6696
+        }
+      ],
+      "pc": "0x1000e7dd",
+      "probe_fragment": 1,
+      "schedule": "serialized"
+    },
+    {
+      "error": "unmapped RAM 0x4c+4",
+      "input_sha256": "0a1f631a95cf33435965a2322f4d977e7f4ea6b57869f65f359deafbad08b2a1",
+      "parser_entries": [
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 4
+        },
+        {
+          "buffered": 4,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6696
+        }
+      ],
+      "pc": "0x1000e7dd",
+      "probe_fragment": 1,
+      "schedule": "cooperative_after_parser"
+    },
+    {
+      "error": "unmapped RAM 0x4c+4",
+      "input_sha256": "0a1f631a95cf33435965a2322f4d977e7f4ea6b57869f65f359deafbad08b2a1",
+      "parser_entries": [
+        {
+          "buffered": 6,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6
+        },
+        {
+          "buffered": 6,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6698
+        }
+      ],
+      "pc": "0x1000e7dd",
+      "probe_fragment": 3,
+      "schedule": "serialized"
+    },
+    {
+      "error": "unmapped RAM 0x4c+4",
+      "input_sha256": "0a1f631a95cf33435965a2322f4d977e7f4ea6b57869f65f359deafbad08b2a1",
+      "parser_entries": [
+        {
+          "buffered": 6,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6
+        },
+        {
+          "buffered": 6,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6698
+        }
+      ],
+      "pc": "0x1000e7dd",
+      "probe_fragment": 3,
+      "schedule": "cooperative_after_parser"
+    },
+    {
+      "error": "unmapped RAM 0x4c+4",
+      "input_sha256": "0a1f631a95cf33435965a2322f4d977e7f4ea6b57869f65f359deafbad08b2a1",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        },
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6699
+        }
+      ],
+      "pc": "0x1000e7dd",
+      "probe_fragment": 7,
+      "schedule": "serialized"
+    },
+    {
+      "error": "unmapped RAM 0x4c+4",
+      "input_sha256": "0a1f631a95cf33435965a2322f4d977e7f4ea6b57869f65f359deafbad08b2a1",
+      "parser_entries": [
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 7
+        },
+        {
+          "buffered": 7,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6699
+        }
+      ],
+      "pc": "0x1000e7dd",
+      "probe_fragment": 7,
+      "schedule": "cooperative_after_parser"
+    },
+    {
+      "error": "unmapped RAM 0x4c+4",
+      "input_sha256": "0a1f631a95cf33435965a2322f4d977e7f4ea6b57869f65f359deafbad08b2a1",
+      "parser_entries": [
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        },
+        {
+          "buffered": 72,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6764
+        }
+      ],
+      "pc": "0x1000e7dd",
+      "probe_fragment": 1024,
+      "schedule": "serialized"
+    },
+    {
+      "error": "unmapped RAM 0x4c+4",
+      "input_sha256": "0a1f631a95cf33435965a2322f4d977e7f4ea6b57869f65f359deafbad08b2a1",
+      "parser_entries": [
+        {
+          "buffered": 1024,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 1024
+        },
+        {
+          "buffered": 72,
+          "callsite": "0x10007ed5",
+          "context": "0x1001ec00",
+          "received": 6764
+        }
+      ],
+      "pc": "0x1000e7dd",
+      "probe_fragment": 1024,
+      "schedule": "cooperative_after_parser"
+    }
+  ],
+  "distinct_instructions": 1747,
+  "executed_instructions": 616471,
+  "finding": "The original single-language stream recognizer admits consecutive ZjStream documents without waiting for JobMgr list drain. Non-head empty-document cleanup still frees the unfinished head under serialized and delayed-completion cooperative host schedules. Eager completion avoids the fault.",
+  "new_code_ranges": [
+    [
+      "0x10007c98",
+      "0x10007cd0"
+    ],
+    [
+      "0x10007d1c",
+      "0x100081f4"
+    ],
+    [
+      "0x10009b20",
+      "0x10009b4c"
+    ],
+    [
+      "0x10011178",
+      "0x100111b4"
+    ],
+    [
+      "0x1001b34d",
+      "0x1001b4c8"
+    ],
+    [
+      "0x1001b6b0",
+      "0x1001b6ec"
+    ]
+  ],
+  "reproduced_counterexamples": 8,
+  "scope": "Original ZjStream registration, language matching, parser dispatch, input-buffer construction, pushback, buffered read, parser mutex wrappers, parser, JobMgr and completion bookkeeping execute unchanged in host RAM.",
+  "source_sha256": {
+    "hp1020_stock_admission_harness.py": "f27ecb3b6a3e9df5d3522dc381f989cce579667282f69d2b898392ad043fa552",
+    "hp1020_stock_jobmgr_harness.py": "4c863cff55c7027ed3f348d188c93225dacc0c0442b9f71792c8db96ce7ced93",
+    "hp1020_stock_lifecycle_harness.py": "d08e611620854498fa9fd65e809fd042219fdbb4e0093d051c8972fb0b433f95",
+    "hp1020_stock_parser_harness.py": "87175798036cb376447ae70cb4a35f82f7a3f06a3ca166c89c9ca8b8e38bba90",
+    "hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
+    "hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
+    "validate-hp1020-stock-admission.py": "6965483b45b1cb4da5b999a1413bf121a76cfdb5e5db32492c5a1d5edb995c12"
+  },
+  "status": "pass",
+  "stock_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "total_cases": 79
+}

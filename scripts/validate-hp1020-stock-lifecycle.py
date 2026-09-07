@@ -151,7 +151,7 @@ def main():
                     'Allocation/free, task-ready, mutex/semaphore/event operations and queue delivery remain host services; queue 10 notices are captured but not consumed.',
                     'Datastore records 5/6 have explicit zeroed word storage, and subscriber lists for 5/6/27/28 are empty. All selected datastore read/write logic executes.',
                     'Three exact critical-section instructions in the release loop use a serialized fixture substitute; no general interrupt model is claimed.'],
-        limitations=['The counterexample assumes a second parser invocation is admitted while an earlier document still has unfinished pages; live transport/producer admission and external completion timing remain unverified.',
+        limitations=['This harness manually re-invokes the parser between documents. Separate admission.json now reproduces the counterexample through original single-language recognition/buffering/dispatch; actual USB delivery and external completion timing remain unverified.',
                      'Only queue-boundary cooperative interleavings are exercised; instruction-level preemption, allocation failure, cancellation, out-of-order completions, reset/power cycle and physical consumption remain unverified.',
                      'Duplex cases exercise stock bookkeeping only; the replacement remains narrow simplex.',
                      'Completion injection is an assumption to verify software lifetime, not a claim that the open replacement can produce that event.'])

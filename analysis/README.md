@@ -10,8 +10,8 @@ Paths below are relative to the repository root unless linked explicitly.
 |---|---|
 | What is still unknown, and what would resolve it? | [Next evidence](open-firmware-model/next-evidence.md) |
 | Which components are implemented? | `open-firmware/semantic-core/`, `open-firmware/usb-bulk-parser-draft/`; each has its own README |
-| Original binary as an oracle? | [Parser/libc differential execution](open-firmware-model/stock-execution/validation.md), [status decision execution](hardware-boundary/stock-status-execution.md), [JobMgr/allocator execution](open-firmware-model/stock-execution/jobmgr.md), [completion/cooperative lifecycle](open-firmware-model/stock-execution/lifecycle.md); standard ISA only, explicit host substitutes |
-| What proves current offline agreement? | [Consistency gate](offline-consistency/offline-consistency.md), [target C execution](open-firmware-model/semantic-target/validation.md), [page planning](open-firmware-model/page-plan.md) |
+| Original binary as an oracle? | [Parser/libc differential execution](open-firmware-model/stock-execution/validation.md), [status decision execution](hardware-boundary/stock-status-execution.md), [JobMgr/allocator execution](open-firmware-model/stock-execution/jobmgr.md), [completion/cooperative lifecycle](open-firmware-model/stock-execution/lifecycle.md), [original stream admission](open-firmware-model/stock-execution/admission.md); standard ISA only, explicit host substitutes |
+| What proves current offline agreement? | [Consistency gate](offline-consistency/offline-consistency.md), [target C execution](open-firmware-model/semantic-target/validation.md), [independent QEMU](open-firmware-model/semantic-target/qemu.md), [page planning](open-firmware-model/page-plan.md) |
 | Correct toolchain and old encoding failure? | [BE encoding audit](toolchain-probe/big-endian-encoding-audit.md), [C compiler](toolchain-probe/freestanding-c-compiler.md) |
 | Boot wrapper and standalone handoff? | `analysis/upload-wrapper-report.md`, `analysis/boot-handoff/boot-handoff.md` |
 | Direct page fields and raster data? | [START_PAGE construction](hardware-boundary/zjs-direct-work.md), [field semantics](open-firmware-model/raster-field-semantics.md), [metadata bounds](open-firmware-model/metadata-bounds.md) |
@@ -30,7 +30,9 @@ scripts/validate.sh
 ```
 
 This runs the analysis suite followed by the probe suite, including native/target
-execution, original stock parser/libc/status/JobMgr/lifecycle differential tests, instruction annotation audit, scanner negative cases, reproducibility and dry-run harnesses. Logs
+execution, independent QEMU cross-checks, original stock parser/libc/status/JobMgr/
+lifecycle/admission differential tests, instruction annotation audit, scanner negative
+cases, reproducibility and dry-run harnesses. Logs
 are saved outside the repo and printed on failure. It never opts into USB or
 printing. Do not run suites in parallel: they regenerate shared files.
 For a narrow edit, use its existing generator/check first; for documentation
@@ -43,6 +45,7 @@ not install anything automatically. Scratch tools may disappear after cleanup:
 |---|---|
 | BE Xtensa binutils | `scripts/build-xtensa-binutils-manual.sh`; default prefix `/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf`, override `XTENSA_PREFIX` |
 | BE/call0 GCC 14.3.0 | `scripts/build-xtensa-gcc-manual.sh`; default prefix `/tmp/hp1020-xtensa-gcc14/bin/xtensa-fsf-elf`, component-build override `HP1020_GCC_PREFIX` |
+| Independent ISA engine | Homebrew `qemu` (verified 11.1.1); `qemu-system-xtensaeb`, override `HP1020_QEMU`. The harness uses `sim -cpu test_kc705_be`, synthetic RAM and a private Unix GDB socket; no network/USB/backend. `fsf` lacks GDB registers and is unsuitable. Recover with `brew install qemu`, then run the QEMU validator. |
 | Host tools | Homebrew Bash (the suites use `mapfile`), Python 3, clang, Ghostscript/GNU sed and existing foo2zjs runtime; compiler rebuild additionally needs GNU make, GMP, MPFR and MPC |
 | Optional deeper decoding | Saved Ghidra output is retained; refresh scripts require Ghidra and Homebrew `openjdk@21`. Pcode experiments use `/tmp/hp1020-astra-pcode-venv` (pypcode 4.0.0 and z3-solver) |
 

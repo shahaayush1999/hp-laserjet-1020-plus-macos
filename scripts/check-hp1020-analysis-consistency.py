@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -858,6 +859,24 @@ def build_report() -> dict[str, Any]:
                         and any(c["name"] == "be_bit_branch_regression" for c in original["checks"]),
                         "Original parser and libc bytes must agree with independent oracles, with environment substitutes explicit.",
                         evidence="analysis/open-firmware-model/stock-execution/validation.json"))
+    qemu = read_json("analysis/open-firmware-model/semantic-target/qemu.json")
+    checks.append(check("independent_qemu_execution",
+                        qemu["status"] == "pass" and qemu["target_cases"] == target_c["total_cases"]
+                        and qemu["libc_cases"] == {k: original["totals"][k] for k in ("memset","memcpy","memmove","strlen")}
+                        and qemu["arithmetic_cases"] == {k:768 for k in ("signed_divide","signed_remainder","unsigned_divide","unsigned_remainder")}
+                        and qemu["elf_sha256"] == target_c["elf_sha256"]
+                        and all(hashlib.sha256((ROOT_DIR/"scripts"/p).read_bytes()).hexdigest() == h for p,h in qemu["source_sha256"].items()),
+                        "Independent QEMU must agree on target C, original libc and software arithmetic; source provenance must be current.",
+                        evidence="analysis/open-firmware-model/semantic-target/qemu.json"))
+    admission = read_json("analysis/open-firmware-model/stock-execution/admission.json")
+    checks.append(check("original_stream_admission_execution",
+                        admission["status"] == "pass" and admission["total_cases"] == 79
+                        and admission["reproduced_counterexamples"] == 8
+                        and all(c["status"] == "pass" for c in admission["cases"])
+                        and all(len(c["parser_entries"]) == 2 and c["pc"] == "0x1000e7dd" for c in admission["counterexamples"])
+                        and all(hashlib.sha256((ROOT_DIR/"scripts"/p).read_bytes()).hexdigest() == h for p,h in admission["source_sha256"].items()),
+                        "Original language recognition and buffering must preserve normal admission and reproduce the conditional delayed-empty-document witness.",
+                        evidence="analysis/open-firmware-model/stock-execution/admission.json"))
     original_status = read_json("analysis/hardware-boundary/stock-status-execution.json")
     checks.append(check("original_status_differential_execution",
                         original_status["status"] == "pass" and original_status["cases"] >= 133941
