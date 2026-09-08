@@ -398,7 +398,7 @@
       "status": "pass"
     }
   ],
-  "comparison": "Compiled C target results agree across QEMU, our instruction interpreter, ASan/UBSan native C and fixture expectations. Stock libc agrees with complete bytearray oracles; four stock division/remainder helpers agree with independent Python arithmetic, including zero-divisor return-zero and signed-overflow wrapping.",
+  "comparison": "Compiled C target results agree across QEMU, our instruction interpreter, ASan/UBSan native C and fixture expectations. Original parser messages, input consumption and allocation ownership also match, using actual stock window spill/fill handlers under QEMU. JobMgr completion and cleanup also match allocation ownership, scheduled work, defined notification fields and all stock writable global RAM. QEMU independently reproduces the delayed-empty-document failure. Host services intentionally share the existing boundary fixture. Stock libc agrees with complete bytearray oracles; four stock division/remainder helpers agree with independent Python arithmetic, including zero-divisor return-zero and signed-overflow wrapping.",
   "cpu": "test_kc705_be",
   "elf_sha256": "9912d44e3a01e927629dee98974d98b78092b453a069e2c14b6612000e883021",
   "engine": "QEMU emulator version 11.1.1",
@@ -408,18 +408,2034 @@
     "memset": 2328,
     "strlen": 776
   },
-  "limits": "The QEMU CPU is not the printer CPU configuration. This does not test firmware boot, register-window spills, custom raster instructions, caches, interrupts, transport or physical printing.",
+  "lifecycle_cases": [
+    {
+      "fill": 0,
+      "instructions": 1630,
+      "name": "single",
+      "status": "pass",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 5,
+        "0x100000c0": 4,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "fill": 204,
+      "instructions": 1630,
+      "name": "single",
+      "status": "pass",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 5,
+        "0x100000c0": 4,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "fill": 0,
+      "instructions": 3443,
+      "name": "three_pages",
+      "status": "pass",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 9,
+        "0x100000c0": 8,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "fill": 204,
+      "instructions": 3443,
+      "name": "three_pages",
+      "status": "pass",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 9,
+        "0x100000c0": 8,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "fill": 0,
+      "instructions": 3279,
+      "name": "two_documents",
+      "status": "pass",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 9,
+        "0x100000c0": 8,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "fill": 204,
+      "instructions": 3279,
+      "name": "two_documents",
+      "status": "pass",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 9,
+        "0x100000c0": 8,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "fill": 0,
+      "instructions": 2437,
+      "name": "three_copies",
+      "status": "pass",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 7,
+        "0x100000c0": 6,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "fill": 204,
+      "instructions": 2437,
+      "name": "three_copies",
+      "status": "pass",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 7,
+        "0x100000c0": 6,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "fill": 0,
+      "instructions": 2626,
+      "name": "seven_rasters",
+      "status": "pass",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 5,
+        "0x100000c0": 4,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "fill": 204,
+      "instructions": 2626,
+      "name": "seven_rasters",
+      "status": "pass",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 5,
+        "0x100000c0": 4,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "fill": 0,
+      "instructions": 733,
+      "name": "empty",
+      "status": "pass",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 3,
+        "0x100000c0": 2,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "fill": 204,
+      "instructions": 733,
+      "name": "empty",
+      "status": "pass",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 3,
+        "0x100000c0": 2,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    }
+  ],
+  "lifecycle_counterexample": {
+    "error": "unmapped RAM 0x4c+4",
+    "pc": "0x1000e7dd",
+    "status": "reproduced"
+  },
+  "limits": "The QEMU CPU is not the printer CPU configuration. This does not test firmware boot, arbitrary window/interrupt state, custom raster instructions, caches, interrupts, transport or physical printing.",
   "machine": "sim, 1 GiB RAM",
+  "notification_receiver_word_indices": {
+    "46": [
+      2,
+      3
+    ],
+    "47": [
+      3
+    ]
+  },
+  "parser_cases": [
+    {
+      "fill": 0,
+      "instructions": 1249,
+      "name": "matrix-a4_2400x600/fill=0",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1249,
+      "name": "matrix-a4_2400x600/fill=204",
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "instructions": 1249,
+      "name": "matrix-a4_600x600/fill=0",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1249,
+      "name": "matrix-a4_600x600/fill=204",
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "instructions": 1249,
+      "name": "matrix-a4_cardstock_media/fill=0",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1249,
+      "name": "matrix-a4_cardstock_media/fill=204",
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "instructions": 1249,
+      "name": "matrix-a4_default/fill=0",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1249,
+      "name": "matrix-a4_default/fill=204",
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "instructions": 1249,
+      "name": "matrix-a4_draft/fill=0",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1249,
+      "name": "matrix-a4_draft/fill=204",
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "instructions": 1249,
+      "name": "matrix-a4_manual_feed/fill=0",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1249,
+      "name": "matrix-a4_manual_feed/fill=204",
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "instructions": 1249,
+      "name": "matrix-a4_two_copies/fill=0",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1249,
+      "name": "matrix-a4_two_copies/fill=204",
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "instructions": 1249,
+      "name": "matrix-legal_default/fill=0",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1249,
+      "name": "matrix-legal_default/fill=204",
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "instructions": 1249,
+      "name": "matrix-letter_default/fill=0",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1249,
+      "name": "matrix-letter_default/fill=204",
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "instructions": 1249,
+      "name": "minimal-page-a4/fill=0",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1249,
+      "name": "minimal-page-a4/fill=204",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/0",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/1",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/2",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/3",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/4",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/5",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/6",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/7",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/8",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/9",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/10",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/11",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/12",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/13",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/14",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/15",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/16",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/17",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/18",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/19",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/20",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/21",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/22",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/23",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/24",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/25",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/26",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/27",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/28",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/29",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/30",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1266,
+      "name": "permuted-fields/31",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 2078,
+      "name": "multipage/2",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 2907,
+      "name": "multipage/3",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 7052,
+      "name": "multipage/8",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 13684,
+      "name": "multipage/16",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1332,
+      "name": "split-raster/2",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1415,
+      "name": "split-raster/3",
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "instructions": 1747,
+      "name": "split-raster/7",
+      "status": "pass"
+    }
+  ],
+  "parser_vector_entries": {
+    "0x10000000": 0,
+    "0x10000040": 0,
+    "0x10000080": 143,
+    "0x100000c0": 143,
+    "0x10000100": 0,
+    "0x10000140": 0
+  },
   "register_map_source": "https://github.com/qemu/qemu/blob/v11.1.1/target/xtensa/core-test_kc705_be/gdb-config.c.inc",
   "scope": "Original compiled BE/call0 target ELF bytes loaded through a private Unix GDB socket. Original stock memset/memcpy/memmove/strlen also run through actual windowed CALL8/ENTRY/RETW and hardware loops, matching complete 1024-byte RAM oracles. No QEMU instruction decoding is delegated to our interpreter. No printer or host USB backend exists.",
   "source_sha256": {
+    "hp1020_qemu_lifecycle.py": "2905efd22e7bb59ca04fc9a5c0ff222b1171ddd495a2cd4bbca4e286fe238a70",
     "hp1020_qemu_ram.py": "bdd49211dec3ed685f66a698c142d4cf47db1da9853e0c3cb8b102a14fbe91ee",
-    "validate-hp1020-qemu.py": "427bd2dc8fc26a50f7cf35c8544b252085b6eec4b56918516469c8ab9368404d",
+    "hp1020_qemu_stock_parser.py": "2b338866ecc07ddc4ac95f5e772da18a2a0b8c0bfc89694c1e30305944a632c0",
+    "hp1020_qemu_windows.py": "b3854d0a427e52fe7fe24e2b3e73881511c352c38f995f44574c71094791746c",
+    "hp1020_stock_jobmgr_harness.py": "4c863cff55c7027ed3f348d188c93225dacc0c0442b9f71792c8db96ce7ced93",
+    "hp1020_stock_lifecycle_harness.py": "d08e611620854498fa9fd65e809fd042219fdbb4e0093d051c8972fb0b433f95",
+    "hp1020_stock_parser_harness.py": "87175798036cb376447ae70cb4a35f82f7a3f06a3ca166c89c9ca8b8e38bba90",
+    "validate-hp1020-qemu.py": "9a578376cc3d9b405f17196b18c31253e484794fda52ac33885137755bd4e6df",
     "validate-hp1020-semantic-target.py": "bb1eac5e7a220df61fcfbf31b9d91c4a70ecce30ce98a04b443141b599bc0fc9",
-    "validate-hp1020-stock-execution.py": "ba92dbed7f931470d67a453078d39bcebf6a26d1793c1f522210109f7e4f4942"
+    "validate-hp1020-stock-execution.py": "d11b91b1aeb0bdbc25f10a607129c6a9ac90f7b829184a5d16a3825b3630d6f5"
   },
   "status": "pass",
   "stock_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
   "target_cases": 78,
-  "total_cases": 12930
+  "total_cases": 13091,
+  "windows": {
+    "cases": [
+      {
+        "call_window": 4,
+        "depth": 0,
+        "instructions": 5,
+        "result": 0,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 0,
+        "instructions": 5,
+        "result": 0,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 0,
+        "instructions": 5,
+        "result": 0,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 1,
+        "instructions": 13,
+        "result": 1,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 1,
+        "instructions": 13,
+        "result": 19088743,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 1,
+        "instructions": 13,
+        "result": 4294967295,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 2,
+        "instructions": 21,
+        "result": 3,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 2,
+        "instructions": 21,
+        "result": 57266229,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 2,
+        "instructions": 21,
+        "result": 4294967293,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 3,
+        "instructions": 29,
+        "result": 6,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 3,
+        "instructions": 29,
+        "result": 114532458,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 3,
+        "instructions": 29,
+        "result": 4294967290,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 4,
+        "instructions": 37,
+        "result": 10,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 4,
+        "instructions": 37,
+        "result": 190887430,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 4,
+        "instructions": 37,
+        "result": 4294967286,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 7,
+        "instructions": 83,
+        "result": 28,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 7,
+        "instructions": 83,
+        "result": 534484804,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 7,
+        "instructions": 83,
+        "result": 4294967268,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 8,
+        "instructions": 103,
+        "result": 36,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 1,
+          "0x10000040": 1,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 8,
+        "instructions": 103,
+        "result": 687194748,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 1,
+          "0x10000040": 1,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 8,
+        "instructions": 103,
+        "result": 4294967260,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 1,
+          "0x10000040": 1,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 16,
+        "instructions": 263,
+        "result": 136,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 9,
+          "0x10000040": 9,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 16,
+        "instructions": 263,
+        "result": 2596069048,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 9,
+          "0x10000040": 9,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 16,
+        "instructions": 263,
+        "result": 4294967160,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 9,
+          "0x10000040": 9,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 32,
+        "instructions": 583,
+        "result": 528,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 25,
+          "0x10000040": 25,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 32,
+        "instructions": 583,
+        "result": 1488921712,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 25,
+          "0x10000040": 25,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 32,
+        "instructions": 583,
+        "result": 4294966768,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 25,
+          "0x10000040": 25,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 64,
+        "instructions": 1223,
+        "result": 2080,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 57,
+          "0x10000040": 57,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 64,
+        "instructions": 1223,
+        "result": 1049879776,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 57,
+          "0x10000040": 57,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 4,
+        "depth": 64,
+        "instructions": 1223,
+        "result": 4294965216,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 57,
+          "0x10000040": 57,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 0,
+        "instructions": 5,
+        "result": 0,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 0,
+        "instructions": 5,
+        "result": 0,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 0,
+        "instructions": 5,
+        "result": 0,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 1,
+        "instructions": 13,
+        "result": 1,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 1,
+        "instructions": 13,
+        "result": 19088743,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 1,
+        "instructions": 13,
+        "result": 4294967295,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 2,
+        "instructions": 21,
+        "result": 3,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 2,
+        "instructions": 21,
+        "result": 57266229,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 2,
+        "instructions": 21,
+        "result": 4294967293,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 3,
+        "instructions": 51,
+        "result": 6,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 3,
+        "instructions": 51,
+        "result": 114532458,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 3,
+        "instructions": 51,
+        "result": 4294967290,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 4,
+        "instructions": 81,
+        "result": 10,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 2,
+          "0x100000c0": 2,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 4,
+        "instructions": 81,
+        "result": 190887430,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 2,
+          "0x100000c0": 2,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 4,
+        "instructions": 81,
+        "result": 4294967286,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 2,
+          "0x100000c0": 2,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 7,
+        "instructions": 171,
+        "result": 28,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 5,
+          "0x100000c0": 5,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 7,
+        "instructions": 171,
+        "result": 534484804,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 5,
+          "0x100000c0": 5,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 7,
+        "instructions": 171,
+        "result": 4294967268,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 5,
+          "0x100000c0": 5,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 8,
+        "instructions": 201,
+        "result": 36,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 6,
+          "0x100000c0": 6,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 8,
+        "instructions": 201,
+        "result": 687194748,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 6,
+          "0x100000c0": 6,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 8,
+        "instructions": 201,
+        "result": 4294967260,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 6,
+          "0x100000c0": 6,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 16,
+        "instructions": 441,
+        "result": 136,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 14,
+          "0x100000c0": 14,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 16,
+        "instructions": 441,
+        "result": 2596069048,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 14,
+          "0x100000c0": 14,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 16,
+        "instructions": 441,
+        "result": 4294967160,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 14,
+          "0x100000c0": 14,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 32,
+        "instructions": 921,
+        "result": 528,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 30,
+          "0x100000c0": 30,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 32,
+        "instructions": 921,
+        "result": 1488921712,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 30,
+          "0x100000c0": 30,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 32,
+        "instructions": 921,
+        "result": 4294966768,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 30,
+          "0x100000c0": 30,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 64,
+        "instructions": 1881,
+        "result": 2080,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 62,
+          "0x100000c0": 62,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 64,
+        "instructions": 1881,
+        "result": 1049879776,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 62,
+          "0x100000c0": 62,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 8,
+        "depth": 64,
+        "instructions": 1881,
+        "result": 4294965216,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 62,
+          "0x100000c0": 62,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 0,
+        "instructions": 5,
+        "result": 0,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 0,
+        "instructions": 5,
+        "result": 0,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 0,
+        "instructions": 5,
+        "result": 0,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 1,
+        "instructions": 13,
+        "result": 1,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 1,
+        "instructions": 13,
+        "result": 19088743,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 1,
+        "instructions": 13,
+        "result": 4294967295,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 0,
+          "0x100000c0": 0,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 2,
+        "instructions": 43,
+        "result": 3,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 2,
+        "instructions": 43,
+        "result": 57266229,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 2,
+        "instructions": 43,
+        "result": 4294967293,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 0,
+          "0x10000140": 0
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 3,
+        "instructions": 81,
+        "result": 6,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 1,
+          "0x10000140": 1
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 3,
+        "instructions": 81,
+        "result": 114532458,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 1,
+          "0x10000140": 1
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 3,
+        "instructions": 81,
+        "result": 4294967290,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 1,
+          "0x10000140": 1
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 4,
+        "instructions": 119,
+        "result": 10,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 2,
+          "0x10000140": 2
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 4,
+        "instructions": 119,
+        "result": 190887430,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 2,
+          "0x10000140": 2
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 4,
+        "instructions": 119,
+        "result": 4294967286,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 2,
+          "0x10000140": 2
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 7,
+        "instructions": 233,
+        "result": 28,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 5,
+          "0x10000140": 5
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 7,
+        "instructions": 233,
+        "result": 534484804,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 5,
+          "0x10000140": 5
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 7,
+        "instructions": 233,
+        "result": 4294967268,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 5,
+          "0x10000140": 5
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 8,
+        "instructions": 271,
+        "result": 36,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 6,
+          "0x10000140": 6
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 8,
+        "instructions": 271,
+        "result": 687194748,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 6,
+          "0x10000140": 6
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 8,
+        "instructions": 271,
+        "result": 4294967260,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 6,
+          "0x10000140": 6
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 16,
+        "instructions": 575,
+        "result": 136,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 14,
+          "0x10000140": 14
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 16,
+        "instructions": 575,
+        "result": 2596069048,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 14,
+          "0x10000140": 14
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 16,
+        "instructions": 575,
+        "result": 4294967160,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 14,
+          "0x10000140": 14
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 32,
+        "instructions": 1183,
+        "result": 528,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 30,
+          "0x10000140": 30
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 32,
+        "instructions": 1183,
+        "result": 1488921712,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 30,
+          "0x10000140": 30
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 32,
+        "instructions": 1183,
+        "result": 4294966768,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 30,
+          "0x10000140": 30
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 64,
+        "instructions": 2399,
+        "result": 2080,
+        "salt": 1,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 62,
+          "0x10000140": 62
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 64,
+        "instructions": 2399,
+        "result": 1049879776,
+        "salt": 19088743,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 62,
+          "0x10000140": 62
+        }
+      },
+      {
+        "call_window": 12,
+        "depth": 64,
+        "instructions": 2399,
+        "result": 4294965216,
+        "salt": 4294967295,
+        "status": "pass",
+        "vector_entries": {
+          "0x10000000": 0,
+          "0x10000040": 0,
+          "0x10000080": 1,
+          "0x100000c0": 1,
+          "0x10000100": 62,
+          "0x10000140": 62
+        }
+      }
+    ],
+    "fixture_elf_sha256": "4d7eab8bb15eb2371d545025827d97820cd8fbb3118275c50782260c6cb06db9",
+    "fixture_source_sha256": "4712b471119d5352df32992940d55d30df24f0af3fd47dde32c7915495a186cd",
+    "limits": "Synthetic, aligned ABI stacks and QEMU test_kc705_be with 32 physical ARs; not stock boot state, real core register count, interrupts, cache or malformed-stack recovery.",
+    "mutation": {
+      "error": "window test left selected code: 0x10000300",
+      "status": "detected"
+    },
+    "scope": "Original six window spill/fill handlers execute under independent QEMU exceptions for CALL4/8/12 recursion through depth 64. Results match a triangular-number arithmetic oracle and the abstract interpreter. Corrupting one saved-return store in the QEMU RAM copy is detected.",
+    "status": "pass",
+    "total_cases": 90,
+    "vector_entries": {
+      "0x10000000": 276,
+      "0x10000040": 276,
+      "0x10000080": 399,
+      "0x100000c0": 399,
+      "0x10000100": 360,
+      "0x10000140": 360
+    }
+  }
 }

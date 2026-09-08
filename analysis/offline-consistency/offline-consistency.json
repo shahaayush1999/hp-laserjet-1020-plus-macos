@@ -158,7 +158,7 @@
       "severity": "watch"
     },
     {
-      "detail": "Independent QEMU must agree on target C, original libc and software arithmetic; source provenance must be current.",
+      "detail": "Independent QEMU must agree on target C, original parser/lifecycle, arithmetic and six window handlers; source provenance must be current.",
       "evidence": "analysis/open-firmware-model/semantic-target/qemu.json",
       "name": "independent_qemu_execution",
       "severity": "watch"

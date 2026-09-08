@@ -864,9 +864,14 @@ def build_report() -> dict[str, Any]:
                         qemu["status"] == "pass" and qemu["target_cases"] == target_c["total_cases"]
                         and qemu["libc_cases"] == {k: original["totals"][k] for k in ("memset","memcpy","memmove","strlen")}
                         and qemu["arithmetic_cases"] == {k:768 for k in ("signed_divide","signed_remainder","unsigned_divide","unsigned_remainder")}
+                        and len(qemu["parser_cases"]) == original["totals"]["parser_agreement"]
+                        and len(qemu["lifecycle_cases"]) == 12 and qemu["lifecycle_counterexample"]["status"] == "reproduced"
+                        and qemu["windows"]["total_cases"] == 90 and all(qemu["windows"]["vector_entries"].values())
+                        and qemu["windows"]["mutation"]["status"] == "detected"
+                        and qemu["notification_receiver_word_indices"] == {"46":[2,3],"47":[3]}
                         and qemu["elf_sha256"] == target_c["elf_sha256"]
                         and all(hashlib.sha256((ROOT_DIR/"scripts"/p).read_bytes()).hexdigest() == h for p,h in qemu["source_sha256"].items()),
-                        "Independent QEMU must agree on target C, original libc and software arithmetic; source provenance must be current.",
+                        "Independent QEMU must agree on target C, original parser/lifecycle, arithmetic and six window handlers; source provenance must be current.",
                         evidence="analysis/open-firmware-model/semantic-target/qemu.json"))
     admission = read_json("analysis/open-firmware-model/stock-execution/admission.json")
     checks.append(check("original_stream_admission_execution",

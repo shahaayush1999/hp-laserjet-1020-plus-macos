@@ -11,7 +11,8 @@ independent offline reverse engineering; the owner consumes progress through cha
 - Bounded C parser and page/band planner, including execution of compiled BE/call0
   Xtensa code in synthetic RAM. Reproducible compiler/assembler, sanitizers,
   instruction interpreters and MMIO/unknown-opcode gates support these components.
-  Independent QEMU agrees on the C target, original libc and stock arithmetic.
+  Independent QEMU agrees on the C target, original parser/libc/arithmetic,
+  JobMgr cleanup and all six stock register-window handlers.
 - Original parser/libc, status decisions, JobMgr scheduling, allocator and selected
   MMIO-free render paths execute against independent oracles. Original completion,
   release and datastore bookkeeping now run with injected FIFO completion events;
@@ -44,8 +45,9 @@ analysis. Original stream admission now reproduces the delayed empty-document
 cleanup failure without manually reinvoking the parser. Eager completion avoids
 it; actual USB delivery, multi-language context and real scheduling remain
 unverified. This conditional finding is not a narrow-replacement blocker.
-QEMU's standard BE CPU provides a second ISA engine; it is not the printer CPU,
-and register-window spills/custom raster instructions remain outside its scope.
+QEMU independently reproduces the delayed-empty-document failure and runs the
+stock window handlers under nested calls. It is not the printer CPU; real boot,
+interrupt/cache state and custom raster instructions remain outside this proof.
 
 Completion events and consumed raster slots are explicit host inputs. Passing
 lifetime checks does not establish DMA, printing, IRQ timing or recovery.

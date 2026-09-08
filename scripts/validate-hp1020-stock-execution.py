@@ -41,7 +41,7 @@ def fnv(data):
     return value
 
 
-def main(libc_observer=None):
+def main(libc_observer=None,parser_observer=None):
     program=Program(ROOT/'analysis/sihp1020.elf',os.environ.get('XTENSA_PREFIX','/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf'))
     totals={};steps=0;visited=set();opcodes=set();checks=[]
     def account(kind,m):
@@ -132,6 +132,7 @@ def main(libc_observer=None):
                     raster=c['rasters'][raster_index];raster_index+=1
                     assert (raster['page'],raster['length'],raster['fnv1a'])==(page_index,len(actual),fnv(actual))
             assert page_index+1==len(c['pages']) and raster_index==len(c['rasters'])
+            if parser_observer:parser_observer(name,data,fill,m)
             account('parser_agreement',m)
             cases.append(dict(case=name,status='pass',fill=fill,instructions=m.steps,pages=page_index+1,rasters=raster_index,
                               message_ids=ids,consumed_bytes=m.input_pos,input_sha256=hashlib.sha256(data).hexdigest()))

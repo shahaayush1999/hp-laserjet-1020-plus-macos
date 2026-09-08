@@ -52,11 +52,13 @@ Exact scopes and assumptions: `stock-execution/lifecycle.md` and `stock-executio
 This is an offline correctness question, not evidence of a physical printer fault.
 
 Independent QEMU now checks the same compiled C target, all original libc cases
-and stock signed/unsigned division/remainder helpers. It executes actual standard
-register-window and hardware-loop instructions. Its CPU configuration is not the
-printer core; it provides no custom-ISA, cache, USB or window-spill proof. Further
-useful offline work includes independent execution of larger original routines
-and tracing software ownership under cancellation/resource pressure.
+and stock signed/unsigned division/remainder helpers. Original parser messages
+and JobMgr lifetime/global RAM also agree, and QEMU reproduces the delayed-empty
+cleanup fault. All six original window spill/fill handlers run under nested
+CALL4/8/12; corrupting a saved return store is detected. These tests use a synthetic
+ABI stack and a different core configuration, not stock boot/interrupt/cache
+state. Further work includes status-notification ownership and interruption
+producer/acknowledgement paths.
 
 The next **live** experiment remains the existing non-printing USB ladder.
 Further combined firmware integration cannot establish any of the device facts
