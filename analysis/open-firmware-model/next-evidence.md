@@ -157,8 +157,19 @@ payload preservation, deferred coalescing, reserve admission, live ownership and
 accounting. Repeated free of the first block reaches a read before the bounded
 arena; this negative case is caught by both RAM gates, not a device fault claim.
 See `stock-execution/pool.md`. Original pool boot discovery, end-to-end producer
-allocation, timed waits and more printing tasks under the native scheduler remain
-productive next avenues.
+allocation and more printing tasks under the native scheduler remain productive
+next avenues. Timed waits now have a separate original-code proof below.
+
+Original timer initialization, timer task, tick routine and timeout callbacks now
+run under native priority scheduling. Forty-four QEMU cases cover sleep, empty
+receive, full send and early queue satisfaction, including 31/32/33/65-tick wheel
+boundaries. Exact wake ticks, results, canceled timers, callback counts, message
+contents, task states and empty final buckets agree with independent oracles.
+A native clock task explicitly invokes the tick routine with system context set,
+then yields. INTENABLE stays zero; original CCOUNT/CCOMPARE operations execute in
+QEMU, but actual elapsed time, automatic IRQ delivery/return and time slicing are
+not claimed. See `stock-execution/timers.md`. This removes a software timed-wait
+boundary for later native JobMgr integration, not a physical timing uncertainty.
 
 The next **live** experiment remains the existing non-printing USB ladder.
 Further combined firmware integration cannot establish any of the device facts

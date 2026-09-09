@@ -18,6 +18,9 @@ evaluation; the owner consumes progress through chat, not documentation.
 - Original window handlers, stack construction, voluntary context save/restore,
   kernel initialization, thread creation, priority selection and blocking queues
   run two synthetic tasks without scheduling substitutes.
+- Original timer task and timed waits pass 44 QEMU cases, including
+  wheel wraparound and canceling a timeout when a message arrives early. Ticks
+  are explicit inputs; automatic CPU interrupts remain disabled.
 - Original StatusMgr now runs under that scheduler with original queues and locks.
   Repeated/empty/multi-page notices drain; 26 notices exercise a full 25-message
   queue. Thirty focused cases pass with both priority orders and equality.
@@ -28,8 +31,9 @@ evaluation; the owner consumes progress through chat, not documentation.
   preserved live bytes, fragmentation/coalescing, reserve admission and accounting.
   Repeated free reaches a guarded read before the fixture arena; no device fault
   is claimed.
-- Latest full aggregate passed both suites (88 consistency checks), including
-  original pool and scheduled StatusMgr without runtime host services. Detailed scopes sit beside components; `scripts/validate.sh` is offline-only.
+- Latest full aggregate passed both suites (89 consistency checks), including
+  original pool and scheduled StatusMgr without runtime host services. Original timed
+  waits are included. Detailed scopes sit beside components; `scripts/validate.sh` is offline-only.
 
 ## Corrections to preserve
 
@@ -49,10 +53,10 @@ evaluation; the owner consumes progress through chat, not documentation.
 
 ## Next action and limits
 
-**Offline only; no hardware test is authorized.** Extend timed-wait validation (initial
-sleep/queue-expiry/early-wakeup experiments pass), then integrate producer
-allocation and additional
-printing tasks under actual scheduling. Avoid duplicate models and test inflation.
+**Offline only; no hardware test is authorized.** Validate the new native parser/JobMgr/
+StatusMgr pipeline. Initial repeated empty-document experiments run with only
+host input bytes, original allocation throughout and no notice migration; then
+advance toward page lifecycles with explicit completion boundaries. Avoid duplicate models and test inflation.
 
 Conditional stock findings remain: delayed empty-document cleanup can remove the
 wrong list head; cancellation selector 2 retains a document; selector 4 after

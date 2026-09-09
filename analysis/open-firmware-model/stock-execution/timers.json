@@ -1,0 +1,799 @@
+{
+  "cases": [
+    {
+      "delay": 1,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "1777c06b4b2fa47877696e4c30f6fb2a995470e5f0f45379e5d4af893f3117fd",
+      "fixture_source_sha256": "caa41a883bbccfce4d8af8e73da42590b69a7a63ae49897f149ae609f7ab2877",
+      "host_services": [],
+      "instructions": 6241,
+      "mode": "sleep",
+      "result": 0,
+      "status": "pass",
+      "ticks": 3,
+      "timeout_callbacks": [
+        1
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 1
+    },
+    {
+      "delay": 1,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "1777c06b4b2fa47877696e4c30f6fb2a995470e5f0f45379e5d4af893f3117fd",
+      "fixture_source_sha256": "caa41a883bbccfce4d8af8e73da42590b69a7a63ae49897f149ae609f7ab2877",
+      "host_services": [],
+      "instructions": 6241,
+      "mode": "sleep",
+      "result": 0,
+      "status": "pass",
+      "ticks": 3,
+      "timeout_callbacks": [
+        1
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 1
+    },
+    {
+      "delay": 1,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "2a24c85fe62c31b103ce814bf70bc088f2c2b0258aea320cdbb3f058d64cdcb1",
+      "fixture_source_sha256": "53c1573e33ccc5acfe74fec71dd874db435f33d9329d7c72f677d6a5aa393114",
+      "host_services": [],
+      "instructions": 6352,
+      "mode": "receive",
+      "result": 10,
+      "status": "pass",
+      "ticks": 3,
+      "timeout_callbacks": [
+        1
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 1
+    },
+    {
+      "delay": 1,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "2a24c85fe62c31b103ce814bf70bc088f2c2b0258aea320cdbb3f058d64cdcb1",
+      "fixture_source_sha256": "53c1573e33ccc5acfe74fec71dd874db435f33d9329d7c72f677d6a5aa393114",
+      "host_services": [],
+      "instructions": 6352,
+      "mode": "receive",
+      "result": 10,
+      "status": "pass",
+      "ticks": 3,
+      "timeout_callbacks": [
+        1
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 1
+    },
+    {
+      "delay": 1,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "51cb6baa0a9333c33a83ab464ae8935c1f653a2fe12d1adb1f82ba8fc8e1a118",
+      "fixture_source_sha256": "887821fd9db04a26f2901d295fbf412989a2e363923386bfa7f230b529107a3c",
+      "host_services": [],
+      "instructions": 6407,
+      "mode": "send",
+      "result": 11,
+      "status": "pass",
+      "ticks": 3,
+      "timeout_callbacks": [
+        1
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 1
+    },
+    {
+      "delay": 1,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "51cb6baa0a9333c33a83ab464ae8935c1f653a2fe12d1adb1f82ba8fc8e1a118",
+      "fixture_source_sha256": "887821fd9db04a26f2901d295fbf412989a2e363923386bfa7f230b529107a3c",
+      "host_services": [],
+      "instructions": 6407,
+      "mode": "send",
+      "result": 11,
+      "status": "pass",
+      "ticks": 3,
+      "timeout_callbacks": [
+        1
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 1
+    },
+    {
+      "delay": 2,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "418e6655f3263fca871d3d5c60af8dd5d7c9534398e6d703a5801ed4bf7f7b6c",
+      "fixture_source_sha256": "cc3187e0d9e3045486653b09c8ba28ecb0a456c1e413765c484a5a8448354376",
+      "host_services": [],
+      "instructions": 6451,
+      "mode": "sleep",
+      "result": 0,
+      "status": "pass",
+      "ticks": 4,
+      "timeout_callbacks": [
+        2
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 2
+    },
+    {
+      "delay": 2,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "418e6655f3263fca871d3d5c60af8dd5d7c9534398e6d703a5801ed4bf7f7b6c",
+      "fixture_source_sha256": "cc3187e0d9e3045486653b09c8ba28ecb0a456c1e413765c484a5a8448354376",
+      "host_services": [],
+      "instructions": 6451,
+      "mode": "sleep",
+      "result": 0,
+      "status": "pass",
+      "ticks": 4,
+      "timeout_callbacks": [
+        2
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 2
+    },
+    {
+      "delay": 2,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "a4a6dc6c1992a97e28ff3755b2f528503d633a8fb0e873ceb72f6332c27c566d",
+      "fixture_source_sha256": "ceee8f56b9711843fa8dd2b56ccd99c59878f6800a72d861a18504a6cd9cf59b",
+      "host_services": [],
+      "instructions": 6562,
+      "mode": "receive",
+      "result": 10,
+      "status": "pass",
+      "ticks": 4,
+      "timeout_callbacks": [
+        2
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 2
+    },
+    {
+      "delay": 2,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "a4a6dc6c1992a97e28ff3755b2f528503d633a8fb0e873ceb72f6332c27c566d",
+      "fixture_source_sha256": "ceee8f56b9711843fa8dd2b56ccd99c59878f6800a72d861a18504a6cd9cf59b",
+      "host_services": [],
+      "instructions": 6562,
+      "mode": "receive",
+      "result": 10,
+      "status": "pass",
+      "ticks": 4,
+      "timeout_callbacks": [
+        2
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 2
+    },
+    {
+      "delay": 2,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "df20d8c60307140b2f80ebe1ced81a08705496bef7ca8a41507b99e2525859c2",
+      "fixture_source_sha256": "122ccf298b44778c161cc3baa893f2603acfae197bb60274f8f917590a04100c",
+      "host_services": [],
+      "instructions": 6617,
+      "mode": "send",
+      "result": 11,
+      "status": "pass",
+      "ticks": 4,
+      "timeout_callbacks": [
+        2
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 2
+    },
+    {
+      "delay": 2,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "df20d8c60307140b2f80ebe1ced81a08705496bef7ca8a41507b99e2525859c2",
+      "fixture_source_sha256": "122ccf298b44778c161cc3baa893f2603acfae197bb60274f8f917590a04100c",
+      "host_services": [],
+      "instructions": 6617,
+      "mode": "send",
+      "result": 11,
+      "status": "pass",
+      "ticks": 4,
+      "timeout_callbacks": [
+        2
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 2
+    },
+    {
+      "delay": 31,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "6838b4b43f47784ae3679e3617db018d49fb18f51fd15803f72f17977ef54c9c",
+      "fixture_source_sha256": "a06584ad0be1b812ed0ea3451f23e6a2ea0bc0137af24253fbdd361d30574f5c",
+      "host_services": [],
+      "instructions": 12543,
+      "mode": "sleep",
+      "result": 0,
+      "status": "pass",
+      "ticks": 33,
+      "timeout_callbacks": [
+        31
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 31
+    },
+    {
+      "delay": 31,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "6838b4b43f47784ae3679e3617db018d49fb18f51fd15803f72f17977ef54c9c",
+      "fixture_source_sha256": "a06584ad0be1b812ed0ea3451f23e6a2ea0bc0137af24253fbdd361d30574f5c",
+      "host_services": [],
+      "instructions": 12543,
+      "mode": "sleep",
+      "result": 0,
+      "status": "pass",
+      "ticks": 33,
+      "timeout_callbacks": [
+        31
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 31
+    },
+    {
+      "delay": 31,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "a89fb21c1265e594ac68702a648ee0292584c0641efed770087c00c5e02d34c8",
+      "fixture_source_sha256": "7958699f066a87f1f9d82d521b887342bf0e421834b0033fab69a436acd5b9c5",
+      "host_services": [],
+      "instructions": 12654,
+      "mode": "receive",
+      "result": 10,
+      "status": "pass",
+      "ticks": 33,
+      "timeout_callbacks": [
+        31
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 31
+    },
+    {
+      "delay": 31,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "a89fb21c1265e594ac68702a648ee0292584c0641efed770087c00c5e02d34c8",
+      "fixture_source_sha256": "7958699f066a87f1f9d82d521b887342bf0e421834b0033fab69a436acd5b9c5",
+      "host_services": [],
+      "instructions": 12654,
+      "mode": "receive",
+      "result": 10,
+      "status": "pass",
+      "ticks": 33,
+      "timeout_callbacks": [
+        31
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 31
+    },
+    {
+      "delay": 31,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "6c84f1424f34433b7184caec5fcca7711ed0a07fdbc0f855d4a4a8c824554533",
+      "fixture_source_sha256": "be40233851b5103402409ff6684ec444f299f1850a4d304a88069938fbed6d16",
+      "host_services": [],
+      "instructions": 12709,
+      "mode": "send",
+      "result": 11,
+      "status": "pass",
+      "ticks": 33,
+      "timeout_callbacks": [
+        31
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 31
+    },
+    {
+      "delay": 31,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "6c84f1424f34433b7184caec5fcca7711ed0a07fdbc0f855d4a4a8c824554533",
+      "fixture_source_sha256": "be40233851b5103402409ff6684ec444f299f1850a4d304a88069938fbed6d16",
+      "host_services": [],
+      "instructions": 12709,
+      "mode": "send",
+      "result": 11,
+      "status": "pass",
+      "ticks": 33,
+      "timeout_callbacks": [
+        31
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 31
+    },
+    {
+      "delay": 32,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "5e25f6a0b73723413e8a3fb17d117f6ce41b6e801c9d83cebf268c964f9fb442",
+      "fixture_source_sha256": "f94482b0337c2ca2423ae50bd37eede04d96c6ff74c692cca2ff41f98552c16d",
+      "host_services": [],
+      "instructions": 12754,
+      "mode": "sleep",
+      "result": 0,
+      "status": "pass",
+      "ticks": 34,
+      "timeout_callbacks": [
+        32
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 32
+    },
+    {
+      "delay": 32,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "5e25f6a0b73723413e8a3fb17d117f6ce41b6e801c9d83cebf268c964f9fb442",
+      "fixture_source_sha256": "f94482b0337c2ca2423ae50bd37eede04d96c6ff74c692cca2ff41f98552c16d",
+      "host_services": [],
+      "instructions": 12754,
+      "mode": "sleep",
+      "result": 0,
+      "status": "pass",
+      "ticks": 34,
+      "timeout_callbacks": [
+        32
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 32
+    },
+    {
+      "delay": 32,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "f1063096cf62f9d6cc50d72da22885a110d0475c7ef0454240f9d833953e6bfb",
+      "fixture_source_sha256": "1460aea3e33a673e8a28a79b06dde89990b597e8ace0283a8bed9d514f4c50bf",
+      "host_services": [],
+      "instructions": 12865,
+      "mode": "receive",
+      "result": 10,
+      "status": "pass",
+      "ticks": 34,
+      "timeout_callbacks": [
+        32
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 32
+    },
+    {
+      "delay": 32,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "f1063096cf62f9d6cc50d72da22885a110d0475c7ef0454240f9d833953e6bfb",
+      "fixture_source_sha256": "1460aea3e33a673e8a28a79b06dde89990b597e8ace0283a8bed9d514f4c50bf",
+      "host_services": [],
+      "instructions": 12865,
+      "mode": "receive",
+      "result": 10,
+      "status": "pass",
+      "ticks": 34,
+      "timeout_callbacks": [
+        32
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 32
+    },
+    {
+      "delay": 32,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "c8553c02b839b8002934c05e170127fb27206807a2c54e2d5d5d7abbef7744d6",
+      "fixture_source_sha256": "6b115e359eaa099389bb8e0a94f0ef50bfa0987c2bfc08648628419913a009cc",
+      "host_services": [],
+      "instructions": 12920,
+      "mode": "send",
+      "result": 11,
+      "status": "pass",
+      "ticks": 34,
+      "timeout_callbacks": [
+        32
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 32
+    },
+    {
+      "delay": 32,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "c8553c02b839b8002934c05e170127fb27206807a2c54e2d5d5d7abbef7744d6",
+      "fixture_source_sha256": "6b115e359eaa099389bb8e0a94f0ef50bfa0987c2bfc08648628419913a009cc",
+      "host_services": [],
+      "instructions": 12920,
+      "mode": "send",
+      "result": 11,
+      "status": "pass",
+      "ticks": 34,
+      "timeout_callbacks": [
+        32
+      ],
+      "timer_task_runs": 1,
+      "wake_tick": 32
+    },
+    {
+      "delay": 33,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "bfdade50630739a942c9f80647f40fb7e315e2f7ef8ba55c25f7697f9b5f7d56",
+      "fixture_source_sha256": "487bffbda1fcf814445bb76c34a9f5b9a9d1596c2a2e06c17f785dc40458362d",
+      "host_services": [],
+      "instructions": 13387,
+      "mode": "sleep",
+      "result": 0,
+      "status": "pass",
+      "ticks": 35,
+      "timeout_callbacks": [
+        33
+      ],
+      "timer_task_runs": 2,
+      "wake_tick": 33
+    },
+    {
+      "delay": 33,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "bfdade50630739a942c9f80647f40fb7e315e2f7ef8ba55c25f7697f9b5f7d56",
+      "fixture_source_sha256": "487bffbda1fcf814445bb76c34a9f5b9a9d1596c2a2e06c17f785dc40458362d",
+      "host_services": [],
+      "instructions": 13387,
+      "mode": "sleep",
+      "result": 0,
+      "status": "pass",
+      "ticks": 35,
+      "timeout_callbacks": [
+        33
+      ],
+      "timer_task_runs": 2,
+      "wake_tick": 33
+    },
+    {
+      "delay": 33,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "c3ff7353c2494507ceceb40c5d52152ca4924fd8f71151cef3b3d7355e9424df",
+      "fixture_source_sha256": "fd50e56b64b2420b9a61018e5a853c8b7209a6ec7ad68df377a666752b36e012",
+      "host_services": [],
+      "instructions": 13498,
+      "mode": "receive",
+      "result": 10,
+      "status": "pass",
+      "ticks": 35,
+      "timeout_callbacks": [
+        33
+      ],
+      "timer_task_runs": 2,
+      "wake_tick": 33
+    },
+    {
+      "delay": 33,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "c3ff7353c2494507ceceb40c5d52152ca4924fd8f71151cef3b3d7355e9424df",
+      "fixture_source_sha256": "fd50e56b64b2420b9a61018e5a853c8b7209a6ec7ad68df377a666752b36e012",
+      "host_services": [],
+      "instructions": 13498,
+      "mode": "receive",
+      "result": 10,
+      "status": "pass",
+      "ticks": 35,
+      "timeout_callbacks": [
+        33
+      ],
+      "timer_task_runs": 2,
+      "wake_tick": 33
+    },
+    {
+      "delay": 33,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "9547755bf1f22328582c33cbc4a75a8b0e1a88acf13092094b75fa7c3c824bcc",
+      "fixture_source_sha256": "b23051ef9555c3a9e9c33e92bd64b141947dc53da1773d82dce1a0718c2ea942",
+      "host_services": [],
+      "instructions": 13553,
+      "mode": "send",
+      "result": 11,
+      "status": "pass",
+      "ticks": 35,
+      "timeout_callbacks": [
+        33
+      ],
+      "timer_task_runs": 2,
+      "wake_tick": 33
+    },
+    {
+      "delay": 33,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "9547755bf1f22328582c33cbc4a75a8b0e1a88acf13092094b75fa7c3c824bcc",
+      "fixture_source_sha256": "b23051ef9555c3a9e9c33e92bd64b141947dc53da1773d82dce1a0718c2ea942",
+      "host_services": [],
+      "instructions": 13553,
+      "mode": "send",
+      "result": 11,
+      "status": "pass",
+      "ticks": 35,
+      "timeout_callbacks": [
+        33
+      ],
+      "timer_task_runs": 2,
+      "wake_tick": 33
+    },
+    {
+      "delay": 65,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "5f70ac00cb88e76dbe86de24a2d48ca55bc176721afd16730c6f608df174195d",
+      "fixture_source_sha256": "f015d47a188cd18c57d5bac0f250a31996ad1c6ea37580f841735cb65a5b478b",
+      "host_services": [],
+      "instructions": 20533,
+      "mode": "sleep",
+      "result": 0,
+      "status": "pass",
+      "ticks": 67,
+      "timeout_callbacks": [
+        65
+      ],
+      "timer_task_runs": 3,
+      "wake_tick": 65
+    },
+    {
+      "delay": 65,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "5f70ac00cb88e76dbe86de24a2d48ca55bc176721afd16730c6f608df174195d",
+      "fixture_source_sha256": "f015d47a188cd18c57d5bac0f250a31996ad1c6ea37580f841735cb65a5b478b",
+      "host_services": [],
+      "instructions": 20533,
+      "mode": "sleep",
+      "result": 0,
+      "status": "pass",
+      "ticks": 67,
+      "timeout_callbacks": [
+        65
+      ],
+      "timer_task_runs": 3,
+      "wake_tick": 65
+    },
+    {
+      "delay": 65,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "1782bbbde68f781f062fb86a620e170f1d71a08457a7e3463a435630315e98cc",
+      "fixture_source_sha256": "d7ca00ae1c54aa77f0ec2c3e1eaa66d0f3a1a0788c113fcb64009c36acaf52d4",
+      "host_services": [],
+      "instructions": 20644,
+      "mode": "receive",
+      "result": 10,
+      "status": "pass",
+      "ticks": 67,
+      "timeout_callbacks": [
+        65
+      ],
+      "timer_task_runs": 3,
+      "wake_tick": 65
+    },
+    {
+      "delay": 65,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "1782bbbde68f781f062fb86a620e170f1d71a08457a7e3463a435630315e98cc",
+      "fixture_source_sha256": "d7ca00ae1c54aa77f0ec2c3e1eaa66d0f3a1a0788c113fcb64009c36acaf52d4",
+      "host_services": [],
+      "instructions": 20644,
+      "mode": "receive",
+      "result": 10,
+      "status": "pass",
+      "ticks": 67,
+      "timeout_callbacks": [
+        65
+      ],
+      "timer_task_runs": 3,
+      "wake_tick": 65
+    },
+    {
+      "delay": 65,
+      "early": false,
+      "fill": 0,
+      "fixture_elf_sha256": "5c46406567048031d2fb437e75faebba96dce969a38f17520627303a51515b4d",
+      "fixture_source_sha256": "aa6446f16e9f3be409bb49ea3241bac9e56d406184084713e9da66338f8c15e1",
+      "host_services": [],
+      "instructions": 20699,
+      "mode": "send",
+      "result": 11,
+      "status": "pass",
+      "ticks": 67,
+      "timeout_callbacks": [
+        65
+      ],
+      "timer_task_runs": 3,
+      "wake_tick": 65
+    },
+    {
+      "delay": 65,
+      "early": false,
+      "fill": 204,
+      "fixture_elf_sha256": "5c46406567048031d2fb437e75faebba96dce969a38f17520627303a51515b4d",
+      "fixture_source_sha256": "aa6446f16e9f3be409bb49ea3241bac9e56d406184084713e9da66338f8c15e1",
+      "host_services": [],
+      "instructions": 20699,
+      "mode": "send",
+      "result": 11,
+      "status": "pass",
+      "ticks": 67,
+      "timeout_callbacks": [
+        65
+      ],
+      "timer_task_runs": 3,
+      "wake_tick": 65
+    },
+    {
+      "delay": 2,
+      "early": true,
+      "fill": 0,
+      "fixture_elf_sha256": "515b9b908c8c4efadbad73b612e923a9484105098cf9d7c9891f57798170ffb4",
+      "fixture_source_sha256": "34bd2cb1e66d21fa9d597a237256a918526e46a3cba1255dd48f5e93658ba219",
+      "host_services": [],
+      "instructions": 6398,
+      "mode": "receive",
+      "result": 0,
+      "status": "pass",
+      "ticks": 4,
+      "timeout_callbacks": [],
+      "timer_task_runs": 0,
+      "wake_tick": 1
+    },
+    {
+      "delay": 2,
+      "early": true,
+      "fill": 204,
+      "fixture_elf_sha256": "515b9b908c8c4efadbad73b612e923a9484105098cf9d7c9891f57798170ffb4",
+      "fixture_source_sha256": "34bd2cb1e66d21fa9d597a237256a918526e46a3cba1255dd48f5e93658ba219",
+      "host_services": [],
+      "instructions": 6398,
+      "mode": "receive",
+      "result": 0,
+      "status": "pass",
+      "ticks": 4,
+      "timeout_callbacks": [],
+      "timer_task_runs": 0,
+      "wake_tick": 1
+    },
+    {
+      "delay": 2,
+      "early": true,
+      "fill": 0,
+      "fixture_elf_sha256": "97a64ec2719e3cbd97da964919a0afe0999327e42f765c6591261126aefda0e7",
+      "fixture_source_sha256": "e51253ba7fef3678c33dac21e9473ea2ebf5b1b2cb0ee7d9869f941afc9268d8",
+      "host_services": [],
+      "instructions": 6488,
+      "mode": "send",
+      "result": 0,
+      "status": "pass",
+      "ticks": 4,
+      "timeout_callbacks": [],
+      "timer_task_runs": 0,
+      "wake_tick": 1
+    },
+    {
+      "delay": 2,
+      "early": true,
+      "fill": 204,
+      "fixture_elf_sha256": "97a64ec2719e3cbd97da964919a0afe0999327e42f765c6591261126aefda0e7",
+      "fixture_source_sha256": "e51253ba7fef3678c33dac21e9473ea2ebf5b1b2cb0ee7d9869f941afc9268d8",
+      "host_services": [],
+      "instructions": 6488,
+      "mode": "send",
+      "result": 0,
+      "status": "pass",
+      "ticks": 4,
+      "timeout_callbacks": [],
+      "timer_task_runs": 0,
+      "wake_tick": 1
+    },
+    {
+      "delay": 33,
+      "early": true,
+      "fill": 0,
+      "fixture_elf_sha256": "f6e18df0bd95ffbe632703e61c78b6ac57943037a2bdede1de6093000b33b586",
+      "fixture_source_sha256": "f84d192033421846c149d25442f9a8b844ee23a5c14e00655cff8c5b72a5cf01",
+      "host_services": [],
+      "instructions": 12940,
+      "mode": "receive",
+      "result": 0,
+      "status": "pass",
+      "ticks": 35,
+      "timeout_callbacks": [],
+      "timer_task_runs": 0,
+      "wake_tick": 1
+    },
+    {
+      "delay": 33,
+      "early": true,
+      "fill": 204,
+      "fixture_elf_sha256": "f6e18df0bd95ffbe632703e61c78b6ac57943037a2bdede1de6093000b33b586",
+      "fixture_source_sha256": "f84d192033421846c149d25442f9a8b844ee23a5c14e00655cff8c5b72a5cf01",
+      "host_services": [],
+      "instructions": 12940,
+      "mode": "receive",
+      "result": 0,
+      "status": "pass",
+      "ticks": 35,
+      "timeout_callbacks": [],
+      "timer_task_runs": 0,
+      "wake_tick": 1
+    },
+    {
+      "delay": 33,
+      "early": true,
+      "fill": 0,
+      "fixture_elf_sha256": "610c00d190a31c87668510b04a7f5c25297c276b17bc6856e0422e4a39472613",
+      "fixture_source_sha256": "73c48e5744fa3efe04cf7906965136a0f4912fe7b4cbcbb57bde9133fac05393",
+      "host_services": [],
+      "instructions": 13030,
+      "mode": "send",
+      "result": 0,
+      "status": "pass",
+      "ticks": 35,
+      "timeout_callbacks": [],
+      "timer_task_runs": 0,
+      "wake_tick": 1
+    },
+    {
+      "delay": 33,
+      "early": true,
+      "fill": 204,
+      "fixture_elf_sha256": "610c00d190a31c87668510b04a7f5c25297c276b17bc6856e0422e4a39472613",
+      "fixture_source_sha256": "73c48e5744fa3efe04cf7906965136a0f4912fe7b4cbcbb57bde9133fac05393",
+      "host_services": [],
+      "instructions": 13030,
+      "mode": "send",
+      "result": 0,
+      "status": "pass",
+      "ticks": 35,
+      "timeout_callbacks": [],
+      "timer_task_runs": 0,
+      "wake_tick": 1
+    }
+  ],
+  "elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "findings": [
+    "Original timer initialization builds its 32-slot wheel and creates the original timer task, initially suspended. Its original entry, input magic and thread control block are checked; only stack address, stack size and priority are fixture inputs.",
+    "A native low-priority clock task invokes the original tick function. Original timer-task wakeup, bucket processing, callback invocation, requeue beyond 32 ticks and priority scheduling execute without whole-function host services.",
+    "Sleep wakes on the requested software tick with result 0. Empty receive and full send expire on that tick with results 10 and 11, respectively. Cases cross the 31/32/33 and 64/65 wheel boundaries.",
+    "When another native task satisfies a queued send or receive on tick 1, original queue/resume code removes its pending timer. Continuing beyond the old deadline produces no timeout callback and preserves the delivered message.",
+    "Independent oracles check wake tick, result, callback count, queue contents and wait lists, task states/run counts, preemption balance, clock count, empty timer buckets and the exact final wheel cursor."
+  ],
+  "limits": "These are original software timeouts under explicitly supplied ticks, not physical elapsed-time or interrupt-delivery proof. The original tick routine executes QEMU CCOUNT/CCOMPARE operations, while INTENABLE stays zero; the clock task explicitly marks its call as system context and yields afterward. Worker, clock and timer priorities are fixed at 5, 31 and 0 with zero time slices. No hardware/MMIO, USB, boot clock calibration, automatic IRQ entry/return, time slicing, periodic application callbacks, or original printing-task integration is demonstrated.",
+  "source_sha256": {
+    "hp1020_qemu_multitask.py": "dfb253f0d98da507cdc4f88ed9a9d11aeabf779af0a1661ed967ecd7d5251bee",
+    "hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
+    "hp1020_qemu_scheduler.py": "6bb45fc44d99da27be5b307b216969207ceb1a8b05bff780108d672d7ab3e724",
+    "hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
+    "hp1020_qemu_timers.py": "34beea0dd76a324d546e38ebfe18603932c4afbd9133a9a37c98aaf775492f06",
+    "validate-hp1020-stock-timers.py": "cdd3c92272995ee12711d730ecea38b572fc7ef1cb78cd5dda36e758db2ffbb7"
+  },
+  "status": "pass",
+  "total_cases": 44
+}

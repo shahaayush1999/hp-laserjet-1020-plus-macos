@@ -131,6 +131,9 @@ run_step "Execute original stack construction and context switches" \
 run_step "Execute original priority scheduling and blocking queues" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-stock-scheduler.py"
 
+run_step "Execute original timer task and timed waits" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-stock-timers.py"
+
 run_step "Execute original memory allocation, release and fragmentation" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-stock-pool.py"
 
