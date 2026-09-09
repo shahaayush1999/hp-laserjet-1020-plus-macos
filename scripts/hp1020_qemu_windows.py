@@ -35,8 +35,8 @@ recurse{width}:
  movi a2,0
  retw
 ''' for width in (4,8,12)))
-        subprocess.run([prefix+'-as',str(source),'-o',str(obj)],check=True)
-        subprocess.run([prefix+'-ld','-Ttext=0x20000000','-e','recurse8',str(obj),'-o',str(elf)],check=True)
+        subprocess.run([prefix+'-as',source.name,'-o',obj.name],cwd=root,check=True)
+        subprocess.run([prefix+'-ld','-Ttext=0x20000000','-e','recurse8',obj.name,'-o',elf.name],cwd=root,check=True)
         fixture = Program(elf,prefix)
         qemu.load(stock.path);qemu.load(elf)
         qemu.set_reg(111,0x10000000)

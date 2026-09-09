@@ -2,8 +2,9 @@
 
 A synthetic native producer submits the saved JobMgr-generated packet words;
 the status task blocks and wakes through original priority/queue/context code.
-Only allocation/free, constructor thread creation and startup readiness remain
-hosted; actual scheduled tasks use original semaphores and mutexes.
+Only constructor thread creation remains hosted during setup. Live notice
+payloads are explicitly migrated from prior replay into an original RAM pool;
+actual allocation, free, semaphores and mutexes execute without host substitutes.
 """
 from pathlib import Path
 from types import SimpleNamespace
@@ -18,6 +19,7 @@ from hp1020_xtensa_call0 import Program
 from hp1020_qemu_ram import RETURN, STACK_TOP
 from hp1020_qemu_scheduler import RANGES
 from hp1020_qemu_multitask import NativeTasks
+from hp1020_stock_pool import POOL, POOL_CODE, PoolRAM, seed_pool
 
 A = 0x22800000
 B = A+256
@@ -27,7 +29,12 @@ INPUT = 0x22700000
 AS = 0x22900000
 BS = 0x22a00000
 SYNC_SERVICES = {0x10017dd8,0x10017e64,0x10017ed8,0x100181a4,0x10018214}
-HOST = OLD_HOST-{0x100176c8}-SYNC_SERVICES
+MEMORY_SERVICES = {0x10013140,0x100131b8,0x10013408}
+HOST = OLD_HOST-{0x100176c8,0x1001214c}-SYNC_SERVICES-MEMORY_SERVICES
+READY_CODE = [(0x1001214c,0x10012182),(0x10017ca0,0x10017cf0),
+              (0x10017d28,0x10017d74),(0x10017dac,0x10017dd8),
+              (0x1001896c,0x10019138),(0x10019308,0x10019350),
+              (0x10019408,0x100194d4)]
 SYNC_CODE = [(0x10010d7c,0x10010db3),(0x10017dd8,0x10017e2c),
              (0x10017e64,0x10017e9c),(0x10017ed8,0x10017ef5),
              (0x1001811c,0x1001816c),(0x100181a4,0x100181dc),
@@ -39,12 +46,12 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class ScheduledStatus(QueuedStatusReceiver):
     def extension(self,op,args,nxt):
-        if getattr(self,'receiver_mode',False) and op=='call8' and args[0] in SYNC_SERVICES|{0x100176c8}:
+        if getattr(self,'receiver_mode',False) and op=='call8' and args[0] in SYNC_SERVICES|MEMORY_SERVICES|{0x100176c8,0x1001214c}:
             return StockMachine.extension(self,op,args,nxt)
         return super().extension(op,args,nxt)
 
 
-def native_source(notices,priorities,current,system):
+def native_source(notices,priorities,current,system,ready):
     return f'''
 .text
 .align 4
@@ -105,6 +112,12 @@ make_thread:
  retw
 producer:
  entry a1,64
+ movi a10,{ready:#x}
+ movi a11,4
+ movi a12,0
+ movi a8,0x10017dac
+ callx8 a8
+ bnez a10,bad
  movi a3,{notices}
  movi a4,{INPUT:#x}
 again:
@@ -136,11 +149,38 @@ def run_scheduled_status(q,program,data,documents,fill,priorities):
     for address,size in ((A,0x1000),(AS,0x10000),(BS,0x10000),(INPUT,0x1000)):
         state.segments.append((address,bytearray([fill])*size,6))
         state.write_ranges.append((address,address+size))
-    state.code_ranges += RANGES+SYNC_CODE
+    state.code_ranges += RANGES+SYNC_CODE+POOL_CODE+READY_CODE
+    state.pool,state.pool_size = POOL,32768
+    seed_pool(state,state.pool,state.pool_size,fill)
+    assert invoke(state,0x1001811c,[state.read(0x100066ac,4),0,1],q,HOST)==0
+    # Preserve original notice bytes but explicitly relocate their host-allocated
+    # storage into allocations made by the original pool. No pointer guessing:
+    # only END_DOC's defined fourth word is a released notice allocation here.
+    live = {a:r for a,r in state.allocations.items() if not r['freed']}
+    assert set(live)=={n['words'][3] for n in state.notifications if n['words'][0]==47}
+    migrated = {}
+    for notice in state.notifications:
+        if notice['words'][0]!=47:
+            continue
+        old = notice['words'][3]
+        assert live[old]==dict(size=16,kind=1,freed=False)
+        payload = state.bytes_at(old,16)
+        new = invoke(state,0x100131b8,[16,1],q,HOST)
+        assert new and new not in migrated
+        state.put(new,payload)
+        migrated[new] = payload
+        notice['words'][3] = new
+        state.segments = [entry for entry in state.segments if entry[0]!=old]
+        state.write_ranges = [(a,b) for a,b in state.write_ranges if a!=old]
+        del state.allocations[old]
+    assert all(record['freed'] for record in state.allocations.values())
+    PoolRAM.blocks(state)
     current = state.read(0x10006a9c,4)
     system = state.read(0x10005d80,4)
     selected = state.read(0x10006aa0,4)
-    source = native_source(len(state.notifications),priorities,current,system)
+    ready = state.read(0x10006530,4)
+    assert invoke(state,0x10017ca0,[ready,0],q,HOST)==0
+    source = native_source(len(state.notifications),priorities,current,system,ready)
     invoke(state,0x10010504,qemu=q,host=HOST)
     # Execute only the original constructor's semaphore-initialization prefix.
     # Stop before event-group creation or datastore backing-value initialization;
@@ -206,10 +246,13 @@ def run_scheduled_status(q,program,data,documents,fill,priorities):
         word = lambda a:int.from_bytes(q.read(a,4),'big')
         selections = []
         blocked = []
+        frees = []
         while not(q.reg(0)==0x10018901 and word(selected)==0):
             pc = q.reg(0)
             if pc==fixture.symbols['bad']:
                 raise ValueError('scheduled status producer failed or unexpectedly resumed')
+            if pc==0x10013408:
+                frees.append(q.reg(((q.reg(38)*4+10)%32)+1))
             if pc==0x10018904:
                 selections.append(word(selected))
             if pc==0x100176c8:
@@ -228,9 +271,14 @@ def run_scheduled_status(q,program,data,documents,fill,priorities):
         assert state.read(state.read(0x10006408,4),4)==documents
         ptr = state.read(0x100063d8,4)
         assert state.read(ptr,1)==0 and state.read(ptr+24,1)==0
-        live = {address:record for address,record in state.allocations.items() if not record['freed']}
+        blocks = PoolRAM.blocks(state)
+        live = [(address,size) for address,size,flags in blocks if flags&0x80000000]
         subscriber = state.read(state.read(0x10006490,4)+24*4,4)
-        assert live=={subscriber:dict(size=20,kind=1,freed=False)}
+        assert live==[(subscriber-12,20)]
+        assert frees==list(migrated),'original free calls disagree with notice ownership'
+        for pointer,payload in migrated.items():
+            assert state.bytes_at(pointer,16)==payload
+            assert not state.read(pointer-4,4)&0x80000000
         output = []
         for index in (1,3):
             queue = objects[index]
@@ -251,13 +299,18 @@ def run_scheduled_status(q,program,data,documents,fill,priorities):
             mutex = state.read(cell,4)
             assert state.read(mutex,4)==state.read(0x100065d0,4)
             assert state.read(mutex+8,4)==0 and state.read(mutex+28,4)==0 and state.read(mutex+32,4)==0
-        assert all(service in HOST for service in runner.services)
-        assert not (SYNC_SERVICES&set(runner.services))
+        assert state.read(ready+8,4)==4 and state.read(ready+16,4)==0 and state.read(ready+20,4)==0
+        readiness_waits = blocked.count((A,ready))
+        if priorities[0]<=priorities[1]:
+            assert readiness_waits==1
+        assert runner.services==[]
+        assert not ((SYNC_SERVICES|MEMORY_SERVICES)&set(runner.services))
         assert not ({0x10013658,0x1001809c,0x100176c8,0x10018750}&set(runner.services))
         return dict(status='pass',documents=documents,fill=fill,priorities=priorities,
             notices=len(state.notifications),instructions=runner.steps,producer_full_waits=producer_full_waits,
             selections=['status' if thread==A else 'producer' for thread in selections],
-            remaining_allocation_bytes=20,packets=output,original_semaphores=38,original_mutexes=2,
+            remaining_allocation_bytes=20,packets=output,original_semaphores=39,original_mutexes=2,
+            original_frees=len(frees),readiness_waits=readiness_waits,migrated_notice_bytes=len(migrated)*16,pool_free_bytes=state.read(state.read(0x100066a8,4),4),
             host_services=sorted({hex(service) for service in runner.services}),
             fixture_source_sha256=hashlib.sha256(source.encode()).hexdigest(),
             fixture_elf_sha256=hashlib.sha256(elf.read_bytes()).hexdigest())

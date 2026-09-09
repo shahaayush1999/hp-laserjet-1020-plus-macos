@@ -964,7 +964,7 @@
     "hp1020_qemu_lifecycle.py": "8e2633a72c4a9ea8ad1a19f55e40765001ea32a65dd77f7ab139e590cffd8597",
     "hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
     "hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
-    "hp1020_qemu_windows.py": "b3854d0a427e52fe7fe24e2b3e73881511c352c38f995f44574c71094791746c",
+    "hp1020_qemu_windows.py": "1493c58e3e7352b45eb7dbc84a3bbe6cc84ea3676a4bb0f63716c901442a06d7",
     "hp1020_stock_jobmgr_harness.py": "4c863cff55c7027ed3f348d188c93225dacc0c0442b9f71792c8db96ce7ced93",
     "hp1020_stock_lifecycle_harness.py": "d08e611620854498fa9fd65e809fd042219fdbb4e0093d051c8972fb0b433f95",
     "hp1020_stock_parser_harness.py": "87175798036cb376447ae70cb4a35f82f7a3f06a3ca166c89c9ca8b8e38bba90",
@@ -2419,7 +2419,7 @@
         }
       }
     ],
-    "fixture_elf_sha256": "92e88d1a4e94800cec2e330bd6c0ea1a2b16f83a595e2cd2a58220bd037d536d",
+    "fixture_elf_sha256": "2a9a0593f4c1f489a43b906b9f15e42cf1911dfd5ec572edbea1ecc48ed31570",
     "fixture_source_sha256": "4712b471119d5352df32992940d55d30df24f0af3fd47dde32c7915495a186cd",
     "limits": "Synthetic, aligned ABI stacks and QEMU test_kc705_be with 32 physical ARs; not stock boot state, real core register count, interrupts, cache or malformed-stack recovery.",
     "mutation": {

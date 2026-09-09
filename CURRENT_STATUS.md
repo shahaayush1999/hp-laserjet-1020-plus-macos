@@ -21,10 +21,15 @@ evaluation; the owner consumes progress through chat, not documentation.
 - Original StatusMgr now runs under that scheduler with original queues and locks.
   Repeated/empty/multi-page notices drain; 26 notices exercise a full 25-message
   queue. Thirty focused cases pass with both priority orders and equality.
-  Only a persistent ONLINE subscription remains allocated. Runtime host services
-  are startup readiness and free; notice production still uses prior JobMgr replay.
-- Latest full aggregate passed both suites (87 consistency checks), including
-  scheduled StatusMgr with original locks. Detailed scopes sit beside components; `scripts/validate.sh` is offline-only.
+  Only a persistent ONLINE subscription remains allocated. Original memory
+  allocation/free and startup event waits now remove all runtime host services.
+  Notice production still uses prior JobMgr replay, with explicit storage migration.
+- Original memory pool passes 93 focused independent-engine cases: alignment,
+  preserved live bytes, fragmentation/coalescing, reserve admission and accounting.
+  Repeated free reaches a guarded read before the fixture arena; no device fault
+  is claimed.
+- Latest full aggregate passed both suites (88 consistency checks), including
+  original pool and scheduled StatusMgr without runtime host services. Detailed scopes sit beside components; `scripts/validate.sh` is offline-only.
 
 ## Corrections to preserve
 
@@ -44,8 +49,9 @@ evaluation; the owner consumes progress through chat, not documentation.
 
 ## Next action and limits
 
-**Offline only; no hardware test is authorized.** Investigate original allocator/free
-integration (new pool fixture/validator in progress) and additional
+**Offline only; no hardware test is authorized.** Extend timed-wait validation (initial
+sleep/queue-expiry/early-wakeup experiments pass), then integrate producer
+allocation and additional
 printing tasks under actual scheduling. Avoid duplicate models and test inflation.
 
 Conditional stock findings remain: delayed empty-document cleanup can remove the

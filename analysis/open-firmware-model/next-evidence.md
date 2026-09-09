@@ -142,14 +142,23 @@ to block. Final idle is accepted only after all counters/ownership/output checks
 pass; both tasks are suspended on empty queues. The original datastore constructor
 prefix initializes 38 binary semaphores, and two original mutexes protect status
 and datastore publication. These locks all execute and finish released with no
-waiters. Runtime host services are readiness and free; initial allocation and
-constructor thread creation also retain explicit substitutes. The datastore
+waiters. Runtime now has no whole-function host services. Original allocation/free use
+a seeded pool with an additional original semaphore; only the live 16-byte
+END_DOC notice storage is explicitly migrated from prior replay. An original
+event group starts unset, and the native producer sets readiness through original
+code, waking the status task when it ran first. Constructor thread creation
+still uses a setup substitute. The datastore
 constructor is stopped before its event-group/backing-value initialization, so
 existing descriptor fixtures remain. This removes task scheduling and lock
 substitutes for the selected status lifecycle, not for page completion, producer
 JobMgr replay, optional language callbacks or outgoing PrintMgr/JobMgr consumers.
-See `stock-execution/scheduled-status.md`. Original allocator/free integration
-and more printing tasks under the native scheduler are productive next avenues.
+See `stock-execution/scheduled-status.md`. Original allocation/free also pass 93 independent-engine cases covering alignment,
+payload preservation, deferred coalescing, reserve admission, live ownership and
+accounting. Repeated free of the first block reaches a read before the bounded
+arena; this negative case is caught by both RAM gates, not a device fault claim.
+See `stock-execution/pool.md`. Original pool boot discovery, end-to-end producer
+allocation, timed waits and more printing tasks under the native scheduler remain
+productive next avenues.
 
 The next **live** experiment remains the existing non-printing USB ladder.
 Further combined firmware integration cannot establish any of the device facts
