@@ -1,0 +1,742 @@
+{
+  "cases": [
+    {
+      "fill": 0,
+      "flag_override": null,
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 0,
+      "flag_override": [
+        1,
+        0
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 0,
+      "flag_override": [
+        0,
+        1
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 204,
+      "flag_override": null,
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 204,
+      "flag_override": [
+        1,
+        0
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 204,
+      "flag_override": [
+        0,
+        1
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 0,
+      "flag_override": null,
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "fill": 0,
+      "flag_override": [
+        1,
+        0
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "fill": 0,
+      "flag_override": [
+        0,
+        1
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "fill": 204,
+      "flag_override": null,
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "fill": 204,
+      "flag_override": [
+        1,
+        0
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "fill": 204,
+      "flag_override": [
+        0,
+        1
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "fill": 0,
+      "flag_override": null,
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 4,
+      "sizes": [
+        16,
+        80
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 0,
+      "flag_override": [
+        1,
+        0
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 4,
+      "sizes": [
+        16,
+        80
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 0,
+      "flag_override": [
+        0,
+        1
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 4,
+      "sizes": [
+        16,
+        80
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 204,
+      "flag_override": null,
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 4,
+      "sizes": [
+        16,
+        80
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 204,
+      "flag_override": [
+        1,
+        0
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 4,
+      "sizes": [
+        16,
+        80
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 204,
+      "flag_override": [
+        0,
+        1
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 1,
+      "reason": 4,
+      "sizes": [
+        16,
+        80
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "error": "unmapped RAM 0xc+4",
+      "fill": 0,
+      "flag_override": null,
+      "outcome": "invalid_read",
+      "pc": "0x1000eb6a",
+      "raster_chunks": 1,
+      "reason": 4,
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "error": "unmapped RAM 0xc+4",
+      "fill": 0,
+      "flag_override": [
+        1,
+        0
+      ],
+      "outcome": "invalid_read",
+      "pc": "0x1000eb6a",
+      "raster_chunks": 1,
+      "reason": 4,
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "error": "unmapped RAM 0xc+4",
+      "fill": 0,
+      "flag_override": [
+        0,
+        1
+      ],
+      "outcome": "invalid_read",
+      "pc": "0x1000eb6a",
+      "raster_chunks": 1,
+      "reason": 4,
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "error": "unmapped RAM 0xc+4",
+      "fill": 204,
+      "flag_override": null,
+      "outcome": "invalid_read",
+      "pc": "0x1000eb6a",
+      "raster_chunks": 1,
+      "reason": 4,
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "error": "unmapped RAM 0xc+4",
+      "fill": 204,
+      "flag_override": [
+        1,
+        0
+      ],
+      "outcome": "invalid_read",
+      "pc": "0x1000eb6a",
+      "raster_chunks": 1,
+      "reason": 4,
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "error": "unmapped RAM 0xc+4",
+      "fill": 204,
+      "flag_override": [
+        0,
+        1
+      ],
+      "outcome": "invalid_read",
+      "pc": "0x1000eb6a",
+      "raster_chunks": 1,
+      "reason": 4,
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "fill": 0,
+      "flag_override": null,
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 0,
+      "flag_override": [
+        1,
+        0
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 0,
+      "flag_override": [
+        0,
+        1
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 204,
+      "flag_override": null,
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 204,
+      "flag_override": [
+        1,
+        0
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 204,
+      "flag_override": [
+        0,
+        1
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 0,
+      "flag_override": null,
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "fill": 0,
+      "flag_override": [
+        1,
+        0
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "fill": 0,
+      "flag_override": [
+        0,
+        1
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "fill": 204,
+      "flag_override": null,
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "fill": 204,
+      "flag_override": [
+        1,
+        0
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "fill": 204,
+      "flag_override": [
+        0,
+        1
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 2,
+      "sizes": [
+        120
+      ],
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "fill": 0,
+      "flag_override": null,
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 4,
+      "sizes": [
+        16,
+        80
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 0,
+      "flag_override": [
+        1,
+        0
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 4,
+      "sizes": [
+        16,
+        80
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 0,
+      "flag_override": [
+        0,
+        1
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 4,
+      "sizes": [
+        16,
+        80
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 204,
+      "flag_override": null,
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 4,
+      "sizes": [
+        16,
+        80
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 204,
+      "flag_override": [
+        1,
+        0
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 4,
+      "sizes": [
+        16,
+        80
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "fill": 204,
+      "flag_override": [
+        0,
+        1
+      ],
+      "nonstack_word_references": [],
+      "outcome": "retained_allocation",
+      "raster_chunks": 5,
+      "reason": 4,
+      "sizes": [
+        16,
+        80
+      ],
+      "status": "pass",
+      "timing": "before_document_end"
+    },
+    {
+      "error": "unmapped RAM 0xc+4",
+      "fill": 0,
+      "flag_override": null,
+      "outcome": "invalid_read",
+      "pc": "0x1000eb6a",
+      "raster_chunks": 5,
+      "reason": 4,
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "error": "unmapped RAM 0xc+4",
+      "fill": 0,
+      "flag_override": [
+        1,
+        0
+      ],
+      "outcome": "invalid_read",
+      "pc": "0x1000eb6a",
+      "raster_chunks": 5,
+      "reason": 4,
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "error": "unmapped RAM 0xc+4",
+      "fill": 0,
+      "flag_override": [
+        0,
+        1
+      ],
+      "outcome": "invalid_read",
+      "pc": "0x1000eb6a",
+      "raster_chunks": 5,
+      "reason": 4,
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "error": "unmapped RAM 0xc+4",
+      "fill": 204,
+      "flag_override": null,
+      "outcome": "invalid_read",
+      "pc": "0x1000eb6a",
+      "raster_chunks": 5,
+      "reason": 4,
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "error": "unmapped RAM 0xc+4",
+      "fill": 204,
+      "flag_override": [
+        1,
+        0
+      ],
+      "outcome": "invalid_read",
+      "pc": "0x1000eb6a",
+      "raster_chunks": 5,
+      "reason": 4,
+      "status": "pass",
+      "timing": "after_document"
+    },
+    {
+      "error": "unmapped RAM 0xc+4",
+      "fill": 204,
+      "flag_override": [
+        0,
+        1
+      ],
+      "outcome": "invalid_read",
+      "pc": "0x1000eb6a",
+      "raster_chunks": 5,
+      "reason": 4,
+      "status": "pass",
+      "timing": "after_document"
+    }
+  ],
+  "elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "findings": [
+    "Original producers can send cancel reasons 2 and 4 to JobMgr under the recorded media/status fixtures; these selectors were not invented solely to trigger cleanup branches.",
+    "Reason 2 leaves a 120-byte document allocation at quiescence after either tested cancellation ordering. Reason 4 before END_DOC leaves an 80-byte child allocation plus its 16-byte completion notice. The retained document/child has no aligned pointer reference in tested non-stack writable RAM; this is bounded reachability evidence, not proof against arbitrary encoded references.",
+    "Reason 4 after END_DOC attempts a read through null at 0x1000eb6a. The same fixture avoids that invalid read when the acknowledgement is processed before END_DOC. Both CPU engines agree across fills, raster splits and overrides of the two work-release flags."
+  ],
+  "limits": "These are conditional stock-software findings, not observed printer faults. The single scheduled work is assumed to own the seeded video raster chain, reset is assumed to reach the original RAM tail, and the tested coordinator handshake is summarized as a queue relay. JobMgr executes independently in QEMU; its host stop boundary runs the tail through the separately QEMU-checked interpreter component. Engine stop, DMA ownership, interrupts, physical fault meaning and actual cancellation timing remain unverified. Status publication callbacks are omitted in the producer fixtures.",
+  "producers": [
+    {
+      "reason": 2,
+      "status": "pass",
+      "trigger": "PrintMgr media state 3, message 50 word 1 zero, followed by StatusMgr active-document relay"
+    },
+    {
+      "reason": 4,
+      "status": "pass",
+      "trigger": "Status update 0x02000800 with state 2, prior event 0x100 and one active document; publication callbacks omitted"
+    }
+  ],
+  "source_sha256": {
+    "hp1020_qemu_lifecycle.py": "8e2633a72c4a9ea8ad1a19f55e40765001ea32a65dd77f7ab139e590cffd8597",
+    "hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
+    "hp1020_stock_cancellation.py": "be5cbbdd22b176a1f9e6479d62796f3579385e4236524ede340863a52d029446",
+    "hp1020_stock_jobmgr_harness.py": "4c863cff55c7027ed3f348d188c93225dacc0c0442b9f71792c8db96ce7ced93",
+    "hp1020_stock_lifecycle_harness.py": "d08e611620854498fa9fd65e809fd042219fdbb4e0093d051c8972fb0b433f95",
+    "hp1020_stock_stop.py": "1f716972e7d044b070eff24b05e9ac7fcf532a54131f5c69e42276c6db987de0",
+    "validate-hp1020-stock-cancellation.py": "d48d10c85c4e7e3a0e5188a1440d80ec0eb32119d9c47ef78c6d0ce56a128dde"
+  },
+  "status": "pass",
+  "total_cases": 48
+}

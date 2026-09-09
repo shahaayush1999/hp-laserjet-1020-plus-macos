@@ -70,10 +70,24 @@ and datastore writer emit ONLINE changes to queue 1; the original consumer
 updates its online byte. StatusMgr releases the remaining JobMgr completion
 notices, leaving no tracked live allocations in selected completed lifecycles.
 See `stock-execution/printmgr.md` and `stock-execution/notifications.md`.
-Engine/Video acknowledgement production, work retirement and status publication
-remain explicit boundaries. Investigate them before promoting the preliminary
-cancellation leak/null-access experiments; an injected acknowledgement alone
-does not establish the actual stopping state.
+Original engine cancellation queues acknowledgement 37 before calling the
+hardware-stop routine. The original video post-reset RAM tail decrements raster
+references and clears its slots before sending 37. Both agree with QEMU under
+explicit cut-point preconditions; the omitted hardware reset/wait prefix remains
+blocked. See `stock-execution/stop.md`.
+
+Cancellation selectors 2 and 4 now have executed original producer paths. Under
+the single-work ownership/reset-tail fixture, selector 2 retains a 120-byte
+document allocation; selector 4 after END_DOC reads through null at `0x1000eb6a`.
+Acknowledgement before END_DOC avoids that read but leaves an 80-byte child plus
+its completion notice. Two fills, raster splits and release-flag overrides agree
+across both engines. No aligned reference to the retained document/child remains
+in tested non-stack writable RAM. This does not rule out arbitrary encoded
+references or prove real-world reachability. See `stock-execution/cancellation.md`.
+The precise remaining questions are whether real cancellation reaches the tested
+one-work video ownership state, whether reset reaches that RAM tail, and how RTOS
+ordering places END_DOC versus acknowledgement. Status publication remains a
+host boundary worth replacing with original execution before further claims.
 
 The next **live** experiment remains the existing non-printing USB ladder.
 Further combined firmware integration cannot establish any of the device facts

@@ -10,9 +10,24 @@ from hp1020_qemu_ram import RETURN, STACK_TOP
 from hp1020_xtensa_call0 import STOP
 
 
-def run_task(state, q, host, args=(), budget=100000):
+def run_task(state, q, host, args=(), budget=100000, prologue=None, stack_words=()):
+    """Run a task, or enter a RAM fragment after only its original ENTRY.
+
+    A prologue explicitly omits every instruction between ENTRY and state.pc.
+    Supplied stack words are boundary preconditions, not recovered execution.
+    This option cannot establish effects of an omitted hardware prefix.
+    """
     entry = state.pc
     code = state.code_ranges + VECTORS + [(0x1001b770,0x1001b788)]
+    assert len(args) <= 6
+    cut_pending = prologue is not None
+    if cut_pending:
+        op,_,raw = state.program.instruction(prologue)
+        assert op == 'entry' and len(raw) == 3
+        assert any(a<=entry<b for a,b in state.code_ranges)
+        code += [(prologue,prologue+3)]
+    else:
+        assert not stack_words
     host = set(host) - {0x1001b770}
     q.load(state.program.path)
     def to_qemu():
@@ -29,13 +44,23 @@ def run_task(state, q, host, args=(), budget=100000):
     q.put(top-12,(top+64).to_bytes(4,'big'))
     q.set_reg(111,0x10000000)
     q.set_reg(42,0x40000)
-    q.set_reg(9,entry)
+    q.set_reg(9,prologue if cut_pending else entry)
     for i,value in enumerate(args,11):
         q.set_reg(i,value)
     state.qemu_steps = 0
     state.vector_entries = {hex(a):0 for a,_ in VECTORS}
     while True:
         pc = q.reg(0)
+        if cut_pending and pc == prologue+3:
+            wb = q.reg(38)
+            sp = q.reg(((wb*4+1)%32)+1)
+            for offset,value in stack_words:
+                state.write(sp+offset,4,value)
+                q.put(sp+offset,value.to_bytes(4,'big'))
+            state.entry_cut = dict(prologue=hex(prologue),resume=hex(entry),stack_words=stack_words)
+            q.set_reg(0,entry)
+            cut_pending = False
+            continue
         if pc == RETURN:
             from_qemu()
             assert q.reg(38) == 0 and q.reg(39) == 1
@@ -65,9 +90,9 @@ def run_task(state, q, host, args=(), budget=100000):
             continue
         state.pc = pc
         if pc != RETURN-3:
-            if not any(a<=pc<b for a,b in code):
+            op,operands,raw = state.program.instruction(pc)
+            if not any(a<=pc and pc+len(raw)<=b for a,b in code):
                 raise ValueError(f'QEMU task left selected code: {pc:#x}')
-            op,operands,_ = state.program.instruction(pc)
             guard_memory(state,q,op,operands)
         if hex(pc) in state.vector_entries:
             state.vector_entries[hex(pc)] += 1

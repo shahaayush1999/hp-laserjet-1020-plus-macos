@@ -110,6 +110,12 @@ run_step "Execute original PrintMgr stop and notification paths" \
 run_step "Execute original notification routing and final ownership" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-stock-notifications.py"
 
+run_step "Execute original stop acknowledgement boundaries" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-stock-stop.py"
+
+run_step "Check original cancellation producers and conditional cleanup" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-stock-cancellation.py"
+
 run_step "Audit original instruction annotations and unresolved encodings" \
   "$ROOT_DIR/scripts/audit-hp1020-instruction-properties.py"
 

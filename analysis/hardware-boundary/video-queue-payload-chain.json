@@ -107,13 +107,6 @@
     },
     {
       "confidence": "high",
-      "evidence": "engine dispatch stores param_1[3] into engine state +0x68 for message 0x0b/0x40",
-      "function": "0x10016164",
-      "object": "engine state +0x68 active work pointer",
-      "stage": "engine_active_work"
-    },
-    {
-      "confidence": "high",
       "evidence": "PrintMgr receives a queue message into aiStack_50 and dispatches by message id",
       "function": "0x1000f324",
       "object": "PrintMgr queue message array",
@@ -128,13 +121,6 @@
     },
     {
       "confidence": "high",
-      "evidence": "PrintMgr pops the pending head and appends that same node to the active list before engine message 0x0b",
-      "function": "0x1000f574 -> 0x10013050 -> 0x10013000",
-      "object": "same 0x10-byte list node",
-      "stage": "print_mgr_pending_to_active_list"
-    },
-    {
-      "confidence": "high",
       "evidence": "PrintMgr loads uVar10 from node +0xc, sends queue 8 message 0x0b with uVar10, and wrapper places param_5 into uStack_24",
       "function": "0x1000f574 -> 0x10010218",
       "object": "pending-list node +0xc payload copied into message word 4",
@@ -146,6 +132,20 @@
       "function": "0x10013c18 -> 0x10014910",
       "object": "VideoThread active work pointer",
       "stage": "video_thread_prepare"
+    },
+    {
+      "confidence": "high",
+      "evidence": "PrintMgr pops the pending head and appends that same node to the active list before engine message 0x0b",
+      "function": "0x1000f574 -> 0x10013050 -> 0x10013000",
+      "object": "same 0x10-byte list node",
+      "stage": "print_mgr_pending_to_active_list"
+    },
+    {
+      "confidence": "high",
+      "evidence": "engine dispatch stores param_1[3] into engine state +0x68 for message 0x0b/0x40",
+      "function": "0x10016164",
+      "object": "engine state +0x68 active work pointer",
+      "stage": "engine_active_work"
     }
   ],
   "status": "pass",

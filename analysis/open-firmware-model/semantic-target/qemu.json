@@ -961,9 +961,9 @@
   "register_map_source": "https://github.com/qemu/qemu/blob/v11.1.1/target/xtensa/core-test_kc705_be/gdb-config.c.inc",
   "scope": "Original compiled BE/call0 target ELF bytes loaded through a private Unix GDB socket. Original stock memset/memcpy/memmove/strlen also run through actual windowed CALL8/ENTRY/RETW and hardware loops, matching complete 1024-byte RAM oracles. No QEMU instruction decoding is delegated to our interpreter. No printer or host USB backend exists.",
   "source_sha256": {
-    "hp1020_qemu_lifecycle.py": "2905efd22e7bb59ca04fc9a5c0ff222b1171ddd495a2cd4bbca4e286fe238a70",
+    "hp1020_qemu_lifecycle.py": "8e2633a72c4a9ea8ad1a19f55e40765001ea32a65dd77f7ab139e590cffd8597",
     "hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
-    "hp1020_qemu_stock_parser.py": "2b338866ecc07ddc4ac95f5e772da18a2a0b8c0bfc89694c1e30305944a632c0",
+    "hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
     "hp1020_qemu_windows.py": "b3854d0a427e52fe7fe24e2b3e73881511c352c38f995f44574c71094791746c",
     "hp1020_stock_jobmgr_harness.py": "4c863cff55c7027ed3f348d188c93225dacc0c0442b9f71792c8db96ce7ced93",
     "hp1020_stock_lifecycle_harness.py": "d08e611620854498fa9fd65e809fd042219fdbb4e0093d051c8972fb0b433f95",
@@ -2419,7 +2419,7 @@
         }
       }
     ],
-    "fixture_elf_sha256": "8b3282aef16296068e4cca3d601aefbeeb5a94ced770a172d70ac623f195e7ca",
+    "fixture_elf_sha256": "f6af524bf07be18e7ae20cd6ec137dd3e202f3ff3372d9fceabd7112bd0a21f5",
     "fixture_source_sha256": "4712b471119d5352df32992940d55d30df24f0af3fd47dde32c7915495a186cd",
     "limits": "Synthetic, aligned ABI stacks and QEMU test_kc705_be with 32 physical ARs; not stock boot state, real core register count, interrupts, cache or malformed-stack recovery.",
     "mutation": {

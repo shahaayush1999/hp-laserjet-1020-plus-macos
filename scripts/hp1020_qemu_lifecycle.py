@@ -57,9 +57,9 @@ class QemuLifecycle(LifecycleHarness):
                 continue
             self.pc = pc
             if pc != RETURN-3:
-                if not any(a<=pc<b for a,b in self.code_ranges):
+                op,args,raw = self.program.instruction(pc)
+                if not any(a<=pc and pc+len(raw)<=b for a,b in self.code_ranges):
                     raise ValueError(f'QEMU lifecycle left selected code: {pc:#x}')
-                op,args,_ = self.program.instruction(pc)
                 guard_memory(self,q,op,args)
             if hex(pc) in self.vector_entries:self.vector_entries[hex(pc)] += 1
             self.visited.add(pc);self.steps += 1;self.qemu_steps += 1

@@ -179,11 +179,13 @@ def build_report() -> dict[str, Any]:
                         "Stock constructor control flow must preserve the corrected queue identities and independent registration-helper audit.",
                         evidence="analysis/queue-routing/registration.json"))
 
-    for name, total in (("printmgr",40),("notifications",12)):
+    for name, total in (("printmgr",40),("notifications",12),("stop",90),("cancellation",48)):
         execution = read_json(f"analysis/open-firmware-model/stock-execution/{name}.json")
         checks.append(check(f"original_{name}_execution",
                             execution["status"] == "pass" and execution["total_cases"] == total
                             and all(c["status"] == "pass" for c in execution["cases"])
+                            and (name != "stop" or execution["prefix_gate"]["status"] == "blocked"
+                                 and execution["instruction_span_gate"]["status"] == "blocked")
                             and all(hashlib.sha256((ROOT_DIR/"scripts"/p).read_bytes()).hexdigest() == h
                                     for p,h in execution["source_sha256"].items()),
                             "Original routing and allocation ownership must agree with QEMU and explicit fixture oracles.",

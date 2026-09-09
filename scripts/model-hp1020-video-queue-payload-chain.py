@@ -100,13 +100,6 @@ def build_report() -> dict[str, Any]:
             "confidence": "medium-high",
         },
         {
-            "stage": "engine_active_work",
-            "function": "0x10016164",
-            "object": "engine state +0x68 active work pointer",
-            "evidence": "engine dispatch stores param_1[3] into engine state +0x68 for message 0x0b/0x40",
-            "confidence": "high",
-        },
-        {
             "stage": "print_mgr_receive_message",
             "function": "0x1000f324",
             "object": "PrintMgr queue message array",
@@ -121,13 +114,6 @@ def build_report() -> dict[str, Any]:
             "confidence": "high",
         },
         {
-            "stage": "print_mgr_pending_to_active_list",
-            "function": "0x1000f574 -> 0x10013050 -> 0x10013000",
-            "object": "same 0x10-byte list node",
-            "evidence": "PrintMgr pops the pending head and appends that same node to the active list before engine message 0x0b",
-            "confidence": "high",
-        },
-        {
             "stage": "print_mgr_video_send",
             "function": "0x1000f574 -> 0x10010218",
             "object": "pending-list node +0xc payload copied into message word 4",
@@ -139,6 +125,20 @@ def build_report() -> dict[str, Any]:
             "function": "0x10013c18 -> 0x10014910",
             "object": "VideoThread active work pointer",
             "evidence": "VideoThread receives message 0x0b, stores uStack_24 at video state +0x60, and calls prepare(piVar3)",
+            "confidence": "high",
+        },
+        {
+            "stage": "print_mgr_pending_to_active_list",
+            "function": "0x1000f574 -> 0x10013050 -> 0x10013000",
+            "object": "same 0x10-byte list node",
+            "evidence": "PrintMgr pops the pending head and appends that same node to the active list before engine message 0x0b",
+            "confidence": "high",
+        },
+        {
+            "stage": "engine_active_work",
+            "function": "0x10016164",
+            "object": "engine state +0x68 active work pointer",
+            "evidence": "engine dispatch stores param_1[3] into engine state +0x68 for message 0x0b/0x40",
             "confidence": "high",
         },
     ]

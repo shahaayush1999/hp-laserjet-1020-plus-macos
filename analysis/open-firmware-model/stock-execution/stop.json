@@ -1,0 +1,847 @@
+{
+  "cases": [
+    {
+      "active": false,
+      "deferred": false,
+      "fill": 0,
+      "kind": "engine_stop_prefix",
+      "reason": 1,
+      "status": "pass"
+    },
+    {
+      "active": true,
+      "deferred": false,
+      "fill": 0,
+      "kind": "engine_stop_prefix",
+      "reason": 1,
+      "status": "pass"
+    },
+    {
+      "active": false,
+      "deferred": true,
+      "fill": 0,
+      "kind": "engine_stop_prefix",
+      "reason": 1,
+      "status": "pass"
+    },
+    {
+      "active": true,
+      "deferred": true,
+      "fill": 0,
+      "kind": "engine_stop_prefix",
+      "reason": 1,
+      "status": "pass"
+    },
+    {
+      "active": false,
+      "deferred": false,
+      "fill": 0,
+      "kind": "engine_stop_prefix",
+      "reason": 2,
+      "status": "pass"
+    },
+    {
+      "active": true,
+      "deferred": false,
+      "fill": 0,
+      "kind": "engine_stop_prefix",
+      "reason": 2,
+      "status": "pass"
+    },
+    {
+      "active": false,
+      "deferred": true,
+      "fill": 0,
+      "kind": "engine_stop_prefix",
+      "reason": 2,
+      "status": "pass"
+    },
+    {
+      "active": true,
+      "deferred": true,
+      "fill": 0,
+      "kind": "engine_stop_prefix",
+      "reason": 2,
+      "status": "pass"
+    },
+    {
+      "active": false,
+      "deferred": false,
+      "fill": 0,
+      "kind": "engine_stop_prefix",
+      "reason": 3,
+      "status": "pass"
+    },
+    {
+      "active": true,
+      "deferred": false,
+      "fill": 0,
+      "kind": "engine_stop_prefix",
+      "reason": 3,
+      "status": "pass"
+    },
+    {
+      "active": false,
+      "deferred": true,
+      "fill": 0,
+      "kind": "engine_stop_prefix",
+      "reason": 3,
+      "status": "pass"
+    },
+    {
+      "active": true,
+      "deferred": true,
+      "fill": 0,
+      "kind": "engine_stop_prefix",
+      "reason": 3,
+      "status": "pass"
+    },
+    {
+      "active": false,
+      "deferred": false,
+      "fill": 0,
+      "kind": "engine_stop_prefix",
+      "reason": 4,
+      "status": "pass"
+    },
+    {
+      "active": true,
+      "deferred": false,
+      "fill": 0,
+      "kind": "engine_stop_prefix",
+      "reason": 4,
+      "status": "pass"
+    },
+    {
+      "active": false,
+      "deferred": true,
+      "fill": 0,
+      "kind": "engine_stop_prefix",
+      "reason": 4,
+      "status": "pass"
+    },
+    {
+      "active": true,
+      "deferred": true,
+      "fill": 0,
+      "kind": "engine_stop_prefix",
+      "reason": 4,
+      "status": "pass"
+    },
+    {
+      "active": false,
+      "deferred": false,
+      "fill": 90,
+      "kind": "engine_stop_prefix",
+      "reason": 1,
+      "status": "pass"
+    },
+    {
+      "active": true,
+      "deferred": false,
+      "fill": 90,
+      "kind": "engine_stop_prefix",
+      "reason": 1,
+      "status": "pass"
+    },
+    {
+      "active": false,
+      "deferred": true,
+      "fill": 90,
+      "kind": "engine_stop_prefix",
+      "reason": 1,
+      "status": "pass"
+    },
+    {
+      "active": true,
+      "deferred": true,
+      "fill": 90,
+      "kind": "engine_stop_prefix",
+      "reason": 1,
+      "status": "pass"
+    },
+    {
+      "active": false,
+      "deferred": false,
+      "fill": 90,
+      "kind": "engine_stop_prefix",
+      "reason": 2,
+      "status": "pass"
+    },
+    {
+      "active": true,
+      "deferred": false,
+      "fill": 90,
+      "kind": "engine_stop_prefix",
+      "reason": 2,
+      "status": "pass"
+    },
+    {
+      "active": false,
+      "deferred": true,
+      "fill": 90,
+      "kind": "engine_stop_prefix",
+      "reason": 2,
+      "status": "pass"
+    },
+    {
+      "active": true,
+      "deferred": true,
+      "fill": 90,
+      "kind": "engine_stop_prefix",
+      "reason": 2,
+      "status": "pass"
+    },
+    {
+      "active": false,
+      "deferred": false,
+      "fill": 90,
+      "kind": "engine_stop_prefix",
+      "reason": 3,
+      "status": "pass"
+    },
+    {
+      "active": true,
+      "deferred": false,
+      "fill": 90,
+      "kind": "engine_stop_prefix",
+      "reason": 3,
+      "status": "pass"
+    },
+    {
+      "active": false,
+      "deferred": true,
+      "fill": 90,
+      "kind": "engine_stop_prefix",
+      "reason": 3,
+      "status": "pass"
+    },
+    {
+      "active": true,
+      "deferred": true,
+      "fill": 90,
+      "kind": "engine_stop_prefix",
+      "reason": 3,
+      "status": "pass"
+    },
+    {
+      "active": false,
+      "deferred": false,
+      "fill": 90,
+      "kind": "engine_stop_prefix",
+      "reason": 4,
+      "status": "pass"
+    },
+    {
+      "active": true,
+      "deferred": false,
+      "fill": 90,
+      "kind": "engine_stop_prefix",
+      "reason": 4,
+      "status": "pass"
+    },
+    {
+      "active": false,
+      "deferred": true,
+      "fill": 90,
+      "kind": "engine_stop_prefix",
+      "reason": 4,
+      "status": "pass"
+    },
+    {
+      "active": true,
+      "deferred": true,
+      "fill": 90,
+      "kind": "engine_stop_prefix",
+      "reason": 4,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1,
+        2,
+        0,
+        1,
+        3
+      ],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1,
+        2,
+        0,
+        1,
+        3
+      ],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1,
+        2,
+        0,
+        1,
+        3
+      ],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1,
+        2,
+        0,
+        1,
+        3
+      ],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1,
+        2,
+        0,
+        1,
+        3
+      ],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1,
+        2,
+        0,
+        1,
+        3
+      ],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1,
+        2,
+        0,
+        1,
+        3
+      ],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1,
+        2,
+        0,
+        1,
+        3
+      ],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1,
+        2,
+        0,
+        1,
+        3
+      ],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 0,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1
+      ],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1
+      ],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1
+      ],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1
+      ],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1
+      ],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1
+      ],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1
+      ],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1
+      ],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        1
+      ],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 0,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 1,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 0,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 16,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "chains": [
+        3
+      ],
+      "cursor": 32,
+      "kind": "video_post_reset_tail",
+      "refs": 2,
+      "sign": 1,
+      "status": "pass"
+    },
+    {
+      "kind": "acknowledgement_packet_relay",
+      "reason": 1,
+      "status": "pass"
+    },
+    {
+      "kind": "acknowledgement_packet_relay",
+      "reason": 2,
+      "status": "pass"
+    },
+    {
+      "kind": "acknowledgement_packet_relay",
+      "reason": 3,
+      "status": "pass"
+    },
+    {
+      "kind": "acknowledgement_packet_relay",
+      "reason": 4,
+      "status": "pass"
+    }
+  ],
+  "elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "findings": [
+    "Engine message 15 clears the active/deferred work slots, sets state byte +0x28 and queues acknowledgement 37 to PrintMgr before calling hardware stop at 0x10016098. This acknowledgement cannot by itself establish completed hardware stopping.",
+    "After the explicitly omitted video reset/wait prefix, the original RAM tail decrements nonzero raster references and clears owned list/state slots. The sign-selected linked-list branch additionally subtracts 16 from nonzero cursors and emits release events; the five-slot branch preserves those cursors.",
+    "Video reset selector 1 emits acknowledgement 37 to PrintMgr. Relaying the selected original engine/video packets through original PrintMgr reproduces its two-stage handshake and final JobMgr acknowledgement."
+  ],
+  "instruction_span_gate": {
+    "end": "0x1001619f",
+    "pc": "0x1001619e",
+    "status": "blocked"
+  },
+  "limits": "The engine hardware-stop call is a terminal boundary. The entire Video reset/wait prefix is omitted: QEMU executes its original ENTRY, then enters 0x10013e00 with explicitly seeded stack words and video-owned lists. These tests establish conditional RAM bookkeeping and packet content only. They do not prove that reset reaches the tail, which raster lists are owned at cancellation time, DMA quiescence, interrupt scheduling, safe physical stop or recovery.",
+  "prefix_gate": {
+    "pc": "0x10013d4f",
+    "reason": "Omitted reset prefix cannot execute without an explicit fragment-entry precondition.",
+    "status": "blocked"
+  },
+  "source_sha256": {
+    "hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
+    "hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
+    "hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
+    "hp1020_stock_printmgr_harness.py": "6f5afe219a3f0aebca235a8f510ad2cac468c9624fbfe518e4593e4c79e50275",
+    "hp1020_stock_stop.py": "1f716972e7d044b070eff24b05e9ac7fcf532a54131f5c69e42276c6db987de0",
+    "validate-hp1020-stock-stop.py": "a730a039737fb870e74751abe3662e642d06f3dd23edc3d6fabbeb332c8ebd9a"
+  },
+  "status": "pass",
+  "total_cases": 90
+}

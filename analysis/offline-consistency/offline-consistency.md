@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `79`
+- checks: `81`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -18,6 +18,8 @@ It does not contact the printer.
 | `stock_queue_registration` | `watch` | Stock constructor control flow must preserve the corrected queue identities and independent registration-helper audit. | `analysis/queue-routing/registration.json` |
 | `original_printmgr_execution` | `watch` | Original routing and allocation ownership must agree with QEMU and explicit fixture oracles. | `analysis/open-firmware-model/stock-execution/printmgr.json` |
 | `original_notifications_execution` | `watch` | Original routing and allocation ownership must agree with QEMU and explicit fixture oracles. | `analysis/open-firmware-model/stock-execution/notifications.json` |
+| `original_stop_execution` | `watch` | Original routing and allocation ownership must agree with QEMU and explicit fixture oracles. | `analysis/open-firmware-model/stock-execution/stop.json` |
+| `original_cancellation_execution` | `watch` | Original routing and allocation ownership must agree with QEMU and explicit fixture oracles. | `analysis/open-firmware-model/stock-execution/cancellation.json` |
 | `status_correlation_event_count_matches_source` | `watch` | Status correlation must account for every currently cataloged engine 0x17 event word. | `analysis/status-path/status-code-correlation.json` |
 | `engine_events_are_not_direct_pjl_codes` | `watch` | Raw engine event words must not be mislabeled as final PJL CODE values. | `analysis/status-path/status-code-correlation.json` |
 | `print_model_invariants_have_no_failures` | `watch` | Offline ZjStream model invariants must remain green across generated print-path variants. | `analysis/open-firmware-model/model-invariants.json` |

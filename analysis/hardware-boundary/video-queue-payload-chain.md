@@ -20,12 +20,12 @@ The video code is almost certainly receiving the work object whose geometry is f
 | `work_object_creation` | `0x10009fed -> 0x10009b4c` | 0x94-byte video/page work object | `high` | START_PAGE passes the same a7 work pointer to the item builder and then sends it as JobMgr message 5 payload |
 | `raster_geometry_fill` | `0x1000e414` | same work object | `high` | JobMgr writes BIH/runtime block values into work +0x84/+0x88/+0x8c/+0x90 |
 | `printmgr_queue_handoff` | `0x1000e414 -> queue 1 message 0x0b` | work pointer in message word 4 | `medium-high` | JobMgr stores iVar9 in iStack_84 and sends PrintMgr queue 1 message 0x0b |
-| `engine_active_work` | `0x10016164` | engine state +0x68 active work pointer | `high` | engine dispatch stores param_1[3] into engine state +0x68 for message 0x0b/0x40 |
 | `print_mgr_receive_message` | `0x1000f324` | PrintMgr queue message array | `high` | PrintMgr receives a queue message into aiStack_50 and dispatches by message id |
 | `print_mgr_pending_node_create` | `0x10010298` | 0x10-byte pending-list node | `high` | pending node +0xc is assigned directly from param_2, with state flags at +4/+8 |
-| `print_mgr_pending_to_active_list` | `0x1000f574 -> 0x10013050 -> 0x10013000` | same 0x10-byte list node | `high` | PrintMgr pops the pending head and appends that same node to the active list before engine message 0x0b |
 | `print_mgr_video_send` | `0x1000f574 -> 0x10010218` | pending-list node +0xc payload copied into message word 4 | `high` | PrintMgr loads uVar10 from node +0xc, sends queue 8 message 0x0b with uVar10, and wrapper places param_5 into uStack_24 |
 | `video_thread_prepare` | `0x10013c18 -> 0x10014910` | VideoThread active work pointer | `high` | VideoThread receives message 0x0b, stores uStack_24 at video state +0x60, and calls prepare(piVar3) |
+| `print_mgr_pending_to_active_list` | `0x1000f574 -> 0x10013050 -> 0x10013000` | same 0x10-byte list node | `high` | PrintMgr pops the pending head and appends that same node to the active list before engine message 0x0b |
+| `engine_active_work` | `0x10016164` | engine state +0x68 active work pointer | `high` | engine dispatch stores param_1[3] into engine state +0x68 for message 0x0b/0x40 |
 
 ## `+0x26` Write Hits
 

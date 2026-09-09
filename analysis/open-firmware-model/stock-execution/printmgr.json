@@ -771,8 +771,8 @@
   "limits": "Both stop acknowledgements are injected queue inputs. Engine stop, Video reset, real queue scheduling and work-buffer retirement are outside this test. Empty/seeded RAM list and media-state fixtures are explicit. RTOS locks/startup and allocator share host services across engines. QEMU independently executes the selected CPU instructions, original register-window vectors and critical-mask helpers; it is not the printer CPU or hardware proof.",
   "source_sha256": {
     "hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
-    "hp1020_qemu_stock_parser.py": "2b338866ecc07ddc4ac95f5e772da18a2a0b8c0bfc89694c1e30305944a632c0",
-    "hp1020_qemu_task.py": "f0aa494b51e3a51b13de6c0969b231caa9c2aa1925253b3b7639d3148ea1c509",
+    "hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
+    "hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
     "hp1020_stock_printmgr_harness.py": "6f5afe219a3f0aebca235a8f510ad2cac468c9624fbfe518e4593e4c79e50275",
     "validate-hp1020-stock-printmgr.py": "c62d47a13fe53b1ddaaa0b9bd99e1f11f6ad342cdcad02397a90d7d66f0d2fbc"
   },

@@ -89,8 +89,8 @@
   "limits": "Original parser/JobMgr fixture supplies completion notices after injected FIFO completion. QEMU independently executes the producer and receiver instruction ranges. Queue relay and initialized task state are explicit composition boundaries. Status publication at 0x10010838 remains a host callback; optional host-language callbacks are disabled by original context flags. No USB, mechanical stop, DMA, RTOS schedule or physical printing is proved.",
   "source_sha256": {
     "hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
-    "hp1020_qemu_stock_parser.py": "2b338866ecc07ddc4ac95f5e772da18a2a0b8c0bfc89694c1e30305944a632c0",
-    "hp1020_qemu_task.py": "f0aa494b51e3a51b13de6c0969b231caa9c2aa1925253b3b7639d3148ea1c509",
+    "hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
+    "hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
     "hp1020_stock_lifecycle_harness.py": "d08e611620854498fa9fd65e809fd042219fdbb4e0093d051c8972fb0b433f95",
     "hp1020_stock_notifications.py": "d0acd7130585cc38a48368d2d10e26f2bef6534c9f124dfbae8b91991c98e9ca",
     "hp1020_stock_printmgr_harness.py": "6f5afe219a3f0aebca235a8f510ad2cac468c9624fbfe518e4593e4c79e50275",

@@ -108,7 +108,8 @@ class QemuParser(ParserHarness):
                 q.set_reg(0,ret)
                 continue
             allowed = self.code_ranges+VECTORS+[(RETURN-3,RETURN)]
-            if not any(a<=pc<b for a,b in allowed):
+            size = 3 if pc == RETURN-3 else len(self.program.instruction(pc)[2])
+            if not any(a<=pc and pc+size<=b for a,b in allowed):
                 raise ValueError(f'QEMU parser left selected code: {pc:#x}')
             if pc != RETURN-3:
                 op,operands,_ = self.program.instruction(pc)  # Exact annotated stock instruction start.
