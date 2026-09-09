@@ -57,8 +57,8 @@ and JobMgr lifetime/global RAM also agree, and QEMU reproduces the delayed-empty
 cleanup fault. All six original window spill/fill handlers run under nested
 CALL4/8/12; corrupting a saved return store is detected. These tests use a synthetic
 ABI stack and a different core configuration, not stock boot/interrupt/cache
-state. Further work includes status-notification ownership and interruption
-producer/acknowledgement paths.
+state. Original status ownership and selected interruption producers now execute
+as described below; actual scheduling and hardware stopping remain unverified.
 
 Original constructor analysis corrects a major inherited error: queue 0 is engine,
 queue 1 is PrintMgr, and JobMgr queue 3 uses object `0x10023e40`. The former
@@ -86,8 +86,15 @@ in tested non-stack writable RAM. This does not rule out arbitrary encoded
 references or prove real-world reachability. See `stock-execution/cancellation.md`.
 The precise remaining questions are whether real cancellation reaches the tested
 one-work video ownership state, whether reset reaches that RAM tail, and how RTOS
-ordering places END_DOC versus acknowledgement. Status publication remains a
-host boundary worth replacing with original execution before further claims.
+ordering places END_DOC versus acknowledgement. Original status construction and
+publication now execute in both CPU engines, including datastore writes, ONLINE
+subscriptions, duplicate suppression and a 100-word event-history ring across
+wraparound. The numeric cancel-only events produce selectors 1/3/4 without
+changing ONLINE; cancellation and offline bits are distinct. Completed lifecycle
+notices plus a matching-source clear exercise actual offline/online transitions.
+These runs use the constructor's empty language-context table; optional outward
+status callbacks, RTOS object creation/scheduling and queue delivery remain host
+boundaries. See `stock-execution/status-publication.md`.
 
 The next **live** experiment remains the existing non-printing USB ladder.
 Further combined firmware integration cannot establish any of the device facts

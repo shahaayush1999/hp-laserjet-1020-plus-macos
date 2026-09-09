@@ -1,5 +1,5 @@
 {
-  "check_count": 81,
+  "check_count": 82,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -35,6 +35,12 @@
       "detail": "Original routing and allocation ownership must agree with QEMU and explicit fixture oracles.",
       "evidence": "analysis/open-firmware-model/stock-execution/cancellation.json",
       "name": "original_cancellation_execution",
+      "severity": "watch"
+    },
+    {
+      "detail": "Original routing and allocation ownership must agree with QEMU and explicit fixture oracles.",
+      "evidence": "analysis/open-firmware-model/stock-execution/status-publication.json",
+      "name": "original_status-publication_execution",
       "severity": "watch"
     },
     {

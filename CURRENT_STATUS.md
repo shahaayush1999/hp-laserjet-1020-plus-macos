@@ -15,13 +15,14 @@ independent offline reverse engineering; the owner consumes progress through cha
   JobMgr cleanup and all six stock register-window handlers. Original PrintMgr
   stop sequencing, datastore notifications and final StatusMgr notice release
   also agree. Stop-prefix/tail and cancellation checks extend this, with explicit
-  hardware stopping/publication boundaries.
+  hardware stopping boundaries. Original status construction/publication, ONLINE
+  subscriber delivery and circular event history now agree in both CPU engines.
 - Original parser/libc, status decisions, JobMgr scheduling, allocator and selected
   MMIO-free render paths execute against independent oracles. Original completion,
   release and datastore bookkeeping now run with injected FIFO completion events;
   cooperative parser/JobMgr schedules exercise repeated documents and cleanup.
   Original stream recognition, buffering and dispatch now run in those schedules.
-- Latest aggregate passed both suites (81 consistency checks), including original
+- Latest aggregate passed both suites (82 consistency checks), including original
   stop boundaries, conditional cancellation, PrintMgr and notification ownership. Detailed scopes remain beside each component. `scripts/validate.sh` runs the offline-only aggregate validation.
 
 ## Corrections agents must not regress
@@ -47,11 +48,12 @@ independent offline reverse engineering; the owner consumes progress through cha
 
 **Offline only; no hardware test is authorized.**
 Continue removing host boundaries where original RAM-only code can run, especially
-status publication and cancellation scheduling. Original stop packets and the
+RTOS queue operations and cancellation scheduling. Original stop packets and the
 post-reset RAM tail now agree in QEMU; engine acknowledgement precedes its
 hardware-stop call. Conditional cancellation findings persist with that tail:
 selector 2 retains a document; selector 4 after END_DOC reads through null.
-Before END_DOC it instead retains a child record. Actual stopping/ownership and
+Before END_DOC it instead retains a child record. Status publication now executes for empty language-context tables; optional
+external status callbacks remain outside the test. Actual stopping/ownership and
 RTOS timing remain assumptions; these are not observed printer faults. Original stream admission now reproduces the delayed empty-document
 cleanup failure without manually reinvoking the parser. Eager completion avoids
 it; actual USB delivery, multi-language context and real scheduling remain

@@ -1,0 +1,125 @@
+{
+  "cases": [
+    {
+      "documents": 1,
+      "fill": 0,
+      "kind": "completed_lifecycle_and_status_clear",
+      "name": "one_document",
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 204,
+      "kind": "completed_lifecycle_and_status_clear",
+      "name": "one_document",
+      "status": "pass"
+    },
+    {
+      "documents": 3,
+      "fill": 0,
+      "kind": "completed_lifecycle_and_status_clear",
+      "name": "three_documents",
+      "status": "pass"
+    },
+    {
+      "documents": 3,
+      "fill": 204,
+      "kind": "completed_lifecycle_and_status_clear",
+      "name": "three_documents",
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 0,
+      "kind": "completed_lifecycle_and_status_clear",
+      "name": "three_pages",
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 204,
+      "kind": "completed_lifecycle_and_status_clear",
+      "name": "three_pages",
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 0,
+      "kind": "completed_lifecycle_and_status_clear",
+      "name": "empty",
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 204,
+      "kind": "completed_lifecycle_and_status_clear",
+      "name": "empty",
+      "status": "pass"
+    },
+    {
+      "event": "0x2000800",
+      "fill": 0,
+      "kind": "cancel_producer_with_publication",
+      "reason": 4,
+      "status": "pass"
+    },
+    {
+      "event": "0x2000800",
+      "fill": 204,
+      "kind": "cancel_producer_with_publication",
+      "reason": 4,
+      "status": "pass"
+    },
+    {
+      "event": "0x2000a00",
+      "fill": 0,
+      "kind": "cancel_producer_with_publication",
+      "reason": 3,
+      "status": "pass"
+    },
+    {
+      "event": "0x2000a00",
+      "fill": 204,
+      "kind": "cancel_producer_with_publication",
+      "reason": 3,
+      "status": "pass"
+    },
+    {
+      "event": "0x2100800",
+      "fill": 0,
+      "kind": "cancel_producer_with_publication",
+      "reason": 1,
+      "status": "pass"
+    },
+    {
+      "event": "0x2100800",
+      "fill": 204,
+      "kind": "cancel_producer_with_publication",
+      "reason": 1,
+      "status": "pass"
+    },
+    {
+      "capacity": 100,
+      "kind": "history_wrap",
+      "status": "pass",
+      "writes": 105
+    }
+  ],
+  "elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "findings": [
+    "Original StatusMgr constructor registers queue 10 and initializes status state 2, online byte 1, cached event 0x04800100 and source 10; RTOS object creation is an explicit host service.",
+    "Original startup/publication, datastore lock/read/write, ONLINE subscriber dispatch and 100-word event history all execute. Selected lifecycle notices balance counters and free every transient allocation, leaving only the persistent 20-byte ONLINE subscription.",
+    "The numeric preflight event sets ONLINE to zero; the tested matching-source clear event restores ONLINE and state 2. Duplicate clear events leave all original writable globals unchanged. The history ring agrees with a circular-array oracle across wraparound.",
+    "Cancel selectors 1, 3 and 4 are produced with original publication effects included under the recorded cached-status/active-document fixture. These events contain cancel bit 0x02000000 but lack offline bit 0x80000000: cached status/history/datastore 25 change while the online byte and ONLINE subscription stay unchanged."
+  ],
+  "limits": "Completed parser/JobMgr inputs still rely on injected FIFO completion. Engine events and source IDs are numeric fixtures, not physical calibration. RTOS object creation, scheduling, synchronization, allocation and queue delivery remain host services. The constructor initializes an empty language-context table, so optional outward status callbacks do not execute. No hardware, USB response or physical recovery is demonstrated.",
+  "source_sha256": {
+    "hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
+    "hp1020_stock_lifecycle_harness.py": "d08e611620854498fa9fd65e809fd042219fdbb4e0093d051c8972fb0b433f95",
+    "hp1020_stock_notifications.py": "d0acd7130585cc38a48368d2d10e26f2bef6534c9f124dfbae8b91991c98e9ca",
+    "hp1020_stock_status_publication.py": "0f2276305116672937c0aa96fe9fd67c34dc84cc89ff1be77d286c1a926acea3",
+    "validate-hp1020-stock-status-publication.py": "bea94e7778845d5203248a5388660f6c093912a8e006f77d7c58d7375d057470"
+  },
+  "status": "pass",
+  "total_cases": 15
+}

@@ -116,6 +116,9 @@ run_step "Execute original stop acknowledgement boundaries" \
 run_step "Check original cancellation producers and conditional cleanup" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-stock-cancellation.py"
 
+run_step "Execute original status publication and event history" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-stock-status-publication.py"
+
 run_step "Audit original instruction annotations and unresolved encodings" \
   "$ROOT_DIR/scripts/audit-hp1020-instruction-properties.py"
 
