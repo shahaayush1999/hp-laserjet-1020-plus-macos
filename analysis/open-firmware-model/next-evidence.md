@@ -112,6 +112,18 @@ but not consumed by those tasks in this test. This removes whole queue substitut
 from the selected status lifecycle while leaving scheduler timing, actual page
 completion and optional language callbacks unresolved. See `stock-execution/status-queue.md`.
 
+Original explicit window flushing, initial-stack construction and voluntary
+context save/restore now execute in QEMU. The stack builder also agrees with the
+interpreter. Saved return/stack and special-register fields match CPU snapshots;
+untouched physical data-register slots may alias older windows until access
+triggers spilling, so they are not assumed to be preserved incoming values.
+Two synthetic tasks repeatedly switch stacks through the original scheduler and
+RFE restore, preserving separate arithmetic accumulators and nested return chains.
+The fixture tasks explicitly select each other; original priority policy, queue
+blocking/wakeup integration, timer expiry and interrupt-driven preemption remain
+productive next boundaries. A saved-continuation mutation is detected. See
+`stock-execution/context.md`.
+
 The next **live** experiment remains the existing non-printing USB ladder.
 Further combined firmware integration cannot establish any of the device facts
 above. Once boot/USB behavior is proven, the validated C component can be joined

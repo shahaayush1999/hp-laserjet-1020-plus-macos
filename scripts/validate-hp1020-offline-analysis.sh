@@ -125,6 +125,9 @@ run_step "Execute original RTOS queues and pending suspension races" \
 run_step "Execute original status task with original queues" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-stock-status-queue.py"
 
+run_step "Execute original stack construction and context switches" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-stock-context.py"
+
 run_step "Audit original instruction annotations and unresolved encodings" \
   "$ROOT_DIR/scripts/audit-hp1020-instruction-properties.py"
 
