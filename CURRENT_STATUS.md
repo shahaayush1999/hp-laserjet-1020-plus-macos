@@ -1,88 +1,65 @@
 # Current handoff
 
 Updated: 2026-09-09. **The open replacement cannot print yet.**
-The working HP-based macOS printing setup is untouched. Current aim: evaluate
-independent offline reverse engineering; the owner consumes progress through chat.
+The working HP-based macOS setup is untouched. This is an offline capability
+evaluation; the owner consumes progress through chat, not documentation.
 
-## Implemented and verified offline
+## Verified offline
 
-- Four corrected assembly probes: idle, USB snapshot, endpoint-0 marker and inert
-  bulk/ZjStream framing. None of their corrected builds has live execution proof.
-- Bounded C parser and page/band planner, including execution of compiled BE/call0
-  Xtensa code in synthetic RAM. Reproducible compiler/assembler, sanitizers,
-  instruction interpreters and MMIO/unknown-opcode gates support these components.
-  Independent QEMU agrees on the C target, original parser/libc/arithmetic,
-  JobMgr cleanup and all six stock register-window handlers. Original PrintMgr
-  stop sequencing, datastore notifications and final StatusMgr notice release
-  also agree. Stop-prefix/tail and cancellation checks extend this, with explicit
-  hardware stopping boundaries. Original status construction/publication, ONLINE
-  subscriber delivery and circular event history now agree in both CPU engines.
-  Original queues now carry completed notices through the original status task.
-  FIFO wraparound and selected pending-suspension races also agree. Original
-  initial-stack construction, explicit window flush and repeated context switches
-  between two synthetic tasks now pass independent frame/arithmetic oracles.
-  Original kernel initialization, thread creation and priority-driven blocking/
-  wakeup now run two synthetic message tasks without scheduling substitutes.
-- Original parser/libc, status decisions, JobMgr scheduling, allocator and selected
-  MMIO-free render paths execute against independent oracles. Original completion,
-  release and datastore bookkeeping now run with injected FIFO completion events;
-  cooperative parser/JobMgr schedules exercise repeated documents and cleanup.
-  Original stream recognition, buffering and dispatch now run in those schedules.
-- Latest aggregate passed both suites (86 consistency checks), including original
-  original queues, context switching and priority-driven blocking/wakeup.
-  Detailed scopes remain beside each component. `scripts/validate.sh` runs the
-  offline-only aggregate validation.
+- Corrected BE assembly probes cover idle, endpoint-0 and inert bulk/ZjStream
+  framing. None of the corrected builds has live execution proof.
+- Bounded C parser and page/band planner execute as compiled Xtensa code in
+  synthetic RAM. Pinned toolchains, sanitizers, instruction interpreters and
+  strict code/RAM gates support independent checks against QEMU and other oracles.
+- Original parser/libc/arithmetic, work construction, selected render paths,
+  JobMgr completion/release and stream admission execute. FIFO page completion
+  remains an explicit input. PrintMgr cancellation, stop acknowledgements,
+  status publication/history and notification ownership also have execution proof.
+- Original window handlers, stack construction, voluntary context save/restore,
+  kernel initialization, thread creation, priority selection and blocking queues
+  run two synthetic tasks without scheduling substitutes.
+- Original StatusMgr now runs under that scheduler with original queues and locks.
+  Repeated/empty/multi-page notices drain; 26 notices exercise a full 25-message
+  queue. Thirty focused cases pass with both priority orders and equality.
+  Only a persistent ONLINE subscription remains allocated. Runtime host services
+  are startup readiness and free; notice production still uses prior JobMgr replay.
+- Latest full aggregate passed both suites (87 consistency checks), including
+  scheduled StatusMgr with original locks. Detailed scopes sit beside components; `scripts/validate.sh` is offline-only.
 
-## Corrections agents must not regress
+## Corrections to preserve
 
-- BE bit-branch numbering was reversed in the interpreter; libc and control-payload
-  regressions now catch this. Stock compiler annotations define valid instruction
-  starts and recover locations missed by linear disassembly.
-- Earlier probes contained LE instructions in BE ELF. Rebuilt; the old quiet idle
-  upload proves nothing. Use the repaired, pinned toolchain.
-- Stock helper `0x1001b668` performs unsigned floor division.
-- START_PAGE directly fills active work: VIDEO_Y/RET/ECONOMODE are `+0x26/+0x30/+0x32`;
-  `+0x22` is VIDEO_BPP and `+0x12` is NBIE. Default A4 window is 1200 bytes.
-- Endpoint-0 pointer clobbers are fixed. Original render changes list pointers
-  before returning busy; the former ring-model ordering was wrong.
-- Logical-clip metadata declares 156 bytes for 180 bytes of items. The narrow
-  planner rejects it and BPP4. Custom raster instruction effects remain unknown.
-
-- Stock constructor registration proves queue 0 is engine and queue 1 is PrintMgr.
-  Earlier maps reversed these IDs, creating false missing-consumer conclusions
-  for event 0x17 and datastore notification 0x2d. Use the registration audit.
+- Earlier probes contained LE instructions in BE ELF. The old quiet idle upload
+  proves nothing. Interpreter BE bit-branch numbering was also corrected.
+- Compiler annotations define valid instruction starts; saved decompilation can
+  omit whole functions/branches. Execute/check stock bytes before trusting labels.
+- `0x1001b668` is unsigned floor division. START_PAGE directly fills VIDEO_Y/RET/
+  ECONOMODE at `+0x26/+0x30/+0x32`; `+0x22` is VIDEO_BPP and `+0x12` NBIE.
+- Queue 0 is engine, queue 1 PrintMgr, queue 3 JobMgr. Earlier reversed mappings
+  produced false missing-consumer conclusions for messages 0x17 and 0x2d.
+- Datastore entry locks are 28-byte binary semaphores, distinct from its global
+  mutex. Entry 25 stores the current numeric status event, not an enable flag.
+- Original render changes pointers before rejecting busy. Nonfinal raster markers
+  retain allocation bytes; tested compressed paths ignore them. Logical-clip
+  metadata is inconsistent; the narrow planner rejects it and BPP4.
 
 ## Next action and limits
 
-**Offline only; no hardware test is authorized.**
-Continue removing host boundaries where original RAM-only code can run, especially
-original printing tasks under priority-driven blocking/wakeup. Original stop packets and the
-post-reset RAM tail now agree in QEMU; engine acknowledgement precedes its
-hardware-stop call. Conditional cancellation findings persist with that tail:
-selector 2 retains a document; selector 4 after END_DOC reads through null.
-Before END_DOC it instead retains a child record. Status publication now executes
-for empty language-context tables; optional
-external status callbacks remain outside the test. Actual stopping/ownership and
-RTOS timing remain assumptions; these are not observed printer faults. Original stream admission now reproduces the delayed empty-document
-cleanup failure without manually reinvoking the parser. Eager completion avoids
-it; actual USB delivery, multi-language context and real scheduling remain
-unverified. This conditional finding is not a narrow-replacement blocker.
-QEMU independently reproduces the delayed-empty-document failure and runs the
-stock window handlers under nested calls. It is not the printer CPU; real boot,
-interrupt/cache state and custom raster instructions remain outside this proof.
+**Offline only; no hardware test is authorized.** Investigate original allocator/free
+integration (new pool fixture/validator in progress) and additional
+printing tasks under actual scheduling. Avoid duplicate models and test inflation.
 
-Completion events and consumed raster slots are explicit host inputs. Passing
-lifetime checks does not establish DMA, printing, IRQ timing or recovery.
-Nonfinal raster markers retain allocation bytes; tested compressed render paths
-ignore them, while the known flag consumer is the alternate raw path.
+Conditional stock findings remain: delayed empty-document cleanup can remove the
+wrong list head; cancellation selector 2 retains a document; selector 4 after
+END_DOC reads through null, while earlier acknowledgement retains a child record.
+These depend on recorded completion/ownership/order fixtures, not observed printer
+faults. Engine acknowledgement precedes hardware stop. The video RAM tail is
+verified after an explicitly omitted hardware reset prefix.
 
-Live questions remain corrected boot/endpoint-0 execution, repeated bulk receive,
-custom raster ISA or measured bypass, video/cache ownership and physical engine
-timing/recovery. Detailed questions and evidence requirements are in
-`analysis/open-firmware-model/next-evidence.md`. The guarded non-printing USB ladder
-is available for a future specifically authorized test, not a current prerequisite.
+QEMU is a different core configuration. Real boot, IRQ/timer delivery, caches,
+custom raster instructions, DMA/engine ownership and physical recovery remain
+unproven. No printer contact, firmware upload or print-driving MMIO is authorized.
+Precise live questions remain in `analysis/open-firmware-model/next-evidence.md`;
+the guarded non-printing USB ladder is available only for a future specific request.
 
-## Resume
-
-Use `analysis/README.md` to locate relevant evidence and recover scratch tools.
-Keep this handoff current, commit coherent changes, push private `main`, verify sync.
+Use `analysis/README.md` for evidence and tool recovery. Preserve existing work,
+commit coherent checkpoints, push private `main`, and verify sync.

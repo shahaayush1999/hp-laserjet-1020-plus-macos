@@ -1,0 +1,1514 @@
+{
+  "cases": [
+    {
+      "documents": 1,
+      "fill": 0,
+      "fixture_elf_sha256": "d934ddbd84989fb6c1e10c2783c9f013a755f4f01cbc269dcc2792c331929541",
+      "fixture_source_sha256": "7ffbf2a6da505f87a5ede3266cc0041efbb94fb056b9588c8998f050cbc43862",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 7012,
+      "name": "one_document",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        1,
+        2
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 204,
+      "fixture_elf_sha256": "d934ddbd84989fb6c1e10c2783c9f013a755f4f01cbc269dcc2792c331929541",
+      "fixture_source_sha256": "7ffbf2a6da505f87a5ede3266cc0041efbb94fb056b9588c8998f050cbc43862",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 7012,
+      "name": "one_document",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        1,
+        2
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 0,
+      "fixture_elf_sha256": "0fe9cf78d21370ebba2bc984a1461ae150ebf1fb39b31a35be886237d2bb16b1",
+      "fixture_source_sha256": "e4603e3f45494b008c301d118fa6b27e4d61fa33c9fea22a003287df554d7272",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 5886,
+      "name": "one_document",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        2,
+        1
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 204,
+      "fixture_elf_sha256": "0fe9cf78d21370ebba2bc984a1461ae150ebf1fb39b31a35be886237d2bb16b1",
+      "fixture_source_sha256": "e4603e3f45494b008c301d118fa6b27e4d61fa33c9fea22a003287df554d7272",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 5886,
+      "name": "one_document",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        2,
+        1
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 0,
+      "fixture_elf_sha256": "87771d87f30a0b716d1c199519bcbd64393e9d07d1493e2a1d1fa0abcc0796ee",
+      "fixture_source_sha256": "dd43477d501e56ec618e6a2b457de6bb7564e00af094566243cc565acd802a9f",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 6199,
+      "name": "one_document",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        7,
+        7
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 204,
+      "fixture_elf_sha256": "87771d87f30a0b716d1c199519bcbd64393e9d07d1493e2a1d1fa0abcc0796ee",
+      "fixture_source_sha256": "dd43477d501e56ec618e6a2b457de6bb7564e00af094566243cc565acd802a9f",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 6199,
+      "name": "one_document",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        7,
+        7
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 3,
+      "fill": 0,
+      "fixture_elf_sha256": "1e036a4e49a14352414c3f0ef2bcf575d86be3a2623b033b6ef5d81679b93397",
+      "fixture_source_sha256": "8ffe72f5e6b32e9925378b400e11bfeef92a221efe80832325373128f9c3800a",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 10250,
+      "name": "three_documents",
+      "notices": 6,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        1,
+        2
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 3,
+      "fill": 204,
+      "fixture_elf_sha256": "1e036a4e49a14352414c3f0ef2bcf575d86be3a2623b033b6ef5d81679b93397",
+      "fixture_source_sha256": "8ffe72f5e6b32e9925378b400e11bfeef92a221efe80832325373128f9c3800a",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 10250,
+      "name": "three_documents",
+      "notices": 6,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        1,
+        2
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 3,
+      "fill": 0,
+      "fixture_elf_sha256": "c00fed83d2a3f2274ec8cf207f5b907e1615a293943f6fd194a2c81dd292220f",
+      "fixture_source_sha256": "34202f5385e73d66ce658e97b2ab821d0c0ac7eca8d6915171ca6f04817e12d4",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 6852,
+      "name": "three_documents",
+      "notices": 6,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        2,
+        1
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 3,
+      "fill": 204,
+      "fixture_elf_sha256": "c00fed83d2a3f2274ec8cf207f5b907e1615a293943f6fd194a2c81dd292220f",
+      "fixture_source_sha256": "34202f5385e73d66ce658e97b2ab821d0c0ac7eca8d6915171ca6f04817e12d4",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 6852,
+      "name": "three_documents",
+      "notices": 6,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        2,
+        1
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 3,
+      "fill": 0,
+      "fixture_elf_sha256": "50ff20e97350d3bcca15763f73b43b15f929eccda75ecbd714339441abdfcfd4",
+      "fixture_source_sha256": "34ec505ada7185521ebed4e58a7a70b1fba46f48f06446a80f4247aa1e432694",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 7165,
+      "name": "three_documents",
+      "notices": 6,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        7,
+        7
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 3,
+      "fill": 204,
+      "fixture_elf_sha256": "50ff20e97350d3bcca15763f73b43b15f929eccda75ecbd714339441abdfcfd4",
+      "fixture_source_sha256": "34ec505ada7185521ebed4e58a7a70b1fba46f48f06446a80f4247aa1e432694",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 7165,
+      "name": "three_documents",
+      "notices": 6,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        7,
+        7
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 13,
+      "fill": 0,
+      "fixture_elf_sha256": "e2779cef52a0914317496c092dcac6345e7b47fef29b0c74f0a12cfc8185682f",
+      "fixture_source_sha256": "4b40056b7edd9588c6a60350c2754a1cdf0daeb8bfb7860647e5d11dda1435f4",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 26440,
+      "name": "thirteen_documents",
+      "notices": 26,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        1,
+        2
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 13,
+      "fill": 204,
+      "fixture_elf_sha256": "e2779cef52a0914317496c092dcac6345e7b47fef29b0c74f0a12cfc8185682f",
+      "fixture_source_sha256": "4b40056b7edd9588c6a60350c2754a1cdf0daeb8bfb7860647e5d11dda1435f4",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 26440,
+      "name": "thirteen_documents",
+      "notices": 26,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        1,
+        2
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 13,
+      "fill": 0,
+      "fixture_elf_sha256": "0a021bf14819b7a0eb2f04bff6ae535e8055943cd6cb95820269becb0160bc8e",
+      "fixture_source_sha256": "cb5156e19311d28cffc33a3af24777ee582702db19f45703a12dbbfa8df861a6",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 12297,
+      "name": "thirteen_documents",
+      "notices": 26,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        2,
+        1
+      ],
+      "producer_full_waits": 1,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "producer",
+        "status",
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 13,
+      "fill": 204,
+      "fixture_elf_sha256": "0a021bf14819b7a0eb2f04bff6ae535e8055943cd6cb95820269becb0160bc8e",
+      "fixture_source_sha256": "cb5156e19311d28cffc33a3af24777ee582702db19f45703a12dbbfa8df861a6",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 12297,
+      "name": "thirteen_documents",
+      "notices": 26,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        2,
+        1
+      ],
+      "producer_full_waits": 1,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "producer",
+        "status",
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 13,
+      "fill": 0,
+      "fixture_elf_sha256": "50dca9160fbcff4c8e812b1527450baa7d347fb9cd0cb61adc04707fb39e0e7a",
+      "fixture_source_sha256": "5e4c900cc65a8e4ac26338561b7551eef26831465b0d26984ce026aa95e31a37",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 11999,
+      "name": "thirteen_documents",
+      "notices": 26,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        7,
+        7
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 13,
+      "fill": 204,
+      "fixture_elf_sha256": "50dca9160fbcff4c8e812b1527450baa7d347fb9cd0cb61adc04707fb39e0e7a",
+      "fixture_source_sha256": "5e4c900cc65a8e4ac26338561b7551eef26831465b0d26984ce026aa95e31a37",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 11999,
+      "name": "thirteen_documents",
+      "notices": 26,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        7,
+        7
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 0,
+      "fixture_elf_sha256": "d934ddbd84989fb6c1e10c2783c9f013a755f4f01cbc269dcc2792c331929541",
+      "fixture_source_sha256": "7ffbf2a6da505f87a5ede3266cc0041efbb94fb056b9588c8998f050cbc43862",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 7012,
+      "name": "three_pages",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        1,
+        2
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 204,
+      "fixture_elf_sha256": "d934ddbd84989fb6c1e10c2783c9f013a755f4f01cbc269dcc2792c331929541",
+      "fixture_source_sha256": "7ffbf2a6da505f87a5ede3266cc0041efbb94fb056b9588c8998f050cbc43862",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 7012,
+      "name": "three_pages",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        1,
+        2
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 0,
+      "fixture_elf_sha256": "0fe9cf78d21370ebba2bc984a1461ae150ebf1fb39b31a35be886237d2bb16b1",
+      "fixture_source_sha256": "e4603e3f45494b008c301d118fa6b27e4d61fa33c9fea22a003287df554d7272",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 5886,
+      "name": "three_pages",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        2,
+        1
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 204,
+      "fixture_elf_sha256": "0fe9cf78d21370ebba2bc984a1461ae150ebf1fb39b31a35be886237d2bb16b1",
+      "fixture_source_sha256": "e4603e3f45494b008c301d118fa6b27e4d61fa33c9fea22a003287df554d7272",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 5886,
+      "name": "three_pages",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        2,
+        1
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 0,
+      "fixture_elf_sha256": "87771d87f30a0b716d1c199519bcbd64393e9d07d1493e2a1d1fa0abcc0796ee",
+      "fixture_source_sha256": "dd43477d501e56ec618e6a2b457de6bb7564e00af094566243cc565acd802a9f",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 6199,
+      "name": "three_pages",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        7,
+        7
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 204,
+      "fixture_elf_sha256": "87771d87f30a0b716d1c199519bcbd64393e9d07d1493e2a1d1fa0abcc0796ee",
+      "fixture_source_sha256": "dd43477d501e56ec618e6a2b457de6bb7564e00af094566243cc565acd802a9f",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 6199,
+      "name": "three_pages",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        7,
+        7
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 0,
+      "fixture_elf_sha256": "d934ddbd84989fb6c1e10c2783c9f013a755f4f01cbc269dcc2792c331929541",
+      "fixture_source_sha256": "7ffbf2a6da505f87a5ede3266cc0041efbb94fb056b9588c8998f050cbc43862",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 7012,
+      "name": "empty",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        1,
+        2
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 204,
+      "fixture_elf_sha256": "d934ddbd84989fb6c1e10c2783c9f013a755f4f01cbc269dcc2792c331929541",
+      "fixture_source_sha256": "7ffbf2a6da505f87a5ede3266cc0041efbb94fb056b9588c8998f050cbc43862",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 7012,
+      "name": "empty",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        1,
+        2
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status",
+        "producer",
+        "status",
+        "producer"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 0,
+      "fixture_elf_sha256": "0fe9cf78d21370ebba2bc984a1461ae150ebf1fb39b31a35be886237d2bb16b1",
+      "fixture_source_sha256": "e4603e3f45494b008c301d118fa6b27e4d61fa33c9fea22a003287df554d7272",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 5886,
+      "name": "empty",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        2,
+        1
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 204,
+      "fixture_elf_sha256": "0fe9cf78d21370ebba2bc984a1461ae150ebf1fb39b31a35be886237d2bb16b1",
+      "fixture_source_sha256": "e4603e3f45494b008c301d118fa6b27e4d61fa33c9fea22a003287df554d7272",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 5886,
+      "name": "empty",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        2,
+        1
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 0,
+      "fixture_elf_sha256": "87771d87f30a0b716d1c199519bcbd64393e9d07d1493e2a1d1fa0abcc0796ee",
+      "fixture_source_sha256": "dd43477d501e56ec618e6a2b457de6bb7564e00af094566243cc565acd802a9f",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 6199,
+      "name": "empty",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        7,
+        7
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 204,
+      "fixture_elf_sha256": "87771d87f30a0b716d1c199519bcbd64393e9d07d1493e2a1d1fa0abcc0796ee",
+      "fixture_source_sha256": "dd43477d501e56ec618e6a2b457de6bb7564e00af094566243cc565acd802a9f",
+      "host_services": [
+        "0x1001214c",
+        "0x10013408"
+      ],
+      "instructions": 6199,
+      "name": "empty",
+      "notices": 2,
+      "original_mutexes": 2,
+      "original_semaphores": 38,
+      "packets": [
+        [
+          1,
+          [
+            45,
+            24,
+            0,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            15,
+            1
+          ]
+        ]
+      ],
+      "priorities": [
+        7,
+        7
+      ],
+      "producer_full_waits": 0,
+      "remaining_allocation_bytes": 20,
+      "selections": [
+        "status",
+        "producer",
+        "status"
+      ],
+      "status": "pass"
+    }
+  ],
+  "elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "findings": [
+    "The original StatusMgr task runs under original thread creation, priority selection, ready/suspension lists, queue sends/receives and context switching. A synthetic producer submits original completed JobMgr notice words; the receiver is no longer fed through a host queue substitute or manual task switch.",
+    "Normal, repeated, multi-page and empty completed streams balance start/end counters and release every transient tracked allocation. Only the persistent 20-byte ONLINE subscriber remains; actual queue buffers contain the expected ONLINE and cancellation outputs.",
+    "Both priority directions and equal priority agree. Thirteen documents create 26 notices, exceeding the original 25-message StatusMgr capacity; the higher-priority producer demonstrably blocks on the full queue, then resumes through original wakeup code.",
+    "At the final idle boundary both tasks are truly suspended on empty queues and preemption bookkeeping balances. Idle is accepted only after complete notice processing, ownership and output checks.",
+    "The original datastore constructor prefix creates 38 binary semaphores; the later datastore mutex creation is invoked separately with its observed arguments. Original StatusMgr construction creates its own mutex. All original lock/unlock operations execute, ending with semaphore counts restored and both mutexes unowned by count with no waiters."
+  ],
+  "limits": "Notice contents come from prior parser/JobMgr replay with injected FIFO page completion; those tasks do not run concurrently in this experiment. Allocation/free, constructor thread creation and startup readiness remain explicit host services, with strict tracked RAM ownership; after actual task scheduling begins, only readiness and free are hosted. The datastore constructor stops before event-group/backing-value initialization, retaining the existing descriptor fixture. Lock contention is absent from this two-task workload. Optional outward-language callbacks are absent. Outgoing PrintMgr/JobMgr packets remain queued. Infinite waits and zero time slices avoid timer/interrupt delivery. No hardware, USB, DMA, custom raster instruction, printing or recovery is demonstrated.",
+  "source_sha256": {
+    "hp1020_qemu_multitask.py": "dfb253f0d98da507cdc4f88ed9a9d11aeabf779af0a1661ed967ecd7d5251bee",
+    "hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
+    "hp1020_qemu_scheduled_status.py": "92fed362f57c57d60bd0245d9bf78d04abf66d8b0f8a749f3a42f8ca056fada6",
+    "hp1020_qemu_scheduler.py": "6bb45fc44d99da27be5b307b216969207ceb1a8b05bff780108d672d7ab3e724",
+    "hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
+    "hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
+    "hp1020_stock_lifecycle_harness.py": "d08e611620854498fa9fd65e809fd042219fdbb4e0093d051c8972fb0b433f95",
+    "hp1020_stock_notifications.py": "d0acd7130585cc38a48368d2d10e26f2bef6534c9f124dfbae8b91991c98e9ca",
+    "hp1020_stock_status_publication.py": "0f2276305116672937c0aa96fe9fd67c34dc84cc89ff1be77d286c1a926acea3",
+    "hp1020_stock_status_queue.py": "6f34a9c83c5e01b65380f5acb80d068f75452dc841922ba9892a5cd82e21b634",
+    "validate-hp1020-scheduled-status.py": "6cd81efa86233cc901c801a6072a795c14a6fe8b751945a9bc8da4c31a3758b3"
+  },
+  "status": "pass",
+  "total_cases": 30
+}

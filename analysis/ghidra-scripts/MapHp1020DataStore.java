@@ -46,7 +46,7 @@ public class MapHp1020DataStore extends GhidraScript {
         WORKING_NAMES.put(0x13, "MEDIA515/status variable backing slot");
         WORKING_NAMES.put(0x14, "MEDIA516/status variable backing slot");
         WORKING_NAMES.put(0x18, "PJL ONLINE boolean used by USTATUS DEVICE builder");
-        WORKING_NAMES.put(0x19, "USB/status notification enable flag");
+        WORKING_NAMES.put(0x19, "current numeric status event written by StatusMgr");
         WORKING_NAMES.put(0x1a, "PJL DISPLAY string pointer used by USTATUS DEVICE builder");
         WORKING_NAMES.put(0x1b, "StatusMgr USTATUS timing/enable slot");
         WORKING_NAMES.put(0x1d, "PJL INFO capability/state aggregate");
@@ -296,27 +296,28 @@ public class MapHp1020DataStore extends GhidraScript {
             out.println("| Address | Working label | Behavior |");
             out.println("|---:|---|---|");
             out.println("| `0x10011178` | `hp1020_datastore_get_value_candidate` | reads an indexed entry and returns an integer value for byte/halfword/word entries |");
-            out.println("| `0x100111b4` | `hp1020_datastore_lock_entry_candidate` | locks the matching mutex entry and returns the entry's value pointer |");
-            out.println("| `0x100111d8` | `hp1020_datastore_unlock_entry_candidate` | unlocks the matching mutex entry |");
+            out.println("| `0x100111b4` | `hp1020_datastore_lock_entry_candidate` | takes the matching binary semaphore and returns the entry's value pointer |");
+            out.println("| `0x100111d8` | `hp1020_datastore_unlock_entry_candidate` | releases the matching binary semaphore |");
             out.println("| `0x10010f54` | `hp1020_datastore_read_locked_candidate` | copies the indexed entry value into caller storage after locking the entry; callers must release or write back |");
             out.println("| `0x10010fd0` | `hp1020_datastore_write_notify_unlock_candidate` | writes caller storage into the indexed entry, notifies subscribers, then unlocks the entry |");
             out.println();
             out.printf("- data descriptor table pointer word: `0x%x -> 0x%x`%n", DATA_TABLE_PTR_WORD, dataBaseRaw);
-            out.printf("- lock/mutex table pointer word: `0x%x -> 0x%x`%n", LOCK_TABLE_PTR_WORD, lockBaseRaw);
+            out.printf("- binary-semaphore table pointer word: `0x%x -> 0x%x`%n", LOCK_TABLE_PTR_WORD, lockBaseRaw);
             out.printf("- data entry size: `0x%x`; lock entry size: `0x%x`%n", DATA_ENTRY_SIZE, LOCK_ENTRY_SIZE);
             out.println();
             out.println("## Important Entries");
             out.println();
-            out.println("| Index | Type | Current/static value | Pointer string | Working note | Helper uses |");
-            out.println("|---:|---:|---|---|---|---:|");
+            out.println("| Index | Type | Current/static value | Pointer string | Working note |");
+            out.println("|---:|---:|---|---|---|");
             for (DataEntry entry : entries) {
                 if (entry.note.isEmpty() && !uses.containsKey((long) entry.index)) {
                     continue;
                 }
-                int useCount = uses.getOrDefault((long) entry.index, List.of()).size();
-                out.printf("| `0x%02x` | `%d` | `%s` | `%s` | %s | `%d` |%n",
-                    entry.index, entry.words[2], md(entry.currentValue), md(entry.pointerString), md(entry.note), useCount);
+                out.printf("| `0x%02x` | `%d` | `%s` | `%s` | %s |%n",
+                    entry.index, entry.words[2], md(entry.currentValue), md(entry.pointerString), md(entry.note));
             }
+            out.println();
+            out.println("Helper-use captures are partial: decompiler references can miss direct calls, so counts are not coverage claims.");
             out.println();
             out.println("## Interpretation");
             out.println();

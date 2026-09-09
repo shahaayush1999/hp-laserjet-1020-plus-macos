@@ -1,0 +1,11 @@
+# Original status task under original scheduling
+
+30 QEMU cases pass scheduling, message, counter and lifetime oracles.
+
+- The original StatusMgr task runs under original thread creation, priority selection, ready/suspension lists, queue sends/receives and context switching. A synthetic producer submits original completed JobMgr notice words; the receiver is no longer fed through a host queue substitute or manual task switch.
+- Normal, repeated, multi-page and empty completed streams balance start/end counters and release every transient tracked allocation. Only the persistent 20-byte ONLINE subscriber remains; actual queue buffers contain the expected ONLINE and cancellation outputs.
+- Both priority directions and equal priority agree. Thirteen documents create 26 notices, exceeding the original 25-message StatusMgr capacity; the higher-priority producer demonstrably blocks on the full queue, then resumes through original wakeup code.
+- At the final idle boundary both tasks are truly suspended on empty queues and preemption bookkeeping balances. Idle is accepted only after complete notice processing, ownership and output checks.
+- The original datastore constructor prefix creates 38 binary semaphores; the later datastore mutex creation is invoked separately with its observed arguments. Original StatusMgr construction creates its own mutex. All original lock/unlock operations execute, ending with semaphore counts restored and both mutexes unowned by count with no waiters.
+
+Notice contents come from prior parser/JobMgr replay with injected FIFO page completion; those tasks do not run concurrently in this experiment. Allocation/free, constructor thread creation and startup readiness remain explicit host services, with strict tracked RAM ownership; after actual task scheduling begins, only readiness and free are hosted. The datastore constructor stops before event-group/backing-value initialization, retaining the existing descriptor fixture. Lock contention is absent from this two-task workload. Optional outward-language callbacks are absent. Outgoing PrintMgr/JobMgr packets remain queued. Infinite waits and zero time slices avoid timer/interrupt delivery. No hardware, USB, DMA, custom raster instruction, printing or recovery is demonstrated.

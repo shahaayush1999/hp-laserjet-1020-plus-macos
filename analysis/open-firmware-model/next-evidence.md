@@ -131,8 +131,25 @@ run counts, queue occupancy and final thread states match independent oracles.
 Priority equality/extremes, capacity, width and RAM fill vary. All queue/scheduling
 services execute original code. Infinite waits and zero time slices avoid timers.
 The original task shell also terminates a returned consumer when appropriate.
-This is a kernel experiment; actual parser/JobMgr/PrintMgr/StatusMgr task scheduling
-is not yet integrated. See `stock-execution/scheduler.md`.
+This kernel experiment uses synthetic tasks; original StatusMgr integration is
+described below, while parser/JobMgr/PrintMgr scheduling remains separate. See `stock-execution/scheduler.md`.
+
+Original StatusMgr now runs under actual queue blocking/wakeup and priority
+scheduling alongside a native producer of previously generated JobMgr notices.
+Thirty cases cover repeated/empty/multi-page streams, both priority orders and
+equality. Thirteen documents exceed its 25-message queue and force the producer
+to block. Final idle is accepted only after all counters/ownership/output checks
+pass; both tasks are suspended on empty queues. The original datastore constructor
+prefix initializes 38 binary semaphores, and two original mutexes protect status
+and datastore publication. These locks all execute and finish released with no
+waiters. Runtime host services are readiness and free; initial allocation and
+constructor thread creation also retain explicit substitutes. The datastore
+constructor is stopped before its event-group/backing-value initialization, so
+existing descriptor fixtures remain. This removes task scheduling and lock
+substitutes for the selected status lifecycle, not for page completion, producer
+JobMgr replay, optional language callbacks or outgoing PrintMgr/JobMgr consumers.
+See `stock-execution/scheduled-status.md`. Original allocator/free integration
+and more printing tasks under the native scheduler are productive next avenues.
 
 The next **live** experiment remains the existing non-printing USB ladder.
 Further combined firmware integration cannot establish any of the device facts
