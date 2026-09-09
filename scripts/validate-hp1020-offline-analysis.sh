@@ -128,6 +128,9 @@ run_step "Execute original status task with original queues" \
 run_step "Execute original stack construction and context switches" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-stock-context.py"
 
+run_step "Execute original priority scheduling and blocking queues" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-stock-scheduler.py"
+
 run_step "Audit original instruction annotations and unresolved encodings" \
   "$ROOT_DIR/scripts/audit-hp1020-instruction-properties.py"
 

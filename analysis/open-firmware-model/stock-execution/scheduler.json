@@ -1,0 +1,3746 @@
+{
+  "cases": [
+    {
+      "capacity": 1,
+      "consumer_final_state": 0,
+      "count": 1,
+      "distinct_instructions": 834,
+      "fill": 0,
+      "fixture_elf_sha256": "fed386104260e652d9719d77dfc1dac65a11f3f4eed8f82cd0675d8e26a9cef5",
+      "fixture_source_sha256": "aa6a64cca6fde9d9216bd1a28bfaaf95468a397691bf0594338c5d7c526a1b03",
+      "priorities": [
+        1,
+        2
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3510,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 922,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 0,
+      "count": 1,
+      "distinct_instructions": 834,
+      "fill": 204,
+      "fixture_elf_sha256": "fed386104260e652d9719d77dfc1dac65a11f3f4eed8f82cd0675d8e26a9cef5",
+      "fixture_source_sha256": "aa6a64cca6fde9d9216bd1a28bfaaf95468a397691bf0594338c5d7c526a1b03",
+      "priorities": [
+        1,
+        2
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3510,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 922,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 0,
+      "count": 1,
+      "distinct_instructions": 830,
+      "fill": 0,
+      "fixture_elf_sha256": "2ac4846d75f54223e86d3547b328b9a8006463c0658c41e5af1e2519c085973c",
+      "fixture_source_sha256": "1bea5b52101d6fd4fcf9adb0e032f4c19b271e0796cd77315557c28ca6af5bbb",
+      "priorities": [
+        1,
+        2
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3510,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 918,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 0,
+      "count": 1,
+      "distinct_instructions": 830,
+      "fill": 204,
+      "fixture_elf_sha256": "2ac4846d75f54223e86d3547b328b9a8006463c0658c41e5af1e2519c085973c",
+      "fixture_source_sha256": "1bea5b52101d6fd4fcf9adb0e032f4c19b271e0796cd77315557c28ca6af5bbb",
+      "priorities": [
+        1,
+        2
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3510,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 918,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 0,
+      "count": 1,
+      "distinct_instructions": 868,
+      "fill": 0,
+      "fixture_elf_sha256": "5e63e55de2266077d14b11926a95b0e2805c4b59c230ae8ac221bb77c68e22c6",
+      "fixture_source_sha256": "d97fc6f65ed6bbdde6ca10b698da184bba64a6756739bfd70723593ff2621b2e",
+      "priorities": [
+        1,
+        2
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3513,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 950,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 0,
+      "count": 1,
+      "distinct_instructions": 868,
+      "fill": 204,
+      "fixture_elf_sha256": "5e63e55de2266077d14b11926a95b0e2805c4b59c230ae8ac221bb77c68e22c6",
+      "fixture_source_sha256": "d97fc6f65ed6bbdde6ca10b698da184bba64a6756739bfd70723593ff2621b2e",
+      "priorities": [
+        1,
+        2
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3513,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 950,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 0,
+      "count": 1,
+      "distinct_instructions": 864,
+      "fill": 0,
+      "fixture_elf_sha256": "483624578f326d404579367b48544971f8ac6ff7eb8776ea0cae30b39ec13fc3",
+      "fixture_source_sha256": "1aeb9b4ffb48762d34db30b3d0bbb31ebaf43e0e5fe418cc9b44e2c8c26eafdf",
+      "priorities": [
+        1,
+        2
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3513,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 946,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 0,
+      "count": 1,
+      "distinct_instructions": 864,
+      "fill": 204,
+      "fixture_elf_sha256": "483624578f326d404579367b48544971f8ac6ff7eb8776ea0cae30b39ec13fc3",
+      "fixture_source_sha256": "1aeb9b4ffb48762d34db30b3d0bbb31ebaf43e0e5fe418cc9b44e2c8c26eafdf",
+      "priorities": [
+        1,
+        2
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3513,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 946,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 0,
+      "count": 7,
+      "distinct_instructions": 922,
+      "fill": 0,
+      "fixture_elf_sha256": "7f66ca28a09dbcefbf2d163761c08ea29603f1a4ca38e5b4d56bdf6bcd8f67c4",
+      "fixture_source_sha256": "cdf2fcef14d5af00184f32ee674e7ed8631eafbd12b1ea4573df4d3a1e81196f",
+      "priorities": [
+        1,
+        2
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3510,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 5440,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 0,
+      "count": 7,
+      "distinct_instructions": 922,
+      "fill": 204,
+      "fixture_elf_sha256": "7f66ca28a09dbcefbf2d163761c08ea29603f1a4ca38e5b4d56bdf6bcd8f67c4",
+      "fixture_source_sha256": "cdf2fcef14d5af00184f32ee674e7ed8631eafbd12b1ea4573df4d3a1e81196f",
+      "priorities": [
+        1,
+        2
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3510,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 5440,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 0,
+      "count": 7,
+      "distinct_instructions": 922,
+      "fill": 0,
+      "fixture_elf_sha256": "0fa0738ebe2c323790a85fb91a17f23397e0383cf6dc910fcbdaf299d1d675d6",
+      "fixture_source_sha256": "31a2fc107171140714f8f0d9f94500e18a7319cce298fb3b3f8fb76c7a89919f",
+      "priorities": [
+        1,
+        2
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3510,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 4198,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 0,
+      "count": 7,
+      "distinct_instructions": 922,
+      "fill": 204,
+      "fixture_elf_sha256": "0fa0738ebe2c323790a85fb91a17f23397e0383cf6dc910fcbdaf299d1d675d6",
+      "fixture_source_sha256": "31a2fc107171140714f8f0d9f94500e18a7319cce298fb3b3f8fb76c7a89919f",
+      "priorities": [
+        1,
+        2
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3510,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 4198,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 0,
+      "count": 7,
+      "distinct_instructions": 967,
+      "fill": 0,
+      "fixture_elf_sha256": "ef82698272d66b54aba608c038c49739f765cb3fd227dbb2c5eddc46946ed526",
+      "fixture_source_sha256": "fbccf56ecec741d0b7e474b00c1ce213a96fc4e321374a42c1beaf7289986fa4",
+      "priorities": [
+        1,
+        2
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3513,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 5636,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 0,
+      "count": 7,
+      "distinct_instructions": 967,
+      "fill": 204,
+      "fixture_elf_sha256": "ef82698272d66b54aba608c038c49739f765cb3fd227dbb2c5eddc46946ed526",
+      "fixture_source_sha256": "fbccf56ecec741d0b7e474b00c1ce213a96fc4e321374a42c1beaf7289986fa4",
+      "priorities": [
+        1,
+        2
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3513,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 5636,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 0,
+      "count": 7,
+      "distinct_instructions": 967,
+      "fill": 0,
+      "fixture_elf_sha256": "2cce4955b6852705cb059db7c66dc005726f5b59b61ce4ae351dc7cf4143f1ca",
+      "fixture_source_sha256": "0c5107a2f0ffca4910f899b428ccf9c234ea0cd5a03091c4f217a1f62542e3cb",
+      "priorities": [
+        1,
+        2
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3513,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 4394,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 0,
+      "count": 7,
+      "distinct_instructions": 967,
+      "fill": 204,
+      "fixture_elf_sha256": "2cce4955b6852705cb059db7c66dc005726f5b59b61ce4ae351dc7cf4143f1ca",
+      "fixture_source_sha256": "0c5107a2f0ffca4910f899b428ccf9c234ea0cd5a03091c4f217a1f62542e3cb",
+      "priorities": [
+        1,
+        2
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3513,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 4394,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 851,
+      "fill": 0,
+      "fixture_elf_sha256": "d822604f53bbdbd32c9f9a4184ae9fa15520f611144064f078333d9db57b40d3",
+      "fixture_source_sha256": "c8c31a43fb12ffc47d560c5e0e1cf741a6370b9fc58506e8f2497d338c25dfa5",
+      "priorities": [
+        2,
+        1
+      ],
+      "result": 1,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3520,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1215,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 851,
+      "fill": 204,
+      "fixture_elf_sha256": "d822604f53bbdbd32c9f9a4184ae9fa15520f611144064f078333d9db57b40d3",
+      "fixture_source_sha256": "c8c31a43fb12ffc47d560c5e0e1cf741a6370b9fc58506e8f2497d338c25dfa5",
+      "priorities": [
+        2,
+        1
+      ],
+      "result": 1,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3520,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1215,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 851,
+      "fill": 0,
+      "fixture_elf_sha256": "9504001a3678fffe8452c69f69978fe858d47797e571187b804b526d404ea6f3",
+      "fixture_source_sha256": "cc8b2f6089850875c2f5cfb8fccfc99ca44ecb928b29e8abe06935a9db8e6206",
+      "priorities": [
+        2,
+        1
+      ],
+      "result": 1,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3520,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1215,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 851,
+      "fill": 204,
+      "fixture_elf_sha256": "9504001a3678fffe8452c69f69978fe858d47797e571187b804b526d404ea6f3",
+      "fixture_source_sha256": "cc8b2f6089850875c2f5cfb8fccfc99ca44ecb928b29e8abe06935a9db8e6206",
+      "priorities": [
+        2,
+        1
+      ],
+      "result": 1,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3520,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1215,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 874,
+      "fill": 0,
+      "fixture_elf_sha256": "a81261234d8f259bd758104cb99e806a7491d608f552e983fa6732764f4ba105",
+      "fixture_source_sha256": "59494e9ce1ad3262dec02db8838d8f57753096123e91dabda5550e24e26c0894",
+      "priorities": [
+        2,
+        1
+      ],
+      "result": 1,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3523,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1232,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 874,
+      "fill": 204,
+      "fixture_elf_sha256": "a81261234d8f259bd758104cb99e806a7491d608f552e983fa6732764f4ba105",
+      "fixture_source_sha256": "59494e9ce1ad3262dec02db8838d8f57753096123e91dabda5550e24e26c0894",
+      "priorities": [
+        2,
+        1
+      ],
+      "result": 1,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3523,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1232,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 874,
+      "fill": 0,
+      "fixture_elf_sha256": "88994ebf6b5c76600688377ed411ad8b70bcef080e2417784fc92c9379bfe1f9",
+      "fixture_source_sha256": "51243540437911b2c55aba81b99fb8985f50a3a192ca000f144f4a08d89bf3d4",
+      "priorities": [
+        2,
+        1
+      ],
+      "result": 1,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3523,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1232,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 874,
+      "fill": 204,
+      "fixture_elf_sha256": "88994ebf6b5c76600688377ed411ad8b70bcef080e2417784fc92c9379bfe1f9",
+      "fixture_source_sha256": "51243540437911b2c55aba81b99fb8985f50a3a192ca000f144f4a08d89bf3d4",
+      "priorities": [
+        2,
+        1
+      ],
+      "result": 1,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3523,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1232,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 851,
+      "fill": 0,
+      "fixture_elf_sha256": "b92568e9599cccbd24c73642f7aa029356b5e5087da99edd20be93a45fb1c5d1",
+      "fixture_source_sha256": "acb9bc321ba791557bee9efe90578c2d5fb0ea6494369f30bbea285d69e3b88d",
+      "priorities": [
+        2,
+        1
+      ],
+      "result": 28,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3520,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 5517,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 851,
+      "fill": 204,
+      "fixture_elf_sha256": "b92568e9599cccbd24c73642f7aa029356b5e5087da99edd20be93a45fb1c5d1",
+      "fixture_source_sha256": "acb9bc321ba791557bee9efe90578c2d5fb0ea6494369f30bbea285d69e3b88d",
+      "priorities": [
+        2,
+        1
+      ],
+      "result": 28,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3520,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 5517,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 851,
+      "fill": 0,
+      "fixture_elf_sha256": "097c0b66e9622b307b57d00377fb179b766929d7a69bf1f42b52d37b3a1fb016",
+      "fixture_source_sha256": "347d995ffcd073eca602cbac5ae079d4613919255245d8017d8bb88a17eda0a6",
+      "priorities": [
+        2,
+        1
+      ],
+      "result": 28,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3520,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 5517,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 851,
+      "fill": 204,
+      "fixture_elf_sha256": "097c0b66e9622b307b57d00377fb179b766929d7a69bf1f42b52d37b3a1fb016",
+      "fixture_source_sha256": "347d995ffcd073eca602cbac5ae079d4613919255245d8017d8bb88a17eda0a6",
+      "priorities": [
+        2,
+        1
+      ],
+      "result": 28,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3520,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 5517,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 874,
+      "fill": 0,
+      "fixture_elf_sha256": "0fc7c16f9fae12687b7ddfc66eea7c78fb7a6271783a6d0831944bd4ab1a0449",
+      "fixture_source_sha256": "5b5f27cd2ae3b4a28bfefda28dbd3579a370458d7bb72c6c502c3b01f87375bb",
+      "priorities": [
+        2,
+        1
+      ],
+      "result": 28,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3523,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 5636,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 874,
+      "fill": 204,
+      "fixture_elf_sha256": "0fc7c16f9fae12687b7ddfc66eea7c78fb7a6271783a6d0831944bd4ab1a0449",
+      "fixture_source_sha256": "5b5f27cd2ae3b4a28bfefda28dbd3579a370458d7bb72c6c502c3b01f87375bb",
+      "priorities": [
+        2,
+        1
+      ],
+      "result": 28,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3523,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 5636,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 874,
+      "fill": 0,
+      "fixture_elf_sha256": "b2787c46e4c9bd6b797383a72ae6939fa5488bd4e0bb6f95ffda22128ccf9a2b",
+      "fixture_source_sha256": "6784b3162539f4114745a8bd18107244a62a605138b3176faf89c6ef1ae2fb1e",
+      "priorities": [
+        2,
+        1
+      ],
+      "result": 28,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3523,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 5636,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 874,
+      "fill": 204,
+      "fixture_elf_sha256": "b2787c46e4c9bd6b797383a72ae6939fa5488bd4e0bb6f95ffda22128ccf9a2b",
+      "fixture_source_sha256": "6784b3162539f4114745a8bd18107244a62a605138b3176faf89c6ef1ae2fb1e",
+      "priorities": [
+        2,
+        1
+      ],
+      "result": 28,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3523,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 5636,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 829,
+      "fill": 0,
+      "fixture_elf_sha256": "d704ee5123571dcf5de86a99c727d988095dfab9a83f3f542e86769d08fe20b8",
+      "fixture_source_sha256": "b6fbff09fc07f4154cd73e391ae031008857766180adee1ab5495ea6fcc7c7f4",
+      "priorities": [
+        7,
+        7
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3502,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 978,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 829,
+      "fill": 204,
+      "fixture_elf_sha256": "d704ee5123571dcf5de86a99c727d988095dfab9a83f3f542e86769d08fe20b8",
+      "fixture_source_sha256": "b6fbff09fc07f4154cd73e391ae031008857766180adee1ab5495ea6fcc7c7f4",
+      "priorities": [
+        7,
+        7
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3502,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 978,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 825,
+      "fill": 0,
+      "fixture_elf_sha256": "a2dabce09722ec99de60ebed66b5b6dd1e6b737070f5411479965818491a1a6b",
+      "fixture_source_sha256": "792d9cabf1e33f9ec9d6d94aeae454508709655557f0150031ad5c996dcf73a3",
+      "priorities": [
+        7,
+        7
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3502,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 974,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 825,
+      "fill": 204,
+      "fixture_elf_sha256": "a2dabce09722ec99de60ebed66b5b6dd1e6b737070f5411479965818491a1a6b",
+      "fixture_source_sha256": "792d9cabf1e33f9ec9d6d94aeae454508709655557f0150031ad5c996dcf73a3",
+      "priorities": [
+        7,
+        7
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3502,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 974,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 863,
+      "fill": 0,
+      "fixture_elf_sha256": "a7961f749c86ce73b88b695e9c6f40c9991e75382b39dc4dc152473de774c676",
+      "fixture_source_sha256": "4a7cf3cf99c240c27dfb4de9e08554f3fdc08be59d765b72a1499d8b5cac45e6",
+      "priorities": [
+        7,
+        7
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3505,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1006,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 863,
+      "fill": 204,
+      "fixture_elf_sha256": "a7961f749c86ce73b88b695e9c6f40c9991e75382b39dc4dc152473de774c676",
+      "fixture_source_sha256": "4a7cf3cf99c240c27dfb4de9e08554f3fdc08be59d765b72a1499d8b5cac45e6",
+      "priorities": [
+        7,
+        7
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3505,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1006,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 859,
+      "fill": 0,
+      "fixture_elf_sha256": "0d5755159a70ed77067c63947575360686d38e6787218ee1e2363f7c87ed9ee4",
+      "fixture_source_sha256": "0c25fd424b873787fcdffbfa82d4267e683c21c14313fb712075212c081287f6",
+      "priorities": [
+        7,
+        7
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3505,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1002,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 859,
+      "fill": 204,
+      "fixture_elf_sha256": "0d5755159a70ed77067c63947575360686d38e6787218ee1e2363f7c87ed9ee4",
+      "fixture_source_sha256": "0c25fd424b873787fcdffbfa82d4267e683c21c14313fb712075212c081287f6",
+      "priorities": [
+        7,
+        7
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3505,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1002,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 915,
+      "fill": 0,
+      "fixture_elf_sha256": "5eed54721d2a17d4adeffce821484f2437fb034a0cb675fc4ec71b246a032cb7",
+      "fixture_source_sha256": "c73cc3e7d269c90e657c90010a88803061b6e6c686d168fd3319db390738e541",
+      "priorities": [
+        7,
+        7
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3502,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 3306,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 915,
+      "fill": 204,
+      "fixture_elf_sha256": "5eed54721d2a17d4adeffce821484f2437fb034a0cb675fc4ec71b246a032cb7",
+      "fixture_source_sha256": "c73cc3e7d269c90e657c90010a88803061b6e6c686d168fd3319db390738e541",
+      "priorities": [
+        7,
+        7
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3502,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 3306,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 913,
+      "fill": 0,
+      "fixture_elf_sha256": "fe81fc08296f4506031e5efad60b5a19240c0c82cec2d02fc5b0423ad64c95ef",
+      "fixture_source_sha256": "a5e1f30029d7289f3a92e67ed57847caa8f858c0b29dfde02d494f2bb255df0b",
+      "priorities": [
+        7,
+        7
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3502,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 2552,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 913,
+      "fill": 204,
+      "fixture_elf_sha256": "fe81fc08296f4506031e5efad60b5a19240c0c82cec2d02fc5b0423ad64c95ef",
+      "fixture_source_sha256": "a5e1f30029d7289f3a92e67ed57847caa8f858c0b29dfde02d494f2bb255df0b",
+      "priorities": [
+        7,
+        7
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3502,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 2552,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 973,
+      "fill": 0,
+      "fixture_elf_sha256": "3a31fe25a40917e58df21629e8c99ebdb3af140c459fda279929dbe01b2c6820",
+      "fixture_source_sha256": "68efc561b7b64ebfa6b38ef1264d7d8d8ca5c57ef85cbeb358f4c70fa84d6a3c",
+      "priorities": [
+        7,
+        7
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3505,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 3480,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 973,
+      "fill": 204,
+      "fixture_elf_sha256": "3a31fe25a40917e58df21629e8c99ebdb3af140c459fda279929dbe01b2c6820",
+      "fixture_source_sha256": "68efc561b7b64ebfa6b38ef1264d7d8d8ca5c57ef85cbeb358f4c70fa84d6a3c",
+      "priorities": [
+        7,
+        7
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3505,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 3480,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 971,
+      "fill": 0,
+      "fixture_elf_sha256": "0a6e3015f64541dec895a440574b49619bbf0e2c391abe6e36a35abbf2aed5ed",
+      "fixture_source_sha256": "9ed6fd0a16cabb355feb93740df4f85e25c068e0f73f0020629b771db0089033",
+      "priorities": [
+        7,
+        7
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3505,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 2737,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 971,
+      "fill": 204,
+      "fixture_elf_sha256": "0a6e3015f64541dec895a440574b49619bbf0e2c391abe6e36a35abbf2aed5ed",
+      "fixture_source_sha256": "9ed6fd0a16cabb355feb93740df4f85e25c068e0f73f0020629b771db0089033",
+      "priorities": [
+        7,
+        7
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3505,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 2737,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 0,
+      "count": 1,
+      "distinct_instructions": 841,
+      "fill": 0,
+      "fixture_elf_sha256": "ded8248ff58d913736e5013ac2148f06d6ff8785290aedbfe6b2d6fcf56db66c",
+      "fixture_source_sha256": "074d9d195b89ab369e0df178b678a74fa4e0cc759a5add1e6676cef57f514936",
+      "priorities": [
+        0,
+        31
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3510,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 929,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 0,
+      "count": 1,
+      "distinct_instructions": 841,
+      "fill": 204,
+      "fixture_elf_sha256": "ded8248ff58d913736e5013ac2148f06d6ff8785290aedbfe6b2d6fcf56db66c",
+      "fixture_source_sha256": "074d9d195b89ab369e0df178b678a74fa4e0cc759a5add1e6676cef57f514936",
+      "priorities": [
+        0,
+        31
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3510,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 929,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 0,
+      "count": 1,
+      "distinct_instructions": 837,
+      "fill": 0,
+      "fixture_elf_sha256": "f1c7a3f7e5f9702f5551c0bd8efa9e10c94294cad7701234ddb51712f7cffa75",
+      "fixture_source_sha256": "380ee124683837111151fa9374daf66d004f102e945c2a3b77a32fc22e71737b",
+      "priorities": [
+        0,
+        31
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3510,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 925,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 0,
+      "count": 1,
+      "distinct_instructions": 837,
+      "fill": 204,
+      "fixture_elf_sha256": "f1c7a3f7e5f9702f5551c0bd8efa9e10c94294cad7701234ddb51712f7cffa75",
+      "fixture_source_sha256": "380ee124683837111151fa9374daf66d004f102e945c2a3b77a32fc22e71737b",
+      "priorities": [
+        0,
+        31
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3510,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 925,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 0,
+      "count": 1,
+      "distinct_instructions": 875,
+      "fill": 0,
+      "fixture_elf_sha256": "99fb7530a44a2f9c57ebf1c2722a69f8b118ea322679dec170ff648e89fc2a4d",
+      "fixture_source_sha256": "a8f2ea125b236732df448b822cd5943e75d3d4076285c87f2b5bfda29d05e21d",
+      "priorities": [
+        0,
+        31
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3513,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 957,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 0,
+      "count": 1,
+      "distinct_instructions": 875,
+      "fill": 204,
+      "fixture_elf_sha256": "99fb7530a44a2f9c57ebf1c2722a69f8b118ea322679dec170ff648e89fc2a4d",
+      "fixture_source_sha256": "a8f2ea125b236732df448b822cd5943e75d3d4076285c87f2b5bfda29d05e21d",
+      "priorities": [
+        0,
+        31
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3513,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 957,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 0,
+      "count": 1,
+      "distinct_instructions": 871,
+      "fill": 0,
+      "fixture_elf_sha256": "c4d143a0717fe25526b173d993240a7828aea6084a55e7fad1694289773fc8c0",
+      "fixture_source_sha256": "5251db71bfcf4ee37b65b10f09f47c1c32f71a25df0b36014d4d5199f42cc714",
+      "priorities": [
+        0,
+        31
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3513,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 953,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 0,
+      "count": 1,
+      "distinct_instructions": 871,
+      "fill": 204,
+      "fixture_elf_sha256": "c4d143a0717fe25526b173d993240a7828aea6084a55e7fad1694289773fc8c0",
+      "fixture_source_sha256": "5251db71bfcf4ee37b65b10f09f47c1c32f71a25df0b36014d4d5199f42cc714",
+      "priorities": [
+        0,
+        31
+      ],
+      "result": 1,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3513,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 953,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 0,
+      "count": 7,
+      "distinct_instructions": 929,
+      "fill": 0,
+      "fixture_elf_sha256": "799c46967fbc5bb52856af338cb710947fca2ba6659d5df0da1e27c50c0d7d56",
+      "fixture_source_sha256": "84315c72bef9a772b0b3cf790ee1cf90ad75d599acc6dec9e38d4f0540ba3e9b",
+      "priorities": [
+        0,
+        31
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3510,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 5489,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 0,
+      "count": 7,
+      "distinct_instructions": 929,
+      "fill": 204,
+      "fixture_elf_sha256": "799c46967fbc5bb52856af338cb710947fca2ba6659d5df0da1e27c50c0d7d56",
+      "fixture_source_sha256": "84315c72bef9a772b0b3cf790ee1cf90ad75d599acc6dec9e38d4f0540ba3e9b",
+      "priorities": [
+        0,
+        31
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3510,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 5489,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 0,
+      "count": 7,
+      "distinct_instructions": 929,
+      "fill": 0,
+      "fixture_elf_sha256": "3e1b591e1be74befb5da842c21c9108a34b80c0dd000d1c4a34699a2677f2764",
+      "fixture_source_sha256": "b3a55d178535970e30f2f2fb2d7ddbdd12fd8a01e45900f7230441b363bca0a8",
+      "priorities": [
+        0,
+        31
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3510,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 4233,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 0,
+      "count": 7,
+      "distinct_instructions": 929,
+      "fill": 204,
+      "fixture_elf_sha256": "3e1b591e1be74befb5da842c21c9108a34b80c0dd000d1c4a34699a2677f2764",
+      "fixture_source_sha256": "b3a55d178535970e30f2f2fb2d7ddbdd12fd8a01e45900f7230441b363bca0a8",
+      "priorities": [
+        0,
+        31
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3510,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 4233,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 0,
+      "count": 7,
+      "distinct_instructions": 974,
+      "fill": 0,
+      "fixture_elf_sha256": "736a11bf732dbbb4bd1c3abf2877f4357071e4dde7ace310fbdbd8d3d67ca0b1",
+      "fixture_source_sha256": "d1b483a517b584017b1eac430cab34750480a1266399b07321573b216d814c4e",
+      "priorities": [
+        0,
+        31
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3513,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 5685,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 0,
+      "count": 7,
+      "distinct_instructions": 974,
+      "fill": 204,
+      "fixture_elf_sha256": "736a11bf732dbbb4bd1c3abf2877f4357071e4dde7ace310fbdbd8d3d67ca0b1",
+      "fixture_source_sha256": "d1b483a517b584017b1eac430cab34750480a1266399b07321573b216d814c4e",
+      "priorities": [
+        0,
+        31
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3513,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 5685,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 0,
+      "count": 7,
+      "distinct_instructions": 974,
+      "fill": 0,
+      "fixture_elf_sha256": "9156ab730db1c4280e177f318c520fbc13b9717f0c2ebc7b009183d08e01d102",
+      "fixture_source_sha256": "a395bbd92074d41501b1a5225bde3c202399ed76b1a6657cd16b55156c8c00d2",
+      "priorities": [
+        0,
+        31
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3513,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 4429,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 0,
+      "count": 7,
+      "distinct_instructions": 974,
+      "fill": 204,
+      "fixture_elf_sha256": "9156ab730db1c4280e177f318c520fbc13b9717f0c2ebc7b009183d08e01d102",
+      "fixture_source_sha256": "a395bbd92074d41501b1a5225bde3c202399ed76b1a6657cd16b55156c8c00d2",
+      "priorities": [
+        0,
+        31
+      ],
+      "result": 28,
+      "selections": [
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3513,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        },
+        {
+          "state": 5,
+          "task": "producer"
+        }
+      ],
+      "task_instructions": 4429,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 858,
+      "fill": 0,
+      "fixture_elf_sha256": "a2e4928bd14d754e86e081d5eb6102a3f2178602b3941e1c13771f046cfe6079",
+      "fixture_source_sha256": "31baafa51bbe77d70fb646cfc28864b2aa91736322a82333281e8557cbca7ff6",
+      "priorities": [
+        31,
+        0
+      ],
+      "result": 1,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3520,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1229,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 858,
+      "fill": 204,
+      "fixture_elf_sha256": "a2e4928bd14d754e86e081d5eb6102a3f2178602b3941e1c13771f046cfe6079",
+      "fixture_source_sha256": "31baafa51bbe77d70fb646cfc28864b2aa91736322a82333281e8557cbca7ff6",
+      "priorities": [
+        31,
+        0
+      ],
+      "result": 1,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3520,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1229,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 858,
+      "fill": 0,
+      "fixture_elf_sha256": "3c925c4de259f4c0278423f6739289f3d1103ba09158673766ba69c03881f0c9",
+      "fixture_source_sha256": "084736a497e7b69c4f015ca66593ca05042b97bda17a5d3014a013e6fabdd862",
+      "priorities": [
+        31,
+        0
+      ],
+      "result": 1,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3520,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1229,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 858,
+      "fill": 204,
+      "fixture_elf_sha256": "3c925c4de259f4c0278423f6739289f3d1103ba09158673766ba69c03881f0c9",
+      "fixture_source_sha256": "084736a497e7b69c4f015ca66593ca05042b97bda17a5d3014a013e6fabdd862",
+      "priorities": [
+        31,
+        0
+      ],
+      "result": 1,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3520,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1229,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 881,
+      "fill": 0,
+      "fixture_elf_sha256": "37571fffc78fd03b69e649a7174714139371b5a6d708c7bf0b619b8bcac65f25",
+      "fixture_source_sha256": "6550e7fbbdc52dd23d02eb114d2d0d967bfe8a7e43e04d3920e7a0db71e78e0d",
+      "priorities": [
+        31,
+        0
+      ],
+      "result": 1,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3523,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1246,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 881,
+      "fill": 204,
+      "fixture_elf_sha256": "37571fffc78fd03b69e649a7174714139371b5a6d708c7bf0b619b8bcac65f25",
+      "fixture_source_sha256": "6550e7fbbdc52dd23d02eb114d2d0d967bfe8a7e43e04d3920e7a0db71e78e0d",
+      "priorities": [
+        31,
+        0
+      ],
+      "result": 1,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3523,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1246,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 881,
+      "fill": 0,
+      "fixture_elf_sha256": "9e6eb8ef88d87aa3041a2d483d83d0a2f02b0c15a64a4154bf2ab5b558b198f2",
+      "fixture_source_sha256": "786d841916f007a5ede0d60e8bdd8bd365f7ff41c16ce56b410890876f36d0b4",
+      "priorities": [
+        31,
+        0
+      ],
+      "result": 1,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3523,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1246,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 1,
+      "distinct_instructions": 881,
+      "fill": 204,
+      "fixture_elf_sha256": "9e6eb8ef88d87aa3041a2d483d83d0a2f02b0c15a64a4154bf2ab5b558b198f2",
+      "fixture_source_sha256": "786d841916f007a5ede0d60e8bdd8bd365f7ff41c16ce56b410890876f36d0b4",
+      "priorities": [
+        31,
+        0
+      ],
+      "result": 1,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3523,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 1246,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 858,
+      "fill": 0,
+      "fixture_elf_sha256": "1ca334b0e822c442f7f111623b2d0b1ee63a37c91bc6e3f3a869a9d46c9244c4",
+      "fixture_source_sha256": "407624e4c0de0e3148a375872ed92f1bc7367c5b9b083a29cf41f3afbe64eb82",
+      "priorities": [
+        31,
+        0
+      ],
+      "result": 28,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3520,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 5573,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 858,
+      "fill": 204,
+      "fixture_elf_sha256": "1ca334b0e822c442f7f111623b2d0b1ee63a37c91bc6e3f3a869a9d46c9244c4",
+      "fixture_source_sha256": "407624e4c0de0e3148a375872ed92f1bc7367c5b9b083a29cf41f3afbe64eb82",
+      "priorities": [
+        31,
+        0
+      ],
+      "result": 28,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3520,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 5573,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 858,
+      "fill": 0,
+      "fixture_elf_sha256": "c76499c3a3c1d7dceb3f99da9eed4fb56e4ac52dd89bf5f98d2d7495493922d1",
+      "fixture_source_sha256": "4c00c47cb4173f0e0a9dcfdd0fcdd2d00e10f948e6de573c385cbae525ce8725",
+      "priorities": [
+        31,
+        0
+      ],
+      "result": 28,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3520,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 5573,
+      "width": 1
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 858,
+      "fill": 204,
+      "fixture_elf_sha256": "c76499c3a3c1d7dceb3f99da9eed4fb56e4ac52dd89bf5f98d2d7495493922d1",
+      "fixture_source_sha256": "4c00c47cb4173f0e0a9dcfdd0fcdd2d00e10f948e6de573c385cbae525ce8725",
+      "priorities": [
+        31,
+        0
+      ],
+      "result": 28,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3520,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 5573,
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 881,
+      "fill": 0,
+      "fixture_elf_sha256": "1a0faeb7958590859918003662ab575a6be12e9b3dffa71868f6cf1d8a225bce",
+      "fixture_source_sha256": "fd17ad21a7c83e8344b03ce7c0aee487e448f05caafdba9f562642f3b6b527fd",
+      "priorities": [
+        31,
+        0
+      ],
+      "result": 28,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3523,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 5692,
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 881,
+      "fill": 204,
+      "fixture_elf_sha256": "1a0faeb7958590859918003662ab575a6be12e9b3dffa71868f6cf1d8a225bce",
+      "fixture_source_sha256": "fd17ad21a7c83e8344b03ce7c0aee487e448f05caafdba9f562642f3b6b527fd",
+      "priorities": [
+        31,
+        0
+      ],
+      "result": 28,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3523,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 5692,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 881,
+      "fill": 0,
+      "fixture_elf_sha256": "915bf1656857777b3f702c0161778482b552a9400840a5a124d86c1408f1a062",
+      "fixture_source_sha256": "2a392cf613f2efd265ebbcd30481988de02326f19bc31513e7590e6fab4ff17c",
+      "priorities": [
+        31,
+        0
+      ],
+      "result": 28,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3523,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 5692,
+      "width": 4
+    },
+    {
+      "capacity": 3,
+      "consumer_final_state": 1,
+      "count": 7,
+      "distinct_instructions": 881,
+      "fill": 204,
+      "fixture_elf_sha256": "915bf1656857777b3f702c0161778482b552a9400840a5a124d86c1408f1a062",
+      "fixture_source_sha256": "2a392cf613f2efd265ebbcd30481988de02326f19bc31513e7590e6fab4ff17c",
+      "priorities": [
+        31,
+        0
+      ],
+      "result": 28,
+      "selections": [
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer",
+        "consumer",
+        "producer"
+      ],
+      "setup_instructions": 3523,
+      "status": "pass",
+      "suspensions": [
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 5,
+          "task": "consumer"
+        },
+        {
+          "state": 1,
+          "task": "consumer"
+        }
+      ],
+      "task_instructions": 5692,
+      "width": 4
+    }
+  ],
+  "elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "findings": [
+    "Original RTOS RAM initialization builds the full 256-byte lowest-set-bit lookup table against an independent integer oracle. Omitting initialization left this BSS table zero and caused an invalid fixture to idle despite a ready thread.",
+    "Original thread-create core, initial-stack builder, resume, ready lists, priority selection, suspend, voluntary context switch, thread shell and queue create/send/receive execute without any whole-function host service.",
+    "A synthetic producer sends complete one-word or four-word records, blocks on full queues and waits for an acknowledgement. A synthetic consumer receives every record in order, validates via an external complete-byte oracle, and acknowledges the arithmetic sum. Queue capacity, priority order/equality/extremes and initial RAM fills vary.",
+    "The scheduler chooses the initially highest-priority ready task, with FIFO creation order for the tested equal-priority pair. Run counters match observed scheduler selections and preemption bookkeeping balances. Both queues finish empty without suspended waiters.",
+    "When the producer has higher priority, acknowledgement delivery preempts the consumer. Otherwise the consumer returns and the original thread shell terminates it before the producer finishes; the corresponding final thread states agree."
+  ],
+  "limits": "Only two synthetic tasks and explicit initial system state are tested. The original thread-create core receives known-valid arguments; its outer validation wrapper is not exercised here. Waits are infinite and time slices zero, so no timer expiry or interrupt-driven preemption occurs. The workload has no parser, JobMgr, PrintMgr, DMA, custom raster instruction or hardware. This removes scheduling substitutes from this kernel experiment, not from the existing printing-lifecycle harnesses. The producer is observed at its final sentinel, and the consumer may remain paused at acknowledgement delivery.",
+  "source_sha256": {
+    "hp1020_qemu_context.py": "ec85435943eacdb827dcaa41387663a6eb62f536e98ae753cb8b373f04ac6067",
+    "hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
+    "hp1020_qemu_scheduler.py": "6bb45fc44d99da27be5b307b216969207ceb1a8b05bff780108d672d7ab3e724",
+    "hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
+    "hp1020_stock_queue.py": "799275c643095b20c613ef64fdddb93b277404519f2681d70c3573323b872e11",
+    "hp1020_stock_stop.py": "1f716972e7d044b070eff24b05e9ac7fcf532a54131f5c69e42276c6db987de0",
+    "hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
+    "hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
+    "validate-hp1020-stock-scheduler.py": "26ee453eb41784974f30d501116c97a6e9c8e1370373fc566f55b1fcc2af6291"
+  },
+  "status": "pass",
+  "total_cases": 80
+}

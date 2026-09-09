@@ -2419,7 +2419,7 @@
         }
       }
     ],
-    "fixture_elf_sha256": "5bf8de5a4a479c007e8598c0c063fcb57d6cb301b0ef371e7c47c70fb9e1377c",
+    "fixture_elf_sha256": "92e88d1a4e94800cec2e330bd6c0ea1a2b16f83a595e2cd2a58220bd037d536d",
     "fixture_source_sha256": "4712b471119d5352df32992940d55d30df24f0af3fd47dde32c7915495a186cd",
     "limits": "Synthetic, aligned ABI stacks and QEMU test_kc705_be with 32 physical ARs; not stock boot state, real core register count, interrupts, cache or malformed-stack recovery.",
     "mutation": {

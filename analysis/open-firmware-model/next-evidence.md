@@ -119,10 +119,20 @@ untouched physical data-register slots may alias older windows until access
 triggers spilling, so they are not assumed to be preserved incoming values.
 Two synthetic tasks repeatedly switch stacks through the original scheduler and
 RFE restore, preserving separate arithmetic accumulators and nested return chains.
-The fixture tasks explicitly select each other; original priority policy, queue
-blocking/wakeup integration, timer expiry and interrupt-driven preemption remain
-productive next boundaries. A saved-continuation mutation is detected. See
+Those fixture tasks explicitly select each other; timer expiry and
+interrupt-driven preemption remain untested. A saved-continuation mutation is detected. See
 `stock-execution/context.md`.
+
+The next kernel experiment now executes original RAM initialization, the
+thread-create core, ready lists and priority-driven blocking/wakeup/context
+switches for two synthetic producer/consumer tasks. Complete message bytes,
+ordering, sum acknowledgement, lowest-set-bit lookup, initial priority choice,
+run counts, queue occupancy and final thread states match independent oracles.
+Priority equality/extremes, capacity, width and RAM fill vary. All queue/scheduling
+services execute original code. Infinite waits and zero time slices avoid timers.
+The original task shell also terminates a returned consumer when appropriate.
+This is a kernel experiment; actual parser/JobMgr/PrintMgr/StatusMgr task scheduling
+is not yet integrated. See `stock-execution/scheduler.md`.
 
 The next **live** experiment remains the existing non-printing USB ladder.
 Further combined firmware integration cannot establish any of the device facts
