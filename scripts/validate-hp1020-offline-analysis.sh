@@ -95,8 +95,20 @@ run_step "Validate portable page and band planner" \
 run_step "Build and reproduce semantic core for synthetic Xtensa RAM" \
   "$ROOT_DIR/scripts/check-hp1020-semantic-target-reproducibility.sh"
 
+run_step "Verify buffered QEMU debugger framing" \
+  python3 "$ROOT_DIR/scripts/check-hp1020-qemu-protocol.py"
+
 run_step "Cross-check compiled C and stock routines with independent QEMU" \
   "$ROOT_DIR/scripts/validate-hp1020-qemu.py"
+
+run_step "Recover stock queue registrations and verify helper execution" \
+  python3 "$ROOT_DIR/scripts/audit-hp1020-queue-registration.py"
+
+run_step "Execute original PrintMgr stop and notification paths" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-stock-printmgr.py"
+
+run_step "Execute original notification routing and final ownership" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-stock-notifications.py"
 
 run_step "Audit original instruction annotations and unresolved encodings" \
   "$ROOT_DIR/scripts/audit-hp1020-instruction-properties.py"

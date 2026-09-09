@@ -1,8 +1,7 @@
 /* Function: 10010170 hp1020_print_mgr_emit_media_status_candidate */
 
 
-/* medium confidence: Writes media/status state through data-store entry 0x1f and notifies
-   StatusMgrQueue */
+/* print-manager fallout mapping candidate */
 
 void hp1020_print_mgr_emit_media_status_candidate(void)
 

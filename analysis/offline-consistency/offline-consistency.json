@@ -1,16 +1,28 @@
 {
-  "check_count": 77,
+  "check_count": 79,
   "checks": [
     {
-      "detail": "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
+      "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
       "evidence": "analysis/engine-dispatch-cfg/engine-dispatch-cfg.md",
       "name": "engine_0x17_dispatch_is_default",
       "severity": "watch"
     },
     {
-      "detail": "Queue-message map must preserve the current producer/default-consumer conclusion for engine 0x17.",
-      "evidence": "analysis/message-map/queue-message-map.tsv",
-      "name": "queue_map_engine_0x17_matches_cfg",
+      "detail": "Stock constructor control flow must preserve the corrected queue identities and independent registration-helper audit.",
+      "evidence": "analysis/queue-routing/registration.json",
+      "name": "stock_queue_registration",
+      "severity": "watch"
+    },
+    {
+      "detail": "Original routing and allocation ownership must agree with QEMU and explicit fixture oracles.",
+      "evidence": "analysis/open-firmware-model/stock-execution/printmgr.json",
+      "name": "original_printmgr_execution",
+      "severity": "watch"
+    },
+    {
+      "detail": "Original routing and allocation ownership must agree with QEMU and explicit fixture oracles.",
+      "evidence": "analysis/open-firmware-model/stock-execution/notifications.json",
+      "name": "original_notifications_execution",
       "severity": "watch"
     },
     {

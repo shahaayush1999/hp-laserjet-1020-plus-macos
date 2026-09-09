@@ -1,6 +1,6 @@
 # Current handoff
 
-Updated: 2026-09-08. **The open replacement cannot print yet.**
+Updated: 2026-09-09. **The open replacement cannot print yet.**
 The working HP-based macOS printing setup is untouched. Current aim: evaluate
 independent offline reverse engineering; the owner consumes progress through chat.
 
@@ -12,15 +12,16 @@ independent offline reverse engineering; the owner consumes progress through cha
   Xtensa code in synthetic RAM. Reproducible compiler/assembler, sanitizers,
   instruction interpreters and MMIO/unknown-opcode gates support these components.
   Independent QEMU agrees on the C target, original parser/libc/arithmetic,
-  JobMgr cleanup and all six stock register-window handlers.
+  JobMgr cleanup and all six stock register-window handlers. Original PrintMgr
+  stop sequencing, datastore notifications and final StatusMgr notice release
+  now also agree; hardware acknowledgements/publication remain explicit inputs.
 - Original parser/libc, status decisions, JobMgr scheduling, allocator and selected
   MMIO-free render paths execute against independent oracles. Original completion,
   release and datastore bookkeeping now run with injected FIFO completion events;
   cooperative parser/JobMgr schedules exercise repeated documents and cleanup.
   Original stream recognition, buffering and dispatch now run in those schedules.
-- Latest aggregate validation passed both suites (77 consistency checks); detailed
-  counts and boundaries remain beside each
-  component. `scripts/validate.sh` runs the offline-only aggregate validation.
+- Latest aggregate passed both suites (79 consistency checks), including original
+  PrintMgr and notification ownership. Detailed scopes remain beside each component. `scripts/validate.sh` runs the offline-only aggregate validation.
 
 ## Corrections agents must not regress
 
@@ -37,11 +38,17 @@ independent offline reverse engineering; the owner consumes progress through cha
 - Logical-clip metadata declares 156 bytes for 180 bytes of items. The narrow
   planner rejects it and BPP4. Custom raster instruction effects remain unknown.
 
+- Stock constructor registration proves queue 0 is engine and queue 1 is PrintMgr.
+  Earlier maps reversed these IDs, creating false missing-consumer conclusions
+  for event 0x17 and datastore notification 0x2d. Use the registration audit.
+
 ## Next action and limits
 
 **Offline only; no hardware test is authorized.**
-Continue independent stock execution or cancellation/resource-pressure ownership
-analysis. Original stream admission now reproduces the delayed empty-document
+Continue cancellation/resource-pressure ownership analysis. PrintMgr waits for
+engine then Video acknowledgements and frees its own list nodes; final work
+ownership still belongs to JobMgr/Video. Trace actual stop producers and the
+RAM-only parts of the acknowledgement path before promoting cancellation faults. Original stream admission now reproduces the delayed empty-document
 cleanup failure without manually reinvoking the parser. Eager completion avoids
 it; actual USB delivery, multi-language context and real scheduling remain
 unverified. This conditional finding is not a narrow-replacement blocker.

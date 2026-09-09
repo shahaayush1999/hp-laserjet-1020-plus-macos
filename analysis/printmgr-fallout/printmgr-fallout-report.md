@@ -6,8 +6,8 @@ This pass checks whether data-store queue subscriber notifications land in the P
 
 - Data-store writes notify queue subscribers with message `0x2d` and payload words: entry id, new value, type class.
 - PrintMgr registers queue subscribers for data-store entries `0x18` and `0x01`, with subscriber queue id `1`.
-- The current queue map labels queue id `1` as `engMsgQ`, not `PrintMgrQueue`; engine dispatch maps message `0x2d` to the default/no-op block.
-- Separately, PrintMgr dispatch table also includes message `0x2d`, target `0x1000f497`, but this pass does not prove a producer that sends `0x2d` to queue id `0`.
+- Stock constructor registration proves queue id `1` is `PrintMgrQueue`; the older engine/no-op interpretation was a mapping error. See `analysis/queue-routing/registration.md`.
+- PrintMgr dispatch includes message `0x2d`, target `0x1000f497`. The datastore subscriber path supplies its producer through queue id `1`.
 - The downstream scheduler function `0x1000f574` calls `0x1000fcb0`, and `0x1000fcb0` explicitly handles `message == 0x2d` and `entry == 1` in its state machine.
 
 ## Important Functions
@@ -28,11 +28,11 @@ data-store entry write
   -> 0x10010fd0 write/notify helper
   -> queue subscriber message 0x2d
   -> known subscriber queue id 1
-  -> current map: engMsgQ
-  -> current engine dispatch: 0x2d default/no-op
+  -> PrintMgrQueue, object 0x10028a74
+  -> PrintMgr 0x2d handler at 0x1000f497
 ```
 
-The PrintMgr side has a separate `0x2d` handler:
+The same notification continues through the PrintMgr handler:
 
 ```text
 PrintMgrQueue message 0x2d
@@ -44,6 +44,6 @@ PrintMgrQueue message 0x2d
 
 ## Current Interpretation
 
-- Known data-store queue subscriptions do not currently prove a PrintMgr wakeup; they prove a queue-id-`1` wakeup.
-- The PrintMgr `0x2d` handler is real and probably related to the same notification shape, but its queue-0 producer remains unresolved.
-- The next static target is to split PrintMgr dispatch table targets into named cases, especially `0x0b`, `0x11`, `0x25`, `0x2d`, `0x32`, and `0x34`, and then search producers for queue-0 `0x2d`.
+- Known data-store queue subscriptions target PrintMgr through queue id `1`.
+- The producer-to-handler route is resolved statically; execution still depends on successful initialization and RTOS delivery.
+- Next, execute selected PrintMgr dispatch and cancellation transitions with explicit queue and hardware-completion boundaries.

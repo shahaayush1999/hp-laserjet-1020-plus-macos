@@ -59,7 +59,7 @@ public class MapHp1020JobMgrProducerBoundary extends GhidraScript {
         labels.put(0x1001896cL, "threadx_queue_send_core_candidate");
         labels.put(0x10019408L, "threadx_queue_receive_core_candidate");
         labels.put(0x10023e28L, "hp1020_jobmgr_video_hw_runtime_block");
-        labels.put(0x1002386cL, "hp1020_job_mgr_queue_object_candidate");
+        labels.put(0x10023e40L, "hp1020_job_mgr_queue_object_candidate");
     }
 
     private void applyLabels() {
@@ -158,7 +158,7 @@ public class MapHp1020JobMgrProducerBoundary extends GhidraScript {
             return "direct_jobmgr_scalar_send";
         }
         if (line.contains("PTR_DAT_100062dc") || line.contains("hp1020_job_mgr_queue_object") ||
-            line.contains("0x1002386c")) {
+            line.contains("0x10023e40")) {
             return "jobmgr_queue_object_ref";
         }
         if (line.contains("hp1020_jobmgr_video_hw_runtime_block") || line.contains("PTR_DAT_10006304") ||

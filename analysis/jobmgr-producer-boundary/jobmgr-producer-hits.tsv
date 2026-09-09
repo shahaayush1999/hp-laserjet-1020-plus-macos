@@ -5,9 +5,19 @@ function_address	function_name	line	kind	code
 1000c8fc	FUN_1000c8fc	85	possible_msg_9_constant	local_b0 = 9;
 1000c8fc	FUN_1000c8fc	139	possible_msg_9_constant	case 9:
 1000ded8	FUN_1000ded8	61	possible_msg_9_constant	*(undefined4 *)(puVar6 + 0xac) = 9;
+1000e414	hp1020_job_mgr_thread_candidate	43	jobmgr_queue_object_ref	(PTR_hp1020_job_mgr_queue_object_candidate_100062d0,&uStack_90,2);
+1000e414	hp1020_job_mgr_thread_candidate	46	video_hw_runtime_block_ref	puVar6 = PTR_hp1020_jobmgr_video_hw_runtime_block_10006304;
+1000e414	hp1020_job_mgr_thread_candidate	52	jobmgr_queue_object_ref	(hp1020_job_mgr_queue_object_ptr_word,0xf,1,auStack_70,0);
+1000e414	hp1020_job_mgr_thread_candidate	158	possible_msg_9_constant	case 9:
+1000e414	hp1020_job_mgr_thread_candidate	183	video_hw_runtime_block_ref	puVar4 = PTR_hp1020_jobmgr_video_hw_runtime_block_10006304;
+1000e414	hp1020_job_mgr_thread_candidate	186	video_hw_runtime_block_ref	*(undefined4 *)(PTR_hp1020_jobmgr_video_hw_runtime_block_10006304 + 4);
+1000e414	hp1020_job_mgr_thread_candidate	254	queue_id_3_send	hp1020_queue_send_candidate(3,&uStack_80);
+1000e414	hp1020_job_mgr_thread_candidate	501	possible_msg_0x29_constant	case 0x29:
+1000e414	hp1020_job_mgr_thread_candidate	504	video_hw_runtime_block_ref	FUN_1001b38c(PTR_hp1020_jobmgr_video_hw_runtime_block_10006304,iStack_84,0x14);
+1000e414	hp1020_job_mgr_thread_candidate	512	video_hw_runtime_block_ref	*(undefined4 *)(PTR_hp1020_jobmgr_video_hw_runtime_block_10006304 + 4);
 1000f814	hp1020_print_mgr_return_work_to_jobmgr_candidate	14	queue_id_3_send	hp1020_queue_send_candidate(3,param_1);
-1000fcb0	FUN_1000fcb0	66	possible_msg_9_constant	uVar4 = 9;
-1000fcb0	FUN_1000fcb0	86	possible_msg_9_constant	uVar4 = 9;
+1000fcb0	hp1020_print_mgr_datastore_notify_state_candidate	71	possible_msg_9_constant	uVar4 = 9;
+1000fcb0	hp1020_print_mgr_datastore_notify_state_candidate	91	possible_msg_9_constant	uVar4 = 9;
 10010338	hp1020_job_record_create_and_enqueue_candidate	26	queue_id_3_send	hp1020_queue_send_candidate(3,local_30);
 10010398	hp1020_child_page_record_create_candidate	17	queue_id_3_send	hp1020_queue_send_candidate(3,local_30);
 10010398	hp1020_child_page_record_create_candidate	25	queue_id_3_send	hp1020_queue_send_candidate(3,local_30);

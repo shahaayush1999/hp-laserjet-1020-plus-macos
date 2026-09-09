@@ -84,18 +84,20 @@ public class MapHp1020QueueRouting extends GhidraScript {
         out.println("- candidate runtime queue table base: `0x1002c918`");
         out.println();
 
-        out.println("## Candidate Queue IDs");
+        out.println("## Queue IDs verified against constructor registration");
         out.println();
         out.println("| Queue ID | Candidate owner | Consumer function | Receive/control object |");
         out.println("|---:|---|---|---|");
-        out.println("| `0` | `PrintMgrQueue` | `0x1000f324` `hp1020_print_mgr_thread_candidate` | `0x10028a74` |");
-        out.println("| `1` | `engMsgQ` | `0x100163b0` `hp1020_engine_thread_candidate` | `0x1002f134` |");
-        out.println("| `3` | `Job Mgr Queue` | `0x1000e414` `hp1020_job_mgr_thread_candidate` | `0x1002386c` |");
+        out.println("| `1` | `PrintMgrQueue` | `0x1000f324` `hp1020_print_mgr_thread_candidate` | `0x10028a74` |");
+        out.println("| `0` | `engMsgQ` | `0x100163b0` `hp1020_engine_thread_candidate` | `0x1002f134` |");
+        out.println("| `3` | `Job Mgr Queue` | `0x1000e414` `hp1020_job_mgr_thread_candidate` | `0x10023e40` |");
         out.println("| `8` | `Video Queue` candidate | `0x10013c18` `hp1020_video_thread_candidate` | `0x1002ee38` |");
         out.println("| `10` | `StatusMgrQueue` | `0x10010590` `hp1020_status_mgr_thread_candidate` | `0x10028adc` |");
         out.println("| `0x0f` | `DelayMgr Msg Queue` | `0x10010b0c` `hp1020_delay_mgr_receive_thread_candidate` | `0x1001d694` candidate |");
         out.println();
 
+        out.println("Registration calls and independent helper execution are audited in `registration.md` and `registration.json`. Earlier versions reversed IDs 0/1.");
+        out.println();
         out.println("## Decompiled Evidence");
         out.println();
         long[] functions = {

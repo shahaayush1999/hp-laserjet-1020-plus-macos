@@ -154,7 +154,7 @@ public class MapHp1020VideoWorkObject extends GhidraScript {
             out.println();
             out.println("- `0x1000f228` allocates a `0x94`-byte work object, initializes four embedded lists at `+0x50`, `+0x58`, `+0x60`, and `+0x68`, clears video DMA fields at `+0x84/+0x88/+0x8c/+0x90`, then calls common work initialization.");
             out.println("- `0x10010398` creates both a `0x50` child/page container and this `0x94` work object, then sends JobMgr messages `3` and `5`.");
-            out.println("- JobMgr later stores this `0x94` object into child/page slot `+0x48`, sends it to engine queue `1` as message `0x0b`, and PrintMgr eventually sends it to video queue `8` as message `0x0b`.");
+            out.println("- JobMgr later stores this `0x94` object into child/page slot `+0x48`, sends it to PrintMgr queue `1` as message `0x0b`, and PrintMgr eventually sends it to video queue `8` as message `0x0b`.");
             out.println("- `0x100104c8` copies selected page-parameter halfwords into the work object: source `+0x22 -> +0x0c`, `+0x0a -> +0x0a`, `+0x06 -> +0x10`, `+0x12 -> +0x22`, `+0x16 -> +0x1e`, `+0x1a -> +0x14`, `+0x1e -> +0x16`, `+0x0e -> +0x0e`, and source word `+0x00 -> +0x00`.");
             out.println("- JobMgr case `0x29` copies a 20-byte incoming payload into runtime block `0x10023e28`; later JobMgr copies that block into work offsets `+0x84/+0x88/+0x8c/+0x90` before video starts.");
             out.println("- No producer for JobMgr message `0x29` is currently proven by the queue-send census, so the parser-side origin of that 20-byte runtime block remains the next unresolved boundary.");

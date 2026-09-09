@@ -3,7 +3,6 @@
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* high confidence: DelayMgr Msg Queue receive thread */
 
 void hp1020_delay_mgr_receive_thread_candidate(void)
 
@@ -26,22 +25,21 @@ void hp1020_delay_mgr_receive_thread_candidate(void)
   uint uStack_2c;
 
   FUN_1001214c();
-  puVar4 = _DAT_10006458;
+  puVar4 = _UNK_10006458;
   uVar2 = FUN_100175cc();
   *puVar4 = uVar2;
   do {
-    iVar3 = threadx_queue_receive_wait_candidate
-                      (PTR_hp1020_delay_mgr_queue_object_candidate_10006438,auStack_50,0xffffffff);
+    iVar3 = threadx_queue_receive_wait_candidate(PTR_DAT_10006438,auStack_50,0xffffffff);
     if (iVar3 == 10) {
       uStack_2c = FUN_100175cc();
-      uStack_30 = *_DAT_10006458;
+      uStack_30 = *_UNK_10006458;
       if (uStack_30 < uStack_2c) {
         uStack_30 = uStack_2c - uStack_30;
       }
       else {
         uStack_30 = (uStack_2c - 1) - uStack_30;
       }
-      threadx_memory_or_copy_candidate(PTR_DAT_10006430,0xffffffff);
+      FUN_100181a4(PTR_DAT_10006430,0xffffffff);
       uVar8 = 0;
       uVar2 = uStack_2c;
       if (*(int *)PTR_DAT_10006454 != 0) {
@@ -109,7 +107,7 @@ void hp1020_delay_mgr_receive_thread_candidate(void)
     }
     else {
       uStack_2c = FUN_100175cc();
-      threadx_memory_or_copy_candidate(PTR_DAT_10006430,0xffffffff);
+      FUN_100181a4(PTR_DAT_10006430,0xffffffff);
       uVar2 = uStack_2c;
       if (*(int *)PTR_DAT_10006454 != 0) {
                     /* WARNING: Bad instruction - Truncating control flow here */
@@ -117,7 +115,7 @@ void hp1020_delay_mgr_receive_thread_candidate(void)
       }
     }
     puVar1 = PTR_DAT_10006430;
-    *_DAT_10006458 = uVar2;
+    *_UNK_10006458 = uVar2;
     FUN_10018214(puVar1);
   } while( true );
 }

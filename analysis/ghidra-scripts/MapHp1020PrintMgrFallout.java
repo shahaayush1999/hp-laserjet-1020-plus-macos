@@ -210,8 +210,8 @@ public class MapHp1020PrintMgrFallout extends GhidraScript {
             out.println();
             out.println("- Data-store writes notify queue subscribers with message `0x2d` and payload words: entry id, new value, type class.");
             out.println("- PrintMgr registers queue subscribers for data-store entries `0x18` and `0x01`, with subscriber queue id `1`.");
-            out.println("- The current queue map labels queue id `1` as `engMsgQ`, not `PrintMgrQueue`; engine dispatch maps message `0x2d` to the default/no-op block.");
-            out.println("- Separately, PrintMgr dispatch table also includes message `0x2d`, target `0x1000f497`, but this pass does not prove a producer that sends `0x2d` to queue id `0`.");
+            out.println("- Stock constructor registration proves queue id `1` is `PrintMgrQueue`; the older engine/no-op interpretation was a mapping error. See `analysis/queue-routing/registration.md`.");
+            out.println("- PrintMgr dispatch includes message `0x2d`, target `0x1000f497`. The datastore subscriber path supplies its producer through queue id `1`.");
             out.println("- The downstream scheduler function `0x1000f574` calls `0x1000fcb0`, and `0x1000fcb0` explicitly handles `message == 0x2d` and `entry == 1` in its state machine.");
             out.println();
             out.println("## Important Functions");
@@ -232,11 +232,11 @@ public class MapHp1020PrintMgrFallout extends GhidraScript {
             out.println("  -> 0x10010fd0 write/notify helper");
             out.println("  -> queue subscriber message 0x2d");
             out.println("  -> known subscriber queue id 1");
-            out.println("  -> current map: engMsgQ");
-            out.println("  -> current engine dispatch: 0x2d default/no-op");
+            out.println("  -> PrintMgrQueue, object 0x10028a74");
+            out.println("  -> PrintMgr 0x2d handler at 0x1000f497");
             out.println("```");
             out.println();
-            out.println("The PrintMgr side has a separate `0x2d` handler:");
+            out.println("The same notification continues through the PrintMgr handler:");
             out.println();
             out.println("```text");
             out.println("PrintMgrQueue message 0x2d");
@@ -248,15 +248,15 @@ public class MapHp1020PrintMgrFallout extends GhidraScript {
             out.println();
             out.println("## Current Interpretation");
             out.println();
-            out.println("- Known data-store queue subscriptions do not currently prove a PrintMgr wakeup; they prove a queue-id-`1` wakeup.");
-            out.println("- The PrintMgr `0x2d` handler is real and probably related to the same notification shape, but its queue-0 producer remains unresolved.");
-            out.println("- The next static target is to split PrintMgr dispatch table targets into named cases, especially `0x0b`, `0x11`, `0x25`, `0x2d`, `0x32`, and `0x34`, and then search producers for queue-0 `0x2d`.");
+            out.println("- Known data-store queue subscriptions target PrintMgr through queue id `1`.");
+            out.println("- The producer-to-handler route is resolved statically; execution still depends on successful initialization and RTOS delivery.");
+            out.println("- Next, execute selected PrintMgr dispatch and cancellation transitions with explicit queue and hardware-completion boundaries.");
         }
     }
 
     private String noteForMessage(int message, long target) {
         if (message == 0x2d) {
-            return "PrintMgr 0x2d handler target; queue-0 producer unresolved";
+            return "PrintMgr 0x2d handler; producer is datastore subscriber queue 1";
         }
         if (message == 0x18) {
             return "startup/initial poll target";

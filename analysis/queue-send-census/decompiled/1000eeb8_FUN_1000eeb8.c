@@ -17,7 +17,7 @@ void FUN_1000eeb8(int param_1)
     piStack_4c = aiStack_30;
     hp1020_datastore_read_locked_candidate(&local_50);
     hp1020_datastore_write_notify_unlock_candidate(&local_50);
-    piStack_34 = (int *)hp1020_runtime_service_candidate(0x10,1);
+    piStack_34 = (int *)FUN_100131b8(0x10,1);
     auStack_40[0] = 0x2f;
     *(undefined2 *)(piStack_34 + 3) = *(undefined2 *)(param_1 + 0x6c);
     iVar2 = *(int *)(param_1 + 0x48);
@@ -41,12 +41,12 @@ void FUN_1000eeb8(int param_1)
     aiStack_30[0] = 0;
     hp1020_datastore_write_notify_unlock_candidate(&local_50);
     puVar1 = PTR_DAT_100062e4;
-    hp1020_runtime_service_2_candidate(*(undefined4 *)(*(int *)PTR_DAT_100062e4 + 0xc));
+    FUN_10013408(*(undefined4 *)(*(int *)PTR_DAT_100062e4 + 0xc));
     hp1020_list_pop_head_candidate(puVar1);
-    hp1020_runtime_service_2_candidate();
+    FUN_10013408();
     iVar2 = *(int *)puVar1;
     if (iVar2 != 0) {
-      hp1020_print_mgr_message_helper_candidate(*(undefined4 *)(iVar2 + 0xc));
+      FUN_1000f164(*(undefined4 *)(iVar2 + 0xc));
     }
   }
   return;

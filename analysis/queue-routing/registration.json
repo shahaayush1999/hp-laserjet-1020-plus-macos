@@ -1,0 +1,336 @@
+{
+  "elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "helper_cases": [
+    {
+      "index": 0,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 0,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 1,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 1,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 2,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 2,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 3,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 3,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 4,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 4,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 5,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 5,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 6,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 6,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 7,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 7,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 8,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 8,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 9,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 9,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 10,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 10,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 11,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 11,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 12,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 12,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 13,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 13,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 14,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 14,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 15,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 15,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 16,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 16,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 17,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 17,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 18,
+      "occupied": false,
+      "result": 0
+    },
+    {
+      "index": 18,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 19,
+      "occupied": false,
+      "result": 4294967295
+    },
+    {
+      "index": 19,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 20,
+      "occupied": false,
+      "result": 4294967295
+    },
+    {
+      "index": 20,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 21,
+      "occupied": false,
+      "result": 4294967295
+    },
+    {
+      "index": 21,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 4294967295,
+      "occupied": false,
+      "result": 4294967295
+    },
+    {
+      "index": 4294967295,
+      "occupied": true,
+      "result": 4294967295
+    },
+    {
+      "index": 2147483648,
+      "occupied": false,
+      "result": 4294967295
+    },
+    {
+      "index": 2147483648,
+      "occupied": true,
+      "result": 4294967295
+    }
+  ],
+  "limits": "Constructors and their MMIO are never executed. This does not prove boot order, successful RTOS creation, indirect registrations or queue delivery on hardware.",
+  "registrations": [
+    {
+      "buffer": "0x10030200",
+      "buffer_bytes": 128,
+      "constructor": "0x100164a8",
+      "create": "0x1001651c",
+      "instruction_count": 54,
+      "message_words": 4,
+      "name": "engMsgQ",
+      "object": "0x1002f134",
+      "queue": 0,
+      "registration": "0x1001653a"
+    },
+    {
+      "buffer": "0x10028754",
+      "buffer_bytes": 800,
+      "constructor": "0x1000f294",
+      "create": "0x1000f2bc",
+      "instruction_count": 37,
+      "message_words": 4,
+      "name": "PrintMgrQueue",
+      "object": "0x10028a74",
+      "queue": 1,
+      "registration": "0x1000f2f1"
+    },
+    {
+      "buffer": "0x10023924",
+      "buffer_bytes": 320,
+      "constructor": "0x1000e3ac",
+      "create": "0x1000e3c2",
+      "instruction_count": 13,
+      "message_words": 4,
+      "name": "Job Mgr Queue",
+      "object": "0x10023e40",
+      "queue": 3,
+      "registration": "0x1000e3cc"
+    },
+    {
+      "buffer": "0x1002d230",
+      "buffer_bytes": 64,
+      "constructor": "0x10013688",
+      "create": "0x100136a0",
+      "instruction_count": 14,
+      "message_words": 4,
+      "name": "",
+      "object": "0x1002c9f8",
+      "queue": 4,
+      "registration": "0x100136aa"
+    },
+    {
+      "buffer": "0x1002ee70",
+      "buffer_bytes": 80,
+      "constructor": "0x10013cfc",
+      "create": "0x10013d14",
+      "instruction_count": 14,
+      "message_words": 4,
+      "name": "Video Queue",
+      "object": "0x1002ee38",
+      "queue": 8,
+      "registration": "0x10013d1e"
+    },
+    {
+      "buffer": "0x1002ab14",
+      "buffer_bytes": 400,
+      "constructor": "0x10010504",
+      "create": "0x10010534",
+      "instruction_count": 24,
+      "message_words": 4,
+      "name": "StatusMgrQueue",
+      "object": "0x10028adc",
+      "queue": 10,
+      "registration": "0x10010540"
+    },
+    {
+      "buffer": "0x1001d6cc",
+      "buffer_bytes": 160,
+      "constructor": "0x10010aac",
+      "create": "0x10010ad2",
+      "instruction_count": 20,
+      "message_words": 4,
+      "name": "DelayMgr Msg Queue",
+      "object": "0x1001d694",
+      "queue": 15,
+      "registration": "0x10010ade"
+    }
+  ],
+  "scope": "All seven annotated direct CALL8 registration sites. Conservative control-flow constant propagation, with explicit CALL8 preservation of a0..a7. Registration helper separately agrees with a table-update oracle in both interpreter and QEMU.",
+  "source_sha256": "ba2def469dae5a60ee7c35a3cac523b344419fabb37e4cd731ba0d7e76307fdb",
+  "status": "pass",
+  "table": "0x1002c918"
+}

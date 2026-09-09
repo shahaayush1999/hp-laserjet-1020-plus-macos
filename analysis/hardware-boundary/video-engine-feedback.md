@@ -33,7 +33,7 @@ This is a generated offline model. It does not contact the printer.
 
 - source: `0x10013c18 hp1020_video_thread_candidate`
 - trigger: video queue message 0x0b with page work pointer
-- meaning: After prepare/render, VideoThread tells the engine side that video work reached the post-render checkpoint.
+- meaning: After prepare/render, VideoThread tells PrintMgr (queue 1) that video work reached the post-render checkpoint.
 
 | Target | Message | Payload | Case |
 |---|---:|---:|---|
@@ -47,7 +47,7 @@ State slots:
 
 - source: `0x10013c18 -> 0x10015458 -> 0x10013d4c`
 - trigger: video queue message 0x0f
-- meaning: Flush/reset clears active/deferred video work and reports reset completion through the engine/status side.
+- meaning: Flush/reset clears active/deferred video work and reports reset completion to PrintMgr (queue 1).
 
 | Target | Message | Payload | Case |
 |---|---:|---:|---|
@@ -76,7 +76,7 @@ State slots:
 
 - source: `0x10013d4c hp1020_video_reset_dispatch_candidate(param=2..7)`
 - trigger: video reset dispatch error/status cases
-- meaning: Video reset/error states enter the same engine event word stream as mechanical status polling.
+- meaning: Video reset/error states and mechanical status polling both send event words to PrintMgr queue 1.
 
 | Target | Message | Payload | Case |
 |---|---:|---:|---|
@@ -145,7 +145,7 @@ State slots:
 ## Open Firmware Meaning
 
 - Printing firmware needs this feedback loop, not only parser and video register writes.
-- The normal render path reports message 0x10 to engine queue 1 after prepare/render.
+- The normal render path reports message 0x10 to PrintMgr queue 1 after prepare/render.
 - Video reset/error cases produce engine event 0x17 words that share the status pipeline with mechanical engine polling.
 - The next missing offline model is exact timing/ownership around the video transfer ring and interrupts, especially how +0x94/+0x98/+0x9c/+0xa0 advance.
 

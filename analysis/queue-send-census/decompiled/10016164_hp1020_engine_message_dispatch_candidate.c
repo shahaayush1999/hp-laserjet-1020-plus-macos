@@ -1,8 +1,6 @@
 /* Function: 10016164 hp1020_engine_message_dispatch_candidate */
 
 
-/* high confidence: Central engine message dispatch */
-
 undefined4 hp1020_engine_message_dispatch_candidate(undefined4 *param_1)
 
 {
@@ -38,7 +36,7 @@ undefined4 hp1020_engine_message_dispatch_candidate(undefined4 *param_1)
       iStack_34 = *(int *)(PTR_DAT_10006920 + 0x68);
       if (iStack_34 != 0) {
         local_40 = 0x11;
-        threadx_queue_send_candidate(PTR_DAT_1000699c,&local_40,0xffffffff);
+        threadx_queue_send_wait_candidate(PTR_DAT_1000699c,&local_40,0xffffffff);
         *(undefined4 *)(puVar2 + 0x68) = 0;
       }
       iStack_34 = *(int *)(puVar2 + 0x6c);
@@ -78,7 +76,8 @@ undefined4 hp1020_engine_message_dispatch_candidate(undefined4 *param_1)
       return 0;
     }
     puVar2 = PTR_DAT_10006920;
-    uVar3 = FUN_100162b0(*(undefined2 *)(*(int *)(PTR_DAT_10006920 + 0x68) + 0x80));
+    uVar3 = hp1020_engine_lookup_media_record_candidate
+                      (*(undefined2 *)(*(int *)(PTR_DAT_10006920 + 0x68) + 0x80));
     *(undefined4 *)(puVar2 + 0x48) = uVar3;
     FUN_10015d14();
     if (**(int **)(puVar2 + 0x68) == 7) {

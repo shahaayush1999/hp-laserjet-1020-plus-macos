@@ -27,6 +27,7 @@ class QemuRAM:
         self.temp = tempfile.TemporaryDirectory(prefix='hp1020-qemu-', dir='/tmp')
         self.socket = None
         self.process = None
+        self.receive_buffer = bytearray()
         try:
             path = Path(self.temp.name) / 'gdb.sock'
             self.process = subprocess.Popen([
@@ -68,11 +69,32 @@ class QemuRAM:
     def __exit__(self, *args):
         self.close()
 
+    def receive(self, count):
+        while len(self.receive_buffer) < count:
+            value = self.socket.recv(65536)
+            if not value:
+                raise RuntimeError('QEMU debugger disconnected')
+            self.receive_buffer.extend(value)
+        result = bytes(self.receive_buffer[:count])
+        del self.receive_buffer[:count]
+        return result
+
     def byte(self):
-        value = self.socket.recv(1)
-        if not value:
-            raise RuntimeError('QEMU debugger disconnected')
-        return value
+        return self.receive(1)
+
+    def packet(self):
+        while True:
+            end = self.receive_buffer.find(b'#')
+            if end > 0x40000 or end < 0 and len(self.receive_buffer) > 0x40000:
+                raise RuntimeError('excessive QEMU packet')
+            if end >= 0:
+                result = bytes(self.receive_buffer[:end])
+                del self.receive_buffer[:end+1]
+                return result
+            value = self.socket.recv(65536)
+            if not value:
+                raise RuntimeError('QEMU debugger disconnected')
+            self.receive_buffer.extend(value)
 
     def command(self, command):
         payload = command.encode('ascii')
@@ -82,11 +104,7 @@ class QemuRAM:
             raise RuntimeError(f'QEMU packet not acknowledged: {first!r}')
         if self.byte() != b'$':
             raise RuntimeError('missing QEMU packet marker')
-        packet = bytearray()
-        while (value := self.byte()) != b'#':
-            packet.extend(value)
-            if len(packet) > 0x40000:
-                raise RuntimeError('excessive QEMU packet')
+        packet = self.packet()
         checksum = int(self.byte() + self.byte(), 16)
         if checksum != sum(packet) % 256:
             raise RuntimeError('QEMU packet checksum mismatch')

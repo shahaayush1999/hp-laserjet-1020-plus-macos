@@ -1,7 +1,7 @@
 /* Function: 1000fcb0 hp1020_print_mgr_datastore_notify_state_candidate */
 
 
-/* medium confidence: Handles PrintMgr notification/completion messages including 0x2d entry 1 */
+/* print-manager fallout mapping candidate */
 
 undefined4 hp1020_print_mgr_datastore_notify_state_candidate(int *param_1)
 

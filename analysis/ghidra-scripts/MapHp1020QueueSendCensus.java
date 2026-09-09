@@ -280,10 +280,10 @@ public class MapHp1020QueueSendCensus extends GhidraScript {
             return "dynamic";
         }
         long value = parseNumber(queueArg);
-        if (value == 0) {
+        if (value == 1) {
             return "PrintMgrQueue";
         }
-        if (value == 1) {
+        if (value == 0) {
             return "engMsgQ";
         }
         if (value == 3) {
@@ -323,7 +323,7 @@ public class MapHp1020QueueSendCensus extends GhidraScript {
         int directPrintMgr2d = 0;
         int datastore2d = 0;
         for (SendSite site : sites) {
-            if ("0".equals(site.queueArg) && isSameNumber(site.messageArg, 0x2d)) {
+            if ("1".equals(site.queueArg) && isSameNumber(site.messageArg, 0x2d)) {
                 directPrintMgr2d++;
             }
             if (site.functionAddress.equals("10010fd0") && isSameNumber(site.messageArg, 0x2d)) {
@@ -339,13 +339,13 @@ public class MapHp1020QueueSendCensus extends GhidraScript {
             out.println("## Main Result");
             out.println();
             out.printf("- total queue-send call sites found: `%d`%n", sites.size());
-            out.printf("- direct static sends of message `0x2d` to queue `0` / PrintMgrQueue: `%d`%n", directPrintMgr2d);
+            out.printf("- direct static sends of message `0x2d` to queue `1` / PrintMgrQueue: `%d`%n", directPrintMgr2d);
             out.printf("- data-store writer `0x10010fd0` still emits message `0x2d` through subscriber-selected queue ids: `%d` matching site(s)%n", datastore2d);
-            out.println("- No direct constant `queue 0, message 0x2d` producer was found by this pass.");
+            out.println("- Datastore notifications select queue 1 through registered subscribers; lack of a direct constant send does not imply an absent PrintMgr producer.");
             out.println();
-            out.println("## Queue 0 / PrintMgr Constant Sends");
+            out.println("## Queue 1 / PrintMgr Constant Sends");
             out.println();
-            writeFilteredTable(out, sites, "0");
+            writeFilteredTable(out, sites, "1");
             out.println();
             out.println("## Message 0x2d Sites");
             out.println();

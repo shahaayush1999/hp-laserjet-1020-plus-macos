@@ -31,7 +31,7 @@ BANNED_PATTERNS = [
 WATCH_PATTERNS = [
     ("medium_mmio_boot_timer", r"0xb0(?:30|70|80)[0-9a-fA-F]{4}", "boot/timer/diagnostic MMIO family"),
     ("usb_mmio", r"0xb30[0-9][0-9a-fA-F]{4}", "USB-controller MMIO family; allowed only for a USB-only probe"),
-    ("engine_queue_page_message", r"queue\s*1.*(?:0x0b|11)|(?:0x0b|11).*queue\s*1", "possible engine queue page-work message"),
+    ("engine_queue_page_message", r"queue\s*1.*(?:0x0b|11)|(?:0x0b|11).*queue\s*1", "possible PrintMgr queue page-work message"),
 ]
 
 

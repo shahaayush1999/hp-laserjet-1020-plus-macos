@@ -1,5 +1,8 @@
 # HP 1020 Engine Status Poll Branch Map
 
+> Routing correction (2026-09-08): [stock registration](queue-routing/registration.md) proves queue 0 is engine and queue 1 is PrintMgr. Older routing interpretations below are historical; event 0x17 and datastore notification 0x2d reach PrintMgr, so their former missing-consumer conclusions are superseded.
+
+
 This report summarizes `0x10015df8` `hp1020_engine_status_poll_candidate`.
 
 Primary evidence:

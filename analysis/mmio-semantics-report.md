@@ -1,5 +1,8 @@
 # HP 1020 MMIO Semantics Pass
 
+> Routing correction (2026-09-08): [stock registration](queue-routing/registration.md) proves queue 0 is engine and queue 1 is PrintMgr. Older routing interpretations below are historical; event 0x17 and datastore notification 0x2d reach PrintMgr, so their former missing-consumer conclusions are superseded.
+
+
 This pass starts naming engine/video hardware registers by behavior rather than just address family.
 
 It uses:

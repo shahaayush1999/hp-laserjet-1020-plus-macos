@@ -93,10 +93,10 @@ def build_report() -> dict[str, Any]:
             "confidence": "high",
         },
         {
-            "stage": "engine_queue_handoff",
+            "stage": "printmgr_queue_handoff",
             "function": "0x1000e414 -> queue 1 message 0x0b",
             "object": "work pointer in message word 4",
-            "evidence": "JobMgr stores iVar9 in iStack_84 and sends engine queue message 0x0b",
+            "evidence": "JobMgr stores iVar9 in iStack_84 and sends PrintMgr queue 1 message 0x0b",
             "confidence": "medium-high",
         },
         {
@@ -179,7 +179,7 @@ def build_report() -> dict[str, Any]:
             "uStack_90 = 0xb" in sources["job_mgr"]
             and "iStack_84 = iVar9" in sources["job_mgr"]
             and "hp1020_queue_send_candidate(1,&uStack_90)" in sources["job_mgr"],
-            "JobMgr sends engine queue 0x0b with the candidate work pointer in the fourth message word",
+            "JobMgr sends PrintMgr queue 1 message 0x0b with the candidate work pointer in the fourth message word",
         ),
         check(
             "engine_dispatch_stores_active_work_pointer",

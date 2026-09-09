@@ -17,17 +17,15 @@ This pass scans for engine queue/event evidence that the normal decompile did no
 | `10007468` `FUN_10007468` | `literal_0x17` |
 | `1000e1dc` `FUN_1000e1dc` | `literal_0x17` |
 | `10010230` `FUN_10010230` | `literal_0x17` |
-| `10010fd0` `hp1020_datastore_write_notify_unlock_candidate` | `call_hp1020_queue_send_candidate`, `ref_hp1020_event_handler_table_ptr_word`, `ref_hp1020_queue_send_candidate` |
-| `10011258` `hp1020_register_event_handler_candidate` | `ref_hp1020_event_handler_table_ptr_word` |
-| `1001135c` `hp1020_register_or_signal_message_candidate` | `ref_hp1020_event_handler_table_ptr_word` |
+| `10010fd0` `FUN_10010fd0` | `call_hp1020_queue_send_candidate`, `ref_hp1020_event_handler_table_ptr_word`, `ref_hp1020_queue_send_candidate` |
+| `10011258` `FUN_10011258` | `ref_hp1020_event_handler_table_ptr_word` |
+| `1001135c` `FUN_1001135c` | `ref_hp1020_event_handler_table_ptr_word` |
 | `10013d4c` `hp1020_video_reset_dispatch_candidate` | `call_hp1020_send_or_raise_engine_msg_candidate`, `literal_0x17`, `ref_hp1020_send_or_raise_engine_msg_candidate` |
 | `10015c68` `hp1020_engine_status_io_candidate` | `call_FUN_10017d28`, `call_hp1020_queue_send_candidate`, `literal_0x17`, `ref_hp1020_queue_send_candidate` |
 | `10015df8` `hp1020_engine_status_poll_candidate` | `call_hp1020_engine_status_io_candidate`, `call_hp1020_queue_send_candidate`, `call_hp1020_video_reset_dispatch_candidate`, `literal_0x17`, `ref_hp1020_engine_status_io_candidate`, `ref_hp1020_queue_send_candidate`, `ref_hp1020_video_reset_dispatch_candidate` |
 | `100160a8` `hp1020_engine_preflight_candidate` | `call_hp1020_engine_event_0x0f_config_callback_candidate`, `call_hp1020_queue_send_candidate`, `literal_0x17`, `ref_hp1020_engine_event_0x0f_config_callback_candidate`, `ref_hp1020_queue_send_candidate` |
 | `10016164` `hp1020_engine_message_dispatch_candidate` | `call_hp1020_engine_preflight_candidate`, `call_hp1020_engine_status_io_candidate`, `call_hp1020_engine_status_poll_candidate`, `call_hp1020_queue_send_candidate`, `call_hp1020_send_or_raise_engine_msg_candidate`, `call_threadx_queue_send_candidate`, `ref_hp1020_engine_preflight_candidate`, `ref_hp1020_engine_status_io_candidate`, ... |
 | `10016318` `hp1020_engine_event_0x0f_config_callback_candidate` | `` |
-| `1001635c` `hp1020_engine_delay_thread_candidate` | `call_hp1020_send_or_raise_engine_msg_candidate`, `call_threadx_queue_receive_wait_candidate`, `ref_hp1020_send_or_raise_engine_msg_candidate`, `ref_threadx_queue_receive_wait_candidate` |
-| `100163b0` `hp1020_engine_thread_candidate` | `call_hp1020_engine_message_dispatch_candidate`, `call_hp1020_engine_preflight_candidate`, `call_hp1020_engine_status_poll_candidate`, `call_hp1020_queue_send_candidate`, `call_threadx_queue_receive_wait_candidate`, `ref_hp1020_eng_msg_queue_object_candidate`, `ref_hp1020_eng_msg_queue_object_ptr_word`, `ref_hp1020_engine_event_0x0f_config_callback_candidate`, ... |
 | `1001a5f4` `FUN_1001a5f4` | `literal_0x17` |
 
 ## Instruction Evidence
@@ -48,18 +46,18 @@ This pass scans for engine queue/event evidence that the normal decompile did no
 
 - `10010235` `movi.n` `movi.n a8,0x17` -> `literal_0x17`
 
-### `10010fd0` `hp1020_datastore_write_notify_unlock_candidate`
+### `10010fd0` `FUN_10010fd0`
 
 - `100110d6` `l32r` `l32r a8,0x10006490` -> `ref_hp1020_event_handler_table_ptr_word`
 - `10011100` `l32r` `l32r a8,0x10006490` -> `ref_hp1020_event_handler_table_ptr_word`
 - `1001115e` `call8` `call8 0x10013658` -> `ref_hp1020_queue_send_candidate`
 - `1001115e` `call8` `call8 0x10013658` -> `call_hp1020_queue_send_candidate`
 
-### `10011258` `hp1020_register_event_handler_candidate`
+### `10011258` `FUN_10011258`
 
 - `100112a6` `l32r` `l32r a8,0x10006490` -> `ref_hp1020_event_handler_table_ptr_word`
 
-### `1001135c` `hp1020_register_or_signal_message_candidate`
+### `1001135c` `FUN_1001135c`
 
 - `100113b8` `l32r` `l32r a8,0x10006490` -> `ref_hp1020_event_handler_table_ptr_word`
 
@@ -155,36 +153,11 @@ This pass scans for engine queue/event evidence that the normal decompile did no
 ### `10016318` `hp1020_engine_event_0x0f_config_callback_candidate`
 
 
-### `1001635c` `hp1020_engine_delay_thread_candidate`
-
-- `1001637a` `call8` `call8 0x1001809c` -> `ref_threadx_queue_receive_wait_candidate`
-- `1001637a` `call8` `call8 0x1001809c` -> `call_threadx_queue_receive_wait_candidate`
-- `100163a4` `call8` `call8 0x10013620` -> `ref_hp1020_send_or_raise_engine_msg_candidate`
-- `100163a4` `call8` `call8 0x10013620` -> `call_hp1020_send_or_raise_engine_msg_candidate`
-
-### `100163b0` `hp1020_engine_thread_candidate`
-
-- `100163c4` `call8` `call8 0x100160a8` -> `ref_hp1020_engine_preflight_candidate`
-- `100163c4` `call8` `call8 0x100160a8` -> `call_hp1020_engine_preflight_candidate`
-- `100163d3` `call8` `call8 0x10015df8` -> `ref_hp1020_engine_status_poll_candidate`
-- `100163d3` `call8` `call8 0x10015df8` -> `call_hp1020_engine_status_poll_candidate`
-- `100163f9` `call8` `call8 0x10011258` -> `ref_hp1020_engine_event_0x0f_config_callback_candidate`
-- `10016446` `call8` `call8 0x10013658` -> `ref_hp1020_queue_send_candidate`
-- `10016446` `call8` `call8 0x10013658` -> `call_hp1020_queue_send_candidate`
-- `1001645c` `l32r` `l32r a10,0x100069bc` -> `ref_hp1020_eng_msg_queue_object_ptr_word`
-- `10016466` `call8` `call8 0x1001809c` -> `ref_threadx_queue_receive_wait_candidate`
-- `10016466` `call8` `call8 0x1001809c` -> `call_threadx_queue_receive_wait_candidate`
-- `10016466` `call8` `call8 0x1001809c` -> `ref_hp1020_eng_msg_queue_object_candidate`
-- `1001646e` `call8` `call8 0x10016164` -> `ref_hp1020_engine_message_dispatch_candidate`
-- `1001646e` `call8` `call8 0x10016164` -> `call_hp1020_engine_message_dispatch_candidate`
-- `10016476` `call8` `call8 0x10015df8` -> `ref_hp1020_engine_status_poll_candidate`
-- `10016476` `call8` `call8 0x10015df8` -> `call_hp1020_engine_status_poll_candidate`
-
 ### `1001a5f4` `FUN_1001a5f4`
 
 - `1001a600` `movi.n` `movi.n a2,0x17` -> `literal_0x17`
 
 ## Interpretation
 
-The current evidence supports a missing or non-obvious consumer branch rather than a second obvious queue consumer.
-The next step is to inspect the raw control flow around `0x10016164` and the generated switch metadata, because Ghidra may have dropped a case or folded it into a default path.
+Constructor registration proves queue 1 is PrintMgr and queue 0 is engine. The queue-1 0x17 producers reach PrintMgr target 0x1000f4c2; the older missing-engine-consumer conclusion was a routing error.
+See `analysis/queue-routing/registration.md`. The engine default case remains correct for queue 0, but does not describe those queue-1 events.

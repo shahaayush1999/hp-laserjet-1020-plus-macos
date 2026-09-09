@@ -1,7 +1,7 @@
 /* Function: 100163b0 hp1020_engine_thread_candidate */
 
 
-/* high confidence: Engine queue consumer */
+/* data-store subscriber mapping candidate */
 
 void hp1020_engine_thread_candidate(void)
 
@@ -20,10 +20,10 @@ void hp1020_engine_thread_candidate(void)
   uVar1 = DAT_10006420;
   *(undefined4 *)(puVar2 + 0x44) = DAT_10005e34;
   while (uVar3 = hp1020_engine_status_poll_candidate(0), (uVar3 & uVar1) == uVar1) {
-    threadx_sleep_candidate(1);
+    FUN_1001766c(1);
   }
-  hp1020_engine_init_step_candidate();
-  hp1020_engine_register_handlers_candidate();
+  FUN_10016024();
+  FUN_100165a4();
   hp1020_datastore_register_callback_subscriber_candidate
             (0xf,hp1020_engine_density_callback_ptr_word);
   puVar2 = hp1020_engine_media_callback_ptr_word;
@@ -33,7 +33,7 @@ void hp1020_engine_thread_candidate(void)
   hp1020_datastore_register_callback_subscriber_candidate(0x12,puVar2);
   hp1020_datastore_register_callback_subscriber_candidate(0x13,puVar2);
   hp1020_datastore_register_callback_subscriber_candidate(0x14,puVar2);
-  hp1020_engine_init_step_candidate();
+  FUN_10016024();
   uStack_2c = 2;
   uStack_30 = 0x16;
   hp1020_queue_send_candidate(1,&uStack_30);
@@ -41,8 +41,7 @@ void hp1020_engine_thread_candidate(void)
   puVar2 = PTR_DAT_10006920;
   iVar4 = *(int *)(PTR_DAT_10006920 + 0x24);
   while (iVar4 == 0) {
-    iVar4 = threadx_queue_receive_wait_candidate
-                      (PTR_hp1020_engine_queue_object_candidate_100069bc,&uStack_30,0x32);
+    iVar4 = threadx_queue_receive_wait_candidate(PTR_DAT_100069bc,&uStack_30,0x32);
     if (iVar4 == 0) {
       hp1020_engine_message_dispatch_candidate(&uStack_30);
     }

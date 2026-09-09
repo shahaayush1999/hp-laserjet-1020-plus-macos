@@ -33,7 +33,7 @@ message	target	containing_function	target_note
 0x2a	0x1000f358	hp1020_print_mgr_thread_candidate	default/no-op target
 0x2b	0x1000f358	hp1020_print_mgr_thread_candidate	default/no-op target
 0x2c	0x1000f358	hp1020_print_mgr_thread_candidate	default/no-op target
-0x2d	0x1000f497	hp1020_print_mgr_thread_candidate	PrintMgr 0x2d handler target; queue-0 producer unresolved
+0x2d	0x1000f497	hp1020_print_mgr_thread_candidate	PrintMgr 0x2d handler; producer is datastore subscriber queue 1
 0x2e	0x1000f358	hp1020_print_mgr_thread_candidate	default/no-op target
 0x2f	0x1000f358	hp1020_print_mgr_thread_candidate	default/no-op target
 0x30	0x1000f358	hp1020_print_mgr_thread_candidate	default/no-op target

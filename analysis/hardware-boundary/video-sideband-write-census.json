@@ -100,8 +100,8 @@
     "The old absence claim resulted from missing indirect-switch handlers in saved parser decompilation."
   ],
   "corpus_summary": {
-    "files_scanned": 632,
-    "raw_hit_count": 112,
+    "files_scanned": 637,
+    "raw_hit_count": 113,
     "unique_text_count": 35,
     "unique_texts": [
       "*(uint *)(puVar15 + 0xd0) = (uint)*(ushort *)(param_1 + 0x26);",

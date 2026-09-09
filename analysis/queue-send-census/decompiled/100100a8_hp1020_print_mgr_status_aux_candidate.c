@@ -1,7 +1,7 @@
 /* Function: 100100a8 hp1020_print_mgr_status_aux_candidate */
 
 
-/* low confidence: PrintMgr helper used when handling completion/status path */
+/* print-manager fallout mapping candidate */
 
 void hp1020_print_mgr_status_aux_candidate(void)
 

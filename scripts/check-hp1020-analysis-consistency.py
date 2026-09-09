@@ -164,30 +164,30 @@ def build_report() -> dict[str, Any]:
     checks: list[dict[str, str]] = []
 
     dispatch_md = read_text("analysis/engine-dispatch-cfg/engine-dispatch-cfg.md")
-    queue_map = read_tsv("analysis/message-map/queue-message-map.tsv")
-    engine_017 = [
-        row
-        for row in queue_map
-        if row.get("queue_id") == "1" and row.get("message_id") == "0x17"
-    ]
-    checks.append(
-        check(
-            "engine_0x17_dispatch_is_default",
-            "| `0x17` | `100162aa` | default return/no-op |" in dispatch_md,
-            "Engine queue message 0x17 must remain modeled as a default-return receive path, not a direct command handler.",
-            evidence="analysis/engine-dispatch-cfg/engine-dispatch-cfg.md",
-        )
-    )
-    checks.append(
-        check(
-            "queue_map_engine_0x17_matches_cfg",
-            len(engine_017) == 1
-            and "default return block 0x100162aa" in engine_017[0].get("consumer_or_handler", "")
-            and "high producer" in engine_017[0].get("confidence", ""),
-            "Queue-message map must preserve the current producer/default-consumer conclusion for engine 0x17.",
-            evidence="analysis/message-map/queue-message-map.tsv",
-        )
-    )
+    registration = read_json("analysis/queue-routing/registration.json")
+    registered = {r["queue"]: (r["name"], r["object"]) for r in registration["registrations"]}
+    checks.append(check("engine_0x17_dispatch_is_default",
+                        "| `0x17` | `100162aa` | default return/no-op |" in dispatch_md,
+                        "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
+                        evidence="analysis/engine-dispatch-cfg/engine-dispatch-cfg.md"))
+    checks.append(check("stock_queue_registration",
+                        registered[0] == ("engMsgQ", "0x1002f134")
+                        and registered[1] == ("PrintMgrQueue", "0x10028a74")
+                        and registered[3] == ("Job Mgr Queue", "0x10023e40")
+                        and len(registered) == 7 and len(registration["helper_cases"]) == 48
+                        and registration["source_sha256"] == hashlib.sha256((ROOT_DIR/"scripts/audit-hp1020-queue-registration.py").read_bytes()).hexdigest(),
+                        "Stock constructor control flow must preserve the corrected queue identities and independent registration-helper audit.",
+                        evidence="analysis/queue-routing/registration.json"))
+
+    for name, total in (("printmgr",40),("notifications",12)):
+        execution = read_json(f"analysis/open-firmware-model/stock-execution/{name}.json")
+        checks.append(check(f"original_{name}_execution",
+                            execution["status"] == "pass" and execution["total_cases"] == total
+                            and all(c["status"] == "pass" for c in execution["cases"])
+                            and all(hashlib.sha256((ROOT_DIR/"scripts"/p).read_bytes()).hexdigest() == h
+                                    for p,h in execution["source_sha256"].items()),
+                            "Original routing and allocation ownership must agree with QEMU and explicit fixture oracles.",
+                            evidence=f"analysis/open-firmware-model/stock-execution/{name}.json"))
 
     event_rows = read_tsv("analysis/engine-events/engine-0x17-events.tsv")
     status_corr = read_json("analysis/status-path/status-code-correlation.json")

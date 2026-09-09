@@ -60,6 +60,21 @@ ABI stack and a different core configuration, not stock boot/interrupt/cache
 state. Further work includes status-notification ownership and interruption
 producer/acknowledgement paths.
 
+Original constructor analysis corrects a major inherited error: queue 0 is engine,
+queue 1 is PrintMgr, and JobMgr queue 3 uses object `0x10023e40`. The former
+missing-consumer conclusions for engine event `0x17` and datastore `0x2d` were
+routing errors, not hardware blockers. PrintMgr now executes under both CPU
+engines: cancellation advances states 0 -> 1 -> 2 -> 0 on two injected stop
+acknowledgements and frees only its own list nodes. Its original subscriptions
+and datastore writer emit ONLINE changes to queue 1; the original consumer
+updates its online byte. StatusMgr releases the remaining JobMgr completion
+notices, leaving no tracked live allocations in selected completed lifecycles.
+See `stock-execution/printmgr.md` and `stock-execution/notifications.md`.
+Engine/Video acknowledgement production, work retirement and status publication
+remain explicit boundaries. Investigate them before promoting the preliminary
+cancellation leak/null-access experiments; an injected acknowledgement alone
+does not establish the actual stopping state.
+
 The next **live** experiment remains the existing non-printing USB ladder.
 Further combined firmware integration cannot establish any of the device facts
 above. Once boot/USB behavior is proven, the validated C component can be joined

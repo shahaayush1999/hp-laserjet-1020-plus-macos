@@ -1,7 +1,7 @@
 /* Function: 10010218 hp1020_queue_send_message4_candidate */
 
 
-/* medium confidence: Small wrapper that sends a 4-word message to a queue */
+/* print-manager fallout mapping candidate */
 
 void hp1020_queue_send_message4_candidate
                (undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,

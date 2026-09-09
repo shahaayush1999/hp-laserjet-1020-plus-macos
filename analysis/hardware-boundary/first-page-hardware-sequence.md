@@ -45,7 +45,7 @@ The parser/object path is mapped well enough for the current foo2zjs sample. Thi
 | `7` | video refill / raw-band feed | `normal hypothesis: 0x10014244 -> 0x10013f34 descriptor queue/list path` | `0xb1000008 / 0xb1000108` raw-band pointer/window write<br>`0xb100000c / 0xb100010c` raw-band flags/count write<br>`0xb2080004 / 0xb2080008` channel-B refill descriptor write | Feeds compressed raster bytes to the hardware-side print path; normal/alternate mode selection matters for reproducing timing. | `high` |
 |  | projected `normal_refill_state_fields` | analysis/hardware-boundary/video-refill-topology.md | `+0xd0, +0xd8, +0xdc, +0xe0, +0xf0, +0xf8, +0xfc` | consumer `0x10014244 -> 0x10013f34` |  |
 |  | projected `normal_refill_unsafe_registers` | analysis/hardware-boundary/video-refill-topology.md | `0xb1000008, 0xb100000c, 0xb1000108, 0xb100010c, 0xb2080004, 0xb2080008` | consumer `0x10014244 -> 0x10013f34` |  |
-| `8` | video done wakes engine | `VideoThread sends engine queue message 0x10` | none | Completion coordination; needed so engine timing and status do not drift. | `high` |
+| `8` | video done wakes PrintMgr | `VideoThread sends PrintMgr queue 1 message 0x10` | none | Completion coordination; needed so engine timing and status do not drift. | `high` |
 
 ## Remaining Unknowns
 

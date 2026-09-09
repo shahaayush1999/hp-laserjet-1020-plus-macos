@@ -9,7 +9,7 @@ bool FUN_10010c98(undefined4 param_1,undefined4 param_2,undefined4 param_3,undef
   undefined4 local_30;
   undefined4 uStack_2c;
 
-  threadx_memory_or_copy_candidate(PTR_DAT_10006430,0xffffffff);
+  FUN_100181a4(PTR_DAT_10006430,0xffffffff);
   uVar2 = *(uint *)PTR_DAT_10006454;
   if (uVar2 < 10) {
     *(uint *)PTR_DAT_10006454 = uVar2 + 1;

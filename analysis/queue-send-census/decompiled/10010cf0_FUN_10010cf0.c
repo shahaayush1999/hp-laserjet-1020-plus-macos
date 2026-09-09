@@ -13,7 +13,7 @@ void FUN_10010cf0(int param_1,int param_2)
   int iStack_30;
 
   iStack_30 = param_1;
-  threadx_memory_or_copy_candidate(PTR_DAT_10006430,0xffffffff);
+  FUN_100181a4(PTR_DAT_10006430,0xffffffff);
   puVar3 = PTR_DAT_1000645c;
   puVar2 = PTR_DAT_10006454;
   uVar4 = 0;

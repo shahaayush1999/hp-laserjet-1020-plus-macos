@@ -26,7 +26,7 @@
       "status": "present"
     },
     {
-      "detail": "JobMgr sends engine queue 0x0b with the candidate work pointer in the fourth message word",
+      "detail": "JobMgr sends PrintMgr queue 1 message 0x0b with the candidate work pointer in the fourth message word",
       "name": "jobmgr_sends_engine_0x0b_with_work_pointer",
       "status": "present"
     },
@@ -100,10 +100,10 @@
     },
     {
       "confidence": "medium-high",
-      "evidence": "JobMgr stores iVar9 in iStack_84 and sends engine queue message 0x0b",
+      "evidence": "JobMgr stores iVar9 in iStack_84 and sends PrintMgr queue 1 message 0x0b",
       "function": "0x1000e414 -> queue 1 message 0x0b",
       "object": "work pointer in message word 4",
-      "stage": "engine_queue_handoff"
+      "stage": "printmgr_queue_handoff"
     },
     {
       "confidence": "high",

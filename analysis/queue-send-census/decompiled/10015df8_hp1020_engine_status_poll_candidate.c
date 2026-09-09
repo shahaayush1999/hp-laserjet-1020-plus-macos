@@ -1,8 +1,6 @@
 /* Function: 10015df8 hp1020_engine_status_poll_candidate */
 
 
-/* high confidence: Engine status polling path */
-
 void hp1020_engine_status_poll_candidate(int param_1)
 
 {

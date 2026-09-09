@@ -1,8 +1,7 @@
 /* Function: 1000f574 hp1020_print_mgr_schedule_or_advance_candidate */
 
 
-/* medium confidence: Advances PrintMgr queued page/media work and calls notification-state helper
-    */
+/* print-manager fallout mapping candidate */
 
 void hp1020_print_mgr_schedule_or_advance_candidate(int *param_1)
 

@@ -1,8 +1,6 @@
 /* Function: 10010230 hp1020_print_mgr_idle_or_restart_candidate */
 
 
-/* low confidence: PrintMgr helper that sends queue-0 restart/idle messages 0x4a and 0x18 */
-
 void hp1020_print_mgr_idle_or_restart_candidate(int *param_1)
 
 {

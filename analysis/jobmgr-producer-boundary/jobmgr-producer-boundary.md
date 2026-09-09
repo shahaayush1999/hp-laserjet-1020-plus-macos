@@ -4,16 +4,23 @@ This pass scans decompiled firmware for JobMgr queue producers, direct queue-obj
 
 ## Counts
 
-- queue-id `3` wrapper sends: `8`
+- queue-id `3` wrapper sends: `9`
 - direct JobMgr scalar sends: `2`
-- possible message `9` constants: `13`
-- possible message `0x29` constants: `0`
-- video hardware runtime block refs: `0`
+- possible message `9` constants: `14`
+- possible message `0x29` constants: `1`
+- video hardware runtime block refs: `5`
 
 ## Notable Hits
 
 | Function | Line | Kind | Code |
 |---:|---:|---|---|
+| `1000e414` `hp1020_job_mgr_thread_candidate` | `46` | `video_hw_runtime_block_ref` | `puVar6 = PTR_hp1020_jobmgr_video_hw_runtime_block_10006304;` |
+| `1000e414` `hp1020_job_mgr_thread_candidate` | `183` | `video_hw_runtime_block_ref` | `puVar4 = PTR_hp1020_jobmgr_video_hw_runtime_block_10006304;` |
+| `1000e414` `hp1020_job_mgr_thread_candidate` | `186` | `video_hw_runtime_block_ref` | `*(undefined4 *)(PTR_hp1020_jobmgr_video_hw_runtime_block_10006304 + 4);` |
+| `1000e414` `hp1020_job_mgr_thread_candidate` | `254` | `queue_id_3_send` | `hp1020_queue_send_candidate(3,&amp;uStack_80);` |
+| `1000e414` `hp1020_job_mgr_thread_candidate` | `501` | `possible_msg_0x29_constant` | `case 0x29:` |
+| `1000e414` `hp1020_job_mgr_thread_candidate` | `504` | `video_hw_runtime_block_ref` | `FUN_1001b38c(PTR_hp1020_jobmgr_video_hw_runtime_block_10006304,iStack_84,0x14);` |
+| `1000e414` `hp1020_job_mgr_thread_candidate` | `512` | `video_hw_runtime_block_ref` | `*(undefined4 *)(PTR_hp1020_jobmgr_video_hw_runtime_block_10006304 + 4);` |
 | `1000f814` `hp1020_print_mgr_return_work_to_jobmgr_candidate` | `14` | `queue_id_3_send` | `hp1020_queue_send_candidate(3,param_1);` |
 | `10010338` `hp1020_job_record_create_and_enqueue_candidate` | `26` | `queue_id_3_send` | `hp1020_queue_send_candidate(3,local_30);` |
 | `10010398` `hp1020_child_page_record_create_candidate` | `17` | `queue_id_3_send` | `hp1020_queue_send_candidate(3,local_30);` |

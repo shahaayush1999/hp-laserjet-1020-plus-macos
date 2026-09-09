@@ -265,8 +265,8 @@ public class MapHp1020EngineEventConsumer extends GhidraScript {
         out.println();
         out.println("## Interpretation");
         out.println();
-        out.println("The current evidence supports a missing or non-obvious consumer branch rather than a second obvious queue consumer.");
-        out.println("The next step is to inspect the raw control flow around `0x10016164` and the generated switch metadata, because Ghidra may have dropped a case or folded it into a default path.");
+        out.println("Constructor registration proves queue 1 is PrintMgr and queue 0 is engine. The queue-1 0x17 producers reach PrintMgr target 0x1000f4c2; the older missing-engine-consumer conclusion was a routing error.");
+        out.println("See `analysis/queue-routing/registration.md`. The engine default case remains correct for queue 0, but does not describe those queue-1 events.");
     }
 
     private String shortReasons(Set<String> reasons) {

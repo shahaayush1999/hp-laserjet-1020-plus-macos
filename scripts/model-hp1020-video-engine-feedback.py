@@ -122,7 +122,7 @@ def feedback_sequences(literals: dict[str, str]) -> list[dict[str, Any]]:
             "messages": [
                 {"target": "queue 1", "message": "0x10", "payload": "original video queue payload"},
             ],
-            "meaning": "After prepare/render, VideoThread tells the engine side that video work reached the post-render checkpoint.",
+            "meaning": "After prepare/render, VideoThread tells PrintMgr (queue 1) that video work reached the post-render checkpoint.",
         },
         {
             "name": "video_reset_or_flush",
@@ -132,7 +132,7 @@ def feedback_sequences(literals: dict[str, str]) -> list[dict[str, Any]]:
             "messages": [
                 {"target": "queue 1 via wrapper", "message": "0x25", "payload": "no event word in word 1"},
             ],
-            "meaning": "Flush/reset clears active/deferred video work and reports reset completion through the engine/status side.",
+            "meaning": "Flush/reset clears active/deferred video work and reports reset completion to PrintMgr (queue 1).",
         },
         {
             "name": "reset_dispatch_complete_active",
@@ -160,7 +160,7 @@ def feedback_sequences(literals: dict[str, str]) -> list[dict[str, Any]]:
                 {"target": "queue 1 via wrapper", "message": "0x17", "payload": literals["video_reset_event_case_5"], "case": "5"},
                 {"target": "queue 1 via wrapper", "message": "0x17", "payload": literals["video_reset_event_case_6"], "case": "6"},
             ],
-            "meaning": "Video reset/error states enter the same engine event word stream as mechanical status polling.",
+            "meaning": "Video reset/error states and mechanical status polling both send event words to PrintMgr queue 1.",
         },
     ]
 
@@ -222,7 +222,7 @@ def build_report(elf_path: Path) -> dict[str, Any]:
         "checks": checks,
         "open_firmware_implication": [
             "Printing firmware needs this feedback loop, not only parser and video register writes.",
-            "The normal render path reports message 0x10 to engine queue 1 after prepare/render.",
+            "The normal render path reports message 0x10 to PrintMgr queue 1 after prepare/render.",
             "Video reset/error cases produce engine event 0x17 words that share the status pipeline with mechanical engine polling.",
             "The next missing offline model is exact timing/ownership around the video transfer ring and interrupts, especially how +0x94/+0x98/+0x9c/+0xa0 advance.",
         ],

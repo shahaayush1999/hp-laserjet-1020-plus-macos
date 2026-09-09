@@ -2,7 +2,7 @@
 
 
 /* WARNING: Control flow encountered bad instruction data */
-/* high confidence: Writes indexed data-store entry, notifies subscribers, then unlocks entry */
+/* print-manager fallout mapping candidate */
 
 void hp1020_datastore_write_notify_unlock_candidate(uint *param_1)
 
@@ -19,7 +19,7 @@ void hp1020_datastore_write_notify_unlock_candidate(uint *param_1)
   undefined4 uStack_24;
 
   bVar1 = true;
-  piVar3 = (int *)(hp1020_datastore_descriptor_table_ptr + *param_1 * 0x18);
+  piVar3 = (int *)(PTR_DAT_1000647c + *param_1 * 0x18);
   if (piVar3[5] != 1) goto switchD_10010ff5_default;
   switch(piVar3[2]) {
   case 0:

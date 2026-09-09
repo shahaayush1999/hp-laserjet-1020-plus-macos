@@ -1,5 +1,8 @@
 # HP 1020 Firmware Architecture Map
 
+> Routing correction (2026-09-08): [stock registration](queue-routing/registration.md) proves queue 0 is engine and queue 1 is PrintMgr. Older routing interpretations below are historical; event 0x17 and datastore notification 0x2d reach PrintMgr, so their former missing-consumer conclusions are superseded.
+
+
 This is the current working map of the HP LaserJet 1020/1020 Plus firmware after the first reverse-engineering passes.
 
 It is intentionally practical: what subsystem exists, what evidence anchors it, and what remains unresolved.
@@ -118,7 +121,7 @@ That means queue IDs in send calls are meaningful firmware-level routing numbers
 Queue `8` remains the least resolved active print-path queue.
 
 The consolidated `(queue, message)` dictionary is in `analysis/message-map-report.md` and
-`analysis/message-map/queue-message-map.tsv`.
+`analysis/queue-routing/registration.json`.
 
 Engine queue message `0x17` is a status/event family with a second-word payload. The current
 event-code map is in `analysis/engine-event-report.md`. The exact engine dispatch table maps

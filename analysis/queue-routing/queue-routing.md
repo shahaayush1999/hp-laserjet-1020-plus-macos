@@ -8,16 +8,18 @@ This generated pass preserves queue routing evidence and decompiler output for t
 - word at `0x100066f0`: `0x1002c918`
 - candidate runtime queue table base: `0x1002c918`
 
-## Candidate Queue IDs
+## Queue IDs verified against constructor registration
 
 | Queue ID | Candidate owner | Consumer function | Receive/control object |
 |---:|---|---|---|
-| `0` | `PrintMgrQueue` | `0x1000f324` `hp1020_print_mgr_thread_candidate` | `0x10028a74` |
-| `1` | `engMsgQ` | `0x100163b0` `hp1020_engine_thread_candidate` | `0x1002f134` |
-| `3` | `Job Mgr Queue` | `0x1000e414` `hp1020_job_mgr_thread_candidate` | `0x1002386c` |
+| `1` | `PrintMgrQueue` | `0x1000f324` `hp1020_print_mgr_thread_candidate` | `0x10028a74` |
+| `0` | `engMsgQ` | `0x100163b0` `hp1020_engine_thread_candidate` | `0x1002f134` |
+| `3` | `Job Mgr Queue` | `0x1000e414` `hp1020_job_mgr_thread_candidate` | `0x10023e40` |
 | `8` | `Video Queue` candidate | `0x10013c18` `hp1020_video_thread_candidate` | `0x1002ee38` |
 | `10` | `StatusMgrQueue` | `0x10010590` `hp1020_status_mgr_thread_candidate` | `0x10028adc` |
 | `0x0f` | `DelayMgr Msg Queue` | `0x10010b0c` `hp1020_delay_mgr_receive_thread_candidate` | `0x1001d694` candidate |
+
+Registration calls and independent helper execution are audited in `registration.md` and `registration.json`. Earlier versions reversed IDs 0/1.
 
 ## Decompiled Evidence
 

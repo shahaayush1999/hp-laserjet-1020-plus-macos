@@ -4,23 +4,31 @@ This pass decompiles every recovered function and extracts calls to the firmware
 
 ## Main Result
 
-- total queue-send call sites found: `55`
-- direct static sends of message `0x2d` to queue `0` / PrintMgrQueue: `0`
+- total queue-send call sites found: `54`
+- direct static sends of message `0x2d` to queue `1` / PrintMgrQueue: `0`
 - data-store writer `0x10010fd0` still emits message `0x2d` through subscriber-selected queue ids: `1` matching site(s)
-- No direct constant `queue 0, message 0x2d` producer was found by this pass.
+- Datastore notifications select queue 1 through registered subscribers; lack of a direct constant send does not imply an absent PrintMgr producer.
 
-## Queue 0 / PrintMgr Constant Sends
+## Queue 1 / PrintMgr Constant Sends
 
 | Function | Line | Message | Confidence | Call |
 |---|---:|---:|---|---|
-| `1000f324` `hp1020_print_mgr_thread_candidate` | 14 | `0x18` | medium_payload_history | `hp1020_queue_send_candidate(0,aiStack_50);` |
-| `1000f574` `hp1020_print_mgr_schedule_or_advance_candidate` | 104 | `0xd` | high_direct_wrapper | `hp1020_queue_send_message4_candidate(0,0xd,0,0,uVar10);` |
-| `1000f574` `hp1020_print_mgr_schedule_or_advance_candidate` | 121 | `0xb` | high_direct_wrapper | `hp1020_queue_send_message4_candidate(0,0xb,0,0,uVar10);` |
-| `100100a8` `hp1020_print_mgr_status_aux_candidate` | 17 | `0x1a` | high_direct_wrapper | `hp1020_queue_send_message4_candidate(0,0x1a,0,0);` |
-| `10010230` `hp1020_print_mgr_idle_or_restart_candidate` | 18 | `0x4a` | high_direct_wrapper | `hp1020_queue_send_message4_candidate(0,0x4a,0,0);` |
-| `10010230` `hp1020_print_mgr_idle_or_restart_candidate` | 26 | `0x18` | high_direct_wrapper | `hp1020_queue_send_message4_candidate(0,0x18,0,0);` |
-| `10013d4c` `hp1020_video_reset_dispatch_candidate` | 87 | `0x11` | medium_payload_history | `hp1020_send_or_raise_engine_msg_candidate(0,&local_30);` |
-| `10016164` `hp1020_engine_message_dispatch_candidate` | 45 | `0xb` | medium_payload_history | `hp1020_send_or_raise_engine_msg_candidate(0,&local_40);` |
+| `1000e414` `hp1020_job_mgr_thread_candidate` | 227 | `0xf` | medium_payload_history | `hp1020_queue_send_candidate(1,&uStack_90);` |
+| `1000e414` `hp1020_job_mgr_thread_candidate` | 354 | `0xb` | medium_payload_history | `hp1020_queue_send_candidate(1,&uStack_90);` |
+| `1000ed90` `FUN_1000ed90` | 40 | `0xb` | medium_payload_history | `hp1020_queue_send_candidate(1,local_30);` |
+| `1000ed90` `FUN_1000ed90` | 58 | `0xb` | medium_payload_history | `hp1020_queue_send_candidate(1,local_30);` |
+| `10013c18` `hp1020_video_thread_candidate` | 69 | `0x10` | medium_payload_history | `hp1020_queue_send_candidate(1,aiStack_30);` |
+| `10013d4c` `hp1020_video_reset_dispatch_candidate` | 121 | `0x17` | medium_payload_history | `hp1020_send_or_raise_engine_msg_candidate(1,&local_30);` |
+| `10015c68` `hp1020_engine_status_io_candidate` | 56 | `0x17` | medium_payload_history | `hp1020_queue_send_candidate(1,&uStack_30);` |
+| `10015df8` `hp1020_engine_status_poll_candidate` | 101 | `0x17` | medium_payload_history | `hp1020_queue_send_candidate(1,&local_40);` |
+| `10015df8` `hp1020_engine_status_poll_candidate` | 116 | `0x17` | medium_payload_history | `hp1020_queue_send_candidate(1,&local_40);` |
+| `100160a8` `hp1020_engine_preflight_candidate` | 24 | `0x17` | medium_payload_history | `hp1020_queue_send_candidate(1,&local_40);` |
+| `100160a8` `hp1020_engine_preflight_candidate` | 57 | `0x17` | medium_payload_history | `hp1020_queue_send_candidate(1,&uStack_30);` |
+| `10016164` `hp1020_engine_message_dispatch_candidate` | 19 | `unknown` | low_known_queue_unknown_message | `hp1020_queue_send_candidate(1,param_1);` |
+| `10016164` `hp1020_engine_message_dispatch_candidate` | 27 | `0x25` | medium_payload_history | `hp1020_queue_send_candidate(1,&local_40);` |
+| `10016164` `hp1020_engine_message_dispatch_candidate` | 54 | `0x16` | medium_payload_history | `hp1020_queue_send_candidate(1,&uStack_30);` |
+| `1001635c` `hp1020_engine_delay_thread_candidate` | 16 | `unknown` | low_known_queue_unknown_message | `hp1020_send_or_raise_engine_msg_candidate(1,aiStack_30);` |
+| `100163b0` `hp1020_engine_thread_candidate` | 37 | `0x16` | medium_payload_history | `hp1020_queue_send_candidate(1,&uStack_30);` |
 
 ## Message 0x2d Sites
 

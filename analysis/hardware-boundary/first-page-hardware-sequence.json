@@ -238,13 +238,13 @@
       "topology_source": "analysis/hardware-boundary/video-refill-topology.md"
     },
     {
-      "evidence": "Video handoff report identifies engine queue message 0x10 after video work completes.",
-      "firmware_area": "Video -> Engine Queue",
-      "function": "VideoThread sends engine queue message 0x10",
+      "evidence": "VideoThread sends message 0x10 to queue 1; original registration proves this destination is PrintMgr.",
+      "firmware_area": "Video -> PrintMgr Queue",
+      "function": "VideoThread sends PrintMgr queue 1 message 0x10",
       "hardware_registers": [],
       "open_replacement_meaning": "Completion coordination; needed so engine timing and status do not drift.",
       "risk": "high",
-      "stage": "video done wakes engine",
+      "stage": "video done wakes PrintMgr",
       "step": 8
     }
   ],
