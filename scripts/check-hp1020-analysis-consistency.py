@@ -179,7 +179,7 @@ def build_report() -> dict[str, Any]:
                         "Stock constructor control flow must preserve the corrected queue identities and independent registration-helper audit.",
                         evidence="analysis/queue-routing/registration.json"))
 
-    for name, total in (("printmgr",40),("notifications",12),("stop",90),("cancellation",48),("status-publication",15)):
+    for name, total in (("printmgr",40),("notifications",12),("stop",90),("cancellation",48),("status-publication",15),("queue",80),("status-queue",8)):
         execution = read_json(f"analysis/open-firmware-model/stock-execution/{name}.json")
         checks.append(check(f"original_{name}_execution",
                             execution["status"] == "pass" and execution["total_cases"] == total

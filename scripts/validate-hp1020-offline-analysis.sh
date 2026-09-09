@@ -119,6 +119,12 @@ run_step "Check original cancellation producers and conditional cleanup" \
 run_step "Execute original status publication and event history" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-stock-status-publication.py"
 
+run_step "Execute original RTOS queues and pending suspension races" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-stock-queue.py"
+
+run_step "Execute original status task with original queues" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-stock-status-queue.py"
+
 run_step "Audit original instruction annotations and unresolved encodings" \
   "$ROOT_DIR/scripts/audit-hp1020-instruction-properties.py"
 

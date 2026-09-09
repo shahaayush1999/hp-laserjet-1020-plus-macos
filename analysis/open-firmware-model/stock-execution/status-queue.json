@@ -1,0 +1,309 @@
+{
+  "cases": [
+    {
+      "documents": 1,
+      "fill": 0,
+      "name": "one_document",
+      "result": {
+        "consumed": 2,
+        "live": {
+          "571481072": {
+            "freed": false,
+            "kind": 1,
+            "size": 20
+          }
+        },
+        "packets": [
+          [
+            1,
+            [
+              45,
+              24,
+              0,
+              2
+            ]
+          ],
+          [
+            3,
+            [
+              15,
+              1
+            ]
+          ]
+        ],
+        "state": "0000000000000004e610110000000000200016020000000100000000",
+        "suspension_state": 5
+      },
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 204,
+      "name": "one_document",
+      "result": {
+        "consumed": 2,
+        "live": {
+          "571481072": {
+            "freed": false,
+            "kind": 1,
+            "size": 20
+          }
+        },
+        "packets": [
+          [
+            1,
+            [
+              45,
+              24,
+              0,
+              2
+            ]
+          ],
+          [
+            3,
+            [
+              15,
+              1
+            ]
+          ]
+        ],
+        "state": "0000000000000004e610110000000000200016020000000100000000",
+        "suspension_state": 5
+      },
+      "status": "pass"
+    },
+    {
+      "documents": 3,
+      "fill": 0,
+      "name": "three_documents",
+      "result": {
+        "consumed": 6,
+        "live": {
+          "571495376": {
+            "freed": false,
+            "kind": 1,
+            "size": 20
+          }
+        },
+        "packets": [
+          [
+            1,
+            [
+              45,
+              24,
+              0,
+              2
+            ]
+          ],
+          [
+            3,
+            [
+              15,
+              1
+            ]
+          ]
+        ],
+        "state": "0000000000000004e610110000000000200016020000000100000000",
+        "suspension_state": 5
+      },
+      "status": "pass"
+    },
+    {
+      "documents": 3,
+      "fill": 204,
+      "name": "three_documents",
+      "result": {
+        "consumed": 6,
+        "live": {
+          "571495376": {
+            "freed": false,
+            "kind": 1,
+            "size": 20
+          }
+        },
+        "packets": [
+          [
+            1,
+            [
+              45,
+              24,
+              0,
+              2
+            ]
+          ],
+          [
+            3,
+            [
+              15,
+              1
+            ]
+          ]
+        ],
+        "state": "0000000000000004e610110000000000200016020000000100000000",
+        "suspension_state": 5
+      },
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 0,
+      "name": "three_pages",
+      "result": {
+        "consumed": 2,
+        "live": {
+          "571494960": {
+            "freed": false,
+            "kind": 1,
+            "size": 20
+          }
+        },
+        "packets": [
+          [
+            1,
+            [
+              45,
+              24,
+              0,
+              2
+            ]
+          ],
+          [
+            3,
+            [
+              15,
+              1
+            ]
+          ]
+        ],
+        "state": "0000000000000004e610110000000000200016020000000100000000",
+        "suspension_state": 5
+      },
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 204,
+      "name": "three_pages",
+      "result": {
+        "consumed": 2,
+        "live": {
+          "571494960": {
+            "freed": false,
+            "kind": 1,
+            "size": 20
+          }
+        },
+        "packets": [
+          [
+            1,
+            [
+              45,
+              24,
+              0,
+              2
+            ]
+          ],
+          [
+            3,
+            [
+              15,
+              1
+            ]
+          ]
+        ],
+        "state": "0000000000000004e610110000000000200016020000000100000000",
+        "suspension_state": 5
+      },
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 0,
+      "name": "empty",
+      "result": {
+        "consumed": 2,
+        "live": {
+          "571474128": {
+            "freed": false,
+            "kind": 1,
+            "size": 20
+          }
+        },
+        "packets": [
+          [
+            1,
+            [
+              45,
+              24,
+              0,
+              2
+            ]
+          ],
+          [
+            3,
+            [
+              15,
+              1
+            ]
+          ]
+        ],
+        "state": "0000000000000004e610110000000000200016020000000100000000",
+        "suspension_state": 5
+      },
+      "status": "pass"
+    },
+    {
+      "documents": 1,
+      "fill": 204,
+      "name": "empty",
+      "result": {
+        "consumed": 2,
+        "live": {
+          "571474128": {
+            "freed": false,
+            "kind": 1,
+            "size": 20
+          }
+        },
+        "packets": [
+          [
+            1,
+            [
+              45,
+              24,
+              0,
+              2
+            ]
+          ],
+          [
+            3,
+            [
+              15,
+              1
+            ]
+          ]
+        ],
+        "state": "0000000000000004e610110000000000200016020000000100000000",
+        "suspension_state": 5
+      },
+      "status": "pass"
+    }
+  ],
+  "elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "findings": [
+    "Original completed JobMgr notices are pre-enqueued through original indexed send. Original StatusMgr creates queue 10, receives the queued notices, updates counters/status and frees every transient notice allocation; only the persistent ONLINE subscription remains.",
+    "Original status publication queues ONLINE [45,24,0,2] to PrintMgr queue 1 and cancel [15,1] to JobMgr queue 3. Original receive retrieves both from actual queue buffers; no whole queue function is substituted.",
+    "After draining all notices, original infinite-wait receive inserts the current thread into the queue suspension ring, records its destination and wait state, and reaches the explicit scheduler boundary. The test stops before thread suspension/context switching."
+  ],
+  "limits": "Parser/JobMgr notice production still uses injected FIFO page completion. Notices are pre-enqueued; this is not a concurrent task schedule. RTOS semaphore/thread creation, locks, allocation and final task suspension remain host services. Empty language-context table omits outward callbacks. PrintMgr/JobMgr do not consume the emitted packets in this combined test. No printer, DMA, hardware stop, IRQ or recovery evidence is claimed.",
+  "source_sha256": {
+    "hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
+    "hp1020_stock_notifications.py": "d0acd7130585cc38a48368d2d10e26f2bef6534c9f124dfbae8b91991c98e9ca",
+    "hp1020_stock_queue.py": "799275c643095b20c613ef64fdddb93b277404519f2681d70c3573323b872e11",
+    "hp1020_stock_status_publication.py": "0f2276305116672937c0aa96fe9fd67c34dc84cc89ff1be77d286c1a926acea3",
+    "hp1020_stock_status_queue.py": "6f34a9c83c5e01b65380f5acb80d068f75452dc841922ba9892a5cd82e21b634",
+    "validate-hp1020-stock-status-queue.py": "89426f33696abc6a25f9b6b5ef676302159e17c4d25a98049f782806dc06629d"
+  },
+  "status": "pass",
+  "total_cases": 8
+}

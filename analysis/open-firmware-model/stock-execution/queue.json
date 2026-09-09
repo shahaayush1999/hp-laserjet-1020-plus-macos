@@ -1,0 +1,609 @@
+{
+  "cases": [
+    {
+      "capacity": 1,
+      "fill": 0,
+      "kind": "fifo",
+      "operations": 27,
+      "status": "pass",
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "fill": 204,
+      "kind": "fifo",
+      "operations": 27,
+      "status": "pass",
+      "width": 1
+    },
+    {
+      "capacity": 2,
+      "fill": 0,
+      "kind": "fifo",
+      "operations": 34,
+      "status": "pass",
+      "width": 1
+    },
+    {
+      "capacity": 2,
+      "fill": 204,
+      "kind": "fifo",
+      "operations": 34,
+      "status": "pass",
+      "width": 1
+    },
+    {
+      "capacity": 5,
+      "fill": 0,
+      "kind": "fifo",
+      "operations": 55,
+      "status": "pass",
+      "width": 1
+    },
+    {
+      "capacity": 5,
+      "fill": 204,
+      "kind": "fifo",
+      "operations": 55,
+      "status": "pass",
+      "width": 1
+    },
+    {
+      "capacity": 1,
+      "fill": 0,
+      "kind": "fifo",
+      "operations": 27,
+      "status": "pass",
+      "width": 2
+    },
+    {
+      "capacity": 1,
+      "fill": 204,
+      "kind": "fifo",
+      "operations": 27,
+      "status": "pass",
+      "width": 2
+    },
+    {
+      "capacity": 2,
+      "fill": 0,
+      "kind": "fifo",
+      "operations": 34,
+      "status": "pass",
+      "width": 2
+    },
+    {
+      "capacity": 2,
+      "fill": 204,
+      "kind": "fifo",
+      "operations": 34,
+      "status": "pass",
+      "width": 2
+    },
+    {
+      "capacity": 5,
+      "fill": 0,
+      "kind": "fifo",
+      "operations": 55,
+      "status": "pass",
+      "width": 2
+    },
+    {
+      "capacity": 5,
+      "fill": 204,
+      "kind": "fifo",
+      "operations": 55,
+      "status": "pass",
+      "width": 2
+    },
+    {
+      "capacity": 1,
+      "fill": 0,
+      "kind": "fifo",
+      "operations": 27,
+      "status": "pass",
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "fill": 204,
+      "kind": "fifo",
+      "operations": 27,
+      "status": "pass",
+      "width": 4
+    },
+    {
+      "capacity": 2,
+      "fill": 0,
+      "kind": "fifo",
+      "operations": 34,
+      "status": "pass",
+      "width": 4
+    },
+    {
+      "capacity": 2,
+      "fill": 204,
+      "kind": "fifo",
+      "operations": 34,
+      "status": "pass",
+      "width": 4
+    },
+    {
+      "capacity": 5,
+      "fill": 0,
+      "kind": "fifo",
+      "operations": 55,
+      "status": "pass",
+      "width": 4
+    },
+    {
+      "capacity": 5,
+      "fill": 204,
+      "kind": "fifo",
+      "operations": 55,
+      "status": "pass",
+      "width": 4
+    },
+    {
+      "capacity": 1,
+      "fill": 0,
+      "kind": "fifo",
+      "operations": 27,
+      "status": "pass",
+      "width": 8
+    },
+    {
+      "capacity": 1,
+      "fill": 204,
+      "kind": "fifo",
+      "operations": 27,
+      "status": "pass",
+      "width": 8
+    },
+    {
+      "capacity": 2,
+      "fill": 0,
+      "kind": "fifo",
+      "operations": 34,
+      "status": "pass",
+      "width": 8
+    },
+    {
+      "capacity": 2,
+      "fill": 204,
+      "kind": "fifo",
+      "operations": 34,
+      "status": "pass",
+      "width": 8
+    },
+    {
+      "capacity": 5,
+      "fill": 0,
+      "kind": "fifo",
+      "operations": 55,
+      "status": "pass",
+      "width": 8
+    },
+    {
+      "capacity": 5,
+      "fill": 204,
+      "kind": "fifo",
+      "operations": 55,
+      "status": "pass",
+      "width": 8
+    },
+    {
+      "capacity": 1,
+      "fill": 0,
+      "kind": "fifo",
+      "operations": 27,
+      "status": "pass",
+      "width": 16
+    },
+    {
+      "capacity": 1,
+      "fill": 204,
+      "kind": "fifo",
+      "operations": 27,
+      "status": "pass",
+      "width": 16
+    },
+    {
+      "capacity": 2,
+      "fill": 0,
+      "kind": "fifo",
+      "operations": 34,
+      "status": "pass",
+      "width": 16
+    },
+    {
+      "capacity": 2,
+      "fill": 204,
+      "kind": "fifo",
+      "operations": 34,
+      "status": "pass",
+      "width": 16
+    },
+    {
+      "capacity": 5,
+      "fill": 0,
+      "kind": "fifo",
+      "operations": 55,
+      "status": "pass",
+      "width": 16
+    },
+    {
+      "capacity": 5,
+      "fill": 204,
+      "kind": "fifo",
+      "operations": 55,
+      "status": "pass",
+      "width": 16
+    },
+    {
+      "fill": 0,
+      "kind": "error_no_mutation",
+      "name": "create_null",
+      "result": 9,
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "kind": "error_no_mutation",
+      "name": "create_null",
+      "result": 9,
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "kind": "error_no_mutation",
+      "name": "create_existing",
+      "result": 9,
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "kind": "error_no_mutation",
+      "name": "create_existing",
+      "result": 9,
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "kind": "error_no_mutation",
+      "name": "create_no_buffer",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "kind": "error_no_mutation",
+      "name": "create_no_buffer",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "kind": "error_no_mutation",
+      "name": "create_bad_width",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "kind": "error_no_mutation",
+      "name": "create_bad_width",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "kind": "error_no_mutation",
+      "name": "create_too_small",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "kind": "error_no_mutation",
+      "name": "create_too_small",
+      "result": 5,
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "kind": "error_no_mutation",
+      "name": "create_interrupt",
+      "result": 19,
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "kind": "error_no_mutation",
+      "name": "create_interrupt",
+      "result": 19,
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "kind": "error_no_mutation",
+      "name": "receive_null",
+      "result": 9,
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "kind": "error_no_mutation",
+      "name": "receive_null",
+      "result": 9,
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "kind": "error_no_mutation",
+      "name": "receive_invalid",
+      "result": 9,
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "kind": "error_no_mutation",
+      "name": "receive_invalid",
+      "result": 9,
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "kind": "error_no_mutation",
+      "name": "receive_no_destination",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "kind": "error_no_mutation",
+      "name": "receive_no_destination",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "kind": "error_no_mutation",
+      "name": "receive_wait_interrupt",
+      "result": 4,
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "kind": "error_no_mutation",
+      "name": "receive_wait_interrupt",
+      "result": 4,
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "kind": "error_no_mutation",
+      "name": "send_null",
+      "result": 9,
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "kind": "error_no_mutation",
+      "name": "send_null",
+      "result": 9,
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "kind": "error_no_mutation",
+      "name": "send_invalid",
+      "result": 9,
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "kind": "error_no_mutation",
+      "name": "send_invalid",
+      "result": 9,
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "kind": "error_no_mutation",
+      "name": "send_no_source",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "kind": "error_no_mutation",
+      "name": "send_no_source",
+      "result": 3,
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "kind": "error_no_mutation",
+      "name": "send_wait_interrupt",
+      "result": 4,
+      "status": "pass"
+    },
+    {
+      "fill": 204,
+      "kind": "error_no_mutation",
+      "name": "send_wait_interrupt",
+      "result": 4,
+      "status": "pass"
+    },
+    {
+      "count": 3,
+      "fill": 0,
+      "kind": "created_queue_ring",
+      "status": "pass"
+    },
+    {
+      "count": 3,
+      "fill": 204,
+      "kind": "created_queue_ring",
+      "status": "pass"
+    },
+    {
+      "fill": 0,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "receive",
+      "width": 1
+    },
+    {
+      "fill": 0,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "send",
+      "width": 1
+    },
+    {
+      "fill": 204,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "receive",
+      "width": 1
+    },
+    {
+      "fill": 204,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "send",
+      "width": 1
+    },
+    {
+      "fill": 0,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "receive",
+      "width": 2
+    },
+    {
+      "fill": 0,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "send",
+      "width": 2
+    },
+    {
+      "fill": 204,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "receive",
+      "width": 2
+    },
+    {
+      "fill": 204,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "send",
+      "width": 2
+    },
+    {
+      "fill": 0,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "receive",
+      "width": 4
+    },
+    {
+      "fill": 0,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "send",
+      "width": 4
+    },
+    {
+      "fill": 204,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "receive",
+      "width": 4
+    },
+    {
+      "fill": 204,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "send",
+      "width": 4
+    },
+    {
+      "fill": 0,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "receive",
+      "width": 8
+    },
+    {
+      "fill": 0,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "send",
+      "width": 8
+    },
+    {
+      "fill": 204,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "receive",
+      "width": 8
+    },
+    {
+      "fill": 204,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "send",
+      "width": 8
+    },
+    {
+      "fill": 0,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "receive",
+      "width": 16
+    },
+    {
+      "fill": 0,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "send",
+      "width": 16
+    },
+    {
+      "fill": 204,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "receive",
+      "width": 16
+    },
+    {
+      "fill": 204,
+      "kind": "pending_suspend_race",
+      "status": "pass",
+      "waiting_operation": "send",
+      "width": 16
+    }
+  ],
+  "elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "findings": [
+    "Original queue create, send, receive, registration and indexed send execute with no whole-function host replacements. All five supported message widths, capacity rounding, full/empty errors and repeated FIFO wraparound agree with a Python deque and independent QEMU.",
+    "Queue layout: +8 words/message, +12 capacity, +16 occupied, +20 available, +24/+28 buffer bounds, +32 read cursor, +36 write cursor, +40/+44 suspended list/count, +48/+52 created-list links. Original creation builds the circular list and count.",
+    "Four-word messages copy all 16 bytes, including producer-uninitialized words; queue code does not sanitize them. Nonblocking empty/full return 10/11; the indexed send wrapper maps any nonzero send result to 0xffffffff.",
+    "Rejected arguments and forbidden interrupt-context waits leave all original writable globals and fixture RAM unchanged.",
+    "An explicit interleaving satisfies an empty receive or full send before its suspend helper runs. Original queue code delivers directly to the receiver or replaces the consumed slot from the waiting sender; original resume clears pending suspension, and the subsequently invoked original suspend helper restores preemption bookkeeping without a task switch."
+  ],
+  "limits": "A synthetic ordinary thread is current. FIFO cases have no waiters. Race cases cut before suspension and invoke the deferred helper as a fresh call; they do not restore the paused caller or simulate an actual task switch, interrupt, timer expiry, hardware or USB. The interpreter abstracts PS masking; QEMU executes the original critical-section instructions on a different Xtensa core. FIFO delivery under these preconditions does not establish actual cancellation timing.",
+  "source_sha256": {
+    "hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
+    "hp1020_stock_notifications.py": "d0acd7130585cc38a48368d2d10e26f2bef6534c9f124dfbae8b91991c98e9ca",
+    "hp1020_stock_queue.py": "799275c643095b20c613ef64fdddb93b277404519f2681d70c3573323b872e11",
+    "validate-hp1020-stock-queue.py": "7916bc696767df487b717355e468f776c77aa1bcdfbc44307e3ff94776c45080"
+  },
+  "status": "pass",
+  "total_cases": 80
+}

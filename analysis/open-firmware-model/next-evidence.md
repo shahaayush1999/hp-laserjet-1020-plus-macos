@@ -93,8 +93,24 @@ wraparound. The numeric cancel-only events produce selectors 1/3/4 without
 changing ONLINE; cancellation and offline bits are distinct. Completed lifecycle
 notices plus a matching-source clear exercise actual offline/online transitions.
 These runs use the constructor's empty language-context table; optional outward
-status callbacks, RTOS object creation/scheduling and queue delivery remain host
-boundaries. See `stock-execution/status-publication.md`.
+status callbacks and RTOS thread/semaphore creation remain host boundaries.
+See `stock-execution/status-publication.md`.
+
+Original RTOS queue creation, indexed send and receive now execute in both CPU
+engines against independent FIFO oracles: supported widths, capacity rounding,
+full/empty returns, repeated wraparound and created-queue rings. Selected
+interleavings also execute wait-list insertion, direct receiver delivery or
+waiting-sender refill, and original pending-suspension cancellation. The deferred
+suspend helper runs as a fresh call after the wait is satisfied; paused CPU context
+restoration and real interrupt timing are not claimed. See `stock-execution/queue.md`.
+The combined StatusMgr test pre-enqueues original completed JobMgr notices,
+receives/releases them through original queues, publishes its actual queued
+outputs, and stops after original empty-queue wait insertion before suspension.
+It retains only the persistent ONLINE subscriber. FIFO completion and pre-enqueue
+ordering remain fixture choices; outgoing PrintMgr/JobMgr packets are retrieved
+but not consumed by those tasks in this test. This removes whole queue substitutes
+from the selected status lifecycle while leaving scheduler timing, actual page
+completion and optional language callbacks unresolved. See `stock-execution/status-queue.md`.
 
 The next **live** experiment remains the existing non-printing USB ladder.
 Further combined firmware integration cannot establish any of the device facts
