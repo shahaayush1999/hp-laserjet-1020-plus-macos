@@ -1,0 +1,122 @@
+Captured 2026-09-09 for requested handoff. Raw observations, not a success report.
+The pipeline validator fails; retirement draft is unexecuted.
+
+===== hp1020-timers-full-validation.log =====
+Offline validation logs: /var/folders/46/5hjsxnq13752lvrwdm2q1fk80000gn/T//hp1020-validation.FT11hV
+Running validate-hp1020-offline-analysis...
+PASS: validate-hp1020-offline-analysis
+Running validate-open-firmware-probes...
+PASS: validate-open-firmware-probes
+All offline checks passed. No printer was contacted.
+
+===== hp1020-windows-repro.log =====
+Window fixture ELF hash matches independent full-suite build
+
+===== hp1020-pipeline-try.log =====
+boot 4435
+suspend 0x22800100 7
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800000 5
+suspend 0x22800100 5
+suspend 0x22800200 5
+done 14200 input 72 72 out 0000000000000001 blocks [(574619648, 20, 2147483648), (574619680, 60, 0), (574619752, 120, 0), (574619884, 16, 0), (574619912, 65260, 1073741824)] services {805306368}
+status counters 1 1 doclist 0000000000000000
+
+===== hp1020-pipeline-13-try.log =====
+boot 4435
+suspend 0x22800100 7
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800100 5
+suspend 0x22800000 5
+suspend 0x22800100 5
+suspend 0x22800200 5
+done 89077 input 936 936 out 0000000000000001 blocks [(574619648, 20, 2147483648), (574619680, 60, 0), (574619752, 60, 0), (574619824, 60, 0), (574619896, 60, 0), (574619968, 60, 0), (574620040, 60, 0), (574620112, 60, 0), (574620184, 60, 0), (574620256, 60, 0), (574620328, 60, 0), (574620400, 60, 0), (574620472, 60, 0), (574620544, 60, 0), (574620616, 120, 0), (574620748, 16, 0), (574620776, 64396, 1073741824)] services {805306368}
+status counters 13 13 doclist 0000000000000000
+
+===== hp1020-pipeline-status-first-try.log =====
+boot 4441
+suspend 0x22800200 7
+suspend 0x22800100 7
+suspend 0x22800200 5
+suspend 0x22800100 5
+suspend 0x22800200 5
+suspend 0x22800100 5
+suspend 0x22800200 5
+suspend 0x22800100 5
+suspend 0x22800200 5
+suspend 0x22800100 5
+suspend 0x22800200 5
+suspend 0x22800100 5
+suspend 0x22800200 5
+suspend 0x22800100 5
+suspend 0x22800200 5
+suspend 0x22800100 5
+suspend 0x22800000 5
+done 29032 input 216 216 out 0000000000000001 blocks [(574619648, 20, 2147483648), (574619680, 60, 0), (574619752, 120, 0), (574619884, 16, 0), (574619912, 65260, 1073741824)] services {805306368}
+status counters 3 3 doclist 0000000000000000
+
+===== hp1020-pipeline-oracles-try.log =====
+{'status': 'pass', 'documents': 13, 'fill': 204, 'priorities': (2, 5, 15), 'instructions': 72998, 'input_bytes': 936, 'original_frees': 52, 'remaining_allocation_bytes': 20, 'job_timeout_armed': 2, 'delivered_ticks': 0, 'output': [45, 24, 0, 2], 'host_services': ['0x30000000'], 'task_runs': {'parser': 7, 'job': 8, 'status': 2}, 'job_queue_full_waits': 6, 'status_queue_full_waits': 1, 'input_sha256': '8483b77ff4c80decca4b941615224ed8b7b2a7a09bb869253779b88402d71ce4', 'fixture_source_sha256': '825008c754b2289de3eae49f3048463672cac79f6951e07664e8826d51531c1e', 'fixture_elf_sha256': '3bf65d6c965c8087719357ea5e061925e416bbc46412baa28257b2d9011d3392'}
+
+===== hp1020-native-pipeline-validation.log =====
+Traceback (most recent call last):
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/hp1020_qemu_pipeline.py", line 197, in run_pipeline
+    runner.step()
+    ~~~~~~~~~~~^^
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/hp1020_qemu_multitask.py", line 56, in step
+    guard_memory(state,q,op,args)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/hp1020_qemu_stock_parser.py", line 34, in guard_memory
+    state.span(address,size)
+    ~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/hp1020_xtensa_stock.py", line 26, in span
+    return super().span(address,size,execute)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/hp1020_xtensa_call0.py", line 90, in span
+    raise ValueError(f'unmapped RAM {address:#x}+{size}')
+ValueError: unmapped RAM 0xc+4
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/validate-hp1020-native-pipeline.py", line 55, in <module>
+    main()
+    ~~~~^^
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/validate-hp1020-native-pipeline.py", line 28, in main
+    case = run_pipeline(q,p,empty*documents,documents,fill,priorities)
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/hp1020_qemu_pipeline.py", line 199, in run_pipeline
+    raise ValueError(f'pipeline documents={documents} priorities={priorities} fill={fill} pc={q.reg(0):#x} thread={word(current):#x}: {error}') from error
+ValueError: pipeline documents=13 priorities=(5, 5, 5) fill=0 pc=0x1000e9f4 thread=0x22800100: unmapped RAM 0xc+4
+
+===== hp1020-pipeline-fault-scope.log =====
+13 204 pipeline documents=13 priorities=(5, 5, 5) fill=204 pc=0x1000e9f4 thread=0x22800100: unmapped RAM 0xc+4
+12 0 pipeline documents=12 priorities=(5, 5, 5) fill=0 pc=0x1000e9f4 thread=0x22800100: unmapped RAM 0xc+4
+11 0 pipeline documents=11 priorities=(5, 5, 5) fill=0 pc=0x1000e9f4 thread=0x22800100: unmapped RAM 0xc+4
+10 0 pass
