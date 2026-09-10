@@ -25,9 +25,9 @@ A second concrete shortcut now avoids the compressed-image hardware for offline
 image production. `open-firmware/image-core/` contains a bounded streaming JBIG
 wrapper and a bridge from the existing semantic parser/planner to packed row
 bands. The parser now retains each exact 20-byte BIH. Current focused checks
-pass, and the latest full sequential aggregate passed **97 consistency checks**
-in `/tmp/hp1020-full-stream.log` (child logs `hp1020-validation.0D3y3e`), including
-the bounded complete-stream integration below. All tested current source/fixture
+pass, and the latest full sequential aggregate passed **98 consistency checks**
+in `/tmp/hp1020-full-raw-contract.log` (child logs `hp1020-validation.eIS7rL`), including
+the bounded complete-stream and original raw-contract integrations below. All tested current source/fixture
 hashes match. No validation process remains running at this checkpoint.
 
 - `validate-hp1020-image-core.py --target`: 176 cases, 21 comparisons of original
@@ -75,8 +75,9 @@ with detailed images larger than the current test input buffer as evidence.
 The optional synchronous chunk consumer, `hp1020_image_stream.c` and an
 incremental host/target fixture now pass **65 host and 43 QEMU cases**, owned by
 `validate-hp1020-image-stream.py` and `image-core/stream-validation.json/.md`.
-The full sequential aggregate passed in `/tmp/hp1020-full-stream.log`
+The initial streaming aggregate passed in `/tmp/hp1020-full-stream.log`
 (child logs `hp1020-validation.0D3y3e`), with 97 consistency checks and both suites passing.
+The later raw-contract aggregate above passes 98 with the same open C sources.
 
 - A deterministic 9856x8208 detailed/noise page has 10,112,256 decoded bytes,
   10,546,072 BIE bytes and 161 BID chunks. Host output equals every generated
@@ -111,11 +112,11 @@ stock-supported callback bypass plus software image output is now an implemented
 offline alternative. Actual printer throughput, cache visibility, boot, live
 configuration, engine sequencing and observed printing are still unresolved.
 
-### Raw-route preconditions: original-byte audit
+### Raw-route preconditions: byte audit and bounded execution
 
-Static inspection after the software decoder work identifies **independent
-selectors** that must agree in a future raw-output experiment. No VideoThread,
-raw render, raw refresh or peripheral operation was executed in this audit.
+Original-byte inspection identifies **independent selectors** that must agree
+in a future raw-output integration. The bounded RAM fragments below now execute
+those selections, while every peripheral-output operation remains excluded.
 
 1. VideoThread loads the first raster payload through `work+0x50 -> node+0x0c`,
    then reads **payload+0x50** at `0x10013c8d` (`288214`). Zero dispatches prepare
@@ -158,21 +159,63 @@ it contains no raster-node creation or render dispatch. Its original bytes
 Do not use ZJT_RAW_IMAGE as a presumed shortcut into the stock raw queue.
 The current open bridge likewise does not emit that unsupported chunk type.
 
-These anchors make a bounded next experiment concrete: test source-kind dispatch,
-paired raw-mode preconditions and software buffer ownership while stopping before
-prepare/raw-refresh hardware. Actual decoded band pointers can be supplied as
-RAM fixtures, but successful pointer selection must remain distinct from output.
-For that next bounded run, the minimal original fragments are:
-`0x10013c7d..0x10013cb5` (stop before prepare at `0x10013c97` or
-`0x10013cad`; invalid source kinds/type 7 reach the notification boundary),
-`0x10015438..0x10015450` (stop before raw-refresh call), and
-`0x10014b92..0x10014baf` (raw IRQ flag copy alone, after an explicitly skipped
-prefix). Seed the correct live-in registers from original instructions: the
-dispatch uses a6=video and a5=0; flag copy uses a4=work and a5=video. Include
-negative controls that reject the prepare calls, raw-refresh call and its first
-peripheral read before execution. Source kind and work flag should vary
-independently to expose mismatches. These planned fragments have **not** run;
-they are not part of either the 42 bypass cases or the new image-case totals.
+`scripts/validate-hp1020-raw-buffer-contract.py` now owns focused execution and
+`analysis/hardware-boundary/raw-buffer-contract.json/.md`: **68 fragments plus
+two boundary controls pass**. The full sequential aggregate passed with 98 checks
+and both suites in `/tmp/hp1020-full-raw-contract.log` (child logs
+`hp1020-validation.eIS7rL`). No research process remains running. A current open-target decode supplies four actual packed
+rows (4800 bytes), compared with the original full host decoder before being
+copied into separate stock RAM fixtures. This is compositional execution, not
+a producer/consumer schedule or physical output.
+
+- Eight producer selections enter `0x10010448..0x10010460` after omitted
+  allocation/reset. Input descriptor kind 1 preserves its pointer and sets
+  payload source kind 1; kinds 0/2/UINT32_MAX instead set source kind 2 and zero
+  the pointer, even when the descriptor supplies a nonzero address. The producer
+  is not a generic borrowed-buffer adapter. Remaining construction/send is excluded.
+- Twenty-two dispatch/flag cases vary source kind, work raw flag and both fills
+  independently. Type 7 also skips a deliberately null raster head. Eight
+  separately entered alternate-render fragments initialize both raw list heads
+  and stop before raw refresh. Existing prepare and custom calls remain excluded.
+- Fourteen raw-pointer selections enter `0x10014138` after the omitted readiness
+  and peripheral prefix. Source kind 1 loads the decoded-band pointer; kind 2
+  uses the supplied null pointer. The file selector is 2; mutations 0/1 choose
+  their corresponding excluded output branch. Two empty heads reach the return
+  boundary. No pointer or count is written to a peripheral.
+- Twenty-four conditional raw completion/cleanup cases enter
+  `0x1001451c..0x1001455a` after the omitted IRQ prefix. With references nonzero,
+  the original tail subtracts 16 from a nonzero payload+0x54, decrements +0x4e,
+  sets the original JobMgr event and advances video+0xa0. Both source kinds do
+  this. Original RTOS init/event creation/set execute with an explicit nonwaiting
+  caller; no event implementation is supplied. Raw refresh remains excluded.
+- Generic list cleanup then executes separately, observing **free requests**
+  at a supplied allocator boundary. After references reach zero, kind 1 requests
+  buffer and node frees; kind 2 requests only the node. No actual reclamation or
+  ownership across tasks is claimed. An intentionally unprefixed kind-1 buffer
+  with one reference yields a request 16 bytes before the buffer in both fills:
+  two conditional fixture findings, not stock faults or completed lifecycles.
+- Two raw-flag-clear controls branch to the excluded ordinary refill path before
+  raw retirement. All fragments check decoded bytes remain unchanged and reject
+  prepare, raw-refresh, peripheral-read/write and custom-code boundaries before
+  execution. They are separate from the 42 bypass cases, 28 old retirement cases,
+  36 native pages and open image-case totals.
+
+Next resolve the actual producer's input-buffer allocation and cursor convention,
+reference ownership, supported raw metadata and consumption timing before building
+an adapter. `0x10010420` is the enclosing original producer; the tested selection
+passes kind-1 pointers through unchanged. Do not conflate its node's embedded
+payload at node+16 with the image pointer's 16-byte retirement adjustment. The
+current read-only census finds no direct CALL target or exact file-backed BE
+32-bit pointer to `0x10010420` in the decoded ELF; its positive control finds
+the `0x1001373e -> 0x10010398` call. This is not proof of unreachability: computed
+references and external entry are not covered. Establish a real producer root
+or retain an explicitly supplied replacement entry, rather than assuming this
+helper is used by the normal ZjStream path. The
+source-kind-2 null-pointer producer and hardware flag also need interpretation;
+skipping a free request alone does not establish suitability. The full decoder
+has bounded storage, but real throughput, cache visibility and engine-ready
+packing still need independent evidence. Do not repeat the now-executed selector
+matrix as a substitute for those unresolved contracts.
 
 The older `video-raster-consumer-report.md` chain from normal compressed BID to
 raw refresh omits the separate dispatch/refill choices above; do not take it as
@@ -185,7 +228,7 @@ shifted from expanding software matrices toward the stock-supported bypass.
 `scripts/validate-hp1020-raster-bypass.py` owns the new evidence in
 `analysis/hardware-boundary/raster-bypass.json` and `.md`. The preceding full baseline, including static byte audits and page-fixture
 observations, passed **94 consistency checks** in `/tmp/hp1020-full-bypass.log`.
-The open software image/stream additions above subsequently passed the 97-check
+The software image/stream and raw-contract additions above subsequently passed the 98-check
 aggregate; retain this older baseline as historical bypass evidence.
 
 - Literal `0x1000647c` points to table `0x1001ce14`. Entry 32 at `0x1001d114`
@@ -417,7 +460,7 @@ Resumed 2026-09-10. Pinned GCC recovery completed after an interrupted download
 was resumed. The unchanged build script verified the source checksum, instruction
 fixtures and BE/call0 profile, and restored target headers/libgcc. Those native sources
 passed the native checkpoint's complete offline suite with **93 consistency checks**;
-the image/stream sections above own the later 97-check baseline. This includes
+the image/stream/raw-contract sections above own the later 98-check baseline. This includes
 26 completed empty-document lifecycles, six separately classified conditional
 null reads, 28 retirement cases, 18 ordinary native page cases and 18 split-raster
 page cases. Consumption and completion remain supplied, not device evidence.

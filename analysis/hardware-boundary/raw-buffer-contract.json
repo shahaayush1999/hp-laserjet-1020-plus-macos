@@ -1,0 +1,1782 @@
+{
+  "allocator_executed": false,
+  "audited_stock_ranges": [
+    {
+      "begin": "0x10010448",
+      "bytes": "893169910a8830287615297614600007257615c082287614",
+      "end": "0x10010460",
+      "sha256": "87d91c7d2515a0dc6df2d5fc8418d13879f843bc1fa6ff98079cf4e2961f20f6"
+    },
+    {
+      "begin": "0x10013c7d",
+      "bytes": "276218887068872f287214888319caba2882149590cd80077a0258031e077a0201110258055c60000eb0886f8209da70580318da705805e1c1809810c0a1011b020111025bfe65",
+      "end": "0x10013cc4",
+      "sha256": "b545933c73cc711d6fdea6e8c8d20c1401680e0caafd9a40cf12084b8042845d"
+    },
+    {
+      "begin": "0x10015438",
+      "bytes": "6c10042822140a160019c4cb2896272896280ae6310102005bfb29c020060000",
+      "end": "0x10015458",
+      "sha256": "16bf6cec843b78f2b0eb2e241ac3b5b3f73e62af4a903b28eba3fef82edd53d8"
+    },
+    {
+      "begin": "0x100140f8",
+      "bytes": "6c100418c99d288227c0d0c8872882002ddc01658ff61bc9b417c9971ac7582c72270111025bcb7818c9a80c02008880291a0079880260010fd470c030220a01284227648102878329721518c9a12572148680dc9068610260009818c99e2b423119c99d0c02009c8028422f2a7110a8c80c020098900a1a14011102581d3c287126de301bc991086e39d8e008881008aa02285cfe083639d8600788100c020089b008aa022e1a007e980cd9b00eeb020c020088907b80f718c98929423b1bc9882e1a000c02009a80d8300928390788100c020089b008aa027e980bd9b0dbe00c020088907b80f718c97f0c02002a860060003b18c9782b42312a71100c02009c80011102581d1a287126de3019c973082e39d8e008881008aa02285cfede30082e38d8e007881008aa020c02009a9028422719c96588800c020089902e1a002846277e900263fef6060000",
+      "end": "0x10014244",
+      "sha256": "3bf597a8e0e58bc27c4e257053235ddb6aa56e6471e7ca79b4f7add578b1d1f8"
+    },
+    {
+      "begin": "0x10014b92",
+      "bytes": "284074c88a28523f19c4a609880260000828523f19c5b909880128563f",
+      "end": "0x10014baf",
+      "sha256": "ddd48969e3737ca5453451a05d6b548e8413da48bf701afa08acd6003188f275"
+    },
+    {
+      "begin": "0x1001451c",
+      "bytes": "28a23f08f950cb9a28a2288983289127c98f289215c884288cf0289615289127c0b81ac767c0c0288cff289527011102580e1718c88829822889902986285bfee760001b",
+      "end": "0x10014560",
+      "sha256": "43834761c2a95a8c473019f8703e590de66ae159b5e72cc1a5e24aa7070693c8"
+    },
+    {
+      "begin": "0x1000f0a8",
+      "bytes": "6c1004d420c020cc410600008540cc50d10f26520369320a286127c884288cff286527693305280a01286527286127c881693131071600da40011102580fda07e631010200286214220a016882082a62150111025810c2055a022552000111025810bf6000018550cc50d10f265203286127648f9f68319c68329c683396d10f",
+      "end": "0x1000f128",
+      "sha256": "881829830bef323a5256f7fce7ed05f2417c40efc93cb3a6b869ab237ec43ce8"
+    },
+    {
+      "begin": "0x10013050",
+      "bytes": "6c1004c0a10111025821c58720cc780111025821c3d270d10f88709820cc8098210111025821bed270060000",
+      "end": "0x1001307c",
+      "sha256": "9a5d67fd2e6cc975117843a2aef72fba3682a56d47fa0a077bc291d4e93d647b"
+    },
+    {
+      "begin": "0x1001b770",
+      "bytes": "6c100203f60004e630c75005440104220202e631d230d10f",
+      "end": "0x1001b788",
+      "sha256": "7e1b037e7f2f8df113f21e45bf5d8db4c4ae3b161afe4bd338896c9e1a5cd518"
+    }
+  ],
+  "builder_cases": [
+    {
+      "fill": 0,
+      "input_kind": 0,
+      "result_pointer": "0x0",
+      "scope": "Producer selection after omitted allocation/reset, before metadata, message construction and queue send.",
+      "source_kind": 2,
+      "status": "pass",
+      "steps": 12,
+      "stop": "0x10010460",
+      "supplied_pointer": "0x22704010"
+    },
+    {
+      "fill": 204,
+      "input_kind": 0,
+      "result_pointer": "0x0",
+      "scope": "Producer selection after omitted allocation/reset, before metadata, message construction and queue send.",
+      "source_kind": 2,
+      "status": "pass",
+      "steps": 12,
+      "stop": "0x10010460",
+      "supplied_pointer": "0x22704010"
+    },
+    {
+      "fill": 0,
+      "input_kind": 1,
+      "result_pointer": "0x22704010",
+      "scope": "Producer selection after omitted allocation/reset, before metadata, message construction and queue send.",
+      "source_kind": 1,
+      "status": "pass",
+      "steps": 13,
+      "stop": "0x10010460",
+      "supplied_pointer": "0x22704010"
+    },
+    {
+      "fill": 204,
+      "input_kind": 1,
+      "result_pointer": "0x22704010",
+      "scope": "Producer selection after omitted allocation/reset, before metadata, message construction and queue send.",
+      "source_kind": 1,
+      "status": "pass",
+      "steps": 13,
+      "stop": "0x10010460",
+      "supplied_pointer": "0x22704010"
+    },
+    {
+      "fill": 0,
+      "input_kind": 2,
+      "result_pointer": "0x0",
+      "scope": "Producer selection after omitted allocation/reset, before metadata, message construction and queue send.",
+      "source_kind": 2,
+      "status": "pass",
+      "steps": 12,
+      "stop": "0x10010460",
+      "supplied_pointer": "0x22704010"
+    },
+    {
+      "fill": 204,
+      "input_kind": 2,
+      "result_pointer": "0x0",
+      "scope": "Producer selection after omitted allocation/reset, before metadata, message construction and queue send.",
+      "source_kind": 2,
+      "status": "pass",
+      "steps": 12,
+      "stop": "0x10010460",
+      "supplied_pointer": "0x22704010"
+    },
+    {
+      "fill": 0,
+      "input_kind": 4294967295,
+      "result_pointer": "0x0",
+      "scope": "Producer selection after omitted allocation/reset, before metadata, message construction and queue send.",
+      "source_kind": 2,
+      "status": "pass",
+      "steps": 12,
+      "stop": "0x10010460",
+      "supplied_pointer": "0x22704010"
+    },
+    {
+      "fill": 204,
+      "input_kind": 4294967295,
+      "result_pointer": "0x0",
+      "scope": "Producer selection after omitted allocation/reset, before metadata, message construction and queue send.",
+      "source_kind": 2,
+      "status": "pass",
+      "steps": 12,
+      "stop": "0x10010460",
+      "supplied_pointer": "0x22704010"
+    }
+  ],
+  "completed_lifecycles": 0,
+  "custom_callbacks_executed": 0,
+  "dispatch_cases": [
+    {
+      "alternate": null,
+      "dispatch_steps": 16,
+      "fill": 0,
+      "flag_steps": 12,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf"
+      ],
+      "resulting_irq_flags": 0,
+      "route": "compressed_prepare_boundary",
+      "source_kind": 0,
+      "status": "pass",
+      "stop": "0x10013c97",
+      "work_raw_flag": 0,
+      "work_type": 6
+    },
+    {
+      "alternate": null,
+      "dispatch_steps": 16,
+      "fill": 204,
+      "flag_steps": 12,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf"
+      ],
+      "resulting_irq_flags": 1288490188,
+      "route": "compressed_prepare_boundary",
+      "source_kind": 0,
+      "status": "pass",
+      "stop": "0x10013c97",
+      "work_raw_flag": 0,
+      "work_type": 6
+    },
+    {
+      "alternate": null,
+      "dispatch_steps": 16,
+      "fill": 0,
+      "flag_steps": 13,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf"
+      ],
+      "resulting_irq_flags": 2147483648,
+      "route": "compressed_prepare_boundary",
+      "source_kind": 0,
+      "status": "pass",
+      "stop": "0x10013c97",
+      "work_raw_flag": 1,
+      "work_type": 6
+    },
+    {
+      "alternate": null,
+      "dispatch_steps": 16,
+      "fill": 204,
+      "flag_steps": 13,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf"
+      ],
+      "resulting_irq_flags": 3435973836,
+      "route": "compressed_prepare_boundary",
+      "source_kind": 0,
+      "status": "pass",
+      "stop": "0x10013c97",
+      "work_raw_flag": 1,
+      "work_type": 6
+    },
+    {
+      "alternate": {
+        "queued_pointer": "0x22700200",
+        "steps": 9,
+        "stop": "0x10015450"
+      },
+      "dispatch_steps": 18,
+      "fill": 0,
+      "flag_steps": 12,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf",
+        "0x10015450",
+        "0x10014126"
+      ],
+      "resulting_irq_flags": 0,
+      "route": "alternate_prepare_boundary",
+      "source_kind": 1,
+      "status": "pass",
+      "stop": "0x10013cad",
+      "work_raw_flag": 0,
+      "work_type": 6
+    },
+    {
+      "alternate": {
+        "queued_pointer": "0x22700200",
+        "steps": 9,
+        "stop": "0x10015450"
+      },
+      "dispatch_steps": 18,
+      "fill": 204,
+      "flag_steps": 12,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf",
+        "0x10015450",
+        "0x10014126"
+      ],
+      "resulting_irq_flags": 1288490188,
+      "route": "alternate_prepare_boundary",
+      "source_kind": 1,
+      "status": "pass",
+      "stop": "0x10013cad",
+      "work_raw_flag": 0,
+      "work_type": 6
+    },
+    {
+      "alternate": {
+        "queued_pointer": "0x22700200",
+        "steps": 9,
+        "stop": "0x10015450"
+      },
+      "dispatch_steps": 18,
+      "fill": 0,
+      "flag_steps": 13,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf",
+        "0x10015450",
+        "0x10014126"
+      ],
+      "resulting_irq_flags": 2147483648,
+      "route": "alternate_prepare_boundary",
+      "source_kind": 1,
+      "status": "pass",
+      "stop": "0x10013cad",
+      "work_raw_flag": 1,
+      "work_type": 6
+    },
+    {
+      "alternate": {
+        "queued_pointer": "0x22700200",
+        "steps": 9,
+        "stop": "0x10015450"
+      },
+      "dispatch_steps": 18,
+      "fill": 204,
+      "flag_steps": 13,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf",
+        "0x10015450",
+        "0x10014126"
+      ],
+      "resulting_irq_flags": 3435973836,
+      "route": "alternate_prepare_boundary",
+      "source_kind": 1,
+      "status": "pass",
+      "stop": "0x10013cad",
+      "work_raw_flag": 1,
+      "work_type": 6
+    },
+    {
+      "alternate": {
+        "queued_pointer": "0x22700200",
+        "steps": 9,
+        "stop": "0x10015450"
+      },
+      "dispatch_steps": 18,
+      "fill": 0,
+      "flag_steps": 12,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf",
+        "0x10015450",
+        "0x10014126"
+      ],
+      "resulting_irq_flags": 0,
+      "route": "alternate_prepare_boundary",
+      "source_kind": 2,
+      "status": "pass",
+      "stop": "0x10013cad",
+      "work_raw_flag": 0,
+      "work_type": 6
+    },
+    {
+      "alternate": {
+        "queued_pointer": "0x22700200",
+        "steps": 9,
+        "stop": "0x10015450"
+      },
+      "dispatch_steps": 18,
+      "fill": 204,
+      "flag_steps": 12,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf",
+        "0x10015450",
+        "0x10014126"
+      ],
+      "resulting_irq_flags": 1288490188,
+      "route": "alternate_prepare_boundary",
+      "source_kind": 2,
+      "status": "pass",
+      "stop": "0x10013cad",
+      "work_raw_flag": 0,
+      "work_type": 6
+    },
+    {
+      "alternate": {
+        "queued_pointer": "0x22700200",
+        "steps": 9,
+        "stop": "0x10015450"
+      },
+      "dispatch_steps": 18,
+      "fill": 0,
+      "flag_steps": 13,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf",
+        "0x10015450",
+        "0x10014126"
+      ],
+      "resulting_irq_flags": 2147483648,
+      "route": "alternate_prepare_boundary",
+      "source_kind": 2,
+      "status": "pass",
+      "stop": "0x10013cad",
+      "work_raw_flag": 1,
+      "work_type": 6
+    },
+    {
+      "alternate": {
+        "queued_pointer": "0x22700200",
+        "steps": 9,
+        "stop": "0x10015450"
+      },
+      "dispatch_steps": 18,
+      "fill": 204,
+      "flag_steps": 13,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf",
+        "0x10015450",
+        "0x10014126"
+      ],
+      "resulting_irq_flags": 3435973836,
+      "route": "alternate_prepare_boundary",
+      "source_kind": 2,
+      "status": "pass",
+      "stop": "0x10013cad",
+      "work_raw_flag": 1,
+      "work_type": 6
+    },
+    {
+      "alternate": null,
+      "dispatch_steps": 17,
+      "fill": 0,
+      "flag_steps": 12,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf"
+      ],
+      "resulting_irq_flags": 0,
+      "route": "notification_boundary",
+      "source_kind": 3,
+      "status": "pass",
+      "stop": "0x10013cb5",
+      "work_raw_flag": 0,
+      "work_type": 6
+    },
+    {
+      "alternate": null,
+      "dispatch_steps": 17,
+      "fill": 204,
+      "flag_steps": 12,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf"
+      ],
+      "resulting_irq_flags": 1288490188,
+      "route": "notification_boundary",
+      "source_kind": 3,
+      "status": "pass",
+      "stop": "0x10013cb5",
+      "work_raw_flag": 0,
+      "work_type": 6
+    },
+    {
+      "alternate": null,
+      "dispatch_steps": 17,
+      "fill": 0,
+      "flag_steps": 13,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf"
+      ],
+      "resulting_irq_flags": 2147483648,
+      "route": "notification_boundary",
+      "source_kind": 3,
+      "status": "pass",
+      "stop": "0x10013cb5",
+      "work_raw_flag": 1,
+      "work_type": 6
+    },
+    {
+      "alternate": null,
+      "dispatch_steps": 17,
+      "fill": 204,
+      "flag_steps": 13,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf"
+      ],
+      "resulting_irq_flags": 3435973836,
+      "route": "notification_boundary",
+      "source_kind": 3,
+      "status": "pass",
+      "stop": "0x10013cb5",
+      "work_raw_flag": 1,
+      "work_type": 6
+    },
+    {
+      "alternate": null,
+      "dispatch_steps": 17,
+      "fill": 0,
+      "flag_steps": 12,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf"
+      ],
+      "resulting_irq_flags": 0,
+      "route": "notification_boundary",
+      "source_kind": 4294967295,
+      "status": "pass",
+      "stop": "0x10013cb5",
+      "work_raw_flag": 0,
+      "work_type": 6
+    },
+    {
+      "alternate": null,
+      "dispatch_steps": 17,
+      "fill": 204,
+      "flag_steps": 12,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf"
+      ],
+      "resulting_irq_flags": 1288490188,
+      "route": "notification_boundary",
+      "source_kind": 4294967295,
+      "status": "pass",
+      "stop": "0x10013cb5",
+      "work_raw_flag": 0,
+      "work_type": 6
+    },
+    {
+      "alternate": null,
+      "dispatch_steps": 17,
+      "fill": 0,
+      "flag_steps": 13,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf"
+      ],
+      "resulting_irq_flags": 2147483648,
+      "route": "notification_boundary",
+      "source_kind": 4294967295,
+      "status": "pass",
+      "stop": "0x10013cb5",
+      "work_raw_flag": 1,
+      "work_type": 6
+    },
+    {
+      "alternate": null,
+      "dispatch_steps": 17,
+      "fill": 204,
+      "flag_steps": 13,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf"
+      ],
+      "resulting_irq_flags": 3435973836,
+      "route": "notification_boundary",
+      "source_kind": 4294967295,
+      "status": "pass",
+      "stop": "0x10013cb5",
+      "work_raw_flag": 1,
+      "work_type": 6
+    },
+    {
+      "alternate": null,
+      "dispatch_steps": 9,
+      "fill": 0,
+      "flag_steps": 13,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf"
+      ],
+      "resulting_irq_flags": 2147483648,
+      "route": "notification_boundary",
+      "source_kind": 1,
+      "status": "pass",
+      "stop": "0x10013cb5",
+      "work_raw_flag": 1,
+      "work_type": 7
+    },
+    {
+      "alternate": null,
+      "dispatch_steps": 9,
+      "fill": 204,
+      "flag_steps": 13,
+      "payload_and_decoded_band_unchanged": true,
+      "rejected_before_execution": [
+        "0x10013c97",
+        "0x10013cad",
+        "0x10013cb5",
+        "0x10014910",
+        "0x10015214",
+        "0x10015648",
+        "0x10014baf"
+      ],
+      "resulting_irq_flags": 3435973836,
+      "route": "notification_boundary",
+      "source_kind": 1,
+      "status": "pass",
+      "stop": "0x10013cb5",
+      "work_raw_flag": 1,
+      "work_type": 7
+    }
+  ],
+  "findings": [
+    "The bounded original producer selection preserves the supplied pointer only when its input descriptor kind equals 1, setting payload source kind 1. Other tested input kinds set source kind 2 and pointer zero, even with a supplied nonzero pointer. This does not establish a generic borrowed-buffer input mode.",
+    "Source kind 0 reaches compressed prepare; 1/2 reach alternate prepare; other kinds or work type 7 reach notification without rendering. The independent work raw flag changes the IRQ-family bit but does not change that dispatch.",
+    "Separately entered alternate render stores the supplied node at both raw-list heads, then stops before raw refresh. Decoded image bytes and payload remain unchanged; physical image format is not established.",
+    "After an omitted readiness/MMIO prefix, the original raw-list pointer fragment loads the decoded-band pointer for source kind 1 and the supplied null pointer for kind 2. The file-backed output selector is 2; mutation to 1 selects the other excluded output branch. Empty heads reach the return boundary. No pointer or count is written to a peripheral.",
+    "After a skipped peripheral IRQ prefix, the original raw completion tail subtracts 16 from a nonzero payload pointer whenever its reference count is nonzero, decrements that count, sets the original JobMgr event and advances the raw head. This occurs for both source kinds 1 and 2.",
+    "Separate generic cleanup observes buffer and node free requests for kind 1 once references reach zero, and only node free requests for kind 2. The allocator is supplied; actual freeing, pool ownership and concurrent reuse are not proven.",
+    "An intentionally unprefixed kind-1 pointer with one reference yields a free request 16 bytes before its supplied buffer. This is a conditional fixture finding, not a stock fault: a reusable decoder-band pointer cannot be substituted without proving the prefix/ownership contract.",
+    "Source kind 2 also controls a hardware flag in the separately audited raw-refresh bytes. Avoiding its buffer-free request is not evidence that it is a suitable physical format or mode."
+  ],
+  "fixture_elf_bytes": "7f454c460102010000000000000000000002005e000000012000001800000034000012d000000300003400200001002800080007000000010000100020000000200000000000005c0000005c000000050000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100104486c1006d720d330c05018fffc0a80000010013c7d6c1006d620c05018fffd0a800000000010014b926c1006d420d53018fffd0a8000000000100141386c1006d42018fffd0a8000001001451c6c1006da2018fffd0a8000000000000c00000020000000015874656e73615f496e666f005553455f4142534f4c5554455f4c49544552414c533d300a4142493d300a00002000000000000004200000140000000420000028000000042000003c000000042000004c00000004200000000000000000002804200000000000000400000001200000040000000f00000002200000130000000000002808200000140000000400000001200000180000000d000000022000002500000000000028082000002800000004000000012000002c0000000d000000022000003900000000000028082000003c0000000400000001200000400000000b000000022000004b00000000000028082000004c0000000400000001200000500000000b000000022000005b00000000000000080000000000000000000000000000000000000000200000000000000003000001000000000000000000000000030000020000000000000000000000000300000300000000000000000000000003000004000000012000002c0000000010000001000000062000005000000000100000010000000d2000004000000000100000010000001c200000180000000010000001000000252000105c000000001000000100000031200000040000000010000001000000392000105c0000000010000001000000402000105c000000001000000100666c6167007265746972650073656c6563745f706f696e746572006469737061746368005f5f6273735f7374617274006275696c646572005f6564617461005f656e6400002e73796d746162002e737472746162002e7368737472746162002e74657874002e7874656e73612e696e666f002e78742e6c6974002e78742e70726f7000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001b000000010000000620000000000010000000005c00000000000000000000000400000000000000210000000700000000000000000000105c00000038000000000000000000000001000000000000002e00000001000000000000000000001094000000280000000000000000000000010000000000000036000000010000000000000000000010bc000000c000000000000000000000000100000000000000010000000200000000000000000000117c000000d000000006000000050000000400000010000000090000000300000000000000000000124c000000450000000000000000000000010000000000000011000000030000000000000000000012910000003f00000000000000000000000100000000",
+  "fixture_elf_sha256": "90a45c09e6521d7216f584402648f2355da097c8d89d09aa3a77ad2de96ee3b6",
+  "fixture_source": "\n.text\n.align 4\n.global builder\nbuilder:\n entry a1,48\n mov a7,a2\n mov a3,a3\n movi a5,0\n movi a8,0x10010448\n jx a8\n.align 4\n.global dispatch\ndispatch:\n entry a1,48\n mov a6,a2\n movi a5,0\n movi a8,0x10013c7d\n jx a8\n.align 4\n.global flag\nflag:\n entry a1,48\n mov a4,a2\n mov a5,a3\n movi a8,0x10014b92\n jx a8\n.align 4\n.global select_pointer\nselect_pointer:\n entry a1,48\n mov a4,a2\n movi a8,0x10014138\n jx a8\n.align 4\n.global retire\nretire:\n entry a1,48\n mov a10,a2\n movi a8,0x1001451c\n jx a8\n",
+  "fixture_source_sha256": "af56960dcfa49f7a1b223ba093d8c06c31fef6358499f96496ba6c76dc6bf81a",
+  "image_band": {
+    "bie_sha256": "2bf7a47792e5ae80129e41ec4e5a20bbd675c81c00bda365fa06627ac06c845d",
+    "bytes": 4800,
+    "image_elf_sha256": "69171ee416b870e3a282313fc00250186858af8ac72f082fc9ac5eb28ef5c5de",
+    "scope": "First four decoded rows from current open target execution, compared with original full host decoding, then copied as a separate stock RAM fixture.",
+    "sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+  },
+  "limits": "Separate fragments with supplied RAM, work metadata and completion entry. Remaining prepare/render/refill paths, the peripheral IRQ prefix, engine operations, custom callbacks and all USB operations are excluded. Event creation/set executes original RTOS code with no waiters. No boot, complete page lifecycle, DMA, physical output or automatic asynchronous consumer is claimed.",
+  "qemu_version": "QEMU emulator version 11.1.1",
+  "raw_mode_controls": [
+    {
+      "fill": 0,
+      "mutation": "raw IRQ flag clear; raw retirement must not execute",
+      "status": "expected boundary",
+      "steps": 8,
+      "stop": "0x10014560"
+    },
+    {
+      "fill": 204,
+      "mutation": "raw IRQ flag clear; raw retirement must not execute",
+      "status": "expected boundary",
+      "steps": 8,
+      "stop": "0x10014560"
+    }
+  ],
+  "retirement_cases": [
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [],
+      "fill": 0,
+      "free_requests": [
+        "0x0",
+        "0x22700200"
+      ],
+      "initial_pointer": "0x0",
+      "initial_refs": 0,
+      "layout": "null",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x0",
+      "result_refs": 0,
+      "retirement_steps": 16,
+      "source_kind": 1,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [],
+      "fill": 204,
+      "free_requests": [
+        "0x0",
+        "0x22700200"
+      ],
+      "initial_pointer": "0x0",
+      "initial_refs": 0,
+      "layout": "null",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x0",
+      "result_refs": 0,
+      "retirement_steps": 16,
+      "source_kind": 1,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [],
+      "fill": 0,
+      "free_requests": [
+        "0x22704000",
+        "0x22700200"
+      ],
+      "initial_pointer": "0x22704000",
+      "initial_refs": 0,
+      "layout": "base",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22704000",
+      "result_refs": 0,
+      "retirement_steps": 16,
+      "source_kind": 1,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [],
+      "fill": 204,
+      "free_requests": [
+        "0x22704000",
+        "0x22700200"
+      ],
+      "initial_pointer": "0x22704000",
+      "initial_refs": 0,
+      "layout": "base",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22704000",
+      "result_refs": 0,
+      "retirement_steps": 16,
+      "source_kind": 1,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "free_requests": [
+        "0x22704000",
+        "0x22700200"
+      ],
+      "initial_pointer": "0x22704010",
+      "initial_refs": 1,
+      "layout": "prefix16",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22704000",
+      "result_refs": 0,
+      "retirement_steps": 69,
+      "source_kind": 1,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "free_requests": [
+        "0x22704000",
+        "0x22700200"
+      ],
+      "initial_pointer": "0x22704010",
+      "initial_refs": 1,
+      "layout": "prefix16",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22704000",
+      "result_refs": 0,
+      "retirement_steps": 69,
+      "source_kind": 1,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "free_requests": [
+        "0x22703ff0",
+        "0x22700200"
+      ],
+      "initial_pointer": "0x22704000",
+      "initial_refs": 1,
+      "layout": "base",
+      "next_raw_head": 0,
+      "outcome": "conditional_unprefixed_release_address",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22703ff0",
+      "result_refs": 0,
+      "retirement_steps": 69,
+      "source_kind": 1,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "free_requests": [
+        "0x22703ff0",
+        "0x22700200"
+      ],
+      "initial_pointer": "0x22704000",
+      "initial_refs": 1,
+      "layout": "base",
+      "next_raw_head": 0,
+      "outcome": "conditional_unprefixed_release_address",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22703ff0",
+      "result_refs": 0,
+      "retirement_steps": 69,
+      "source_kind": 1,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "free_requests": [],
+      "initial_pointer": "0x22704010",
+      "initial_refs": 2,
+      "layout": "prefix16",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22704000",
+      "result_refs": 1,
+      "retirement_steps": 69,
+      "source_kind": 1,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "free_requests": [],
+      "initial_pointer": "0x22704010",
+      "initial_refs": 2,
+      "layout": "prefix16",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22704000",
+      "result_refs": 1,
+      "retirement_steps": 69,
+      "source_kind": 1,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "free_requests": [],
+      "initial_pointer": "0x22704000",
+      "initial_refs": 2,
+      "layout": "base",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22703ff0",
+      "result_refs": 1,
+      "retirement_steps": 69,
+      "source_kind": 1,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "free_requests": [],
+      "initial_pointer": "0x22704000",
+      "initial_refs": 2,
+      "layout": "base",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22703ff0",
+      "result_refs": 1,
+      "retirement_steps": 69,
+      "source_kind": 1,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [],
+      "fill": 0,
+      "free_requests": [
+        "0x22700200"
+      ],
+      "initial_pointer": "0x0",
+      "initial_refs": 0,
+      "layout": "null",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x0",
+      "result_refs": 0,
+      "retirement_steps": 16,
+      "source_kind": 2,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [],
+      "fill": 204,
+      "free_requests": [
+        "0x22700200"
+      ],
+      "initial_pointer": "0x0",
+      "initial_refs": 0,
+      "layout": "null",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x0",
+      "result_refs": 0,
+      "retirement_steps": 16,
+      "source_kind": 2,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [],
+      "fill": 0,
+      "free_requests": [
+        "0x22700200"
+      ],
+      "initial_pointer": "0x22704000",
+      "initial_refs": 0,
+      "layout": "base",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22704000",
+      "result_refs": 0,
+      "retirement_steps": 16,
+      "source_kind": 2,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [],
+      "fill": 204,
+      "free_requests": [
+        "0x22700200"
+      ],
+      "initial_pointer": "0x22704000",
+      "initial_refs": 0,
+      "layout": "base",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22704000",
+      "result_refs": 0,
+      "retirement_steps": 16,
+      "source_kind": 2,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "free_requests": [
+        "0x22700200"
+      ],
+      "initial_pointer": "0x22704010",
+      "initial_refs": 1,
+      "layout": "prefix16",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22704000",
+      "result_refs": 0,
+      "retirement_steps": 69,
+      "source_kind": 2,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "free_requests": [
+        "0x22700200"
+      ],
+      "initial_pointer": "0x22704010",
+      "initial_refs": 1,
+      "layout": "prefix16",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22704000",
+      "result_refs": 0,
+      "retirement_steps": 69,
+      "source_kind": 2,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "free_requests": [
+        "0x22700200"
+      ],
+      "initial_pointer": "0x22704000",
+      "initial_refs": 1,
+      "layout": "base",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22703ff0",
+      "result_refs": 0,
+      "retirement_steps": 69,
+      "source_kind": 2,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "free_requests": [
+        "0x22700200"
+      ],
+      "initial_pointer": "0x22704000",
+      "initial_refs": 1,
+      "layout": "base",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22703ff0",
+      "result_refs": 0,
+      "retirement_steps": 69,
+      "source_kind": 2,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "free_requests": [],
+      "initial_pointer": "0x22704010",
+      "initial_refs": 2,
+      "layout": "prefix16",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22704000",
+      "result_refs": 1,
+      "retirement_steps": 69,
+      "source_kind": 2,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "free_requests": [],
+      "initial_pointer": "0x22704010",
+      "initial_refs": 2,
+      "layout": "prefix16",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22704000",
+      "result_refs": 1,
+      "retirement_steps": 69,
+      "source_kind": 2,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "free_requests": [],
+      "initial_pointer": "0x22704000",
+      "initial_refs": 2,
+      "layout": "base",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22703ff0",
+      "result_refs": 1,
+      "retirement_steps": 69,
+      "source_kind": 2,
+      "status": "pass"
+    },
+    {
+      "allocator_executed": false,
+      "decoded_band_unchanged": true,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "free_requests": [],
+      "initial_pointer": "0x22704000",
+      "initial_refs": 2,
+      "layout": "base",
+      "next_raw_head": 0,
+      "outcome": "bounded_contract_observation",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126"
+      ],
+      "result_pointer": "0x22703ff0",
+      "result_refs": 1,
+      "retirement_steps": 69,
+      "source_kind": 2,
+      "status": "pass"
+    }
+  ],
+  "selection_cases": [
+    {
+      "decoded_band_unchanged": true,
+      "empty_head": false,
+      "fill": 0,
+      "rejected_before_execution": [
+        "0x10014153",
+        "0x100141ec",
+        "0x10014241",
+        "0x10014126",
+        "0x1001415f",
+        "0x100141f8"
+      ],
+      "scope": "Entered after omitted readiness/MMIO prefix; stops before either peripheral-output branch.",
+      "selected_pointer": "0x22704010",
+      "selector": 2,
+      "selector_source": "stock_file",
+      "source_kind": 1,
+      "status": "pass",
+      "steps": 15,
+      "stop": "0x100141ec"
+    },
+    {
+      "decoded_band_unchanged": true,
+      "empty_head": false,
+      "fill": 204,
+      "rejected_before_execution": [
+        "0x10014153",
+        "0x100141ec",
+        "0x10014241",
+        "0x10014126",
+        "0x1001415f",
+        "0x100141f8"
+      ],
+      "scope": "Entered after omitted readiness/MMIO prefix; stops before either peripheral-output branch.",
+      "selected_pointer": "0x22704010",
+      "selector": 2,
+      "selector_source": "stock_file",
+      "source_kind": 1,
+      "status": "pass",
+      "steps": 15,
+      "stop": "0x100141ec"
+    },
+    {
+      "decoded_band_unchanged": true,
+      "empty_head": false,
+      "fill": 0,
+      "rejected_before_execution": [
+        "0x10014153",
+        "0x100141ec",
+        "0x10014241",
+        "0x10014126",
+        "0x1001415f",
+        "0x100141f8"
+      ],
+      "scope": "Entered after omitted readiness/MMIO prefix; stops before either peripheral-output branch.",
+      "selected_pointer": "0x22704010",
+      "selector": 0,
+      "selector_source": "explicit_mutation",
+      "source_kind": 1,
+      "status": "pass",
+      "steps": 15,
+      "stop": "0x100141ec"
+    },
+    {
+      "decoded_band_unchanged": true,
+      "empty_head": false,
+      "fill": 204,
+      "rejected_before_execution": [
+        "0x10014153",
+        "0x100141ec",
+        "0x10014241",
+        "0x10014126",
+        "0x1001415f",
+        "0x100141f8"
+      ],
+      "scope": "Entered after omitted readiness/MMIO prefix; stops before either peripheral-output branch.",
+      "selected_pointer": "0x22704010",
+      "selector": 0,
+      "selector_source": "explicit_mutation",
+      "source_kind": 1,
+      "status": "pass",
+      "steps": 15,
+      "stop": "0x100141ec"
+    },
+    {
+      "decoded_band_unchanged": true,
+      "empty_head": false,
+      "fill": 0,
+      "rejected_before_execution": [
+        "0x10014153",
+        "0x100141ec",
+        "0x10014241",
+        "0x10014126",
+        "0x1001415f",
+        "0x100141f8"
+      ],
+      "scope": "Entered after omitted readiness/MMIO prefix; stops before either peripheral-output branch.",
+      "selected_pointer": "0x22704010",
+      "selector": 1,
+      "selector_source": "explicit_mutation",
+      "source_kind": 1,
+      "status": "pass",
+      "steps": 14,
+      "stop": "0x10014153"
+    },
+    {
+      "decoded_band_unchanged": true,
+      "empty_head": false,
+      "fill": 204,
+      "rejected_before_execution": [
+        "0x10014153",
+        "0x100141ec",
+        "0x10014241",
+        "0x10014126",
+        "0x1001415f",
+        "0x100141f8"
+      ],
+      "scope": "Entered after omitted readiness/MMIO prefix; stops before either peripheral-output branch.",
+      "selected_pointer": "0x22704010",
+      "selector": 1,
+      "selector_source": "explicit_mutation",
+      "source_kind": 1,
+      "status": "pass",
+      "steps": 14,
+      "stop": "0x10014153"
+    },
+    {
+      "decoded_band_unchanged": true,
+      "empty_head": false,
+      "fill": 0,
+      "rejected_before_execution": [
+        "0x10014153",
+        "0x100141ec",
+        "0x10014241",
+        "0x10014126",
+        "0x1001415f",
+        "0x100141f8"
+      ],
+      "scope": "Entered after omitted readiness/MMIO prefix; stops before either peripheral-output branch.",
+      "selected_pointer": "0x0",
+      "selector": 2,
+      "selector_source": "stock_file",
+      "source_kind": 2,
+      "status": "pass",
+      "steps": 15,
+      "stop": "0x100141ec"
+    },
+    {
+      "decoded_band_unchanged": true,
+      "empty_head": false,
+      "fill": 204,
+      "rejected_before_execution": [
+        "0x10014153",
+        "0x100141ec",
+        "0x10014241",
+        "0x10014126",
+        "0x1001415f",
+        "0x100141f8"
+      ],
+      "scope": "Entered after omitted readiness/MMIO prefix; stops before either peripheral-output branch.",
+      "selected_pointer": "0x0",
+      "selector": 2,
+      "selector_source": "stock_file",
+      "source_kind": 2,
+      "status": "pass",
+      "steps": 15,
+      "stop": "0x100141ec"
+    },
+    {
+      "decoded_band_unchanged": true,
+      "empty_head": false,
+      "fill": 0,
+      "rejected_before_execution": [
+        "0x10014153",
+        "0x100141ec",
+        "0x10014241",
+        "0x10014126",
+        "0x1001415f",
+        "0x100141f8"
+      ],
+      "scope": "Entered after omitted readiness/MMIO prefix; stops before either peripheral-output branch.",
+      "selected_pointer": "0x0",
+      "selector": 0,
+      "selector_source": "explicit_mutation",
+      "source_kind": 2,
+      "status": "pass",
+      "steps": 15,
+      "stop": "0x100141ec"
+    },
+    {
+      "decoded_band_unchanged": true,
+      "empty_head": false,
+      "fill": 204,
+      "rejected_before_execution": [
+        "0x10014153",
+        "0x100141ec",
+        "0x10014241",
+        "0x10014126",
+        "0x1001415f",
+        "0x100141f8"
+      ],
+      "scope": "Entered after omitted readiness/MMIO prefix; stops before either peripheral-output branch.",
+      "selected_pointer": "0x0",
+      "selector": 0,
+      "selector_source": "explicit_mutation",
+      "source_kind": 2,
+      "status": "pass",
+      "steps": 15,
+      "stop": "0x100141ec"
+    },
+    {
+      "decoded_band_unchanged": true,
+      "empty_head": false,
+      "fill": 0,
+      "rejected_before_execution": [
+        "0x10014153",
+        "0x100141ec",
+        "0x10014241",
+        "0x10014126",
+        "0x1001415f",
+        "0x100141f8"
+      ],
+      "scope": "Entered after omitted readiness/MMIO prefix; stops before either peripheral-output branch.",
+      "selected_pointer": "0x0",
+      "selector": 1,
+      "selector_source": "explicit_mutation",
+      "source_kind": 2,
+      "status": "pass",
+      "steps": 14,
+      "stop": "0x10014153"
+    },
+    {
+      "decoded_band_unchanged": true,
+      "empty_head": false,
+      "fill": 204,
+      "rejected_before_execution": [
+        "0x10014153",
+        "0x100141ec",
+        "0x10014241",
+        "0x10014126",
+        "0x1001415f",
+        "0x100141f8"
+      ],
+      "scope": "Entered after omitted readiness/MMIO prefix; stops before either peripheral-output branch.",
+      "selected_pointer": "0x0",
+      "selector": 1,
+      "selector_source": "explicit_mutation",
+      "source_kind": 2,
+      "status": "pass",
+      "steps": 14,
+      "stop": "0x10014153"
+    },
+    {
+      "decoded_band_unchanged": true,
+      "empty_head": true,
+      "fill": 0,
+      "rejected_before_execution": [
+        "0x10014153",
+        "0x100141ec",
+        "0x10014241",
+        "0x10014126",
+        "0x1001415f",
+        "0x100141f8"
+      ],
+      "scope": "Entered after omitted readiness/MMIO prefix; stops before either peripheral-output branch.",
+      "selected_pointer": null,
+      "selector": 2,
+      "selector_source": "stock_file",
+      "source_kind": 1,
+      "status": "pass",
+      "steps": 7,
+      "stop": "0x10014241"
+    },
+    {
+      "decoded_band_unchanged": true,
+      "empty_head": true,
+      "fill": 204,
+      "rejected_before_execution": [
+        "0x10014153",
+        "0x100141ec",
+        "0x10014241",
+        "0x10014126",
+        "0x1001415f",
+        "0x100141f8"
+      ],
+      "scope": "Entered after omitted readiness/MMIO prefix; stops before either peripheral-output branch.",
+      "selected_pointer": null,
+      "selector": 2,
+      "selector_source": "stock_file",
+      "source_kind": 1,
+      "status": "pass",
+      "steps": 7,
+      "stop": "0x10014241"
+    }
+  ],
+  "source_sha256": {
+    "open-firmware/image-core/fixture.c": "3f527c7d5aaeb21c3774d500b21749b7fd47c35932b7e3b763542b609830fddc",
+    "open-firmware/image-core/freestanding/assert.h": "7c7d52be2164bd97b2d2ac21bcb924b57a9463f6886e935de787af41b0762300",
+    "open-firmware/image-core/freestanding/stdlib.h": "39047fd5646fd815176a77090f3dc48ed493390f777f8490bc03c0cd19225149",
+    "open-firmware/image-core/freestanding/string.h": "0b5a9c6e01dcced149dd23cef1b6b82532a151b1f14bc9ebc3723c9b69623d98",
+    "open-firmware/image-core/host-check.c": "d6ed21f91dfe89c2ffd49f6de471ac71e8f3817f4f607ebea7e1824b2814be73",
+    "open-firmware/image-core/host-page-check.c": "82398dff184a2945ac6387a72a32fa650ec8405177d42f1cb77ef371e3385951",
+    "open-firmware/image-core/host-stream-check.c": "ce8a046353d341e7774a15d0c034613123299310dad10accd56282892d4b4a4d",
+    "open-firmware/image-core/hp1020_image.c": "537e7085f7ee18871f9090fb7b274164a21e908ca299451be4c8d5e3c6914fc8",
+    "open-firmware/image-core/hp1020_image.h": "d15afe12a0aed6ac71b676d540562cf96e5f165047786101994a1fd53de85808",
+    "open-firmware/image-core/hp1020_image_page.c": "1b3fa5dcd571585a27341b7d5e239fd2424bae89413d18c0d1800fa7f69d281f",
+    "open-firmware/image-core/hp1020_image_page.h": "770ed16d200cdb7d978621cf4d457ab7270df80b6d33248b0925fb4f1c798df2",
+    "open-firmware/image-core/hp1020_image_stream.c": "25669045cbbda48f55101c1c2deaf158a13f89edd38d0e9711365a65c0291664",
+    "open-firmware/image-core/hp1020_image_stream.h": "977186ea8865273483192c01bab501f572378163943940f9df4d7b7671ff1beb",
+    "open-firmware/image-core/page-fixture.c": "b0153ce2ba71208dd59ed81442abbfe2586797f4c3d4947014d698da4f099b9e",
+    "open-firmware/image-core/reference.c": "4632dd64ca1df51f0a103f2d3acc54ec3dba500ce1803c21233cb13e6265dbac",
+    "open-firmware/image-core/stream-fixture.c": "37a549b7417e904744b4f6f9163845f958c2bea8b574f5b899dc1f2094fbfb3e",
+    "open-firmware/image-core/target-check.ld": "2dd6d8b7f04ccdd20ee0dd34404221f22f6e29b29ea7798e4738bd2128d4934b",
+    "open-firmware/image-core/target-memory.c": "e403177bc94925c479c90defca770fa36535cf5161bdde84b8e57ea6ff6ca2c3",
+    "open-firmware/semantic-core/freestanding/memory.c": "9678a7810cf3756484c6bf178f7a206a180ace6cbce3502f247055a462a19bfc",
+    "open-firmware/semantic-core/hp1020_page_plan.c": "16f6608918c620f437d09fe1f56c8f1043d9c60a4e6b8b3f2cd5220ff57e0517",
+    "open-firmware/semantic-core/hp1020_page_plan.h": "1df6b7a2f4ccf752d3ac127e70b48ac8fb93cd6ce4c02431622d5d0ea1326f23",
+    "open-firmware/semantic-core/hp1020_semantic.c": "72b6c1509fd89fa71fef0227fbc08eda4eb935a1a4531751771072427b11d007",
+    "open-firmware/semantic-core/hp1020_semantic.h": "6e0278b817e85a9bd47eefd6d5169038f3c09c141eaaa5fe347ea976ab1a180a",
+    "scripts/build-hp1020-image-target.sh": "349753ddc2d55a54c01aa070f63527387bd63039ff5dd91550169a70eff85891",
+    "scripts/hp1020_qemu_multitask.py": "2353e573a0136984739c7eff9e70ebe5e1aa2634eac381522c3097a49b193aae",
+    "scripts/hp1020_qemu_pipeline.py": "3a6ea4ef1c1dfa3b0bc02df4ba5601facb1c27396685c8c9e847122bb443ef39",
+    "scripts/hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
+    "scripts/hp1020_qemu_scheduled_status.py": "9a715e6cd064d55994a3bfe89a8822cc9a6ce60e7f640193f2e9b52054244890",
+    "scripts/hp1020_qemu_scheduler.py": "6bb45fc44d99da27be5b307b216969207ceb1a8b05bff780108d672d7ab3e724",
+    "scripts/hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
+    "scripts/hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
+    "scripts/hp1020_stock_notifications.py": "d0acd7130585cc38a48368d2d10e26f2bef6534c9f124dfbae8b91991c98e9ca",
+    "scripts/hp1020_stock_stop.py": "1f716972e7d044b070eff24b05e9ac7fcf532a54131f5c69e42276c6db987de0",
+    "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
+    "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
+    "scripts/hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
+    "scripts/validate-hp1020-image-core.py": "710f1de84a4467c03bc7977d56be1138e94e8709f43a5a36475e7090186159ff",
+    "scripts/validate-hp1020-raw-buffer-contract.py": "3a24bbd81077280967dfc636847132aa6b998b5a5bde5447c6b19400435eb313",
+    "vendor/foo2zjs-source/jbig.c": "835ce9b964a6735187b6e064562695063a65f35fe29924de1d60db660c3e21b3",
+    "vendor/foo2zjs-source/jbig.h": "0c016a8c69e349c510630edbf5b96057be952c2ac19c1a9b8488ad8c9864d7a4",
+    "vendor/foo2zjs-source/jbig_ar.c": "a51552d2f839ce8b758400660bd423b95b4b25cde11e65cc4e7d6c63c1a19d6f",
+    "vendor/foo2zjs-source/jbig_ar.h": "292c4c43c944e2573b558d89b7004cec6c59c70dbbfd7b9890868a2291d1250a",
+    "vendor/jbigkit-2.1/libjbig/jbig85.c": "5e0782db94a94d199975f74ce493d32099aee5c9ae686c05e65831a1227a5fac",
+    "vendor/jbigkit-2.1/libjbig/jbig85.h": "1c87939e042d7b03a19412dd3f8d0e9614ebbacc1aad5c4f2cfbd9bf11bd514e",
+    "vendor/jbigkit-2.1/libjbig/jbig_ar.c": "ae9fa2575d73a0cd50c6a32621ab2b6c4ca5f1115d27d636f461275c1d1e62f3",
+    "vendor/jbigkit-2.1/libjbig/jbig_ar.h": "c5dcac0af444f6b5b4470775a3b1f020243970692e8d776767e717154f3de7fa"
+  },
+  "status": "pass",
+  "stock_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d"
+}

@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `97`
+- checks: `98`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -65,6 +65,7 @@ It does not contact the printer.
 | `portable_page_plan_boundary` | `watch` | Native page planning must retain corrected window arithmetic and reject unsupported/mismatched fixtures. | `analysis/open-firmware-model/page-plan.json` |
 | `stock_metadata_split_boundary_explicit` | `watch` | The logical-clip full-payload model must not be mistaken for bounded stock metadata handling. | `analysis/open-firmware-model/metadata-bounds.json` |
 | `stock_value_selects_bounded_raster_bypass` | `watch` | The file-backed bypass, excluded callback boundaries and conditional model configuration must remain distinct from boot, page lifecycles and physical printing. | `analysis/hardware-boundary/raster-bypass.json` |
+| `stock_raw_buffer_contract_fragments_verified` | `watch` | Raw producer, dispatch, pointer and conditional retirement fragments must retain separate selectors and prefix/free-request findings; they do not establish allocator ownership, physical output or completed lifecycles. | `analysis/hardware-boundary/raw-buffer-contract.json` |
 | `raster_callback_argument_and_unknown_isa_boundary` | `watch` | Stock raster callbacks must preserve fourth stride argument and explicit unresolved ISA effects. | `analysis/hardware-boundary/raster-callbacks.json` |
 | `minimal-idle_reachable_instructions_defined` | `watch` | Inert probes may execute only defined allowed instructions and proven constant trampolines. | `analysis/open-firmware-probes/minimal-idle/instruction-gate.json` |
 | `usb-register-snapshot_reachable_instructions_defined` | `watch` | Inert probes may execute only defined allowed instructions and proven constant trampolines. | `analysis/open-firmware-probes/usb-register-snapshot/instruction-gate.json` |

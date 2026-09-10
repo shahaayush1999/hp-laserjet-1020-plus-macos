@@ -1043,6 +1043,34 @@ def build_report() -> dict[str, Any]:
                         and callbacks["stock_datastore_32"]["live_value_proven"] is False,
                         "The file-backed bypass, excluded callback boundaries and conditional model configuration must remain distinct from boot, page lifecycles and physical printing.",
                         evidence="analysis/hardware-boundary/raster-bypass.json"))
+    raw_contract = read_json("analysis/hardware-boundary/raw-buffer-contract.json")
+    raw_cases = sum((raw_contract[name] for name in
+                    ("builder_cases", "dispatch_cases", "selection_cases", "retirement_cases")), [])
+    raw_findings = [c for c in raw_contract["retirement_cases"]
+                    if c["outcome"] == "conditional_unprefixed_release_address"]
+    checks.append(check("stock_raw_buffer_contract_fragments_verified",
+                        raw_contract["status"] == "pass"
+                        and [len(raw_contract[name]) for name in
+                             ("builder_cases", "dispatch_cases", "selection_cases", "retirement_cases", "raw_mode_controls")] == [8,22,14,24,2]
+                        and all(c["status"] == "pass" for c in raw_cases)
+                        and raw_contract["completed_lifecycles"] == raw_contract["custom_callbacks_executed"] == 0
+                        and raw_contract["allocator_executed"] is False
+                        and all(c["source_kind"] == (1 if c["input_kind"] == 1 else 2)
+                                and c["result_pointer"] == (c["supplied_pointer"] if c["input_kind"] == 1 else "0x0")
+                                for c in raw_contract["builder_cases"])
+                        and sum(c["alternate"] is not None for c in raw_contract["dispatch_cases"]) == 8
+                        and sum(c["empty_head"] for c in raw_contract["selection_cases"]) == 2
+                        and all(c["selector"] == 2 for c in raw_contract["selection_cases"] if c["selector_source"] == "stock_file")
+                        and all(c["stop"] == "0x10014560" for c in raw_contract["raw_mode_controls"])
+                        and len(raw_findings) == 2 and all(c["free_requests"] == ["0x22703ff0", "0x22700200"] for c in raw_findings)
+                        and raw_contract["image_band"]["bytes"] == 4800
+                        and raw_contract["image_band"]["sha256"] == "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+                        and raw_contract["image_band"]["image_elf_sha256"] == image_target.get("elf_sha256")
+                        and raw_contract["stock_elf_sha256"] == hashlib.sha256((ROOT_DIR/"analysis/sihp1020.elf").read_bytes()).hexdigest()
+                        and all(hashlib.sha256((ROOT_DIR/name).read_bytes()).hexdigest() == digest
+                                for name,digest in raw_contract["source_sha256"].items()),
+                        "Raw producer, dispatch, pointer and conditional retirement fragments must retain separate selectors and prefix/free-request findings; they do not establish allocator ownership, physical output or completed lifecycles.",
+                        evidence="analysis/hardware-boundary/raw-buffer-contract.json"))
     checks.append(check("raster_callback_argument_and_unknown_isa_boundary",
                         callbacks["status"] == "pass" and callbacks["call_contract"]["argument_count"] == 4
                         and [len(f["unknown_instructions"]) for f in callbacks["functions"]] == [16,40,84],

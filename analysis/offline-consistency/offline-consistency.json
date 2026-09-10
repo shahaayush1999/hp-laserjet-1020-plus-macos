@@ -1,5 +1,5 @@
 {
-  "check_count": 97,
+  "check_count": 98,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -305,6 +305,12 @@
       "detail": "The file-backed bypass, excluded callback boundaries and conditional model configuration must remain distinct from boot, page lifecycles and physical printing.",
       "evidence": "analysis/hardware-boundary/raster-bypass.json",
       "name": "stock_value_selects_bounded_raster_bypass",
+      "severity": "watch"
+    },
+    {
+      "detail": "Raw producer, dispatch, pointer and conditional retirement fragments must retain separate selectors and prefix/free-request findings; they do not establish allocator ownership, physical output or completed lifecycles.",
+      "evidence": "analysis/hardware-boundary/raw-buffer-contract.json",
+      "name": "stock_raw_buffer_contract_fragments_verified",
       "severity": "watch"
     },
     {
