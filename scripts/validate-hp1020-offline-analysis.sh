@@ -92,6 +92,12 @@ run_step "Validate portable semantic core under sanitizers" \
 run_step "Validate portable page and band planner" \
   "$ROOT_DIR/scripts/validate-hp1020-page-plan.py"
 
+run_step "Validate open streaming image decoder on host and synthetic Xtensa" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-image-core.py" --target
+
+run_step "Validate complete-file open image path on host and synthetic Xtensa" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-image-pages.py" --target
+
 run_step "Build and reproduce semantic core for synthetic Xtensa RAM" \
   "$ROOT_DIR/scripts/check-hp1020-semantic-target-reproducibility.sh"
 

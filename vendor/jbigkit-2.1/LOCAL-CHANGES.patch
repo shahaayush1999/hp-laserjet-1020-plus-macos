@@ -1,0 +1,83 @@
+--- a/libjbig/jbig85.c
++++ b/libjbig/jbig85.c
+@@ -1,5 +1,9 @@
+ /*
+  *  T.85 "light" version of the portable JBIG image compression library
++ *
++ *  Modified 2026-09-10 for the HP1020 offline image component:
++ *  keep absent-history pointers in bounds; assemble byte fields unsigned.
++ *  See ../LOCAL-CHANGES.patch and ../PROVENANCE.md.
+  *
+  *  Copyright 1995-2014 -- Markus Kuhn -- http://www.cl.cam.ac.uk/~mgk25/
+  *
+@@ -627,8 +631,8 @@
+ 
+     /* pointer to image byte */
+     hp1  = s->linebuf + s->p[0] * s->bpl + (x >> 3);
+-    hp2  = s->linebuf + s->p[1] * s->bpl + (x >> 3);
+-    hp3  = s->linebuf + s->p[2] * s->bpl + (x >> 3);
++    hp2  = s->linebuf + (s->p[1] < 0 ? 0 : s->p[1]) * s->bpl + (x >> 3);
++    hp3  = s->linebuf + (s->p[2] < 0 ? 0 : s->p[2]) * s->bpl + (x >> 3);
+ 
+     /* adaptive template changes */
+     if (x == 0 && s->pseudo)
+@@ -851,12 +855,12 @@
+     if (s->bie_len < 20) 
+       return JBG_EAGAIN;
+     /* parse header parameters */
+-    s->x0 = (((long) s->buffer[ 4] << 24) | ((long) s->buffer[ 5] << 16) |
+-	     ((long) s->buffer[ 6] <<  8) | (long) s->buffer[ 7]);
+-    s->y0 = (((long) s->buffer[ 8] << 24) | ((long) s->buffer[ 9] << 16) |
+-	     ((long) s->buffer[10] <<  8) | (long) s->buffer[11]);
+-    s->l0 = (((long) s->buffer[12] << 24) | ((long) s->buffer[13] << 16) |
+-	     ((long) s->buffer[14] <<  8) | (long) s->buffer[15]);
++    s->x0 = (((unsigned long) s->buffer[ 4] << 24) | ((unsigned long) s->buffer[ 5] << 16) |
++	     ((unsigned long) s->buffer[ 6] <<  8) | (unsigned long) s->buffer[ 7]);
++    s->y0 = (((unsigned long) s->buffer[ 8] << 24) | ((unsigned long) s->buffer[ 9] << 16) |
++	     ((unsigned long) s->buffer[10] <<  8) | (unsigned long) s->buffer[11]);
++    s->l0 = (((unsigned long) s->buffer[12] << 24) | ((unsigned long) s->buffer[13] << 16) |
++	     ((unsigned long) s->buffer[14] <<  8) | (unsigned long) s->buffer[15]);
+     s->bpl = (s->x0 >> 3) + !!(s->x0 & 7); /* bytes per line */
+     s->mx = s->buffer[16];
+     s->options = s->buffer[19];
+@@ -954,14 +958,14 @@
+       switch (s->buffer[1]) {
+       case MARKER_COMMENT:
+ 	s->comment_skip =
+-	  (((long) s->buffer[2] << 24) | ((long) s->buffer[3] << 16) |
+-	   ((long) s->buffer[4] <<  8) | (long) s->buffer[5]);
++	  (((unsigned long) s->buffer[2] << 24) | ((unsigned long) s->buffer[3] << 16) |
++	   ((unsigned long) s->buffer[4] <<  8) | (unsigned long) s->buffer[5]);
+ 	break;
+       case MARKER_ATMOVE:
+ 	if (s->at_moves < JBG85_ATMOVES_MAX) {
+ 	  s->at_line[s->at_moves] =
+-	    (((long) s->buffer[2] << 24) | ((long) s->buffer[3] << 16) |
+-	     ((long) s->buffer[4] <<  8) | (long) s->buffer[5]);
++	    (((unsigned long) s->buffer[2] << 24) | ((unsigned long) s->buffer[3] << 16) |
++	     ((unsigned long) s->buffer[4] <<  8) | (unsigned long) s->buffer[5]);
+ 	  s->at_tx[s->at_moves] = (signed char) s->buffer[6];
+ 	  if (s->at_tx[s->at_moves] > (int) s->mx ||
+ 	      (s->at_tx[s->at_moves] < ((s->options & JBG_LRLTWO) ? 5 : 3) &&
+@@ -973,8 +977,8 @@
+ 	  return JBG_EIMPL | 14; /* more than JBG85_ATMOVES_MAX ATMOVES */
+ 	break;
+       case MARKER_NEWLEN:
+-	y = (((long) s->buffer[2] << 24) | ((long) s->buffer[3] << 16) |
+-	     ((long) s->buffer[4] <<  8) | (long) s->buffer[5]);
++	y = (((unsigned long) s->buffer[2] << 24) | ((unsigned long) s->buffer[3] << 16) |
++	     ((unsigned long) s->buffer[4] <<  8) | (unsigned long) s->buffer[5]);
+ 	if (y > s->y0)                   return JBG_EINVAL | 12;
+ #ifndef JBG85_TOLERATE_MULTIPLE_NEWLEN
+ 	if (!(s->options & JBG_VLENGTH)) return JBG_EINVAL | 13;
+@@ -1025,8 +1029,8 @@
+ 	  }
+ 	case 2+6:
+ 	  /* process peek-ahead NEWLEN marker sequence */
+-	  y = (((long) s->buffer[4] << 24) | ((long) s->buffer[5] << 16) |
+-	       ((long) s->buffer[6] <<  8) | (long) s->buffer[7]);
++	  y = (((unsigned long) s->buffer[4] << 24) | ((unsigned long) s->buffer[5] << 16) |
++	       ((unsigned long) s->buffer[6] <<  8) | (unsigned long) s->buffer[7]);
+ 	  if (y > s->y0)                   return JBG_EINVAL | 12;
+ 	  if (!(s->options & JBG_VLENGTH)) return JBG_EINVAL | 13;
+ 	  s->y0 = y;

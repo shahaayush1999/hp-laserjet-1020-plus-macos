@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `94`
+- checks: `96`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -54,6 +54,8 @@ It does not contact the printer.
 | `first_page_sequence_keeps_video_engine_registers_ordered` | `watch` | The first-page hardware sequence must preserve the ordered engine/video/refill risk boundary. | `analysis/hardware-boundary/first-page-hardware-sequence.json` |
 | `video_dataflow_contract_keeps_a4_default_path` | `watch` | The video dataflow contract must preserve concrete a4_default values through render/refill boundary formulas. | `analysis/hardware-boundary/video-dataflow-contract.json` |
 | `direct_start_page_and_native_semantics_verified` | `watch` | Direct stock ELF work creation and native semantic parser must both pass. | `analysis/hardware-boundary/zjs-direct-work.json` |
+| `open_streaming_image_decoder_verified` | `watch` | Open packed-row decoding must match full host pixel oracles and bounded target execution; it is separate from engine integration and printing. | `analysis/open-firmware-model/image-core/validation.json` |
+| `open_complete_file_image_path_verified` | `watch` | Complete-file parser/planner/decoder output and default padding must agree with host pixel oracles and target checks, separately from physical output. | `analysis/open-firmware-model/image-core/page-validation.json` |
 | `compiled_semantic_target_verified` | `watch` | Actual BE/call0 parser and planner must agree with native and independent model expectations in RAM-only execution. | `analysis/open-firmware-model/semantic-target/validation.json` |
 | `original_parser_differential_execution` | `watch` | Original parser and libc bytes must agree with independent oracles, with environment substitutes explicit. | `analysis/open-firmware-model/stock-execution/validation.json` |
 | `independent_qemu_execution` | `watch` | Independent QEMU must agree on target C, original parser/lifecycle, arithmetic and six window handlers; source provenance must be current. | `analysis/open-firmware-model/semantic-target/qemu.json` |

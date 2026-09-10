@@ -903,6 +903,32 @@ def build_report() -> dict[str, Any]:
                         "Direct stock ELF work creation and native semantic parser must both pass.",
                         evidence="analysis/hardware-boundary/zjs-direct-work.json"))
     target_c = read_json("analysis/open-firmware-model/semantic-target/validation.json")
+    image = read_json("analysis/open-firmware-model/image-core/validation.json")
+    image_target = image.get("target") or {}
+    checks.append(check("open_streaming_image_decoder_verified",
+                        image["status"] == image_target.get("status") == "pass"
+                        and len(image["cases"]) == 176 and len(image["normalization"]) == 21
+                        and len(image["mutations"]) == 32 and len(image_target.get("cases", [])) == 66
+                        and image_target.get("reproducible") is True
+                        and image_target.get("a4_state_history_band_bytes") == 11512
+                        and image_target.get("interpreter", {}).get("status") == "pass"
+                        and all(c["status"] == "pass" for c in image["cases"] + image_target.get("cases", []))
+                        and image_target.get("elf_sha256") == hashlib.sha256((ROOT_DIR/"analysis/open-firmware-model/image-core/target/target-check.elf").read_bytes()).hexdigest()
+                        and all(hashlib.sha256((ROOT_DIR/name).read_bytes()).hexdigest() == digest
+                                for name,digest in {**image["source_sha256"], **image["fixture_sha256"], **image["sample_sha256"]}.items()),
+                        "Open packed-row decoding must match full host pixel oracles and bounded target execution; it is separate from engine integration and printing.",
+                        evidence="analysis/open-firmware-model/image-core/validation.json"))
+    image_pages = read_json("analysis/open-firmware-model/image-core/page-validation.json")
+    page_target = image_pages.get("target") or {}
+    checks.append(check("open_complete_file_image_path_verified",
+                        image_pages["status"] == page_target.get("status") == "pass"
+                        and len(image_pages["cases"]) == 57 and len(page_target.get("cases", [])) == 35
+                        and page_target.get("elf_sha256") == image_target.get("elf_sha256")
+                        and all(c["status"] == "pass" for c in image_pages["cases"] + page_target.get("cases", []))
+                        and all(hashlib.sha256((ROOT_DIR/name).read_bytes()).hexdigest() == digest
+                                for name,digest in {**image_pages["source_sha256"], **image_pages["fixture_sha256"], **image_pages["sample_sha256"]}.items()),
+                        "Complete-file parser/planner/decoder output and default padding must agree with host pixel oracles and target checks, separately from physical output.",
+                        evidence="analysis/open-firmware-model/image-core/page-validation.json"))
     checks.append(check("compiled_semantic_target_verified",
                         target_c["status"] == "pass" and target_c["total_cases"] == 78
                         and target_c["negative_control_payload_cases"] == 12

@@ -2,14 +2,14 @@
   "files": [
     {
       "file": "target-check.elf",
-      "first_sha256": "9912d44e3a01e927629dee98974d98b78092b453a069e2c14b6612000e883021",
-      "second_sha256": "9912d44e3a01e927629dee98974d98b78092b453a069e2c14b6612000e883021",
+      "first_sha256": "6bfd533bb6dfa4185ebc85d07c83ed3a6e180e2e7372995836a3fa81b84eb898",
+      "second_sha256": "6bfd533bb6dfa4185ebc85d07c83ed3a6e180e2e7372995836a3fa81b84eb898",
       "status": "pass"
     },
     {
       "file": "target-check.map",
-      "first_sha256": "3f4c61331672433f1397123a2bd23696356de7a648443c1daf93eaa1df65d7e1",
-      "second_sha256": "3f4c61331672433f1397123a2bd23696356de7a648443c1daf93eaa1df65d7e1",
+      "first_sha256": "7f9b3bc7635324ef395a4b48ecfc18b884f67f3092639a4bba28f7e3bf61b4b6",
+      "second_sha256": "7f9b3bc7635324ef395a4b48ecfc18b884f67f3092639a4bba28f7e3bf61b4b6",
       "status": "pass"
     }
   ],

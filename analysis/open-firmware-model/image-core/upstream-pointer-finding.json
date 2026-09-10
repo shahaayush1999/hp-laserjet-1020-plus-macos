@@ -1,0 +1,14 @@
+{
+  "fixture_sha256": "7af7e487eda6a4b7aa5bbfd7632c1ce1e7fd6304047f9bf7d17fc833631976bd",
+  "harness_source_sha256": {
+    "fixture.c": "79ba4c47c07979e693c76d4c988e3e974d7a68384714fb69208c021b40ca764b",
+    "host-check.c": "4d53b4dd4f039fb89d8f37c4c3bcb2e0f2c77b4c4ae0fea99994a1a93d19c74f",
+    "hp1020_image.c": "537e7085f7ee18871f9090fb7b274164a21e908ca299451be4c8d5e3c6914fc8",
+    "hp1020_image.h": "d15afe12a0aed6ac71b676d540562cf96e5f165047786101994a1fd53de85808"
+  },
+  "scope": "Unmodified upstream jbig85.c forms absent-history pointers before its row buffer. ASan/UBSan host fixture; no printer or Xtensa execution.",
+  "source_sha256": "757f6f8a98ed5075ea88f15f4bfac1850de3c4ee6d86e23d36d2468445116cb7",
+  "status": "conditional-host-undefined-behavior",
+  "stderr": "vendor/jbigkit-2.1/libjbig/jbig85.c:630:23: runtime error: addition of unsigned offset to 0x0001020f4a10 overflowed to 0x0001020f4560\nSUMMARY: UndefinedBehaviorSanitizer: undefined-behavior vendor/jbigkit-2.1/libjbig/jbig85.c:630:23 \nvendor/jbigkit-2.1/libjbig/jbig85.c:631:23: runtime error: addition of unsigned offset to 0x0001020f4a10 overflowed to 0x0001020f4560\nSUMMARY: UndefinedBehaviorSanitizer: undefined-behavior vendor/jbigkit-2.1/libjbig/jbig85.c:631:23 \n",
+  "stdout": "[2,6824,1706,2732004321,8188800,6366,18,1,4,4263,0,1200,6824,7200,4424,0,1,1,0,0,0,0,0,0]\n"
+}

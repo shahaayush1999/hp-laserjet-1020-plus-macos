@@ -12,6 +12,11 @@ firmware pointers. Up to 16 pages, 128 raster nodes, 4096 metadata bytes per chu
 and 16 MiB per chunk are accepted. The caller must retain the arena for the
 lifetime of the records and consume records only after success.
 
+Each page now also retains its exact 20-byte BIH. The optional image bridge in
+`../image-core/` checks that original coding profile before decoding the retained
+compressed records into bounded packed-row bands. It does not add an I/O hook
+to this parser or eliminate the compressed arena.
+
 The implemented grammar is START_DOC, followed by zero or more
 START_PAGE / JBIG_BIH / one-or-more JBIG_BID / END_JBIG / END_PAGE sequences,
 then END_DOC. Multiple framed documents are supported. Only the controlled

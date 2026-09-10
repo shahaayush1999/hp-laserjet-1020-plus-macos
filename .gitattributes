@@ -1,0 +1,5 @@
+# Preserve original vendored bytes and raw linker evidence, including whitespace.
+vendor/jbigkit-2.1/libjbig/* -whitespace
+vendor/jbigkit-2.1/LOCAL-CHANGES.patch -whitespace
+analysis/open-firmware-model/image-core/target/*.map -whitespace
+analysis/open-firmware-model/semantic-target/*.map -whitespace

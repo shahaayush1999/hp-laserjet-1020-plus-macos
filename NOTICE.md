@@ -10,7 +10,13 @@ It includes:
 - the foo2zjs source snapshot used for the local runtime
 - `sihp1020.dl`, the HP LaserJet 1020 firmware blob used by foo2zjs
 - firmware artifacts created while getting the printer working
+- the JBIG-KIT 2.1 streaming subset and an experimental open image decoder
 
 The foo2zjs files are GPLv2. See `assets/licenses/foo2zjs-COPYING`.
+
+The streaming JBIG subset and image component are GPL version 2 or later.
+See `vendor/jbigkit-2.1/COPYING`, its source notices, `PROVENANCE.md` and the
+complete `LOCAL-CHANGES.patch`. The original full foo2zjs decoder remains
+unchanged as an offline comparison tool.
 
 The firmware blob and firmware artifacts are included for local reproducibility. Treat this as a private/local repo unless the firmware redistribution terms have been reviewed.

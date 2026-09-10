@@ -1,5 +1,5 @@
 {
-  "check_count": 94,
+  "check_count": 96,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -239,6 +239,18 @@
       "detail": "Direct stock ELF work creation and native semantic parser must both pass.",
       "evidence": "analysis/hardware-boundary/zjs-direct-work.json",
       "name": "direct_start_page_and_native_semantics_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Open packed-row decoding must match full host pixel oracles and bounded target execution; it is separate from engine integration and printing.",
+      "evidence": "analysis/open-firmware-model/image-core/validation.json",
+      "name": "open_streaming_image_decoder_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Complete-file parser/planner/decoder output and default padding must agree with host pixel oracles and target checks, separately from physical output.",
+      "evidence": "analysis/open-firmware-model/image-core/page-validation.json",
+      "name": "open_complete_file_image_path_verified",
       "severity": "watch"
     },
     {

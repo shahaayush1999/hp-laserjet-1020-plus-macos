@@ -1,0 +1,106 @@
+# Bounded open image decoder
+
+This experimental, hardware-free component decodes the narrow foo2zjs JBIG
+profile into consecutive packed image rows. It uses the GPL-2.0-or-later
+JBIG-KIT 2.1 streaming implementation, with provenance, license and a small
+local undefined-behavior patch in `vendor/jbigkit-2.1/`.
+It does not print or drive any device. A separate `hp1020_image_page` bridge
+connects the existing semantic parser and planner to this decoder. Stock
+raw-buffer queue, engine, cache and USB integration remain separate work.
+
+## Contract
+
+`hp1020_image.h` defines a caller-owned state, two-row history buffer and one
+output band. There is no allocator and no retained page bitmap. Input buffers
+can be reused as soon as `feed` returns. A4 default data uses 1200 bytes per row;
+four output rows and two history rows occupy 7200 bytes, in addition to the
+decoder state and stack. The target test report records the actual 32-bit
+state size. Test-only arrays and host reference images are not component RAM.
+
+1. Initialize with the original 20-byte BIH, separate history/output buffers
+   and an explicit positive band-row limit.
+2. Feed concatenated BID payloads. Honor the consumed-byte count and retain or
+   resubmit the remainder. ZjStream chunk headers never enter this API.
+3. On `BAND`, consume `band_rows * stride` bytes from `band`, starting at
+   `band_first`; then release the band. Feeding while paused consumes zero
+   bytes and preserves the pending band. A final partial band is supported.
+4. Signal end of input with `finish`, releasing any pending bands until `DONE`
+   or an error. Released image rows are provisional until successful completion.
+   The format contains no checksum; a corrupted stream can decode successfully
+   into different pixels. This is not a corruption-detection guarantee.
+
+Errors are sticky until reinitialization. The state and all buffers must be
+valid, nonoverlapping and stationary. Output is packed most-significant-bit
+first, with `ceil(BIH.XD/8)` bytes per row. The component does not scale, invert,
+repack host BPP2 samples, add engine padding or assert a physical pixel format.
+
+## Deliberately narrow input
+
+The accepted BIH has `DL=D=0`, one plane, zero reserved byte, `MX=16`, `MY=0`,
+order `3`, and options `0x5c`. Width, height and stripe height must be positive,
+bounded by 16384; output bands are capped at 8192 bytes. BPP4 sample width exceeds
+this component's limit. A logical-clip sample can decode, but the existing page
+planner still rejects its inconsistent stock metadata; decoding is not planning.
+
+Only a private BIH copy changes: order becomes 0 and options become `0x48`.
+In the original full `vendor/foo2zjs-source/jbig.c`, base-layer decoding at
+`if (layer == 0)` uses TPBON/LRLTWO; TPDON and DPON are used in the differential
+branch. There are no differential layers or competing planes in this profile.
+The differential tests compare original and normalized headers using the full
+decoder, then compare streaming output with every original output byte and
+generated source pixels. Private tables, variable height and other profiles
+are rejected, not normalized speculatively.
+
+The core stops at the BIE end and returns the unconsumed tail to the caller.
+The existing foo2zjs `write_plane` adds its configured extra padding plus
+four-byte alignment to the last BID. Saved fixtures have 16–19 zero bytes.
+The decoder does not silently accept, discard or validate transport padding.
+
+## Reproduce
+
+```sh
+python3 scripts/validate-hp1020-image-core.py --target
+python3 scripts/validate-hp1020-image-pages.py --target
+```
+
+This runs sanitized host comparisons, builds the target twice with the pinned
+BE/call0 compiler/profile gate, audits actual instruction regions, and executes
+the result in isolated QEMU RAM. A small nonblank image also runs in the strict
+independent instruction interpreter. Small target images compare every output
+byte; larger pages compare the first 65536 bytes plus the full FNV-1a and row/
+band counts. Host comparisons cover every output byte even on the large pages.
+No timing result is treated as printer throughput.
+
+Reports and compact encoded pixel fixtures are generated under
+`analysis/open-firmware-model/image-core/`. Host-only mode writes its separate
+`host-validation` report; it cannot replace the target report. Source and fixture
+hashes record the tested files. The preserved upstream-pointer finding is a
+historical failing case, not a validated version of the current implementation.
+
+The synthetic ELF retains unused streaming-encoder functions so that old
+binutils retains its instruction annotations. Prefer `annotated-disassembly.txt`
+over linear decoding of literal pools. A known libgcc divide-by-zero trap is
+identified separately; image geometry rejects zero divisors before division.
+The target is a RAM fixture with test arrays, not an uploadable firmware image.
+
+## Complete-file bridge
+
+The semantic parser retains each exact BIH alongside its existing fields.
+`hp1020_image_page_init` accepts only a successful finalized parse, valid raster
+spans and a page accepted by the existing narrow planner. It requires 32-bit
+aligned image widths so packed decoder rows match the planner's stride. The
+bridge uses the planner's row/storage geometry; it never invokes the conditional
+callback or interprets its window as proven engine output.
+
+Call `hp1020_image_page_next` with a positive feed quantum, consume each returned
+band, and release it. BID boundaries can split compressed bytes or padding.
+Completion also requires the exact default foo2zjs padding formula:
+16 zero bytes plus alignment to four bytes after the compressed payload.
+Other `foo2zjs -X` settings are outside this bridge's profile. It decodes each
+page once and retains copies as metadata, without replaying an output engine.
+
+The complete-file path still holds compressed input in the semantic parser's
+caller-owned arena. It therefore does not claim an entire print pipeline in
+the decoder's roughly 12 KB of state/history/band storage. Differing page BIHs,
+multiple documents, fragmented input and 6/13/64 BID partitions are checked in
+`page-validation`; those software pages are not added to native lifecycle counts.

@@ -88,6 +88,7 @@ static enum hp1020_result complete_chunk(struct hp1020_semantic *s) {
         const uint8_t *b=s->metadata;
         /* Single-layer, single-plane BIH used by the tested foo2zjs path. */
         if (b[0] || b[1] || b[2]!=1 || b[3]) return fail(s,HP1020_UNSUPPORTED);
+        memcpy(p->bih,b,sizeof(p->bih));
         p->bih_xd=be32(b+4); p->bih_yd=be32(b+8); p->bih_l0=be32(b+12);
         p->bih_options=b[19];
         if (!p->bih_xd || p->bih_xd>UINT32_MAX-31u || !p->bih_yd || !p->bih_l0)

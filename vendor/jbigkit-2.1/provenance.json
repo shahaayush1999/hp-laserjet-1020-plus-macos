@@ -1,0 +1,32 @@
+{
+  "archive_sha256": "de7106b6bfaf495d6865c7dd7ac6ca1381bd12e0d81405ea81e7f2167263d932",
+  "files": {
+    "COPYING": {
+      "local_sha256": "91df39d1816bfb17a4dda2d3d2c83b1f6f2d38d53e53e41e8f97ad5ac46a0cad",
+      "upstream_sha256": "91df39d1816bfb17a4dda2d3d2c83b1f6f2d38d53e53e41e8f97ad5ac46a0cad"
+    },
+    "libjbig/jbig85.c": {
+      "local_sha256": "5e0782db94a94d199975f74ce493d32099aee5c9ae686c05e65831a1227a5fac",
+      "upstream_sha256": "757f6f8a98ed5075ea88f15f4bfac1850de3c4ee6d86e23d36d2468445116cb7"
+    },
+    "libjbig/jbig85.h": {
+      "local_sha256": "1c87939e042d7b03a19412dd3f8d0e9614ebbacc1aad5c4f2cfbd9bf11bd514e",
+      "upstream_sha256": "1c87939e042d7b03a19412dd3f8d0e9614ebbacc1aad5c4f2cfbd9bf11bd514e"
+    },
+    "libjbig/jbig85.txt": {
+      "local_sha256": "521e0b0b4f572beff3699c17b8f33fdb5aee088fc682a2ce8f14af7366d286ad",
+      "upstream_sha256": "521e0b0b4f572beff3699c17b8f33fdb5aee088fc682a2ce8f14af7366d286ad"
+    },
+    "libjbig/jbig_ar.c": {
+      "local_sha256": "ae9fa2575d73a0cd50c6a32621ab2b6c4ca5f1115d27d636f461275c1d1e62f3",
+      "upstream_sha256": "ae9fa2575d73a0cd50c6a32621ab2b6c4ca5f1115d27d636f461275c1d1e62f3"
+    },
+    "libjbig/jbig_ar.h": {
+      "local_sha256": "c5dcac0af444f6b5b4470775a3b1f020243970692e8d776767e717154f3de7fa",
+      "upstream_sha256": "c5dcac0af444f6b5b4470775a3b1f020243970692e8d776767e717154f3de7fa"
+    }
+  },
+  "license": "GPL-2.0-or-later",
+  "url": "https://www.cl.cam.ac.uk/~mgk25/jbigkit/download/jbigkit-2.1.tar.gz",
+  "version": "2.1"
+}

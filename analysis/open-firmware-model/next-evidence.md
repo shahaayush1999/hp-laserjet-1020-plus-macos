@@ -19,15 +19,147 @@ and rejected by the narrow page planner; they are not reasons to expand the
 first hardware test. Other modes, malformed-input compatibility and optimization
 are outside this first printing scope.
 
+## Open software image path (2026-09-10)
+
+A second concrete shortcut now avoids the compressed-image hardware for offline
+image production. `open-firmware/image-core/` contains a bounded streaming JBIG
+wrapper and a bridge from the existing semantic parser/planner to packed row
+bands. The parser now retains each exact 20-byte BIH. Current focused checks
+pass, and the full sequential aggregate passed **96 consistency checks** in
+`/tmp/hp1020-full-image.log` (child logs `hp1020-validation.GAVU4h`). All tested
+current source/fixture hashes match. No research process remains at this checkpoint.
+
+- `validate-hp1020-image-core.py --target`: 176 cases, 21 comparisons of original
+  versus normalized headers through the original full decoder, 32 separately
+  classified mutations, 66 QEMU cases and a small nonblank page through the
+  independent instruction interpreter. This is decoded software image output,
+  not a stock native page lifecycle or physical output.
+- `validate-hp1020-image-pages.py --target`: 57 complete-file host cases, of which
+  39 accept the file and 18 reject an invalid/unsupported condition; 35 QEMU
+  cases. Tests include differently sized images across pages/documents, input
+  fragments, 6/13/64 BID partitions, exact retained BIHs, stalled consumers,
+  invalid raster spans/owners and default foo2zjs padding. The host compares
+  every output byte. Large QEMU outputs compare the first 65536 bytes plus the
+  complete FNV-1a, row/band and metadata counts; small outputs compare every byte.
+- The private BIH copy changes only order `3 -> 0` and options `0x5c -> 0x48`,
+  after requiring DL=D=0, P=1, zero reserved, MX=16 and MY=0. Original full
+  `jbig.c` uses TPBON/LRLTWO in the base-layer branch; TPDON/DPON belong to the
+  absent differential layer. Source pixels, original full decoding, normalized
+  full decoding and streaming output agree on nonblank/noise/edge fixtures.
+  Other profiles are rejected, not generalized from this result.
+- The A4 decoder state is 4312 bytes on the emulated 32-bit target; history and
+  four-row output band use another 7200 bytes. Total **11512 bytes** excludes
+  code, stack, caller input and test arrays. The complete-file bridge retains
+  compressed input in the existing arena, so this is not whole-pipeline RAM.
+- The core returns the unconsumed BIE tail to its caller. The page bridge checks
+  exactly 16 zero bytes plus four-byte alignment, matching default ExtraPad=16
+  and `write_plane` in original foo2zjs. Other -X settings are outside its scope.
+  Copies remain metadata: each page image is decoded once, without engine replay.
+- The streaming JBIG-KIT 2.1 subset is retained with GPL notices, archive/file
+  content pins and a complete local patch. Host UBSan reproduced invalid
+  absent-history pointer construction in upstream `jbig85.c`. The patch keeps
+  unused row pointers inside the buffer and assembles byte fields unsigned for
+  32-bit targets. The original failing capture and matching harness snapshots
+  remain separate under `image-core/source-snapshots/upstream-pointer/`.
+- The synthetic target ELF retains instruction annotations and unused encoder
+  code. The validator audits positive `.xt.prop` instruction regions, excluding
+  literal pools from instruction decoding. The single libgcc divide-by-zero
+  trap is identified separately. No custom ISA, MMIO, peripheral, USB or engine
+  function is part of the open execution path.
+
+First remove whole-page compressed retention by adding an optional chunk
+consumer to the existing parser, keeping its retained mode and grammar intact.
+The goal is a fixed compressed-chunk buffer plus bounded decoder/output storage,
+with detailed images larger than the current test input buffer as evidence.
+No such streaming parser integration exists at this checkpoint.
+
+Then pursue the raw-output contract: establish whether these exact
+packed rows can occupy stock raw slots or linked-list buffers, and which
+software ownership/count/terminal fields are required before any hardware
+boundary. The bridge currently requires 32-bit aligned widths and existing
+narrow page-plan admission. BPP1/2 metadata does not prove physical pixel order
+or an engine-ready packing format; callback/window projections remain conditional.
+Do not start recovering the custom image ISA merely because it is unknown: the
+stock-supported callback bypass plus software image output is now an implemented
+offline alternative. Actual printer throughput, cache visibility, boot, live
+configuration, engine sequencing and observed printing are still unresolved.
+
+### Raw-route preconditions: original-byte audit
+
+Static inspection after the software decoder work identifies **independent
+selectors** that must agree in a future raw-output experiment. No VideoThread,
+raw render, raw refresh or peripheral operation was executed in this audit.
+
+1. VideoThread loads the first raster payload through `work+0x50 -> node+0x0c`,
+   then reads **payload+0x50** at `0x10013c8d` (`288214`). Zero dispatches prepare
+   then compressed render `0x10015214`; 1 or 2 dispatches prepare then alternate
+   render `0x10015438`. Other values skip both render calls. Work type 7 also
+   skips rendering. This is not selected by work+0x74 at this dispatch point.
+2. Prepare separately reads **work+0x74** at `0x10014b92` (`284074`) and sets or
+   clears video+0xfc's high bit. That chooses the later IRQ/refill family. Merely
+   toggling work+0x74 does not select alternate render; conversely source-kind
+   1/2 alone does not establish the matching raw IRQ mode.
+3. Alternate render `0x10015438` copies `work+0x50` to both video+0x9c and +0xa0,
+   then calls raw refresh at `0x10015450`. The refresh's first peripheral read
+   is `0x10014126`, after logging; it cannot be run wholesale as a RAM fragment.
+4. Raw refresh reads payload+0x54 as the pointer, +0x20 as a 16-bit unit count,
+   +0x4c as a terminal flag, and +0x50 again. **Source kind 2 contributes bit 25
+   to the hardware count/flag word**, in addition to changing the known release
+   policy. It must not be chosen just to avoid freeing a borrowed buffer.
+5. The separate engine-derived output selector at `0x1001cdac` still chooses
+   single versus dual output handling. On its value-1 branch, B's pointer is
+   A+video+0xbc and the count uses half the payload units before dividing by
+   video+0xc4. Neither physical lane meaning nor required pixel/row interleave
+   is established by this arithmetic.
+
+Byte audit anchors (exclusive ends; original stock ELF SHA-256 ranges):
+
+| Range | SHA-256 |
+|---|---|
+| `0x10013c7d..0x10013cc4` dispatch | `b545933c73cc711d6fdea6e8c8d20c1401680e0caafd9a40cf12084b8042845d` |
+| `0x10015438..0x10015458` alternate render | `16bf6cec843b78f2b0eb2e241ac3b5b3f73e62af4a903b28eba3fef82edd53d8` |
+| `0x100140f8..0x10014244` raw refresh | `3bf597a8e0e58bc27c4e257053235ddb6aa56e6471e7ca79b4f7add578b1d1f8` |
+| `0x10014b92..0x10014baf` raw IRQ flag selection | `ddd48969e3737ca5453451a05d6b548e8413da48bf701afa08acd6003188f275` |
+
+A related correction: the historical parser-boundary note says it supports
+chunk types 0..12, but its table is not proof that each type performs work.
+Original table `0x100036f0` entries 7, **8 (RAW_IMAGE)** and 9 all point directly
+to common cleanup `0x1000a1ef`. The cleanup frees metadata when present and loops;
+it contains no raster-node creation or render dispatch. Its original bytes
+`0x1000a1ef..0x1000a211` hash to
+`38e38e296645db7512d1560c0ffbbae9cd9b18e34427d5a8786166b6b7c2c13c`.
+Do not use ZJT_RAW_IMAGE as a presumed shortcut into the stock raw queue.
+The current open bridge likewise does not emit that unsupported chunk type.
+
+These anchors make a bounded next experiment concrete: test source-kind dispatch,
+paired raw-mode preconditions and software buffer ownership while stopping before
+prepare/raw-refresh hardware. Actual decoded band pointers can be supplied as
+RAM fixtures, but successful pointer selection must remain distinct from output.
+For that next bounded run, the minimal original fragments are:
+`0x10013c7d..0x10013cb5` (stop before prepare at `0x10013c97` or
+`0x10013cad`; invalid source kinds/type 7 reach the notification boundary),
+`0x10015438..0x10015450` (stop before raw-refresh call), and
+`0x10014b92..0x10014baf` (raw IRQ flag copy alone, after an explicitly skipped
+prefix). Seed the correct live-in registers from original instructions: the
+dispatch uses a6=video and a5=0; flag copy uses a4=work and a5=video. Include
+negative controls that reject the prepare calls, raw-refresh call and its first
+peripheral read before execution. Source kind and work flag should vary
+independently to expose mismatches. These planned fragments have **not** run;
+they are not part of either the 42 bypass cases or the new image-case totals.
+
+The older `video-raster-consumer-report.md` chain from normal compressed BID to
+raw refresh omits the separate dispatch/refill choices above; do not take it as
+proof that compressed data is normally sent straight to the raw output block.
+
 ## Preferred raster bypass (2026-09-10)
 
 After the owner asked for a faster approach and delegated the choice, research
 shifted from expanding software matrices toward the stock-supported bypass.
 `scripts/validate-hp1020-raster-bypass.py` owns the new evidence in
-`analysis/hardware-boundary/raster-bypass.json` and `.md`. The latest source,
-static byte audits and page-fixture observations pass the full aggregate:
-**94 consistency checks**, logged in `/tmp/hp1020-full-bypass.log`. No research
-process remains active. Source/fixture hashes match the tested current files.
+`analysis/hardware-boundary/raster-bypass.json` and `.md`. The preceding full baseline, including static byte audits and page-fixture
+observations, passed **94 consistency checks** in `/tmp/hp1020-full-bypass.log`.
+The open software image additions above subsequently passed the new 96-check
+aggregate; retain this older baseline as historical bypass evidence.
 
 - Literal `0x1000647c` points to table `0x1001ce14`. Entry 32 at `0x1001d114`
   contains `[32,0x1001ce10,2,0,0x40000,2]`; backing u32 `0x1001ce10` is **1 in

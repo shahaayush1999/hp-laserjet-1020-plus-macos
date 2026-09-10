@@ -1,0 +1,6 @@
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/semantic-core/hp1020_semantic.c:5:17:be32	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/semantic-core/hp1020_semantic.c:22:27:items	48	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/semantic-core/hp1020_semantic.c:58:27:complete_chunk	48	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/semantic-core/hp1020_semantic.c:15:6:hp1020_semantic_init	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/semantic-core/hp1020_semantic.c:146:20:hp1020_semantic_feed	48	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/semantic-core/hp1020_semantic.c:171:20:hp1020_semantic_finish	0	static
