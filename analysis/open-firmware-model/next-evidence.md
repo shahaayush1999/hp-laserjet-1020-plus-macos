@@ -10,7 +10,7 @@ core-specific operations absent from the available instruction definitions.
 |---|---|---|---|
 | 1 | Does the corrected BE probe execute after the ROM loader, and can its own endpoint-0 path return its counter descriptor? | Stock-byte instruction fixtures and offline staging tests pass. The older quiet idle upload used incorrect instruction encoding. | A newly authorized cold-boot inert-probe test that returns the probe-specific descriptor. Stock USB identity alone is insufficient. |
 | 2 | Does bulk OUT completion report the actual byte count and permit repeated acknowledgement/re-arm? | Static stock lane/descriptor/callback chain and offline framing tests. | The guarded 36-byte START_DOC/END_DOC transaction returns B=0x24, D=1, C=2, E=0, U=0; a later separately authorized repeat establishes re-arm. No page/raster input is needed. |
-| 3 | What do the raster extension instructions do, including hidden state or memory effects? Can the stock-supported callback bypass produce acceptable output? | Exact four-argument callback contract, masks and complete instruction inventories. BPP2/600 has 16 unresolved extension instructions. Compiler annotations locate all 144 generic-decoder-unrecognized sites in four adjacent routines; the fourth has no found static reference. | A core-specific ISA definition or controlled stock callback input/output trace; alternatively, measured stock behavior with its supported bypass setting. Custom opcodes are not assumed safe for a probe. |
+| 3 | Can the stock-supported callback bypass produce acceptable output? | File-backed datastore 32 = 1 disables the gate in original prepare execution; a separate original band fragment selects the raw slot buffer. Conditional zero-setting controls stop before the custom call. See the raster-bypass section below. | Establish the live configuration and buffer format/production/consumption contract, then eventual measured output. Recover the custom ISA only if the bypass proves insufficient. No custom opcode is assumed safe. |
 | 4 | Do the two video channels implement the inferred compressed-input and row-output handshake, including length/progress units, cache visibility and descriptor ownership? | Original parser/JobMgr execution verifies BIH/BID lists and scheduling; direct VIDEO_Y seed, corrected floor division, bounded host partitions and static channel writes. | A stock first-page trace showing channel lengths/status, buffer contents, ownership transitions and completion order. No custom video writes are authorized. |
 | 5 | Which physical engine conditions correspond to the polled status bits/events, and what are safe timing, timeout and recovery boundaries for startup, page start and completion? | Executable status/IRQ decision models and ordered stock command sequences. | Calibrated stock behavior for idle, page acceptance, completion and relevant fault states. Numeric event values are not physical labels. |
 
@@ -18,6 +18,86 @@ The logical-clip metadata mismatch and BPP4 zero-refill case are already isolate
 and rejected by the narrow page planner; they are not reasons to expand the
 first hardware test. Other modes, malformed-input compatibility and optimization
 are outside this first printing scope.
+
+## Preferred raster bypass (2026-09-10)
+
+After the owner asked for a faster approach and delegated the choice, research
+shifted from expanding software matrices toward the stock-supported bypass.
+`scripts/validate-hp1020-raster-bypass.py` owns the new evidence in
+`analysis/hardware-boundary/raster-bypass.json` and `.md`. The latest source,
+static byte audits and page-fixture observations pass the full aggregate:
+**94 consistency checks**, logged in `/tmp/hp1020-full-bypass.log`. No research
+process remains active. Source/fixture hashes match the tested current files.
+
+- Literal `0x1000647c` points to table `0x1001ce14`. Entry 32 at `0x1001d114`
+  contains `[32,0x1001ce10,2,0,0x40000,2]`; backing u32 `0x1001ce10` is **1 in
+  the stock ELF**. Original getter `0x10011178` executes and directly reads it.
+- Original prepare `0x10014910..0x10014ae0` enables `video+0xc0` only when that
+  getter returns zero and `work+0x36==0`. With the stock value it clears both
+  the gate and `video+0xf4`. For BPP2/600, stride/window remain 1200, scale 1,
+  output BPP 2 and chunk cap 4. A stale callback pointer remains harmless under
+  the disabled gate in the tested fragment. Entry 32 is not assumed read-only:
+  the generic writer's type-2 store can update it.
+- 42 prepare/band cases cover BPP1 at 300/600/1200, BPP2/600 and an explicitly
+  unsupported BPP4/600 control, stock 1 versus mutated 0, both `work+0x36` values
+  and both RAM fills. There are 34 raw-buffer selections and **eight conditional
+  stops before CALLX8**, never callback successes. BPP1/300 clears the pointer;
+  separate pointer-zero controls also suppress calls. Enabled unsupported BPP4
+  retains a stale pointer, which is not format support.
+- The band fixture enters `0x10013f57` after the excluded peripheral-read prefix.
+  It stops at `0x10014014` with the raw slot pointer in a12, or before the excluded
+  custom call at `0x10013ff9`. Explicit ring indices, non-final descriptor and
+  raw/transformed buffers are supplied. Both buffers stay unchanged. The first
+  peripheral read, custom call, callback entry and downstream hardware branch
+  are separately rejected before execution. No image data is produced.
+- Two original constructor relocation fragments `0x10010dcd..0x10010e80` change
+  entries 0..22 only and preserve entry 32/value 1. Allocation is supplied RAM;
+  the rest of construction, persistence and boot are excluded. This is a useful
+  narrowed boot question, not proof of live configuration.
+- The alternate work flag is not an interchangeable host setting: the byte
+  audit at `0x1000e64c` shows `work+0x36` also suppresses JobMgr's four BIH-field
+  stores. Keep its normal zero value for the initial bypass candidate.
+
+The static pointer audit distinguishes compressed payload `+0x54` sent to
+channel A (`0xb2040004`) from the video-slot pointer sent to channel B
+(`0xb2080004`). The bypass forwards the latter slot toward the video block
+(`0xb1000008`). No hardware accesses execute in this audit. Actual transformation
+between those buffers, cache visibility and physical consumption remain unknown;
+the bypass does not turn the compressed stream into ready image rows by itself.
+
+All 36 existing native page cases also preserve entry 32's full descriptor and
+value before and after execution, without reseeding either. This is a before/after
+observation of the selected software
+tasks, not a trace of every write or an invariant over unexecuted boot/engine code.
+
+The callback inventory's former "Default BPP2/600" wording was too broad.
+Selection requires datastore 32 = 0; file-backed stock has 1. Existing prepare,
+first-page and dataflow projections keep their zero-setting values as explicit
+conditional scenarios. Do not silently substitute them for the bypass. Prefer
+the narrow BPP2/600 bypass path and revisit custom decoding only if evidence
+shows it is necessary. Exact custom encodings/masks remain preserved in the
+callback and instruction-property reports, not reclassified as safe.
+
+Next useful evidence: original initialization/writer reachability for entry 32,
+and the raw-buffer hardware contract at the compressed-input/output boundary.
+Do not repeat the callback inventory or empty-document cancellation ordering.
+No permission for any printer contact or hardware operation was added.
+
+A separate original-byte inspection found a concrete output-mode boundary:
+literal `0x100067c8` points to selector `0x1001cdac`, whose file value is **2**.
+Function `0x10016024` first passes command `0x92` to `0x10015c68`, then classifies
+the returned value masked with `0x7e00`. Masked `0x3400` selects 1; `0x1a00` and
+`0x3200` select 0; other values select 2. The literals are at `0x10006984..0x10006990`;
+the selector stores are `0x10016049` (`2ac600`, a10 to a12) and `0x10016085`
+(`289600`, a8 to a9). The value-1 branch first reads `0xb0500004` and later sets
+its `0x10000000` bit, so it is not a safe complete RAM fragment. Whole original
+bytes `0x10016024..0x1001608a` SHA-256:
+`c3b538565dd5de4b2a05d9ea1b4e5dc916dd500608622671edbe2e3afa26c9f5`.
+This is a static control-flow finding only; the command and engine initialization
+were not executed. The physical meaning of the response and the selected live
+mode remain unknown. Existing lane-0/1 projections are conditional examples,
+not proof of the live selector. A future bounded classification test must supply
+the response explicitly and stop before the value-1 branch's peripheral read.
 
 The owner has reframed the task as an offline capability evaluation. Original
 stock parser/libc and status routines now execute in isolated host harnesses and
@@ -246,9 +326,10 @@ instructions under 250,000; the six/thirteen-chunk and baseline cases retain the
 `/tmp/hp1020-full-fragments.log` records both suite passes and child log directory.
 No research process remains running after this checkpoint.
 
-The next distinct offline question is native input admission rather than direct
-per-document parser invocation, or active-work cancellation with an explicitly
-bounded software-only consumer. Neither is executed by these page fixtures.
+Native input admission instead of direct per-document parser invocation, and
+active-work cancellation with a bounded software consumer, remain distinct
+integration questions. Neither is executed by these page fixtures. The later
+raster-bypass section above records the current research priority.
 Do not repeat the resolved empty-document cancellation ordering. Physical DMA,
 raster execution, engine behavior, output and power-cycle recovery remain unproven.
 

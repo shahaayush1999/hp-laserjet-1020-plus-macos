@@ -280,6 +280,7 @@ def build_report() -> dict[str, Any]:
         "projections": projections,
         "normal_path_summary": [
             "All current generated host variants use ZJI_NBIE=1 and 600x600 declared resolution.",
+            "Datastore-zero and nonzero rows are conditional scenarios. The callback-enabled summary is not a measured default; raster-bypass.json verifies that the file-backed stock value 1 disables callbacks in bounded execution.",
             "For datastore 0x20 == 0 and work +0x36 == 0, BPP1 doubles the window; BPP2 keeps +0xbc=stride and selects a different callback. BPP4 has no matching setup-table branch in this model.",
             "VIDEO_X/Y, RET, and ECONOMODE are sourced by the direct START_PAGE builder. Secondary-output scenarios matching the host ECONOMODE are marked explicitly.",
         ],
@@ -309,6 +310,8 @@ def render_markdown(report: dict[str, Any]) -> str:
         [
             "",
             "## Variant Summary",
+            "",
+            "Callback columns below select datastore 0x20 == 0, work +0x36 == 0, lane 0 and no secondary output. They do not establish the runtime stock setting.",
             "",
             "| Case | Resolution | Raster X/Y | Video BPP | Work +0x84 | Stride +0xb8 | Callback 600dpi state |",
             "|---|---|---|---:|---:|---:|---|",

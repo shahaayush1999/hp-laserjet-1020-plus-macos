@@ -1,4 +1,10 @@
 {
+  "assumed_runtime_config": {
+    "datastore_32": 0,
+    "lane_selector": 0,
+    "secondary_output": false,
+    "work_plus_0x36": 0
+  },
   "checks": [
     {
       "detail": "raster field model is pass",
@@ -129,6 +135,7 @@
     }
   ],
   "current_conclusion": [
+    "This representative contract assumes datastore 32 == 0. The file-backed stock value is 1; bounded original execution selects the callback bypass for that value. See raster-bypass.json. Existing values here remain conditional, not a default-mode claim.",
     "The host-to-render dataflow is now concrete for the generated a4_default case.",
     "The low work fields and floor division are resolved. Remaining uncertainty concerns video timing, hardware interpretation, and live IRQ completion behavior.",
     "This report is still not a reason to upload custom printing firmware; it is the static contract a future implementation must satisfy."
@@ -144,5 +151,5 @@
     "transfer_ring": "analysis/hardware-boundary/video-transfer-ring.json"
   },
   "status": "pass",
-  "summary": "Normal first-page video dataflow contract from host fields to render/refill hardware boundary."
+  "summary": "Conditional callback-enabled first-page dataflow from host fields to render/refill hardware boundary."
 }

@@ -6,40 +6,41 @@ installed-printing change or print-driving hardware path occurred.
 
 ## Progress and validation
 
-- Pinned GCC recovery succeeded with the original checksum, instruction and
-  compiler-profile gates. Target headers and libgcc are restored.
-- Current sources pass the full offline suite: **93 consistency checks**.
-  The original native matrix retains 26 completed empty-document lifecycles and
-  six separately classified conditional null reads. All 28 retirement cases pass.
-- Native pages now pass 36 completed software lifecycles: 18 ordinary page and
-  document cases plus 18 split-raster cases (six, thirteen and 64 chunks), with
-  both RAM fills and three timing/event controls. All are in the aggregate.
-- A synthetic consumer supplies FIFO consumption and completion. Original parser,
-  allocation, queues, scheduling, reference stores, counters and reclamation run.
-  Two explicit ticks allow JobMgr to clean retired nodes before completion;
-  consuming the cleanup event first prevents that early cleanup. Final ownership
-  still passes in all controls. Automatic IRQs and physical consumption are absent.
-- Initial page draft errors were corrected against original bytes: invalid
-  immediate comparison, an embedded-descriptor/free-pointer mismatch, and a
-  control-wrapper bit-index assertion. The newly reached timed cleanup helper
-  is fully byte-audited RAM code; its peripheral exclusions remain intact.
-- The first 64-chunk case stopped at the 200,000-step budget during final status
-  bookkeeping. Its raw capture remains separate from completed lifecycles.
-  Only 64-chunk fixtures now request an explicit 250,000 cap; they complete in
-  200,315–201,736 instructions. The default remains 200,000.
+- Current sources pass the full offline suite: **94 consistency checks**.
+  Pinned GCC headers/libgcc remain restored with checksum and profile gates.
+- Prioritize the stock-supported custom-raster bypass. The stock ELF stores
+  datastore 32 = 1; original getter/prepare and separate band fragments select
+  the raw buffer with that value. This may defer custom ISA recovery for the
+  first printing path. It does not establish complete boot or physical output.
+- The aggregate includes 42 bypass cases: 34 raw-buffer selections and eight
+  stops before a custom call, plus two constructor relocation fragments.
+  These are **not page lifecycles**. Custom callbacks and peripherals never run.
+- All 36 native software page lifecycles preserve the stock datastore-32
+  descriptor/value before and after processing. This covers ordinary pages,
+  multiple documents and split raster input with timing/event controls. It does
+  not trace every intermediate write or include VideoThread/engine initialization.
+- The separate native matrix retains 26 completed empty-document lifecycles and
+  six conditional null reads; all 28 bounded retirement cases pass. Page cases
+  still use supplied FIFO consumption/completion, not physical DMA or printing.
+- The previous 64-chunk budget stop remains separate evidence; its recorded
+  source hashes match the preserved source commit. Completed 64-chunk fixtures
+  use the explicit 250,000 cap; other cases retain the 200,000 default.
 
-## Next distinct offline work
+## Current direction and next evidence
 
-Use the native handoff in `analysis/open-firmware-model/next-evidence.md` and
-`analysis/README.md`. The page fixture still calls the original parser directly
-once per document. Native integration of the already-audited stream admission
-path is the next distinct question; inspect existing admission evidence first.
-Active-work cancellation with a bounded software consumer is another unresolved
-integration question. Neither is proven by the completed page matrices.
+Use the raster-bypass section and native handoff in
+`analysis/open-firmware-model/next-evidence.md`. Prefer narrow BPP2/600 callback
+bypass while investigating raw-buffer production, consumption and hardware
+mode selection. The bypass does not replace the compressed-input hardware path.
+The output selector is itself updated from an engine response; its file value
+is not a live-mode observation. Complete datastore initialization/writer coverage,
+cache visibility, engine timing and output remain unproven. Native admission and
+active-work cancellation remain distinct software integration questions; broader
+software matrices are not the present priority.
 
-Latest full log: `/tmp/hp1020-full-fragments.log`; it names the child log directory.
-Generated reports retain their actual tested source/fixture hashes. Historical
-captures and snapshots remain preserved. No research process needs to be resumed.
+Latest full log: `/tmp/hp1020-full-bypass.log`; it names the child log directory.
+Current validation reports match their tested sources and fixtures. Historical
+captures and matching source history remain preserved. No research process is running.
 
 ## Restrictions and corrections
 

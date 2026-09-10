@@ -1,5 +1,5 @@
 {
-  "check_count": 93,
+  "check_count": 94,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -281,6 +281,12 @@
       "detail": "The logical-clip full-payload model must not be mistaken for bounded stock metadata handling.",
       "evidence": "analysis/open-firmware-model/metadata-bounds.json",
       "name": "stock_metadata_split_boundary_explicit",
+      "severity": "watch"
+    },
+    {
+      "detail": "The file-backed bypass, excluded callback boundaries and conditional model configuration must remain distinct from boot, page lifecycles and physical printing.",
+      "evidence": "analysis/hardware-boundary/raster-bypass.json",
+      "name": "stock_value_selects_bounded_raster_bypass",
       "severity": "watch"
     },
     {

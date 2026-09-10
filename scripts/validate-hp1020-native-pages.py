@@ -64,6 +64,7 @@ def main():
         'hp1020_stock_jobmgr_harness.py','hp1020_stock_lifecycle_harness.py',
         'hp1020_qemu_stock_parser.py','hp1020_qemu_ram.py','validate-hp1020-stock-execution.py')
     findings = [
+        'The stock datastore-32 descriptor and its file-backed value 1 remain unchanged before and after every software lifecycle. This narrows preservation to the executed parser/JobMgr/StatusMgr/completion tasks, not complete boot, VideoThread or engine initialization.',
         'Eighteen native cases complete one page, three pages in one document, and three one-page documents, under both RAM fills. Original parser, JobMgr and StatusMgr use original allocation, queues, locks and scheduling. Runtime host services supply input bytes only.',
         'A synthetic fourth task waits until parsing finishes, consumes queue-1 work in FIFO order, supplies successful consumption to the bounded original retirement tail, and sends message 17 through the original JobMgr queue. Reference fields change from one to zero through original stores; original event-set calls execute.',
         'Original completion processing restores credits, updates page/document counters and releases all pool allocations apart from the persistent 20-byte ONLINE subscriber. All four tasks finish waiting on empty queues; JobMgr has a two-tick receive timeout armed. Zero-tick controls and explicitly delivered two-tick intervals are separate configurations.',

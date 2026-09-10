@@ -7,6 +7,7 @@ This is a generated offline model. It does not contact the printer.
 The parser/object path is mapped well enough for the current foo2zjs sample. This report orders the next part: what the stock firmware appears to do when one page crosses from software objects into video and engine hardware.
 
 - source projection case: `a4_default`
+- configuration assumption: datastore 32 = 0, work +0x36 = 0, lane 0, no secondary output; the stock ELF value 1 selects the bypass in bounded execution (raster-bypass.json)
 - decision: Do not attempt open printing until USB-only open code is proven and video/engine register sequencing is modeled more tightly.
 
 ## Modeled Inputs
@@ -42,7 +43,7 @@ The parser/object path is mapped well enough for the current foo2zjs sample. Thi
 |  | projected `0xb200000c` | work +0x88 from BIH runtime block +0x08 | `6824` | consumer `0x10015214 hp1020_video_render_or_dma_candidate` |  |
 |  | projected `0xb2000024` | work +0x8c from BIH runtime block +0x0c | `128` | consumer `0x10015214 hp1020_video_render_or_dma_candidate` |  |
 |  | projected `0xb2000000` | work +0x90 from BIH runtime block +0x13 | `control derived from work +0x90=0x5c, then OR 0x400` | consumer `0x10015214 hp1020_video_render_or_dma_candidate` |  |
-| `7` | video refill / raw-band feed | `normal hypothesis: 0x10014244 -> 0x10013f34 descriptor queue/list path` | `0xb1000008 / 0xb1000108` raw-band pointer/window write<br>`0xb100000c / 0xb100010c` raw-band flags/count write<br>`0xb2080004 / 0xb2080008` channel-B refill descriptor write | Feeds compressed raster bytes to the hardware-side print path; normal/alternate mode selection matters for reproducing timing. | `high` |
+| `7` | video refill / raw-band feed | `normal hypothesis: 0x10014244 -> 0x10013f34 descriptor queue/list path` | `0xb1000008 / 0xb1000108` raw-band pointer/window write<br>`0xb100000c / 0xb100010c` raw-band flags/count write<br>`0xb2080004 / 0xb2080008` channel-B refill descriptor write | Feeds video-slot buffers toward the output blocks. The compressed input pointer belongs to channel A; the hardware transformation into channel-B/slot data and its timing remain unproven. | `high` |
 |  | projected `normal_refill_state_fields` | analysis/hardware-boundary/video-refill-topology.md | `+0xd0, +0xd8, +0xdc, +0xe0, +0xf0, +0xf8, +0xfc` | consumer `0x10014244 -> 0x10013f34` |  |
 |  | projected `normal_refill_unsafe_registers` | analysis/hardware-boundary/video-refill-topology.md | `0xb1000008, 0xb100000c, 0xb1000108, 0xb100010c, 0xb2080004, 0xb2080008` | consumer `0x10014244 -> 0x10013f34` |  |
 | `8` | video done wakes PrintMgr | `VideoThread sends PrintMgr queue 1 message 0x10` | none | Completion coordination; needed so engine timing and status do not drift. | `high` |

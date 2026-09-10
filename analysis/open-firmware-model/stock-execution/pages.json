@@ -58,6 +58,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 3,
         "job": 12,
@@ -715,6 +722,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 13,
@@ -1377,6 +1391,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 13,
@@ -2034,6 +2055,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 3,
         "job": 12,
@@ -2691,6 +2719,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 13,
@@ -3353,6 +3388,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 13,
@@ -4054,6 +4096,13 @@
         574633856
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 26,
@@ -5357,6 +5406,13 @@
         574633856
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 11,
         "job": 29,
@@ -6673,6 +6729,13 @@
         574633856
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 11,
         "job": 29,
@@ -7976,6 +8039,13 @@
         574633856
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 26,
@@ -9279,6 +9349,13 @@
         574633856
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 11,
         "job": 29,
@@ -10595,6 +10672,13 @@
         574633856
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 11,
         "job": 29,
@@ -11898,6 +11982,13 @@
         574634264
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 30,
@@ -13619,6 +13710,13 @@
         574634264
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 11,
         "job": 33,
@@ -15353,6 +15451,13 @@
         574634264
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 11,
         "job": 33,
@@ -17074,6 +17179,13 @@
         574634264
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 30,
@@ -18795,6 +18907,13 @@
         574634264
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 11,
         "job": 33,
@@ -20529,6 +20648,13 @@
         574634264
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 11,
         "job": 33,
@@ -22152,6 +22278,7 @@
   "completed_lifecycles": 18,
   "elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
   "findings": [
+    "The stock datastore-32 descriptor and its file-backed value 1 remain unchanged before and after every software lifecycle. This narrows preservation to the executed parser/JobMgr/StatusMgr/completion tasks, not complete boot, VideoThread or engine initialization.",
     "Eighteen native cases complete one page, three pages in one document, and three one-page documents, under both RAM fills. Original parser, JobMgr and StatusMgr use original allocation, queues, locks and scheduling. Runtime host services supply input bytes only.",
     "A synthetic fourth task waits until parsing finishes, consumes queue-1 work in FIFO order, supplies successful consumption to the bounded original retirement tail, and sends message 17 through the original JobMgr queue. Reference fields change from one to zero through original stores; original event-set calls execute.",
     "Original completion processing restores credits, updates page/document counters and releases all pool allocations apart from the persistent 20-byte ONLINE subscriber. All four tasks finish waiting on empty queues; JobMgr has a two-tick receive timeout armed. Zero-tick controls and explicitly delivered two-tick intervals are separate configurations.",
@@ -22238,7 +22365,7 @@
   "limits": "Software execution only. FIFO consumption, completion success, task priorities, parser wrapper, initial readiness and descriptor backing values are fixtures. No PrintMgr, engine, DMA, IRQ prefix, custom raster instructions, automatic interrupts, physical printing or recovery executes. The retirement next-transfer path remains excluded. There is no claim that event bit 8 wakes JobMgr directly: explicit ticks expire its queue receive, after which it polls the event and cleans RAM. Wall-clock timing remains unproven.",
   "source_sha256": {
     "hp1020_qemu_multitask.py": "2353e573a0136984739c7eff9e70ebe5e1aa2634eac381522c3097a49b193aae",
-    "hp1020_qemu_page_pipeline.py": "52b97279c6cb3dcdea6c702077b4ba4bb90a5ef0c5e0ae86c00dafcf9ccf9a59",
+    "hp1020_qemu_page_pipeline.py": "1ebde1b8901bcb0088e6087dcab6c2fa86310f730ab9aa20b67a7e5a82aa993a",
     "hp1020_qemu_pipeline.py": "3a6ea4ef1c1dfa3b0bc02df4ba5601facb1c27396685c8c9e847122bb443ef39",
     "hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
     "hp1020_qemu_retire.py": "0f145f543870e8a227a1b263ef40b991f0ce33b2835ff5bb6056ee5510c26c1e",
@@ -22249,7 +22376,7 @@
     "hp1020_stock_lifecycle_harness.py": "d08e611620854498fa9fd65e809fd042219fdbb4e0093d051c8972fb0b433f95",
     "hp1020_stock_parser_harness.py": "87175798036cb376447ae70cb4a35f82f7a3f06a3ca166c89c9ca8b8e38bba90",
     "hp1020_stock_pool.py": "bdc1ce5a01fdb9dff49ed82570e5094ba376eaa44e970fcd2ba3a5cf4743628b",
-    "validate-hp1020-native-pages.py": "166ab88ff76d81a40f45a86490d61789b3825979a9cf9a5e57795cf8cdbd13c1",
+    "validate-hp1020-native-pages.py": "48b2458f21f9f0cb3399db0443f703923a203a4d10e87e041473b27704b73967",
     "validate-hp1020-stock-execution.py": "d11b91b1aeb0bdbc25f10a607129c6a9ac90f7b829184a5d16a3825b3630d6f5"
   },
   "status": "pass",

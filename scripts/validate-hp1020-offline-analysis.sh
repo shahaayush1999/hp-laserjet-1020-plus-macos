@@ -206,6 +206,9 @@ run_step "Regenerate video IRQ decision model" \
 run_step "Audit stock raster callback arguments and custom instructions" \
   "$ROOT_DIR/scripts/model-hp1020-raster-callbacks.py"
 
+run_step "Execute stock raster bypass and excluded custom-call controls" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-raster-bypass.py"
+
 run_step "Regenerate video band queue/list model" \
   "$ROOT_DIR/scripts/model-hp1020-video-band-queue.py"
 

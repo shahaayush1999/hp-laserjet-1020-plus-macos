@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Generate the normal first-page video dataflow contract for HP 1020.
+"""Generate a conditional first-page video dataflow contract for HP 1020.
 
 This is offline analysis only. It stitches the host/raster field model,
 video-prepare projection, and transfer/refill helper models into one concrete
-normal-path contract for the first page.
+callback-enabled contract for the first page. The runtime configuration is an
+assumption, not the file-backed stock setting or a live observation.
 """
 
 from __future__ import annotations
@@ -208,13 +209,16 @@ def build_report() -> dict[str, Any]:
 
     status = "pass" if all(item["status"] == "present" for item in checks) else "fail"
     return {
-        "summary": "Normal first-page video dataflow contract from host fields to render/refill hardware boundary.",
+        "summary": "Conditional callback-enabled first-page dataflow from host fields to render/refill hardware boundary.",
         "status": status,
         "source_case": case,
+        "assumed_runtime_config": {"datastore_32": 0, "work_plus_0x36": 0,
+                                   "lane_selector": 0, "secondary_output": False},
         "source_reports": {name: str(path.relative_to(ROOT_DIR)) for name, path in INPUTS.items()},
         "contract_stages": stages,
         "checks": checks,
         "current_conclusion": [
+            "This representative contract assumes datastore 32 == 0. The file-backed stock value is 1; bounded original execution selects the callback bypass for that value. See raster-bypass.json. Existing values here remain conditional, not a default-mode claim.",
             "The host-to-render dataflow is now concrete for the generated a4_default case.",
             "The low work fields and floor division are resolved. Remaining uncertainty concerns video timing, hardware interpretation, and live IRQ completion behavior.",
             "This report is still not a reason to upload custom printing firmware; it is the static contract a future implementation must satisfy.",
@@ -232,7 +236,8 @@ def render_markdown(report: dict[str, Any]) -> str:
         "",
         f"- status: `{report['status']}`",
         f"- source case: `{report['source_case']}`",
-        "- scope: normal first-page path from host raster fields through video render/refill hardware boundary",
+        "- scope: conditional first-page path from host raster fields through video render/refill hardware boundary",
+        "- configuration assumption: datastore 32 = 0, work +0x36 = 0, lane 0, no secondary output; this is not the file-backed stock setting",
         "",
         "## Source Reports",
         "",

@@ -4,7 +4,8 @@ offline stock-byte audit; unresolved instructions are not executed or treated as
 
 ## Verified findings
 
-- Default BPP2/600 selects 0x10015648, BPP1/600 selects 0x100159b4, BPP1/1200 selects 0x10015814.
+- Conditional on datastore 32 == 0 and work +0x36 == 0, BPP2/600 selects 0x10015648, BPP1/600 selects 0x100159b4, and BPP1/1200 selects 0x10015814.
+- The stock ELF instead backs datastore 32 with u32 1. Bounded native execution in raster-bypass.json confirms that this value disables the gate and selects the raw buffer despite a stale callback pointer. Complete boot and runtime preservation of that value remain unproven.
 - The indirect call has four arguments. Saved Ghidra C showed only three and lost the stride argument.
 - BPP2 writes user registers 0 and 1 with EEEEEEEE and BBBBBBBB, and uses 55555555 in ordinary Boolean preparation.
 - BPP2 has 16 custom encodings (groups 0x69, 0x60, 0x6d, 0x6e). BPP1 callbacks also contain unresolved groups 0x8e, 0x8f, 0x7f.
@@ -36,4 +37,4 @@ Full byte-matched instruction listings and every unresolved address are in the J
 - Whether the stock-supported bypass can meet the narrow replacement print-quality requirement.
 - Safe physical interpretation of the transformed output buffers and engine/video timing.
 
-Obtain this core-specific ISA definition, or compare controlled inputs and outputs while stock firmware executes these callbacks. No custom opcode probe is authorized or claimed safe.
+Prioritize the stock-supported bypass and its raw-buffer production/consumption contract for the narrow first-printing path. Decode the extensions only if that path proves insufficient. No custom opcode probe is authorized or claimed safe.

@@ -1,4 +1,10 @@
 {
+  "assumed_runtime_config": {
+    "datastore_32": 0,
+    "lane_selector": 0,
+    "secondary_output": false,
+    "work_plus_0x36": 0
+  },
   "decision": "Do not attempt open printing until USB-only open code is proven and video/engine register sequencing is modeled more tightly.",
   "engine_topology_status": "pass",
   "modeled_raster_payload": {
@@ -219,7 +225,7 @@
           "risk": "video transfer refill"
         }
       ],
-      "open_replacement_meaning": "Feeds compressed raster bytes to the hardware-side print path; normal/alternate mode selection matters for reproducing timing.",
+      "open_replacement_meaning": "Feeds video-slot buffers toward the output blocks. The compressed input pointer belongs to channel A; the hardware transformation into channel-B/slot data and its timing remain unproven.",
       "projected_registers": {
         "normal_refill_state_fields": {
           "consumer": "0x10014244 -> 0x10013f34",

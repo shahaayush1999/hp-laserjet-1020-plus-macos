@@ -967,6 +967,33 @@ def build_report() -> dict[str, Any]:
                         "The logical-clip full-payload model must not be mistaken for bounded stock metadata handling.",
                         evidence="analysis/open-firmware-model/metadata-bounds.json"))
     callbacks = read_json("analysis/hardware-boundary/raster-callbacks.json")
+    bypass = read_json("analysis/hardware-boundary/raster-bypass.json")
+    callback_scenario = dict(datastore_32=0,work_plus_0x36=0,lane_selector=0,secondary_output=False)
+    page_config_cases = [c for name in ("pages","page-fragments")
+                         for c in read_json(f"analysis/open-firmware-model/stock-execution/{name}.json")["cases"]]
+    checks.append(check("stock_value_selects_bounded_raster_bypass",
+                        bypass["status"] == "pass" and bypass["stock_entry"]["value"] == 1
+                        and bypass["total_cases"] == 42 and bypass["raw_buffer_selections"] == 34
+                        and bypass["custom_call_boundary_stops"] == 8
+                        and bypass["custom_callbacks_executed"] == bypass["completed_lifecycles"] == 0
+                        and len(bypass["relocation_cases"]) == 2
+                        and all(c["entry_32_unchanged"] and c["changed_entries"] == list(range(23))
+                                for c in bypass["relocation_cases"])
+                        and all(c["band"]["outcome"] == "raw_buffer_selected"
+                                for c in bypass["cases"] if c["config_source"] == "file_backed_stock")
+                        and all(c["raw_and_output_buffers_unchanged"] and len(c["rejected_pc_controls"]) == 4
+                                for c in bypass["cases"])
+                        and all(hashlib.sha256((ROOT_DIR/"scripts"/name).read_bytes()).hexdigest() == digest
+                                for name,digest in bypass["source_sha256"].items())
+                        and len(page_config_cases) == 36
+                        and all(c["stock_raster_config"] == dict(index=32,value_before=1,value_after=1,
+                                                               descriptor_unchanged=True,boot_proven=False)
+                                for c in page_config_cases)
+                        and video_dataflow["assumed_runtime_config"] == first_page["assumed_runtime_config"] == callback_scenario
+                        and callbacks["stock_datastore_32"]["file_value"] == 1
+                        and callbacks["stock_datastore_32"]["live_value_proven"] is False,
+                        "The file-backed bypass, excluded callback boundaries and conditional model configuration must remain distinct from boot, page lifecycles and physical printing.",
+                        evidence="analysis/hardware-boundary/raster-bypass.json"))
     checks.append(check("raster_callback_argument_and_unknown_isa_boundary",
                         callbacks["status"] == "pass" and callbacks["call_contract"]["argument_count"] == 4
                         and [len(f["unknown_instructions"]) for f in callbacks["functions"]] == [16,40,84],

@@ -6,7 +6,8 @@ This is a generated offline model. It does not contact the printer.
 
 - status: `pass`
 - source case: `a4_default`
-- scope: normal first-page path from host raster fields through video render/refill hardware boundary
+- scope: conditional first-page path from host raster fields through video render/refill hardware boundary
+- configuration assumption: datastore 32 = 0, work +0x36 = 0, lane 0, no secondary output; this is not the file-backed stock setting
 
 ## Source Reports
 
@@ -108,6 +109,7 @@ This is a generated offline model. It does not contact the printer.
 
 ## Current Conclusion
 
+- This representative contract assumes datastore 32 == 0. The file-backed stock value is 1; bounded original execution selects the callback bypass for that value. See raster-bypass.json. Existing values here remain conditional, not a default-mode claim.
 - The host-to-render dataflow is now concrete for the generated a4_default case.
 - The low work fields and floor division are resolved. Remaining uncertainty concerns video timing, hardware interpretation, and live IRQ completion behavior.
 - This report is still not a reason to upload custom printing firmware; it is the static contract a future implementation must satisfy.

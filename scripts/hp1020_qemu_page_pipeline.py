@@ -150,6 +150,13 @@ completion_send:
 def run_pages(q,program,data,documents,pages,fill,ticks=0,consume_event=False,instruction_budget=200000):
     assert instruction_budget in (200000,250000)
     state = prepare_pipeline(q,program,data,fill)
+    # Observe the stock raster configuration without replacing its descriptor
+    # or backing. This narrows runtime preservation to these software tasks;
+    # no VideoThread, engine initialization or complete boot runs here.
+    raster_entry = state.read(0x1000647c,4)+32*24
+    raster_record_before = state.bytes_at(raster_entry,24)
+    assert [state.read(raster_entry+i*4,4) for i in range(6)]==[32,0x1001ce10,2,0,0x40000,2]
+    assert state.read(0x1001ce10,4)==1
     state.segments.append((CS,bytearray([fill])*65536,6))
     state.write_ranges.append((CS,CS+65536))
     state.code_ranges += RETIRE_CODE
@@ -231,6 +238,8 @@ def run_pages(q,program,data,documents,pages,fill,ticks=0,consume_event=False,in
                 raise ValueError(f'page pipeline documents={documents} pages={pages} fill={fill} '
                                  f'pc={pc:#x} thread={word(current):#x}: {error}') from error
         runner.synchronize(False)
+        assert state.bytes_at(raster_entry,24)==raster_record_before
+        assert state.read(0x1001ce10,4)==1
         assert state.input_pos==len(data) and state.read(OUT+4,4)==1
         assert state.allocations=={} and set(runner.services)=={0x30000000}
         assert len(scheduled)==pages and completed==scheduled
@@ -271,6 +280,8 @@ def run_pages(q,program,data,documents,pages,fill,ticks=0,consume_event=False,in
         assert state.read(J+76,4)==2
         return dict(status='pass',documents=documents,pages=pages,fill=fill,
             instructions=runner.steps,instruction_budget=instruction_budget,
+            stock_raster_config=dict(index=32,value_before=1,value_after=state.read(0x1001ce10,4),
+                                     descriptor_unchanged=True,boot_proven=False),
             input_bytes=len(data),original_frees=len(frees),
             remaining_allocation_bytes=20,scheduled_work=scheduled,completed_work=completed,
             retired_nodes=nodes_by_work,reference_decrements=retired,event_calls=events,

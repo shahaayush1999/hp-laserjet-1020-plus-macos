@@ -199,7 +199,7 @@ def build_model() -> dict[str, Any]:
                 },
             },
             "topology_source": "analysis/hardware-boundary/video-refill-topology.md",
-            "open_replacement_meaning": "Feeds compressed raster bytes to the hardware-side print path; normal/alternate mode selection matters for reproducing timing.",
+            "open_replacement_meaning": "Feeds video-slot buffers toward the output blocks. The compressed input pointer belongs to channel A; the hardware transformation into channel-B/slot data and its timing remain unproven.",
             "risk": "high",
         },
         {
@@ -224,6 +224,8 @@ def build_model() -> dict[str, Any]:
     return {
         "summary": "Ordered first-page hardware sequence after the mapped parser/object boundary.",
         "source_case": variant.get("case", "unknown"),
+        "assumed_runtime_config": {"datastore_32": 0, "work_plus_0x36": 0,
+                                   "lane_selector": 0, "secondary_output": False},
         "modeled_work_fields": {
             "+0x50": fields.get("+0x50"),
             "+0x84": fields.get("+0x84"),
@@ -271,6 +273,7 @@ def render_markdown(model: dict[str, Any]) -> str:
         "The parser/object path is mapped well enough for the current foo2zjs sample. This report orders the next part: what the stock firmware appears to do when one page crosses from software objects into video and engine hardware.",
         "",
         f"- source projection case: `{model['source_case']}`",
+        "- configuration assumption: datastore 32 = 0, work +0x36 = 0, lane 0, no secondary output; the stock ELF value 1 selects the bypass in bounded execution (raster-bypass.json)",
         f"- decision: {model['decision']}",
         "",
         "## Modeled Inputs",

@@ -1,5 +1,5 @@
 {
-  "baseline_page_report_sha256": "cbd3401aa56bf76278be6c7d220ee5fbb06bdb3458efa5d05e87fe5218882daf",
+  "baseline_page_report_sha256": "933bf38a6f2434c7fa3d53c6011f7c493779b81875750f26d9b9c613b565afba",
   "budget_stop_evidence": "analysis/open-firmware-model/stock-execution/page-fragment-limit.json",
   "cases": [
     {
@@ -131,6 +131,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 3,
         "job": 17,
@@ -1059,6 +1066,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 18,
@@ -1992,6 +2006,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 18,
@@ -2920,6 +2941,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 3,
         "job": 17,
@@ -3848,6 +3876,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 18,
@@ -4781,6 +4816,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 18,
@@ -5807,6 +5849,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 3,
         "job": 24,
@@ -7113,6 +7162,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 25,
@@ -8424,6 +8480,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 25,
@@ -9730,6 +9793,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 3,
         "job": 24,
@@ -11036,6 +11106,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 25,
@@ -12347,6 +12424,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 25,
@@ -14367,6 +14451,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 3,
         "job": 75,
@@ -18427,6 +18518,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 76,
@@ -22492,6 +22590,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 76,
@@ -26552,6 +26657,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 3,
         "job": 75,
@@ -30612,6 +30724,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 76,
@@ -34677,6 +34796,13 @@
         574620200
       ],
       "status": "pass",
+      "stock_raster_config": {
+        "boot_proven": false,
+        "descriptor_unchanged": true,
+        "index": 32,
+        "value_after": 1,
+        "value_before": 1
+      },
       "task_runs": {
         "completion": 5,
         "job": 76,
@@ -37808,7 +37934,7 @@
   "limits": "Software execution only. FIFO consumption, completion success, task priorities, parser wrapper, initial readiness and descriptor backing values are fixtures. No PrintMgr, engine, DMA, IRQ prefix, custom raster instructions, automatic interrupts, physical printing or recovery executes. The retirement next-transfer path remains excluded. There is no claim that event bit 8 wakes JobMgr directly: explicit ticks expire its queue receive, after which it polls the event and cleans RAM. Wall-clock timing remains unproven.",
   "source_sha256": {
     "hp1020_qemu_multitask.py": "2353e573a0136984739c7eff9e70ebe5e1aa2634eac381522c3097a49b193aae",
-    "hp1020_qemu_page_pipeline.py": "52b97279c6cb3dcdea6c702077b4ba4bb90a5ef0c5e0ae86c00dafcf9ccf9a59",
+    "hp1020_qemu_page_pipeline.py": "1ebde1b8901bcb0088e6087dcab6c2fa86310f730ab9aa20b67a7e5a82aa993a",
     "hp1020_qemu_pipeline.py": "3a6ea4ef1c1dfa3b0bc02df4ba5601facb1c27396685c8c9e847122bb443ef39",
     "hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
     "hp1020_qemu_retire.py": "0f145f543870e8a227a1b263ef40b991f0ce33b2835ff5bb6056ee5510c26c1e",
@@ -37820,7 +37946,7 @@
     "hp1020_stock_parser_harness.py": "87175798036cb376447ae70cb4a35f82f7a3f06a3ca166c89c9ca8b8e38bba90",
     "hp1020_stock_pool.py": "bdc1ce5a01fdb9dff49ed82570e5094ba376eaa44e970fcd2ba3a5cf4743628b",
     "validate-hp1020-native-page-fragments.py": "aa92b1dd35289ad9c56ce95b49278ee63e04ae0e735b149db5e4feda35f4eca0",
-    "validate-hp1020-native-pages.py": "166ab88ff76d81a40f45a86490d61789b3825979a9cf9a5e57795cf8cdbd13c1",
+    "validate-hp1020-native-pages.py": "48b2458f21f9f0cb3399db0443f703923a203a4d10e87e041473b27704b73967",
     "validate-hp1020-stock-execution.py": "d11b91b1aeb0bdbc25f10a607129c6a9ac90f7b829184a5d16a3825b3630d6f5"
   },
   "status": "pass",
