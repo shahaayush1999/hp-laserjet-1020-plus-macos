@@ -8,7 +8,7 @@ enum hp1020_image_result hp1020_image_page_init(struct hp1020_image_page *s,
     const struct hp1020_semantic *parser,uint32_t page_index,
     uint8_t *history,size_t history_size,uint8_t *band,size_t band_size) {
     memset(s,0,sizeof(*s));
-    if (!parser || !parser->finalized || parser->error || page_index>=parser->page_count ||
+    if (!parser || parser->consume_chunk || !parser->finalized || parser->error || page_index>=parser->page_count ||
         parser->page_count>HP1020_MAX_PAGES || parser->raster_count>HP1020_MAX_RASTERS ||
         !parser->arena || parser->arena_used>parser->arena_capacity)
         return fail(s,HP1020_IMAGE_STATE);

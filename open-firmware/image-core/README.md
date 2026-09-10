@@ -61,6 +61,7 @@ The decoder does not silently accept, discard or validate transport padding.
 ```sh
 python3 scripts/validate-hp1020-image-core.py --target
 python3 scripts/validate-hp1020-image-pages.py --target
+python3 scripts/validate-hp1020-image-stream.py --target
 ```
 
 This runs sanitized host comparisons, builds the target twice with the pinned
@@ -104,3 +105,36 @@ caller-owned arena. It therefore does not claim an entire print pipeline in
 the decoder's roughly 12 KB of state/history/band storage. Differing page BIHs,
 multiple documents, fragmented input and 6/13/64 BID partitions are checked in
 `page-validation`; those software pages are not added to native lifecycle counts.
+
+## Bounded complete-stream bridge
+
+`hp1020_image_stream` uses the semantic parser's optional synchronous chunk
+consumer. A fixed 65552-byte compressed buffer covers foo2zjs's largest default
+final BID: 65536 compressed bytes plus padding. History uses 4096 bytes and the
+output band uses 8192 bytes, sized for the supported maximum width. The stream
+state contains the parser, decoder and plan; the target report measures it
+separately. Component storage never grows with the compressed or decoded page.
+The caller's input packet, stack, code and test capture are outside that total.
+
+Initialize with stationary caller-owned state/memory and a band consumer; then
+feed packet fragments and finish the stream. The callback consumes/copies each
+band before returning success. Only then is that band released. A consumer
+error aborts without releasing its pending band. There is no scheduler, retry
+or asynchronous queue protocol here. Reinitialization starts a fresh stream.
+All emitted output remains provisional until finish succeeds; missing END_DOC
+and late padding errors can follow valid image bands.
+
+Planning happens when BIH arrives, using a local metadata copy marked complete
+for geometry admission. The actual parser page remains incomplete until
+END_PAGE. The same narrow planner, aligned widths, coding profile and exact
+default padding apply. Up to 16 page metadata records remain in the parser.
+Copies are metadata, without compressed replay or physical output scheduling.
+
+`stream-validation` compares every host image byte against the original full
+decoder and deterministic source pixels. Target calls feed bounded packets into
+persistent synthetic RAM; complete large inputs never occupy a target array.
+The fixture poisons both caller packets and consumed compressed chunks to test
+reuse, checks band order and guards, and verifies the raster-record array stays
+empty. Separate controls show that 129/257 BID partitions still hit the default
+retained parser's 128-record limit while streaming consumes the same bytes.
+These are open software cases, not original stock lifecycles or printer tests.

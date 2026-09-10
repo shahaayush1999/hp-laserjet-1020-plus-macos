@@ -25,9 +25,10 @@ A second concrete shortcut now avoids the compressed-image hardware for offline
 image production. `open-firmware/image-core/` contains a bounded streaming JBIG
 wrapper and a bridge from the existing semantic parser/planner to packed row
 bands. The parser now retains each exact 20-byte BIH. Current focused checks
-pass, and the full sequential aggregate passed **96 consistency checks** in
-`/tmp/hp1020-full-image.log` (child logs `hp1020-validation.GAVU4h`). All tested
-current source/fixture hashes match. No research process remains at this checkpoint.
+pass, and the latest full sequential aggregate passed **97 consistency checks**
+in `/tmp/hp1020-full-stream.log` (child logs `hp1020-validation.0D3y3e`), including
+the bounded complete-stream integration below. All tested current source/fixture
+hashes match. No validation process remains running at this checkpoint.
 
 - `validate-hp1020-image-core.py --target`: 176 cases, 21 comparisons of original
   versus normalized headers through the original full decoder, 32 separately
@@ -71,7 +72,33 @@ First remove whole-page compressed retention by adding an optional chunk
 consumer to the existing parser, keeping its retained mode and grammar intact.
 The goal is a fixed compressed-chunk buffer plus bounded decoder/output storage,
 with detailed images larger than the current test input buffer as evidence.
-No such streaming parser integration exists at this checkpoint.
+The optional synchronous chunk consumer, `hp1020_image_stream.c` and an
+incremental host/target fixture now pass **65 host and 43 QEMU cases**, owned by
+`validate-hp1020-image-stream.py` and `image-core/stream-validation.json/.md`.
+The full sequential aggregate passed in `/tmp/hp1020-full-stream.log`
+(child logs `hp1020-validation.0D3y3e`), with 97 consistency checks and both suites passing.
+
+- A deterministic 9856x8208 detailed/noise page has 10,112,256 decoded bytes,
+  10,546,072 BIE bytes and 161 BID chunks. Host output equals every generated
+  source pixel and original full-decoder byte. Two target cases use bounded
+  packets with input fragments 7/65552, both fills, a complete FNV-1a/count check
+  and the first 65536 output bytes. Large files exist only in temporary host
+  storage; generator seed, dimensions and exact content hashes are preserved.
+- Target state 13,188 bytes plus fixed compressed/history/band memory 77,840
+  bytes totals **91,028 bytes**, excluding code/stack/caller packets/test capture.
+  The 65552-byte BID limit covers the original foo2zjs default final chunk.
+  A standard COMMENT marker tests that exact maximum, and 65553 is rejected.
+- The fixture poisons caller packets after feed and consumed BID storage after
+  callback return. The compressed arena is empty after success, and no raster
+  records are kept. 129/257 BID partitions pass while default retained-mode
+  controls reject at 128. The retained image bridge rejects streaming state.
+- Multiple documents/images, 16 versus 17 pages, exact BIHs, padding errors,
+  truncation and consumer failures are checked. A consumer failure leaves the
+  pending band unreleased and errors sticky; it is not a retry mechanism.
+  Output is provisional until finish, and copies stay metadata. Page metadata
+  remains capped at 16. The callback is synchronous, without a scheduler or
+  asynchronous stock queue integration. Software image cases remain separate
+  from native lifecycle, physical format and printing evidence.
 
 Then pursue the raw-output contract: establish whether these exact
 packed rows can occupy stock raw slots or linked-list buffers, and which
@@ -158,7 +185,7 @@ shifted from expanding software matrices toward the stock-supported bypass.
 `scripts/validate-hp1020-raster-bypass.py` owns the new evidence in
 `analysis/hardware-boundary/raster-bypass.json` and `.md`. The preceding full baseline, including static byte audits and page-fixture
 observations, passed **94 consistency checks** in `/tmp/hp1020-full-bypass.log`.
-The open software image additions above subsequently passed the new 96-check
+The open software image/stream additions above subsequently passed the 97-check
 aggregate; retain this older baseline as historical bypass evidence.
 
 - Literal `0x1000647c` points to table `0x1001ce14`. Entry 32 at `0x1001d114`
@@ -388,8 +415,9 @@ boundary for later native JobMgr integration, not a physical timing uncertainty.
 
 Resumed 2026-09-10. Pinned GCC recovery completed after an interrupted download
 was resumed. The unchanged build script verified the source checksum, instruction
-fixtures and BE/call0 profile, and restored target headers/libgcc. Current sources
-pass the complete offline suite with **93 consistency checks**. This includes
+fixtures and BE/call0 profile, and restored target headers/libgcc. Those native sources
+passed the native checkpoint's complete offline suite with **93 consistency checks**;
+the image/stream sections above own the later 97-check baseline. This includes
 26 completed empty-document lifecycles, six separately classified conditional
 null reads, 28 retirement cases, 18 ordinary native page cases and 18 split-raster
 page cases. Consumption and completion remain supplied, not device evidence.

@@ -1,7 +1,8 @@
 #include "hp1020_semantic.h"
 #include <string.h>
 
-/* Deliberately no allocation, USB, queues, physical addresses, or output API. */
+/* No allocation, USB, queues or physical addresses. An optional synchronous
+ * chunk consumer supplies the streaming memory policy, not device operations. */
 static uint32_t be32(const uint8_t *p) {
     return (uint32_t)p[0]<<24 | (uint32_t)p[1]<<16 | (uint32_t)p[2]<<8 | p[3];
 }
@@ -17,6 +18,12 @@ void hp1020_semantic_init(struct hp1020_semantic *s, uint8_t *arena, uint32_t ca
     s->arena=arena;
     s->arena_capacity=capacity;
     if (!arena && capacity) s->error=HP1020_LIMIT;
+}
+void hp1020_semantic_init_streaming(struct hp1020_semantic *s,uint8_t *arena,
+    uint32_t capacity,hp1020_chunk_consumer consumer,void *context) {
+    hp1020_semantic_init(s,arena,capacity);
+    s->consume_chunk=consumer; s->consumer_context=context;
+    if (!consumer) s->error=HP1020_FORMAT;
 }
 
 static enum hp1020_result items(struct hp1020_semantic *s, struct hp1020_page *page) {
@@ -65,7 +72,7 @@ static enum hp1020_result complete_chunk(struct hp1020_semantic *s) {
         break;
     case 1:
         s->document_open=0; s->phase=EXPECT_DOC; s->framing=0; s->magic=0;
-        return HP1020_OK;
+        break;
     case 2:
         if (s->page_count==HP1020_MAX_PAGES) return fail(s,HP1020_LIMIT);
         p=&s->pages[s->page_count];
@@ -97,10 +104,13 @@ static enum hp1020_result complete_chunk(struct hp1020_semantic *s) {
         break;
     }
     case 5: {
-        struct hp1020_raster *node=&s->rasters[s->raster_count++];
-        node->page=s->page_count-1;
-        node->offset=s->arena_used-s->payload_size;
-        node->length=s->payload_size;
+        if (!s->consume_chunk) {
+            struct hp1020_raster *node=&s->rasters[s->raster_count];
+            node->page=s->page_count-1;
+            node->offset=s->arena_used-s->payload_size;
+            node->length=s->payload_size;
+        }
+        s->raster_count++;
         p->raster_count++; p->compressed_bytes+=s->payload_size;
         break;
     }
@@ -110,7 +120,13 @@ static enum hp1020_result complete_chunk(struct hp1020_semantic *s) {
         break;
     default: return fail(s,HP1020_UNSUPPORTED);
     }
-    s->framing=1;
+    if (s->consume_chunk) {
+        const uint8_t *data=s->chunk_type==5 ? s->arena+s->arena_used-s->payload_size : s->metadata;
+        enum hp1020_result r=s->consume_chunk(s,s->payload_size ? data : NULL,s->payload_size,s->consumer_context);
+        if (r) return fail(s,r);
+        if (s->chunk_type==5) s->arena_used-=s->payload_size;
+    }
+    if (s->chunk_type!=1) s->framing=1;
     return HP1020_OK;
 }
 
@@ -136,7 +152,11 @@ static enum hp1020_result begin_chunk(struct hp1020_semantic *s) {
     if (s->chunk_type==4 && s->payload_size!=20) return fail(s,HP1020_FORMAT);
     if (s->chunk_type==5) {
         if (!s->payload_size) return fail(s,HP1020_FORMAT);
-        if (s->raster_count==HP1020_MAX_RASTERS || s->payload_size>s->arena_capacity-s->arena_used)
+        const struct hp1020_page *p=&s->pages[s->page_count-1];
+        if ((!s->consume_chunk && s->raster_count==HP1020_MAX_RASTERS) ||
+            s->raster_count==UINT32_MAX || p->raster_count==UINT32_MAX ||
+            s->payload_size>UINT32_MAX-p->compressed_bytes ||
+            s->payload_size>s->arena_capacity-s->arena_used)
             return fail(s,HP1020_LIMIT);
     } else if (s->payload_size>HP1020_METADATA_BYTES) return fail(s,HP1020_LIMIT);
     s->framing=2;

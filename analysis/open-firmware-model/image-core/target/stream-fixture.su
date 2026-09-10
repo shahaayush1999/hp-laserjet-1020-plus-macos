@@ -1,0 +1,5 @@
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/stream-fixture.c:35:27:chunk_observer	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/stream-fixture.c:18:27:band_out	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/stream-fixture.c:49:10:hp1020_stream_reset	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/stream-fixture.c:59:10:hp1020_stream_feed	48	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/stream-fixture.c:72:10:hp1020_stream_finish	4448	static

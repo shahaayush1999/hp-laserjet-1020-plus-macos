@@ -11,7 +11,8 @@ JBIG="$ROOT_DIR/vendor/jbigkit-2.1/libjbig"
 mkdir -p "$OUT"
 python3 "$ROOT_DIR/scripts/check-hp1020-c-compiler-profile.py" "${GCC_PREFIX}-gcc"
 objects=()
-for source in "$SOURCE/hp1020_image.c" "$SOURCE/hp1020_image_page.c" "$SOURCE/fixture.c" \
+for source in "$SOURCE/hp1020_image.c" "$SOURCE/hp1020_image_page.c" "$SOURCE/hp1020_image_stream.c" \
+    "$SOURCE/fixture.c" "$SOURCE/stream-fixture.c" \
     "$SOURCE/page-fixture.c" "$SEMANTIC/hp1020_semantic.c" "$SEMANTIC/hp1020_page_plan.c" "$SOURCE/target-memory.c" \
     "$ROOT_DIR/open-firmware/semantic-core/freestanding/memory.c" "$JBIG/jbig85.c" "$JBIG/jbig_ar.c"; do
   obj="$OUT/$(basename "${source%.c}").o"

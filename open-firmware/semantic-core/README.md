@@ -1,21 +1,38 @@
 # Portable semantic core
 
 This C component constructs page metadata and compressed raster records from
-incrementally supplied, big-endian JZJZ streams. It has no I/O callbacks, USB or
+incrementally supplied, big-endian JZJZ streams. It has no USB or
 hardware addresses, allocator, video path, or engine path. It is not linked into
 any printer probe.
 
-The caller owns a bounded byte arena and a parser object. Feed arbitrary byte
+In the default retained mode, the caller owns a bounded byte arena and a parser object. Feed arbitrary byte
 fragments, then call `hp1020_semantic_finish`; errors are sticky, and an unfinished
 chunk or document fails as truncated. Raster records use arena offsets, not
 firmware pointers. Up to 16 pages, 128 raster nodes, 4096 metadata bytes per chunk,
 and 16 MiB per chunk are accepted. The caller must retain the arena for the
 lifetime of the records and consume records only after success.
 
-Each page now also retains its exact 20-byte BIH. The optional image bridge in
-`../image-core/` checks that original coding profile before decoding the retained
-compressed records into bounded packed-row bands. It does not add an I/O hook
-to this parser or eliminate the compressed arena.
+Each page also retains its exact 20-byte BIH. The retained-mode image bridge in
+`../image-core/` checks that original coding profile before decoding compressed
+records into bounded packed-row bands.
+
+`hp1020_semantic_init_streaming` selects an optional synchronous chunk consumer
+while preserving the same grammar. After a complete chunk has updated metadata,
+the callback receives its bytes; after successful BID consumption the arena is
+reused. This mode retains the 16 page metadata slots but no raster records or
+compressed history. Raster counts and first-raster values are logical counts,
+not indices into the unused record array; the 128-record limit therefore does
+not apply. The per-page compressed-byte and raster counters remain bounded by
+uint32, and each BID must fit the supplied arena. The retained image bridge
+explicitly rejects streaming parser state.
+
+Callbacks must consume/copy data before returning, may not re-enter or mutate
+the parser, and must not retain the pointer. Any callback error aborts parsing
+and stays sticky. The parser offers no retry or asynchronous output protocol.
+Output can precede a late error, so it remains provisional until finish succeeds.
+`hp1020_image_stream` supplies the bounded software decoder consumer; it adds no
+device operation. Its separate stream validator checks large detailed pages,
+packet/chunk reuse, retained-mode controls and consumer failures.
 
 The implemented grammar is START_DOC, followed by zero or more
 START_PAGE / JBIG_BIH / one-or-more JBIG_BID / END_JBIG / END_PAGE sequences,

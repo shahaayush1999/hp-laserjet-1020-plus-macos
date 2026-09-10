@@ -929,6 +929,29 @@ def build_report() -> dict[str, Any]:
                                 for name,digest in {**image_pages["source_sha256"], **image_pages["fixture_sha256"], **image_pages["sample_sha256"]}.items()),
                         "Complete-file parser/planner/decoder output and default padding must agree with host pixel oracles and target checks, separately from physical output.",
                         evidence="analysis/open-firmware-model/image-core/page-validation.json"))
+    image_stream = read_json("analysis/open-firmware-model/image-core/stream-validation.json")
+    stream_target = image_stream.get("target") or {}
+    detailed_page = image_stream.get("generated_detailed_page", {})
+    detailed_target = [c for c in stream_target.get("cases", []) if c["case"].startswith("detailed-legal/")]
+    checks.append(check("open_bounded_stream_image_path_verified",
+                        image_stream["status"] == stream_target.get("status") == "pass"
+                        and len(image_stream["cases"]) == 65 and len(stream_target.get("cases", [])) == 43
+                        and len(image_stream["retained_mode_controls"]) == 2
+                        and all(c["result"] == 3 and c["retained_rasters"] == 128 for c in image_stream["retained_mode_controls"])
+                        and stream_target.get("elf_sha256") == image_target.get("elf_sha256")
+                        and stream_target.get("state_and_memory_bytes") == 91028
+                        and detailed_page.get("raw_bytes") == 10112256
+                        and detailed_page.get("raw_sha256") == "1bd14b6f517eb823062ce9652aaeaaca887efd11dec7158669419f67daa8c2ce"
+                        and detailed_page.get("bie_sha256") == "91accfaa54aff62fa845646818c82ad151665c08de973fa7b8ee843e1fe0f8b8"
+                        and detailed_page.get("zjs_sha256") == "b52e5309b482464832f738075f8865964ba5c9af09a2c279b396ca26b5946bcd"
+                        and len(detailed_target) == 2
+                        and all(c["stats"][0] == 0 and c["stats"][5] == 10112256 and c["stats"][7] == 161
+                                and c["stats"][8] <= 65552 and c["stats"][9] == 0 for c in detailed_target)
+                        and all(c["status"] == "pass" for c in image_stream["cases"] + stream_target.get("cases", []))
+                        and all(hashlib.sha256((ROOT_DIR/name).read_bytes()).hexdigest() == digest
+                                for name,digest in {**image_stream["source_sha256"], **image_stream["fixture_sha256"], **image_stream["sample_sha256"]}.items()),
+                        "Bounded stream consumption must preserve large source images with reused packets/chunks, validated errors and legacy retained-mode limits. Fixed software storage is not engine or printing evidence.",
+                        evidence="analysis/open-firmware-model/image-core/stream-validation.json"))
     checks.append(check("compiled_semantic_target_verified",
                         target_c["status"] == "pass" and target_c["total_cases"] == 78
                         and target_c["negative_control_payload_cases"] == 12

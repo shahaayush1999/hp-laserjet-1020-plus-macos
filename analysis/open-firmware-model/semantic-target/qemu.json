@@ -400,7 +400,7 @@
   ],
   "comparison": "Compiled C target results agree across QEMU, our instruction interpreter, ASan/UBSan native C and fixture expectations. Original parser messages, input consumption and allocation ownership also match, using actual stock window spill/fill handlers under QEMU. JobMgr completion and cleanup also match allocation ownership, scheduled work, defined notification fields and all stock writable global RAM. QEMU independently reproduces the delayed-empty-document failure. Host services intentionally share the existing boundary fixture. Stock libc agrees with complete bytearray oracles; four stock division/remainder helpers agree with independent Python arithmetic, including zero-divisor return-zero and signed-overflow wrapping.",
   "cpu": "test_kc705_be",
-  "elf_sha256": "6bfd533bb6dfa4185ebc85d07c83ed3a6e180e2e7372995836a3fa81b84eb898",
+  "elf_sha256": "09f381a302a22732525872104543360de7cd96f72d059a0cc20dea6575d50f18",
   "engine": "QEMU emulator version 11.1.1",
   "libc_cases": {
     "memcpy": 6208,

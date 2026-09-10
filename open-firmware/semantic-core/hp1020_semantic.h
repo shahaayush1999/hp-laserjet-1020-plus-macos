@@ -29,6 +29,12 @@ struct hp1020_page {
     uint8_t bih[20]; /* Preserve the exact coding profile for later decoding. */
 };
 struct hp1020_raster { uint32_t page, offset, length; };
+struct hp1020_semantic;
+/* Optional synchronous observer/consumer at complete chunk boundaries. Data is
+ * valid only during the call. Do not re-enter or modify the parser. Returning
+ * an error aborts the parse. Image/output observations remain provisional. */
+typedef enum hp1020_result (*hp1020_chunk_consumer)(const struct hp1020_semantic *,
+    const uint8_t *data,uint32_t size,void *context);
 struct hp1020_semantic {
     struct hp1020_page pages[HP1020_MAX_PAGES];
     struct hp1020_raster rasters[HP1020_MAX_RASTERS];
@@ -39,9 +45,15 @@ struct hp1020_semantic {
     uint32_t chunk_type, item_count, reserved, phase;
     uint8_t header[16], metadata[HP1020_METADATA_BYTES];
     uint8_t framing, finalized, document_open;
+    /* Streaming mode keeps page metadata but no raster records or compressed
+     * history. raster_count/first_raster are counts, not array indices there. */
+    hp1020_chunk_consumer consume_chunk;
+    void *consumer_context;
 };
 
 void hp1020_semantic_init(struct hp1020_semantic *, uint8_t *arena, uint32_t capacity);
+void hp1020_semantic_init_streaming(struct hp1020_semantic *,uint8_t *arena,
+    uint32_t capacity,hp1020_chunk_consumer,void *context);
 enum hp1020_result hp1020_semantic_feed(struct hp1020_semantic *, const uint8_t *, size_t);
 enum hp1020_result hp1020_semantic_finish(struct hp1020_semantic *);
 #endif

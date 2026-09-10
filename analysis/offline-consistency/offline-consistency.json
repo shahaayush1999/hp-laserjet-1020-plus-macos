@@ -1,5 +1,5 @@
 {
-  "check_count": 96,
+  "check_count": 97,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -251,6 +251,12 @@
       "detail": "Complete-file parser/planner/decoder output and default padding must agree with host pixel oracles and target checks, separately from physical output.",
       "evidence": "analysis/open-firmware-model/image-core/page-validation.json",
       "name": "open_complete_file_image_path_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Bounded stream consumption must preserve large source images with reused packets/chunks, validated errors and legacy retained-mode limits. Fixed software storage is not engine or printing evidence.",
+      "evidence": "analysis/open-firmware-model/image-core/stream-validation.json",
+      "name": "open_bounded_stream_image_path_verified",
       "severity": "watch"
     },
     {

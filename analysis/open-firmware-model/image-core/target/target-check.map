@@ -7,7 +7,9 @@ Discarded input sections
 
  .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
  .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
  .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
  .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
  .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
  .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_page_plan.o
@@ -25,7 +27,7 @@ Linker script and memory map
 
                 0x0000000020000000                . = 0x20000000
 
-.text           0x0000000020000000     0x2a20
+.text           0x0000000020000000     0x31e4
  *(.literal .literal.*)
  .literal.be32  0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
  .literal.row_out
@@ -46,8 +48,30 @@ Linker script and memory map
                 0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
  .literal.hp1020_image_page_release
                 0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
+ .literal.image_error
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
+ .literal.band_out
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
+ .literal.chunk_in
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
+ .literal.hp1020_image_stream_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
+ .literal.hp1020_image_stream_feed
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
+ .literal.hp1020_image_stream_finish
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
  .literal.hp1020_image_run
                 0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
+ .literal.chunk_observer
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+ .literal.band_out
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+ .literal.hp1020_stream_reset
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+ .literal.hp1020_stream_feed
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+ .literal.hp1020_stream_finish
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
  .literal.hp1020_page_run
                 0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
  .literal.be32  0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
@@ -56,6 +80,8 @@ Linker script and memory map
  .literal.complete_chunk
                 0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
  .literal.hp1020_semantic_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
+ .literal.hp1020_semantic_init_streaming
                 0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
  .literal.hp1020_semantic_feed
                 0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
@@ -116,248 +142,329 @@ Linker script and memory map
                 0x000000002000018c       0x83 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
                 0x0000000020000190                hp1020_image_feed
  *fill*         0x000000002000020f        0x1 
+ .text.band_out
+                0x0000000020000210       0x85 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
+ *fill*         0x0000000020000295        0x3 
+ .text.chunk_in
+                0x0000000020000298      0x222 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
+                                        0x226 (size before relaxing)
+ *fill*         0x00000000200004ba        0x2 
+ .text.hp1020_image_stream_init
+                0x00000000200004bc       0x70 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
+                                         0x74 (size before relaxing)
+                0x00000000200004c0                hp1020_image_stream_init
+ .text.hp1020_image_stream_feed
+                0x000000002000052c        0xa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
+                0x0000000020000530                hp1020_image_stream_feed
+ *fill*         0x0000000020000536        0x2 
+ .text.hp1020_image_stream_finish
+                0x0000000020000538        0xa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
+                0x000000002000053c                hp1020_image_stream_finish
+ *fill*         0x0000000020000542        0x2 
  .text.hp1020_image_run
-                0x0000000020000210      0x3df /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
-                0x000000002000023c                hp1020_image_run
- *fill*         0x00000000200005ef        0x1 
+                0x0000000020000544      0x3df /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
+                0x0000000020000570                hp1020_image_run
+ *fill*         0x0000000020000923        0x1 
+ .text.chunk_observer
+                0x0000000020000924       0x9b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+                                         0x9f (size before relaxing)
+ *fill*         0x00000000200009bf        0x1 
+ .text.band_out
+                0x00000000200009c0       0xba /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+                                         0xc2 (size before relaxing)
+ *fill*         0x0000000020000a7a        0x2 
+ .text.hp1020_stream_reset
+                0x0000000020000a7c       0x92 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+                                         0xb2 (size before relaxing)
+                0x0000000020000a90                hp1020_stream_reset
+ *fill*         0x0000000020000b0e        0x2 
+ .text.hp1020_stream_feed
+                0x0000000020000b10       0x77 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+                                         0x83 (size before relaxing)
+                0x0000000020000b14                hp1020_stream_feed
+ *fill*         0x0000000020000b87        0x1 
+ .text.hp1020_stream_finish
+                0x0000000020000b88      0x148 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+                                        0x158 (size before relaxing)
+                0x0000000020000b94                hp1020_stream_finish
  .text.hp1020_page_run
-                0x00000000200005f0      0x34d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
+                0x0000000020000cd0      0x34d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
                                         0x355 (size before relaxing)
-                0x0000000020000624                hp1020_page_run
- *fill*         0x000000002000093d        0x3 
- .text.items    0x0000000020000940      0x109 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
- *fill*         0x0000000020000a49        0x3 
+                0x0000000020000d04                hp1020_page_run
+ *fill*         0x000000002000101d        0x3 
+ .text.items    0x0000000020001020      0x109 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
+ *fill*         0x0000000020001129        0x3 
  .text.complete_chunk
-                0x0000000020000a4c      0x208 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
+                0x000000002000112c      0x261 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
+ *fill*         0x000000002000138d        0x3 
  .text.hp1020_semantic_feed
-                0x0000000020000c54      0x20b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
-                0x0000000020000c58                hp1020_semantic_feed
- *fill*         0x0000000020000e5f        0x1 
+                0x0000000020001390      0x23f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
+                0x0000000020001394                hp1020_semantic_feed
+ *fill*         0x00000000200015cf        0x1 
  .text.hp1020_semantic_finish
-                0x0000000020000e60       0x30 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
-                0x0000000020000e64                hp1020_semantic_finish
+                0x00000000200015d0       0x30 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
+                0x00000000200015d4                hp1020_semantic_finish
  .text.hp1020_plan_page
-                0x0000000020000e90       0xfd /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_page_plan.o
+                0x0000000020001600       0xfd /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_page_plan.o
                                         0x101 (size before relaxing)
-                0x0000000020000e94                hp1020_plan_page
- *fill*         0x0000000020000f8d        0x3 
+                0x0000000020001604                hp1020_plan_page
+ *fill*         0x00000000200016fd        0x3 
  .text.hp1020_plan_next_band
-                0x0000000020000f90       0xa1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_page_plan.o
+                0x0000000020001700       0xa1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_page_plan.o
                                          0xa5 (size before relaxing)
-                0x0000000020000f90                hp1020_plan_next_band
- *fill*         0x0000000020001031        0x3 
+                0x0000000020001700                hp1020_plan_next_band
+ *fill*         0x00000000200017a1        0x3 
  .text.jbg85_enc_init
-                0x0000000020001034       0x5d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
-                0x0000000020001038                jbg85_enc_init
- *fill*         0x0000000020001091        0x3 
+                0x00000000200017a4       0x5d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+                0x00000000200017a8                jbg85_enc_init
+ *fill*         0x0000000020001801        0x3 
  .text.jbg85_strerror
-                0x0000000020001094       0x1b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
-                0x000000002000109c                jbg85_strerror
- *fill*         0x00000000200010af        0x1 
+                0x0000000020001804       0x1b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+                0x000000002000180c                jbg85_strerror
+ *fill*         0x000000002000181f        0x1 
  .text.jbg85_dec_init
-                0x00000000200010b0       0x4c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
-                0x00000000200010b4                jbg85_dec_init
+                0x0000000020001820       0x4c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+                0x0000000020001824                jbg85_dec_init
  .text.jbg85_dec_in
-                0x00000000200010fc      0x463 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
-                0x0000000020001104                jbg85_dec_in
- *fill*         0x000000002000155f        0x1 
+                0x000000002000186c      0x463 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+                0x0000000020001874                jbg85_dec_in
+ *fill*         0x0000000020001ccf        0x1 
  .text.jbg85_dec_end
-                0x0000000020001560       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
-                0x0000000020001564                jbg85_dec_end
+                0x0000000020001cd0       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+                0x0000000020001cd4                jbg85_dec_end
  .text.arith_encode
-                0x0000000020001578      0x15b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
-                0x0000000020001584                arith_encode
- *fill*         0x00000000200016d3        0x1 
+                0x0000000020001ce8      0x15b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
+                0x0000000020001cf4                arith_encode
+ *fill*         0x0000000020001e43        0x1 
  .text.arith_decode
-                0x00000000200016d4      0x139 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
+                0x0000000020001e44      0x139 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
                                         0x145 (size before relaxing)
-                0x00000000200016d4                arith_decode
- .text          0x000000002000180d        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
- *fill*         0x000000002000180d        0x3 
- .text.be32     0x0000000020001810       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
- .text.row_out  0x0000000020001830       0x74 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
+                0x0000000020001e44                arith_decode
+ .text          0x0000000020001f7d        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
+ *fill*         0x0000000020001f7d        0x3 
+ .text.be32     0x0000000020001f80       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
+ .text.row_out  0x0000000020001fa0       0x74 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
  .text.result$part$0
-                0x00000000200018a4       0x5a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
- *fill*         0x00000000200018fe        0x0 
- *fill*         0x00000000200018fe        0x0 
- *fill*         0x00000000200018fe        0x2 
+                0x0000000020002014       0x5a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
+ *fill*         0x000000002000206e        0x0 
+ *fill*         0x000000002000206e        0x0 
+ *fill*         0x000000002000206e        0x2 
  .text.hp1020_image_release
-                0x0000000020001900       0x2a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
-                0x0000000020001900                hp1020_image_release
- *fill*         0x000000002000192a        0x2 
+                0x0000000020002070       0x2a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
+                0x0000000020002070                hp1020_image_release
+ *fill*         0x000000002000209a        0x2 
  .text.hp1020_image_finish
-                0x000000002000192c       0x64 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
-                0x000000002000192c                hp1020_image_finish
- .text          0x0000000020001990        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
+                0x000000002000209c       0x64 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
+                0x000000002000209c                hp1020_image_finish
+ .text          0x0000000020002100        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
  .text.hp1020_image_page_init
-                0x0000000020001990      0x177 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
-                0x0000000020001990                hp1020_image_page_init
- *fill*         0x0000000020001b07        0x1 
+                0x0000000020002100      0x17b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
+                0x0000000020002100                hp1020_image_page_init
+ *fill*         0x000000002000227b        0x1 
  .text.hp1020_image_page_next
-                0x0000000020001b08      0x15b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
-                0x0000000020001b08                hp1020_image_page_next
- *fill*         0x0000000020001c63        0x1 
+                0x000000002000227c      0x15b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
+                0x000000002000227c                hp1020_image_page_next
+ *fill*         0x00000000200023d7        0x1 
  .text.hp1020_image_page_release
-                0x0000000020001c64       0x29 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
-                0x0000000020001c64                hp1020_image_page_release
- .text          0x0000000020001c8d        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
- *fill*         0x0000000020001c8d        0x0 
- .text          0x0000000020001c8d        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
- *fill*         0x0000000020001c8d        0x0 
- .text          0x0000000020001c8d        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
- *fill*         0x0000000020001c8d        0x3 
- .text.be32     0x0000000020001c90       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
- *fill*         0x0000000020001cb0        0x0 
+                0x00000000200023d8       0x29 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
+                0x00000000200023d8                hp1020_image_page_release
+ .text          0x0000000020002401        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
+ *fill*         0x0000000020002401        0x3 
+ .text.image_error
+                0x0000000020002404       0x1a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
+ *fill*         0x000000002000241e        0x0 
+ *fill*         0x000000002000241e        0x0 
+ *fill*         0x000000002000241e        0x0 
+ *fill*         0x000000002000241e        0x0 
+ .text          0x000000002000241e        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
+ *fill*         0x000000002000241e        0x0 
+ .text          0x000000002000241e        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+ *fill*         0x000000002000241e        0x0 
+ *fill*         0x000000002000241e        0x0 
+ *fill*         0x000000002000241e        0x0 
+ *fill*         0x000000002000241e        0x0 
+ *fill*         0x000000002000241e        0x0 
+ .text          0x000000002000241e        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
+ .text          0x000000002000241e        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
+ *fill*         0x000000002000241e        0x2 
+ .text.be32     0x0000000020002420       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
+ *fill*         0x0000000020002440        0x0 
+ *fill*         0x0000000020002440        0x0 
  .text.hp1020_semantic_init
-                0x0000000020001cb0       0x39 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
-                0x0000000020001cb0                hp1020_semantic_init
- *fill*         0x0000000020001ce9        0x0 
- *fill*         0x0000000020001ce9        0x0 
- .text          0x0000000020001ce9        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_page_plan.o
- *fill*         0x0000000020001ce9        0x0 
- .text          0x0000000020001ce9        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/target-memory.o
- *fill*         0x0000000020001ce9        0x3 
- .text.memcmp   0x0000000020001cec       0x23 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/target-memory.o
-                0x0000000020001cec                memcmp
- .text          0x0000000020001d0f        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/memory.o
- *fill*         0x0000000020001d0f        0x1 
- .text.memset   0x0000000020001d10       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/memory.o
-                0x0000000020001d10                memset
- *fill*         0x0000000020001d22        0x2 
- .text.memcpy   0x0000000020001d24       0x16 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/memory.o
-                0x0000000020001d24                memcpy
- .text          0x0000000020001d3a        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
- *fill*         0x0000000020001d3a        0x2 
+                0x0000000020002440       0x39 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
+                0x0000000020002440                hp1020_semantic_init
+ *fill*         0x0000000020002479        0x3 
+ .text.hp1020_semantic_init_streaming
+                0x000000002000247c       0x33 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
+                0x000000002000247c                hp1020_semantic_init_streaming
+ *fill*         0x00000000200024af        0x0 
+ *fill*         0x00000000200024af        0x0 
+ .text          0x00000000200024af        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_page_plan.o
+ *fill*         0x00000000200024af        0x0 
+ .text          0x00000000200024af        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/target-memory.o
+ *fill*         0x00000000200024af        0x1 
+ .text.memcmp   0x00000000200024b0       0x23 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/target-memory.o
+                0x00000000200024b0                memcmp
+ .text          0x00000000200024d3        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/memory.o
+ *fill*         0x00000000200024d3        0x1 
+ .text.memset   0x00000000200024d4       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/memory.o
+                0x00000000200024d4                memset
+ *fill*         0x00000000200024e6        0x2 
+ .text.memcpy   0x00000000200024e8       0x16 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/memory.o
+                0x00000000200024e8                memcpy
+ .text          0x00000000200024fe        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+ *fill*         0x00000000200024fe        0x2 
  .text.enc_byte_out
-                0x0000000020001d3c       0x1f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
- *fill*         0x0000000020001d5b        0x1 
+                0x0000000020002500       0x1f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+ *fill*         0x000000002000251f        0x1 
  .text.decode_pscd
-                0x0000000020001d5c      0x3ef /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
- *fill*         0x000000002000214b        0x1 
+                0x0000000020002520      0x3ef /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+ *fill*         0x000000002000290f        0x1 
  .text.finish_sde
-                0x000000002000214c       0x85 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
- *fill*         0x00000000200021d1        0x3 
+                0x0000000020002910       0x85 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+ *fill*         0x0000000020002995        0x3 
  .text.output_newlen
-                0x00000000200021d4       0x67 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
- *fill*         0x000000002000223b        0x0 
- *fill*         0x000000002000223b        0x1 
+                0x0000000020002998       0x67 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+ *fill*         0x00000000200029ff        0x0 
+ *fill*         0x00000000200029ff        0x1 
  .text.jbg85_enc_options
-                0x000000002000223c       0x17 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
-                0x000000002000223c                jbg85_enc_options
- *fill*         0x0000000020002253        0x1 
+                0x0000000020002a00       0x17 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+                0x0000000020002a00                jbg85_enc_options
+ *fill*         0x0000000020002a17        0x1 
  .text.jbg85_enc_lineout
-                0x0000000020002254      0x568 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
-                0x0000000020002254                jbg85_enc_lineout
+                0x0000000020002a18      0x568 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+                0x0000000020002a18                jbg85_enc_lineout
  .text.jbg85_enc_newlen
-                0x00000000200027bc       0x72 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
-                0x00000000200027bc                jbg85_enc_newlen
- *fill*         0x000000002000282e        0x2 
+                0x0000000020002f80       0x72 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+                0x0000000020002f80                jbg85_enc_newlen
+ *fill*         0x0000000020002ff2        0x2 
  .text.jbg85_enc_abort
-                0x0000000020002830       0x31 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
-                0x0000000020002830                jbg85_enc_abort
- *fill*         0x0000000020002861        0x0 
- *fill*         0x0000000020002861        0x0 
- *fill*         0x0000000020002861        0x0 
- .text          0x0000000020002861        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
- *fill*         0x0000000020002861        0x3 
+                0x0000000020002ff4       0x31 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+                0x0000000020002ff4                jbg85_enc_abort
+ *fill*         0x0000000020003025        0x0 
+ *fill*         0x0000000020003025        0x0 
+ *fill*         0x0000000020003025        0x0 
+ .text          0x0000000020003025        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
+ *fill*         0x0000000020003025        0x3 
  .text.arith_encode_init
-                0x0000000020002864       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
-                0x0000000020002864                arith_encode_init
- *fill*         0x0000000020002896        0x2 
+                0x0000000020003028       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
+                0x0000000020003028                arith_encode_init
+ *fill*         0x000000002000305a        0x2 
  .text.arith_encode_flush
-                0x0000000020002898      0x110 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
-                0x0000000020002898                arith_encode_flush
- *fill*         0x00000000200029a8        0x0 
+                0x000000002000305c      0x110 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
+                0x000000002000305c                arith_encode_flush
+ *fill*         0x000000002000316c        0x0 
  .text.arith_decode_init
-                0x00000000200029a8       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
-                0x00000000200029a8                arith_decode_init
- *fill*         0x00000000200029d3        0x0 
- *fill*         0x00000000200029d3        0x1 
- .text          0x00000000200029d4       0x4c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
-                0x00000000200029d4                __udivsi3
+                0x000000002000316c       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
+                0x000000002000316c                arith_decode_init
+ *fill*         0x0000000020003197        0x0 
+ *fill*         0x0000000020003197        0x1 
+ .text          0x0000000020003198       0x4c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+                0x0000000020003198                __udivsi3
 
-.rodata         0x0000000020002a20      0x3da
+.rodata         0x00000000200031e4      0x3da
  *(.rodata .rodata.*)
- .rodata.items  0x0000000020002a20       0x3c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
+ .rodata.items  0x00000000200031e4       0x3c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
  .rodata.complete_chunk
-                0x0000000020002a5c       0x1c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
+                0x0000000020003220       0x1c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
  .rodata.jbg85_strerror.str1.1
-                0x0000000020002a78       0x2e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
- *fill*         0x0000000020002aa6        0x2 
+                0x000000002000323c       0x2e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+ *fill*         0x000000002000326a        0x2 
  .rodata.jbg85_dec_in
-                0x0000000020002aa8       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+                0x000000002000326c       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
  .rodata.str1.1
-                0x0000000020002ac8      0x103 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
- *fill*         0x0000000020002bcb        0x1 
+                0x000000002000328c      0x103 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+ *fill*         0x000000002000338f        0x1 
  .rodata.errmsg
-                0x0000000020002bcc       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+                0x0000000020003390       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
  .rodata.jbg85_version
-                0x0000000020002bec       0x4a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
-                0x0000000020002bec                jbg85_version
+                0x00000000200033b0       0x4a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+                0x00000000200033b0                jbg85_version
  .rodata.nlpstab
-                0x0000000020002c36       0x71 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
+                0x00000000200033fa       0x71 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
  .rodata.nmpstab
-                0x0000000020002ca7       0x71 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
+                0x000000002000346b       0x71 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
  .rodata.lsztab
-                0x0000000020002d18       0xe2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
+                0x00000000200034dc       0xe2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
 
-.data           0x0000000020002dfc        0x0
+.data           0x00000000200035c0        0x0
  *(.data .data.*)
- .data          0x0000000020002dfc        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
- .data          0x0000000020002dfc        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
- .data          0x0000000020002dfc        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
- .data          0x0000000020002dfc        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
- .data          0x0000000020002dfc        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
- .data          0x0000000020002dfc        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_page_plan.o
- .data          0x0000000020002dfc        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/target-memory.o
- .data          0x0000000020002dfc        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/memory.o
- .data          0x0000000020002dfc        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
- .data          0x0000000020002dfc        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
- .data          0x0000000020002dfc        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+ .data          0x00000000200035c0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
+ .data          0x00000000200035c0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
+ .data          0x00000000200035c0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
+ .data          0x00000000200035c0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
+ .data          0x00000000200035c0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+ .data          0x00000000200035c0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
+ .data          0x00000000200035c0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
+ .data          0x00000000200035c0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_page_plan.o
+ .data          0x00000000200035c0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/target-memory.o
+ .data          0x00000000200035c0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/memory.o
+ .data          0x00000000200035c0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+ .data          0x00000000200035c0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
+ .data          0x00000000200035c0        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
 
-.bss            0x0000000020002e00    0xaa584
+.bss            0x00000000200035c0    0xe09dc
  *(.bss .bss.* COMMON)
- .bss           0x0000000020002e00        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
- .bss           0x0000000020002e00        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
- .bss           0x0000000020002e00        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
+ .bss           0x00000000200035c0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
+ .bss           0x00000000200035c0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
+ .bss           0x00000000200035c0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
+ .bss           0x00000000200035c0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
  .bss.fragment_copy
-                0x0000000020002e00    0x20000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
- .bss.band      0x0000000020022e00     0x2020 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
- .bss.history   0x0000000020024e20     0x1020 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
+                0x00000000200035c0    0x20000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
+ .bss.band      0x00000000200235c0     0x2020 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
+ .bss.history   0x00000000200255e0     0x1020 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
  .bss.hp1020_image_state
-                0x0000000020025e40     0x10d8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
-                0x0000000020025e40                hp1020_image_state
+                0x0000000020026600     0x10d8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
+                0x0000000020026600                hp1020_image_state
  .bss.hp1020_image_stats
-                0x0000000020026f18       0x60 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
-                0x0000000020026f18                hp1020_image_stats
+                0x00000000200276d8       0x60 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
+                0x00000000200276d8                hp1020_image_stats
  .bss.hp1020_image_capture
-                0x0000000020026f78    0x10000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
-                0x0000000020026f78                hp1020_image_capture
+                0x0000000020027738    0x10000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
+                0x0000000020027738                hp1020_image_capture
  .bss.hp1020_image_input
-                0x0000000020036f78    0x20000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
-                0x0000000020036f78                hp1020_image_input
- .bss           0x0000000020056f78        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
- .bss.band      0x0000000020056f78     0x2020 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
- .bss.history   0x0000000020058f98     0x1020 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
- .bss.arena     0x0000000020059fb8    0x20000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
- .bss.page      0x0000000020079fb8     0x1118 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
- .bss.parser    0x000000002007b0d0     0x2254 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
+                0x0000000020037738    0x20000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
+                0x0000000020037738                hp1020_image_input
+ .bss           0x0000000020057738        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+ .bss.fill_value
+                0x0000000020057738        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+ .bss.fail_after
+                0x000000002005773c        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+ .bss.inner_consumer
+                0x0000000020057740        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+ .bss.memory    0x0000000020057744    0x13030 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+ .bss.state     0x000000002006a774     0x3384 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+ .bss.hp1020_stream_stats
+                0x000000002006daf8       0x80 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+                0x000000002006daf8                hp1020_stream_stats
+ .bss.hp1020_stream_capture
+                0x000000002006db78    0x10000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+                0x000000002006db78                hp1020_stream_capture
+ .bss.hp1020_stream_input
+                0x000000002007db78    0x10010 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+                0x000000002007db78                hp1020_stream_input
+ .bss           0x000000002008db88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
+ .bss.band      0x000000002008db88     0x2020 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
+ .bss.history   0x000000002008fba8     0x1020 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
+ .bss.arena     0x0000000020090bc8    0x20000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
+ .bss.page      0x00000000200b0bc8     0x1118 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
+ .bss.parser    0x00000000200b1ce0     0x225c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
  .bss.hp1020_page_stats
-                0x000000002007d324       0x60 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
-                0x000000002007d324                hp1020_page_stats
+                0x00000000200b3f3c       0x60 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
+                0x00000000200b3f3c                hp1020_page_stats
  .bss.hp1020_page_capture
-                0x000000002007d384    0x10000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
-                0x000000002007d384                hp1020_page_capture
+                0x00000000200b3f9c    0x10000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
+                0x00000000200b3f9c                hp1020_page_capture
  .bss.hp1020_page_input
-                0x000000002008d384    0x20000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
-                0x000000002008d384                hp1020_page_input
- .bss           0x00000000200ad384        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
- .bss           0x00000000200ad384        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_page_plan.o
- .bss           0x00000000200ad384        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/target-memory.o
- .bss           0x00000000200ad384        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/memory.o
- .bss           0x00000000200ad384        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
- .bss           0x00000000200ad384        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
- .bss           0x00000000200ad384        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+                0x00000000200c3f9c    0x20000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
+                0x00000000200c3f9c                hp1020_page_input
+ .bss           0x00000000200e3f9c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
+ .bss           0x00000000200e3f9c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_page_plan.o
+ .bss           0x00000000200e3f9c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/target-memory.o
+ .bss           0x00000000200e3f9c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/memory.o
+ .bss           0x00000000200e3f9c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+ .bss           0x00000000200e3f9c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
+ .bss           0x00000000200e3f9c        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
 
 /DISCARD/
  *(.comment)
@@ -365,7 +472,9 @@ Linker script and memory map
  *(.eh_frame*)
 LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
 LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
 LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
 LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
 LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
 LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_page_plan.o
@@ -379,7 +488,9 @@ OUTPUT(/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analys
 .xtensa.info    0x0000000000000000       0x38
  .xtensa.info   0x0000000000000000       0x38 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
  .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
  .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
  .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
  .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
  .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_page_plan.o
@@ -389,29 +500,33 @@ OUTPUT(/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analys
  .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
  .xtensa.info   0x0000000000000038        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
 
-.xt.lit         0x0000000000000000       0x78
+.xt.lit         0x0000000000000000       0xc8
  .xt.lit        0x0000000000000000       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
- .xt.lit        0x0000000000000010        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
- .xt.lit        0x0000000000000018        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
- .xt.lit        0x0000000000000020       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
- .xt.lit        0x0000000000000040        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_page_plan.o
+ .xt.lit        0x0000000000000010       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
+ .xt.lit        0x0000000000000038        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
+ .xt.lit        0x0000000000000040       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+ .xt.lit        0x0000000000000068        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
+ .xt.lit        0x0000000000000070       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
+ .xt.lit        0x0000000000000090        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_page_plan.o
                                          0x10 (size before relaxing)
- .xt.lit        0x0000000000000048       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
- .xt.lit        0x0000000000000070        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
+ .xt.lit        0x0000000000000098       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+ .xt.lit        0x00000000000000c0        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
                                          0x10 (size before relaxing)
 
-.xt.prop        0x0000000000000000     0x21b4
+.xt.prop        0x0000000000000000     0x2850
  .xt.prop       0x0000000000000000      0x30c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image.o
  .xt.prop       0x000000000000030c      0x24c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_page.o
- .xt.prop       0x0000000000000558      0x288 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
- .xt.prop       0x00000000000007e0      0x234 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
- .xt.prop       0x0000000000000a14      0x6b4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
- .xt.prop       0x00000000000010c8       0xd8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_page_plan.o
- .xt.prop       0x00000000000011a0       0x54 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/target-memory.o
- .xt.prop       0x00000000000011f4       0x78 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/memory.o
- .xt.prop       0x000000000000126c      0xb4c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
- .xt.prop       0x0000000000001db8      0x360 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
- .xt.prop       0x0000000000002118       0x9c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+ .xt.prop       0x0000000000000558      0x30c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_image_stream.o
+ .xt.prop       0x0000000000000864      0x288 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/fixture.o
+ .xt.prop       0x0000000000000aec      0x2e8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/stream-fixture.o
+ .xt.prop       0x0000000000000dd4      0x234 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/page-fixture.o
+ .xt.prop       0x0000000000001008      0x75c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_semantic.o
+ .xt.prop       0x0000000000001764       0xd8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/hp1020_page_plan.o
+ .xt.prop       0x000000000000183c       0x54 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/target-memory.o
+ .xt.prop       0x0000000000001890       0x78 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/memory.o
+ .xt.prop       0x0000000000001908      0xb4c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig85.o
+ .xt.prop       0x0000000000002454      0x360 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/image-core/target/jbig_ar.o
+ .xt.prop       0x00000000000027b4       0x9c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
 
 .debug_line     0x0000000000000000       0xfe
  .debug_line    0x0000000000000000       0xfe /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
