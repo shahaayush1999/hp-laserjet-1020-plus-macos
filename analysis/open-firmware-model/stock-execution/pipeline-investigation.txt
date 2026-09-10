@@ -1035,3 +1035,80 @@ Original native pages: 6 completed lifecycles
     }
   ]
 }
+
+=== 2026-09-10 controlled timed cleanup and aggregate integration ===
+
+--- hp1020-first-page-ticks.log ---
+{'frees': [574619696, 574619936, 574619936], 'scheduled': [574620200], 'completed': [], 'retired': [(574619940, 0)], 'nodes_by_work': [(574620200, [(574619924, 574619940, 1)])], 'blocks': None, 'events': [[268580972, 8, 0]], 'counters': None, 'selections': [578814208, 578813952, 578814208, 578813952, 578814208, 578813952, 578814208, 578813952, 578814208, 578813952, 578814208, 578813952, 578814208, 578813952, 578814208, 578813952, 578814208, 578813952, 578814208, 578813952, 578814720, 578814720, 268652800, 578814208], 'trace': [{'step': 7047, 'pc': '0x10013658', 'thread': '0x22800000', 'head': '0x0', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 3, 'caller': '0x10009f80', 'raw_words': [1, 0, 0, 574619764]}, {'step': 7456, 'pc': '0x1000e44f', 'thread': '0x22800100', 'head': '0x0', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'job_receive', 'raw_words': [1, 0, 0, 574619764]}, {'step': 8160, 'pc': '0x10013658', 'thread': '0x22800100', 'head': '0x0', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 10, 'caller': '0x1000f1b9', 'raw_words': [46, 580976400, 0, 570425344]}, {'step': 9791, 'pc': '0x10013658', 'thread': '0x22800000', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 3, 'caller': '0x10009fa9', 'raw_words': [3, 0, 0, 574620108]}, {'step': 10200, 'pc': '0x1000e44f', 'thread': '0x22800100', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'job_receive', 'raw_words': [3, 0, 0, 574620108]}, {'step': 11782, 'pc': '0x10013658', 'thread': '0x22800000', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 3, 'caller': '0x1000a1ad', 'raw_words': [5, 0, 0, 574620200]}, {'step': 12191, 'pc': '0x1000e44f', 'thread': '0x22800100', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'job_receive', 'raw_words': [5, 0, 0, 574620200]}, {'step': 13167, 'pc': '0x10013658', 'thread': '0x22800000', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 3, 'caller': '0x1000a1ad', 'raw_words': [41, 0, 0, 574619936]}, {'step': 13576, 'pc': '0x1000e44f', 'thread': '0x22800100', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'job_receive', 'raw_words': [41, 0, 0, 574619936]}, {'step': 14838, 'pc': '0x10013658', 'thread': '0x22800000', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 3, 'caller': '0x1000a04d', 'raw_words': [42, 3, 0, 574619924]}, {'step': 15247, 'pc': '0x1000e44f', 'thread': '0x22800100', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'job_receive', 'raw_words': [42, 3, 0, 574619924]}, {'step': 15807, 'pc': '0x10013658', 'thread': '0x22800000', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 3, 'caller': '0x1000a1ad', 'raw_words': [43, 3, 0, 0]}, {'step': 16216, 'pc': '0x1000e44f', 'thread': '0x22800100', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'job_receive', 'raw_words': [43, 3, 0, 0]}, {'step': 16699, 'pc': '0x10013658', 'thread': '0x22800000', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 3, 'caller': '0x1000a1ad', 'raw_words': [6, 3, 0, 0]}, {'step': 17108, 'pc': '0x1000e44f', 'thread': '0x22800100', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'job_receive', 'raw_words': [6, 3, 0, 0]}, {'step': 17185, 'pc': '0x10013658', 'thread': '0x22800100', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 1, 'caller': '0x1000ee00', 'raw_words': [11, 580976432, 268584572, 574620200]}, {'step': 17783, 'pc': '0x10013658', 'thread': '0x22800000', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 3, 'caller': '0x1000a1be', 'raw_words': [2, 3, 0, 0]}, {'step': 18192, 'pc': '0x1000e44f', 'thread': '0x22800100', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'job_receive', 'raw_words': [2, 3, 0, 0]}]}
+Traceback (most recent call last):
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/hp1020_qemu_page_pipeline.py", line 208, in run_pages
+    runner.step()
+    ~~~~~~~~~~~^^
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/hp1020_qemu_multitask.py", line 52, in step
+    raise ValueError(f'native tasks left selected code: {pc:#x}')
+ValueError: native tasks left selected code: 0x1000f068
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/hp1020-first-page-ticks.py", line 14, in <module>
+    result=run_pages(q,program,helper.stream(base),1,1,0,ticks=2)
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/hp1020_qemu_page_pipeline.py", line 210, in run_pages
+    raise ValueError(f'page pipeline documents={documents} pages={pages} fill={fill} '
+                     f'pc={pc:#x} thread={word(current):#x}: {error}') from error
+ValueError: page pipeline documents=1 pages=1 fill=0 pc=0x1000f068 thread=0x22800100: native tasks left selected code: 0x1000f068
+
+--- hp1020-first-page-ticks-audited.log ---
+{'status': 'pass', 'documents': 1, 'pages': 1, 'fill': 0, 'instructions': 28389, 'input_bytes': 6692, 'original_frees': 11, 'remaining_allocation_bytes': 20, 'scheduled_work': [574620200], 'completed_work': [574620200], 'retired_nodes': [(574620200, [(574619924, 574619940, 1)])], 'reference_decrements': [(574619940, 0)], 'event_calls': [[268580972, 8, 0]], 'page_counters': [1, 1], 'online_notifications': 1, 'job_timeout_armed': 2, 'delivered_ticks': 2, 'ticks_per_page': 2, 'cleanup_before_completion': [True], 'host_services': ['0x30000000'], 'task_runs': {'parser': 10, 'job': 13, 'status': 3, 'completion': 5}, 'input_sha256': '6b9dc98f083ae61b4e68502c8b40fe73a71b41e598921b477213c2f09d15f15e', 'fixture_source_sha256': '215140951e07f82d7a59ad45a904f4419a35833e2d1e738706ce7d862f0c820f', 'fixture_elf_sha256': 'd0dfc11decb75f48593a8b99ed3e950bbc3cd7baf307328b9bfc93dd846ca2cb'}
+
+--- hp1020-first-page-control.log ---
+{'frees': [574619696, 574619936, 574619936], 'scheduled': [574620200], 'completed': [], 'retired': [(574619940, 0)], 'nodes_by_work': [(574620200, [(574619924, 574619940, 1)])], 'blocks': None, 'events': [[268580972, 8, 0]], 'counters': None, 'selections': [578814208, 578813952, 578814208, 578813952, 578814208, 578813952, 578814208, 578813952, 578814208, 578813952, 578814208, 578813952, 578814208, 578813952, 578814208, 578813952, 578814208, 578813952, 578814208, 578813952, 578814720], 'trace': [{'step': 7047, 'pc': '0x10013658', 'thread': '0x22800000', 'head': '0x0', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 3, 'caller': '0x10009f80', 'raw_words': [1, 0, 0, 574619764]}, {'step': 7456, 'pc': '0x1000e44f', 'thread': '0x22800100', 'head': '0x0', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'job_receive', 'raw_words': [1, 0, 0, 574619764]}, {'step': 8160, 'pc': '0x10013658', 'thread': '0x22800100', 'head': '0x0', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 10, 'caller': '0x1000f1b9', 'raw_words': [46, 580976400, 0, 570425344]}, {'step': 9791, 'pc': '0x10013658', 'thread': '0x22800000', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 3, 'caller': '0x10009fa9', 'raw_words': [3, 0, 0, 574620108]}, {'step': 10200, 'pc': '0x1000e44f', 'thread': '0x22800100', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'job_receive', 'raw_words': [3, 0, 0, 574620108]}, {'step': 11782, 'pc': '0x10013658', 'thread': '0x22800000', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 3, 'caller': '0x1000a1ad', 'raw_words': [5, 0, 0, 574620200]}, {'step': 12191, 'pc': '0x1000e44f', 'thread': '0x22800100', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'job_receive', 'raw_words': [5, 0, 0, 574620200]}, {'step': 13167, 'pc': '0x10013658', 'thread': '0x22800000', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 3, 'caller': '0x1000a1ad', 'raw_words': [41, 0, 0, 574619936]}, {'step': 13576, 'pc': '0x1000e44f', 'thread': '0x22800100', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'job_receive', 'raw_words': [41, 0, 0, 574619936]}, {'step': 14838, 'pc': '0x10013658', 'thread': '0x22800000', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 3, 'caller': '0x1000a04d', 'raw_words': [42, 3, 0, 574619924]}, {'step': 15247, 'pc': '0x1000e44f', 'thread': '0x22800100', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'job_receive', 'raw_words': [42, 3, 0, 574619924]}, {'step': 15807, 'pc': '0x10013658', 'thread': '0x22800000', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 3, 'caller': '0x1000a1ad', 'raw_words': [43, 3, 0, 0]}, {'step': 16216, 'pc': '0x1000e44f', 'thread': '0x22800100', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'job_receive', 'raw_words': [43, 3, 0, 0]}, {'step': 16699, 'pc': '0x10013658', 'thread': '0x22800000', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 3, 'caller': '0x1000a1ad', 'raw_words': [6, 3, 0, 0]}, {'step': 17108, 'pc': '0x1000e44f', 'thread': '0x22800100', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'job_receive', 'raw_words': [6, 3, 0, 0]}, {'step': 17185, 'pc': '0x10013658', 'thread': '0x22800100', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 1, 'caller': '0x1000ee00', 'raw_words': [11, 580976432, 268584572, 574620200]}, {'step': 17783, 'pc': '0x10013658', 'thread': '0x22800000', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'send', 'queue': 3, 'caller': '0x1000a1be', 'raw_words': [2, 3, 0, 0]}, {'step': 18192, 'pc': '0x1000e44f', 'thread': '0x22800100', 'head': '0x224000f8', 'cancel': 0, 'counters': [0, 0], 'queued_job_types': [], 'kind': 'job_receive', 'raw_words': [2, 3, 0, 0]}]}
+Traceback (most recent call last):
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/hp1020_qemu_page_pipeline.py", line 226, in run_pages
+    runner.step()
+    ~~~~~~~~~~~^^
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/hp1020_qemu_multitask.py", line 54, in step
+    raise ValueError(f'unsupported native task instruction: {pc:#x} {op}')
+ValueError: unsupported native task instruction: 0x20000184 break
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/hp1020-first-page-control.py", line 14, in <module>
+    result=run_pages(q,program,helper.stream(base),1,1,0,ticks=2,consume_event=True)
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/hp1020_qemu_page_pipeline.py", line 228, in run_pages
+    raise ValueError(f'page pipeline documents={documents} pages={pages} fill={fill} '
+                     f'pc={pc:#x} thread={word(current):#x}: {error}') from error
+ValueError: page pipeline documents=1 pages=1 fill=0 pc=0x20000184 thread=0x22800300: unsupported native task instruction: 0x20000184 break
+
+--- hp1020-first-page-control-fixed.log ---
+{'status': 'pass', 'documents': 1, 'pages': 1, 'fill': 0, 'instructions': 28404, 'input_bytes': 6692, 'original_frees': 11, 'remaining_allocation_bytes': 20, 'scheduled_work': [574620200], 'completed_work': [574620200], 'retired_nodes': [(574620200, [(574619924, 574619940, 1)])], 'reference_decrements': [(574619940, 0)], 'event_calls': [[268580972, 8, 0]], 'page_counters': [1, 1], 'online_notifications': 1, 'job_timeout_armed': 2, 'delivered_ticks': 2, 'ticks_per_page': 2, 'consumed_cleanup_event': True, 'timed_cleanup_calls': [], 'cleanup_before_completion': [False], 'host_services': ['0x30000000'], 'task_runs': {'parser': 10, 'job': 13, 'status': 3, 'completion': 5}, 'input_sha256': '6b9dc98f083ae61b4e68502c8b40fe73a71b41e598921b477213c2f09d15f15e', 'fixture_source_sha256': '616bfa958f7931c0c84169b3a507b0203d6e94ac79e7945bc9c2a65db87dfc0b', 'fixture_elf_sha256': '23aae51e4743c27b3fe4c48d9772affeb8fbae60b5fbd648cd8686ea84e4a6d9'}
+
+--- hp1020-native-pages-timed.log ---
+native pages: documents=1 pages=1 fill=0 ticks=0 consume_event=False: pass
+native pages: documents=1 pages=1 fill=0 ticks=2 consume_event=False: pass
+native pages: documents=1 pages=1 fill=0 ticks=2 consume_event=True: pass
+native pages: documents=1 pages=1 fill=204 ticks=0 consume_event=False: pass
+native pages: documents=1 pages=1 fill=204 ticks=2 consume_event=False: pass
+native pages: documents=1 pages=1 fill=204 ticks=2 consume_event=True: pass
+native pages: documents=1 pages=3 fill=0 ticks=0 consume_event=False: pass
+native pages: documents=1 pages=3 fill=0 ticks=2 consume_event=False: pass
+native pages: documents=1 pages=3 fill=0 ticks=2 consume_event=True: pass
+native pages: documents=1 pages=3 fill=204 ticks=0 consume_event=False: pass
+native pages: documents=1 pages=3 fill=204 ticks=2 consume_event=False: pass
+native pages: documents=1 pages=3 fill=204 ticks=2 consume_event=True: pass
+native pages: documents=3 pages=3 fill=0 ticks=0 consume_event=False: pass
+native pages: documents=3 pages=3 fill=0 ticks=2 consume_event=False: pass
+native pages: documents=3 pages=3 fill=0 ticks=2 consume_event=True: pass
+native pages: documents=3 pages=3 fill=204 ticks=0 consume_event=False: pass
+native pages: documents=3 pages=3 fill=204 ticks=2 consume_event=False: pass
+native pages: documents=3 pages=3 fill=204 ticks=2 consume_event=True: pass
+Original native pages: 18 completed lifecycles
+
+--- hp1020-full-pages.log ---
+Offline validation logs: /var/folders/46/5hjsxnq13752lvrwdm2q1fk80000gn/T//hp1020-validation.Jxf360
+Running validate-hp1020-offline-analysis...
+PASS: validate-hp1020-offline-analysis
+Running validate-open-firmware-probes...
+PASS: validate-open-firmware-probes
+All offline checks passed. No printer was contacted.

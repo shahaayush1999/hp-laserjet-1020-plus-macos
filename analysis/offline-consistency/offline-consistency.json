@@ -1,5 +1,5 @@
 {
-  "check_count": 91,
+  "check_count": 92,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -95,6 +95,12 @@
       "detail": "Original routing and allocation ownership must agree with QEMU and explicit fixture oracles.",
       "evidence": "analysis/open-firmware-model/stock-execution/retirement.json",
       "name": "original_retirement_execution",
+      "severity": "watch"
+    },
+    {
+      "detail": "Supplied FIFO consumption and controlled timed cleanup must retain separate causal controls and current source provenance.",
+      "evidence": "analysis/open-firmware-model/stock-execution/pages.json",
+      "name": "original_native_page_execution",
       "severity": "watch"
     },
     {

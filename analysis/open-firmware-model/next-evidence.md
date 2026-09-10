@@ -179,8 +179,8 @@ was resumed. The unchanged build script verified the archive checksum, original
 instruction encoding fixtures, and BE/call0 compiler profile, then installed
 headers and libgcc. The latest sources passed the native matrix (26 completed
 empty-document lifecycles, six separately classified conditional null reads),
-all 28 retirement cases, then the full offline suite sequentially. The aggregate
-now passes **91 consistency checks**. The historical 89-check baseline and old
+all 28 retirement cases, then the full offline suite sequentially. That initial aggregate
+passed **91 consistency checks**; subsequent timed-page integration passes 92. The historical 89-check baseline and old
 source snapshots remain provenance, not the current validation limit.
 
 The first page draft was then assembled/executed. Its invalid `beqi ...,11` was
@@ -193,16 +193,42 @@ observed descriptor offset, retaining the full pool-partition oracle.
 in one document, three one-page documents, each with both fills. These are
 completed software lifecycles with supplied FIFO consumption, not device proof.
 `stock-execution/pages.json` retains traces, input/fixture/source hashes and
-byte-audited cleanup/retirement instructions. It is not yet in the aggregate.
+byte-audited cleanup/retirement instructions. The original six-case focused checkpoint is committed as `8f5f656`; the subsequent timed integration is described below.
 
-### Immediate next experiment
+### Controlled timed cleanup (focused execution complete)
 
-Integrate a bounded two-tick interval after retirement and before message 17,
-using the already-audited original tick/timer/context paths. Observe original
-JobMgr event-driven raster cleanup before the supplied page completion. Keep
-zero-tick cases as controls. Do not infer automatic IRQs, elapsed time, physical
-consumption or engine behavior. Investigate unexpected failures before expanding
-scope; preserve execution snapshots/hashes when changing tested sources.
+The expanded page matrix now passes **18 completed lifecycles**: each original
+six-case stream/fill configuration runs without ticks, with two explicit ticks
+after each retirement, and with those same ticks after consuming event bit 8
+through original event-get. Original JobMgr calls `0x1000f068` with flag 8 only
+in the non-consumed two-tick cases. It frees retired nodes and empties work+80
+before supplied message 17. Zero-tick and consumed-event controls retain the
+nodes until message 17; all final ownership/counter/queue checks still pass.
+
+The first timed run stopped at the existing selected-code gate before
+`0x1000f068`. Its complete 62-byte body was audited against stock bytes:
+RAM list traversal, flag test, call to admitted cleanup `0x1000f0a8`, RAM status
+store and return; padding is excluded. Its SHA-256 and bytes are in pages.json.
+No MMIO or unknown instructions were added. The control's first wrapper used a
+wrong BE bit-index check; original event-get had returned 0 and output flag 8.
+An explicit numeric mask fixed the wrapper assertion. This is not a stock fault.
+
+The completion task delivers ticks using the existing audited tick/context
+fixture with INTENABLE zero. This expires JobMgr's two-tick queue receive;
+JobMgr then polls the event and invokes cleanup. It is not direct event wakeup,
+automatic IRQ delivery, wall-clock time or physical consumption evidence.
+Pages are now wired into the aggregate with a separate matrix/provenance gate;
+the full suite passed after that integration with **92 consistency checks**.
+The 18 page cases are now part of the fully validated current-source baseline.
+
+### Next offline experiment
+
+Exercise native pages split into six, thirteen and 64 raster chunks, keeping
+zero-tick, two-tick and consumed-event controls. The existing stock lifecycle
+stream-splitting helper provides the fixture format. Check all references,
+node ownership and cleanup; keep the 200,000-instruction cap until a measured
+failure justifies changing it. A scratch launcher is prepared at
+`/tmp/hp1020-fragment-pages.py` and is now running sequentially after full validation.
 
 Recovery logs for this session are `/tmp/hp1020-gcc-recovery-resume.log`,
 `/tmp/hp1020-gcc-download-resume.log`, `/tmp/hp1020-gcc-rebuild-resume.log`;
@@ -294,8 +320,8 @@ FIFO ownership, reference 1-to-0 stores, original events, page/document counters
 credit restoration, locks and pool reclamation pass. Four tasks wait on empty
 queues, and only the 20-byte ONLINE subscriber remains allocated. Consumption
 and message 17 are supplied; DMA, engine tasks and automatic IRQs do not execute.
-The next controlled-tick experiment must specifically observe cleanup before
-message 17 instead of inferring it from final ownership.
+The controlled-tick matrix now observes cleanup before message 17 explicitly,
+with event-consumption controls, as described above.
 
 Fixture map: parser TCB `0x22800000`, JobMgr +0x100, StatusMgr +0x200,
 parking queue +0x400, buffer +0x600, output +0x800; pool `0x22400000`, 64 KiB;

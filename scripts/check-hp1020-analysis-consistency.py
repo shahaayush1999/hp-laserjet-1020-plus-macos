@@ -209,6 +209,26 @@ def build_report() -> dict[str, Any]:
                             "Original routing and allocation ownership must agree with QEMU and explicit fixture oracles.",
                             evidence=f"analysis/open-firmware-model/stock-execution/{name}.json"))
 
+    pages = read_json("analysis/open-firmware-model/stock-execution/pages.json")
+    checks.append(check("original_native_page_execution",
+                        pages["status"] == "pass" and pages["total_cases"] == 18
+                        and pages["completed_lifecycles"] == 18 and len(pages["cases"]) == 18
+                        and {(c["documents"], c["pages"], c["fill"], c["ticks_per_page"],
+                              c["consumed_cleanup_event"]) for c in pages["cases"]}
+                            == {(d,p,f,t,e) for d,p in ((1,1),(1,3),(3,3))
+                                for f in (0,204) for t,e in ((0,False),(2,False),(2,True))}
+                        and all(c["status"] == "pass"
+                                and c["scheduled_work"] == c["completed_work"]
+                                and c["delivered_ticks"] == c["ticks_per_page"] * c["pages"]
+                                and c["cleanup_before_completion"]
+                                    == [bool(c["ticks_per_page"]) and not c["consumed_cleanup_event"]] * c["pages"]
+                                and c["remaining_allocation_bytes"] == 20
+                                for c in pages["cases"])
+                        and all(hashlib.sha256((ROOT_DIR/"scripts"/p).read_bytes()).hexdigest() == h
+                                for p,h in pages["source_sha256"].items()),
+                        "Supplied FIFO consumption and controlled timed cleanup must retain separate causal controls and current source provenance.",
+                        evidence="analysis/open-firmware-model/stock-execution/pages.json"))
+
     event_rows = read_tsv("analysis/engine-events/engine-0x17-events.tsv")
     status_corr = read_json("analysis/status-path/status-code-correlation.json")
     direct_counts = status_corr.get("direct_converter_class_counts", {})

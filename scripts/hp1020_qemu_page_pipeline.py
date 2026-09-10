@@ -1,9 +1,10 @@
-"""Draft native page pipeline with explicitly supplied FIFO consumption.
+"""Native page pipeline with explicitly supplied FIFO consumption.
 
 No hardware task runs. A synthetic queue-1 consumer waits for the parser to finish,
 executes the separately checked no-next-DMA retirement tail, and sends completion
 through the original queue. All allocation, JobMgr/status and scheduling code is
-original. This draft is outside the aggregate until its execution oracles pass.
+original. Optional explicit ticks test RAM cleanup before supplied completion;
+automatic interrupts and physical consumption remain excluded.
 """
 import hashlib
 from pathlib import Path
@@ -20,7 +21,41 @@ C,CS = P+768,0x22d00000
 Q1 = 0x10028a74
 
 
-def page_source(documents,current,system,ready,video):
+def page_source(documents,current,system,ready,video,ticks=0,consume_event=False,event=0):
+    assert ticks in (0,2)
+    assert not consume_event or ticks==2 and event
+    consume_source = '' if not consume_event else f''' movi a10,{event:#x}
+ movi a11,8
+ movi a12,1
+ addi a13,a1,16
+ movi a14,0
+ movi a8,0x10017d28
+ callx8 a8
+ bnez a10,bad
+ l32i a8,a1,16
+ movi a9,8
+ and a8,a8,a9
+ beqz a8,bad
+'''
+    tick_source = ''
+    for _ in range(ticks):
+        tick_source += f''' movi a8,{system:#x}
+ movi a9,1
+ s32i a9,a8,0
+ movi a8,0x100186a8
+ callx8 a8
+ movi a8,{system:#x}
+ movi a9,0
+ s32i a9,a8,0
+ movi a8,0x10018750
+ callx8 a8
+ rsr.intenable a8
+ bnez a8,bad
+ movi a8,{OUT:#x}
+ l32i a9,a8,24
+ addi a9,a9,1
+ s32i a9,a8,24
+'''
     source = native_source(documents,(5,2,31),current,system,ready)
     # Reuse the validated bootstrap, keeping each insertion anchored and unique.
     marker = f' movi a10,{PARK:#x}\n movi a11,0\n'
@@ -90,6 +125,7 @@ completion_work:
  mov a10,a3
  call8 retire_work
  bnez a10,bad
+{consume_source}{tick_source}completion_after_ticks:
  movi a8,{OUT:#x}
  l32i a9,a8,16
  addi a9,a9,1
@@ -111,16 +147,19 @@ completion_send:
     return source
 
 
-def run_pages(q,program,data,documents,pages,fill):
+def run_pages(q,program,data,documents,pages,fill,ticks=0,consume_event=False):
     state = prepare_pipeline(q,program,data,fill)
     state.segments.append((CS,bytearray([fill])*65536,6))
     state.write_ranges.append((CS,CS+65536))
     state.code_ranges += RETIRE_CODE
+    # Original timed JobMgr cleanup: RAM list traversal, then the already
+    # admitted reference-based cleanup helper. Ends at RETW, before padding.
+    state.code_ranges += [(0x1000f068,0x1000f0a6)]
     video = state.read(0x10006770,4)
     state.put(video,bytes(256))
     current,system,selected,ready = [state.read(a,4) for a in
         (0x10006a9c,0x10005d80,0x10006aa0,0x10006530)]
-    source = page_source(documents,current,system,ready,video)
+    source = page_source(documents,current,system,ready,video,ticks,consume_event,state.read(0x100062dc,4))
     with tempfile.TemporaryDirectory(prefix='hp1020-page-pipeline-') as temp:
         root = Path(temp)
         (root/'pages.S').write_text(source)
@@ -139,7 +178,7 @@ def run_pages(q,program,data,documents,pages,fill):
         trace = PipelineTrace(runner)
         word,ar = trace.word,trace.ar
         selections,blocked,frees,scheduled,completed,retired,events = [],[],[],[],[],[],[]
-        nodes_by_work = []
+        nodes_by_work,precompletion_cleanup,cleanup_calls = [],[],[]
         while not(q.reg(0)==0x10018901 and word(selected)==0):
             pc = q.reg(0)
             if pc==0x10018904:
@@ -149,6 +188,9 @@ def run_pages(q,program,data,documents,pages,fill):
                 blocked.append((thread,word(thread+108),word(thread+76)))
             if pc==0x10013408:
                 frees.append(ar(10))
+            if pc==0x1000f068:
+                assert word(current)==J
+                cleanup_calls.append([ar(10),ar(11)])
             if pc==0x10013658:
                 queue,packet = ar(10),ar(11)
                 kind = word(packet)
@@ -175,6 +217,11 @@ def run_pages(q,program,data,documents,pages,fill):
             if pc==0x10017dac and word(current)==C:
                 events.append([ar(i) for i in (10,11,12)])
             if pc==fixture.symbols['completion_send']:
+                work = word(ar(1)+12)
+                nodes = nodes_by_work[-1][1]
+                cleaned = word(work+80)==0 and all(node in frees for node,_,_ in nodes)
+                precompletion_cleanup.append(cleaned)
+                assert cleaned==(bool(ticks) and not consume_event)
                 completed.append(word(ar(1)+12))
             trace.observe()
             try:
@@ -187,6 +234,7 @@ def run_pages(q,program,data,documents,pages,fill):
         assert state.allocations=={} and set(runner.services)=={0x30000000}
         assert len(scheduled)==pages and completed==scheduled
         assert state.read(OUT+16,4)==pages and state.read(OUT+20,4)==1
+        assert state.read(OUT+24,4)==ticks*pages
         assert retired==[(payload,0) for _,nodes in nodes_by_work for _,payload,_ in nodes]
         assert events==[[state.read(0x100062dc,4),8,0]]*len(retired)
         assert not any(0x1001434b<=pc<0x100143a5 for pc in runner.visited)
@@ -225,7 +273,10 @@ def run_pages(q,program,data,documents,pages,fill):
             remaining_allocation_bytes=20,scheduled_work=scheduled,completed_work=completed,
             retired_nodes=nodes_by_work,reference_decrements=retired,event_calls=events,
             page_counters=counters,online_notifications=1,job_timeout_armed=2,
-            delivered_ticks=0,host_services=sorted(hex(x) for x in set(runner.services)),
+            delivered_ticks=ticks*pages,ticks_per_page=ticks,
+            consumed_cleanup_event=consume_event,timed_cleanup_calls=cleanup_calls,
+            cleanup_before_completion=precompletion_cleanup,
+            host_services=sorted(hex(x) for x in set(runner.services)),
             task_runs={name:selections.count(thread) for name,thread in
                 (('parser',P),('job',J),('status',S),('completion',C))},
             input_sha256=hashlib.sha256(data).hexdigest(),
