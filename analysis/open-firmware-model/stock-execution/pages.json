@@ -1,0 +1,7420 @@
+{
+  "cases": [
+    {
+      "completed_work": [
+        574620200
+      ],
+      "delivered_ticks": 0,
+      "documents": 1,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "fixture_elf_sha256": "5a2c5443bf74e2368d58174df5c704e739e8979de87a663cd5de52137f0e3469",
+      "fixture_source_sha256": "94b017e9210b9347f1fb08b235984700b6d4ebe1bd4a3a2a3796156df3c4f33a",
+      "host_services": [
+        "0x30000000"
+      ],
+      "input_bytes": 6692,
+      "input_sha256": "6b9dc98f083ae61b4e68502c8b40fe73a71b41e598921b477213c2f09d15f15e",
+      "instructions": 26983,
+      "job_timeout_armed": 2,
+      "online_notifications": 1,
+      "original_frees": 11,
+      "page_counters": [
+        1,
+        1
+      ],
+      "pages": 1,
+      "reference_decrements": [
+        [
+          574619940,
+          0
+        ]
+      ],
+      "remaining_allocation_bytes": 20,
+      "retired_nodes": [
+        [
+          574620200,
+          [
+            [
+              574619924,
+              574619940,
+              1
+            ]
+          ]
+        ]
+      ],
+      "scheduled_work": [
+        574620200
+      ],
+      "status": "pass",
+      "task_runs": {
+        "completion": 3,
+        "job": 12,
+        "parser": 10,
+        "status": 3
+      },
+      "trace": [
+        {
+          "caller": "0x10009f80",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            0,
+            0,
+            574619764
+          ],
+          "step": 7047,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            0,
+            0,
+            574619764
+          ],
+          "step": 7456,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000f1b9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976400,
+            0,
+            570425344
+          ],
+          "step": 8160,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009fa9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            0,
+            0,
+            574620108
+          ],
+          "step": 9791,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            0,
+            0,
+            574620108
+          ],
+          "step": 10200,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            0,
+            0,
+            574620200
+          ],
+          "step": 11782,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            0,
+            0,
+            574620200
+          ],
+          "step": 12191,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            0,
+            0,
+            574619936
+          ],
+          "step": 13167,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            0,
+            0,
+            574619936
+          ],
+          "step": 13576,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a04d",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            0,
+            574619924
+          ],
+          "step": 14838,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            0,
+            574619924
+          ],
+          "step": 15247,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            0,
+            0
+          ],
+          "step": 15807,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            0,
+            0
+          ],
+          "step": 16216,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            0,
+            0
+          ],
+          "step": 16699,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            0,
+            0
+          ],
+          "step": 17108,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ee00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            11,
+            580976432,
+            268584572,
+            574620200
+          ],
+          "step": 17185,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1be",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            0,
+            0
+          ],
+          "step": 17783,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            0,
+            0
+          ],
+          "step": 18192,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x20000211",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574620200
+          ],
+          "step": 19387,
+          "thread": "0x22800300"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574620200
+          ],
+          "step": 19796,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ef0e",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574619940,
+            574619692
+          ],
+          "step": 21801,
+          "thread": "0x22800100"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "list_pop",
+          "next_head": "0x0",
+          "pc": "0x1001306b",
+          "queued_job_types": [],
+          "removed": "0x224000f8",
+          "step": 22705,
+          "thread": "0x22800100"
+        },
+        {
+          "args": [
+            3859812608,
+            1
+          ],
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 23705,
+          "thread": "0x22800200"
+        },
+        {
+          "caller": "0x1001115e",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            45,
+            24,
+            0,
+            2
+          ],
+          "step": 24034,
+          "thread": "0x22800200"
+        },
+        {
+          "caller": "0x10010a00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            15,
+            1,
+            0,
+            0
+          ],
+          "step": 24916,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            15,
+            1,
+            0,
+            0
+          ],
+          "step": 25325,
+          "thread": "0x22800100"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976400,
+            0,
+            570425344
+          ],
+          "step": 26425,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            536876546,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            1,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 26462,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            1,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574619940,
+            574619692
+          ],
+          "step": 26569,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            75497728,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            1,
+            1
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 26701,
+          "thread": "0x22800200"
+        }
+      ]
+    },
+    {
+      "completed_work": [
+        574620200
+      ],
+      "delivered_ticks": 0,
+      "documents": 1,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "fixture_elf_sha256": "5a2c5443bf74e2368d58174df5c704e739e8979de87a663cd5de52137f0e3469",
+      "fixture_source_sha256": "94b017e9210b9347f1fb08b235984700b6d4ebe1bd4a3a2a3796156df3c4f33a",
+      "host_services": [
+        "0x30000000"
+      ],
+      "input_bytes": 6692,
+      "input_sha256": "6b9dc98f083ae61b4e68502c8b40fe73a71b41e598921b477213c2f09d15f15e",
+      "instructions": 26983,
+      "job_timeout_armed": 2,
+      "online_notifications": 1,
+      "original_frees": 11,
+      "page_counters": [
+        1,
+        1
+      ],
+      "pages": 1,
+      "reference_decrements": [
+        [
+          574619940,
+          0
+        ]
+      ],
+      "remaining_allocation_bytes": 20,
+      "retired_nodes": [
+        [
+          574620200,
+          [
+            [
+              574619924,
+              574619940,
+              1
+            ]
+          ]
+        ]
+      ],
+      "scheduled_work": [
+        574620200
+      ],
+      "status": "pass",
+      "task_runs": {
+        "completion": 3,
+        "job": 12,
+        "parser": 10,
+        "status": 3
+      },
+      "trace": [
+        {
+          "caller": "0x10009f80",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            3435973836,
+            3435973836,
+            574619764
+          ],
+          "step": 7047,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            3435973836,
+            3435973836,
+            574619764
+          ],
+          "step": 7456,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000f1b9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976400,
+            0,
+            570425344
+          ],
+          "step": 8160,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009fa9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3435973836,
+            3435973836,
+            574620108
+          ],
+          "step": 9791,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3435973836,
+            3435973836,
+            574620108
+          ],
+          "step": 10200,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3435973836,
+            3435973836,
+            574620200
+          ],
+          "step": 11782,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3435973836,
+            3435973836,
+            574620200
+          ],
+          "step": 12191,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3435973836,
+            3435973836,
+            574619936
+          ],
+          "step": 13167,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3435973836,
+            3435973836,
+            574619936
+          ],
+          "step": 13576,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a04d",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            3435973836,
+            574619924
+          ],
+          "step": 14838,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            3435973836,
+            574619924
+          ],
+          "step": 15247,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 15807,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 16216,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 16699,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 17108,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ee00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            11,
+            580976432,
+            268584572,
+            574620200
+          ],
+          "step": 17185,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1be",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 17783,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 18192,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x20000211",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574620200
+          ],
+          "step": 19387,
+          "thread": "0x22800300"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574620200
+          ],
+          "step": 19796,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ef0e",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574619940,
+            574619692
+          ],
+          "step": 21801,
+          "thread": "0x22800100"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "list_pop",
+          "next_head": "0x0",
+          "pc": "0x1001306b",
+          "queued_job_types": [],
+          "removed": "0x224000f8",
+          "step": 22705,
+          "thread": "0x22800100"
+        },
+        {
+          "args": [
+            3859812608,
+            1
+          ],
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 23705,
+          "thread": "0x22800200"
+        },
+        {
+          "caller": "0x1001115e",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            45,
+            24,
+            0,
+            2
+          ],
+          "step": 24034,
+          "thread": "0x22800200"
+        },
+        {
+          "caller": "0x10010a00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            15,
+            1,
+            3435973836,
+            3435973836
+          ],
+          "step": 24916,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            15,
+            1,
+            3435973836,
+            3435973836
+          ],
+          "step": 25325,
+          "thread": "0x22800100"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976400,
+            0,
+            570425344
+          ],
+          "step": 26425,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            536876546,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            1,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 26462,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            1,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574619940,
+            574619692
+          ],
+          "step": 26569,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            75497728,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            1,
+            1
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 26701,
+          "thread": "0x22800200"
+        }
+      ]
+    },
+    {
+      "completed_work": [
+        574620200,
+        574627028,
+        574633856
+      ],
+      "delivered_ticks": 0,
+      "documents": 1,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "fixture_elf_sha256": "5a2c5443bf74e2368d58174df5c704e739e8979de87a663cd5de52137f0e3469",
+      "fixture_source_sha256": "94b017e9210b9347f1fb08b235984700b6d4ebe1bd4a3a2a3796156df3c4f33a",
+      "host_services": [
+        "0x30000000"
+      ],
+      "input_bytes": 19932,
+      "input_sha256": "3d34a33768c45403626e7672934c397da72b20667c7565589dd817be1fef330c",
+      "instructions": 50000,
+      "job_timeout_armed": 2,
+      "online_notifications": 1,
+      "original_frees": 25,
+      "page_counters": [
+        3,
+        3
+      ],
+      "pages": 3,
+      "reference_decrements": [
+        [
+          574619940,
+          0
+        ],
+        [
+          574626768,
+          0
+        ],
+        [
+          574633596,
+          0
+        ]
+      ],
+      "remaining_allocation_bytes": 20,
+      "retired_nodes": [
+        [
+          574620200,
+          [
+            [
+              574619924,
+              574619940,
+              1
+            ]
+          ]
+        ],
+        [
+          574627028,
+          [
+            [
+              574626752,
+              574626768,
+              1
+            ]
+          ]
+        ],
+        [
+          574633856,
+          [
+            [
+              574633580,
+              574633596,
+              1
+            ]
+          ]
+        ]
+      ],
+      "scheduled_work": [
+        574620200,
+        574627028,
+        574633856
+      ],
+      "status": "pass",
+      "task_runs": {
+        "completion": 5,
+        "job": 26,
+        "parser": 22,
+        "status": 3
+      },
+      "trace": [
+        {
+          "caller": "0x10009f80",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            0,
+            0,
+            574619764
+          ],
+          "step": 7047,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            0,
+            0,
+            574619764
+          ],
+          "step": 7456,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000f1b9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976400,
+            0,
+            570425344
+          ],
+          "step": 8160,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009fa9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            0,
+            0,
+            574620108
+          ],
+          "step": 9791,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            0,
+            0,
+            574620108
+          ],
+          "step": 10200,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            0,
+            0,
+            574620200
+          ],
+          "step": 11782,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            0,
+            0,
+            574620200
+          ],
+          "step": 12191,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            0,
+            0,
+            574619936
+          ],
+          "step": 13167,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            0,
+            0,
+            574619936
+          ],
+          "step": 13576,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a04d",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            0,
+            574619924
+          ],
+          "step": 14838,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            0,
+            574619924
+          ],
+          "step": 15247,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            0,
+            0
+          ],
+          "step": 15807,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            0,
+            0
+          ],
+          "step": 16216,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            0,
+            0
+          ],
+          "step": 16699,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            0,
+            0
+          ],
+          "step": 17108,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ee00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            11,
+            580976432,
+            268584572,
+            574620200
+          ],
+          "step": 17185,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009fa9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3,
+            0,
+            574626936
+          ],
+          "step": 18517,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3,
+            0,
+            574626936
+          ],
+          "step": 18926,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3,
+            0,
+            574627028
+          ],
+          "step": 20618,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3,
+            0,
+            574627028
+          ],
+          "step": 21027,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3,
+            0,
+            574626752
+          ],
+          "step": 21884,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3,
+            0,
+            574626752
+          ],
+          "step": 22293,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a04d",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            0,
+            574626752
+          ],
+          "step": 23597,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            0,
+            574626752
+          ],
+          "step": 24006,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            0,
+            0
+          ],
+          "step": 24566,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            0,
+            0
+          ],
+          "step": 24975,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            0,
+            0
+          ],
+          "step": 25458,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            0,
+            0
+          ],
+          "step": 25867,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ee00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            11,
+            580976432,
+            268584572,
+            574627028
+          ],
+          "step": 25956,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009fa9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3,
+            0,
+            574633764
+          ],
+          "step": 27421,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3,
+            0,
+            574633764
+          ],
+          "step": 27830,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3,
+            0,
+            574633856
+          ],
+          "step": 29642,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3,
+            0,
+            574633856
+          ],
+          "step": 30051,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3,
+            0,
+            574633584
+          ],
+          "step": 30929,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3,
+            0,
+            574633584
+          ],
+          "step": 31338,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a04d",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            0,
+            574633580
+          ],
+          "step": 32685,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            0,
+            574633580
+          ],
+          "step": 33094,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            0,
+            0
+          ],
+          "step": 33654,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            0,
+            0
+          ],
+          "step": 34063,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            0,
+            0
+          ],
+          "step": 34546,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            0,
+            0
+          ],
+          "step": 34955,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ee00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            11,
+            580976432,
+            268584572,
+            574633856
+          ],
+          "step": 35056,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1be",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            0,
+            0
+          ],
+          "step": 35654,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            0,
+            0
+          ],
+          "step": 36063,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x20000211",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574620200
+          ],
+          "step": 37258,
+          "thread": "0x22800300"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574620200
+          ],
+          "step": 37667,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x20000211",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574627028
+          ],
+          "step": 39841,
+          "thread": "0x22800300"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574627028
+          ],
+          "step": 40250,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x20000211",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574633856
+          ],
+          "step": 42420,
+          "thread": "0x22800300"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574633856
+          ],
+          "step": 42829,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ef0e",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574633596,
+            574619692
+          ],
+          "step": 44818,
+          "thread": "0x22800100"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "list_pop",
+          "next_head": "0x0",
+          "pc": "0x1001306b",
+          "queued_job_types": [],
+          "removed": "0x224000f8",
+          "step": 45722,
+          "thread": "0x22800100"
+        },
+        {
+          "args": [
+            3859812608,
+            1
+          ],
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 46722,
+          "thread": "0x22800200"
+        },
+        {
+          "caller": "0x1001115e",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            45,
+            24,
+            0,
+            2
+          ],
+          "step": 47051,
+          "thread": "0x22800200"
+        },
+        {
+          "caller": "0x10010a00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            15,
+            1,
+            0,
+            0
+          ],
+          "step": 47933,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            15,
+            1,
+            0,
+            0
+          ],
+          "step": 48342,
+          "thread": "0x22800100"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976400,
+            0,
+            570425344
+          ],
+          "step": 49442,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            536876546,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            1,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 49479,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            1,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574633596,
+            574619692
+          ],
+          "step": 49586,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            75497728,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            1,
+            1
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 49718,
+          "thread": "0x22800200"
+        }
+      ]
+    },
+    {
+      "completed_work": [
+        574620200,
+        574627028,
+        574633856
+      ],
+      "delivered_ticks": 0,
+      "documents": 1,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "fixture_elf_sha256": "5a2c5443bf74e2368d58174df5c704e739e8979de87a663cd5de52137f0e3469",
+      "fixture_source_sha256": "94b017e9210b9347f1fb08b235984700b6d4ebe1bd4a3a2a3796156df3c4f33a",
+      "host_services": [
+        "0x30000000"
+      ],
+      "input_bytes": 19932,
+      "input_sha256": "3d34a33768c45403626e7672934c397da72b20667c7565589dd817be1fef330c",
+      "instructions": 50000,
+      "job_timeout_armed": 2,
+      "online_notifications": 1,
+      "original_frees": 25,
+      "page_counters": [
+        3,
+        3
+      ],
+      "pages": 3,
+      "reference_decrements": [
+        [
+          574619940,
+          0
+        ],
+        [
+          574626768,
+          0
+        ],
+        [
+          574633596,
+          0
+        ]
+      ],
+      "remaining_allocation_bytes": 20,
+      "retired_nodes": [
+        [
+          574620200,
+          [
+            [
+              574619924,
+              574619940,
+              1
+            ]
+          ]
+        ],
+        [
+          574627028,
+          [
+            [
+              574626752,
+              574626768,
+              1
+            ]
+          ]
+        ],
+        [
+          574633856,
+          [
+            [
+              574633580,
+              574633596,
+              1
+            ]
+          ]
+        ]
+      ],
+      "scheduled_work": [
+        574620200,
+        574627028,
+        574633856
+      ],
+      "status": "pass",
+      "task_runs": {
+        "completion": 5,
+        "job": 26,
+        "parser": 22,
+        "status": 3
+      },
+      "trace": [
+        {
+          "caller": "0x10009f80",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            3435973836,
+            3435973836,
+            574619764
+          ],
+          "step": 7047,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            3435973836,
+            3435973836,
+            574619764
+          ],
+          "step": 7456,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000f1b9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976400,
+            0,
+            570425344
+          ],
+          "step": 8160,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009fa9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3435973836,
+            3435973836,
+            574620108
+          ],
+          "step": 9791,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3435973836,
+            3435973836,
+            574620108
+          ],
+          "step": 10200,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3435973836,
+            3435973836,
+            574620200
+          ],
+          "step": 11782,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3435973836,
+            3435973836,
+            574620200
+          ],
+          "step": 12191,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3435973836,
+            3435973836,
+            574619936
+          ],
+          "step": 13167,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3435973836,
+            3435973836,
+            574619936
+          ],
+          "step": 13576,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a04d",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            3435973836,
+            574619924
+          ],
+          "step": 14838,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            3435973836,
+            574619924
+          ],
+          "step": 15247,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 15807,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 16216,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 16699,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 17108,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ee00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            11,
+            580976432,
+            268584572,
+            574620200
+          ],
+          "step": 17185,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009fa9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3,
+            3435973836,
+            574626936
+          ],
+          "step": 18517,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3,
+            3435973836,
+            574626936
+          ],
+          "step": 18926,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3,
+            3435973836,
+            574627028
+          ],
+          "step": 20618,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3,
+            3435973836,
+            574627028
+          ],
+          "step": 21027,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3,
+            3435973836,
+            574626752
+          ],
+          "step": 21884,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3,
+            3435973836,
+            574626752
+          ],
+          "step": 22293,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a04d",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            3435973836,
+            574626752
+          ],
+          "step": 23597,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            3435973836,
+            574626752
+          ],
+          "step": 24006,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 24566,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 24975,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 25458,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 25867,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ee00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            11,
+            580976432,
+            268584572,
+            574627028
+          ],
+          "step": 25956,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009fa9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3,
+            3435973836,
+            574633764
+          ],
+          "step": 27421,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3,
+            3435973836,
+            574633764
+          ],
+          "step": 27830,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3,
+            3435973836,
+            574633856
+          ],
+          "step": 29642,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3,
+            3435973836,
+            574633856
+          ],
+          "step": 30051,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3,
+            3435973836,
+            574633584
+          ],
+          "step": 30929,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3,
+            3435973836,
+            574633584
+          ],
+          "step": 31338,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a04d",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            3435973836,
+            574633580
+          ],
+          "step": 32685,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            3435973836,
+            574633580
+          ],
+          "step": 33094,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 33654,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 34063,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 34546,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 34955,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ee00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            11,
+            580976432,
+            268584572,
+            574633856
+          ],
+          "step": 35056,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1be",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 35654,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 36063,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x20000211",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574620200
+          ],
+          "step": 37258,
+          "thread": "0x22800300"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574620200
+          ],
+          "step": 37667,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x20000211",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574627028
+          ],
+          "step": 39841,
+          "thread": "0x22800300"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574627028
+          ],
+          "step": 40250,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x20000211",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574633856
+          ],
+          "step": 42420,
+          "thread": "0x22800300"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574633856
+          ],
+          "step": 42829,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ef0e",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574633596,
+            574619692
+          ],
+          "step": 44818,
+          "thread": "0x22800100"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "list_pop",
+          "next_head": "0x0",
+          "pc": "0x1001306b",
+          "queued_job_types": [],
+          "removed": "0x224000f8",
+          "step": 45722,
+          "thread": "0x22800100"
+        },
+        {
+          "args": [
+            3859812608,
+            1
+          ],
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 46722,
+          "thread": "0x22800200"
+        },
+        {
+          "caller": "0x1001115e",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            45,
+            24,
+            0,
+            2
+          ],
+          "step": 47051,
+          "thread": "0x22800200"
+        },
+        {
+          "caller": "0x10010a00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            15,
+            1,
+            3435973836,
+            3435973836
+          ],
+          "step": 47933,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            15,
+            1,
+            3435973836,
+            3435973836
+          ],
+          "step": 48342,
+          "thread": "0x22800100"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976400,
+            0,
+            570425344
+          ],
+          "step": 49442,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            536876546,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            1,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 49479,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            1,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574633596,
+            574619692
+          ],
+          "step": 49586,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            75497728,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            1,
+            1
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 49718,
+          "thread": "0x22800200"
+        }
+      ]
+    },
+    {
+      "completed_work": [
+        574620200,
+        574627232,
+        574634264
+      ],
+      "delivered_ticks": 0,
+      "documents": 3,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "fixture_elf_sha256": "829474da0a49c1f82eb0318504ab0c95be4349440609fdafcc1c832e82f8189a",
+      "fixture_source_sha256": "e4b920ebccf5edbfaf654758240cfff4a4b36742ce399e1674d56000ecfc5911",
+      "host_services": [
+        "0x30000000"
+      ],
+      "input_bytes": 20076,
+      "input_sha256": "81c411c090fd925a45a712f227d99b05d1a9c8adbe24ae5899f157c0a68085b5",
+      "instructions": 63081,
+      "job_timeout_armed": 2,
+      "online_notifications": 1,
+      "original_frees": 33,
+      "page_counters": [
+        3,
+        3
+      ],
+      "pages": 3,
+      "reference_decrements": [
+        [
+          574619940,
+          0
+        ],
+        [
+          574626972,
+          0
+        ],
+        [
+          574634004,
+          0
+        ]
+      ],
+      "remaining_allocation_bytes": 20,
+      "retired_nodes": [
+        [
+          574620200,
+          [
+            [
+              574619924,
+              574619940,
+              1
+            ]
+          ]
+        ],
+        [
+          574627232,
+          [
+            [
+              574626956,
+              574626972,
+              1
+            ]
+          ]
+        ],
+        [
+          574634264,
+          [
+            [
+              574633988,
+              574634004,
+              1
+            ]
+          ]
+        ]
+      ],
+      "scheduled_work": [
+        574620200,
+        574627232,
+        574634264
+      ],
+      "status": "pass",
+      "task_runs": {
+        "completion": 5,
+        "job": 30,
+        "parser": 26,
+        "status": 3
+      },
+      "trace": [
+        {
+          "caller": "0x10009f80",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            0,
+            0,
+            574619764
+          ],
+          "step": 7047,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            0,
+            0,
+            574619764
+          ],
+          "step": 7456,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000f1b9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976400,
+            0,
+            570425344
+          ],
+          "step": 8160,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009fa9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            0,
+            0,
+            574620108
+          ],
+          "step": 9791,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            0,
+            0,
+            574620108
+          ],
+          "step": 10200,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            0,
+            0,
+            574620200
+          ],
+          "step": 11782,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            0,
+            0,
+            574620200
+          ],
+          "step": 12191,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            0,
+            0,
+            574619936
+          ],
+          "step": 13167,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            0,
+            0,
+            574619936
+          ],
+          "step": 13576,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a04d",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            0,
+            574619924
+          ],
+          "step": 14838,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            0,
+            574619924
+          ],
+          "step": 15247,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            0,
+            0
+          ],
+          "step": 15807,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            0,
+            0
+          ],
+          "step": 16216,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            0,
+            0
+          ],
+          "step": 16699,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            0,
+            0
+          ],
+          "step": 17108,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ee00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            11,
+            580976432,
+            268584572,
+            574620200
+          ],
+          "step": 17185,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1be",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            0,
+            0
+          ],
+          "step": 17783,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            0,
+            0
+          ],
+          "step": 18192,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009f80",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            3,
+            0,
+            574626824
+          ],
+          "step": 19820,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            3,
+            0,
+            574626824
+          ],
+          "step": 20229,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009fa9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3,
+            0,
+            574627140
+          ],
+          "step": 21890,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3,
+            0,
+            574627140
+          ],
+          "step": 22299,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3,
+            0,
+            574627232
+          ],
+          "step": 24061,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3,
+            0,
+            574627232
+          ],
+          "step": 24470,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3,
+            0,
+            574626960
+          ],
+          "step": 25384,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3,
+            0,
+            574626960
+          ],
+          "step": 25793,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a04d",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            0,
+            574626956
+          ],
+          "step": 27104,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            0,
+            574626956
+          ],
+          "step": 27513,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            0,
+            0
+          ],
+          "step": 28073,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            0,
+            0
+          ],
+          "step": 28482,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            0,
+            0
+          ],
+          "step": 28965,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            0,
+            0
+          ],
+          "step": 29374,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ee00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            11,
+            580976432,
+            268584572,
+            574627232
+          ],
+          "step": 29470,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1be",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            0,
+            0
+          ],
+          "step": 30068,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            0,
+            0
+          ],
+          "step": 30477,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009f80",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            3,
+            0,
+            574633856
+          ],
+          "step": 32292,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            3,
+            0,
+            574633856
+          ],
+          "step": 32701,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009fa9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3,
+            0,
+            574634172
+          ],
+          "step": 34642,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3,
+            0,
+            574634172
+          ],
+          "step": 35051,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3,
+            0,
+            574634264
+          ],
+          "step": 36981,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3,
+            0,
+            574634264
+          ],
+          "step": 37390,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3,
+            0,
+            574634000
+          ],
+          "step": 38332,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3,
+            0,
+            574634000
+          ],
+          "step": 38741,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a04d",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            0,
+            574633988
+          ],
+          "step": 40171,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            0,
+            574633988
+          ],
+          "step": 40580,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            0,
+            0
+          ],
+          "step": 41140,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            0,
+            0
+          ],
+          "step": 41549,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            0,
+            0
+          ],
+          "step": 42032,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            0,
+            0
+          ],
+          "step": 42441,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ee00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            11,
+            580976432,
+            268584572,
+            574634264
+          ],
+          "step": 42556,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1be",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            0,
+            0
+          ],
+          "step": 43154,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            0,
+            0
+          ],
+          "step": 43563,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x20000211",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574620200
+          ],
+          "step": 44758,
+          "thread": "0x22800300"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574620200
+          ],
+          "step": 45167,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ef0e",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574619940,
+            574619692
+          ],
+          "step": 47210,
+          "thread": "0x22800100"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "list_pop",
+          "next_head": "0x22400198",
+          "pc": "0x1001306b",
+          "queued_job_types": [],
+          "removed": "0x224000f8",
+          "step": 48114,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000f1b9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22400198",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976320,
+            0,
+            570425344
+          ],
+          "step": 48916,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x20000211",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22400198",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574627232
+          ],
+          "step": 49720,
+          "thread": "0x22800300"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22400198",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574627232
+          ],
+          "step": 50129,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ef0e",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22400198",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574626972,
+            574619764
+          ],
+          "step": 52176,
+          "thread": "0x22800100"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22400198",
+          "kind": "list_pop",
+          "next_head": "0x22401d10",
+          "pc": "0x1001306b",
+          "queued_job_types": [],
+          "removed": "0x22400198",
+          "step": 53080,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000f1b9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22401d10",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976320,
+            0,
+            570425344
+          ],
+          "step": 53882,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x20000211",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22401d10",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574634264
+          ],
+          "step": 54686,
+          "thread": "0x22800300"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22401d10",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574634264
+          ],
+          "step": 55095,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ef0e",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22401d10",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574634004,
+            574619792
+          ],
+          "step": 57151,
+          "thread": "0x22800100"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22401d10",
+          "kind": "list_pop",
+          "next_head": "0x0",
+          "pc": "0x1001306b",
+          "queued_job_types": [],
+          "removed": "0x22401d10",
+          "step": 58055,
+          "thread": "0x22800100"
+        },
+        {
+          "args": [
+            3859812608,
+            1
+          ],
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 59055,
+          "thread": "0x22800200"
+        },
+        {
+          "caller": "0x1001115e",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            45,
+            24,
+            0,
+            2
+          ],
+          "step": 59384,
+          "thread": "0x22800200"
+        },
+        {
+          "caller": "0x10010a00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            15,
+            1,
+            0,
+            0
+          ],
+          "step": 60266,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            15,
+            1,
+            0,
+            0
+          ],
+          "step": 60675,
+          "thread": "0x22800100"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976400,
+            0,
+            570425344
+          ],
+          "step": 61775,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            536876546,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            1,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 61812,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            1,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574619940,
+            574619692
+          ],
+          "step": 61919,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            75497728,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            1,
+            1
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 62051,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            1,
+            1
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976320,
+            0,
+            570425344
+          ],
+          "step": 62149,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            536876546,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            2,
+            1
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 62186,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            2,
+            1
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574626972,
+            574619764
+          ],
+          "step": 62293,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            75497728,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            2,
+            2
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 62425,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            2,
+            2
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976320,
+            0,
+            570425344
+          ],
+          "step": 62523,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            536876546,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            3,
+            2
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 62560,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            3,
+            2
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574634004,
+            574619792
+          ],
+          "step": 62667,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            75497728,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            3,
+            3
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 62799,
+          "thread": "0x22800200"
+        }
+      ]
+    },
+    {
+      "completed_work": [
+        574620200,
+        574627232,
+        574634264
+      ],
+      "delivered_ticks": 0,
+      "documents": 3,
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "fixture_elf_sha256": "829474da0a49c1f82eb0318504ab0c95be4349440609fdafcc1c832e82f8189a",
+      "fixture_source_sha256": "e4b920ebccf5edbfaf654758240cfff4a4b36742ce399e1674d56000ecfc5911",
+      "host_services": [
+        "0x30000000"
+      ],
+      "input_bytes": 20076,
+      "input_sha256": "81c411c090fd925a45a712f227d99b05d1a9c8adbe24ae5899f157c0a68085b5",
+      "instructions": 63081,
+      "job_timeout_armed": 2,
+      "online_notifications": 1,
+      "original_frees": 33,
+      "page_counters": [
+        3,
+        3
+      ],
+      "pages": 3,
+      "reference_decrements": [
+        [
+          574619940,
+          0
+        ],
+        [
+          574626972,
+          0
+        ],
+        [
+          574634004,
+          0
+        ]
+      ],
+      "remaining_allocation_bytes": 20,
+      "retired_nodes": [
+        [
+          574620200,
+          [
+            [
+              574619924,
+              574619940,
+              1
+            ]
+          ]
+        ],
+        [
+          574627232,
+          [
+            [
+              574626956,
+              574626972,
+              1
+            ]
+          ]
+        ],
+        [
+          574634264,
+          [
+            [
+              574633988,
+              574634004,
+              1
+            ]
+          ]
+        ]
+      ],
+      "scheduled_work": [
+        574620200,
+        574627232,
+        574634264
+      ],
+      "status": "pass",
+      "task_runs": {
+        "completion": 5,
+        "job": 30,
+        "parser": 26,
+        "status": 3
+      },
+      "trace": [
+        {
+          "caller": "0x10009f80",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            3435973836,
+            3435973836,
+            574619764
+          ],
+          "step": 7047,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            3435973836,
+            3435973836,
+            574619764
+          ],
+          "step": 7456,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000f1b9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976400,
+            0,
+            570425344
+          ],
+          "step": 8160,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009fa9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3435973836,
+            3435973836,
+            574620108
+          ],
+          "step": 9791,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3435973836,
+            3435973836,
+            574620108
+          ],
+          "step": 10200,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3435973836,
+            3435973836,
+            574620200
+          ],
+          "step": 11782,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3435973836,
+            3435973836,
+            574620200
+          ],
+          "step": 12191,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3435973836,
+            3435973836,
+            574619936
+          ],
+          "step": 13167,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3435973836,
+            3435973836,
+            574619936
+          ],
+          "step": 13576,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a04d",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            3435973836,
+            574619924
+          ],
+          "step": 14838,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            3435973836,
+            574619924
+          ],
+          "step": 15247,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 15807,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 16216,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 16699,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 17108,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ee00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            11,
+            580976432,
+            268584572,
+            574620200
+          ],
+          "step": 17185,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1be",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 17783,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 18192,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009f80",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            3,
+            3435973836,
+            574626824
+          ],
+          "step": 19820,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            3,
+            3435973836,
+            574626824
+          ],
+          "step": 20229,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009fa9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3,
+            3435973836,
+            574627140
+          ],
+          "step": 21890,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3,
+            3435973836,
+            574627140
+          ],
+          "step": 22299,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3,
+            3435973836,
+            574627232
+          ],
+          "step": 24061,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3,
+            3435973836,
+            574627232
+          ],
+          "step": 24470,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3,
+            3435973836,
+            574626960
+          ],
+          "step": 25384,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3,
+            3435973836,
+            574626960
+          ],
+          "step": 25793,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a04d",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            3435973836,
+            574626956
+          ],
+          "step": 27104,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            3435973836,
+            574626956
+          ],
+          "step": 27513,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 28073,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 28482,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 28965,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 29374,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ee00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            11,
+            580976432,
+            268584572,
+            574627232
+          ],
+          "step": 29470,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1be",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 30068,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 30477,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009f80",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            3,
+            3435973836,
+            574633856
+          ],
+          "step": 32292,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            1,
+            3,
+            3435973836,
+            574633856
+          ],
+          "step": 32701,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x10009fa9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3,
+            3435973836,
+            574634172
+          ],
+          "step": 34642,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            3,
+            3,
+            3435973836,
+            574634172
+          ],
+          "step": 35051,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3,
+            3435973836,
+            574634264
+          ],
+          "step": 36981,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            5,
+            3,
+            3435973836,
+            574634264
+          ],
+          "step": 37390,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3,
+            3435973836,
+            574634000
+          ],
+          "step": 38332,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            41,
+            3,
+            3435973836,
+            574634000
+          ],
+          "step": 38741,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a04d",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            3435973836,
+            574633988
+          ],
+          "step": 40171,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            42,
+            3,
+            3435973836,
+            574633988
+          ],
+          "step": 40580,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 41140,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            43,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 41549,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1ad",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 42032,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            6,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 42441,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ee00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            11,
+            580976432,
+            268584572,
+            574634264
+          ],
+          "step": 42556,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000a1be",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 43154,
+          "thread": "0x22800000"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            2,
+            3,
+            3435973836,
+            0
+          ],
+          "step": 43563,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x20000211",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574620200
+          ],
+          "step": 44758,
+          "thread": "0x22800300"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574620200
+          ],
+          "step": 45167,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ef0e",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574619940,
+            574619692
+          ],
+          "step": 47210,
+          "thread": "0x22800100"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x224000f8",
+          "kind": "list_pop",
+          "next_head": "0x22400198",
+          "pc": "0x1001306b",
+          "queued_job_types": [],
+          "removed": "0x224000f8",
+          "step": 48114,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000f1b9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22400198",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976320,
+            0,
+            570425344
+          ],
+          "step": 48916,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x20000211",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22400198",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574627232
+          ],
+          "step": 49720,
+          "thread": "0x22800300"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22400198",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574627232
+          ],
+          "step": 50129,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ef0e",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22400198",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574626972,
+            574619764
+          ],
+          "step": 52176,
+          "thread": "0x22800100"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22400198",
+          "kind": "list_pop",
+          "next_head": "0x22401d10",
+          "pc": "0x1001306b",
+          "queued_job_types": [],
+          "removed": "0x22400198",
+          "step": 53080,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000f1b9",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22401d10",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976320,
+            0,
+            570425344
+          ],
+          "step": 53882,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x20000211",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22401d10",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574634264
+          ],
+          "step": 54686,
+          "thread": "0x22800300"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22401d10",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            17,
+            0,
+            0,
+            574634264
+          ],
+          "step": 55095,
+          "thread": "0x22800100"
+        },
+        {
+          "caller": "0x1000ef0e",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22401d10",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 10,
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574634004,
+            574619792
+          ],
+          "step": 57151,
+          "thread": "0x22800100"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x22401d10",
+          "kind": "list_pop",
+          "next_head": "0x0",
+          "pc": "0x1001306b",
+          "queued_job_types": [],
+          "removed": "0x22401d10",
+          "step": 58055,
+          "thread": "0x22800100"
+        },
+        {
+          "args": [
+            3859812608,
+            1
+          ],
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 59055,
+          "thread": "0x22800200"
+        },
+        {
+          "caller": "0x1001115e",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 1,
+          "queued_job_types": [],
+          "raw_words": [
+            45,
+            24,
+            0,
+            2
+          ],
+          "step": 59384,
+          "thread": "0x22800200"
+        },
+        {
+          "caller": "0x10010a00",
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "send",
+          "pc": "0x10013658",
+          "queue": 3,
+          "queued_job_types": [],
+          "raw_words": [
+            15,
+            1,
+            3435973836,
+            3435973836
+          ],
+          "step": 60266,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "job_receive",
+          "pc": "0x1000e44f",
+          "queued_job_types": [],
+          "raw_words": [
+            15,
+            1,
+            3435973836,
+            3435973836
+          ],
+          "step": 60675,
+          "thread": "0x22800100"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            0,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976400,
+            0,
+            570425344
+          ],
+          "step": 61775,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            536876546,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            1,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 61812,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            1,
+            0
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574619940,
+            574619692
+          ],
+          "step": 61919,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            75497728,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            1,
+            1
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 62051,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            1,
+            1
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976320,
+            0,
+            570425344
+          ],
+          "step": 62149,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            536876546,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            2,
+            1
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 62186,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            2,
+            1
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574626972,
+            574619764
+          ],
+          "step": 62293,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            75497728,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            2,
+            2
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 62425,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            2,
+            2
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            46,
+            580976320,
+            0,
+            570425344
+          ],
+          "step": 62523,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            536876546,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            3,
+            2
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 62560,
+          "thread": "0x22800200"
+        },
+        {
+          "cancel": 0,
+          "counters": [
+            3,
+            2
+          ],
+          "head": "0x0",
+          "kind": "status_receive",
+          "pc": "0x100105bb",
+          "queued_job_types": [],
+          "raw_words": [
+            47,
+            0,
+            574634004,
+            574619792
+          ],
+          "step": 62667,
+          "thread": "0x22800200"
+        },
+        {
+          "args": [
+            75497728,
+            10
+          ],
+          "cancel": 0,
+          "counters": [
+            3,
+            3
+          ],
+          "head": "0x0",
+          "kind": "status_publish",
+          "pc": "0x10010838",
+          "queued_job_types": [],
+          "step": 62799,
+          "thread": "0x22800200"
+        }
+      ]
+    }
+  ],
+  "completed_lifecycles": 6,
+  "elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "findings": [
+    "Six native cases complete one page, three pages in one document, and three one-page documents, under both RAM fills. Original parser, JobMgr and StatusMgr use original allocation, queues, locks and scheduling. Runtime host services supply input bytes only.",
+    "A synthetic fourth task waits until parsing finishes, consumes queue-1 work in FIFO order, supplies successful consumption to the bounded original retirement tail, and sends message 17 through the original JobMgr queue. Reference fields change from one to zero through original stores; original event-set calls execute.",
+    "Original completion processing restores credits, updates page/document counters and releases all pool allocations apart from the persistent 20-byte ONLINE subscriber. All four tasks finish waiting on empty queues; JobMgr has a two-tick receive timeout armed. No ticks are delivered.",
+    "The first draft did not assemble because beqi cannot encode immediate 11. Replacing it with a register comparison allowed execution. The first executed draft then failed an incorrect descriptor-free oracle: stock cleanup frees the containing node (node+12 points to its embedded descriptor at node+16), not that descriptor address. Original bytes and pool partition evidence establish the correction."
+  ],
+  "instruction_audit": {
+    "0x1000f0ba": {
+      "args": [
+        6,
+        5,
+        12
+      ],
+      "bytes": "265203",
+      "op": "l32i"
+    },
+    "0x1000f0d4": {
+      "args": [
+        8,
+        6,
+        78
+      ],
+      "bytes": "286127",
+      "op": "l16ui"
+    },
+    "0x1000f0f6": {
+      "args": [
+        10,
+        6,
+        84
+      ],
+      "bytes": "2a6215",
+      "op": "l32i"
+    },
+    "0x1000f0fc": {
+      "args": [
+        268514312
+      ],
+      "bytes": "5810c2",
+      "op": "call8"
+    },
+    "0x1000f0ff": {
+      "args": [
+        10,
+        5,
+        5
+      ],
+      "bytes": "055a02",
+      "op": "or"
+    },
+    "0x1000f108": {
+      "args": [
+        268514312
+      ],
+      "bytes": "5810bf",
+      "op": "call8"
+    },
+    "0x10014329": {
+      "args": [
+        8,
+        9,
+        78
+      ],
+      "bytes": "289127",
+      "op": "l16ui"
+    },
+    "0x10014330": {
+      "args": [
+        8,
+        9,
+        78
+      ],
+      "bytes": "289527",
+      "op": "s16i"
+    },
+    "0x10014338": {
+      "args": [
+        268533164
+      ],
+      "bytes": "580e9c",
+      "op": "call8"
+    }
+  },
+  "limits": "Software execution only. FIFO consumption, completion success, task priorities, parser wrapper, initial readiness and descriptor backing values are fixtures. No PrintMgr, engine, DMA, IRQ prefix, custom raster instructions, automatic interrupts, physical printing or recovery executes. The retirement next-transfer path remains excluded. There is no claim that event bit 8 wakes JobMgr before message 17; controlled timed cleanup is a separate experiment.",
+  "source_sha256": {
+    "hp1020_qemu_multitask.py": "dfb253f0d98da507cdc4f88ed9a9d11aeabf779af0a1661ed967ecd7d5251bee",
+    "hp1020_qemu_page_pipeline.py": "102ffca2e1f1baa93fea7f09c998fc9e0956dc480fe70ac5e61bc1dd46cc254b",
+    "hp1020_qemu_pipeline.py": "c07eae06366ed4ce5e3f791a249fc979c6376b576373b513b5d8d3122ff45a67",
+    "hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
+    "hp1020_qemu_retire.py": "0f145f543870e8a227a1b263ef40b991f0ce33b2835ff5bb6056ee5510c26c1e",
+    "hp1020_qemu_scheduled_status.py": "9a715e6cd064d55994a3bfe89a8822cc9a6ce60e7f640193f2e9b52054244890",
+    "hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
+    "hp1020_qemu_timers.py": "34beea0dd76a324d546e38ebfe18603932c4afbd9133a9a37c98aaf775492f06",
+    "hp1020_stock_jobmgr_harness.py": "4c863cff55c7027ed3f348d188c93225dacc0c0442b9f71792c8db96ce7ced93",
+    "hp1020_stock_lifecycle_harness.py": "d08e611620854498fa9fd65e809fd042219fdbb4e0093d051c8972fb0b433f95",
+    "hp1020_stock_parser_harness.py": "87175798036cb376447ae70cb4a35f82f7a3f06a3ca166c89c9ca8b8e38bba90",
+    "hp1020_stock_pool.py": "bdc1ce5a01fdb9dff49ed82570e5094ba376eaa44e970fcd2ba3a5cf4743628b",
+    "validate-hp1020-native-pages.py": "d34030a3bd87df5fbbe7285428468beaa08e3009247d3e1b34e6d9dda9951961",
+    "validate-hp1020-stock-execution.py": "d11b91b1aeb0bdbc25f10a607129c6a9ac90f7b829184a5d16a3825b3630d6f5"
+  },
+  "status": "pass",
+  "total_cases": 6
+}

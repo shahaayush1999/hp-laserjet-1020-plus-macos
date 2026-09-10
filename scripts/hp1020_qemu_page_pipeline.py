@@ -69,7 +69,8 @@ completion_again:
  bnez a10,bad
 completion_received:
  l32i a8,a1,0
- beqi a8,11,completion_work
+ movi a9,11
+ beq a8,a9,completion_work
  movi a9,45
  bne a8,a9,bad
  l32i a8,a1,4
@@ -199,8 +200,12 @@ def run_pages(q,program,data,documents,pages,fill):
         subscriber = state.read(state.read(0x10006490,4)+24*4,4)
         assert [(a,n) for a,n,f in blocks if f&0x80000000]==[(subscriber-12,20)]
         assert all(state.pool+12<=p<state.pool+state.pool_size for p in frees)
-        for payload,_ in retired:
-            assert payload in frees
+        # Original cleanup loads node+12 into a6, then frees a5 (the node)
+        # through 0x1000f0ff..0x1000f108. The descriptor is embedded at +16;
+        # it is not a separately allocated pointer passed to free.
+        for _,nodes in nodes_by_work:
+            for node,payload,_ in nodes:
+                assert payload==node+16 and node in frees
         q3,q10 = state.read(0x100062d0,4),state.read(0x100063b4,4)
         for queue,thread,capacity in ((PARK,P,1),(q3,J,20),(q10,S,25),(Q1,C,25)):
             assert state.read(queue+16,4)==0 and state.read(queue+20,4)==capacity

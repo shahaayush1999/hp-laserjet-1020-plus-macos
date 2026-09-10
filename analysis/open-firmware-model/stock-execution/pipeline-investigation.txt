@@ -230,3 +230,808 @@ Warning: Problem : timeout. Will retry in 1 seconds. 2 retries left.
 Warning: Problem : timeout. Will retry in 2 seconds. 1 retries left.
 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (6) Could not resolve host: ftp.gnu.org
+
+=== 2026-09-10 resumed recovery and native pages ===
+Pinned compiler rebuilt successfully after resuming the same upstream archive. Full suite passed with 91 consistency checks before page edits.
+
+--- hp1020-native-pipeline-resume.log ---
+pipeline 1 documents, (5, 2, 15), slice 0, fill 0: pass
+pipeline 1 documents, (5, 2, 15), slice 0, fill 204: pass
+pipeline 1 documents, (2, 5, 15), slice 0, fill 0: pass
+pipeline 1 documents, (2, 5, 15), slice 0, fill 204: pass
+pipeline 1 documents, (5, 5, 5), slice 0, fill 0: pass
+pipeline 1 documents, (5, 5, 5), slice 0, fill 204: pass
+pipeline 1 documents, (5, 2, 1), slice 0, fill 0: pass
+pipeline 1 documents, (5, 2, 1), slice 0, fill 204: pass
+pipeline 3 documents, (5, 2, 15), slice 0, fill 0: pass
+pipeline 3 documents, (5, 2, 15), slice 0, fill 204: pass
+pipeline 3 documents, (2, 5, 15), slice 0, fill 0: pass
+pipeline 3 documents, (2, 5, 15), slice 0, fill 204: pass
+pipeline 3 documents, (5, 5, 5), slice 0, fill 0: pass
+pipeline 3 documents, (5, 5, 5), slice 0, fill 204: pass
+pipeline 3 documents, (5, 2, 1), slice 0, fill 0: pass
+pipeline 3 documents, (5, 2, 1), slice 0, fill 204: pass
+pipeline 13 documents, (5, 2, 15), slice 0, fill 0: pass
+pipeline 13 documents, (5, 2, 15), slice 0, fill 204: pass
+pipeline 13 documents, (2, 5, 15), slice 0, fill 0: pass
+pipeline 13 documents, (2, 5, 15), slice 0, fill 204: pass
+pipeline 13 documents, (5, 5, 5), slice 0, fill 0: reproduced_conditional_null_read
+pipeline 13 documents, (5, 5, 5), slice 0, fill 204: reproduced_conditional_null_read
+pipeline 13 documents, (5, 2, 1), slice 0, fill 0: pass
+pipeline 13 documents, (5, 2, 1), slice 0, fill 204: pass
+pipeline 10 documents, (5, 5, 5), slice 0, fill 0: pass
+pipeline 10 documents, (5, 5, 5), slice 0, fill 204: pass
+pipeline 11 documents, (5, 5, 5), slice 0, fill 0: reproduced_conditional_null_read
+pipeline 11 documents, (5, 5, 5), slice 0, fill 204: reproduced_conditional_null_read
+pipeline 10 documents, (15, 15, 15), slice 10, fill 0: pass
+pipeline 10 documents, (15, 15, 15), slice 10, fill 204: pass
+pipeline 11 documents, (15, 15, 15), slice 10, fill 0: reproduced_conditional_null_read
+pipeline 11 documents, (15, 15, 15), slice 10, fill 204: reproduced_conditional_null_read
+Original native pipeline: 26 lifecycles; 6 conditional stops
+
+--- hp1020-native-retirement-resume.log ---
+Original native retirement: 28 cases
+
+--- hp1020-full-resume.log ---
+Offline validation logs: /var/folders/46/5hjsxnq13752lvrwdm2q1fk80000gn/T//hp1020-validation.BiEe4j
+Running validate-hp1020-offline-analysis...
+PASS: validate-hp1020-offline-analysis
+Running validate-open-firmware-probes...
+PASS: validate-open-firmware-probes
+All offline checks passed. No printer was contacted.
+
+--- hp1020-first-page.log ---
+pages.S: Assembler messages:
+pages.S:135: Error: operand 2 of 'beqi' has invalid value '11'
+Traceback (most recent call last):
+  File "/tmp/hp1020-first-page.py", line 13, in <module>
+    result=run_pages(q,program,helper.stream(base),1,1,0)
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/hp1020_qemu_page_pipeline.py", line 126, in run_pages
+    subprocess.run([program.prefix+'-as','--text-section-literals','pages.S','-o','pages.o'],cwd=root,check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.5/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf-as', '--text-section-literals', 'pages.S', '-o', 'pages.o']' returned non-zero exit status 1.
+
+--- hp1020-first-page-retry.log ---
+Traceback (most recent call last):
+  File "/tmp/hp1020-first-page.py", line 13, in <module>
+    result=run_pages(q,program,helper.stream(base),1,1,0)
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/hp1020_qemu_page_pipeline.py", line 204, in run_pages
+    assert payload in frees
+           ^^^^^^^^^^^^^^^^
+AssertionError
+
+--- hp1020-native-pages.log ---
+native pages: documents=1 pages=1 fill=0: pass
+native pages: documents=1 pages=1 fill=204: pass
+native pages: documents=1 pages=3 fill=0: pass
+native pages: documents=1 pages=3 fill=204: pass
+native pages: documents=3 pages=3 fill=0: pass
+native pages: documents=3 pages=3 fill=204: pass
+Original native pages: 6 completed lifecycles
+
+--- Read-only failed page ownership capture ---
+{
+  "frees": [
+    574619696,
+    574619936,
+    574619936,
+    574620368,
+    574619924,
+    574620200,
+    574619692,
+    574620108,
+    574619764,
+    574619896,
+    574619692
+  ],
+  "scheduled": [
+    574620200
+  ],
+  "completed": [
+    574620200
+  ],
+  "retired": [
+    [
+      574619940,
+      0
+    ]
+  ],
+  "nodes_by_work": [
+    [
+      574620200,
+      [
+        [
+          574619924,
+          574619940,
+          1
+        ]
+      ]
+    ]
+  ],
+  "blocks": [
+    [
+      574619648,
+      20,
+      2147483648
+    ],
+    [
+      574619680,
+      60,
+      0
+    ],
+    [
+      574619752,
+      120,
+      0
+    ],
+    [
+      574619884,
+      16,
+      0
+    ],
+    [
+      574619912,
+      120,
+      0
+    ],
+    [
+      574620044,
+      40,
+      0
+    ],
+    [
+      574620096,
+      80,
+      0
+    ],
+    [
+      574620188,
+      148,
+      0
+    ],
+    [
+      574620348,
+      6380,
+      536870912
+    ],
+    [
+      574626740,
+      58432,
+      1073741824
+    ]
+  ],
+  "events": [
+    [
+      268580972,
+      8,
+      0
+    ]
+  ],
+  "counters": [
+    1,
+    1
+  ],
+  "selections": [
+    578814208,
+    578813952,
+    578814208,
+    578813952,
+    578814208,
+    578813952,
+    578814208,
+    578813952,
+    578814208,
+    578813952,
+    578814208,
+    578813952,
+    578814208,
+    578813952,
+    578814208,
+    578813952,
+    578814208,
+    578813952,
+    578814208,
+    578813952,
+    578814720,
+    578814208,
+    578814720,
+    578814464,
+    578814720,
+    578814464,
+    578814208,
+    578814464
+  ],
+  "trace": [
+    {
+      "step": 7047,
+      "pc": "0x10013658",
+      "thread": "0x22800000",
+      "head": "0x0",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "send",
+      "queue": 3,
+      "caller": "0x10009f80",
+      "raw_words": [
+        1,
+        0,
+        0,
+        574619764
+      ]
+    },
+    {
+      "step": 7456,
+      "pc": "0x1000e44f",
+      "thread": "0x22800100",
+      "head": "0x0",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "job_receive",
+      "raw_words": [
+        1,
+        0,
+        0,
+        574619764
+      ]
+    },
+    {
+      "step": 8160,
+      "pc": "0x10013658",
+      "thread": "0x22800100",
+      "head": "0x0",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "send",
+      "queue": 10,
+      "caller": "0x1000f1b9",
+      "raw_words": [
+        46,
+        580976400,
+        0,
+        570425344
+      ]
+    },
+    {
+      "step": 9791,
+      "pc": "0x10013658",
+      "thread": "0x22800000",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "send",
+      "queue": 3,
+      "caller": "0x10009fa9",
+      "raw_words": [
+        3,
+        0,
+        0,
+        574620108
+      ]
+    },
+    {
+      "step": 10200,
+      "pc": "0x1000e44f",
+      "thread": "0x22800100",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "job_receive",
+      "raw_words": [
+        3,
+        0,
+        0,
+        574620108
+      ]
+    },
+    {
+      "step": 11782,
+      "pc": "0x10013658",
+      "thread": "0x22800000",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "send",
+      "queue": 3,
+      "caller": "0x1000a1ad",
+      "raw_words": [
+        5,
+        0,
+        0,
+        574620200
+      ]
+    },
+    {
+      "step": 12191,
+      "pc": "0x1000e44f",
+      "thread": "0x22800100",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "job_receive",
+      "raw_words": [
+        5,
+        0,
+        0,
+        574620200
+      ]
+    },
+    {
+      "step": 13167,
+      "pc": "0x10013658",
+      "thread": "0x22800000",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "send",
+      "queue": 3,
+      "caller": "0x1000a1ad",
+      "raw_words": [
+        41,
+        0,
+        0,
+        574619936
+      ]
+    },
+    {
+      "step": 13576,
+      "pc": "0x1000e44f",
+      "thread": "0x22800100",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "job_receive",
+      "raw_words": [
+        41,
+        0,
+        0,
+        574619936
+      ]
+    },
+    {
+      "step": 14838,
+      "pc": "0x10013658",
+      "thread": "0x22800000",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "send",
+      "queue": 3,
+      "caller": "0x1000a04d",
+      "raw_words": [
+        42,
+        3,
+        0,
+        574619924
+      ]
+    },
+    {
+      "step": 15247,
+      "pc": "0x1000e44f",
+      "thread": "0x22800100",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "job_receive",
+      "raw_words": [
+        42,
+        3,
+        0,
+        574619924
+      ]
+    },
+    {
+      "step": 15807,
+      "pc": "0x10013658",
+      "thread": "0x22800000",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "send",
+      "queue": 3,
+      "caller": "0x1000a1ad",
+      "raw_words": [
+        43,
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "step": 16216,
+      "pc": "0x1000e44f",
+      "thread": "0x22800100",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "job_receive",
+      "raw_words": [
+        43,
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "step": 16699,
+      "pc": "0x10013658",
+      "thread": "0x22800000",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "send",
+      "queue": 3,
+      "caller": "0x1000a1ad",
+      "raw_words": [
+        6,
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "step": 17108,
+      "pc": "0x1000e44f",
+      "thread": "0x22800100",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "job_receive",
+      "raw_words": [
+        6,
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "step": 17185,
+      "pc": "0x10013658",
+      "thread": "0x22800100",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "send",
+      "queue": 1,
+      "caller": "0x1000ee00",
+      "raw_words": [
+        11,
+        580976432,
+        268584572,
+        574620200
+      ]
+    },
+    {
+      "step": 17783,
+      "pc": "0x10013658",
+      "thread": "0x22800000",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "send",
+      "queue": 3,
+      "caller": "0x1000a1be",
+      "raw_words": [
+        2,
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "step": 18192,
+      "pc": "0x1000e44f",
+      "thread": "0x22800100",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "job_receive",
+      "raw_words": [
+        2,
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "step": 19387,
+      "pc": "0x10013658",
+      "thread": "0x22800300",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "send",
+      "queue": 3,
+      "caller": "0x20000211",
+      "raw_words": [
+        17,
+        0,
+        0,
+        574620200
+      ]
+    },
+    {
+      "step": 19796,
+      "pc": "0x1000e44f",
+      "thread": "0x22800100",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "job_receive",
+      "raw_words": [
+        17,
+        0,
+        0,
+        574620200
+      ]
+    },
+    {
+      "step": 21801,
+      "pc": "0x10013658",
+      "thread": "0x22800100",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "send",
+      "queue": 10,
+      "caller": "0x1000ef0e",
+      "raw_words": [
+        47,
+        0,
+        574619940,
+        574619692
+      ]
+    },
+    {
+      "step": 22705,
+      "pc": "0x1001306b",
+      "thread": "0x22800100",
+      "head": "0x224000f8",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "list_pop",
+      "removed": "0x224000f8",
+      "next_head": "0x0"
+    },
+    {
+      "step": 23705,
+      "pc": "0x10010838",
+      "thread": "0x22800200",
+      "head": "0x0",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "status_publish",
+      "args": [
+        3859812608,
+        1
+      ]
+    },
+    {
+      "step": 24034,
+      "pc": "0x10013658",
+      "thread": "0x22800200",
+      "head": "0x0",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "send",
+      "queue": 1,
+      "caller": "0x1001115e",
+      "raw_words": [
+        45,
+        24,
+        0,
+        2
+      ]
+    },
+    {
+      "step": 24916,
+      "pc": "0x10013658",
+      "thread": "0x22800200",
+      "head": "0x0",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "send",
+      "queue": 3,
+      "caller": "0x10010a00",
+      "raw_words": [
+        15,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "step": 25325,
+      "pc": "0x1000e44f",
+      "thread": "0x22800100",
+      "head": "0x0",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "job_receive",
+      "raw_words": [
+        15,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "step": 26425,
+      "pc": "0x100105bb",
+      "thread": "0x22800200",
+      "head": "0x0",
+      "cancel": 0,
+      "counters": [
+        0,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "status_receive",
+      "raw_words": [
+        46,
+        580976400,
+        0,
+        570425344
+      ]
+    },
+    {
+      "step": 26462,
+      "pc": "0x10010838",
+      "thread": "0x22800200",
+      "head": "0x0",
+      "cancel": 0,
+      "counters": [
+        1,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "status_publish",
+      "args": [
+        536876546,
+        10
+      ]
+    },
+    {
+      "step": 26569,
+      "pc": "0x100105bb",
+      "thread": "0x22800200",
+      "head": "0x0",
+      "cancel": 0,
+      "counters": [
+        1,
+        0
+      ],
+      "queued_job_types": [],
+      "kind": "status_receive",
+      "raw_words": [
+        47,
+        0,
+        574619940,
+        574619692
+      ]
+    },
+    {
+      "step": 26701,
+      "pc": "0x10010838",
+      "thread": "0x22800200",
+      "head": "0x0",
+      "cancel": 0,
+      "counters": [
+        1,
+        1
+      ],
+      "queued_job_types": [],
+      "kind": "status_publish",
+      "args": [
+        75497728,
+        10
+      ]
+    }
+  ]
+}

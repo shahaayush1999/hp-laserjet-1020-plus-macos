@@ -977,11 +977,14 @@
       "documents": 13,
       "error": "unmapped RAM 0xc+4",
       "fill": 0,
+      "fixture_elf_sha256": "9d44f814d63fea085c0d3f3fbf379614dfafc4a983ebabdb165a990b332a9d77",
+      "fixture_source_sha256": "1970f961d3b2d0650656ad0a51f020a887f1a0fc2044fa5348aba9a3bb581cbe",
       "head": "0x0",
       "host_services": [
         "0x30000000"
       ],
       "input_bytes_consumed": 936,
+      "input_sha256": "8483b77ff4c80decca4b941615224ed8b7b2a7a09bb869253779b88402d71ce4",
       "job_receive_tail": [
         15,
         2,
@@ -4611,11 +4614,14 @@
       "documents": 13,
       "error": "unmapped RAM 0xc+4",
       "fill": 204,
+      "fixture_elf_sha256": "9d44f814d63fea085c0d3f3fbf379614dfafc4a983ebabdb165a990b332a9d77",
+      "fixture_source_sha256": "1970f961d3b2d0650656ad0a51f020a887f1a0fc2044fa5348aba9a3bb581cbe",
       "head": "0x0",
       "host_services": [
         "0x30000000"
       ],
       "input_bytes_consumed": 936,
+      "input_sha256": "8483b77ff4c80decca4b941615224ed8b7b2a7a09bb869253779b88402d71ce4",
       "job_receive_tail": [
         15,
         2,
@@ -8499,11 +8505,14 @@
       "documents": 11,
       "error": "unmapped RAM 0xc+4",
       "fill": 0,
+      "fixture_elf_sha256": "6e64d51c8107e50c601fbc9513ed71b1713bdf985a6626e32c581b5c7f7ced7b",
+      "fixture_source_sha256": "26ecab04d5a99491ce5370952e78c2e0de0bb1b69b65660491e9b528266c3e2d",
       "head": "0x0",
       "host_services": [
         "0x30000000"
       ],
       "input_bytes_consumed": 792,
+      "input_sha256": "4fc122aa4603dfb0ce3eef024b2d7518e16d7c749967f52e5e1bb511ad45c28d",
       "job_receive_tail": [
         15,
         2,
@@ -11783,11 +11792,14 @@
       "documents": 11,
       "error": "unmapped RAM 0xc+4",
       "fill": 204,
+      "fixture_elf_sha256": "6e64d51c8107e50c601fbc9513ed71b1713bdf985a6626e32c581b5c7f7ced7b",
+      "fixture_source_sha256": "26ecab04d5a99491ce5370952e78c2e0de0bb1b69b65660491e9b528266c3e2d",
       "head": "0x0",
       "host_services": [
         "0x30000000"
       ],
       "input_bytes_consumed": 792,
+      "input_sha256": "4fc122aa4603dfb0ce3eef024b2d7518e16d7c749967f52e5e1bb511ad45c28d",
       "job_receive_tail": [
         15,
         2,
@@ -15189,11 +15201,14 @@
       "documents": 11,
       "error": "unmapped RAM 0xc+4",
       "fill": 0,
+      "fixture_elf_sha256": "f0166398b33fc3a2b2997711957dc06184f5f7bda80a4139077552165dc7415c",
+      "fixture_source_sha256": "25a8d5d670dc1b6a2bbbb3e92828ec769d4397b69e3e12d1b32b6cefb40afdd0",
       "head": "0x0",
       "host_services": [
         "0x30000000"
       ],
       "input_bytes_consumed": 792,
+      "input_sha256": "4fc122aa4603dfb0ce3eef024b2d7518e16d7c749967f52e5e1bb511ad45c28d",
       "job_receive_tail": [
         15,
         2,
@@ -18473,11 +18488,14 @@
       "documents": 11,
       "error": "unmapped RAM 0xc+4",
       "fill": 204,
+      "fixture_elf_sha256": "f0166398b33fc3a2b2997711957dc06184f5f7bda80a4139077552165dc7415c",
+      "fixture_source_sha256": "25a8d5d670dc1b6a2bbbb3e92828ec769d4397b69e3e12d1b32b6cefb40afdd0",
       "head": "0x0",
       "host_services": [
         "0x30000000"
       ],
       "input_bytes_consumed": 792,
+      "input_sha256": "4fc122aa4603dfb0ce3eef024b2d7518e16d7c749967f52e5e1bb511ad45c28d",
       "job_receive_tail": [
         15,
         2,
@@ -21919,7 +21937,7 @@
   "reproduced_conditional_stops": 6,
   "source_sha256": {
     "hp1020_qemu_multitask.py": "dfb253f0d98da507cdc4f88ed9a9d11aeabf779af0a1661ed967ecd7d5251bee",
-    "hp1020_qemu_pipeline.py": "249652f9ae6ce5ae67c8c74f5e06ea8c87b14ecf157666bad17f7386603f2e75",
+    "hp1020_qemu_pipeline.py": "c07eae06366ed4ce5e3f791a249fc979c6376b576373b513b5d8d3122ff45a67",
     "hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
     "hp1020_qemu_scheduled_status.py": "9a715e6cd064d55994a3bfe89a8822cc9a6ce60e7f640193f2e9b52054244890",
     "hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",

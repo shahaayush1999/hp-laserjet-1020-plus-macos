@@ -174,59 +174,44 @@ boundary for later native JobMgr integration, not a physical timing uncertainty.
 
 ## In-progress handoff: native pipeline (2026-09-09)
 
-Resumed 2026-09-10. The saved failure is now traced and classified; the drafts
-are no longer an unexamined success claim. `validate-hp1020-native-pipeline.py`
-checks 26 completed lifecycles and six **separate conditional null reads** across
-32 QEMU cases. The owner then requested another full handoff; research is paused,
-not exhausted. `stock-execution/pipeline.json` retains fault traces and original
-instruction bytes; `pipeline.md` summarizes scope. Raw logs, including the
-aggregate/compiler-recovery failure, are in `pipeline-investigation.txt`.
-The read-only boundary experiment is in `pipeline-boundary-capture.json`.
-No QEMU, research-validator or compiler-recovery process was running at handoff.
+Resumed 2026-09-10. Pinned GCC recovery completed after an interrupted download
+was resumed. The unchanged build script verified the archive checksum, original
+instruction encoding fixtures, and BE/call0 compiler profile, then installed
+headers and libgcc. The latest sources passed the native matrix (26 completed
+empty-document lifecycles, six separately classified conditional null reads),
+all 28 retirement cases, then the full offline suite sequentially. The aggregate
+now passes **91 consistency checks**. The historical 89-check baseline and old
+source snapshots remain provenance, not the current validation limit.
 
-**Validation status:** the last fully validated baseline remains `e7bef56` (89
-consistency checks), inherited through handoff commit `fe67c4f`. The focused
-native matrix passed 26 lifecycles plus six conditional stops; standalone
-retirement passed 28 cases. However, three source files changed after their
-corresponding successful reports, and the full aggregate has not passed:
+The first page draft was then assembled/executed. Its invalid `beqi ...,11` was
+replaced by a register comparison. Execution exposed a bad oracle: an embedded
+descriptor address was expected in the free-call list. Original cleanup loads
+node+12 into a6, then passes a5 (the containing node) to free at
+`0x1000f0ff..0x1000f108`. The corrected assertion checks node ownership and the
+observed descriptor offset, retaining the full pool-partition oracle.
+`validate-hp1020-native-pages.py` passed six focused cases: one page, three pages
+in one document, three one-page documents, each with both fills. These are
+completed software lifecycles with supplied FIFO consumption, not device proof.
+`stock-execution/pages.json` retains traces, input/fixture/source hashes and
+byte-audited cleanup/retirement instructions. It is not yet in the aggregate.
 
-- `hp1020_qemu_pipeline.py`: extracted existing initialization into
-  `prepare_pipeline` and added input/fixture hashes to guarded-stop details.
-  The matrix was not rerun after this refactor.
-- `validate-hp1020-native-retirement.py`: added an assertion that original event
-  creation with null current/ordinary system returns 19, and documented the
-  constructor-caller fixture. This new assertion was not executed.
-- `hp1020_qemu_retire.py`: changed only the old unexecuted-draft docstring after
-  standalone execution passed; the assembly is unchanged.
+### Immediate next experiment
 
-The existing report source hashes intentionally retain the versions actually
-run. `pipeline-boundary-capture.json` includes exact embedded source snapshots
-for these three old versions, each checked against its successful report hash.
-Do not edit report hashes by hand to hide the mismatch; rerun the generators.
-Aggregate wiring in `validate-hp1020-offline-analysis.sh` and two added checks in
-`check-hp1020-analysis-consistency.py` are provisional until full validation passes.
-The new native page module is an additional unexecuted draft, described below.
+Integrate a bounded two-tick interval after retirement and before message 17,
+using the already-audited original tick/timer/context paths. Observe original
+JobMgr event-driven raster cleanup before the supplied page completion. Keep
+zero-tick cases as controls. Do not infer automatic IRQs, elapsed time, physical
+consumption or engine behavior. Investigate unexpected failures before expanding
+scope; preserve execution snapshots/hashes when changing tested sources.
 
-### Immediate recovery and resume order
-
-The attempted `scripts/validate.sh` stopped at the synthetic C target build:
-`fatal error: stddef.h: No such file or directory`. The compiler executable and
-profile check survive at `/tmp/hp1020-xtensa-gcc14`, but its installed GCC include
-files and `libgcc.a` are missing. The expected archive
-`/tmp/hp1020-gcc-14.3.0.tar.xz` and build Makefile are also missing. Follow
-`scripts/build-xtensa-gcc-manual.sh` from the tool-recovery map. Its first attempted
-archive download failed in the sandbox with curl exit 6 / unresolved
-`ftp.gnu.org`; no source checksum or build stage was reached. Retry the pinned
-recovery with network permission, preserving its SHA-256/configuration gates.
-Do not improvise target headers or trust executable presence as a complete tool.
-
-After recovery, rerun the two native validators to refresh their current-source
-reports, then `scripts/validate.sh` sequentially before a validated checkpoint.
-QEMU also requires its private Unix debugger socket: its sandboxed launch failed,
-while explicitly permitted offline launches succeeded. This does not require
-network/USB access for QEMU. All aggregate steps before the C target build passed;
-no later aggregate step ran. Syntax and diff/reference/source-snapshot checks
-are the final handoff checks, not a replacement for full execution validation.
+Recovery logs for this session are `/tmp/hp1020-gcc-recovery-resume.log`,
+`/tmp/hp1020-gcc-download-resume.log`, `/tmp/hp1020-gcc-rebuild-resume.log`;
+focused logs are `/tmp/hp1020-native-pipeline-resume.log`,
+`/tmp/hp1020-native-retirement-resume.log`, `/tmp/hp1020-native-pages.log`.
+Full suite log: `/tmp/hp1020-full-resume.log` (contains child log directory).
+The earlier raw failure captures and exact old tested source snapshots remain
+in `pipeline-investigation.txt` and `pipeline-boundary-capture.json`.
+QEMU uses a permitted private Unix debugger socket and no printer connection.
 
 ### Resolved failure and fixture audit
 
@@ -263,7 +248,7 @@ original locks, queues and priority scheduling. Runtime host services supply onl
 input bytes; no producer replay or heap migration occurs. The parser wrapper calls
 `0x10009d34` once per reconstructed document, not once per raw sample/trailer.
 `prepare_pipeline` extracts this setup for the next experiment; that extraction
-has syntax checks only so far. The datastore
+now passes the current-source native matrix. The datastore
 constructor stops at `0x10010db3`; its backing-value/event initialization remains
 omitted. PrintMgr is absent, with its ONLINE packet `[45,24,0,2]` retained. No
 PrintMgr cancellation request occurs in these empty-document fault traces.
@@ -286,49 +271,31 @@ Both mutations stop at excluded PC `0x1001434b` before any next-transfer path.
 An initial standalone setup failed the expected-zero event-creation assertion.
 Static control flow identifies the null-current/ordinary-system caller check;
 the corrected fixture supplies a nonwaiting constructor caller, after which all
-28 cases passed. A subsequent negative assertion expects result 19 for the
-original null-caller setup, but that added assertion has not run yet. Do not
-claim its result as an executed observation. No real task, engine, DMA or IRQ
+28 cases passed. The added negative assertion now executes and confirms result 19 for the
+original null-caller setup. No real task, engine, DMA or IRQ
 prefix is inferred from this standalone setup.
 The wrapper itself supplies consumed nodes, completion flag 1 and zero pending
 cursor. `stock-execution/retirement.json`/`.md` own the execution evidence.
 
-### Next experiment — saved, unexecuted page draft
+### Executed native page fixture
 
-`scripts/hp1020_qemu_page_pipeline.py` now contains `page_source(...)` and
-`run_pages(q, program, data, documents, pages, fill)`. It has passed Python syntax
-checks only. **No generated page-fixture assembly has been assembled or executed,
-no page-pipeline validator/report exists, and none of its oracles is evidence yet.**
-It is not called by the aggregate. Inspect and trace its first execution before
-expanding the matrix or claiming native page completion.
+`hp1020_qemu_page_pipeline.py` reuses `prepare_pipeline` and the native bootstrap
+with three asserted insertion anchors. A synthetic completion task runs with
+JobMgr 2, parser 5, completion 15, StatusMgr 31. It waits for readiness bit 8
+published by the parser after its final document, drains original queue-1 message
+11, executes bounded `retire_work`, and sends initialized message 17 through the
+original indexed queue. It also validates ONLINE `[45,24,0,2]`. Other consumer
+packet types hit a guarded break. No active-work cancellation is modeled.
 
-The draft reuses `prepare_pipeline` and the native bootstrap with three asserted
-source-insertion anchors. It adds a synthetic completion task with JobMgr 2,
-parser 5, completion 15, StatusMgr 31. The parser signals original readiness flag
-bit 8 after its last document, and completion waits for that bit through the
-original event-get primitive. It consumes original queue-1 work message 11,
-executes the bounded original `retire_work`, and sends fully initialized message
-17 through the original indexed queue. It also drains/validates ONLINE packet
-`[45,24,0,2]`; other consumer packet types hit the fixture's guarded break.
-No active-work cancellation or physical-stop behavior is modeled.
-
-Proposed first run: decode `matrix-a4_default.zjs` with the helper in
-`validate-hp1020-stock-execution.py`, rebuild using `helper.stream(base)`, then
-call `run_pages(..., documents=1, pages=1, fill=0)`. Rebuild the stream rather than
-using its raw transport trailer. If successful, try both fills, three pages in
-one document (`helper.stream(base[:1]+base[1:6]*3+base[-1:])`) and three complete
-documents (`helper.stream(base)*3`). These are proposed fixtures, not run results.
-The draft's current native runner has a 200,000-instruction cap; investigate any
-failure before changing it, and keep any larger budget explicit and bounded.
-
-Draft oracles observe original work scheduling, FIFO consumer ownership, initial
-node reference 1, original retirement stores to zero, original event-set calls,
-full original pool reclamation apart from the ONLINE subscriber, page counters
-5/6, document counters, credit restoration, released locks and all four tasks
-waiting on empty queues. The draft assumes the normal sample fits those fields;
-verify that assumption against reached bytes if it fails. It does not simulate
-DMA. A later controlled two-tick experiment can test JobMgr's event-driven RAM
-cleanup before message 17, without claiming elapsed time or automatic IRQs.
+The executed streams rebuild `matrix-a4_default.zjs` via `helper.stream(base)`;
+three pages use `base[:1]+base[1:6]*3+base[-1:]`, and three documents repeat the
+rebuilt whole stream. All six cases fit the unchanged 200,000-instruction cap.
+FIFO ownership, reference 1-to-0 stores, original events, page/document counters,
+credit restoration, locks and pool reclamation pass. Four tasks wait on empty
+queues, and only the 20-byte ONLINE subscriber remains allocated. Consumption
+and message 17 are supplied; DMA, engine tasks and automatic IRQs do not execute.
+The next controlled-tick experiment must specifically observe cleanup before
+message 17 instead of inferring it from final ownership.
 
 Fixture map: parser TCB `0x22800000`, JobMgr +0x100, StatusMgr +0x200,
 parking queue +0x400, buffer +0x600, output +0x800; pool `0x22400000`, 64 KiB;

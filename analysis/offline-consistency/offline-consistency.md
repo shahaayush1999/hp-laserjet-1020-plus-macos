@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `89`
+- checks: `91`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -16,6 +16,7 @@ It does not contact the printer.
 |---|---|---|---|
 | `engine_0x17_dispatch_is_default` | `watch` | Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1. | `analysis/engine-dispatch-cfg/engine-dispatch-cfg.md` |
 | `stock_queue_registration` | `watch` | Stock constructor control flow must preserve the corrected queue identities and independent registration-helper audit. | `analysis/queue-routing/registration.json` |
+| `original_native_pipeline_execution` | `watch` | Completed native lifecycles and conditional original null reads must remain separate, reproducible outcomes. | `analysis/open-firmware-model/stock-execution/pipeline.json` |
 | `original_printmgr_execution` | `watch` | Original routing and allocation ownership must agree with QEMU and explicit fixture oracles. | `analysis/open-firmware-model/stock-execution/printmgr.json` |
 | `original_notifications_execution` | `watch` | Original routing and allocation ownership must agree with QEMU and explicit fixture oracles. | `analysis/open-firmware-model/stock-execution/notifications.json` |
 | `original_stop_execution` | `watch` | Original routing and allocation ownership must agree with QEMU and explicit fixture oracles. | `analysis/open-firmware-model/stock-execution/stop.json` |
@@ -28,6 +29,7 @@ It does not contact the printer.
 | `original_scheduled-status_execution` | `watch` | Original routing and allocation ownership must agree with QEMU and explicit fixture oracles. | `analysis/open-firmware-model/stock-execution/scheduled-status.json` |
 | `original_pool_execution` | `watch` | Original routing and allocation ownership must agree with QEMU and explicit fixture oracles. | `analysis/open-firmware-model/stock-execution/pool.json` |
 | `original_timers_execution` | `watch` | Original routing and allocation ownership must agree with QEMU and explicit fixture oracles. | `analysis/open-firmware-model/stock-execution/timers.json` |
+| `original_retirement_execution` | `watch` | Original routing and allocation ownership must agree with QEMU and explicit fixture oracles. | `analysis/open-firmware-model/stock-execution/retirement.json` |
 | `status_correlation_event_count_matches_source` | `watch` | Status correlation must account for every currently cataloged engine 0x17 event word. | `analysis/status-path/status-code-correlation.json` |
 | `engine_events_are_not_direct_pjl_codes` | `watch` | Raw engine event words must not be mislabeled as final PJL CODE values. | `analysis/status-path/status-code-correlation.json` |
 | `print_model_invariants_have_no_failures` | `watch` | Offline ZjStream model invariants must remain green across generated print-path variants. | `analysis/open-firmware-model/model-invariants.json` |
