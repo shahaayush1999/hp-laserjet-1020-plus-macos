@@ -147,7 +147,8 @@ completion_send:
     return source
 
 
-def run_pages(q,program,data,documents,pages,fill,ticks=0,consume_event=False):
+def run_pages(q,program,data,documents,pages,fill,ticks=0,consume_event=False,instruction_budget=200000):
+    assert instruction_budget in (200000,250000)
     state = prepare_pipeline(q,program,data,fill)
     state.segments.append((CS,bytearray([fill])*65536,6))
     state.write_ranges.append((CS,CS+65536))
@@ -167,7 +168,7 @@ def run_pages(q,program,data,documents,pages,fill,ticks=0,consume_event=False):
         subprocess.run([program.prefix+'-ld','-Ttext=0x20000000','-e','boot','pages.o','-o','pages.elf'],cwd=root,check=True)
         fixture = Program(root/'pages.elf',program.prefix)
         state.segments += fixture.segments
-        runner = start(q,state,fixture,fixture.symbols['boot'],HOST)
+        runner = start(q,state,fixture,fixture.symbols['boot'],HOST,instruction_budget)
         while q.reg(0)!=RETURN:
             runner.step()
         state.native_mode = True
@@ -269,7 +270,8 @@ def run_pages(q,program,data,documents,pages,fill,ticks=0,consume_event=False):
             assert state.read(mutex+8,4)==0 and state.read(mutex+28,4)==0 and state.read(mutex+32,4)==0
         assert state.read(J+76,4)==2
         return dict(status='pass',documents=documents,pages=pages,fill=fill,
-            instructions=runner.steps,input_bytes=len(data),original_frees=len(frees),
+            instructions=runner.steps,instruction_budget=instruction_budget,
+            input_bytes=len(data),original_frees=len(frees),
             remaining_allocation_bytes=20,scheduled_work=scheduled,completed_work=completed,
             retired_nodes=nodes_by_work,reference_decrements=retired,event_calls=events,
             page_counters=counters,online_notifications=1,job_timeout_armed=2,

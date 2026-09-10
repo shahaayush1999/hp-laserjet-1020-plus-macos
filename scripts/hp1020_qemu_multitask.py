@@ -5,10 +5,12 @@ from hp1020_qemu_stock_parser import guard_memory
 
 
 class NativeTasks:
-    def __init__(self,q,state,fixture,ranges,host=()):
+    def __init__(self,q,state,fixture,ranges,host=(),instruction_budget=200000):
+        assert isinstance(instruction_budget,int) and instruction_budget>0
         self.q,self.state,self.fixture,self.ranges = q,state,fixture,ranges
         self.host = set(host)
         self.steps = 0
+        self.instruction_budget = instruction_budget
         self.visited = set()
         self.services = []
 
@@ -22,7 +24,7 @@ class NativeTasks:
     def step(self):
         q,state = self.q,self.state
         pc = q.reg(0)
-        if self.steps>=200000:
+        if self.steps>=self.instruction_budget:
             raise ValueError('native multitask budget exhausted')
         if pc in self.host:
             wb = q.reg(38)

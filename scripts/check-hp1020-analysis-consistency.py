@@ -229,6 +229,28 @@ def build_report() -> dict[str, Any]:
                         "Supplied FIFO consumption and controlled timed cleanup must retain separate causal controls and current source provenance.",
                         evidence="analysis/open-firmware-model/stock-execution/pages.json"))
 
+    fragments = read_json("analysis/open-firmware-model/stock-execution/page-fragments.json")
+    fragment_stop = read_json("analysis/open-firmware-model/stock-execution/page-fragment-limit.json")
+    checks.append(check("original_native_fragment_execution",
+                        fragments["status"] == "pass" and fragments["total_cases"] == 18
+                        and fragments["completed_lifecycles"] == 18 and len(fragments["cases"]) == 18
+                        and {(c["raster_chunks"],c["fill"],c["ticks_per_page"],c["consumed_cleanup_event"])
+                             for c in fragments["cases"]}
+                            == {(n,f,t,e) for n in (6,13,64) for f in (0,204)
+                                for t,e in ((0,False),(2,False),(2,True))}
+                        and all(c["status"] == "pass" and c["instructions"] < c["instruction_budget"]
+                                and c["instruction_budget"] == (250000 if c["raster_chunks"] == 64 else 200000)
+                                and len(c["reference_decrements"]) == len(c["event_calls"]) == c["raster_chunks"]
+                                and c["remaining_allocation_bytes"] == 20 for c in fragments["cases"])
+                        and fragment_stop["outcome"] == "instruction_budget_exhausted"
+                        and fragment_stop["steps"] == 200000 and not fragment_stop["lifecycle_completed"]
+                        and fragments["baseline_page_report_sha256"]
+                            == hashlib.sha256((ROOT_DIR/"analysis/open-firmware-model/stock-execution/pages.json").read_bytes()).hexdigest()
+                        and all(hashlib.sha256((ROOT_DIR/"scripts"/p).read_bytes()).hexdigest() == h
+                                for p,h in fragments["source_sha256"].items()),
+                        "Larger raster lists must retain explicit budgets, complete ownership checks and a separate historical budget stop.",
+                        evidence="analysis/open-firmware-model/stock-execution/page-fragments.json"))
+
     event_rows = read_tsv("analysis/engine-events/engine-0x17-events.tsv")
     status_corr = read_json("analysis/status-path/status-code-correlation.json")
     direct_counts = status_corr.get("direct_converter_class_counts", {})

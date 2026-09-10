@@ -1551,7 +1551,7 @@
   ],
   "limits": "Notice contents come from prior parser/JobMgr replay with injected FIFO page completion; those tasks do not run concurrently in this experiment. Initial parser/JobMgr replay still uses a host allocator and tracked ownership. Its remaining notice storage is explicitly migrated into a separately seeded original pool; this is not original heap boot discovery or an end-to-end producer allocation proof. Constructor thread creation remains hosted during setup; runtime allocation/free/readiness services are original code. Pool partition and free-call oracles check ownership, while the whole arena remains mapped, including freed payload bytes. The native producer deliberately supplies startup readiness; it does not establish actual boot readiness timing. The datastore constructor stops before event-group/backing-value initialization, retaining the existing descriptor fixture. Lock contention is absent from this two-task workload. Optional outward-language callbacks are absent. Outgoing PrintMgr/JobMgr packets remain queued. Infinite waits and zero time slices avoid timer/interrupt delivery. No hardware, USB, DMA, custom raster instruction, printing or recovery is demonstrated.",
   "source_sha256": {
-    "hp1020_qemu_multitask.py": "dfb253f0d98da507cdc4f88ed9a9d11aeabf779af0a1661ed967ecd7d5251bee",
+    "hp1020_qemu_multitask.py": "2353e573a0136984739c7eff9e70ebe5e1aa2634eac381522c3097a49b193aae",
     "hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
     "hp1020_qemu_scheduled_status.py": "9a715e6cd064d55994a3bfe89a8822cc9a6ce60e7f640193f2e9b52054244890",
     "hp1020_qemu_scheduler.py": "6bb45fc44d99da27be5b307b216969207ceb1a8b05bff780108d672d7ab3e724",

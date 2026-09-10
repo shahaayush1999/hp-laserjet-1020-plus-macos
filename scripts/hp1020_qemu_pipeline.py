@@ -109,11 +109,11 @@ class Pipeline(ScheduledStatus):
         return super().extension(op,args,nxt)
 
 
-def start(q,state,fixture,entry,host):
+def start(q,state,fixture,entry,host,instruction_budget=200000):
     q.load(state.program.path)
     if fixture.path:
         q.load(fixture.path)
-    runner = NativeTasks(q,state,fixture,state.code_ranges,host)
+    runner = NativeTasks(q,state,fixture,state.code_ranges,host,instruction_budget)
     runner.synchronize(True)
     top = STACK_TOP-0x100
     q.put(top-12,(top+64).to_bytes(4,'big'))

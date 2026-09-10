@@ -2051,8 +2051,8 @@
   ],
   "limits": "Node consumption, no pending DMA and successful band completion are explicit fixture inputs. Original event creation rejects the initial null-caller/ordinary-system fixture with result 19; a separate nonwaiting constructor caller is then supplied. The hardware IRQ prefix, raster instructions, DMA, engine/PrintMgr tasks, automatic interrupt delivery and physical printing do not execute. The standalone event has no waiter; scheduled integration remains a separate check. INTCLEAR execution verifies its value and return, not a physical interrupt or its origin.",
   "source_sha256": {
-    "hp1020_qemu_multitask.py": "dfb253f0d98da507cdc4f88ed9a9d11aeabf779af0a1661ed967ecd7d5251bee",
-    "hp1020_qemu_pipeline.py": "c07eae06366ed4ce5e3f791a249fc979c6376b576373b513b5d8d3122ff45a67",
+    "hp1020_qemu_multitask.py": "2353e573a0136984739c7eff9e70ebe5e1aa2634eac381522c3097a49b193aae",
+    "hp1020_qemu_pipeline.py": "3a6ea4ef1c1dfa3b0bc02df4ba5601facb1c27396685c8c9e847122bb443ef39",
     "hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
     "hp1020_qemu_retire.py": "0f145f543870e8a227a1b263ef40b991f0ce33b2835ff5bb6056ee5510c26c1e",
     "hp1020_qemu_scheduled_status.py": "9a715e6cd064d55994a3bfe89a8822cc9a6ce60e7f640193f2e9b52054244890",

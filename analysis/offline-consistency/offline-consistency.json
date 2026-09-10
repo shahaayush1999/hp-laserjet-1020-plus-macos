@@ -1,5 +1,5 @@
 {
-  "check_count": 92,
+  "check_count": 93,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -101,6 +101,12 @@
       "detail": "Supplied FIFO consumption and controlled timed cleanup must retain separate causal controls and current source provenance.",
       "evidence": "analysis/open-firmware-model/stock-execution/pages.json",
       "name": "original_native_page_execution",
+      "severity": "watch"
+    },
+    {
+      "detail": "Larger raster lists must retain explicit budgets, complete ownership checks and a separate historical budget stop.",
+      "evidence": "analysis/open-firmware-model/stock-execution/page-fragments.json",
+      "name": "original_native_fragment_execution",
       "severity": "watch"
     },
     {

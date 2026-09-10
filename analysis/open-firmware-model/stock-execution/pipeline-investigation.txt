@@ -1112,3 +1112,48 @@ PASS: validate-hp1020-offline-analysis
 Running validate-open-firmware-probes...
 PASS: validate-open-firmware-probes
 All offline checks passed. No printer was contacted.
+
+=== 2026-09-10 native split raster and explicit budget ===
+The historical 200000-step stop has a separate raw capture in page-fragment-limit.json.
+
+--- hp1020-fragment-pages.log ---
+pieces=6 fill=0 ticks=0 consumed=False: pass (37221 steps)
+pieces=6 fill=0 ticks=2 consumed=False: pass (38627 steps)
+pieces=6 fill=0 ticks=2 consumed=True: pass (38642 steps)
+pieces=6 fill=204 ticks=0 consumed=False: pass (37221 steps)
+pieces=6 fill=204 ticks=2 consumed=False: pass (38627 steps)
+pieces=6 fill=204 ticks=2 consumed=True: pass (38642 steps)
+pieces=13 fill=0 ticks=0 consumed=False: pass (52662 steps)
+pieces=13 fill=0 ticks=2 consumed=False: pass (54068 steps)
+pieces=13 fill=0 ticks=2 consumed=True: pass (54083 steps)
+pieces=13 fill=204 ticks=0 consumed=False: pass (52662 steps)
+pieces=13 fill=204 ticks=2 consumed=False: pass (54068 steps)
+pieces=13 fill=204 ticks=2 consumed=True: pass (54083 steps)
+Traceback (most recent call last):
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/hp1020_qemu_page_pipeline.py", line 228, in run_pages
+    runner.step()
+    ~~~~~~~~~~~^^
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/hp1020_qemu_multitask.py", line 26, in step
+    raise ValueError('native multitask budget exhausted')
+ValueError: native multitask budget exhausted
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/hp1020-fragment-pages.py", line 20, in <module>
+    case=run_pages(q,program,data,1,1,fill,ticks,consume_event)
+  File "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/scripts/hp1020_qemu_page_pipeline.py", line 230, in run_pages
+    raise ValueError(f'page pipeline documents={documents} pages={pages} fill={fill} '
+                     f'pc={pc:#x} thread={word(current):#x}: {error}') from error
+ValueError: page pipeline documents=1 pages=1 fill=0 pc=0x10018227 thread=0x22800200: native multitask budget exhausted
+
+--- hp1020-fragment-expanded.log ---
+pieces=64 fill=0 ticks=0 consumed=False: pass (200315 steps)
+
+--- hp1020-full-fragments.log ---
+Offline validation logs: /var/folders/46/5hjsxnq13752lvrwdm2q1fk80000gn/T//hp1020-validation.dZAhbh
+Running validate-hp1020-offline-analysis...
+PASS: validate-hp1020-offline-analysis
+Running validate-open-firmware-probes...
+PASS: validate-open-firmware-probes
+All offline checks passed. No printer was contacted.

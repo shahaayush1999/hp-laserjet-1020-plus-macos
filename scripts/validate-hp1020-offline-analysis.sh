@@ -149,6 +149,9 @@ run_step "Execute bounded original native retirement and excluded-path gate" \
 run_step "Execute native pages and controlled event-driven cleanup" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-native-pages.py"
 
+run_step "Execute native split-raster pages with explicit instruction budgets" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-native-page-fragments.py"
+
 run_step "Audit original instruction annotations and unresolved encodings" \
   "$ROOT_DIR/scripts/audit-hp1020-instruction-properties.py"
 

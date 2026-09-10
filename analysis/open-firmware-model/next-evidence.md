@@ -175,25 +175,20 @@ boundary for later native JobMgr integration, not a physical timing uncertainty.
 ## In-progress handoff: native pipeline (2026-09-09)
 
 Resumed 2026-09-10. Pinned GCC recovery completed after an interrupted download
-was resumed. The unchanged build script verified the archive checksum, original
-instruction encoding fixtures, and BE/call0 compiler profile, then installed
-headers and libgcc. The latest sources passed the native matrix (26 completed
-empty-document lifecycles, six separately classified conditional null reads),
-all 28 retirement cases, then the full offline suite sequentially. That initial aggregate
-passed **91 consistency checks**; subsequent timed-page integration passes 92. The historical 89-check baseline and old
-source snapshots remain provenance, not the current validation limit.
+was resumed. The unchanged build script verified the source checksum, instruction
+fixtures and BE/call0 profile, and restored target headers/libgcc. Current sources
+pass the complete offline suite with **93 consistency checks**. This includes
+26 completed empty-document lifecycles, six separately classified conditional
+null reads, 28 retirement cases, 18 ordinary native page cases and 18 split-raster
+page cases. Consumption and completion remain supplied, not device evidence.
 
-The first page draft was then assembled/executed. Its invalid `beqi ...,11` was
-replaced by a register comparison. Execution exposed a bad oracle: an embedded
-descriptor address was expected in the free-call list. Original cleanup loads
-node+12 into a6, then passes a5 (the containing node) to free at
-`0x1000f0ff..0x1000f108`. The corrected assertion checks node ownership and the
-observed descriptor offset, retaining the full pool-partition oracle.
-`validate-hp1020-native-pages.py` passed six focused cases: one page, three pages
-in one document, three one-page documents, each with both fills. These are
-completed software lifecycles with supplied FIFO consumption, not device proof.
-`stock-execution/pages.json` retains traces, input/fixture/source hashes and
-byte-audited cleanup/retirement instructions. The original six-case focused checkpoint is committed as `8f5f656`; the subsequent timed integration is described below.
+`stock-execution/pages.json` and `page-fragments.json` retain execution traces,
+source/input/fixture hashes and byte-audited cleanup/retirement evidence. The
+initial page draft errors (invalid immediate comparison and an embedded descriptor
+mistaken for the free pointer) were corrected against original instructions;
+`pages.md` and its generator own those details. Historical failure captures and
+exact previously tested source snapshots remain preserved. Do not rewrite their
+hashes to match newer sources.
 
 ### Controlled timed cleanup (focused execution complete)
 
@@ -218,17 +213,44 @@ fixture with INTENABLE zero. This expires JobMgr's two-tick queue receive;
 JobMgr then polls the event and invokes cleanup. It is not direct event wakeup,
 automatic IRQ delivery, wall-clock time or physical consumption evidence.
 Pages are now wired into the aggregate with a separate matrix/provenance gate;
-the full suite passed after that integration with **92 consistency checks**.
-The 18 page cases are now part of the fully validated current-source baseline.
+the 18 page cases are part of the current **93-check** fully validated baseline
+alongside the split-raster matrix below.
 
-### Next offline experiment
+### Native split-raster integration (fully validated)
 
-Exercise native pages split into six, thirteen and 64 raster chunks, keeping
-zero-tick, two-tick and consumed-event controls. The existing stock lifecycle
-stream-splitting helper provides the fixture format. Check all references,
-node ownership and cleanup; keep the 200,000-instruction cap until a measured
-failure justifies changing it. A scratch launcher is prepared at
-`/tmp/hp1020-fragment-pages.py` and is now running sequentially after full validation.
+The initial scratch matrix passed six and thirteen chunks, both fills, and all three
+timing/event controls. The first 64-chunk zero-tick run hit the original
+200,000-step budget in StatusMgr at `0x10018227`. A read-only rerun preserved
+`stock-execution/page-fragment-limit.json`: all input consumed, 64 references
+retired, message 17 sent, document list empty; StatusMgr had consumed notice 46
+and was processing notice 47. Final lifecycle oracles were not reached, so the
+budget stop is explicitly not a completed lifecycle or stock fault.
+
+A measured larger run completed in 200,315 instructions under an explicit
+250,000 cap. `NativeTasks` and `start` now accept a positive instruction budget,
+with unchanged 200,000 default. Only 64-chunk page fixtures select 250,000. No
+code/RAM/peripheral guard changed. `validate-hp1020-native-page-fragments.py`
+checks six, thirteen and 64 chunks with both fills and all timing controls,
+verifies unchanged concatenated raster bytes, every node/reference/event and
+final ownership, and requires the executed page baseline's source/ELF hashes.
+It generates page-fragments.json/.md only after all 18 cases pass.
+
+Both the fragment validator and its independent matrix/budget/provenance gate
+are in the aggregate. The full `scripts/validate.sh` run passed sequentially after
+all shared source edits: **93 consistency checks**, 18 ordinary native page
+lifecycles and 18 split-raster lifecycles, preserving the separate 26 empty-document
+lifecycles, six conditional null reads and 28 retirement cases. Current reports
+have their actual source hashes. The 64-chunk cases complete in 200,315–201,736
+instructions under 250,000; the six/thirteen-chunk and baseline cases retain the
+200,000 default. The old budget stop remains separate evidence, not a pass.
+`/tmp/hp1020-full-fragments.log` records both suite passes and child log directory.
+No research process remains running after this checkpoint.
+
+The next distinct offline question is native input admission rather than direct
+per-document parser invocation, or active-work cancellation with an explicitly
+bounded software-only consumer. Neither is executed by these page fixtures.
+Do not repeat the resolved empty-document cancellation ordering. Physical DMA,
+raster execution, engine behavior, output and power-cycle recovery remain unproven.
 
 Recovery logs for this session are `/tmp/hp1020-gcc-recovery-resume.log`,
 `/tmp/hp1020-gcc-download-resume.log`, `/tmp/hp1020-gcc-rebuild-resume.log`;

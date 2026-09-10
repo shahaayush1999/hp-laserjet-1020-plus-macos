@@ -21936,8 +21936,8 @@
   "limits": "Empty documents only. Parser context, datastore descriptors, repeated direct parser invocation, priorities, stacks and startup readiness are explicit fixtures. JobMgr/StatusMgr constructor thread creation is hosted before native task creation. The datastore constructor still stops before event-group/backing-value initialization. PrintMgr is absent and its ONLINE packet remains queued; no downstream cancellation request is sent in these empty-document traces. CPU interrupts and automatic time are disabled. Hardware reachability, actual boot, DMA, raster custom instructions, engine stopping, physical printing and recovery remain unproven. Raw trace words are observations; uninitialized suffixes of cancellation, acknowledgement and notice packets are not semantic arguments.",
   "reproduced_conditional_stops": 6,
   "source_sha256": {
-    "hp1020_qemu_multitask.py": "dfb253f0d98da507cdc4f88ed9a9d11aeabf779af0a1661ed967ecd7d5251bee",
-    "hp1020_qemu_pipeline.py": "c07eae06366ed4ce5e3f791a249fc979c6376b576373b513b5d8d3122ff45a67",
+    "hp1020_qemu_multitask.py": "2353e573a0136984739c7eff9e70ebe5e1aa2634eac381522c3097a49b193aae",
+    "hp1020_qemu_pipeline.py": "3a6ea4ef1c1dfa3b0bc02df4ba5601facb1c27396685c8c9e847122bb443ef39",
     "hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
     "hp1020_qemu_scheduled_status.py": "9a715e6cd064d55994a3bfe89a8822cc9a6ce60e7f640193f2e9b52054244890",
     "hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
