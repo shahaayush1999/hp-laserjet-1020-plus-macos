@@ -5,8 +5,9 @@ no page completion, rendering, PrintMgr/VideoThread or physical output is inferr
 JobMgr's final two-tick wait is armed; no ticks or automatic IRQs are delivered.
 
 
-UNFINISHED HANDOFF: equal-priority 11–13-document runs hit a guarded null read.
-See analysis/open-firmware-model/next-evidence.md before extending this experiment.
+Equal-priority empty-document runs can reach a guarded original null read.
+PipelineFault preserves the observation; callers must verify its exact conditions,
+not count an arbitrary execution failure as a passing lifecycle.
 """
 import hashlib
 from pathlib import Path
@@ -26,6 +27,79 @@ P = 0x22800000
 J,S,PARK,BUFFER,OUT = P+256,P+512,P+1024,P+1536,P+2048
 PS,JS,SS,TS = 0x22900000,0x22a00000,0x22b00000,0x22c00000
 INPUT_HOST = {INPUT_CALLBACK,PUSHBACK_CALLBACK}
+
+
+class PipelineFault(ValueError):
+    def __init__(self,detail):
+        self.detail = detail
+        super().__init__(f'pipeline guarded stop: {detail}')
+
+
+class PipelineTrace:
+    """Read-only observation before original instructions, with windowed ARs.
+
+    Send entries record attempts, not assumed delivery. Original receive entries
+    and queue snapshots establish ordering even when a send blocks. Raw packet
+    suffixes can be uninitialized and are never interpreted as defined arguments.
+    """
+    POINTS = {0x10013658:'send',0x1000e44f:'job_receive',
+              0x100105bb:'status_receive',0x10010838:'status_publish',
+              0x1000e9d5:'self_ack',0x1000e9e7:'ack_arm',
+              0x1000e9f4:'null_read',0x1001306b:'list_pop'}
+
+    def __init__(self,runner):
+        self.runner,self.q = runner,runner.q
+        self.records = []
+        self.current = self.word(0x10006a9c)
+        self.doc_list = self.word(0x100062e4)
+        self.cancel = self.word(0x10006308)
+        self.queue = self.word(0x100062d0)
+        self.counters = [self.word(a) for a in (0x100063e0,0x10006408)]
+
+    def word(self,address):
+        return int.from_bytes(self.q.read(address,4),'big')
+
+    def ar(self,index):
+        return self.q.reg(((self.q.reg(38)*4+index)%32)+1)
+
+    def snapshot(self):
+        count = self.word(self.queue+16)
+        capacity = self.word(self.queue+12)
+        assert 0<=count<=capacity==20
+        at = self.word(self.queue+32)
+        begin,end = self.word(self.queue+24),self.word(self.queue+28)
+        pending = []
+        for _ in range(count):
+            pending.append(self.word(at))
+            at += 16
+            if at==end:
+                at = begin
+        return dict(step=self.runner.steps,pc=hex(self.q.reg(0)),
+            thread=hex(self.word(self.current)),head=hex(self.word(self.doc_list)),
+            cancel=self.word(self.cancel),counters=[self.word(a) for a in self.counters],
+            queued_job_types=pending)
+
+    def observe(self):
+        pc = self.q.reg(0)
+        kind = self.POINTS.get(pc)
+        if kind is None or kind=='list_pop' and self.ar(2)!=self.doc_list:
+            return
+        record = self.snapshot()
+        record['kind'] = kind
+        if kind=='send':
+            record.update(queue=self.ar(10),caller=hex((self.ar(8)&0x3fffffff)-3))
+            pointer = self.ar(11)
+        elif kind in ('job_receive','status_receive','self_ack','ack_arm','null_read'):
+            pointer = self.ar(1)
+        elif kind=='status_publish':
+            record['args'] = [self.ar(10),self.ar(11)]
+            pointer = None
+        else:
+            record.update(removed=hex(self.ar(7)),next_head=hex(self.ar(8)))
+            pointer = None
+        if pointer is not None:
+            record['raw_words'] = [self.word(pointer+i*4) for i in range(4)]
+        self.records.append(record)
 
 
 class Pipeline(ScheduledStatus):
@@ -52,7 +126,7 @@ def start(q,state,fixture,entry,host):
     return runner
 
 
-def native_source(documents,priorities,current,system,ready):
+def native_source(documents,priorities,current,system,ready,time_slice=0):
     source = f'''
 .text
 .align 4
@@ -93,8 +167,9 @@ make_thread:
  entry a1,64
  s32i a5,a1,0
  s32i a5,a1,4
- movi a8,0
+ movi a8,{time_slice}
  s32i a8,a1,8
+ movi a8,0
  s32i a8,a1,12
  mov a10,a2
  movi a11,0
@@ -137,7 +212,8 @@ bad:
     return source
 
 
-def run_pipeline(q,program,data,documents,fill,priorities):
+def prepare_pipeline(q,program,data,fill):
+    """Original constructors with explicit shared RAM/descriptor boot fixtures."""
     state = Pipeline(program,data,fill=fill)
     # Existing descriptor/context fixtures only: no parser/JobMgr replay occurs.
     state.initialize_job()
@@ -169,8 +245,14 @@ def run_pipeline(q,program,data,documents,fill,priorities):
     assert invoke(state,0x100135e0,[1,q1],q,HOST)==0
     ready = state.read(0x10006530,4)
     assert invoke(state,0x10017ca0,[ready,0],q,HOST)==0
+    return state
+
+
+def run_pipeline(q,program,data,documents,fill,priorities,time_slice=0):
+    state = prepare_pipeline(q,program,data,fill)
+    q1,ready = 0x10028a74,state.read(0x10006530,4)
     current,system,selected = [state.read(a,4) for a in (0x10006a9c,0x10005d80,0x10006aa0)]
-    source = native_source(documents,priorities,current,system,ready)
+    source = native_source(documents,priorities,current,system,ready,time_slice)
     with tempfile.TemporaryDirectory(prefix='hp1020-pipeline-') as temp:
         root = Path(temp)
         (root/'pipeline.S').write_text(source)
@@ -186,6 +268,7 @@ def run_pipeline(q,program,data,documents,fill,priorities):
         q.reset_cpu(0x100188f3)
         q.set_reg(42,0x40000)
         q.set_reg(111,0x10000000)
+        trace = PipelineTrace(runner)
         word = lambda address:int.from_bytes(q.read(address,4),'big')
         selections,blocked,frees = [],[],[]
         while not(q.reg(0)==0x10018901 and word(selected)==0):
@@ -198,9 +281,21 @@ def run_pipeline(q,program,data,documents,fill,priorities):
             if pc==0x10013408:
                 frees.append(q.reg(((q.reg(38)*4+10)%32)+1))
             try:
+                trace.observe()
                 runner.step()
             except ValueError as error:
-                raise ValueError(f'pipeline documents={documents} priorities={priorities} fill={fill} pc={q.reg(0):#x} thread={word(current):#x}: {error}') from error
+                detail = trace.snapshot()
+                detail.update(status='guarded_stop',documents=documents,priorities=priorities,
+                    fill=fill,time_slice=time_slice,error=str(error),trace=trace.records,
+                    input_bytes_consumed=state.input_pos,
+                    input_sha256=hashlib.sha256(data).hexdigest(),
+                    fixture_source_sha256=hashlib.sha256(source.encode()).hexdigest(),
+                    fixture_elf_sha256=hashlib.sha256(fixture.path.read_bytes()).hexdigest(),
+                    host_services=sorted(hex(x) for x in set(runner.services)))
+                runner.synchronize(False)
+                assert state.allocations=={},'host allocator was unexpectedly used'
+                PoolRAM.blocks(state)
+                raise PipelineFault(detail) from error
         runner.synchronize(False)
         assert state.input_pos==len(data) and state.read(OUT+4,4)==1
         assert state.allocations=={},'host allocator was unexpectedly used'
@@ -235,7 +330,7 @@ def run_pipeline(q,program,data,documents,fill,priorities):
         output = [state.read(state.read(q1+32,4)+i*4,4) for i in range(4)]
         assert output==[45,24,0,2]
         names = {P:'parser',J:'job',S:'status'}
-        return dict(status='pass',documents=documents,fill=fill,priorities=priorities,
+        return dict(status='pass',documents=documents,fill=fill,priorities=priorities,time_slice=time_slice,
             instructions=runner.steps,input_bytes=len(data),original_frees=len(frees),
             remaining_allocation_bytes=20,job_timeout_armed=2,delivered_ticks=0,
             output=output,host_services=sorted(hex(x) for x in set(runner.services)),
@@ -244,4 +339,5 @@ def run_pipeline(q,program,data,documents,fill,priorities):
             status_queue_full_waits=sum(t==J and queue==q10 for t,queue,_ in blocked),
             input_sha256=hashlib.sha256(data).hexdigest(),
             fixture_source_sha256=hashlib.sha256(source.encode()).hexdigest(),
-            fixture_elf_sha256=hashlib.sha256(fixture.path.read_bytes()).hexdigest())
+            fixture_elf_sha256=hashlib.sha256(fixture.path.read_bytes()).hexdigest(),
+            trace=trace.records)

@@ -179,13 +179,31 @@ def build_report() -> dict[str, Any]:
                         "Stock constructor control flow must preserve the corrected queue identities and independent registration-helper audit.",
                         evidence="analysis/queue-routing/registration.json"))
 
-    for name, total in (("printmgr",40),("notifications",12),("stop",90),("cancellation",48),("status-publication",15),("queue",80),("status-queue",8),("context",180),("scheduler",80),("scheduled-status",30),("pool",93),("timers",44)):
+    pipeline = read_json("analysis/open-firmware-model/stock-execution/pipeline.json")
+    checks.append(check("original_native_pipeline_execution",
+                        pipeline["status"] == "pass" and pipeline["total_cases"] == 32
+                        and pipeline["completed_lifecycles"] == 26
+                        and pipeline["reproduced_conditional_stops"] == 6
+                        and sum(c["status"] == "pass" for c in pipeline["cases"]) == 26
+                        and sum(c["status"] == "reproduced_conditional_null_read"
+                                and c["pc"] == "0x1000e9f4" and c["head"] == "0x0"
+                                and c["cancel"] == 1 and not c["lifecycle_completed"]
+                                for c in pipeline["cases"]) == 6
+                        and all(hashlib.sha256((ROOT_DIR/"scripts"/p).read_bytes()).hexdigest() == h
+                                for p,h in pipeline["source_sha256"].items()),
+                        "Completed native lifecycles and conditional original null reads must remain separate, reproducible outcomes.",
+                        evidence="analysis/open-firmware-model/stock-execution/pipeline.json"))
+
+    for name, total in (("printmgr",40),("notifications",12),("stop",90),("cancellation",48),("status-publication",15),("queue",80),("status-queue",8),("context",180),("scheduler",80),("scheduled-status",30),("pool",93),("timers",44),("retirement",28)):
         execution = read_json(f"analysis/open-firmware-model/stock-execution/{name}.json")
         checks.append(check(f"original_{name}_execution",
                             execution["status"] == "pass" and execution["total_cases"] == total
                             and all(c["status"] == "pass" for c in execution["cases"])
                             and (name != "stop" or execution["prefix_gate"]["status"] == "blocked"
                                  and execution["instruction_span_gate"]["status"] == "blocked")
+                            and (name != "retirement" or sum(c["outcome"] == "blocked_next_path"
+                                 and c["stop"] == "native tasks left selected code: 0x1001434b"
+                                 for c in execution["cases"]) == 2)
                             and all(hashlib.sha256((ROOT_DIR/"scripts"/p).read_bytes()).hexdigest() == h
                                     for p,h in execution["source_sha256"].items()),
                             "Original routing and allocation ownership must agree with QEMU and explicit fixture oracles.",

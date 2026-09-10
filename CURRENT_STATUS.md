@@ -1,67 +1,63 @@
 # Current handoff
 
-Updated: 2026-09-09. **The open replacement cannot print yet.**
-The working HP-based macOS setup is untouched. The owner requested a full handoff
-to another thread; research is paused, not exhausted. No research/QEMU processes
-remained active at the handoff check. No printer contact occurred.
+Updated: 2026-09-10. **The open replacement cannot print yet.**
+The owner requested this saved handoff to start a new chat. Research is paused,
+not exhausted. No research/QEMU/compiler-recovery process remains running.
+The working HP-based macOS setup is untouched; no printer contact occurred.
 
-## Verified baseline
+## Progress and validation
 
-- Nine coherent research checkpoints were committed and pushed this session,
-  ending at `e7bef56`. Both full offline suites passed there, with 89 consistency
-  checks. See the topic map in `analysis/README.md`, not every historical report.
-- Original parser/libc/arithmetic, work construction, selected render paths,
-  completion/release, stream admission, cancellation and status publication have
-  bounded execution evidence. Page completion remains an explicit fixture input.
-- Original register windows, context switching, priority scheduling, blocking
-  queues and synchronization execute in QEMU. Original timed waits pass 44 cases;
-  software ticks are supplied explicitly and automatic CPU interrupts disabled.
-- Original memory allocation/free passes 93 independent-engine cases. Original
-  StatusMgr passes 30 scheduled cases with original queues, locks, pool and startup
-  waits; no runtime host services. That committed experiment still uses prior
-  JobMgr replay and explicit migration of notice storage.
-- Corrected inert USB/boot probes and bounded C parser/planner exist, but their
-  corrected device execution and physical printing remain unproven.
+- The last fully validated baseline remains `e7bef56`, with 89 consistency checks,
+  inherited through the previous handoff `fe67c4f`. This new handoff is a research
+  snapshot, not a fully validated replacement for that baseline.
+- A focused original parser + JobMgr + StatusMgr native matrix completed:
+  26 successful empty-document lifecycles and six separately verified conditional
+  null reads. Original allocation, queues, locks and scheduling run throughout;
+  the only runtime host service is input. No replay or heap migration occurs.
+- The saved failure is traced: original cancellation queues its acknowledgement
+  behind END_DOC; original END_DOC removes the last document before the ack
+  attempts head+12. Both fills and original JobMgr/StatusMgr priority/time-slice
+  settings preserve the fixed ten/eleven-document boundary with no ticks.
+  This is conditional stock-software behavior, not an observed printer fault.
+- The native no-next-transfer retirement tail passed 28 standalone cases,
+  including two mutations stopped before the excluded next-transfer path.
+  Original reference/event/return effects execute; consumption is supplied.
+- After those focused passes, initialization was extracted into `prepare_pipeline`,
+  failure hashes were added, and a negative constructor-result assertion was
+  added to retirement. Those latest edits have syntax checks only. Existing
+  reports retain their tested source hashes; exact old source snapshots are saved
+  in `stock-execution/pipeline-boundary-capture.json`. Do not relabel them current.
+- Full validation was attempted but stopped at missing target `stddef.h`.
+  The disposable GCC executable survives, but target headers/libgcc and its
+  source archive are absent. Pinned recovery stopped at sandbox DNS failure.
+  Aggregate wiring/check additions remain provisional. Raw logs are preserved.
 
-## Immediate unfinished work
+## Exact next work
 
-Three draft scripts are saved in the handoff snapshot, outside the aggregate:
-`hp1020_qemu_pipeline.py`, `validate-hp1020-native-pipeline.py`, and
-`hp1020_qemu_retire.py`, all under `scripts/`.
+Read the current native handoff in
+`analysis/open-firmware-model/next-evidence.md`, including recovery instructions.
+Restore GCC with the pinned `scripts/build-xtensa-gcc-manual.sh`, granting network
+access for its checksum-verified source download. Rerun native pipeline and
+retirement generators, then the full offline suite sequentially. QEMU needs its
+private Unix debugger socket permitted; it requires no printer contact.
 
-The new pipeline runs original parser, JobMgr and StatusMgr concurrently with
-original allocation throughout. Only input bytes come from the host; no replay
-or heap migration. Several empty-document cases pass all ownership/counter/queue
-oracles, including 13 documents with unequal priorities. **Its proposed 24-case
-validator does not pass:** equal priorities `(5,5,5)` reach a guarded null read at
-`0x1000e9f4` for 11–13 documents (10 passes). Thirteen fails with both RAM fills.
-No `pipeline.json`/`.md` success report has been generated. Do not integrate it or
-claim all combinations pass until the failure is traced and recorded accurately.
+Then execute the saved **unexecuted** `scripts/hp1020_qemu_page_pipeline.py` draft:
+start with one normal page, then both fills and three pages/documents. It adds a
+synthetic deferred completion consumer to the three original tasks, uses the
+bounded retirement tail and original completion queue, and checks FIFO ownership,
+reference changes, counters and reclamation. It has only Python syntax checks;
+no page assembly, execution, validator or report exists yet. The detailed handoff
+records entry points, fixtures, expected boundaries and later controlled ticks.
 
-**Next:** read the in-progress section in
-`analysis/open-firmware-model/next-evidence.md`. Trace original cancellation,
-END_DOC and self-acknowledgement ordering at the fault, then preserve a minimal
-conditional regression. After that, validate the drafted no-next-DMA retirement
-tail before using it in a native page-completion fixture. That draft has never
-been executed; the intended page extension has not been implemented.
-
-## Restrictions and durable corrections
+## Restrictions and corrections
 
 Offline only: no USB enumeration/contact, queries, uploads, installed-printing
-changes or print-driving MMIO. Unknown custom instructions are not inert. The
-owner wants sustained autonomous offline work and short plain-language updates;
-notes are agent memory. Do not invent percentages or equate passing tests with
-physical completion. AGENTS.md retains these preferences and authorities.
+changes or print-driving MMIO. Unknown custom instructions are not inert.
+AGENTS.md retains the owner's autonomy and brief-update preferences.
 
-Queue IDs are engine 0, PrintMgr 1, JobMgr 3, Video 8, StatusMgr 10. Earlier
-engine/PrintMgr mappings were reversed. Datastore entry locks are 28-byte binary
-semaphores; entry 25 is the numeric status event. Stock annotations define valid
-instruction starts; linear disassembly can be wrong. Prior probes had LE bytes
-inside BE ELF, and interpreter BE bit numbering was corrected. The old quiet
-upload proves nothing. Preserve the other recorded conditional cancellation and
-empty-document findings; none is an observed printer fault.
-
-Real boot, automatic IRQ/timer delivery, caches, custom raster instructions,
-DMA/engine ownership, printing and recovery remain unproven. Missing hardware is
-not a current reason to end productive offline research. Resume from the precise
-unfinished experiments, not from an invented final hardware-only blocker list.
+Queues: engine 0, PrintMgr 1, JobMgr 3, Video 8, StatusMgr 10. Datastore locks
+are 28-byte binary semaphores; entry 25 is the numeric status event. Stock
+annotations define instruction starts. Earlier BE encoding/bit-numbering mistakes
+are corrected; the old quiet upload proves nothing. Retain distinct earlier
+cancellation and empty-document findings. Boot, automatic IRQs, caches, custom
+raster instructions, DMA/engine ownership, printing and recovery remain unproven.

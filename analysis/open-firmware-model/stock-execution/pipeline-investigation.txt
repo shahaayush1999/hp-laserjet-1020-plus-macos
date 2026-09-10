@@ -120,3 +120,113 @@ ValueError: pipeline documents=13 priorities=(5, 5, 5) fill=0 pc=0x1000e9f4 thre
 12 0 pipeline documents=12 priorities=(5, 5, 5) fill=0 pc=0x1000e9f4 thread=0x22800100: unmapped RAM 0xc+4
 11 0 pipeline documents=11 priorities=(5, 5, 5) fill=0 pc=0x1000e9f4 thread=0x22800100: unmapped RAM 0xc+4
 10 0 pass
+
+
+=== Continuation paused by owner for a new-chat handoff, 2026-09-10 ===
+
+--- Completed focused native matrix (before setup-helper extraction) ---
+pipeline 1 documents, (5, 2, 15), slice 0, fill 0: pass
+pipeline 1 documents, (5, 2, 15), slice 0, fill 204: pass
+pipeline 1 documents, (2, 5, 15), slice 0, fill 0: pass
+pipeline 1 documents, (2, 5, 15), slice 0, fill 204: pass
+pipeline 1 documents, (5, 5, 5), slice 0, fill 0: pass
+pipeline 1 documents, (5, 5, 5), slice 0, fill 204: pass
+pipeline 1 documents, (5, 2, 1), slice 0, fill 0: pass
+pipeline 1 documents, (5, 2, 1), slice 0, fill 204: pass
+pipeline 3 documents, (5, 2, 15), slice 0, fill 0: pass
+pipeline 3 documents, (5, 2, 15), slice 0, fill 204: pass
+pipeline 3 documents, (2, 5, 15), slice 0, fill 0: pass
+pipeline 3 documents, (2, 5, 15), slice 0, fill 204: pass
+pipeline 3 documents, (5, 5, 5), slice 0, fill 0: pass
+pipeline 3 documents, (5, 5, 5), slice 0, fill 204: pass
+pipeline 3 documents, (5, 2, 1), slice 0, fill 0: pass
+pipeline 3 documents, (5, 2, 1), slice 0, fill 204: pass
+pipeline 13 documents, (5, 2, 15), slice 0, fill 0: pass
+pipeline 13 documents, (5, 2, 15), slice 0, fill 204: pass
+pipeline 13 documents, (2, 5, 15), slice 0, fill 0: pass
+pipeline 13 documents, (2, 5, 15), slice 0, fill 204: pass
+pipeline 13 documents, (5, 5, 5), slice 0, fill 0: reproduced_conditional_null_read
+pipeline 13 documents, (5, 5, 5), slice 0, fill 204: reproduced_conditional_null_read
+pipeline 13 documents, (5, 2, 1), slice 0, fill 0: pass
+pipeline 13 documents, (5, 2, 1), slice 0, fill 204: pass
+pipeline 10 documents, (5, 5, 5), slice 0, fill 0: pass
+pipeline 10 documents, (5, 5, 5), slice 0, fill 204: pass
+pipeline 11 documents, (5, 5, 5), slice 0, fill 0: reproduced_conditional_null_read
+pipeline 11 documents, (5, 5, 5), slice 0, fill 204: reproduced_conditional_null_read
+pipeline 10 documents, (15, 15, 15), slice 10, fill 0: pass
+pipeline 10 documents, (15, 15, 15), slice 10, fill 204: pass
+pipeline 11 documents, (15, 15, 15), slice 10, fill 0: reproduced_conditional_null_read
+pipeline 11 documents, (15, 15, 15), slice 10, fill 204: reproduced_conditional_null_read
+Original native pipeline: 26 lifecycles; 6 conditional stops
+
+--- Completed focused retirement (before added constructor-error assertion) ---
+Original native retirement: 28 cases
+
+--- Attempted aggregate; stopped before the new native validators ---
+==> Python syntax checks
+==> Generate base ZjStream sample
+analysis/samples/generated/minimal-page-a4.zjs
+Generated /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/samples/generated/minimal-page-a4.zjs
+Wrote /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/samples/generated/minimal-page-a4-zjs-report.md
+==> Regenerate base print-path model
+Wrote /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/print-path-model.md
+Wrote /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/print-path-model.json
+==> Generate ZjStream model matrix
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/samples/generated/matrix-a4_default.zjs
+Wrote analysis/open-firmware-model/variants/a4_default/print-path-model.md
+Wrote analysis/open-firmware-model/variants/a4_default/print-path-model.json
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/samples/generated/matrix-letter_default.zjs
+Wrote analysis/open-firmware-model/variants/letter_default/print-path-model.md
+Wrote analysis/open-firmware-model/variants/letter_default/print-path-model.json
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/samples/generated/matrix-legal_default.zjs
+Wrote analysis/open-firmware-model/variants/legal_default/print-path-model.md
+Wrote analysis/open-firmware-model/variants/legal_default/print-path-model.json
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/samples/generated/matrix-a4_600x600.zjs
+Wrote analysis/open-firmware-model/variants/a4_600x600/print-path-model.md
+Wrote analysis/open-firmware-model/variants/a4_600x600/print-path-model.json
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/samples/generated/matrix-a4_2400x600.zjs
+Wrote analysis/open-firmware-model/variants/a4_2400x600/print-path-model.md
+Wrote analysis/open-firmware-model/variants/a4_2400x600/print-path-model.json
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/samples/generated/matrix-a4_two_copies.zjs
+Wrote analysis/open-firmware-model/variants/a4_two_copies/print-path-model.md
+Wrote analysis/open-firmware-model/variants/a4_two_copies/print-path-model.json
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/samples/generated/matrix-a4_draft.zjs
+Wrote analysis/open-firmware-model/variants/a4_draft/print-path-model.md
+Wrote analysis/open-firmware-model/variants/a4_draft/print-path-model.json
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/samples/generated/matrix-a4_manual_feed.zjs
+Wrote analysis/open-firmware-model/variants/a4_manual_feed/print-path-model.md
+Wrote analysis/open-firmware-model/variants/a4_manual_feed/print-path-model.json
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/samples/generated/matrix-a4_cardstock_media.zjs
+Wrote analysis/open-firmware-model/variants/a4_cardstock_media/print-path-model.md
+Wrote analysis/open-firmware-model/variants/a4_cardstock_media/print-path-model.json
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/samples/generated/matrix-a4_logical_clip.zjs
+Wrote analysis/open-firmware-model/variants/a4_logical_clip/print-path-model.md
+Wrote analysis/open-firmware-model/variants/a4_logical_clip/print-path-model.json
+Wrote analysis/open-firmware-model/variant-matrix.md
+==> Verify direct START_PAGE work construction against stock ELF
+direct work status=pass checks=43 cases=10
+==> Verify stock metadata allocation bounds
+metadata bounds: 10 bounded fixtures, 1 expected logical-clip mismatch; 8 stock-byte checks
+==> Validate portable semantic core under sanitizers
+semantic core: 512 cases passed, ASan/UBSan, 11 generated streams
+==> Validate portable page and band planner
+page plan: 1398 cases, 5394344 bands, ASan/UBSan
+==> Build and reproduce semantic core for synthetic Xtensa RAM
+C compiler profile: 21 macros and 5 stock-byte counterparts verified
+In file included from /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/semantic-core/hp1020_semantic.c:1:
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/semantic-core/hp1020_semantic.h:3:10: fatal error: stddef.h: No such file or directory
+    3 | #include <stddef.h>
+      |          ^~~~~~~~~~
+compilation terminated.
+
+--- Pinned GCC recovery attempt; sandbox DNS failure ---
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (6) Could not resolve host: ftp.gnu.org
+Warning: Problem : timeout. Will retry in 1 seconds. 2 retries left.
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (6) Could not resolve host: ftp.gnu.org
+Warning: Problem : timeout. Will retry in 2 seconds. 1 retries left.
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (6) Could not resolve host: ftp.gnu.org

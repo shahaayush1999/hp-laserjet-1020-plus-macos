@@ -140,6 +140,12 @@ run_step "Execute original memory allocation, release and fragmentation" \
 run_step "Execute original StatusMgr under priority scheduling and locks" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-scheduled-status.py"
 
+run_step "Execute original native pipeline and conditional cancellation ordering" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-native-pipeline.py"
+
+run_step "Execute bounded original native retirement and excluded-path gate" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-native-retirement.py"
+
 run_step "Audit original instruction annotations and unresolved encodings" \
   "$ROOT_DIR/scripts/audit-hp1020-instruction-properties.py"
 

@@ -1,0 +1,2063 @@
+{
+  "cases": [
+    {
+      "decrements": [],
+      "event_calls": [],
+      "fill": 0,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 1,
+      "instructions": 13,
+      "intclear_values": [],
+      "nodes": 0,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 0
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          0
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 1,
+      "instructions": 185,
+      "intclear_values": [
+        1048576
+      ],
+      "nodes": 1,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 1
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          1
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 2,
+      "instructions": 185,
+      "intclear_values": [
+        1048576
+      ],
+      "nodes": 1,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 1
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          65534
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 65535,
+      "instructions": 185,
+      "intclear_values": [
+        1048576
+      ],
+      "nodes": 1,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 1
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          0
+        ],
+        [
+          577765776,
+          0
+        ],
+        [
+          577765904,
+          0
+        ],
+        [
+          577766032,
+          0
+        ],
+        [
+          577766160,
+          0
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 1,
+      "instructions": 697,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 5,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 5
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          1
+        ],
+        [
+          577765776,
+          1
+        ],
+        [
+          577765904,
+          1
+        ],
+        [
+          577766032,
+          1
+        ],
+        [
+          577766160,
+          1
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 2,
+      "instructions": 697,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 5,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 5
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          65534
+        ],
+        [
+          577765776,
+          65534
+        ],
+        [
+          577765904,
+          65534
+        ],
+        [
+          577766032,
+          65534
+        ],
+        [
+          577766160,
+          65534
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 65535,
+      "instructions": 697,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 5,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 5
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          0
+        ],
+        [
+          577765776,
+          0
+        ],
+        [
+          577765904,
+          0
+        ],
+        [
+          577766032,
+          0
+        ],
+        [
+          577766160,
+          0
+        ],
+        [
+          577766288,
+          0
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 1,
+      "instructions": 825,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 6,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 6
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          1
+        ],
+        [
+          577765776,
+          1
+        ],
+        [
+          577765904,
+          1
+        ],
+        [
+          577766032,
+          1
+        ],
+        [
+          577766160,
+          1
+        ],
+        [
+          577766288,
+          1
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 2,
+      "instructions": 825,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 6,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 6
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          65534
+        ],
+        [
+          577765776,
+          65534
+        ],
+        [
+          577765904,
+          65534
+        ],
+        [
+          577766032,
+          65534
+        ],
+        [
+          577766160,
+          65534
+        ],
+        [
+          577766288,
+          65534
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 65535,
+      "instructions": 825,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 6,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 6
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          0
+        ],
+        [
+          577765776,
+          0
+        ],
+        [
+          577765904,
+          0
+        ],
+        [
+          577766032,
+          0
+        ],
+        [
+          577766160,
+          0
+        ],
+        [
+          577766288,
+          0
+        ],
+        [
+          577766416,
+          0
+        ],
+        [
+          577766544,
+          0
+        ],
+        [
+          577766672,
+          0
+        ],
+        [
+          577766800,
+          0
+        ],
+        [
+          577766928,
+          0
+        ],
+        [
+          577767056,
+          0
+        ],
+        [
+          577767184,
+          0
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 1,
+      "instructions": 1721,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 13,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 13
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          1
+        ],
+        [
+          577765776,
+          1
+        ],
+        [
+          577765904,
+          1
+        ],
+        [
+          577766032,
+          1
+        ],
+        [
+          577766160,
+          1
+        ],
+        [
+          577766288,
+          1
+        ],
+        [
+          577766416,
+          1
+        ],
+        [
+          577766544,
+          1
+        ],
+        [
+          577766672,
+          1
+        ],
+        [
+          577766800,
+          1
+        ],
+        [
+          577766928,
+          1
+        ],
+        [
+          577767056,
+          1
+        ],
+        [
+          577767184,
+          1
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 2,
+      "instructions": 1721,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 13,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 13
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          65534
+        ],
+        [
+          577765776,
+          65534
+        ],
+        [
+          577765904,
+          65534
+        ],
+        [
+          577766032,
+          65534
+        ],
+        [
+          577766160,
+          65534
+        ],
+        [
+          577766288,
+          65534
+        ],
+        [
+          577766416,
+          65534
+        ],
+        [
+          577766544,
+          65534
+        ],
+        [
+          577766672,
+          65534
+        ],
+        [
+          577766800,
+          65534
+        ],
+        [
+          577766928,
+          65534
+        ],
+        [
+          577767056,
+          65534
+        ],
+        [
+          577767184,
+          65534
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 65535,
+      "instructions": 1721,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 13,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 13
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          0
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 0,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 1,
+      "instructions": 132,
+      "intclear_values": [],
+      "nodes": 1,
+      "outcome": "blocked_next_path",
+      "status": "pass",
+      "stop": "native tasks left selected code: 0x1001434b",
+      "supplied_consumption": 1
+    },
+    {
+      "decrements": [],
+      "event_calls": [],
+      "fill": 204,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 1,
+      "instructions": 13,
+      "intclear_values": [],
+      "nodes": 0,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 0
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          0
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 1,
+      "instructions": 185,
+      "intclear_values": [
+        1048576
+      ],
+      "nodes": 1,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 1
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          1
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 2,
+      "instructions": 185,
+      "intclear_values": [
+        1048576
+      ],
+      "nodes": 1,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 1
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          65534
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 65535,
+      "instructions": 185,
+      "intclear_values": [
+        1048576
+      ],
+      "nodes": 1,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 1
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          0
+        ],
+        [
+          577765776,
+          0
+        ],
+        [
+          577765904,
+          0
+        ],
+        [
+          577766032,
+          0
+        ],
+        [
+          577766160,
+          0
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 1,
+      "instructions": 697,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 5,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 5
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          1
+        ],
+        [
+          577765776,
+          1
+        ],
+        [
+          577765904,
+          1
+        ],
+        [
+          577766032,
+          1
+        ],
+        [
+          577766160,
+          1
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 2,
+      "instructions": 697,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 5,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 5
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          65534
+        ],
+        [
+          577765776,
+          65534
+        ],
+        [
+          577765904,
+          65534
+        ],
+        [
+          577766032,
+          65534
+        ],
+        [
+          577766160,
+          65534
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 65535,
+      "instructions": 697,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 5,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 5
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          0
+        ],
+        [
+          577765776,
+          0
+        ],
+        [
+          577765904,
+          0
+        ],
+        [
+          577766032,
+          0
+        ],
+        [
+          577766160,
+          0
+        ],
+        [
+          577766288,
+          0
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 1,
+      "instructions": 825,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 6,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 6
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          1
+        ],
+        [
+          577765776,
+          1
+        ],
+        [
+          577765904,
+          1
+        ],
+        [
+          577766032,
+          1
+        ],
+        [
+          577766160,
+          1
+        ],
+        [
+          577766288,
+          1
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 2,
+      "instructions": 825,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 6,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 6
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          65534
+        ],
+        [
+          577765776,
+          65534
+        ],
+        [
+          577765904,
+          65534
+        ],
+        [
+          577766032,
+          65534
+        ],
+        [
+          577766160,
+          65534
+        ],
+        [
+          577766288,
+          65534
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 65535,
+      "instructions": 825,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 6,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 6
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          0
+        ],
+        [
+          577765776,
+          0
+        ],
+        [
+          577765904,
+          0
+        ],
+        [
+          577766032,
+          0
+        ],
+        [
+          577766160,
+          0
+        ],
+        [
+          577766288,
+          0
+        ],
+        [
+          577766416,
+          0
+        ],
+        [
+          577766544,
+          0
+        ],
+        [
+          577766672,
+          0
+        ],
+        [
+          577766800,
+          0
+        ],
+        [
+          577766928,
+          0
+        ],
+        [
+          577767056,
+          0
+        ],
+        [
+          577767184,
+          0
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 1,
+      "instructions": 1721,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 13,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 13
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          1
+        ],
+        [
+          577765776,
+          1
+        ],
+        [
+          577765904,
+          1
+        ],
+        [
+          577766032,
+          1
+        ],
+        [
+          577766160,
+          1
+        ],
+        [
+          577766288,
+          1
+        ],
+        [
+          577766416,
+          1
+        ],
+        [
+          577766544,
+          1
+        ],
+        [
+          577766672,
+          1
+        ],
+        [
+          577766800,
+          1
+        ],
+        [
+          577766928,
+          1
+        ],
+        [
+          577767056,
+          1
+        ],
+        [
+          577767184,
+          1
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 2,
+      "instructions": 1721,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 13,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 13
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          65534
+        ],
+        [
+          577765776,
+          65534
+        ],
+        [
+          577765904,
+          65534
+        ],
+        [
+          577766032,
+          65534
+        ],
+        [
+          577766160,
+          65534
+        ],
+        [
+          577766288,
+          65534
+        ],
+        [
+          577766416,
+          65534
+        ],
+        [
+          577766544,
+          65534
+        ],
+        [
+          577766672,
+          65534
+        ],
+        [
+          577766800,
+          65534
+        ],
+        [
+          577766928,
+          65534
+        ],
+        [
+          577767056,
+          65534
+        ],
+        [
+          577767184,
+          65534
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ],
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 65535,
+      "instructions": 1721,
+      "intclear_values": [
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576,
+        1048576
+      ],
+      "nodes": 13,
+      "outcome": "returned",
+      "status": "pass",
+      "stop": null,
+      "supplied_consumption": 13
+    },
+    {
+      "decrements": [
+        [
+          577765648,
+          0
+        ]
+      ],
+      "event_calls": [
+        [
+          268580972,
+          8,
+          0
+        ]
+      ],
+      "fill": 204,
+      "fixture_elf_sha256": "3ec79ad874000755c1fb864a2b6bb07c3473994414d068f72fb6700e216bc645",
+      "fixture_source_sha256": "0ee69a18d6658e0238ca90a2ab824edb5ba59f4481e060b76813fa18a9f367a2",
+      "host_services": [],
+      "initial_refs": 1,
+      "instructions": 132,
+      "intclear_values": [],
+      "nodes": 1,
+      "outcome": "blocked_next_path",
+      "status": "pass",
+      "stop": "native tasks left selected code: 0x1001434b",
+      "supplied_consumption": 1
+    }
+  ],
+  "elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "findings": [
+    "The native wrapper enters the original RAM retirement tail once per linked node, supplies completion flag 1 and a zero pending cursor, and executes original reference decrement, slot clearing, event-set and standard CPU INTCLEAR code before returning through a valid register window.",
+    "Empty, one-, five-, six- and thirteen-node fixtures preserve every unrelated work/node byte. References 1, 2 and 65535 each decrease by one; event bit 8 is set through the original primitive. Each completed entry writes bit 20 to INTCLEAR. No runtime host service is used.",
+    "Both RAM fills and both nonzero-pending-cursor mutations are checked. A mutated cursor stops at the excluded instruction 0x1001434b before it executes, with no next-transfer or MMIO instruction visited."
+  ],
+  "limits": "Node consumption, no pending DMA and successful band completion are explicit fixture inputs. The hardware IRQ prefix, raster instructions, DMA, engine/PrintMgr tasks, automatic interrupt delivery and physical printing do not execute. The standalone event has no waiter; waking a scheduled JobMgr remains a separate integration check. INTCLEAR execution verifies its value and return, not a physical interrupt or its origin.",
+  "source_sha256": {
+    "hp1020_qemu_multitask.py": "dfb253f0d98da507cdc4f88ed9a9d11aeabf779af0a1661ed967ecd7d5251bee",
+    "hp1020_qemu_pipeline.py": "c07eae06366ed4ce5e3f791a249fc979c6376b576373b513b5d8d3122ff45a67",
+    "hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
+    "hp1020_qemu_retire.py": "80875f88d0792c936edfb473bdf4ff68a04e7ec3c1f65611c8a495bff854e9a8",
+    "hp1020_qemu_scheduled_status.py": "9a715e6cd064d55994a3bfe89a8822cc9a6ce60e7f640193f2e9b52054244890",
+    "validate-hp1020-native-retirement.py": "ac08beaec3d1a5725e6a1477e42f7a98f08a521750a529220e9cb85823e42eb4"
+  },
+  "status": "pass",
+  "total_cases": 28
+}

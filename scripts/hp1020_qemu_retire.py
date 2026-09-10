@@ -6,8 +6,8 @@ The original tail decrements references, sets the JobMgr event, clears its CPU
 interrupt bit and returns through the fixture's valid register-window frame.
 
 
-UNEXECUTED DRAFT: this assembly composition has not been run or validated.
-See analysis/open-firmware-model/next-evidence.md for its required oracles and gate test.
+Standalone QEMU reference/event/return oracles and excluded-path mutations are in
+validate-hp1020-native-retirement.py. Physical consumption is still a fixture input.
 """
 
 RETIRE_CODE = [(0x10014319,0x1001434b),(0x100143a5,0x100143b8),
