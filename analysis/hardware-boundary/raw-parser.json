@@ -1,0 +1,1987 @@
+{
+  "admission_cases": 10,
+  "audited_stock_ranges": [
+    {
+      "begin": "0x10009e36",
+      "bytes": "c85bda50044b020111025824bfd4a0",
+      "end": "0x10009e45",
+      "sha256": "0f285d9b7b7af59839db8b02d38f516e75da4d937a7cd8bd60b009b53a8fac76"
+    },
+    {
+      "begin": "0x1000a05d",
+      "bytes": "c9532a0a782b0a010111025824352a166827ac10600002271c10da702b12652c1267dd305bfeb2dba065b1b128711b2b761469810228761418efd4888069813028711a1aefd5c0ec1fefd80e881c89a1af88998028711a0e881c89a2def0ae88998128711ac0fc0f881c297111ae88998264511dc0892f1268981028fc1098f39bf02476159f1328711a9811287116297111287526cd9228711ac0ec1fefc30e881c0f8808288105287511287110cd8128711ac0ec1fefbd0e881caf8828810328751028710fcd8128711ac0ec1fefb70e881caf8828810128750f28711ac0ec1fefb20e881cc0a3af88888019efa928761628711625761228752618efa5299101288101011b0228750a29750b01110258253a",
+      "end": "0x1000a170",
+      "sha256": "9506b267102b74699ed49cc70adfe7838b060f6ba89f28f942ca8fed4effca91"
+    }
+  ],
+  "cases": [
+    {
+      "admission_executed": true,
+      "admission_stop": "0x1000e670",
+      "admitted_references": 1,
+      "bitmap": 0,
+      "completed_lifecycles": 0,
+      "consumed_bytes": 336,
+      "copies": 1,
+      "data_allocations": [
+        {
+          "kind": 0,
+          "pointer": 574619664,
+          "size": 16
+        }
+      ],
+      "empty_data": false,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fallback_dimensions": false,
+      "fill": 0,
+      "host_boundaries": [
+        {
+          "requested": 4,
+          "returned": 4,
+          "service": "read"
+        },
+        {
+          "service": "document_begin"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 24,
+          "returned": 24,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 108,
+          "returned": 108,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 104,
+          "returned": 104,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "service": "document_end"
+        },
+        {
+          "document": 574619716,
+          "service": "document_publish"
+        }
+      ],
+      "image_sha256": "be45cb2605bf36bebde684841a28f0fd43c69850a3dce5fedba69928ee3a8991",
+      "input_bytes": 336,
+      "input_hex": "4a5a4a5a00000028000000000000000200185a5a0000000c00000100000000010000000c00020100000000010000007c0000000200000009006c5a5a0000000c00040100000000010000000c00080100000002580000000c00090100000002580000000c000c0100000000200000000c000d0100000000040000000c00100100000000010000000c00110100000000200000000c00120100000000040000000c0065010000000000000000880000000c0000000700685a5a0000000c00140100000000040000000c00650100000000000000000c00100100000000010000000c00670100000000010000000c00680100000000200000000c0069010000000004000000200066040000000014000001000000002000000004000000041000035c000102030405060708090a0b0c0d0e0f00000010000000030000000000005a5a00000010000000010000000000005a5a",
+      "input_pointer": 574619664,
+      "input_sha256": "1bffb6134dc2f6ff36d6f8ef2d1d87ae8d5274db39d30c3638c01d8fe2d449b7",
+      "message_selector": 3,
+      "message_types": [
+        1,
+        3,
+        5,
+        9,
+        6,
+        2
+      ],
+      "node": 574620236,
+      "outcome": "raw_message_admitted",
+      "owner_hierarchy": {
+        "child": 574619984,
+        "child_node": 574619876,
+        "document": 574619716,
+        "document_node": 574619848,
+        "work": 574620076
+      },
+      "owner_hierarchy_origin": "original queued document/page/work messages",
+      "payload": 574620252,
+      "payload_after": "0000000000000000000000000001000300000000025802580000000000000020000400010000000000000000000100040000000000030001000000000000000000000000000000000000001000010001000000012240001000000020000000000000000000000000",
+      "payload_before": "0000000000000000000000000001000300000000025802580000000000000020000400010000000000000000000100040000000000030001000000000000000000000000000000000000001000010000000000012240001000000020000000000000000000000000",
+      "pending_message_types": [
+        6,
+        2
+      ],
+      "pointer_delta_from_allocation": 0,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2684354560
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          120,
+          2147483648
+        ],
+        [
+          574620356,
+          15664,
+          1073741824
+        ]
+      ],
+      "producer_references": 0,
+      "raw_irq_flag": 0,
+      "source_kind": 1,
+      "standalone_helper_entered": false,
+      "status": "pass",
+      "work_bytes": "00000000000000000000000000010003000000000258025800000000000000200004000100200004000000000000000000000000000000010000000000000000000000000000000000000000000000012240024c2240024c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "admission_executed": true,
+      "admission_stop": "0x1000e670",
+      "admitted_references": 2,
+      "bitmap": 0,
+      "completed_lifecycles": 0,
+      "consumed_bytes": 336,
+      "copies": 2,
+      "data_allocations": [
+        {
+          "kind": 0,
+          "pointer": 574619664,
+          "size": 16
+        }
+      ],
+      "empty_data": false,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fallback_dimensions": false,
+      "fill": 0,
+      "host_boundaries": [
+        {
+          "requested": 4,
+          "returned": 4,
+          "service": "read"
+        },
+        {
+          "service": "document_begin"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 24,
+          "returned": 24,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 108,
+          "returned": 108,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 104,
+          "returned": 104,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "service": "document_end"
+        },
+        {
+          "document": 574619716,
+          "service": "document_publish"
+        }
+      ],
+      "image_sha256": "be45cb2605bf36bebde684841a28f0fd43c69850a3dce5fedba69928ee3a8991",
+      "input_bytes": 336,
+      "input_hex": "4a5a4a5a00000028000000000000000200185a5a0000000c00000100000000010000000c00020100000000010000007c0000000200000009006c5a5a0000000c00040100000000020000000c00080100000002580000000c00090100000002580000000c000c0100000000200000000c000d0100000000040000000c00100100000000010000000c00110100000000200000000c00120100000000040000000c0065010000000000000000880000000c0000000700685a5a0000000c00140100000000040000000c00650100000000000000000c00100100000000010000000c00670100000000010000000c00680100000000200000000c0069010000000004000000200066040000000014000001000000002000000004000000041000035c000102030405060708090a0b0c0d0e0f00000010000000030000000000005a5a00000010000000010000000000005a5a",
+      "input_pointer": 574619664,
+      "input_sha256": "9e45c7a7502db9db4d34ed1d96079109c343ec46c79fd036ce5f5bf8d9ce905d",
+      "message_selector": 3,
+      "message_types": [
+        1,
+        3,
+        5,
+        9,
+        6,
+        2
+      ],
+      "node": 574620236,
+      "outcome": "raw_message_admitted",
+      "owner_hierarchy": {
+        "child": 574619984,
+        "child_node": 574619876,
+        "document": 574619716,
+        "document_node": 574619848,
+        "work": 574620076
+      },
+      "owner_hierarchy_origin": "original queued document/page/work messages",
+      "payload": 574620252,
+      "payload_after": "0000000000000000000000000001000300000000025802580000000000000020000400010000000000000000000100040000000000030001000000000000000000000000000000000000001000010002000000012240001000000020000000000000000000000000",
+      "payload_before": "0000000000000000000000000001000300000000025802580000000000000020000400010000000000000000000100040000000000030001000000000000000000000000000000000000001000010000000000012240001000000020000000000000000000000000",
+      "pending_message_types": [
+        6,
+        2
+      ],
+      "pointer_delta_from_allocation": 0,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2684354560
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          120,
+          2147483648
+        ],
+        [
+          574620356,
+          15664,
+          1073741824
+        ]
+      ],
+      "producer_references": 0,
+      "raw_irq_flag": 0,
+      "source_kind": 1,
+      "standalone_helper_entered": false,
+      "status": "pass",
+      "work_bytes": "00000000000000000000000000020003000000000258025800000000000000200004000100200004000000000000000000000000000000010000000000000000000000000000000000000000000000022240024c2240024c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "admission_executed": true,
+      "admission_stop": "0x1000e670",
+      "admitted_references": 1,
+      "bitmap": 1,
+      "completed_lifecycles": 0,
+      "consumed_bytes": 336,
+      "copies": 1,
+      "data_allocations": [
+        {
+          "kind": 0,
+          "pointer": 574619664,
+          "size": 16
+        }
+      ],
+      "empty_data": false,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fallback_dimensions": false,
+      "fill": 0,
+      "host_boundaries": [
+        {
+          "requested": 4,
+          "returned": 4,
+          "service": "read"
+        },
+        {
+          "service": "document_begin"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 24,
+          "returned": 24,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 108,
+          "returned": 108,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 104,
+          "returned": 104,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "service": "document_end"
+        },
+        {
+          "document": 574619716,
+          "service": "document_publish"
+        }
+      ],
+      "image_sha256": "be45cb2605bf36bebde684841a28f0fd43c69850a3dce5fedba69928ee3a8991",
+      "input_bytes": 336,
+      "input_hex": "4a5a4a5a00000028000000000000000200185a5a0000000c00000100000000010000000c00020100000000010000007c0000000200000009006c5a5a0000000c00040100000000010000000c00080100000002580000000c00090100000002580000000c000c0100000000200000000c000d0100000000040000000c00100100000000010000000c00110100000000200000000c00120100000000040000000c0065010000000001000000880000000c0000000700685a5a0000000c00140100000000040000000c00650100000000010000000c00100100000000010000000c00670100000000010000000c00680100000000200000000c0069010000000004000000200066040000000014000001000000002000000004000000041000035c000102030405060708090a0b0c0d0e0f00000010000000030000000000005a5a00000010000000010000000000005a5a",
+      "input_pointer": 574619664,
+      "input_sha256": "7c81df483786808eafc02b1bc30c2ce96a78c125904d70de6b6aacf1a66bc69f",
+      "message_selector": 3,
+      "message_types": [
+        1,
+        3,
+        5,
+        9,
+        6,
+        2
+      ],
+      "node": 574620236,
+      "outcome": "raw_message_admitted",
+      "owner_hierarchy": {
+        "child": 574619984,
+        "child_node": 574619876,
+        "document": 574619716,
+        "document_node": 574619848,
+        "work": 574620076
+      },
+      "owner_hierarchy_origin": "original queued document/page/work messages",
+      "payload": 574620252,
+      "payload_after": "0000000000000000000000000001000300000000025802580000000000000020000400010000000000000000000100040000000000030000000000000000000000000000000000000000001000010001000000002240001000000020000000000000000000000000",
+      "payload_before": "0000000000000000000000000001000300000000025802580000000000000020000400010000000000000000000100040000000000030000000000000000000000000000000000000000001000010000000000002240001000000020000000000000000000000000",
+      "pending_message_types": [
+        6,
+        2
+      ],
+      "pointer_delta_from_allocation": 0,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2684354560
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          120,
+          2147483648
+        ],
+        [
+          574620356,
+          15664,
+          1073741824
+        ]
+      ],
+      "producer_references": 0,
+      "raw_irq_flag": 0,
+      "source_kind": 0,
+      "standalone_helper_entered": false,
+      "status": "pass",
+      "work_bytes": "00000000000000000000000000010003000000000258025800000000000000200004000100200004000000000000000000000000000000000000000000000000000000000000000000000000000000012240024c2240024c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "admission_executed": true,
+      "admission_stop": "0x1000e670",
+      "admitted_references": 2,
+      "bitmap": 1,
+      "completed_lifecycles": 0,
+      "consumed_bytes": 336,
+      "copies": 2,
+      "data_allocations": [
+        {
+          "kind": 0,
+          "pointer": 574619664,
+          "size": 16
+        }
+      ],
+      "empty_data": false,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fallback_dimensions": false,
+      "fill": 0,
+      "host_boundaries": [
+        {
+          "requested": 4,
+          "returned": 4,
+          "service": "read"
+        },
+        {
+          "service": "document_begin"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 24,
+          "returned": 24,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 108,
+          "returned": 108,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 104,
+          "returned": 104,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "service": "document_end"
+        },
+        {
+          "document": 574619716,
+          "service": "document_publish"
+        }
+      ],
+      "image_sha256": "be45cb2605bf36bebde684841a28f0fd43c69850a3dce5fedba69928ee3a8991",
+      "input_bytes": 336,
+      "input_hex": "4a5a4a5a00000028000000000000000200185a5a0000000c00000100000000010000000c00020100000000010000007c0000000200000009006c5a5a0000000c00040100000000020000000c00080100000002580000000c00090100000002580000000c000c0100000000200000000c000d0100000000040000000c00100100000000010000000c00110100000000200000000c00120100000000040000000c0065010000000001000000880000000c0000000700685a5a0000000c00140100000000040000000c00650100000000010000000c00100100000000010000000c00670100000000010000000c00680100000000200000000c0069010000000004000000200066040000000014000001000000002000000004000000041000035c000102030405060708090a0b0c0d0e0f00000010000000030000000000005a5a00000010000000010000000000005a5a",
+      "input_pointer": 574619664,
+      "input_sha256": "8a065dda66e1d758b88919984558fd669f054f5e92e16b3409cd4945b881b585",
+      "message_selector": 3,
+      "message_types": [
+        1,
+        3,
+        5,
+        9,
+        6,
+        2
+      ],
+      "node": 574620236,
+      "outcome": "raw_message_admitted",
+      "owner_hierarchy": {
+        "child": 574619984,
+        "child_node": 574619876,
+        "document": 574619716,
+        "document_node": 574619848,
+        "work": 574620076
+      },
+      "owner_hierarchy_origin": "original queued document/page/work messages",
+      "payload": 574620252,
+      "payload_after": "0000000000000000000000000001000300000000025802580000000000000020000400010000000000000000000100040000000000030000000000000000000000000000000000000000001000010002000000002240001000000020000000000000000000000000",
+      "payload_before": "0000000000000000000000000001000300000000025802580000000000000020000400010000000000000000000100040000000000030000000000000000000000000000000000000000001000010000000000002240001000000020000000000000000000000000",
+      "pending_message_types": [
+        6,
+        2
+      ],
+      "pointer_delta_from_allocation": 0,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2684354560
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          120,
+          2147483648
+        ],
+        [
+          574620356,
+          15664,
+          1073741824
+        ]
+      ],
+      "producer_references": 0,
+      "raw_irq_flag": 0,
+      "source_kind": 0,
+      "standalone_helper_entered": false,
+      "status": "pass",
+      "work_bytes": "00000000000000000000000000020003000000000258025800000000000000200004000100200004000000000000000000000000000000000000000000000000000000000000000000000000000000022240024c2240024c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "admission_executed": true,
+      "admission_stop": "0x1000e670",
+      "admitted_references": 1,
+      "bitmap": 0,
+      "completed_lifecycles": 0,
+      "consumed_bytes": 336,
+      "copies": 1,
+      "data_allocations": [
+        {
+          "kind": 0,
+          "pointer": 574619664,
+          "size": 16
+        }
+      ],
+      "empty_data": false,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fallback_dimensions": false,
+      "fill": 204,
+      "host_boundaries": [
+        {
+          "requested": 4,
+          "returned": 4,
+          "service": "read"
+        },
+        {
+          "service": "document_begin"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 24,
+          "returned": 24,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 108,
+          "returned": 108,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 104,
+          "returned": 104,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "service": "document_end"
+        },
+        {
+          "document": 574619716,
+          "service": "document_publish"
+        }
+      ],
+      "image_sha256": "be45cb2605bf36bebde684841a28f0fd43c69850a3dce5fedba69928ee3a8991",
+      "input_bytes": 336,
+      "input_hex": "4a5a4a5a00000028000000000000000200185a5a0000000c00000100000000010000000c00020100000000010000007c0000000200000009006c5a5a0000000c00040100000000010000000c00080100000002580000000c00090100000002580000000c000c0100000000200000000c000d0100000000040000000c00100100000000010000000c00110100000000200000000c00120100000000040000000c0065010000000000000000880000000c0000000700685a5a0000000c00140100000000040000000c00650100000000000000000c00100100000000010000000c00670100000000010000000c00680100000000200000000c0069010000000004000000200066040000000014000001000000002000000004000000041000035c000102030405060708090a0b0c0d0e0f00000010000000030000000000005a5a00000010000000010000000000005a5a",
+      "input_pointer": 574619664,
+      "input_sha256": "1bffb6134dc2f6ff36d6f8ef2d1d87ae8d5274db39d30c3638c01d8fe2d449b7",
+      "message_selector": 3,
+      "message_types": [
+        1,
+        3,
+        5,
+        9,
+        6,
+        2
+      ],
+      "node": 574620236,
+      "outcome": "raw_message_admitted",
+      "owner_hierarchy": {
+        "child": 574619984,
+        "child_node": 574619876,
+        "document": 574619716,
+        "document_node": 574619848,
+        "work": 574620076
+      },
+      "owner_hierarchy_origin": "original queued document/page/work messages",
+      "payload": 574620252,
+      "payload_after": "00000000000000000000000000010003000000000258025800000000000000200004000100000000000000000001000400000000000300010000000000000000000000000000cccc0000001000010001000000012240001000000020cccccccccccccccccccccccc",
+      "payload_before": "00000000000000000000000000010003000000000258025800000000000000200004000100000000000000000001000400000000000300010000000000000000000000000000cccc000000100001cccc000000012240001000000020cccccccccccccccccccccccc",
+      "pending_message_types": [
+        6,
+        2
+      ],
+      "pointer_delta_from_allocation": 0,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2684354560
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          120,
+          2147483648
+        ],
+        [
+          574620356,
+          15664,
+          1073741824
+        ]
+      ],
+      "producer_references": 52428,
+      "raw_irq_flag": 0,
+      "source_kind": 1,
+      "standalone_helper_entered": false,
+      "status": "pass",
+      "work_bytes": "00000000000000000000000000010003000000000258025800000000000000200004000100200004000000000000000000000000000000010000000000000000000000000000cccc00000000000000012240024c2240024c000000000000000000000000000000000000000000000000000000000000000000cc0000cccccccccccccccc00000000000000000000000000cccccc"
+    },
+    {
+      "admission_executed": true,
+      "admission_stop": "0x1000e670",
+      "admitted_references": 2,
+      "bitmap": 0,
+      "completed_lifecycles": 0,
+      "consumed_bytes": 336,
+      "copies": 2,
+      "data_allocations": [
+        {
+          "kind": 0,
+          "pointer": 574619664,
+          "size": 16
+        }
+      ],
+      "empty_data": false,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fallback_dimensions": false,
+      "fill": 204,
+      "host_boundaries": [
+        {
+          "requested": 4,
+          "returned": 4,
+          "service": "read"
+        },
+        {
+          "service": "document_begin"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 24,
+          "returned": 24,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 108,
+          "returned": 108,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 104,
+          "returned": 104,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "service": "document_end"
+        },
+        {
+          "document": 574619716,
+          "service": "document_publish"
+        }
+      ],
+      "image_sha256": "be45cb2605bf36bebde684841a28f0fd43c69850a3dce5fedba69928ee3a8991",
+      "input_bytes": 336,
+      "input_hex": "4a5a4a5a00000028000000000000000200185a5a0000000c00000100000000010000000c00020100000000010000007c0000000200000009006c5a5a0000000c00040100000000020000000c00080100000002580000000c00090100000002580000000c000c0100000000200000000c000d0100000000040000000c00100100000000010000000c00110100000000200000000c00120100000000040000000c0065010000000000000000880000000c0000000700685a5a0000000c00140100000000040000000c00650100000000000000000c00100100000000010000000c00670100000000010000000c00680100000000200000000c0069010000000004000000200066040000000014000001000000002000000004000000041000035c000102030405060708090a0b0c0d0e0f00000010000000030000000000005a5a00000010000000010000000000005a5a",
+      "input_pointer": 574619664,
+      "input_sha256": "9e45c7a7502db9db4d34ed1d96079109c343ec46c79fd036ce5f5bf8d9ce905d",
+      "message_selector": 3,
+      "message_types": [
+        1,
+        3,
+        5,
+        9,
+        6,
+        2
+      ],
+      "node": 574620236,
+      "outcome": "raw_message_admitted",
+      "owner_hierarchy": {
+        "child": 574619984,
+        "child_node": 574619876,
+        "document": 574619716,
+        "document_node": 574619848,
+        "work": 574620076
+      },
+      "owner_hierarchy_origin": "original queued document/page/work messages",
+      "payload": 574620252,
+      "payload_after": "00000000000000000000000000010003000000000258025800000000000000200004000100000000000000000001000400000000000300010000000000000000000000000000cccc0000001000010002000000012240001000000020cccccccccccccccccccccccc",
+      "payload_before": "00000000000000000000000000010003000000000258025800000000000000200004000100000000000000000001000400000000000300010000000000000000000000000000cccc000000100001cccc000000012240001000000020cccccccccccccccccccccccc",
+      "pending_message_types": [
+        6,
+        2
+      ],
+      "pointer_delta_from_allocation": 0,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2684354560
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          120,
+          2147483648
+        ],
+        [
+          574620356,
+          15664,
+          1073741824
+        ]
+      ],
+      "producer_references": 52428,
+      "raw_irq_flag": 0,
+      "source_kind": 1,
+      "standalone_helper_entered": false,
+      "status": "pass",
+      "work_bytes": "00000000000000000000000000020003000000000258025800000000000000200004000100200004000000000000000000000000000000010000000000000000000000000000cccc00000000000000022240024c2240024c000000000000000000000000000000000000000000000000000000000000000000cc0000cccccccccccccccc00000000000000000000000000cccccc"
+    },
+    {
+      "admission_executed": true,
+      "admission_stop": "0x1000e670",
+      "admitted_references": 1,
+      "bitmap": 1,
+      "completed_lifecycles": 0,
+      "consumed_bytes": 336,
+      "copies": 1,
+      "data_allocations": [
+        {
+          "kind": 0,
+          "pointer": 574619664,
+          "size": 16
+        }
+      ],
+      "empty_data": false,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fallback_dimensions": false,
+      "fill": 204,
+      "host_boundaries": [
+        {
+          "requested": 4,
+          "returned": 4,
+          "service": "read"
+        },
+        {
+          "service": "document_begin"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 24,
+          "returned": 24,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 108,
+          "returned": 108,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 104,
+          "returned": 104,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "service": "document_end"
+        },
+        {
+          "document": 574619716,
+          "service": "document_publish"
+        }
+      ],
+      "image_sha256": "be45cb2605bf36bebde684841a28f0fd43c69850a3dce5fedba69928ee3a8991",
+      "input_bytes": 336,
+      "input_hex": "4a5a4a5a00000028000000000000000200185a5a0000000c00000100000000010000000c00020100000000010000007c0000000200000009006c5a5a0000000c00040100000000010000000c00080100000002580000000c00090100000002580000000c000c0100000000200000000c000d0100000000040000000c00100100000000010000000c00110100000000200000000c00120100000000040000000c0065010000000001000000880000000c0000000700685a5a0000000c00140100000000040000000c00650100000000010000000c00100100000000010000000c00670100000000010000000c00680100000000200000000c0069010000000004000000200066040000000014000001000000002000000004000000041000035c000102030405060708090a0b0c0d0e0f00000010000000030000000000005a5a00000010000000010000000000005a5a",
+      "input_pointer": 574619664,
+      "input_sha256": "7c81df483786808eafc02b1bc30c2ce96a78c125904d70de6b6aacf1a66bc69f",
+      "message_selector": 3,
+      "message_types": [
+        1,
+        3,
+        5,
+        9,
+        6,
+        2
+      ],
+      "node": 574620236,
+      "outcome": "raw_message_admitted",
+      "owner_hierarchy": {
+        "child": 574619984,
+        "child_node": 574619876,
+        "document": 574619716,
+        "document_node": 574619848,
+        "work": 574620076
+      },
+      "owner_hierarchy_origin": "original queued document/page/work messages",
+      "payload": 574620252,
+      "payload_after": "00000000000000000000000000010003000000000258025800000000000000200004000100000000000000000001000400000000000300000000000000000000000000000000cccc0000001000010001000000002240001000000020cccccccccccccccccccccccc",
+      "payload_before": "00000000000000000000000000010003000000000258025800000000000000200004000100000000000000000001000400000000000300000000000000000000000000000000cccc000000100001cccc000000002240001000000020cccccccccccccccccccccccc",
+      "pending_message_types": [
+        6,
+        2
+      ],
+      "pointer_delta_from_allocation": 0,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2684354560
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          120,
+          2147483648
+        ],
+        [
+          574620356,
+          15664,
+          1073741824
+        ]
+      ],
+      "producer_references": 52428,
+      "raw_irq_flag": 0,
+      "source_kind": 0,
+      "standalone_helper_entered": false,
+      "status": "pass",
+      "work_bytes": "00000000000000000000000000010003000000000258025800000000000000200004000100200004000000000000000000000000000000000000000000000000000000000000cccc00000000000000012240024c2240024c000000000000000000000000000000000000000000000000000000000000000000cc0000cccccccccccccccc00000000000000000000000000cccccc"
+    },
+    {
+      "admission_executed": true,
+      "admission_stop": "0x1000e670",
+      "admitted_references": 2,
+      "bitmap": 1,
+      "completed_lifecycles": 0,
+      "consumed_bytes": 336,
+      "copies": 2,
+      "data_allocations": [
+        {
+          "kind": 0,
+          "pointer": 574619664,
+          "size": 16
+        }
+      ],
+      "empty_data": false,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fallback_dimensions": false,
+      "fill": 204,
+      "host_boundaries": [
+        {
+          "requested": 4,
+          "returned": 4,
+          "service": "read"
+        },
+        {
+          "service": "document_begin"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 24,
+          "returned": 24,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 108,
+          "returned": 108,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 104,
+          "returned": 104,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "service": "document_end"
+        },
+        {
+          "document": 574619716,
+          "service": "document_publish"
+        }
+      ],
+      "image_sha256": "be45cb2605bf36bebde684841a28f0fd43c69850a3dce5fedba69928ee3a8991",
+      "input_bytes": 336,
+      "input_hex": "4a5a4a5a00000028000000000000000200185a5a0000000c00000100000000010000000c00020100000000010000007c0000000200000009006c5a5a0000000c00040100000000020000000c00080100000002580000000c00090100000002580000000c000c0100000000200000000c000d0100000000040000000c00100100000000010000000c00110100000000200000000c00120100000000040000000c0065010000000001000000880000000c0000000700685a5a0000000c00140100000000040000000c00650100000000010000000c00100100000000010000000c00670100000000010000000c00680100000000200000000c0069010000000004000000200066040000000014000001000000002000000004000000041000035c000102030405060708090a0b0c0d0e0f00000010000000030000000000005a5a00000010000000010000000000005a5a",
+      "input_pointer": 574619664,
+      "input_sha256": "8a065dda66e1d758b88919984558fd669f054f5e92e16b3409cd4945b881b585",
+      "message_selector": 3,
+      "message_types": [
+        1,
+        3,
+        5,
+        9,
+        6,
+        2
+      ],
+      "node": 574620236,
+      "outcome": "raw_message_admitted",
+      "owner_hierarchy": {
+        "child": 574619984,
+        "child_node": 574619876,
+        "document": 574619716,
+        "document_node": 574619848,
+        "work": 574620076
+      },
+      "owner_hierarchy_origin": "original queued document/page/work messages",
+      "payload": 574620252,
+      "payload_after": "00000000000000000000000000010003000000000258025800000000000000200004000100000000000000000001000400000000000300000000000000000000000000000000cccc0000001000010002000000002240001000000020cccccccccccccccccccccccc",
+      "payload_before": "00000000000000000000000000010003000000000258025800000000000000200004000100000000000000000001000400000000000300000000000000000000000000000000cccc000000100001cccc000000002240001000000020cccccccccccccccccccccccc",
+      "pending_message_types": [
+        6,
+        2
+      ],
+      "pointer_delta_from_allocation": 0,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2684354560
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          120,
+          2147483648
+        ],
+        [
+          574620356,
+          15664,
+          1073741824
+        ]
+      ],
+      "producer_references": 52428,
+      "raw_irq_flag": 0,
+      "source_kind": 0,
+      "standalone_helper_entered": false,
+      "status": "pass",
+      "work_bytes": "00000000000000000000000000020003000000000258025800000000000000200004000100200004000000000000000000000000000000000000000000000000000000000000cccc00000000000000022240024c2240024c000000000000000000000000000000000000000000000000000000000000000000cc0000cccccccccccccccc00000000000000000000000000cccccc"
+    },
+    {
+      "admission_executed": true,
+      "admission_stop": "0x1000e670",
+      "admitted_references": 1,
+      "bitmap": 0,
+      "completed_lifecycles": 0,
+      "consumed_bytes": 312,
+      "copies": 1,
+      "data_allocations": [
+        {
+          "kind": 0,
+          "pointer": 574619664,
+          "size": 16
+        }
+      ],
+      "empty_data": false,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fallback_dimensions": true,
+      "fill": 0,
+      "host_boundaries": [
+        {
+          "requested": 4,
+          "returned": 4,
+          "service": "read"
+        },
+        {
+          "service": "document_begin"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 24,
+          "returned": 24,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 108,
+          "returned": 108,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 80,
+          "returned": 80,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "service": "document_end"
+        },
+        {
+          "document": 574619716,
+          "service": "document_publish"
+        }
+      ],
+      "image_sha256": "be45cb2605bf36bebde684841a28f0fd43c69850a3dce5fedba69928ee3a8991",
+      "input_bytes": 312,
+      "input_hex": "4a5a4a5a00000028000000000000000200185a5a0000000c00000100000000010000000c00020100000000010000007c0000000200000009006c5a5a0000000c00040100000000010000000c00080100000002580000000c00090100000002580000000c000c0100000000200000000c000d0100000000040000000c00100100000000010000000c00110100000000200000000c00120100000000040000000c0065010000000000000000700000000c0000000500505a5a0000000c00140100000000040000000c00650100000000000000000c00100100000000010000000c0067010000000001000000200066040000000014000001000000002000000004000000041000035c000102030405060708090a0b0c0d0e0f00000010000000030000000000005a5a00000010000000010000000000005a5a",
+      "input_pointer": 574619664,
+      "input_sha256": "5503ada13b8da48a953d1479487f842671e7752d81cedbc9b1b6e4144ba20357",
+      "message_selector": 3,
+      "message_types": [
+        1,
+        3,
+        5,
+        9,
+        6,
+        2
+      ],
+      "node": 574620236,
+      "outcome": "raw_message_admitted",
+      "owner_hierarchy": {
+        "child": 574619984,
+        "child_node": 574619876,
+        "document": 574619716,
+        "document_node": 574619848,
+        "work": 574620076
+      },
+      "owner_hierarchy_origin": "original queued document/page/work messages",
+      "payload": 574620252,
+      "payload_after": "0000000000000000000000000001000300000000025802580000000000000020000400010000000000000000000100040000000000030001000000000000000000000000000000000000001000010001000000012240001000000020000000000000000000000000",
+      "payload_before": "0000000000000000000000000001000300000000025802580000000000000020000400010000000000000000000100040000000000030001000000000000000000000000000000000000001000010000000000012240001000000020000000000000000000000000",
+      "pending_message_types": [
+        6,
+        2
+      ],
+      "pointer_delta_from_allocation": 0,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2684354560
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          120,
+          2147483648
+        ],
+        [
+          574620356,
+          15664,
+          1073741824
+        ]
+      ],
+      "producer_references": 0,
+      "raw_irq_flag": 0,
+      "source_kind": 1,
+      "standalone_helper_entered": false,
+      "status": "pass",
+      "work_bytes": "00000000000000000000000000010003000000000258025800000000000000200004000100200004000000000000000000000000000000010000000000000000000000000000000000000000000000012240024c2240024c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "admission_executed": true,
+      "admission_stop": "0x1000e670",
+      "admitted_references": 1,
+      "bitmap": 0,
+      "completed_lifecycles": 0,
+      "consumed_bytes": 312,
+      "copies": 1,
+      "data_allocations": [
+        {
+          "kind": 0,
+          "pointer": 574619664,
+          "size": 16
+        }
+      ],
+      "empty_data": false,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fallback_dimensions": true,
+      "fill": 204,
+      "host_boundaries": [
+        {
+          "requested": 4,
+          "returned": 4,
+          "service": "read"
+        },
+        {
+          "service": "document_begin"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 24,
+          "returned": 24,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 108,
+          "returned": 108,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 80,
+          "returned": 80,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "service": "document_end"
+        },
+        {
+          "document": 574619716,
+          "service": "document_publish"
+        }
+      ],
+      "image_sha256": "be45cb2605bf36bebde684841a28f0fd43c69850a3dce5fedba69928ee3a8991",
+      "input_bytes": 312,
+      "input_hex": "4a5a4a5a00000028000000000000000200185a5a0000000c00000100000000010000000c00020100000000010000007c0000000200000009006c5a5a0000000c00040100000000010000000c00080100000002580000000c00090100000002580000000c000c0100000000200000000c000d0100000000040000000c00100100000000010000000c00110100000000200000000c00120100000000040000000c0065010000000000000000700000000c0000000500505a5a0000000c00140100000000040000000c00650100000000000000000c00100100000000010000000c0067010000000001000000200066040000000014000001000000002000000004000000041000035c000102030405060708090a0b0c0d0e0f00000010000000030000000000005a5a00000010000000010000000000005a5a",
+      "input_pointer": 574619664,
+      "input_sha256": "5503ada13b8da48a953d1479487f842671e7752d81cedbc9b1b6e4144ba20357",
+      "message_selector": 3,
+      "message_types": [
+        1,
+        3,
+        5,
+        9,
+        6,
+        2
+      ],
+      "node": 574620236,
+      "outcome": "raw_message_admitted",
+      "owner_hierarchy": {
+        "child": 574619984,
+        "child_node": 574619876,
+        "document": 574619716,
+        "document_node": 574619848,
+        "work": 574620076
+      },
+      "owner_hierarchy_origin": "original queued document/page/work messages",
+      "payload": 574620252,
+      "payload_after": "00000000000000000000000000010003000000000258025800000000000000200004000100000000000000000001000400000000000300010000000000000000000000000000cccc0000001000010001000000012240001000000020cccccccccccccccccccccccc",
+      "payload_before": "00000000000000000000000000010003000000000258025800000000000000200004000100000000000000000001000400000000000300010000000000000000000000000000cccc000000100001cccc000000012240001000000020cccccccccccccccccccccccc",
+      "pending_message_types": [
+        6,
+        2
+      ],
+      "pointer_delta_from_allocation": 0,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2684354560
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          120,
+          2147483648
+        ],
+        [
+          574620356,
+          15664,
+          1073741824
+        ]
+      ],
+      "producer_references": 52428,
+      "raw_irq_flag": 0,
+      "source_kind": 1,
+      "standalone_helper_entered": false,
+      "status": "pass",
+      "work_bytes": "00000000000000000000000000010003000000000258025800000000000000200004000100200004000000000000000000000000000000010000000000000000000000000000cccc00000000000000012240024c2240024c000000000000000000000000000000000000000000000000000000000000000000cc0000cccccccccccccccc00000000000000000000000000cccccc"
+    },
+    {
+      "admission_executed": false,
+      "bitmap": 0,
+      "completed_lifecycles": 0,
+      "consumed_bytes": 320,
+      "copies": 1,
+      "data_allocations": [],
+      "empty_data": true,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fallback_dimensions": false,
+      "fill": 0,
+      "host_boundaries": [
+        {
+          "requested": 4,
+          "returned": 4,
+          "service": "read"
+        },
+        {
+          "service": "document_begin"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 24,
+          "returned": 24,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 108,
+          "returned": 108,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 104,
+          "returned": 104,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "service": "document_end"
+        }
+      ],
+      "input_bytes": 320,
+      "input_hex": "4a5a4a5a00000028000000000000000200185a5a0000000c00000100000000010000000c00020100000000010000007c0000000200000009006c5a5a0000000c00040100000000010000000c00080100000002580000000c00090100000002580000000c000c0100000000200000000c000d0100000000040000000c00100100000000010000000c00110100000000200000000c00120100000000040000000c0065010000000000000000780000000c0000000700685a5a0000000c00140100000000040000000c00650100000000000000000c00100100000000010000000c00670100000000010000000c00680100000000200000000c0069010000000004000000200066040000000014000001000000002000000004000000041000035c00000010000000030000000000005a5a00000010000000010000000000005a5a",
+      "input_sha256": "9d96c255b5df499eb1d9f2a812986522068d170d1ada3b775d0e95658d1b982c",
+      "message_types": [
+        1,
+        3,
+        5,
+        6,
+        2
+      ],
+      "outcome": "metadata_only_no_raw_message",
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          0
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          124,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          15796,
+          1073741824
+        ]
+      ],
+      "standalone_helper_entered": false,
+      "status": "pass"
+    },
+    {
+      "admission_executed": false,
+      "bitmap": 0,
+      "completed_lifecycles": 0,
+      "consumed_bytes": 320,
+      "copies": 1,
+      "data_allocations": [],
+      "empty_data": true,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fallback_dimensions": false,
+      "fill": 204,
+      "host_boundaries": [
+        {
+          "requested": 4,
+          "returned": 4,
+          "service": "read"
+        },
+        {
+          "service": "document_begin"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 24,
+          "returned": 24,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 108,
+          "returned": 108,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 104,
+          "returned": 104,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "requested": 16,
+          "returned": 16,
+          "service": "read"
+        },
+        {
+          "service": "document_end"
+        }
+      ],
+      "input_bytes": 320,
+      "input_hex": "4a5a4a5a00000028000000000000000200185a5a0000000c00000100000000010000000c00020100000000010000007c0000000200000009006c5a5a0000000c00040100000000010000000c00080100000002580000000c00090100000002580000000c000c0100000000200000000c000d0100000000040000000c00100100000000010000000c00110100000000200000000c00120100000000040000000c0065010000000000000000780000000c0000000700685a5a0000000c00140100000000040000000c00650100000000000000000c00100100000000010000000c00670100000000010000000c00680100000000200000000c0069010000000004000000200066040000000014000001000000002000000004000000041000035c00000010000000030000000000005a5a00000010000000010000000000005a5a",
+      "input_sha256": "9d96c255b5df499eb1d9f2a812986522068d170d1ada3b775d0e95658d1b982c",
+      "message_types": [
+        1,
+        3,
+        5,
+        6,
+        2
+      ],
+      "outcome": "metadata_only_no_raw_message",
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          0
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          124,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          15796,
+          1073741824
+        ]
+      ],
+      "standalone_helper_entered": false,
+      "status": "pass"
+    }
+  ],
+  "completed_lifecycles": 0,
+  "dispatch_table_bytes": "10009efe1000a1b310009f861000a19e1000a0061000a0141000a0531000a1ef1000a1ef1000a1ef1000a1731000a1d61000a05d",
+  "dispatch_table_sha256": "e58b25bdf5d9b64d4eaa9f015297c560924c3042b26f929c20cc875b30cc799f",
+  "findings": [
+    "Ten nonempty chunk-12 inputs run through the full original parser, real allocator/queue and JobMgr admission. Original document/page/work packets construct the owner hierarchy; input callbacks, readiness and document notification/publication remain host boundaries.",
+    "The actual data allocation requests exactly 16 bytes with allocator kind 0. The parser stores the returned pointer unchanged in payload+0x54, and admission preserves it. This route does not supply the 16-byte image prefix used in the separate raw-retirement fixtures.",
+    "Explicit bitmap metadata 0 selects source kind 1; bitmap metadata 1 selects source kind 0. Both tested variants send selector 3, append to work+0x50 and receive one or two references from the original copy metadata. Work raw-IRQ flag +0x74 is zero after construction and after admission.",
+    "Payload source size is 16, dimensions are 32 by 4, bpp is 1 and the terminal flag is 1. Two controls omit explicit band width/height: original BIH/cache fallback produces the same dimensions. No physical packing or support for arbitrary metadata is inferred.",
+    "Two metadata-only chunk-12 controls allocate no data and emit no message 9. All twelve comparisons agree between the bounded interpreter and independent QEMU, including pool partitions, bytes and explicit host boundaries.",
+    "The original standalone helper at 0x10010420 is never entered by this parser route. This establishes a separate software producer, not that helper's caller, raw-mode reachability, completion, second-copy cursor restoration or physical output."
+  ],
+  "limits": "Synthetic single-thread RAM and seeded allocator/queue state; input callbacks, document begin/end, document publication and task readiness are explicit boundaries. Nonempty runs stop immediately after the first raw-list admission, with END_PAGE/END_DOC still queued. The raw IRQ flag is not forced, no raw retirement/VideoThread/PrintMgr/engine/custom instruction/MMIO/USB path executes, and zero completed page lifecycles or physical printing are claimed. Numeric chunk 12 exists in this stock ELF; its host header name is not proof of another model's support. The open parser grammar is unchanged.",
+  "metadata_only_controls": 2,
+  "qemu_version": "QEMU emulator version 11.1.1",
+  "source_sha256": {
+    "scripts/hp1020_qemu_context.py": "ec85435943eacdb827dcaa41387663a6eb62f536e98ae753cb8b373f04ac6067",
+    "scripts/hp1020_qemu_multitask.py": "2353e573a0136984739c7eff9e70ebe5e1aa2634eac381522c3097a49b193aae",
+    "scripts/hp1020_qemu_pipeline.py": "3a6ea4ef1c1dfa3b0bc02df4ba5601facb1c27396685c8c9e847122bb443ef39",
+    "scripts/hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
+    "scripts/hp1020_qemu_scheduled_status.py": "9a715e6cd064d55994a3bfe89a8822cc9a6ce60e7f640193f2e9b52054244890",
+    "scripts/hp1020_qemu_scheduler.py": "6bb45fc44d99da27be5b307b216969207ceb1a8b05bff780108d672d7ab3e724",
+    "scripts/hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
+    "scripts/hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
+    "scripts/hp1020_qemu_timers.py": "34beea0dd76a324d546e38ebfe18603932c4afbd9133a9a37c98aaf775492f06",
+    "scripts/hp1020_stock_jobmgr_harness.py": "4c863cff55c7027ed3f348d188c93225dacc0c0442b9f71792c8db96ce7ced93",
+    "scripts/hp1020_stock_lifecycle_harness.py": "d08e611620854498fa9fd65e809fd042219fdbb4e0093d051c8972fb0b433f95",
+    "scripts/hp1020_stock_notifications.py": "d0acd7130585cc38a48368d2d10e26f2bef6534c9f124dfbae8b91991c98e9ca",
+    "scripts/hp1020_stock_parser_harness.py": "87175798036cb376447ae70cb4a35f82f7a3f06a3ca166c89c9ca8b8e38bba90",
+    "scripts/hp1020_stock_pool.py": "bdc1ce5a01fdb9dff49ed82570e5094ba376eaa44e970fcd2ba3a5cf4743628b",
+    "scripts/hp1020_stock_printmgr_harness.py": "6f5afe219a3f0aebca235a8f510ad2cac468c9624fbfe518e4593e4c79e50275",
+    "scripts/hp1020_stock_queue.py": "799275c643095b20c613ef64fdddb93b277404519f2681d70c3573323b872e11",
+    "scripts/hp1020_stock_status_publication.py": "0f2276305116672937c0aa96fe9fd67c34dc84cc89ff1be77d286c1a926acea3",
+    "scripts/hp1020_stock_status_queue.py": "6f34a9c83c5e01b65380f5acb80d068f75452dc841922ba9892a5cd82e21b634",
+    "scripts/hp1020_stock_stop.py": "1f716972e7d044b070eff24b05e9ac7fcf532a54131f5c69e42276c6db987de0",
+    "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
+    "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
+    "scripts/hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
+    "scripts/validate-hp1020-raw-parser.py": "98c8369f2a6a8a279dd48862d924ee836a7adc815cd3c7a1260b4dbd2aa033b3",
+    "scripts/validate-hp1020-raw-producer.py": "18f69b93eaa861eed57f379bf8d7226dda46c34a6adb0c656e66f985dcfbc833"
+  },
+  "status": "pass",
+  "stock_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d"
+}

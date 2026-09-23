@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `99`
+- checks: `100`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -67,6 +67,7 @@ It does not contact the printer.
 | `stock_value_selects_bounded_raster_bypass` | `watch` | The file-backed bypass, excluded callback boundaries and conditional model configuration must remain distinct from boot, page lifecycles and physical printing. | `analysis/hardware-boundary/raster-bypass.json` |
 | `stock_raw_buffer_contract_fragments_verified` | `watch` | Raw producer, dispatch, pointer and conditional retirement fragments must retain separate selectors and prefix/free-request findings; they do not establish allocator ownership, physical output or completed lifecycles. | `analysis/hardware-boundary/raw-buffer-contract.json` |
 | `stock_raw_producer_and_admission_verified` | `watch` | Original raw construction and queue admission must retain explicit owner/prefix assumptions, 16-bit reference behavior and separate one-completion allocator results; they are not completed page lifecycles. | `analysis/hardware-boundary/raw-producer.json` |
+| `stock_chunk12_parser_and_raw_admission_verified` | `watch` | Actual chunk-12 parsing must retain original ownership construction, unchanged allocation cursor, zero raw-IRQ flag and queued endings; admission is not raw completion, another model's support or a completed page lifecycle. | `analysis/hardware-boundary/raw-parser.json` |
 | `raster_callback_argument_and_unknown_isa_boundary` | `watch` | Stock raster callbacks must preserve fourth stride argument and explicit unresolved ISA effects. | `analysis/hardware-boundary/raster-callbacks.json` |
 | `minimal-idle_reachable_instructions_defined` | `watch` | Inert probes may execute only defined allowed instructions and proven constant trampolines. | `analysis/open-firmware-probes/minimal-idle/instruction-gate.json` |
 | `usb-register-snapshot_reachable_instructions_defined` | `watch` | Inert probes may execute only defined allowed instructions and proven constant trampolines. | `analysis/open-firmware-probes/usb-register-snapshot/instruction-gate.json` |

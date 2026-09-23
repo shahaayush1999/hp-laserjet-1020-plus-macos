@@ -1102,6 +1102,38 @@ def build_report() -> dict[str, Any]:
                                 for name,digest in raw_producer["source_sha256"].items()),
                         "Original raw construction and queue admission must retain explicit owner/prefix assumptions, 16-bit reference behavior and separate one-completion allocator results; they are not completed page lifecycles.",
                         evidence="analysis/hardware-boundary/raw-producer.json"))
+    raw_parser = read_json("analysis/hardware-boundary/raw-parser.json")
+    raw_parser_admitted = [c for c in raw_parser["cases"] if c["admission_executed"]]
+    raw_parser_empty = [c for c in raw_parser["cases"] if not c["admission_executed"]]
+    checks.append(check("stock_chunk12_parser_and_raw_admission_verified",
+                        raw_parser["status"] == "pass"
+                        and raw_parser["admission_cases"] == len(raw_parser_admitted) == 10
+                        and raw_parser["metadata_only_controls"] == len(raw_parser_empty) == 2
+                        and raw_parser["completed_lifecycles"] == 0
+                        and all(c["status"] == "pass" and c["completed_lifecycles"] == 0
+                                and not c["standalone_helper_entered"]
+                                and c["engines"] == ["bounded_interpreter", "independent_qemu"]
+                                and c["input_bytes"] == c["consumed_bytes"]
+                                and hashlib.sha256(bytes.fromhex(c["input_hex"])).hexdigest() == c["input_sha256"]
+                                for c in raw_parser["cases"])
+                        and all(c["outcome"] == "raw_message_admitted"
+                                and c["message_types"] == [1,3,5,9,6,2] and c["message_selector"] == 3
+                                and c["data_allocations"] == [dict(size=16,kind=0,pointer=c["input_pointer"])]
+                                and c["source_kind"] == (1 if c["bitmap"] == 0 else 0)
+                                and c["pointer_delta_from_allocation"] == c["raw_irq_flag"] == 0
+                                and c["admitted_references"] == c["copies"]
+                                and c["pending_message_types"] == [6,2]
+                                and c["owner_hierarchy_origin"] == "original queued document/page/work messages"
+                                for c in raw_parser_admitted)
+                        and sum(c["fallback_dimensions"] for c in raw_parser_admitted) == 2
+                        and all(c["outcome"] == "metadata_only_no_raw_message" and c["empty_data"]
+                                and c["message_types"] == [1,3,5,6,2] and c["data_allocations"] == []
+                                for c in raw_parser_empty)
+                        and raw_parser["stock_elf_sha256"] == raw_producer["stock_elf_sha256"]
+                        and all(hashlib.sha256((ROOT_DIR/name).read_bytes()).hexdigest() == digest
+                                for name,digest in raw_parser["source_sha256"].items()),
+                        "Actual chunk-12 parsing must retain original ownership construction, unchanged allocation cursor, zero raw-IRQ flag and queued endings; admission is not raw completion, another model's support or a completed page lifecycle.",
+                        evidence="analysis/hardware-boundary/raw-parser.json"))
     checks.append(check("raster_callback_argument_and_unknown_isa_boundary",
                         callbacks["status"] == "pass" and callbacks["call_contract"]["argument_count"] == 4
                         and [len(f["unknown_instructions"]) for f in callbacks["functions"]] == [16,40,84],

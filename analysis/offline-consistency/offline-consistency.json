@@ -1,5 +1,5 @@
 {
-  "check_count": 99,
+  "check_count": 100,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -317,6 +317,12 @@
       "detail": "Original raw construction and queue admission must retain explicit owner/prefix assumptions, 16-bit reference behavior and separate one-completion allocator results; they are not completed page lifecycles.",
       "evidence": "analysis/hardware-boundary/raw-producer.json",
       "name": "stock_raw_producer_and_admission_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Actual chunk-12 parsing must retain original ownership construction, unchanged allocation cursor, zero raw-IRQ flag and queued endings; admission is not raw completion, another model's support or a completed page lifecycle.",
+      "evidence": "analysis/hardware-boundary/raw-parser.json",
+      "name": "stock_chunk12_parser_and_raw_admission_verified",
       "severity": "watch"
     },
     {

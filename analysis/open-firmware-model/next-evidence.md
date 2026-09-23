@@ -25,9 +25,9 @@ A second concrete shortcut now avoids the compressed-image hardware for offline
 image production. `open-firmware/image-core/` contains a bounded streaming JBIG
 wrapper and a bridge from the existing semantic parser/planner to packed row
 bands. The parser now retains each exact 20-byte BIH. Current focused checks
-pass, and the latest full sequential aggregate passed **99 consistency checks**
-in `/tmp/hp1020-full-raw-producer-20260923.log` (child logs `hp1020-validation.eEx0Qz`), including
-the bounded complete-stream, raw-contract and original producer integrations below. All tested current source/fixture
+pass, and the latest full sequential aggregate passed **100 consistency checks**
+in `/tmp/hp1020-full-raw-parser-20260923.log` (child logs `hp1020-validation.khHDMA`), including
+the bounded complete-stream, raw-contract, original producer and parser integrations below. All tested current source/fixture
 hashes match. No validation process remains running at this checkpoint.
 
 - `validate-hp1020-image-core.py --target`: 176 cases, 21 comparisons of original
@@ -265,14 +265,68 @@ their pinned scripts; the source checksum and actual encoding gates passed.
 A subsequent read-only pointer-store census highlights an existing, distinct
 parser producer at `0x1000a0d1..0x1000a16d`. Original table `0x100036f0` entry 12
 targets `0x1000a05d`; unlike chunk 8, it can build message 9. The old parser
-boundary report already noted this compatibility-looking arm, but it has not
-been executed for the current raw integration. It does not call `0x10010420`.
-Next execute a narrow chunk-12 fixture against the original parser and inspect
-its allocation cursor, metadata, source kind and actual JobMgr admission.
+boundary report already noted this compatibility-looking arm. It does not call
+`0x10010420`; its execution is now recorded below.
 Do not assume the host header's `ZJT_2600N` label proves physical support on this
 device. Normal foo2zjs JBIG traffic and the open parser's supported grammar stay
 unchanged. Continue to distinguish any new parser evidence from the supplied
 standalone producer root and the unresolved raw-mode/output contract.
+
+### Actual chunk-12 parser admission (2026-09-23)
+
+`scripts/validate-hp1020-raw-parser.py` owns `hardware-boundary/raw-parser.json/.md`.
+Focused execution passes **10 parser/admission comparisons and two metadata-only
+controls** in the interpreter and independent QEMU. Full sequential validation
+passed **100 consistency checks and both suites** in
+`/tmp/hp1020-full-raw-parser-20260923.log` (child logs `hp1020-validation.khHDMA`).
+All current generator and fixture hashes match the reports. No research process
+remains running at this checkpoint.
+
+- The complete parser consumes explicit START_DOC, START_PAGE, chunk 12,
+  END_PAGE and END_DOC input. Original allocation and queue code send messages
+  1/3/5/9/6/2; JobMgr receives through message 9 and constructs the document,
+  child and work ownership hierarchy. No owner hierarchy or raw packet is seeded.
+  Input, document begin/end/publication and task readiness remain host boundaries.
+  The original allocator/queues are explicitly initialized in single-thread RAM.
+- At `0x10009e40`, the parser requests exactly 16 data bytes with allocator kind
+  0. Its return at `0x10009e43` is passed unchanged to payload+0x54 by the store
+  at `0x1000a0df`. Admission preserves it. The observed producer has not advanced
+  the pointer past a 16-byte image prefix. This is distinct from node+16 embedding
+  and from any internal allocator header; no forced raw-completion fault is tested.
+- Bitmap item `0x65 = 0` gives payload source kind 1; value 1 gives kind 0.
+  Both tested variants send selector 3 and append the actual node. Copy metadata
+  1/2 gives one/two references, replacing allocation-fill bytes. Work+0x74 is
+  zero after construction and after admission. Do not force that flag and infer
+  that this input route naturally reaches the raw IRQ retirement branch.
+- Explicit band dimensions are 32 by 4, BPP 1 and terminal flag 1. Two controls
+  omit band width/height and obtain the same values through original BIH/cache
+  fallback. Two zero-data controls parse metadata but allocate no data and send
+  no message 9. All checks use both zero and nonzero allocation fills.
+- Original document/child initialization is inline at `0x10009efe` and
+  `0x10009f86`; work construction calls `0x1000f228`. The distinct `0x1000f1c4`
+  initializer is not entered by this route.
+- Runs stop at raw admission with messages 6/2 still queued. No completion,
+  cleanup, consumer, MMIO, custom instruction or printing is included. These are
+  **zero completed page lifecycles**, separate from the existing 36 native pages.
+
+Read-only review of the captured `work_bytes` finds work+0x84/+0x88/+0x8c still
+zero in all ten admitted cases, despite the nonzero dimensions in each band.
+Original literals distinguish the parser's BIH cache (`0x10005ff4 -> 0x10022c80`)
+from JobMgr's (`0x10006304 -> 0x10023e28`). The tested item `0x66` populates the
+former. At `0x1000e64c..0x1000e667`, message-9 admission skips its JobMgr-cache copy
+when work+0x36 is nonzero; otherwise these fixtures copy the still-zero JobMgr
+cache. Prepare later reads work+0x84 at `0x10014a3b` and derives its stride at
+`0x10014a40..0x10014a49`. Therefore band metadata agreement alone does not supply
+a complete preparation contract. No division failure or hardware fault was run.
+
+Next vary page bitmap metadata independently of the band's, and precede the
+band with actual chunk-4 BIH delivery (message 41), to test the missing work-cache
+connection without entering preparation. That combination is not yet executed
+or claimed as supported input. Then inspect the pointer/mode path between actual
+admission and existing prepare/render boundaries. A needed prefix or raw-mode
+transition must be proven, not supplied silently. Physical packing, live
+configuration and repeat-copy cursor restoration remain unresolved. Do not
+repeat the already-executed standalone selector or cancellation matrices.
 
 ## Preferred raster bypass (2026-09-10)
 
