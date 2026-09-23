@@ -1107,7 +1107,7 @@ def build_report() -> dict[str, Any]:
     raw_parser_empty = [c for c in raw_parser["cases"] if not c["admission_executed"]]
     checks.append(check("stock_chunk12_parser_and_raw_admission_verified",
                         raw_parser["status"] == "pass"
-                        and raw_parser["admission_cases"] == len(raw_parser_admitted) == 10
+                        and raw_parser["admission_cases"] == len(raw_parser_admitted) == 22
                         and raw_parser["metadata_only_controls"] == len(raw_parser_empty) == 2
                         and raw_parser["completed_lifecycles"] == 0
                         and all(c["status"] == "pass" and c["completed_lifecycles"] == 0
@@ -1117,8 +1117,14 @@ def build_report() -> dict[str, Any]:
                                 and hashlib.sha256(bytes.fromhex(c["input_hex"])).hexdigest() == c["input_sha256"]
                                 for c in raw_parser["cases"])
                         and all(c["outcome"] == "raw_message_admitted"
-                                and c["message_types"] == [1,3,5,9,6,2] and c["message_selector"] == 3
-                                and c["data_allocations"] == [dict(size=16,kind=0,pointer=c["input_pointer"])]
+                                and c["message_types"] == [1,3,5]+([41] if c["separate_bih_chunk"] else [])+[9,6,2]
+                                and c["message_selector"] == 3
+                                and len(c["data_allocations"]) == (2 if c["separate_bih_chunk"] else 1)
+                                and c["data_allocations"][-1] == dict(size=16,kind=0,pointer=c["input_pointer"])
+                                and (not c["separate_bih_chunk"] or
+                                     (c["data_allocations"][0]["size"] == 20 and c["data_allocations"][0]["kind"] == 0
+                                      and c["bih_source_freed"] is True))
+                                and c["work_bih_fields"] == ([32,4,4] if c["separate_bih_chunk"] and c["page_bitmap"] == 1 else [0,0,0])
                                 and c["source_kind"] == (1 if c["bitmap"] == 0 else 0)
                                 and c["pointer_delta_from_allocation"] == c["raw_irq_flag"] == 0
                                 and c["admitted_references"] == c["copies"]
@@ -1126,6 +1132,8 @@ def build_report() -> dict[str, Any]:
                                 and c["owner_hierarchy_origin"] == "original queued document/page/work messages"
                                 for c in raw_parser_admitted)
                         and sum(c["fallback_dimensions"] for c in raw_parser_admitted) == 2
+                        and sum(c["separate_bih_chunk"] for c in raw_parser_admitted) == 8
+                        and sum(c["source_kind"] == 1 and c["work_bih_fields"] == [32,4,4] for c in raw_parser_admitted) == 2
                         and all(c["outcome"] == "metadata_only_no_raw_message" and c["empty_data"]
                                 and c["message_types"] == [1,3,5,6,2] and c["data_allocations"] == []
                                 for c in raw_parser_empty)

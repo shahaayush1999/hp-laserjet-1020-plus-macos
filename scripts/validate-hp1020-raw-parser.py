@@ -50,14 +50,15 @@ def chunk(kind,items=(),data=b''):
     return struct.pack('>IIIHH',16+len(metadata)+len(data),kind,len(items),len(metadata),0x5a5a)+metadata+data
 
 
-def stream(bitmap,copies,fallback,empty):
+def stream(bitmap,copies,fallback,empty,page_bitmap,bih_chunk):
     page = [item(k,v) for k,v in [(4,copies),(8,600),(9,600),(12,32),(13,4),
-                                 (16,1),(17,32),(18,4),(0x65,bitmap)]]
+                                 (16,1),(17,32),(18,4),(0x65,page_bitmap)]]
     band = [item(k,v) for k,v in [(20,4),(0x65,bitmap),(16,1),(0x67,1)]]
     if not fallback:
         band += [item(0x68,32),item(0x69,4)]
     band += [struct.pack('>IHBBI',32,0x66,4,0,20)+BIH]
     return (b'JZJZ'+chunk(0,[item(0,1),item(2,1)])+chunk(2,page)
+            +(chunk(4,data=BIH) if bih_chunk else b'')
             +chunk(12,band,b'' if empty else IMAGE)+chunk(3)+chunk(1))
 
 
@@ -117,8 +118,11 @@ class Parser(raw.RawProducer):
         return super().after_instruction(pc,nxt)
 
 
-def execute(program,engine,*,bitmap=0,copies=1,fill=0,fallback=False,empty=False):
-    data = stream(bitmap,copies,fallback,empty)
+def execute(program,engine,*,bitmap=0,copies=1,fill=0,fallback=False,empty=False,
+            page_bitmap=None,bih_chunk=False):
+    if page_bitmap is None:
+        page_bitmap = bitmap
+    data = stream(bitmap,copies,fallback,empty,page_bitmap,bih_chunk)
     state = Parser(program,fill,data)
     invoke(state,0x10017554,qemu=engine)
     state.put(THREAD,bytes(256))
@@ -151,30 +155,38 @@ def execute(program,engine,*,bitmap=0,copies=1,fill=0,fallback=False,empty=False
     assert not any(0x10010420 <= pc < 0x10010501 for pc in visited)
     count = state.read(queue+16,4)
     packets = [[state.read(BUFFER+i*16+j*4,4) for j in range(4)] for i in range(count)]
-    assert [v[0] for v in packets] == ([1,3,5,6,2] if empty else [1,3,5,9,6,2])
+    expected_types = [1,3,5]+([41] if bih_chunk else [])+([] if empty else [9])+[6,2]
+    assert [v[0] for v in packets] == expected_types
     # Only defined words are interpreted. Several unused packet suffixes retain
     # stack contents and cannot be assumed to contain zero or stable addresses.
     result = dict(status='pass',bitmap=bitmap,copies=copies,fill=fill,
-        fallback_dimensions=fallback,empty_data=empty,input_bytes=len(data),
+        fallback_dimensions=fallback,empty_data=empty,page_bitmap=page_bitmap,
+        separate_bih_chunk=bih_chunk,input_bytes=len(data),
         input_hex=data.hex(),input_sha256=sha(data),consumed_bytes=state.pos,
         message_types=[v[0] for v in packets],data_allocations=state.data_allocations,
         standalone_helper_entered=False,completed_lifecycles=0)
     if empty:
-        assert state.data_allocations == [] and 0x1000a0df not in visited
+        assert not bih_chunk and state.data_allocations == [] and 0x1000a0df not in visited
         result.update(outcome='metadata_only_no_raw_message',admission_executed=False,
             pool_blocks=state.blocks(),host_boundaries=state.boundaries)
         return result
-    work,node = packets[2][3],packets[3][3]
+    raw_packet = packets[4 if bih_chunk else 3]
+    work,node = packets[2][3],raw_packet[3]
     payload = state.read(node+12,4)
     pointer = state.read(payload+84,4)
-    assert state.data_allocations == [dict(size=16,kind=0,pointer=pointer)]
-    assert payload == node+16 and packets[3][1] == 3
+    assert len(state.data_allocations) == (2 if bih_chunk else 1)
+    assert state.data_allocations[-1] == dict(size=16,kind=0,pointer=pointer)
+    if bih_chunk:
+        assert state.data_allocations[0] == dict(size=20,kind=0,pointer=packets[3][3])
+        assert state.bytes_at(packets[3][3],20) == BIH
+    assert payload == node+16 and raw_packet[1] == 3
     assert state.read(payload+72,4) == len(IMAGE)
     assert state.read(payload+80,4) == (1 if bitmap == 0 else 0)
     assert state.read(payload+30,2) == state.read(payload+88,4) == 32
     assert state.read(payload+32,2) == 4 and state.read(payload+34,2) == 1
     assert state.read(payload+76,2) == 1 and state.read(payload+78,2) == fill*257
     assert state.read(work+116,1) == 0
+    assert state.read(work+54,2) == (1 if page_bitmap == 0 else 0)
     assert state.bytes_at(pointer,len(IMAGE)) == IMAGE
     # Document and child initialization are inline parser arms; only the work
     # constructor is a separate call. Do not infer use of the other initializer.
@@ -190,13 +202,16 @@ def execute(program,engine,*,bitmap=0,copies=1,fill=0,fallback=False,empty=False
     state.write(CONTEXT+0x100,1,0)
     state.admitting = True
     if engine is None:
+        state.visited.clear()
         invoke(state,0x1000e414)
+        job_visited = state.visited.copy()
     else:
         runner = start(engine,state,fixture,0x1000e414,HOST)
         while engine.reg(0) not in raw.ADMISSION_STOPS:
             runner.step()
         runner.synchronize(False)
         state.admission_stop = engine.reg(0)
+        job_visited = runner.visited.copy()
     state.admitting = False
     docs = state.read(0x100062e4,4)
     doc_node = state.read(docs+4,4)
@@ -209,6 +224,17 @@ def execute(program,engine,*,bitmap=0,copies=1,fill=0,fallback=False,empty=False
     assert state.read(work+80,4) == state.read(work+84,4) == node
     assert state.read(payload+78,2) == state.read(work+78,2) == copies
     assert state.read(work+116,1) == 0 and state.read(payload+84,4) == pointer
+    job_bih = state.bytes_at(state.read(0x10006304,4),20)
+    assert job_bih == (BIH if bih_chunk else bytes(20))
+    blocks = state.blocks()
+    if bih_chunk:
+        bih_pointer = state.data_allocations[0]['pointer']
+        assert {0x1001b38c,0x10013408}.issubset(job_visited)
+        assert any(not flags&0x80000000 and base+12 <= bih_pointer
+                   and bih_pointer+20 <= base+12+size for base,size,flags in blocks)
+    expected_work_bih = BIH[4:16] if bih_chunk and page_bitmap == 1 else bytes(12)
+    assert state.bytes_at(work+132,12) == expected_work_bih
+    assert state.read(work+144,1) == (BIH[19] if bih_chunk and page_bitmap == 1 else 0)
     after = state.bytes_at(payload,104)
     expected = bytearray(before)
     expected[78:80] = copies.to_bytes(2,'big')
@@ -217,14 +243,17 @@ def execute(program,engine,*,bitmap=0,copies=1,fill=0,fallback=False,empty=False
     pending = state.read(queue+32,4)
     assert [state.read(pending+i*16,4) for i in range(2)] == [6,2]
     result.update(outcome='raw_message_admitted',admission_executed=True,
-        source_kind=state.read(payload+80,4),message_selector=packets[3][1],
+        source_kind=state.read(payload+80,4),message_selector=raw_packet[1],
         node=node,payload=payload,input_pointer=pointer,pointer_delta_from_allocation=0,
         producer_references=fill*257,admitted_references=copies,raw_irq_flag=0,
         payload_before=before.hex(),payload_after=after.hex(),work_bytes=state.bytes_at(work,148).hex(),
         owner_hierarchy=dict(document_node=doc_node,document=doc,child_node=child_node,child=child,work=work),
         owner_hierarchy_origin='original queued document/page/work messages',
-        pool_blocks=state.blocks(),host_boundaries=state.boundaries,
+        pool_blocks=blocks,host_boundaries=state.boundaries,
         image_sha256=sha(state.bytes_at(pointer,len(IMAGE))),admission_stop=hex(state.admission_stop),
+        job_bih_cache=job_bih.hex(),
+        bih_source_freed=True if bih_chunk else None,
+        work_bih_fields=[state.read(work+i,4) for i in (132,136,140)],
         pending_message_types=[6,2])
     return result
 
@@ -247,6 +276,10 @@ def main():
                   for fill in (0,204) for bitmap in (0,1) for copies in (1,2)]
     parameters += [dict(fill=fill,fallback=True) for fill in (0,204)]
     parameters += [dict(fill=fill,empty=True) for fill in (0,204)]
+    parameters += [dict(fill=fill,page_bitmap=page_bitmap,bitmap=bitmap,bih_chunk=True)
+                   for fill in (0,204) for page_bitmap in (0,1) for bitmap in (0,1)]
+    parameters += [dict(fill=fill,page_bitmap=page_bitmap,bitmap=1-page_bitmap)
+                   for fill in (0,204) for page_bitmap in (0,1)]
     observations = []
     with QemuRAM() as engine:
         for parameter in parameters:
@@ -265,11 +298,13 @@ def main():
             if path.is_relative_to(ROOT/'scripts') and path.is_file():
                 sources.add(path)
     findings = [
-        'Ten nonempty chunk-12 inputs run through the full original parser, real allocator/queue and JobMgr admission. Original document/page/work packets construct the owner hierarchy; input callbacks, readiness and document notification/publication remain host boundaries.',
-        'The actual data allocation requests exactly 16 bytes with allocator kind 0. The parser stores the returned pointer unchanged in payload+0x54, and admission preserves it. This route does not supply the 16-byte image prefix used in the separate raw-retirement fixtures.',
-        'Explicit bitmap metadata 0 selects source kind 1; bitmap metadata 1 selects source kind 0. Both tested variants send selector 3, append to work+0x50 and receive one or two references from the original copy metadata. Work raw-IRQ flag +0x74 is zero after construction and after admission.',
+        'Twenty-two nonempty chunk-12 inputs run through the full original parser, real allocator/queue and JobMgr admission. Original document/page/work packets construct the owner hierarchy; input callbacks, readiness and document notification/publication remain host boundaries.',
+        'Each band data allocation requests exactly 16 bytes with allocator kind 0. The parser stores the returned pointer unchanged in payload+0x54, and admission preserves it. This route does not supply the 16-byte image prefix used in the separate raw-retirement fixtures.',
+        'Band bitmap metadata 0 selects source kind 1; value 1 selects source kind 0. Independent page bitmap metadata controls work+0x36. Both source variants send selector 3, append to work+0x50 and receive one or two references from copy metadata. Work raw-IRQ flag +0x74 is zero after construction and admission.',
+        'Eight cases deliver a separate chunk-4 BIH through original message 41, original memcpy and actual allocator release. That fills the JobMgr BIH cache, which is distinct from the parser item-0x66 cache. Work dimensions become 32/4/4 only when page bitmap metadata is 1; page bitmap 0 skips that copy even with a populated cache. Four crossed page/band controls without chunk 4 retain zero work dimensions.',
+        'Two fills with page bitmap 1, band bitmap 0 and separate BIH delivery combine source kind 1 with populated work dimensions, while still retaining raw-IRQ flag zero and the unadvanced allocation pointer. These explicit mixed-metadata fixtures establish software branch behavior, not supported physical input or a complete raw-output contract.',
         'Payload source size is 16, dimensions are 32 by 4, bpp is 1 and the terminal flag is 1. Two controls omit explicit band width/height: original BIH/cache fallback produces the same dimensions. No physical packing or support for arbitrary metadata is inferred.',
-        'Two metadata-only chunk-12 controls allocate no data and emit no message 9. All twelve comparisons agree between the bounded interpreter and independent QEMU, including pool partitions, bytes and explicit host boundaries.',
+        'Two metadata-only chunk-12 controls allocate no data and emit no message 9. All twenty-four comparisons agree between the bounded interpreter and independent QEMU, including pool partitions, bytes and explicit host boundaries.',
         'The original standalone helper at 0x10010420 is never entered by this parser route. This establishes a separate software producer, not that helper\'s caller, raw-mode reachability, completion, second-copy cursor restoration or physical output.'
     ]
     limits = ('Synthetic single-thread RAM and seeded allocator/queue state; input callbacks, document begin/end, '
@@ -278,16 +313,16 @@ def main():
               'forced, no raw retirement/VideoThread/PrintMgr/engine/custom instruction/MMIO/USB path executes, '
               'and zero completed page lifecycles or physical printing are claimed. Numeric chunk 12 exists in '
               'this stock ELF; its host header name is not proof of another model\'s support. The open parser grammar is unchanged.')
-    report = dict(status='pass',cases=observations,admission_cases=10,metadata_only_controls=2,
+    report = dict(status='pass',cases=observations,admission_cases=22,metadata_only_controls=2,
         completed_lifecycles=0,stock_elf_sha256=STOCK_SHA,qemu_version=version,
         source_sha256={str(p.relative_to(ROOT)):sha(p.read_bytes()) for p in sorted(sources)},
         audited_stock_ranges=audited,dispatch_table_bytes=dispatch.hex(),
         dispatch_table_sha256=sha(dispatch),findings=findings,limits=limits)
     OUT.with_suffix('.json').write_text(json.dumps(report,indent=2,sort_keys=True)+'\n')
     OUT.with_suffix('.md').write_text('# Original chunk-12 parser and raw-list admission\n\n'
-        +'10 parser/admission cases and 2 metadata-only controls agree in the interpreter and independent QEMU. Zero completed page lifecycles.\n\n'
+        +'22 parser/admission cases and 2 metadata-only controls agree in the interpreter and independent QEMU. Zero completed page lifecycles.\n\n'
         +'\n'.join('- '+finding for finding in findings)+'\n\n'+limits+'\n')
-    print('original chunk-12: 10 admission cases, 2 non-emitting controls; no completed page lifecycles')
+    print('original chunk-12: 22 admission cases, 2 non-emitting controls; no completed page lifecycles')
 
 
 if __name__ == '__main__':

@@ -26,7 +26,7 @@ image production. `open-firmware/image-core/` contains a bounded streaming JBIG
 wrapper and a bridge from the existing semantic parser/planner to packed row
 bands. The parser now retains each exact 20-byte BIH. Current focused checks
 pass, and the latest full sequential aggregate passed **100 consistency checks**
-in `/tmp/hp1020-full-raw-parser-20260923.log` (child logs `hp1020-validation.khHDMA`), including
+in `/tmp/hp1020-full-raw-parser-bih-20260923.log` (child logs `hp1020-validation.9CdiDF`), including
 the bounded complete-stream, raw-contract, original producer and parser integrations below. All tested current source/fixture
 hashes match. No validation process remains running at this checkpoint.
 
@@ -275,25 +275,27 @@ standalone producer root and the unresolved raw-mode/output contract.
 ### Actual chunk-12 parser admission (2026-09-23)
 
 `scripts/validate-hp1020-raw-parser.py` owns `hardware-boundary/raw-parser.json/.md`.
-Focused execution passes **10 parser/admission comparisons and two metadata-only
+Focused execution passes **22 parser/admission comparisons and two metadata-only
 controls** in the interpreter and independent QEMU. Full sequential validation
 passed **100 consistency checks and both suites** in
-`/tmp/hp1020-full-raw-parser-20260923.log` (child logs `hp1020-validation.khHDMA`).
-All current generator and fixture hashes match the reports. No research process
+`/tmp/hp1020-full-raw-parser-bih-20260923.log` (child logs `hp1020-validation.9CdiDF`).
+All current source and fixture hashes match. The initial 10-admission baseline
+and its source hashes remain preserved in commit `b015edd`. No research process
 remains running at this checkpoint.
 
 - The complete parser consumes explicit START_DOC, START_PAGE, chunk 12,
   END_PAGE and END_DOC input. Original allocation and queue code send messages
-  1/3/5/9/6/2; JobMgr receives through message 9 and constructs the document,
+  1/3/5/9/6/2, with message 41 before 9 when a separate BIH chunk is supplied.
+  JobMgr receives through message 9 and constructs the document,
   child and work ownership hierarchy. No owner hierarchy or raw packet is seeded.
   Input, document begin/end/publication and task readiness remain host boundaries.
   The original allocator/queues are explicitly initialized in single-thread RAM.
-- At `0x10009e40`, the parser requests exactly 16 data bytes with allocator kind
+- For the band, at `0x10009e40` the parser requests exactly 16 data bytes with allocator kind
   0. Its return at `0x10009e43` is passed unchanged to payload+0x54 by the store
   at `0x1000a0df`. Admission preserves it. The observed producer has not advanced
   the pointer past a 16-byte image prefix. This is distinct from node+16 embedding
   and from any internal allocator header; no forced raw-completion fault is tested.
-- Bitmap item `0x65 = 0` gives payload source kind 1; value 1 gives kind 0.
+- Band bitmap item `0x65 = 0` gives payload source kind 1; value 1 gives kind 0.
   Both tested variants send selector 3 and append the actual node. Copy metadata
   1/2 gives one/two references, replacing allocation-fill bytes. Work+0x74 is
   zero after construction and after admission. Do not force that flag and infer
@@ -305,12 +307,12 @@ remains running at this checkpoint.
 - Original document/child initialization is inline at `0x10009efe` and
   `0x10009f86`; work construction calls `0x1000f228`. The distinct `0x1000f1c4`
   initializer is not entered by this route.
-- Runs stop at raw admission with messages 6/2 still queued. No completion,
-  cleanup, consumer, MMIO, custom instruction or printing is included. These are
+- Runs stop at raw admission with messages 6/2 still queued. No page completion,
+  raster-list cleanup, consumer, MMIO, custom instruction or printing is included. These are
   **zero completed page lifecycles**, separate from the existing 36 native pages.
 
-Read-only review of the captured `work_bytes` finds work+0x84/+0x88/+0x8c still
-zero in all ten admitted cases, despite the nonzero dimensions in each band.
+The initial ten admitted cases keep work+0x84/+0x88/+0x8c zero despite nonzero
+dimensions in each band.
 Original literals distinguish the parser's BIH cache (`0x10005ff4 -> 0x10022c80`)
 from JobMgr's (`0x10006304 -> 0x10023e28`). The tested item `0x66` populates the
 former. At `0x1000e64c..0x1000e667`, message-9 admission skips its JobMgr-cache copy
@@ -319,14 +321,25 @@ cache. Prepare later reads work+0x84 at `0x10014a3b` and derives its stride at
 `0x10014a40..0x10014a49`. Therefore band metadata agreement alone does not supply
 a complete preparation contract. No division failure or hardware fault was run.
 
-Next vary page bitmap metadata independently of the band's, and precede the
-band with actual chunk-4 BIH delivery (message 41), to test the missing work-cache
-connection without entering preparation. That combination is not yet executed
-or claimed as supported input. Then inspect the pointer/mode path between actual
-admission and existing prepare/render boundaries. A needed prefix or raw-mode
-transition must be proven, not supplied silently. Physical packing, live
-configuration and repeat-copy cursor restoration remain unresolved. Do not
-repeat the already-executed standalone selector or cancellation matrices.
+The expanded experiment now varies page bitmap metadata independently of the
+band's. Eight additional cases precede chunk 12 with a real chunk-4 BIH. Original
+message 41 copies the 20-byte BIH to the JobMgr cache and frees its actual source
+allocation; both engines execute those original functions and compare the free
+pool partition. With page bitmap 1, later message-9 admission copies work fields
+32/4/4 and options 0x5c. Page bitmap 0 skips that copy even with a populated cache.
+Four crossed page/band controls without chunk 4 leave the work dimensions zero.
+
+In two fills, page bitmap 1 plus band bitmap 0 and separate BIH delivery now yield
+source kind 1 **and** populated work dimensions. Their raw IRQ flag remains zero
+and the band pointer still equals its allocator return. This resolves the cache
+connection for explicit mixed-metadata fixtures, not physical protocol support,
+the cursor prefix, raw-mode reachability or a complete output contract.
+
+Next inspect pointer/mode changes between this actual admission and the existing
+prepare/render boundaries. A needed prefix or raw-mode transition must be proven,
+not supplied silently. Physical packing, live configuration and repeat-copy
+cursor restoration remain unresolved. Do not repeat the now-executed metadata,
+standalone selector or cancellation matrices.
 
 ## Preferred raster bypass (2026-09-10)
 

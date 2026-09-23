@@ -6,9 +6,9 @@ installed-printing change or print-driving hardware path occurred.
 
 ## Current verified state
 
-- The full sequential validation passed **100 consistency checks** and both suites.
-  Log: `/tmp/hp1020-full-raw-parser-20260923.log`; child logs `hp1020-validation.khHDMA`.
-  Reports and their source/fixture hashes match the tested current files.
+- Full sequential validation passed **100 consistency checks** and both suites.
+  Log: `/tmp/hp1020-full-raw-parser-bih-20260923.log`; child logs `hp1020-validation.9CdiDF`.
+  All current report source and fixture hashes match the tested files.
 - The open JBIG decoder produces packed image bands: 176 focused cases,
   21 original/normalized-header comparisons, 32 separately classified mutations
   and 66 QEMU cases. Complete-file integration passes 57 host and 35 QEMU cases.
@@ -24,17 +24,20 @@ installed-printing change or print-driving hardware path occurred.
   Deliberately unprefixed pointers yield before-buffer free requests in two
   conditional fixtures, not stock faults. This older test observes free requests;
   the following test executes actual allocation and cleanup.
-- New raw-producer/admission checks pass **52 interpreter/QEMU comparisons**
+- Original raw-producer/admission checks pass **52 interpreter/QEMU comparisons**
   and **eight conditional release cases** with the original allocator and queue.
   JobMgr initializes references, and only descriptor selector 0 reaches this
   raw list. A supplied 16-byte prefix permits original cleanup after one raw
   completion; a second reference retains ownership with an adjusted cursor.
   These results are included in the full sequential validation above.
-- Actual chunk-12 parsing passes **10 admission cases and two metadata-only
+- Actual chunk-12 parsing passes **22 admission cases and two metadata-only
   controls** in both engines. Original queued messages create the owner hierarchy.
   The image pointer equals the allocator return and the raw IRQ flag stays zero
   at the checked boundaries. This is a separate producer from the standalone
-  helper. No consumer or completed page lifecycle is added by these checks.
+  helper. Separate BIH delivery fills later work dimensions only with page bitmap
+  setting 1; two mixed-metadata cases combine those dimensions with source kind 1.
+  The raw IRQ flag and unadvanced cursor remain unresolved. No consumer or
+  completed page lifecycle is added. These cases are included in the full run.
 
 ## Preserved evidence and limits
 
@@ -53,10 +56,10 @@ not over every boot/engine write. The historical 64-chunk budget stop is retaine
 
 Resolve the input buffer prefix, cursor, metadata and timing before an adapter.
 The standalone producer's actual caller remains unproven. The distinct chunk-12
-path executes through admission without adding a prefix; its band dimensions
-are populated but later work dimensions are zero. Next test actual BIH delivery
-with independent page/band metadata, then trace pointer/mode changes before the
-excluded hardware boundary.
+path executes through admission without adding a prefix. Actual BIH delivery and
+independent page/band metadata now resolve the work-dimension copy, while raw IRQ
+mode stays zero. Next trace pointer/mode changes before the excluded hardware
+boundary; do not assume the mixed-metadata fixtures are physically supported.
 Keep source-kind dispatch, raw IRQ mode and engine output selection distinct.
 Do not repeat the completed selector matrix or resolved empty-document
 cancellation/END_DOC ordering.
@@ -64,6 +67,6 @@ Queues: engine 0, PrintMgr 1, JobMgr 3, Video 8, StatusMgr 10.
 
 Offline only: no USB enumeration/contact, queries, uploads, installed-printing
 changes or print-driving MMIO. Unknown custom instructions are not inert.
-No research process remains running at this checkpoint. Engine-ready packing, cache
+No research process remains running. Engine-ready packing, cache
 visibility, physical throughput, boot, printing and power-cycle recovery remain
 unproven. Passing software tests do not establish physical output.
