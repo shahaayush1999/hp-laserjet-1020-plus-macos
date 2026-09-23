@@ -1071,6 +1071,37 @@ def build_report() -> dict[str, Any]:
                                 for name,digest in raw_contract["source_sha256"].items()),
                         "Raw producer, dispatch, pointer and conditional retirement fragments must retain separate selectors and prefix/free-request findings; they do not establish allocator ownership, physical output or completed lifecycles.",
                         evidence="analysis/hardware-boundary/raw-buffer-contract.json"))
+    raw_producer = read_json("analysis/hardware-boundary/raw-producer.json")
+    admitted_raw = sum((raw_producer[name] for name in
+                       ("producer_admission_cases", "reference_cases", "metadata_controls")), [])
+    checks.append(check("stock_raw_producer_and_admission_verified",
+                        raw_producer["status"] == "pass"
+                        and [len(raw_producer[name]) for name in
+                             ("producer_admission_cases", "reference_cases", "metadata_controls", "release_cases")] == [32,16,4,8]
+                        and raw_producer["completed_lifecycles"] == 0
+                        and all(c["status"] == "pass" and c["allocator_and_queue_executed"]
+                                and c["engines"] == ["bounded_interpreter", "independent_qemu"]
+                                and c["message_type"] == 9
+                                and c["message_selector"] == (3,0,1,2)[c["selector"]]
+                                and c["appended"] == (c["selector"] == 0)
+                                and c["producer_reference_bytes"] == c["fill"]*257
+                                and c["image_and_inputs_unchanged"] for c in admitted_raw)
+                        and all(c["result_references"] ==
+                                (1 if c["active"] == 1 else
+                                 ((c["copies"] or 1)*2)&65535 if c["duplex"] == 1 and c["document_source"] != 1 else
+                                 (c["copies"] or 1)) for c in admitted_raw)
+                        and all(c["status"] == "pass" and c["allocator_executed"] and c["queue_executed"]
+                                and c["completed_lifecycles"] == 0 and c["supplied_image_prefix_bytes"] == 16
+                                and c["remaining_references"] == c["initial_references"]-1
+                                and c["remaining_allocations"] ==
+                                (2 if c["initial_references"] > 1 else 0 if c["input_kind"] == 1 else 1)
+                                and c["raw_refresh_stop"] == "0x1001455a"
+                                and len(c["rejected_before_execution"]) == 6 for c in raw_producer["release_cases"])
+                        and raw_producer["stock_elf_sha256"] == raw_contract["stock_elf_sha256"]
+                        and all(hashlib.sha256((ROOT_DIR/name).read_bytes()).hexdigest() == digest
+                                for name,digest in raw_producer["source_sha256"].items()),
+                        "Original raw construction and queue admission must retain explicit owner/prefix assumptions, 16-bit reference behavior and separate one-completion allocator results; they are not completed page lifecycles.",
+                        evidence="analysis/hardware-boundary/raw-producer.json"))
     checks.append(check("raster_callback_argument_and_unknown_isa_boundary",
                         callbacks["status"] == "pass" and callbacks["call_contract"]["argument_count"] == 4
                         and [len(f["unknown_instructions"]) for f in callbacks["functions"]] == [16,40,84],

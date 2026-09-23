@@ -1,0 +1,2852 @@
+{
+  "audited_stock_ranges": [
+    {
+      "begin": "0x10010420",
+      "bytes": "6c10062a0a782b0a01011102580b44c0899810d6a0286c109863c0509560d780da700111025bfb6f893169910a8830287615297614600007257615c0822876148833961368810dc09179831868820a68830d600014c08060000d291601600009c082600002280a039811da70db2001110258000d8825287616283109287510c080287526882589240988280838142876128332693102237526c0a3011b02011102580c65d10f",
+      "end": "0x100104c6",
+      "excluded_padding_bytes": 0,
+      "instruction_bytes": 166,
+      "sha256": "5f8902ca20e48720239475057ea6ba0e492982b274d7ba941a7eb38919d769c9"
+    },
+    {
+      "begin": "0x100104c8",
+      "bytes": "6c100424311124250624310524250524310324250824310924251124310b24250f24310d24250a24310f24250b24310724250784309420d10f",
+      "end": "0x10010501",
+      "excluded_padding_bytes": 0,
+      "instruction_bytes": 57,
+      "sha256": "142c2c8f6e601a18edec702d6b102fc642dd824abda679c07f231fc91478f7c4"
+    },
+    {
+      "begin": "0x1000f204",
+      "bytes": "6c1004da20c070db70c4c60111025830adc083282507c081282506272505272508060000",
+      "end": "0x1000f228",
+      "excluded_padding_bytes": 0,
+      "instruction_bytes": 36,
+      "sha256": "25257d450f081101afc51e1821028828aef8a87661baf07f58e32ae94403bb0a"
+    },
+    {
+      "begin": "0x1001b4c8",
+      "bytes": "6c1002030347083711073302003711073302d520c063762836044714cc41d10f006d790b935093519352235603255c107c470593509351b8557d47039350b4557e4704235500b2557f4702235400d10f6e48197f5709235400b155b0447e57b8235500b255244cfe63ffad00006d4907011102235400b155d10f",
+      "end": "0x1001b542",
+      "excluded_padding_bytes": 3,
+      "instruction_bytes": 119,
+      "sha256": "5870f90d4c963d20f64afa0554d6312fa1456410b7a23f956b074594667a9931"
+    },
+    {
+      "begin": "0x1000e414",
+      "bytes": "6c1012011102580f4c1adfacdb102c0a0201110258271c69a920",
+      "end": "0x1000e42e",
+      "excluded_padding_bytes": 0,
+      "instruction_bytes": 26,
+      "sha256": "27e1c79b1a44733b62b59ddf611484158b16ffc0da3bbe343a2dda2bbb41ab3b"
+    },
+    {
+      "begin": "0x1000e44f",
+      "bytes": "8810b089c3827983c418dfb208980a2882000a8000",
+      "end": "0x1000e464",
+      "excluded_padding_bytes": 0,
+      "instruction_bytes": 21,
+      "sha256": "c5048db0431ec69464a9c64345579951910e2083bc0d9b51a92fbab7ec7c7584"
+    },
+    {
+      "begin": "0x1000e5a0",
+      "bytes": "12df57282000c9802812032882032a82150111025813946001131fdf4a88f1cd862912032892146982026001002a921501110258138d6000f4888328821d8883278212287106cc83c0812875068813898328710628952728707569811a12df398821888328821868810d88132982032891270f88112895272971396991068813888329852788132882032881272971392875276991050f16002f161588116983288b132a7c5001110258126d28711bcd8719df2c8891287621889228762228920328762328901328749028713968810263fda922121502e63101020063fd9d",
+      "end": "0x1000e67f",
+      "excluded_padding_bytes": 0,
+      "instruction_bytes": 223,
+      "sha256": "d14809755f7af6e3cce08883d5227f8cc3f3abe09ba9e8061b4698ddeb54ad9a"
+    },
+    {
+      "begin": "0x10013000",
+      "bytes": "6c1004c0a10111025821d98820cc8c9320932198300111025821d5d10f882193809321c08098300111025821d10600006c1004c0a10111025821cd8820cc8093218820983093200111025821c9060000",
+      "end": "0x10013050",
+      "excluded_padding_bytes": 0,
+      "instruction_bytes": 80,
+      "sha256": "1ce8f01c3a5263aabfad589ea9ac670a90e5bb8ae5aebdbc2a643dfdf974b9ae"
+    }
+  ],
+  "completed_lifecycles": 0,
+  "findings": [
+    "The full original helper allocates its 120-byte node through the stock pool, initializes its embedded payload and sends message 9 through the original queue. The queue is then consumed by original JobMgr admission. The caller, owner hierarchy and ordinary ready state are explicit fixtures.",
+    "Descriptor selector 0 maps to message selector 3 and appends the node. Descriptor selectors 1/2/3 map to 0/1/2; JobMgr still assigns references but does not append them to the tested raw list. No physical color or channel interpretation is assigned.",
+    "The producer leaves the reference field outside its 70-byte reset. Original JobMgr overwrites it from the work copy count, normalizes zero copies to one, conditionally doubles it and overrides it to one for active work. This resolves reference initialization for the supplied admission path.",
+    "Doubling is stored in 16 bits: explicit unsupported large-copy fixtures 32768 and 65535 yield zero and 65534 references. These are arithmetic boundary observations, not observed printer faults or supported copy counts.",
+    "Raw IRQ mode is unchanged by this producer/admission sequence. When the supplied work allows BIH copying, admission copies the selected BIH fields; source kind 1/2 alone does not supply appropriate raw work metadata.",
+    "With an explicitly allocated 16-byte input prefix and one reference, one supplied raw completion followed by original cleanup frees the kind-1 input allocation and node. Kind 2 frees only the node; the separately allocated unused input remains owned by the fixture.",
+    "With two references, one supplied completion retains both allocations and the node, but changes a nonzero image pointer to the input allocation base. The next submission/cursor restoration is not established. The actual producer root and input-prefix origin remain unproven."
+  ],
+  "fixture_elf_bytes": "7f454c460102010000000000000000000002005e00000001200000040000003400001170000003000034002000010028000800070000000100001000200000002000000000000010000000100000000500001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001001451c6c1006da2018fffd0a8000000000000c00000020000000015874656e73615f496e666f005553455f4142534f4c5554455f4c49544552414c533d300a4142493d300a00002000000000000004200000000000000000002804200000000000000400000001200000040000000b000000022000000f000000000000000800000000000000000000000000000000000000002000000000000000030000010000000000000000000000000300000200000000000000000000000003000003000000000000000000000000030000040000000120000004000000001000000100000008200010100000000010000001000000142000101000000000100000010000001b20001010000000001000000100726574697265005f5f6273735f7374617274005f6564617461005f656e6400002e73796d746162002e737472746162002e7368737472746162002e74657874002e7874656e73612e696e666f002e78742e6c6974002e78742e70726f700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001b000000010000000620000000000010000000001000000000000000000000000400000000000000210000000700000000000000000000101000000038000000000000000000000001000000000000002e00000001000000000000000000001048000000080000000000000000000000010000000000000036000000010000000000000000000010500000003000000000000000000000000100000000000000010000000200000000000000000000108000000090000000060000000500000004000000100000000900000003000000000000000000001110000000200000000000000000000000010000000000000011000000030000000000000000000011300000003f00000000000000000000000100000000",
+  "fixture_elf_sha256": "c0397bd5159cec58681f68f3c0e1caeca9822c8e23e919325ebcbccf32d75dea",
+  "fixture_source": "\n.text\n.align 4\n.global retire\nretire:\n entry a1,48\n mov a10,a2\n movi a8,0x1001451c\n jx a8\n",
+  "fixture_source_sha256": "0a4f13061b77cd0fdcf0f430840be77c90a18b8e9bde6023a2b409d932f96ed4",
+  "input_band_sha256": "ab0a082e2bd72f739f1e4946f9aa7f08637677685246cad8d74f13fd547788e1",
+  "limits": "Serialized RAM execution with explicit caller, owner hierarchy, copy/mode metadata and a 16-byte input prefix. Task readiness is supplied; the real queue and allocator execute without waiters. Raw completion enters after the omitted peripheral prefix and stops before refresh. No complete page lifecycle, second-copy submission, boot, MMIO, custom instruction, USB contact, physical packing or printing is claimed.",
+  "metadata_controls": [
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "d04d8156254e995535ff714acfc564bccad2813bdda64e95d30564c2188810ab",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 0,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 0,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "d04d8156254e995535ff714acfc564bccad2813bdda64e95d30564c2188810ab",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 0,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "d7116f7de435bb871d833854f36a65c5326d3ed3d0a12184e270a9dd9ec64a42",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 0,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 0,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "d7116f7de435bb871d833854f36a65c5326d3ed3d0a12184e270a9dd9ec64a42",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 0,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    }
+  ],
+  "producer_admission_cases": [
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 0,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "f369278cc52433b3ae3b7a74d75af14053bec24fa39845c10a6adeb7a517c164",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 0
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 0,
+      "message_selector": 0,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "6630bea677fe4e195a3e9e6d35ed2b38f4004559b6a91d8f18515613d0da8eec",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 1,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 0,
+      "message_selector": 1,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "f369278cc52433b3ae3b7a74d75af14053bec24fa39845c10a6adeb7a517c164",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 2,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 0
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 0,
+      "message_selector": 2,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "6630bea677fe4e195a3e9e6d35ed2b38f4004559b6a91d8f18515613d0da8eec",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 3,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "7ceccde9d5eb1b71f087ed132c9e777c688d4c9f789f100625a65359cd6d2085",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 0
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 0,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "d04d8156254e995535ff714acfc564bccad2813bdda64e95d30564c2188810ab",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 1,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 1,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "7ceccde9d5eb1b71f087ed132c9e777c688d4c9f789f100625a65359cd6d2085",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 2,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 0
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 2,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "d04d8156254e995535ff714acfc564bccad2813bdda64e95d30564c2188810ab",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 3,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 2,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "f369278cc52433b3ae3b7a74d75af14053bec24fa39845c10a6adeb7a517c164",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 0
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 2,
+      "message_selector": 0,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "6630bea677fe4e195a3e9e6d35ed2b38f4004559b6a91d8f18515613d0da8eec",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 1,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 2,
+      "message_selector": 1,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "f369278cc52433b3ae3b7a74d75af14053bec24fa39845c10a6adeb7a517c164",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 2,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 0
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 2,
+      "message_selector": 2,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "6630bea677fe4e195a3e9e6d35ed2b38f4004559b6a91d8f18515613d0da8eec",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 3,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 4294967295,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "f369278cc52433b3ae3b7a74d75af14053bec24fa39845c10a6adeb7a517c164",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 0
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 4294967295,
+      "message_selector": 0,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "6630bea677fe4e195a3e9e6d35ed2b38f4004559b6a91d8f18515613d0da8eec",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 1,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 4294967295,
+      "message_selector": 1,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "f369278cc52433b3ae3b7a74d75af14053bec24fa39845c10a6adeb7a517c164",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 2,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 0
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 4294967295,
+      "message_selector": 2,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "6630bea677fe4e195a3e9e6d35ed2b38f4004559b6a91d8f18515613d0da8eec",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 3,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 0,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "3f2dd1d8dade62fa6ebf18b73f6eac90099aa199f28242f52d9192f5fbcc3c57",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 0
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 0,
+      "message_selector": 0,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "78b33a79628d2eaba85c88b57c19f0c2744301d837d4751c8a7dc49c6461bf9a",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 1,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 0,
+      "message_selector": 1,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "3f2dd1d8dade62fa6ebf18b73f6eac90099aa199f28242f52d9192f5fbcc3c57",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 2,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 0
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 0,
+      "message_selector": 2,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "78b33a79628d2eaba85c88b57c19f0c2744301d837d4751c8a7dc49c6461bf9a",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 3,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "878973eccaa419fa998950f4d7518e143a40b2792476da414671c4c6220cbb3a",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 0
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 0,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "d7116f7de435bb871d833854f36a65c5326d3ed3d0a12184e270a9dd9ec64a42",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 1,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 1,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "878973eccaa419fa998950f4d7518e143a40b2792476da414671c4c6220cbb3a",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 2,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 0
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 2,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "d7116f7de435bb871d833854f36a65c5326d3ed3d0a12184e270a9dd9ec64a42",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 3,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 2,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "3f2dd1d8dade62fa6ebf18b73f6eac90099aa199f28242f52d9192f5fbcc3c57",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 0
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 2,
+      "message_selector": 0,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "78b33a79628d2eaba85c88b57c19f0c2744301d837d4751c8a7dc49c6461bf9a",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 1,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 2,
+      "message_selector": 1,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "3f2dd1d8dade62fa6ebf18b73f6eac90099aa199f28242f52d9192f5fbcc3c57",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 2,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 0
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 2,
+      "message_selector": 2,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "78b33a79628d2eaba85c88b57c19f0c2744301d837d4751c8a7dc49c6461bf9a",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 3,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 4294967295,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "3f2dd1d8dade62fa6ebf18b73f6eac90099aa199f28242f52d9192f5fbcc3c57",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 0
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 4294967295,
+      "message_selector": 0,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "78b33a79628d2eaba85c88b57c19f0c2744301d837d4751c8a7dc49c6461bf9a",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 1,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 4294967295,
+      "message_selector": 1,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "3f2dd1d8dade62fa6ebf18b73f6eac90099aa199f28242f52d9192f5fbcc3c57",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 2,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 0
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": false,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 1,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 4294967295,
+      "message_selector": 2,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "78b33a79628d2eaba85c88b57c19f0c2744301d837d4751c8a7dc49c6461bf9a",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 3,
+      "skip_bih": 1,
+      "source_kind": 2,
+      "source_pointer": 0,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    }
+  ],
+  "qemu_version": "QEMU emulator version 11.1.1",
+  "reference_cases": [
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 0,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "d04d8156254e995535ff714acfc564bccad2813bdda64e95d30564c2188810ab",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 3,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "57fa8374bcfbc1e20c253952911aaf32707533c270b0e3c1f00733c952a4ef3f",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 3,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 3,
+      "document_source": 0,
+      "duplex": 1,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "55d34eacc125deb2d365bba7c0bd7c13425c08bbffc6e062f14e871cc774a732",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 6,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 3,
+      "document_source": 1,
+      "duplex": 1,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "57fa8374bcfbc1e20c253952911aaf32707533c270b0e3c1f00733c952a4ef3f",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 3,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 1,
+      "admission_stop": "0x1000e67c",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 3,
+      "document_source": 0,
+      "duplex": 1,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "d04d8156254e995535ff714acfc564bccad2813bdda64e95d30564c2188810ab",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 1,
+      "admission_stop": "0x1000e67c",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 0,
+      "document_source": 0,
+      "duplex": 1,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "d04d8156254e995535ff714acfc564bccad2813bdda64e95d30564c2188810ab",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 32768,
+      "document_source": 0,
+      "duplex": 1,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "d105850c477f987f28b7d41006a1d3ba43eef23c8f918ab6c029cc71953cadd2",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 0,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 65535,
+      "document_source": 0,
+      "duplex": 1,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "5428088a4cf38cd391bf752002c38a40b39e1d756208ba6beab488452706c5e0",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 0,
+      "raw_flag": 1,
+      "result_references": 65534,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 0,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "d7116f7de435bb871d833854f36a65c5326d3ed3d0a12184e270a9dd9ec64a42",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 3,
+      "document_source": 0,
+      "duplex": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "7c1d0dfdc43df4480d10b19c3aea44222d765b6948d4da94ae2f843d34001836",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 3,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 3,
+      "document_source": 0,
+      "duplex": 1,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "61750e15a9fda7094716ae77766eb11d068fce74250f65494c0c5e20c473a709",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 6,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 3,
+      "document_source": 1,
+      "duplex": 1,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "7c1d0dfdc43df4480d10b19c3aea44222d765b6948d4da94ae2f843d34001836",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 3,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 1,
+      "admission_stop": "0x1000e67c",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 3,
+      "document_source": 0,
+      "duplex": 1,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "d7116f7de435bb871d833854f36a65c5326d3ed3d0a12184e270a9dd9ec64a42",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 1,
+      "admission_stop": "0x1000e67c",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 0,
+      "document_source": 0,
+      "duplex": 1,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "d7116f7de435bb871d833854f36a65c5326d3ed3d0a12184e270a9dd9ec64a42",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 1,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 32768,
+      "document_source": 0,
+      "duplex": 1,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "0318a4bda0d25b52f96077906835b4fe3a0af076b12ed84407a8e86822526dbb",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 0,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    },
+    {
+      "active": 0,
+      "admission_stop": "0x1000e670",
+      "allocator_and_queue_executed": true,
+      "appended": true,
+      "buffer": 574619664,
+      "caller_and_owner_hierarchy": "explicit fixture",
+      "copies": 65535,
+      "document_source": 0,
+      "duplex": 1,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_and_inputs_unchanged": true,
+      "input_kind": 1,
+      "message_selector": 3,
+      "message_type": 9,
+      "node": 574624516,
+      "payload_sha256": "05d0ad948ebf3a4e1a52e8a6ad9c6260d066c5080f11c80e63f02e0c30337acb",
+      "pool_blocks": [
+        [
+          574619648,
+          4844,
+          2147483648
+        ],
+        [
+          574624504,
+          120,
+          2147483648
+        ],
+        [
+          574624636,
+          11384,
+          1073741824
+        ]
+      ],
+      "producer_reference_bytes": 52428,
+      "raw_flag": 1,
+      "result_references": 65534,
+      "selector": 0,
+      "skip_bih": 1,
+      "source_kind": 1,
+      "source_pointer": 574619680,
+      "status": "pass",
+      "task_ready": "host boundary",
+      "terminal": 1
+    }
+  ],
+  "release_cases": [
+    {
+      "allocator_executed": true,
+      "cleanup_result": 1,
+      "completed_lifecycles": 0,
+      "fill": 0,
+      "initial_references": 1,
+      "input_kind": 1,
+      "queue_executed": true,
+      "raw_refresh_stop": "0x1001455a",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126",
+        "0x10014910",
+        "0x10015648"
+      ],
+      "remaining_allocations": 0,
+      "remaining_references": 0,
+      "scope": "One supplied raw completion after serialized producer/admission; no second submission or hardware prefix.",
+      "status": "pass",
+      "supplied_image_prefix_bytes": 16
+    },
+    {
+      "allocator_executed": true,
+      "cleanup_result": 0,
+      "completed_lifecycles": 0,
+      "fill": 0,
+      "initial_references": 2,
+      "input_kind": 1,
+      "queue_executed": true,
+      "raw_refresh_stop": "0x1001455a",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126",
+        "0x10014910",
+        "0x10015648"
+      ],
+      "remaining_allocations": 2,
+      "remaining_references": 1,
+      "scope": "One supplied raw completion after serialized producer/admission; no second submission or hardware prefix.",
+      "status": "pass",
+      "supplied_image_prefix_bytes": 16
+    },
+    {
+      "allocator_executed": true,
+      "cleanup_result": 1,
+      "completed_lifecycles": 0,
+      "fill": 0,
+      "initial_references": 1,
+      "input_kind": 2,
+      "queue_executed": true,
+      "raw_refresh_stop": "0x1001455a",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126",
+        "0x10014910",
+        "0x10015648"
+      ],
+      "remaining_allocations": 1,
+      "remaining_references": 0,
+      "scope": "One supplied raw completion after serialized producer/admission; no second submission or hardware prefix.",
+      "status": "pass",
+      "supplied_image_prefix_bytes": 16
+    },
+    {
+      "allocator_executed": true,
+      "cleanup_result": 0,
+      "completed_lifecycles": 0,
+      "fill": 0,
+      "initial_references": 2,
+      "input_kind": 2,
+      "queue_executed": true,
+      "raw_refresh_stop": "0x1001455a",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126",
+        "0x10014910",
+        "0x10015648"
+      ],
+      "remaining_allocations": 2,
+      "remaining_references": 1,
+      "scope": "One supplied raw completion after serialized producer/admission; no second submission or hardware prefix.",
+      "status": "pass",
+      "supplied_image_prefix_bytes": 16
+    },
+    {
+      "allocator_executed": true,
+      "cleanup_result": 1,
+      "completed_lifecycles": 0,
+      "fill": 204,
+      "initial_references": 1,
+      "input_kind": 1,
+      "queue_executed": true,
+      "raw_refresh_stop": "0x1001455a",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126",
+        "0x10014910",
+        "0x10015648"
+      ],
+      "remaining_allocations": 0,
+      "remaining_references": 0,
+      "scope": "One supplied raw completion after serialized producer/admission; no second submission or hardware prefix.",
+      "status": "pass",
+      "supplied_image_prefix_bytes": 16
+    },
+    {
+      "allocator_executed": true,
+      "cleanup_result": 0,
+      "completed_lifecycles": 0,
+      "fill": 204,
+      "initial_references": 2,
+      "input_kind": 1,
+      "queue_executed": true,
+      "raw_refresh_stop": "0x1001455a",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126",
+        "0x10014910",
+        "0x10015648"
+      ],
+      "remaining_allocations": 2,
+      "remaining_references": 1,
+      "scope": "One supplied raw completion after serialized producer/admission; no second submission or hardware prefix.",
+      "status": "pass",
+      "supplied_image_prefix_bytes": 16
+    },
+    {
+      "allocator_executed": true,
+      "cleanup_result": 1,
+      "completed_lifecycles": 0,
+      "fill": 204,
+      "initial_references": 1,
+      "input_kind": 2,
+      "queue_executed": true,
+      "raw_refresh_stop": "0x1001455a",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126",
+        "0x10014910",
+        "0x10015648"
+      ],
+      "remaining_allocations": 1,
+      "remaining_references": 0,
+      "scope": "One supplied raw completion after serialized producer/admission; no second submission or hardware prefix.",
+      "status": "pass",
+      "supplied_image_prefix_bytes": 16
+    },
+    {
+      "allocator_executed": true,
+      "cleanup_result": 0,
+      "completed_lifecycles": 0,
+      "fill": 204,
+      "initial_references": 2,
+      "input_kind": 2,
+      "queue_executed": true,
+      "raw_refresh_stop": "0x1001455a",
+      "rejected_before_execution": [
+        "0x1001455a",
+        "0x10014560",
+        "0x100144d9",
+        "0x10014126",
+        "0x10014910",
+        "0x10015648"
+      ],
+      "remaining_allocations": 2,
+      "remaining_references": 1,
+      "scope": "One supplied raw completion after serialized producer/admission; no second submission or hardware prefix.",
+      "status": "pass",
+      "supplied_image_prefix_bytes": 16
+    }
+  ],
+  "source_sha256": {
+    "scripts/hp1020_qemu_context.py": "ec85435943eacdb827dcaa41387663a6eb62f536e98ae753cb8b373f04ac6067",
+    "scripts/hp1020_qemu_multitask.py": "2353e573a0136984739c7eff9e70ebe5e1aa2634eac381522c3097a49b193aae",
+    "scripts/hp1020_qemu_pipeline.py": "3a6ea4ef1c1dfa3b0bc02df4ba5601facb1c27396685c8c9e847122bb443ef39",
+    "scripts/hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
+    "scripts/hp1020_qemu_scheduled_status.py": "9a715e6cd064d55994a3bfe89a8822cc9a6ce60e7f640193f2e9b52054244890",
+    "scripts/hp1020_qemu_scheduler.py": "6bb45fc44d99da27be5b307b216969207ceb1a8b05bff780108d672d7ab3e724",
+    "scripts/hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
+    "scripts/hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
+    "scripts/hp1020_qemu_timers.py": "34beea0dd76a324d546e38ebfe18603932c4afbd9133a9a37c98aaf775492f06",
+    "scripts/hp1020_stock_jobmgr_harness.py": "4c863cff55c7027ed3f348d188c93225dacc0c0442b9f71792c8db96ce7ced93",
+    "scripts/hp1020_stock_lifecycle_harness.py": "d08e611620854498fa9fd65e809fd042219fdbb4e0093d051c8972fb0b433f95",
+    "scripts/hp1020_stock_notifications.py": "d0acd7130585cc38a48368d2d10e26f2bef6534c9f124dfbae8b91991c98e9ca",
+    "scripts/hp1020_stock_parser_harness.py": "87175798036cb376447ae70cb4a35f82f7a3f06a3ca166c89c9ca8b8e38bba90",
+    "scripts/hp1020_stock_pool.py": "bdc1ce5a01fdb9dff49ed82570e5094ba376eaa44e970fcd2ba3a5cf4743628b",
+    "scripts/hp1020_stock_printmgr_harness.py": "6f5afe219a3f0aebca235a8f510ad2cac468c9624fbfe518e4593e4c79e50275",
+    "scripts/hp1020_stock_queue.py": "799275c643095b20c613ef64fdddb93b277404519f2681d70c3573323b872e11",
+    "scripts/hp1020_stock_status_publication.py": "0f2276305116672937c0aa96fe9fd67c34dc84cc89ff1be77d286c1a926acea3",
+    "scripts/hp1020_stock_status_queue.py": "6f34a9c83c5e01b65380f5acb80d068f75452dc841922ba9892a5cd82e21b634",
+    "scripts/hp1020_stock_stop.py": "1f716972e7d044b070eff24b05e9ac7fcf532a54131f5c69e42276c6db987de0",
+    "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
+    "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
+    "scripts/hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
+    "scripts/validate-hp1020-raw-producer.py": "18f69b93eaa861eed57f379bf8d7226dda46c34a6adb0c656e66f985dcfbc833"
+  },
+  "status": "pass",
+  "stock_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d"
+}

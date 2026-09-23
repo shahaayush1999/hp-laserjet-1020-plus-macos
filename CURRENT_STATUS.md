@@ -1,13 +1,13 @@
 # Current handoff
 
-Updated: 2026-09-10. **The open replacement cannot print yet.**
+Updated: 2026-09-23. **The open replacement cannot print yet.**
 The working HP-based macOS setup is untouched. No printer contact, upload,
 installed-printing change or print-driving hardware path occurred.
 
 ## Current verified state
 
-- Full sequential validation passes **98 consistency checks** and both suites.
-  Log: `/tmp/hp1020-full-raw-contract.log`; child logs `hp1020-validation.eIS7rL`.
+- The full sequential validation passed **99 consistency checks** and both suites.
+  Log: `/tmp/hp1020-full-raw-producer-20260923.log`; child logs `hp1020-validation.eEx0Qz`.
   Reports and their source/fixture hashes match the tested current files.
 - The open JBIG decoder produces packed image bands: 176 focused cases,
   21 original/normalized-header comparisons, 32 separately classified mutations
@@ -26,6 +26,12 @@ installed-printing change or print-driving hardware path occurred.
   a nonzero pointer and releases a reference. A deliberately unprefixed pointer
   yields a before-buffer free request in two conditional fixtures, not a stock
   fault. Allocator calls are observed boundaries; no reclamation or printing runs.
+- New raw-producer/admission checks pass **52 interpreter/QEMU comparisons**
+  and **eight conditional release cases** with the original allocator and queue.
+  JobMgr initializes references, and only descriptor selector 0 reaches this
+  raw list. A supplied 16-byte prefix permits original cleanup after one raw
+  completion; a second reference retains ownership with an adjusted cursor.
+  These results are included in the full sequential validation above.
 
 ## Preserved evidence and limits
 
@@ -42,15 +48,17 @@ not over every boot/engine write. The historical 64-chunk budget stop is retaine
 
 ## Next action and restrictions
 
-Resolve the raw producer's input-buffer prefix, reference initialization,
-supported metadata and timing before building an adapter. Its enclosing function
-is known; the actual caller/root remains unproven. Keep source-kind dispatch,
+Resolve the input-buffer prefix, cursor restoration, supported metadata and
+timing before building an adapter. References are now initialized in executed
+JobMgr admission. The standalone producer's actual caller remains unproven;
+the saved parser also has a distinct chunk-12 message-9 path worth executing.
+Keep source-kind dispatch,
 raw IRQ mode and engine output selection distinct. Do not repeat the completed
 selector matrix or resolved empty-document cancellation/END_DOC ordering.
 Queues: engine 0, PrintMgr 1, JobMgr 3, Video 8, StatusMgr 10.
 
 Offline only: no USB enumeration/contact, queries, uploads, installed-printing
 changes or print-driving MMIO. Unknown custom instructions are not inert.
-No research process is running at this checkpoint. Engine-ready packing, cache
+No research process remains running at this checkpoint. Engine-ready packing, cache
 visibility, physical throughput, boot, printing and power-cycle recovery remain
 unproven. Passing software tests do not establish physical output.

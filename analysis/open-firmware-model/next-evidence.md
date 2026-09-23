@@ -25,9 +25,9 @@ A second concrete shortcut now avoids the compressed-image hardware for offline
 image production. `open-firmware/image-core/` contains a bounded streaming JBIG
 wrapper and a bridge from the existing semantic parser/planner to packed row
 bands. The parser now retains each exact 20-byte BIH. Current focused checks
-pass, and the latest full sequential aggregate passed **98 consistency checks**
-in `/tmp/hp1020-full-raw-contract.log` (child logs `hp1020-validation.eIS7rL`), including
-the bounded complete-stream and original raw-contract integrations below. All tested current source/fixture
+pass, and the latest full sequential aggregate passed **99 consistency checks**
+in `/tmp/hp1020-full-raw-producer-20260923.log` (child logs `hp1020-validation.eEx0Qz`), including
+the bounded complete-stream, raw-contract and original producer integrations below. All tested current source/fixture
 hashes match. No validation process remains running at this checkpoint.
 
 - `validate-hp1020-image-core.py --target`: 176 cases, 21 comparisons of original
@@ -201,7 +201,7 @@ a producer/consumer schedule or physical output.
   36 native pages and open image-case totals.
 
 Next resolve the actual producer's input-buffer allocation and cursor convention,
-reference ownership, supported raw metadata and consumption timing before building
+supported raw metadata and consumption timing before building
 an adapter. `0x10010420` is the enclosing original producer; the tested selection
 passes kind-1 pointers through unchanged. Do not conflate its node's embedded
 payload at node+16 with the image pointer's 16-byte retirement adjustment. The
@@ -220,6 +220,59 @@ matrix as a substitute for those unresolved contracts.
 The older `video-raster-consumer-report.md` chain from normal compressed BID to
 raw refresh omits the separate dispatch/refill choices above; do not take it as
 proof that compressed data is normally sent straight to the raw output block.
+
+### Original raw producer and admission (2026-09-23)
+
+`scripts/validate-hp1020-raw-producer.py` owns
+`analysis/hardware-boundary/raw-producer.json/.md`. Focused execution passes
+**52 interpreter/QEMU comparisons and eight additional QEMU release cases**.
+The full sequential aggregate passed **99 consistency checks and both suites** in
+`/tmp/hp1020-full-raw-producer-20260923.log` (child logs `hp1020-validation.eEx0Qz`).
+All tested source/fixture hashes match. Both disposable toolchains were rebuilt through
+their pinned scripts; the source checksum and actual encoding gates passed.
+
+- The complete original `0x10010420..0x100104c6` producer executes, including
+  allocation, reset, metadata copy and real queue-3 delivery. Original JobMgr
+  receives that actual packet and runs its selected admission arm. The owner
+  hierarchy and ready-state boundary remain fixtures; no task scheduler runs.
+- Descriptor `+12` values 0/1/2/3 become message selectors 3/0/1/2. Only the
+  first appends to the tested work `+0x50` list. The remaining selectors still
+  receive references without entering this list. No physical channel meaning
+  or support for other printer models is inferred.
+- Producer reset covers 70 bytes, leaving payload `+0x4e` at the allocation
+  fill. Admission overwrites it from work `+0x0c`, normalizing zero to one;
+  `work+0x75 == 1 && document+0x60 != 1` doubles the count, and
+  `work+0x72 == 1` overrides it to one. The result is also stored at work+0x4e.
+  Doubling is 16-bit: explicit 32768/65535 inputs yield 0/65534. Those arithmetic
+  controls are not supported-copy claims or observed stock faults.
+- Work+0x74 is unchanged. Admission copies BIH fields only for the appending
+  selector when work+0x36 is zero. The producer's source kind alone does not
+  establish the raw work metadata or matching IRQ family.
+- A fixture allocates a buffer using the original pool, explicitly supplies a
+  16-byte prefix, and passes base+16 to the producer. After one supplied raw
+  completion, original cleanup really frees the kind-1 image and node when
+  references reach zero. Kind 2 frees the node while the unused fixture buffer
+  remains allocated. With two references, one completion retains both blocks
+  but changes the image cursor to its base. A second submission/cursor reset
+  is still unproven. No hardware IRQ prefix or raw refresh runs.
+- The host interpreter abstracts interrupt-mask state; QEMU independently
+  executes the original mask instructions. Both compare the actual payload,
+  queue/list effects and pool partition. Six excluded hardware/custom-code
+  entries are rejected before execution in every release fixture. These are
+  serialized construction/admission and conditional cleanup observations,
+  with **zero completed page lifecycles**.
+
+A subsequent read-only pointer-store census highlights an existing, distinct
+parser producer at `0x1000a0d1..0x1000a16d`. Original table `0x100036f0` entry 12
+targets `0x1000a05d`; unlike chunk 8, it can build message 9. The old parser
+boundary report already noted this compatibility-looking arm, but it has not
+been executed for the current raw integration. It does not call `0x10010420`.
+Next execute a narrow chunk-12 fixture against the original parser and inspect
+its allocation cursor, metadata, source kind and actual JobMgr admission.
+Do not assume the host header's `ZJT_2600N` label proves physical support on this
+device. Normal foo2zjs JBIG traffic and the open parser's supported grammar stay
+unchanged. Continue to distinguish any new parser evidence from the supplied
+standalone producer root and the unresolved raw-mode/output contract.
 
 ## Preferred raster bypass (2026-09-10)
 

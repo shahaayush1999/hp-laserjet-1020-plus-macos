@@ -103,12 +103,13 @@
 0x1000f030	hp1020_work_finalize_raster_list_candidate	function	medium	Finalizes or releases raster list based on work flags
 0x1000f0a8	hp1020_work_list_mark_or_send_candidate	function	medium	Walks work +0x50 raster/chunk list, updates counts, and releases nodes
 0x1000f128	hp1020_work_mark_page_done_candidate	function	medium	Marks a video/page work object done and updates raster-list counts
-0x1000f204	hp1020_work_common_init_candidate	function	medium	Common initializer for job/work objects
+0x1000f204	hp1020_work_common_init_candidate	function	high	Executed common initializer clears 70 bytes and assigns defaults; raster reference field at +0x4e is initialized later by JobMgr
 0x1000f228	hp1020_video_work_create_candidate	function	high	Allocates and initializes 0x94-byte video/page work object
 0x1000f280	hp1020_work_mode_normalize_candidate	function	low	Normalizes work mode field 0x200 to 0x100
 0x100103f8	hp1020_jobmgr_send_case_6_candidate	function	medium	Small helper sends JobMgr message 6
 0x1001040c	hp1020_jobmgr_send_case_2_candidate	function	medium	Small helper sends JobMgr message 2
 0x100104c8	hp1020_work_populate_from_page_params_candidate	function	high	Copies selected page-parameter fields into video/page work object
+0x10010420	hp1020_raw_raster_message_create	function	high	Executed node allocation, source-kind and metadata construction, and message-9 queue delivery; actual caller remains unproven
 0x10014910	hp1020_video_prepare_page_candidate	function	high	Video page preparation and raster setup
 0x10015214	hp1020_video_render_or_dma_candidate	function	high	Video transfer/DMA-like register path
 0x10015438	hp1020_video_alt_render_candidate	function	medium	Alternate video render path

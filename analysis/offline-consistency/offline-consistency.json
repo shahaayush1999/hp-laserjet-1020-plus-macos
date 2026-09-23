@@ -1,5 +1,5 @@
 {
-  "check_count": 98,
+  "check_count": 99,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -311,6 +311,12 @@
       "detail": "Raw producer, dispatch, pointer and conditional retirement fragments must retain separate selectors and prefix/free-request findings; they do not establish allocator ownership, physical output or completed lifecycles.",
       "evidence": "analysis/hardware-boundary/raw-buffer-contract.json",
       "name": "stock_raw_buffer_contract_fragments_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Original raw construction and queue admission must retain explicit owner/prefix assumptions, 16-bit reference behavior and separate one-completion allocator results; they are not completed page lifecycles.",
+      "evidence": "analysis/hardware-boundary/raw-producer.json",
+      "name": "stock_raw_producer_and_admission_verified",
       "severity": "watch"
     },
     {

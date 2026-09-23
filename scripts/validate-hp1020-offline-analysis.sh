@@ -221,6 +221,9 @@ run_step "Execute stock raster bypass and excluded custom-call controls" \
 run_step "Verify stock raw-buffer routing and conditional ownership boundaries" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-raw-buffer-contract.py"
 
+run_step "Execute original raw producer, queue admission and bounded allocator cleanup" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-raw-producer.py"
+
 run_step "Regenerate video band queue/list model" \
   "$ROOT_DIR/scripts/model-hp1020-video-band-queue.py"
 
