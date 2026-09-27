@@ -13,9 +13,18 @@ matching its exact contents, sample conversion and mocked installation/removal.
 The generated report is preserved beside the recipe; latest logs are
 `/tmp/hp1020-dmg-build.log` and `/tmp/hp1020-dmg-validation.log`.
 Installation and physical printing on the recipient Mac remain untested.
-The original manual installer/runtime are unchanged. No app wrapper is needed;
-the recipient needs no repository, Homebrew or commands. It still installs once
-per Mac and uses its included remover rather than deletion of the download.
+The original manual installer/runtime are unchanged. The recipient needs no
+repository, Homebrew or commands, but the owner has rejected this handoff's
+removal experience: he should not have to retain the downloaded disk image.
+Do not present a copyable installer as satisfying his requested app lifecycle.
+The open choice is a permanent installed app with its own Uninstall control
+versus removal by dragging the app to Trash. No app has been implemented.
+The existing CUPS files, queue and daemon live outside an app and require explicit
+cleanup. Bundled services alone would not remove those CUPS components; the
+installed SDK also requires notarization for SMAppService LaunchDaemons, which
+does not fit the owner's rejected paid-signing route. Preserve the current
+validated package while resolving this design; do not silently substitute a
+workflow requiring users to open documents in a dedicated printing app.
 The firmware research baseline below remains the September 23 checkpoint.
 
 ## Current verified state
