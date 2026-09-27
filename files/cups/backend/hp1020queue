@@ -22,12 +22,16 @@ mkdir -p "$QUEUE_DIR"
 safe_title="$(print -r -- "$job_title" | tr -cs '[:alnum:]._- ' '_' | cut -c 1-80)"
 stamp="$(date +%Y%m%d%H%M%S)"
 job_path="$QUEUE_DIR/${stamp}-${job_id}-${safe_title}"
+pending="$(mktemp "$QUEUE_DIR/.incoming.XXXXXX")"
+trap 'rm -f "$pending"' EXIT
 
 if [[ -z "$input" ]]; then
-  cat > "$job_path"
+  cat > "$pending"
 else
-  cat "$input" > "$job_path"
+  cat "$input" > "$pending"
 fi
 
-chmod 664 "$job_path"
+chmod 640 "$pending"
+# The worker only sees complete documents; its glob excludes .incoming files.
+mv "$pending" "$job_path"
 print "INFO: Queued HP 1020 job $job_id for $job_user at $job_path" >&2

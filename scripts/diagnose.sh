@@ -9,17 +9,21 @@ lpstat -p "$PRINTER_NAME" -v -l 2>&1 || true
 lpstat -W not-completed -o "$PRINTER_NAME" 2>&1 || true
 
 printf '\n%s\n' '--- USB backends ---'
-lpinfo -v 2>&1 | rg -n 'usb|LaserJet|Hewlett|hp1020' || true
+lpinfo -v 2>&1 | grep -En 'usb|LaserJet|Hewlett|hp1020' || true
 env -i PATH=/usr/bin:/bin:/usr/sbin:/sbin /usr/libexec/cups/backend/usb 2>&1 | sed -n '1,80p' || true
 
 printf '\n%s\n' '--- LaunchDaemon ---'
-launchctl print "system/$LABEL" 2>&1 | rg 'state =|runs =|last exit|last terminating|pid =|path =' || true
+launchctl print "system/$LABEL" 2>&1 | grep -E 'state =|runs =|last exit|last terminating|pid =|path =' || true
 
 printf '\n%s\n' '--- Worker log ---'
 tail -n 140 /Library/Printers/hp1020/spool-worker.log 2>/dev/null || true
 
 printf '\n%s\n' '--- Processes ---'
-ps ax -o pid,user,command | rg 'hp1020|foo2zjs|backend/usb' | rg -v rg || true
+ps ax -o pid,user,command | grep -E 'hp1020|foo2zjs|backend/usb' | grep -v grep || true
+
+printf '\n%s\n' '--- Bundled tools ---'
+/Library/Printers/hp1020/runtime/gs --version 2>&1 || true
+/Library/Printers/hp1020/runtime/gsed --version 2>&1 | head -n 1 || true
 
 if [[ "${1:-}" == "--admin" ]]; then
   printf '\n%s\n' '--- Protected spool state ---'

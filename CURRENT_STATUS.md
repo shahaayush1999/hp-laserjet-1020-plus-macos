@@ -1,16 +1,26 @@
 # Current handoff
 
-Updated: 2026-09-27. **The open replacement cannot print yet.**
+Updated: 2026-09-28. **The open replacement cannot print yet.**
 The working HP-based macOS setup is untouched. No printer contact, upload,
 installed-printing change or print-driving hardware path occurred.
 
-Support decision: the owner abandoned the app/installer packaging experiment.
-Its code, generated downloads and disposable build files have been removed.
-Use a clone and the existing `scripts/install.sh` and
-`scripts/uninstall.sh` on his dad's Apple Silicon Mac, with the Homebrew
-dependencies described in `README.md`. Installation on that Mac has not occurred.
-Do not reintroduce packaging unless requested. The original scripts/runtime and
-firmware research are unchanged; the validated research baseline is September 23.
+Support decision: use the repository's install/uninstall scripts; do not
+reintroduce app/pkg/dmg packaging. The September 28 bundle under
+`assets/macos-arm64/` includes Ghostscript, GNU sed, rebuilt foo2zjs and firmware.
+Exact dependency sources/licenses are included; installation needs no Homebrew,
+extra downloads or developer tools. `README.md` now describes Download ZIP and
+the two scripts. Installation puts the runtime in the root-owned printer folder;
+removal also handles the old per-user runtime and leaves Homebrew alone.
+Ten focused offline checks passed (exact hashes/scope in
+`assets/macos-runtime-validation.json`): conversion, quarantined source-file
+staging, mocked installation/removal and mocked USB/queue behavior. The four
+conversion cases match every original encoder chunk using the same renderer.
+Compared with the working Homebrew renderer, first-page text edges differ by
+195 gray samples per format; geometry/non-image chunks and the second page match.
+This revision has not been installed or physically printed, including on dad's
+Mac; older macOS execution and a real Safari ZIP handoff remain untested. Native
+binaries target macOS 11. Original `assets/runtime/` and research reports are
+unchanged; the research validation baseline remains September 23.
 
 Repository visibility changed to public on September 27 at the owner's explicit
 request and verified through GitHub without authentication. Existing third-party

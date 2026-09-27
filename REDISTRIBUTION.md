@@ -4,7 +4,9 @@ This is not legal advice. It is a practical summary of the redistribution postur
 
 ## Summary
 
-For a private/personal repo, this package is intentionally self-contained.
+This repository is public at the owner's request and includes the runtime and
+sources needed for installation without additional downloads. Publication is
+not a resolution of the HP firmware redistribution concerns below.
 
 For a public repo, the risky part is not the custom scripts or foo2zjs. The risky part is the HP firmware blob and related firmware artifacts:
 
@@ -12,11 +14,6 @@ For a public repo, the risky part is not the custom scripts or foo2zjs. The risk
 - `assets/firmware-source/sihp1020.dl`
 - `assets/firmware-source/sihp1020.img`
 - `assets/firmware-source/sihp1020.tar.gz`
-
-Recommended posture:
-
-- Private/personal repo: bundling the firmware is a practical preservation choice.
-- Public repo: safest version removes HP firmware blobs and makes the installer download/extract/provision firmware from a user-supplied or officially obtained source.
 
 The printer being old, unsupported, out of warranty, or no longer sold does not itself remove copyright or license restrictions on the firmware. Those facts are good preservation arguments, but they are not the same thing as redistribution permission.
 
@@ -42,10 +39,24 @@ The foo2zjs project is free software. OpenPrinting describes `foo2zjs` as a free
 This repo includes:
 
 - built runtime files in `assets/runtime/`
+- the rebuilt installation runtime in `assets/macos-arm64/`
 - source snapshot in `vendor/foo2zjs-source/`
 - GPLv2 text in `assets/licenses/foo2zjs-COPYING`
 
 If distributing the built foo2zjs binaries, keep the corresponding source and GPL license text available in the same repo.
+
+### Ghostscript and GNU sed
+
+The installation bundle now includes Ghostscript 10.07.0 and GNU sed 4.10.
+Their unmodified source archives are in `vendor/runtime-sources/`; its README
+records upstream URLs and verified SHA-256 pins. The offline build recipe is
+`scripts/build-macos-runtime.py`, with the resulting configuration recorded in
+`assets/macos-arm64/build-info.json`.
+
+Ghostscript's main AGPLv3 license and GNU sed's GPLv3 license are copied into
+`assets/licenses/`. The GhostPDL source archive also preserves all included
+library/font/resource notices. Keep the sources, build recipe and notices with
+the bundled executables.
 
 ### HP Firmware
 
@@ -56,24 +67,6 @@ The firmware is not authored by this repo. The foo2zjs source/download tooling i
 HP's EULA language for HP software generally grants use, backup/archive copies, and transfer under restrictions, but says users do not have the right to distribute the Software Product. HP's website terms also restrict copying/distribution of HP materials unless expressly permitted.
 
 That means public redistribution of the firmware blob is the legal risk.
-
-## Safer Public Release Shape
-
-If this repo is made public, consider:
-
-1. Remove:
-   - `assets/runtime/sihp1020.dl`
-   - `assets/firmware-source/`
-2. Keep:
-   - custom scripts
-   - CUPS backend/filter
-   - PPD
-   - foo2zjs source/runtime and GPL text
-3. Add installer logic that accepts one of:
-   - `HP1020_FIRMWARE=/path/to/sihp1020.dl`
-   - a user-supplied HP driver package to extract firmware from
-   - a download from an official HP URL if one is available
-4. Document that users must obtain firmware for hardware they own.
 
 ## References
 

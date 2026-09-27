@@ -1,8 +1,8 @@
 #!/bin/zsh
 set -euo pipefail
 
-DRIVER_DIR="@@USER_HOME@@/.local/share/hp1020"
-DEVICE_URI="@@DEVICE_URI@@"
+DRIVER_DIR="/Library/Printers/hp1020/runtime"
+DEVICE_URI=@@DEVICE_URI_SHELL@@
 USB_BACKEND="/usr/libexec/cups/backend/usb"
 
 usage() {
@@ -39,10 +39,12 @@ esac
 tmp_zjs="$(mktemp -t hp1020.XXXXXX.zjs)"
 trap 'rm -f "$tmp_zjs"' EXIT
 
-export PATH="$DRIVER_DIR:@@BREW_PREFIX@@/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="$DRIVER_DIR:/usr/bin:/bin:/usr/sbin:/sbin"
+export GSBIN=gs
+unset GS_LIB GS_OPTIONS GS_FONTPATH GS_DEVICE
 export DEVICE_URI
 
-job_user="${USER:-@@USER_NAME@@}"
+job_user="${USER:-root}"
 
 run_with_timeout() {
   local seconds="$1"
@@ -64,6 +66,10 @@ run_with_timeout() {
   wait "$pid"
 }
 
+# Complete conversion before any firmware or document transfer.
+"$DRIVER_DIR/foo2zjs-wrapper" -P -z1 -L0 -p"$paper_code" "$input" > "$tmp_zjs"
+[[ -s "$tmp_zjs" ]] || { print -u2 -- "Conversion produced no print data."; exit 1; }
+
 if [[ "$send_firmware" -eq 1 ]]; then
   set +e
   run_with_timeout 25 "$USB_BACKEND" 1 "$job_user" "HP 1020 firmware" 1 "" "$DRIVER_DIR/sihp1020.dl"
@@ -76,18 +82,15 @@ if [[ "$send_firmware" -eq 1 ]]; then
   fi
 fi
 
-"$DRIVER_DIR/foo2zjs-wrapper" -P -z1 -L0 -p"$paper_code" "$input" > "$tmp_zjs"
-
 set +e
 run_with_timeout 60 "$USB_BACKEND" 2 "$job_user" "$(basename "$input")" 1 "" "$tmp_zjs"
 cmd_status="$?"
 set -e
 if [[ "$cmd_status" -ne 0 ]]; then
   if [[ "$cmd_status" -eq 124 ]]; then
-    print "Document send timed out after 60 seconds; treating as sent."
-  else
-    exit "$cmd_status"
+    print -u2 -- "Document transfer timed out; check the printer before retrying."
   fi
+  exit "$cmd_status"
 fi
 
 print "Sent $(basename "$input") to HP LaserJet 1020."

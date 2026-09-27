@@ -1,168 +1,81 @@
 # HP LaserJet 1020 Plus on macOS
 
-This repo packages the working local macOS setup for an HP LaserJet 1020 Plus.
+Print over USB from an **Apple Silicon Mac (M1 or newer)** using the original HP firmware and foo2zjs. This is an unofficial compatibility setup.
 
-It also contains an unfinished open firmware replacement. The existing printing
-setup works using HP firmware; the replacement cannot print yet. Agents start
-with `AGENTS.md` and `CURRENT_STATUS.md`, then use `analysis/README.md` for research.
-These files are maintained for agents. Aayush receives progress through chat.
-
-For an offline research checkpoint, run `scripts/validate.sh`. The install,
-diagnose and print commands below are for maintenance of the working setup;
-they are not part of offline research validation.
-
-The printer is old and host-based. It needs two things macOS does not provide out of the box:
-
-- firmware upload after power-on
-- conversion from PDF/PostScript into the printer's ZjStream format
-
-The setup makes the printer appear as a normal macOS printer named `HP_LaserJet_1020_Plus`, while a small background worker handles the firmware/conversion/USB send path.
-
-## Current Working Flow
-
-```text
-Chrome / Preview / app print dialog
-  -> macOS CUPS printer queue: HP_LaserJet_1020_Plus
-  -> CUPS filter: hp1020passthrough
-  -> CUPS backend: hp1020queue
-  -> handoff folder: /private/var/spool/cups/tmp/hp1020queue
-  -> LaunchDaemon worker: /Library/Printers/hp1020/hp1020-root-spool-worker
-  -> user print script: ~/bin/hp1020-print
-  -> foo2zjs-wrapper + firmware + macOS USB backend
-  -> HP LaserJet 1020
-```
-
-This is a compatibility workaround, not an official HP driver. It is intentionally explicit and removable.
+**Everything needed for installation is included in this repository.** After downloading it, installation needs no internet connection, Homebrew, extra downloads or developer tools. An administrator password is required.
 
 ## Install
 
-Requirements:
+1. On [the repository page](https://github.com/shahaayush1999/hp-laserjet-1020-plus-macos), choose **Code → Download ZIP**. Open the ZIP to extract it.
+2. Connect the printer to the Mac by USB and turn it on. Allow the USB accessory if macOS asks. Disconnect other LaserJet 1020 printers while installing.
+3. Open **Terminal** and run these two lines, assuming the extracted folder is in Downloads:
 
-- macOS with CUPS
-- Homebrew Ghostscript and GNU sed. The installer will try to install these automatically if Homebrew is available:
+   ```sh
+   cd ~/Downloads/hp-laserjet-1020-plus-macos-main
+   zsh scripts/install.sh
+   ```
 
-```sh
-brew install ghostscript gnu-sed
-```
+4. Enter your Mac administrator password when prompted. Once installation finishes, print from any app and select **HP LaserJet 1020 Plus**.
 
-Then run:
+If you put the folder elsewhere, type `cd ` in Terminal, drag the extracted folder into the window, and press Return. Then run `zsh scripts/install.sh`. If you cloned the repository, run the same script from your clone's folder.
 
-```sh
-./scripts/install.sh
-```
+The current normal printing path uses **A4 paper**. Start with one page. This setup does not add Wi-Fi, automatic duplex printing or support for other printer models.
 
-The install script prompts once for macOS administrator permission and installs the privileged CUPS/LaunchDaemon pieces in one batch.
+## Remove
 
-## Test
-
-```sh
-./scripts/print-test.sh
-```
-
-You can also print normally from Chrome, Preview, etc. Select `HP_LaserJet_1020_Plus`.
-
-## Diagnose
-
-Basic checks without admin prompt:
+Finish printing first. Open Terminal in the repository folder as above and run:
 
 ```sh
-./scripts/diagnose.sh
+zsh scripts/uninstall.sh
 ```
 
-Protected spool details with one admin prompt:
+This removes this printer's queue, background worker, bundled tools, logs and saved print jobs. It also removes the older per-user HP1020 helper if present. Other printers and Homebrew software are left alone.
+
+You can delete the downloaded repository folder afterwards. If you already deleted it, download it again to get the uninstall script. The folder is not needed for everyday printing; deleting it alone does not uninstall the driver.
+
+## Updating an existing setup
+
+Finish or cancel pending print jobs, download the current repository, and run `zsh scripts/install.sh` again. The script replaces this setup's files and removes its old per-user runtime. Previously installed Homebrew software is not removed automatically because other software may use it.
+
+## If something goes wrong
+
+Keep the Terminal error message. Check that the printer is powered on, connected directly by USB, and allowed as an accessory in macOS. An adapter must support data, not just charging.
+
+For a test page after installation:
 
 ```sh
-./scripts/diagnose.sh --admin
+zsh scripts/print-test.sh
 ```
 
-Useful signals:
-
-- `lpinfo -v` should show `usb://Hewlett-Packard/HP%20LaserJet%201020?serial=S43VYTP`.
-- `lpstat -p HP_LaserJet_1020_Plus -l` should show the queue as enabled/idle when not printing.
-- `/Library/Printers/hp1020/spool-worker.log` should show firmware bytes and document bytes sent.
-
-If the queue accepts a job but no paper moves, first unplug/replug USB and run `diagnose.sh`.
-
-## Installed Service Reference
-
-The visible queue uses `hp1020queue://localhost`. macOS CUPS sandboxing prevented
-the normal filter path from running Homebrew Ghostscript/GNU sed, so conversion
-and USB delivery happen in the root LaunchDaemon outside that sandbox.
-
-| Component | Installed location |
-|---|---|
-| CUPS backend | `/usr/libexec/cups/backend/hp1020queue` |
-| Passthrough filter | `/usr/libexec/cups/filter/hp1020passthrough` |
-| Spool worker | `/Library/Printers/hp1020/hp1020-root-spool-worker` |
-| Queue PPD | `/Library/Printers/hp1020/HP-LaserJet_1020-Plus-hp1020zjs.ppd` |
-| LaunchDaemon | `/Library/LaunchDaemons/com.aayush.hp1020-root-spool-worker.plist` |
-| Handoff spool | `/private/var/spool/cups/tmp/hp1020queue` |
-| User print helper | `/Users/aayush/bin/hp1020-print` |
-| User runtime | `/Users/aayush/.local/share/hp1020/` (`foo2zjs`, wrapper, pstops, `sihp1020.dl`) |
-| Worker log | `/Library/Printers/hp1020/spool-worker.log` |
-| Daemon output | `/Library/Printers/hp1020/launchd.out.log`, `launchd.err.log` |
-
-Jobs can disappear from Print Center after handoff; the worker log then provides
-the delivery result. The printer loses firmware on power cycle, so `hp1020-print`
-sends firmware before each document. USB backend timeouts prevent the worker
-from waiting forever after delivery.
-
-During authorized printing support, run `scripts/diagnose.sh`, check the USB URI
-and queue above, then inspect the worker log. If USB is missing, ask for a power
-cycle and replug before changing code. If the queue is paused, use
-`cupsenable HP_LaserJet_1020_Plus` and inspect logs before repeated retries.
-Use the installer/uninstaller for repairs; do not delete arbitrary CUPS files.
-
-## Uninstall / Cleanup
+For diagnostics:
 
 ```sh
-./scripts/uninstall.sh
+zsh scripts/diagnose.sh
 ```
 
-This removes:
+These two commands access the connected printer. The test command prints a page.
 
-- CUPS printer queue `HP_LaserJet_1020_Plus`
-- CUPS backend `/usr/libexec/cups/backend/hp1020queue`
-- CUPS filter `/usr/libexec/cups/filter/hp1020passthrough`
-- PPD files for the queue
-- LaunchDaemon `/Library/LaunchDaemons/com.aayush.hp1020-root-spool-worker.plist`
-- helper folder `/Library/Printers/hp1020`
-- handoff spool folder `/private/var/spool/cups/tmp/hp1020queue`
-- user print script `~/bin/hp1020-print`
-- user runtime folder `~/.local/share/hp1020`
+## Compatibility and verification
 
-## Repo Contents
+The bundled executables target macOS 11 or newer on Apple Silicon. Offline checks ran on macOS 27; older macOS versions and a fresh physical installation of this bundled revision have not been tested. The earlier HP-based setup has printed successfully. The new checks cover conversion and simulated installation/removal, including downloaded-file attributes; they do not replace a real print test.
 
-- `CURRENT_STATUS.md`: concise open-firmware reverse-engineering handoff and current blockers
-- `assets/runtime/`: working local foo2zjs runtime files and `sihp1020.dl` firmware
-- `assets/firmware-source/`: firmware artifacts used while getting this working
-- `vendor/foo2zjs-source/`: source snapshot used to build the bundled foo2zjs runtime
-- `MANIFEST.md`: dependency versions, bundle sizes, and SHA-256 checksums
-- `files/cups/backend/hp1020queue`: CUPS backend that hands jobs to the worker spool
-- `files/cups/filter/hp1020passthrough`: CUPS filter that preserves the original PDF/PS
-- `files/ppd/`: PPD used by the macOS queue
-- `templates/`: rendered by the installer with the current user home and USB device URI
-- `scripts/install.sh`: install/reinstall
-- `scripts/uninstall.sh`: remove everything installed by this repo
-- `scripts/diagnose.sh`: state/log inspection
-- `scripts/print-test.sh`: one-page test print
-- `scripts/rebuild-runtime-from-vendor.sh`: rebuilds `assets/runtime/` from `vendor/foo2zjs-source/`
-- `scripts/query-hp1020-pjl-status.sh`: guarded non-printing PJL/status query harness for firmware analysis
-- `scripts/validate-hp1020-offline-analysis.sh`: regenerates and validates offline firmware/print-path analysis without contacting the printer
-- `REDISTRIBUTION.md`: practical notes on private vs public redistribution risk
-- `OPEN_SOURCE_OPTIONS.md`: explains existing open source options and why firmware loading is unavoidable
+Installation checks the included files against saved SHA-256 checksums before using them. The executables have local ad-hoc signatures, without paid Apple Developer ID signing or notarization. After verification, the installer clears the downloaded-file quarantine only on its temporary copies of the bundled executables; no system security setting is changed.
 
-## Rebuild Runtime
+## Included software and maintenance
 
-The normal installer uses the bundled known-good runtime. If a future agent wants to rebuild it:
+- `assets/macos-arm64/`: bundled Ghostscript, GNU sed, foo2zjs, helpers and HP firmware used by installation.
+- `vendor/runtime-sources/`: exact Ghostscript and GNU sed source archives and provenance.
+- `vendor/foo2zjs-source/`: corresponding foo2zjs source.
+- `assets/licenses/`: license texts. See [NOTICE.md](NOTICE.md) and [REDISTRIBUTION.md](REDISTRIBUTION.md) for third-party notices.
+- [MANIFEST.md](MANIFEST.md): build and verification records.
+
+Maintainers can rebuild the bundled tools **offline** on an Apple Silicon Mac with Python 3 and Apple's command-line build tools:
 
 ```sh
-brew install ghostscript gnu-sed jbigkit
-./scripts/rebuild-runtime-from-vendor.sh
+zsh scripts/rebuild-runtime-from-vendor.sh
+python3 scripts/validate-macos-runtime.py
 ```
 
-## Licensing Note
+Those build tools are not required to install or use the printer setup.
 
-The foo2zjs code is GPLv2; see `assets/licenses/foo2zjs-COPYING`.
-
-The HP firmware blob `assets/runtime/sihp1020.dl` and firmware artifacts under `assets/firmware-source/` are included so this personal repo is self-contained. Do not publish this repo publicly without reviewing the firmware redistribution terms. A private repo or local handoff repo is the safer default.
+The separate open firmware replacement under `analysis/` is unfinished and cannot print yet. It is not installed by these scripts. The original runtime under `assets/runtime/` remains preserved for that research; its files and the research evidence have not been replaced by the new bundle.

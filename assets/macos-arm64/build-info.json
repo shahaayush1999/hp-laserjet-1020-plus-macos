@@ -1,0 +1,82 @@
+{
+  "recipe": {
+    "archives": {
+      "ghostpdl-10.07.0.tar.xz": [
+        "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10070/ghostpdl-10.07.0.tar.xz",
+        "ba1366006a93b91e615f74aad9c0905fae503d3f5b04078ce2ddbe360bd2f9df"
+      ],
+      "sed-4.10.tar.xz": [
+        "https://ftp.gnu.org/gnu/sed/sed-4.10.tar.xz",
+        "b8e72182b2ec96a3574e2998c47b7aaa64cc20ce000d8e9ac313cc07cecf28c7"
+      ]
+    },
+    "flags": "-O2 -arch arm64 -mmacosx-version-min=11.0",
+    "gs": [
+      "--prefix=/Library/Printers/hp1020/runtime",
+      "--disable-cups",
+      "--disable-gtk",
+      "--disable-dbus",
+      "--disable-fontconfig",
+      "--without-tesseract",
+      "--without-libidn",
+      "--without-libpaper",
+      "--without-x",
+      "--without-pdftoraster",
+      "--without-ijs",
+      "--without-urf",
+      "--with-drivers=pbmraw,pgmraw,png16m,pdfwrite",
+      "--without-versioned-path"
+    ],
+    "sed": [
+      "--prefix=/Library/Printers/hp1020/runtime",
+      "--program-prefix=g",
+      "--disable-nls",
+      "--disable-dependency-tracking"
+    ],
+    "foo2zjs": {
+      "vendor/foo2zjs-source/foo2zjs.c": "82a8acc1ffe81efbb372942d186e4fd9a5bb1ad7268f67bc1c8f6f1276cc3e3a",
+      "vendor/foo2zjs-source/zjs.h": "d62b56934283fdccfb9137bbf98d8faeab2c6b032b8b4a9732b963c8d5a9cc89",
+      "vendor/foo2zjs-source/jbig.c": "835ce9b964a6735187b6e064562695063a65f35fe29924de1d60db660c3e21b3",
+      "vendor/foo2zjs-source/jbig.h": "0c016a8c69e349c510630edbf5b96057be952c2ac19c1a9b8488ad8c9864d7a4",
+      "vendor/foo2zjs-source/jbig_ar.c": "a51552d2f839ce8b758400660bd423b95b4b25cde11e65cc4e7d6c63c1a19d6f",
+      "vendor/foo2zjs-source/jbig_ar.h": "292c4c43c944e2573b558d89b7004cec6c59c70dbbfd7b9890868a2291d1250a"
+    },
+    "builder_sha256": "6f9d781b085a7b997e7111415cb482a6ebf80a660941ae57a5a19758d5948a09"
+  },
+  "binaries": {
+    "gs": {
+      "sha256": "340a27a0eaad25c529dfd11cf5be65aaa791de1293a11b52cb22e1aa03f26ccd",
+      "architecture": "arm64",
+      "minimum_macos": "11.0",
+      "libraries": [
+        "\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.0.0)",
+        "\t/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)"
+      ]
+    },
+    "gsed": {
+      "sha256": "d478feb771b2bbdbdac22c8aabe641ad9c411a67eee8e4ef0d4291c9d41bf381",
+      "architecture": "arm64",
+      "minimum_macos": "11.0",
+      "libraries": [
+        "\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.0.0)"
+      ]
+    },
+    "foo2zjs": {
+      "sha256": "5a4f68691c96589a57d9e8a23ffc5831ebf249f4691945a7c21aa2ee2fec411e",
+      "architecture": "arm64",
+      "minimum_macos": "11.0",
+      "libraries": [
+        "\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.0.0)"
+      ]
+    }
+  },
+  "host_macos": "27.0",
+  "compiler": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin",
+  "sdk": "27.0",
+  "signing": "ad-hoc signatures; no Developer ID or notarization",
+  "original_inputs": {
+    "assets/runtime/foo2zjs-wrapper": "e587cdc6bdce297dbfee14ef814cff6748de045253ae84d1e220091e9978e346",
+    "assets/runtime/foo2zjs-pstops": "cbdfc9f8b4b58d645917138197bdf8a5e36541b6778aa0e395741d9e97e5220d",
+    "assets/runtime/sihp1020.dl": "133b21fe0cb24bfe53e2eff2f00a82cce4beb970749049661ade7a6801f22663"
+  }
+}
