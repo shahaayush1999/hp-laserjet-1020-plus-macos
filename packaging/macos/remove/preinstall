@@ -1,9 +1,0 @@
-#!/bin/zsh
-set -euo pipefail
-export PATH=/usr/bin:/bin:/usr/sbin:/sbin
-[[ "$3" == / && $(id -u) == 0 ]] || exit 1
-BASE=/Library/Printers/hp1020
-if [[ -e "$BASE" && ( -L "$BASE" || ! -f "$BASE/package-version" ) ]]; then
-  print -u2 'This remover only supports the packaged HP 1020 setup. The manual setup has not been changed.'
-  exit 1
-fi

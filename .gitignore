@@ -5,5 +5,3 @@ __pycache__/
 rendered/
 debug/
 analysis/open-firmware-probes/hardware-test-runs/
-.build/
-dist/

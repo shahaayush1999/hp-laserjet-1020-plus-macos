@@ -4,28 +4,13 @@ Updated: 2026-09-27. **The open replacement cannot print yet.**
 The working HP-based macOS setup is untouched. No printer contact, upload,
 installed-printing change or print-driving hardware path occurred.
 
-Support deliverable built: one self-contained `.dmg` for the working HP-based
-setup on Aayush's dad's Apple Silicon Mac. It contains plainly named Install and
-Remove packages and short instructions. `packaging/macos/README.md` owns this work;
-`scripts/build-macos-package.py` builds it under `dist/HP-LaserJet-1020-Plus/`.
-Eleven offline package check groups pass, including opening the image read-only,
-matching its exact contents, sample conversion and mocked installation/removal.
-The generated report is preserved beside the recipe; latest logs are
-`/tmp/hp1020-dmg-build.log` and `/tmp/hp1020-dmg-validation.log`.
-Installation and physical printing on the recipient Mac remain untested.
-The original manual installer/runtime are unchanged. The recipient needs no
-repository, Homebrew or commands, but the owner has rejected this handoff's
-removal experience: he should not have to retain the downloaded disk image.
-Do not present a copyable installer as satisfying his requested app lifecycle.
-The open choice is a permanent installed app with its own Uninstall control
-versus removal by dragging the app to Trash. No app has been implemented.
-The existing CUPS files, queue and daemon live outside an app and require explicit
-cleanup. Bundled services alone would not remove those CUPS components; the
-installed SDK also requires notarization for SMAppService LaunchDaemons, which
-does not fit the owner's rejected paid-signing route. Preserve the current
-validated package while resolving this design; do not silently substitute a
-workflow requiring users to open documents in a dedicated printing app.
-The firmware research baseline below remains the September 23 checkpoint.
+Support decision: the owner abandoned the app/installer packaging experiment.
+Its code, generated downloads and disposable build files have been removed.
+Use a private clone and the existing `scripts/install.sh` and
+`scripts/uninstall.sh` on his dad's Apple Silicon Mac, with the Homebrew
+dependencies described in `README.md`. Installation on that Mac has not occurred.
+Do not reintroduce packaging unless requested. The original scripts/runtime and
+firmware research are unchanged; the validated research baseline is September 23.
 
 ## Current verified state
 
