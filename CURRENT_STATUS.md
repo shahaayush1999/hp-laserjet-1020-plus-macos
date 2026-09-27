@@ -4,23 +4,22 @@ Updated: 2026-09-28. **The open replacement cannot print yet.**
 The working HP-based macOS setup is untouched. No printer contact, upload,
 installed-printing change or print-driving hardware path occurred.
 
-Support decision: use the repository's install/uninstall scripts; do not
-reintroduce app/pkg/dmg packaging. The September 28 bundle under
-`assets/macos-arm64/` includes Ghostscript, GNU sed, rebuilt foo2zjs and firmware.
-Exact dependency sources/licenses are included; installation needs no Homebrew,
-extra downloads or developer tools. `README.md` now describes Download ZIP and
-the two scripts. Installation puts the runtime in the root-owned printer folder;
-removal also handles the old per-user runtime and leaves Homebrew alone.
-Ten focused offline checks passed (exact hashes/scope in
-`assets/macos-runtime-validation.json`): conversion, quarantined source-file
-staging, mocked installation/removal and mocked USB/queue behavior. The four
-conversion cases match every original encoder chunk using the same renderer.
-Compared with the working Homebrew renderer, first-page text edges differ by
-195 gray samples per format; geometry/non-image chunks and the second page match.
-This revision has not been installed or physically printed, including on dad's
-Mac; older macOS execution and a real Safari ZIP handoff remain untested. Native
-binaries target macOS 11. Original `assets/runtime/` and research reports are
-unchanged; the research validation baseline remains September 23.
+Support decision: the owner reversed the self-contained bundle experiment.
+Use **git clone + `scripts/install.sh` + `scripts/uninstall.sh`**, with Homebrew
+handling downloads. Do not reintroduce apps, packages, ZIP handoffs or bundled
+Ghostscript/GNU sed. The installer bootstraps official Homebrew if absent,
+installs missing dependencies, compiles the small foo2zjs encoder for the host,
+and sets up the existing queue/worker approach. Package ownership persists in
+`~/.local/state/hp1020/`; removal handles added dependencies and a newly created,
+unused Homebrew installation, preserving pre-existing/shared packages. Interrupted
+or failed cleanup keeps its record for retry. Run as the same normal Mac user.
+Twelve focused offline checks passed; exact hashes and scope are in
+`assets/macos-setup-validation.json`. Four conversion cases match all original
+encoder chunks. Homebrew, administration and USB calls were mocked. No fresh-Mac
+installation or physical print test occurred. Original `assets/runtime/`, vendor
+sources and firmware research remain unchanged; the research baseline is still
+September 23. README uses a shallow clone so obsolete archives in Git history
+are not fetched. The removed bundle and reports remain recoverable in Git.
 
 Repository visibility changed to public on September 27 at the owner's explicit
 request and verified through GitHub without authentication. Existing third-party

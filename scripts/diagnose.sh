@@ -21,9 +21,9 @@ tail -n 140 /Library/Printers/hp1020/spool-worker.log 2>/dev/null || true
 printf '\n%s\n' '--- Processes ---'
 ps ax -o pid,user,command | grep -E 'hp1020|foo2zjs|backend/usb' | grep -v grep || true
 
-printf '\n%s\n' '--- Bundled tools ---'
-/Library/Printers/hp1020/runtime/gs --version 2>&1 || true
-/Library/Printers/hp1020/runtime/gsed --version 2>&1 | head -n 1 || true
+printf '\n%s\n' '--- Homebrew tools ---'
+/opt/homebrew/bin/gs --version 2>&1 || true
+/opt/homebrew/bin/gsed --version 2>&1 | head -n 1 || true
 
 if [[ "${1:-}" == "--admin" ]]; then
   printf '\n%s\n' '--- Protected spool state ---'

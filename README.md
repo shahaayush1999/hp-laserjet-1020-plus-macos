@@ -1,81 +1,63 @@
 # HP LaserJet 1020 Plus on macOS
 
-Print over USB from an **Apple Silicon Mac (M1 or newer)** using the original HP firmware and foo2zjs. This is an unofficial compatibility setup.
-
-**Everything needed for installation is included in this repository.** After downloading it, installation needs no internet connection, Homebrew, extra downloads or developer tools. An administrator password is required.
+Print over USB from an Apple Silicon Mac using the original HP firmware and foo2zjs. This is an unofficial compatibility setup.
 
 ## Install
 
-1. On [the repository page](https://github.com/shahaayush1999/hp-laserjet-1020-plus-macos), choose **Code → Download ZIP**. Open the ZIP to extract it.
-2. Connect the printer to the Mac by USB and turn it on. Allow the USB accessory if macOS asks. Disconnect other LaserJet 1020 printers while installing.
-3. Open **Terminal** and run these two lines, assuming the extracted folder is in Downloads:
+Connect the printer by USB, turn it on, and run:
 
-   ```sh
-   cd ~/Downloads/hp-laserjet-1020-plus-macos-main
-   zsh scripts/install.sh
-   ```
+```sh
+git clone --depth 1 https://github.com/shahaayush1999/hp-laserjet-1020-plus-macos.git
+cd hp-laserjet-1020-plus-macos
+zsh scripts/install.sh
+```
 
-4. Enter your Mac administrator password when prompted. Once installation finishes, print from any app and select **HP LaserJet 1020 Plus**.
+The script installs Homebrew if needed, downloads Ghostscript and GNU sed, builds the small printer helper, and sets up the printer. Follow the Homebrew prompts and enter your Mac administrator password when asked. An internet connection is required.
 
-If you put the folder elsewhere, type `cd ` in Terminal, drag the extracted folder into the window, and press Return. Then run `zsh scripts/install.sh`. If you cloned the repository, run the same script from your clone's folder.
+If macOS first asks to install Apple's Command Line Tools when you run `git`, complete that installation and run the commands again. Use a macOS version [supported by Homebrew](https://docs.brew.sh/Installation#macos-requirements).
 
-The current normal printing path uses **A4 paper**. Start with one page. This setup does not add Wi-Fi, automatic duplex printing or support for other printer models.
+Once installed, print from any app and select **HP LaserJet 1020 Plus**. The normal printing path uses **A4 paper**. Start with one page.
 
-## Remove
+## Uninstall
 
-Finish printing first. Open Terminal in the repository folder as above and run:
+Finish printing, open Terminal in the cloned repository folder, and run:
 
 ```sh
 zsh scripts/uninstall.sh
 ```
 
-This removes this printer's queue, background worker, bundled tools, logs and saved print jobs. It also removes the older per-user HP1020 helper if present. Other printers and Homebrew software are left alone.
+This removes the printer queue, background worker, helper files, logs and saved print jobs. It also removes the Homebrew packages this installer added, including their unused dependencies. Packages that were already installed or are now needed by other Homebrew packages are kept.
 
-You can delete the downloaded repository folder afterwards. If you already deleted it, download it again to get the uninstall script. The folder is not needed for everyday printing; deleting it alone does not uninstall the driver.
+If this setup installed Homebrew, it also removes Homebrew when nothing else uses it. Existing Homebrew installations are kept. Run cleanup from the same Mac account used for installation; Homebrew removal may need internet access and your administrator password.
 
-## Updating an existing setup
+You can delete the cloned folder afterwards. If you lost it, clone the repository again and run the uninstall command. Deleting the folder alone does not uninstall the printer.
 
-Finish or cancel pending print jobs, download the current repository, and run `zsh scripts/install.sh` again. The script replaces this setup's files and removes its old per-user runtime. Previously installed Homebrew software is not removed automatically because other software may use it.
+## Update
 
-## If something goes wrong
-
-Keep the Terminal error message. Check that the printer is powered on, connected directly by USB, and allowed as an accessory in macOS. An adapter must support data, not just charging.
-
-For a test page after installation:
+From the repository folder, after finishing any print jobs:
 
 ```sh
-zsh scripts/print-test.sh
+git pull
+zsh scripts/install.sh
 ```
 
-For diagnostics:
+The installer remembers which packages it originally added, including across reinstalls. It does not require you to keep a separate cleanup file.
+
+## Troubleshooting
+
+Check that the printer is on, connected by a data-capable USB cable/adapter, and allowed as a USB accessory in macOS. Keep any Terminal error message.
 
 ```sh
-zsh scripts/diagnose.sh
+zsh scripts/print-test.sh   # prints a test page
+zsh scripts/diagnose.sh    # checks the queue and connected printer
 ```
 
-These two commands access the connected printer. The test command prints a page.
+If installation or cleanup fails, rerun the corresponding script after addressing the error. Cleanup retains its package record when it fails so it can be retried.
 
-## Compatibility and verification
+## Scope
 
-The bundled executables target macOS 11 or newer on Apple Silicon. Offline checks ran on macOS 27; older macOS versions and a fresh physical installation of this bundled revision have not been tested. The earlier HP-based setup has printed successfully. The new checks cover conversion and simulated installation/removal, including downloaded-file attributes; they do not replace a real print test.
+This uses the working HP-based printing approach. The revised install/cleanup scripts have been checked with simulated Homebrew, system installation and USB calls; a fresh Mac installation and physical print test of this revision remain untested. Your Mac's existing printing setup is changed only when you run the scripts.
 
-Installation checks the included files against saved SHA-256 checksums before using them. The executables have local ad-hoc signatures, without paid Apple Developer ID signing or notarization. After verification, the installer clears the downloaded-file quarantine only on its temporary copies of the bundled executables; no system security setting is changed.
+The original firmware, foo2zjs source and research evidence remain in the repository. Ghostscript and GNU sed come from Homebrew instead of a bundled software archive. See [NOTICE.md](NOTICE.md), [REDISTRIBUTION.md](REDISTRIBUTION.md) and [MANIFEST.md](MANIFEST.md) for provenance.
 
-## Included software and maintenance
-
-- `assets/macos-arm64/`: bundled Ghostscript, GNU sed, foo2zjs, helpers and HP firmware used by installation.
-- `vendor/runtime-sources/`: exact Ghostscript and GNU sed source archives and provenance.
-- `vendor/foo2zjs-source/`: corresponding foo2zjs source.
-- `assets/licenses/`: license texts. See [NOTICE.md](NOTICE.md) and [REDISTRIBUTION.md](REDISTRIBUTION.md) for third-party notices.
-- [MANIFEST.md](MANIFEST.md): build and verification records.
-
-Maintainers can rebuild the bundled tools **offline** on an Apple Silicon Mac with Python 3 and Apple's command-line build tools:
-
-```sh
-zsh scripts/rebuild-runtime-from-vendor.sh
-python3 scripts/validate-macos-runtime.py
-```
-
-Those build tools are not required to install or use the printer setup.
-
-The separate open firmware replacement under `analysis/` is unfinished and cannot print yet. It is not installed by these scripts. The original runtime under `assets/runtime/` remains preserved for that research; its files and the research evidence have not been replaced by the new bundle.
+The separate open firmware replacement under `analysis/` is unfinished and cannot print yet. These scripts do not install it.

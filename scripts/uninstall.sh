@@ -25,4 +25,8 @@ ADMIN
 chmod 700 "$admin_script"
 zsh -n "$admin_script"
 run_admin "$admin_script"
-print -- "Removed HP LaserJet 1020 Plus, its bundled tools and its saved print jobs."
+if ! remove_dependencies; then
+  print -u2 -- "Printer files removed. Package cleanup did not finish; run this uninstall script again."
+  exit 1
+fi
+print -- "Removed HP LaserJet 1020 Plus and cleaned up the packages added by this setup."

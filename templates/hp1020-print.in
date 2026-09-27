@@ -3,6 +3,7 @@ set -euo pipefail
 
 DRIVER_DIR="/Library/Printers/hp1020/runtime"
 DEVICE_URI=@@DEVICE_URI_SHELL@@
+BREW_PREFIX=@@BREW_PREFIX_SHELL@@
 USB_BACKEND="/usr/libexec/cups/backend/usb"
 
 usage() {
@@ -39,7 +40,7 @@ esac
 tmp_zjs="$(mktemp -t hp1020.XXXXXX.zjs)"
 trap 'rm -f "$tmp_zjs"' EXIT
 
-export PATH="$DRIVER_DIR:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="$DRIVER_DIR:$BREW_PREFIX/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export GSBIN=gs
 unset GS_LIB GS_OPTIONS GS_FONTPATH GS_DEVICE
 export DEVICE_URI

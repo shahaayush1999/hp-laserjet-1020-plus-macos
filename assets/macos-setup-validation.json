@@ -1,0 +1,80 @@
+{
+  "checks": [
+    "native encoder build and four PDF/PostScript conversions match every original encoder chunk",
+    "invalid document conversion fails",
+    "preflight rejects wrong platform, missing build tools/device, pending jobs and sudo invocation before package changes",
+    "fresh setup bootstraps official Homebrew URLs, renders before mock USB, then removes its packages/Homebrew repeatably",
+    "pre-existing Homebrew, requested packages and unrelated orphan dependencies are preserved",
+    "newly shared dependencies are preserved for other software",
+    "reinstallation keeps original ownership; Homebrew is retained when later used for other software",
+    "partially failed dependency installation remains removable",
+    "interrupted package bookkeeping recovers without claiming unrelated later installs",
+    "failed cleanup retains its ownership record and succeeds on retry",
+    "failed cask inventory keeps Homebrew and its cleanup record until a successful retry",
+    "cancelled administrative installation can still undo the added dependencies"
+  ],
+  "count": 12,
+  "conversion_cases": [
+    {
+      "format": ".ps",
+      "paper_code": "9",
+      "copies": "1",
+      "original_chunks_match": true,
+      "sha256": "69c5c2d6826de9c05cd25cf656c2f4076d94d9eb52dc82f403769c9ba964bf9a"
+    },
+    {
+      "format": ".ps",
+      "paper_code": "1",
+      "copies": "2",
+      "original_chunks_match": true,
+      "sha256": "5b36aaa55a8f25784e43810794804ea0405bf37d7a70194e1b1d975a9df3f132"
+    },
+    {
+      "format": ".pdf",
+      "paper_code": "9",
+      "copies": "1",
+      "original_chunks_match": true,
+      "sha256": "ad70d7bac56f8d437aa46b1d5103674a8c6469779919fc4b8501421bcbde179a"
+    },
+    {
+      "format": ".pdf",
+      "paper_code": "1",
+      "copies": "2",
+      "original_chunks_match": true,
+      "sha256": "18291672951a272c5e5e39a3b17f024aae96347e5cf978eae3c732943bd3f065"
+    }
+  ],
+  "source_sha256": {
+    "templates/hp1020-root-spool-worker.in": "f6552ce9bccf9954f38e54302b1d6ebc9760d477adaf13217ff71194d012e0eb",
+    "templates/hp1020-print.in": "80415ec34526a902e6d78c7e9f41a898fad870224dacf985536d4577e99d310b",
+    "templates/com.aayush.hp1020-root-spool-worker.plist.in": "d9ee14d590fa21b483ced37f039963863678cb05354fe52e7dbcbe1448b51527",
+    "assets/runtime/foo2zjs-pstops": "cbdfc9f8b4b58d645917138197bdf8a5e36541b6778aa0e395741d9e97e5220d",
+    "assets/runtime/sihp1020.dl": "133b21fe0cb24bfe53e2eff2f00a82cce4beb970749049661ade7a6801f22663",
+    "assets/runtime/foo2zjs": "d1eb0f58654b9b31e8739fa41113b04437c1eb25ee43a11874f069078551b441",
+    "assets/runtime/foo2zjs-wrapper": "e587cdc6bdce297dbfee14ef814cff6748de045253ae84d1e220091e9978e346",
+    "assets/licenses/foo2zjs-COPYING": "9c504edb1ae0bc25cf6191a06f1087c7a8d229b87df4f704fbcaa8415e28935f",
+    "files/cups/backend/hp1020queue": "076d037952f48ec0162934aa717aa275243cc62cf1b1bfe2a43329d9b617ca89",
+    "files/cups/filter/hp1020passthrough": "d6d0507fd0d0bddfe21bc96dbec6662a7f3fc50d3c7488e1cfbf5a11c1a2be89",
+    "files/ppd/HP-LaserJet_1020-Plus-hp1020zjs.ppd": "42d466fb268fbc926cadab1f7bcb1e79b80c776f16a29096637d64881fb2742a",
+    "scripts/install.sh": "8c67b88f2f9cc2348516f7d595ceb04c5ba2f13d8346e96989b66e62f9163954",
+    "scripts/uninstall.sh": "b9635378a86b523e64a36aaa3335a82bbb4a655e5c0689c0c18043462b6d4472",
+    "scripts/macos-common.sh": "be0de263e539e3a5e105e8ccab4447aa939617b7ab6add1f441f76532a2e8e80",
+    "scripts/rebuild-runtime-from-vendor.sh": "07ab2f590c17cf8c37ccd184861dc1b6c6c4ac0c48a8c0e518ad847baa0adaf4",
+    "scripts/diagnose.sh": "c79fbfec72a0c939f17894abeb9a8c7c4c1355c9906998d76916ca425198a4d3",
+    "scripts/print-test.sh": "8f9d3683e04ee50c06e5f385c3ba6dfe73373e8eae00482f45a0429146d0d62a",
+    "vendor/foo2zjs-source/foo2zjs.c": "82a8acc1ffe81efbb372942d186e4fd9a5bb1ad7268f67bc1c8f6f1276cc3e3a",
+    "vendor/foo2zjs-source/zjs.h": "d62b56934283fdccfb9137bbf98d8faeab2c6b032b8b4a9732b963c8d5a9cc89",
+    "vendor/foo2zjs-source/jbig.c": "835ce9b964a6735187b6e064562695063a65f35fe29924de1d60db660c3e21b3",
+    "vendor/foo2zjs-source/jbig.h": "0c016a8c69e349c510630edbf5b96057be952c2ac19c1a9b8488ad8c9864d7a4",
+    "vendor/foo2zjs-source/jbig_ar.c": "a51552d2f839ce8b758400660bd423b95b4b25cde11e65cc4e7d6c63c1a19d6f",
+    "vendor/foo2zjs-source/jbig_ar.h": "292c4c43c944e2573b558d89b7004cec6c59c70dbbfd7b9890868a2291d1250a",
+    "scripts/validate-macos-setup.py": "e9fa832f98ace658aed43b5632a1648fcd7204b29c6820d7bdde434ea6e0c441"
+  },
+  "host_macos": "27.0",
+  "renderer_version": "10.07.0",
+  "actual_installation": false,
+  "actual_homebrew_changes": false,
+  "printer_contact": false,
+  "physical_print_test": false,
+  "fresh_mac_installation": false
+}
