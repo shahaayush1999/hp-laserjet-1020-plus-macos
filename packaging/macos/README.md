@@ -4,10 +4,13 @@ This packages the working HP-firmware/foo2zjs printing path for another Apple
 Silicon Mac. It is independent of the open firmware research. Building and
 validating it do not install anything, start services, enumerate USB or print.
 
-`Start Here.txt` contains the short recipient instructions. The main artifact is
-`dist/HP-LaserJet-1020-Plus/HP-LaserJet-1020-Plus-1.0.0-Apple-Silicon.pkg`.
-The adjacent remover is a separate, small Installer package. No internet,
-Homebrew, Python, Xcode or source checkout is needed on the recipient's Mac.
+The single file to copy is
+`dist/HP-LaserJet-1020-Plus/HP-LaserJet-1020-Plus-1.0.0-Apple-Silicon.dmg`.
+Opening it shows `Install HP LaserJet 1020 Plus.pkg`,
+`Remove HP LaserJet 1020 Plus.pkg` and the short `Start Here.txt` instructions.
+No internet, Homebrew, Python, Xcode or source checkout is needed on the
+recipient's Mac. It installs once on each Mac and can then run with the disk
+image ejected. Removal uses the included remover, not deletion of the download.
 
 ## Build and check
 
@@ -43,16 +46,23 @@ installed files under `/Library/Printers/hp1020/Sources`. Extract
 `--sources` pointing to the directory containing the two dependency archives.
 Build logs remain under the selected work directory.
 
+The builder creates a compressed HFS+ disk image containing only the two packages
+and recipient instructions. The validator checks its integrity, mounts it read-only
+without opening Installer, compares the contents with the checked packages and
+instructions byte for byte, and detaches it. It does not inspect physical disks.
+The standalone packages remain in the output folder for agent diagnostics.
+
 The output's `build-info.json` records input and executable hashes;
-`validation.json` records only executed offline checks and package hashes.
+`validation.json` records only executed offline checks, package hashes and the
+disk image hash. `SHA256SUMS` covers both packages and the disk image.
 The validator also preserves `packaging/macos/validation-report.json` in Git;
 this generated report is excluded from the source archive to avoid self-hashing.
 Generated packages are ignored by Git. Rebuild them from the committed recipe.
 
-The September 27 offline run on macOS 27 passed ten check groups, including four
-two-page conversions (PDF/PostScript, A4/Letter, one/two copies), actual package
-expansion and byte/ownership checks, and isolated installation/removal/job-flow
-fixtures. For a common renderer, compressed image chunks match the original
+Offline validation includes four two-page conversions (PDF/PostScript,
+A4/Letter, one/two copies), actual package expansion and byte/ownership checks,
+disk image contents, and isolated installation/removal/job-flow fixtures.
+The September 27 baseline ran on macOS 27. For a common renderer, compressed image chunks match the original
 foo2zjs runtime exactly. Comparing the bundled renderer with the installed
 Homebrew Ghostscript 10.07.0 found 195 changed gray samples on the first page of
 each sample format, all at single-pixel text edges; the second pages were exact.

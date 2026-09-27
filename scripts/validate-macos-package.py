@@ -162,6 +162,29 @@ def main(args):
                 assert backend_row.split()[1:] == ["100700", "0", "0"], backend_row
         passed("both final Installer archives expand; scripts, all payload bytes and root ownership match")
 
+        image_path = output / builder.DISK_IMAGE_NAME
+        command(["/usr/bin/hdiutil", "verify", image_path])
+        mount = test / "handoff"
+        mount.mkdir()
+        command(["/usr/bin/hdiutil", "attach", "-readonly", "-nobrowse", "-noautoopen",
+                 "-mountpoint", mount, "-plist", image_path])
+        try:
+            expected = builder.handoff_files(output)
+            visible = {p.name for p in mount.iterdir() if not p.name.startswith(".")}
+            assert visible == set(expected), visible
+            image_files = {}
+            for name, original in expected.items():
+                bundled = mount / name
+                assert bundled.is_file() and not bundled.is_symlink(), name
+                assert builder.digest(bundled) == builder.digest(original), name
+                image_files[name] = builder.digest(bundled)
+        finally:
+            command(["/usr/bin/hdiutil", "detach", mount])
+        handoff = {"name": image_path.name, "sha256": builder.digest(image_path),
+                   "bytes": image_path.stat().st_size, "files": image_files,
+                   "verified_by_readonly_mount": True}
+        passed("single-file disk image verifies and opens with the exact installer, remover and instructions")
+
         clean_env = {"PATH": "/usr/bin:/bin:/usr/sbin:/sbin", "LC_ALL": "C", "TMPDIR": str(test)}
         ps = test / "sample with spaces.ps"
         ps.write_text("%!PS-Adobe-3.0\n%%Pages: 2\n"
@@ -365,6 +388,7 @@ exit 0
               "compared_existing_homebrew_renderer": reference_comparison,
               "renderer_differences": renderer_differences,
               "packages": {p.name: builder.digest(p) for p in sorted(output.glob("*.pkg"))},
+              "handoff": handoff,
               "source_sha256": {str(p.relative_to(ROOT)): builder.digest(p) for p in builder.source_files()},
               "host_macos": command(["/usr/bin/sw_vers", "-productVersion"]).stdout.decode().strip(),
               "actual_installation": False, "printer_contact": False, "physical_print_test": False}

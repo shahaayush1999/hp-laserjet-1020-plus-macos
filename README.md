@@ -36,11 +36,12 @@ This is a compatibility workaround, not an official HP driver. It is intentional
 
 ## Install
 
-For another Apple Silicon Mac, use the self-contained installer produced in
+For another Apple Silicon Mac, use the self-contained download produced in
 `dist/HP-LaserJet-1020-Plus/`:
 
-1. Copy `HP-LaserJet-1020-Plus-1.0.0-Apple-Silicon.pkg` to the other Mac.
-2. Double-click it and enter that Mac's administrator password when requested.
+1. Copy `HP-LaserJet-1020-Plus-1.0.0-Apple-Silicon.dmg` to the other Mac and open it.
+2. Double-click **Install HP LaserJet 1020 Plus.pkg** inside and follow the installer.
+   Enter that Mac's administrator password when requested.
 3. Connect the printer by USB, turn it on, and choose **HP LaserJet 1020 Plus**
    from an app's Print dialog. Start with one page.
 
@@ -48,7 +49,9 @@ Everything is bundled; the recipient needs no Homebrew, Terminal commands or
 internet download. This is a private, unsigned installer. If macOS blocks it,
 use **System Settings → Privacy & Security → Open Anyway** for that installer,
 as described in [Apple's instructions](https://support.apple.com/102445).
-The adjacent `Remove-HP-LaserJet-1020-Plus.pkg` removes only this packaged setup.
+You can eject the disk image after installation. To uninstall, open the same
+disk image and double-click **Remove HP LaserJet 1020 Plus.pkg**. Deleting the
+download does not uninstall the printer setup.
 
 The package has offline validation; installation and physical printing on the
 recipient Mac still need checking. It refuses to replace the older manual setup
@@ -182,8 +185,8 @@ This removes:
 - `scripts/print-test.sh`: one-page test print
 - `scripts/rebuild-runtime-from-vendor.sh`: rebuilds `assets/runtime/` from `vendor/foo2zjs-source/`
 - `packaging/macos/`: private Apple Silicon installer, runtime glue and recipient instructions
-- `scripts/build-macos-package.py`: builds a self-contained installer and matching remover
-- `scripts/validate-macos-package.py`: checks packages, conversion and mocked installation without contacting USB
+- `scripts/build-macos-package.py`: builds one disk image containing a self-contained installer and matching remover
+- `scripts/validate-macos-package.py`: checks the disk image, packages, conversion and mocked installation without contacting USB
 - `scripts/query-hp1020-pjl-status.sh`: guarded non-printing PJL/status query harness for firmware analysis
 - `scripts/validate-hp1020-offline-analysis.sh`: regenerates and validates offline firmware/print-path analysis without contacting the printer
 - `REDISTRIBUTION.md`: practical notes on private vs public redistribution risk

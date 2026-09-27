@@ -3,6 +3,7 @@
     "source, original firmware, dependency archives, binary signatures and system-only linkage",
     "script syntax, daemon configuration, portable paths and privileged backend permissions",
     "both final Installer archives expand; scripts, all payload bytes and root ownership match",
+    "single-file disk image verifies and opens with the exact installer, remover and instructions",
     "PDF and PostScript, two pages, A4/Letter and copies: image chunks match the original encoder",
     "Homebrew comparison: page geometry and content match; measured differences only at single-pixel text edges",
     "invalid documents and invalid options fail conversion",
@@ -11,35 +12,35 @@
     "mock USB discovery, firmware/document ordering, ambiguous/disconnected rejection and no USB after conversion failure",
     "simulated removal affects only this package and contacts no USB backend"
   ],
-  "count": 10,
+  "count": 11,
   "conversion_cases": [
     {
       "format": ".ps",
       "paper": "a4",
       "copies": 1,
       "pages": 2,
-      "sha256": "6c108330f2ba3d8e22216e6e05b6dc973ff11bee74b372cb343c279dca83f3b0"
+      "sha256": "cdb6d7c96cb9f3cd6350f3aef7731d7452fda1aec6121c77bc42b0bdc6278b78"
     },
     {
       "format": ".ps",
       "paper": "letter",
       "copies": 2,
       "pages": 2,
-      "sha256": "0854c2770b45dd89b7b3e382f6fb4a1a32d14c312875328c4858145982aebd79"
+      "sha256": "a8211cceebd757cae0f7635c8d1c811a3017f51c510a427edf62f4b0857aecee"
     },
     {
       "format": ".pdf",
       "paper": "a4",
       "copies": 1,
       "pages": 2,
-      "sha256": "1a77746da322dd114de0c5a85023a12d39f4253d38f7d413c2dfc012590c84c7"
+      "sha256": "005832579da3c64dfa8808da217c301da22c3debf2ae6105d23f1354d4c8a4d8"
     },
     {
       "format": ".pdf",
       "paper": "letter",
       "copies": 2,
       "pages": 2,
-      "sha256": "7c1c443908ada2fbf332cb72b88d2b0081337b9d34e7136f54bbb225ef746f50"
+      "sha256": "2448df75ac6acdb2c6255f2cb1f1f39e6c77def98325463f798e8435b54e4e8b"
     }
   ],
   "compared_existing_homebrew_renderer": true,
@@ -92,8 +93,19 @@
     }
   ],
   "packages": {
-    "HP-LaserJet-1020-Plus-1.0.0-Apple-Silicon.pkg": "8a824a71b9cd97efe84d615e17c98f99c2dc20cfc699473b822a15b26f290e5f",
-    "Remove-HP-LaserJet-1020-Plus.pkg": "2a1da8b6607770364c0f7a4ce586e5b076667dce1080eadf7d0cf624b06e098c"
+    "HP-LaserJet-1020-Plus-1.0.0-Apple-Silicon.pkg": "879ff86be4530ba5792e0ff54b67585d06c1c863b8c96b1db5d605c776b1eb09",
+    "Remove-HP-LaserJet-1020-Plus.pkg": "c30ec80f07a3b33f46c51d74771c1551d401de689e26ba0c10cc0ed9bc517fb1"
+  },
+  "handoff": {
+    "name": "HP-LaserJet-1020-Plus-1.0.0-Apple-Silicon.dmg",
+    "sha256": "13b235b3326728aab955786a79007026266f37d5bddfba17ea4410af555673b9",
+    "bytes": 92302927,
+    "files": {
+      "Install HP LaserJet 1020 Plus.pkg": "879ff86be4530ba5792e0ff54b67585d06c1c863b8c96b1db5d605c776b1eb09",
+      "Remove HP LaserJet 1020 Plus.pkg": "c30ec80f07a3b33f46c51d74771c1551d401de689e26ba0c10cc0ed9bc517fb1",
+      "Start Here.txt": "9fe69ee378f5fd8c75406f1f1eb9ab068caf129b4fd4e7dac4caaf994310f9b1"
+    },
+    "verified_by_readonly_mount": true
   },
   "source_sha256": {
     "NOTICE.md": "0f0a7c16a2524c77710ec4bd9e9bd61b8029ca05b302360a273471903fba6544",
@@ -105,8 +117,8 @@
     "assets/runtime/sihp1020.dl": "133b21fe0cb24bfe53e2eff2f00a82cce4beb970749049661ade7a6801f22663",
     "files/cups/filter/hp1020passthrough": "d6d0507fd0d0bddfe21bc96dbec6662a7f3fc50d3c7488e1cfbf5a11c1a2be89",
     "files/ppd/HP-LaserJet_1020-Plus-hp1020zjs.ppd": "42d466fb268fbc926cadab1f7bcb1e79b80c776f16a29096637d64881fb2742a",
-    "packaging/macos/README.md": "b5debbe2169aef5702f4046e263d3c23d27ed77a75b0060d59b35ffb92ebb010",
-    "packaging/macos/Start Here.txt": "28296627854eeff95af3c596462b79cf36cdcf984187ac6bb04e45b102cfdd6a",
+    "packaging/macos/README.md": "da54a8920a8652adce7ef45f5558bd08b9de4493d7fdbbf404afd0c52cdb3df2",
+    "packaging/macos/Start Here.txt": "9fe69ee378f5fd8c75406f1f1eb9ab068caf129b4fd4e7dac4caaf994310f9b1",
     "packaging/macos/com.aayush.hp1020-root-spool-worker.plist": "9703c3ff8f0db2bb8727737e814b667dc1102e841e9176ea52c3b3037e095bc3",
     "packaging/macos/hp1020-convert": "75b85ff4399b7a0fcf4d667bf06877e0c3efca4913d07a7d81b4b7d6311c5dc9",
     "packaging/macos/hp1020-print": "43f168943b4945e957c40e9e618b081256dc9979a498674c5af170c8d4236a80",
@@ -116,9 +128,9 @@
     "packaging/macos/install/preinstall": "19217775ff4632aa6042959de3e25803515d539780b91fc89ea9139fc10414f2",
     "packaging/macos/remove/postinstall": "aa226e5adf12edd66337f11e68844147fbc56b51bfee20500ba373ce212d1493",
     "packaging/macos/remove/preinstall": "ccf162aa53156ac6c564cb3a737d2f8e6c2c9dfa295cba1f1423cd97fa35c87c",
-    "scripts/build-macos-package.py": "b07d44b7816c76a682c53390436fca6bfd847d8795e6b8464e13b954e4cfbc1f",
+    "scripts/build-macos-package.py": "365a9078ff8a043b57152a2629e459dd4fd698f80a2f07680e6497de6b05c688",
     "scripts/inspect-zjs-stream.py": "3cbf3fab9c2f084162f585c1abd7156020ddab69cd7bbb0d69d24dbf2f5a7594",
-    "scripts/validate-macos-package.py": "aa503f9feb4aaa665f4c89169217cf20e9cee7cadea419613ffa5e5fe5ddd0e1",
+    "scripts/validate-macos-package.py": "719cf117794883d406589edf5be64cd284fe191190c1f6e09a2efd3651aa0e1b",
     "vendor/foo2zjs-source/COPYING": "9c504edb1ae0bc25cf6191a06f1087c7a8d229b87df4f704fbcaa8415e28935f",
     "vendor/foo2zjs-source/ChangeLog": "84141610173ebeba257f9bb9f695c431e9bf0a84d17d811c10b7f96fd7163a45",
     "vendor/foo2zjs-source/INSTALL": "cee70c89c5f6cb799e0953b57f26ad73533a0f4b6d284493ff255138d6c5117f",

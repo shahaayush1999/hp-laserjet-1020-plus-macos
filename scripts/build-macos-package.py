@@ -13,10 +13,14 @@ from pathlib import Path
 import shutil
 import subprocess
 import tarfile
+import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
 PACKAGE = ROOT / "packaging/macos"
 VERSION = "1.0.0"
+INSTALLER_NAME = f"HP-LaserJet-1020-Plus-{VERSION}-Apple-Silicon.pkg"
+REMOVER_NAME = "Remove-HP-LaserJet-1020-Plus.pkg"
+DISK_IMAGE_NAME = f"HP-LaserJet-1020-Plus-{VERSION}-Apple-Silicon.dmg"
 IDENTIFIER = "com.aayush.hp1020.driver"
 PREFIX = "/Library/Printers/hp1020"
 ARCHIVES = {
@@ -227,6 +231,25 @@ def product(work, output, component, remove=False):
          "--package-path", work, output])
 
 
+def handoff_files(output):
+    return {
+        "Install HP LaserJet 1020 Plus.pkg": output / INSTALLER_NAME,
+        "Remove HP LaserJet 1020 Plus.pkg": output / REMOVER_NAME,
+        "Start Here.txt": PACKAGE / "Start Here.txt",
+    }
+
+
+def disk_image(work, output):
+    # A fresh folder keeps build reports and unrelated files out of the handoff.
+    with tempfile.TemporaryDirectory(prefix="handoff-", dir=work) as temporary:
+        folder = Path(temporary)
+        for name, source in handoff_files(output).items():
+            copy(source, folder / name)
+        run(["/usr/bin/hdiutil", "create", "-ov", "-format", "UDZO",
+             "-fs", "HFS+", "-volname", "HP LaserJet 1020 Plus", "-nospotlight",
+             "-srcfolder", folder, output / DISK_IMAGE_NAME])
+
+
 def build(args):
     if os.uname().sysname != "Darwin" or os.uname().machine != "arm64":
         raise RuntimeError("Build on an Apple Silicon Mac")
@@ -296,13 +319,16 @@ def build(args):
         else:
             command += ["--nopayload"]
         run([*command, component])
-        name = f"HP-LaserJet-1020-Plus-{VERSION}-Apple-Silicon.pkg" if action == "install" else "Remove-HP-LaserJet-1020-Plus.pkg"
+        name = INSTALLER_NAME if action == "install" else REMOVER_NAME
         product(work, output / name, component, remove=(action == "remove"))
     copy(PACKAGE / "Start Here.txt", output / "Start Here.txt")
     copy(base / "build-info.json", output / "build-info.json")
-    sums = "".join(f"{digest(p)}  {p.name}\n" for p in sorted(output.glob("*.pkg")))
+    disk_image(work, output)
+    artifacts = [output / name for name in (INSTALLER_NAME, REMOVER_NAME, DISK_IMAGE_NAME)]
+    sums = "".join(f"{digest(p)}  {p.name}\n" for p in sorted(artifacts))
     (output / "SHA256SUMS").write_text(sums)
-    print(f"Built {output}. No software was installed and no printer was contacted.")
+    print(f"Copy to the other Mac: {output / DISK_IMAGE_NAME}")
+    print("No software was installed and no printer was contacted.")
     print(f"Validate next: python3 scripts/validate-macos-package.py --work {work} --output {output}")
 
 

@@ -1,38 +1,27 @@
-HP LaserJet 1020 Plus — installation for your Mac
+HP LaserJet 1020 Plus — for Apple M-series Macs
 
-1. Copy HP-LaserJet-1020-Plus-1.0.0-Apple-Silicon.pkg to your dad's Mac.
-2. Double-click it and follow the installer. Enter his Mac administrator password
-   when asked. Nothing else needs downloading or installing.
-3. Connect the printer to his Mac by USB and turn it on. Use a USB adapter if
-   needed. If macOS asks to allow the accessory, choose Allow.
-4. Open a document, choose Print, and select HP LaserJet 1020 Plus.
-   Start with one page.
+INSTALL
+Double-click “Install HP LaserJet 1020 Plus.pkg” and follow the installer.
+Enter your Mac administrator password when asked. Everything is included:
+no extra downloads, Homebrew, repository or Terminal commands.
 
-This is for Apple M-series Macs, not Intel Macs. It uses the working HP firmware
-and foo2zjs setup. It does not use the unfinished replacement firmware.
+PRINT
+Connect the printer to this Mac by USB and turn it on. If macOS asks to allow
+the accessory, choose Allow. Open a document, choose Print, and select
+“HP LaserJet 1020 Plus”. Try one page first. Allow extra time after power-on.
+Supports A4, US Letter and copies. Your other Mac does not need to stay on.
 
-If macOS blocks the installer because it cannot verify the developer:
-After trying to open it, go to System Settings > Privacy & Security, scroll to
-the security message, and choose Open Anyway for this installer. Then open it
-again. This private package is not signed with an Apple Developer ID or notarized.
-Do not disable your Mac's general security settings.
+REMOVE
+Open this same disk image and double-click “Remove HP LaserJet 1020 Plus.pkg”.
+Finish printing first; removal also deletes this setup's pending and failed jobs.
+Other printers are left alone. Deleting the downloaded file does not uninstall it.
+
+IF macOS BLOCKS THE INSTALLER
+After trying to open it, go to System Settings > Privacy & Security and choose
+Open Anyway for this installer. This private copy is unsigned and not notarized.
 Apple's instructions: https://support.apple.com/102445
 
-The printer must be connected directly to the Mac that is printing. This package
-does not add Wi-Fi. Aayush's Mac does not need to remain on.
-
-After power-off, the first job reloads the printer's original firmware. Allow a
-little extra time. Supported choices: A4 or US Letter, black and white, copies.
-Automatic double-sided printing is not supported.
-
-If a job disappears from Print Center but no page appears, check the USB cable,
-power and paper. Check whether any pages came out before submitting it again.
-The package never automatically repeats a job after an uncertain USB result.
-
-To remove this packaged setup later, double-click
-Remove-HP-LaserJet-1020-Plus.pkg. Finish printing first; removal also deletes its
-pending and retained failed documents. It does not remove other printers.
-
-This installer has been built and checked without contacting a printer. Installing
-and printing a page on your dad's Mac remain the final compatibility check.
-Keep this as a private family copy.
+You can eject the disk image after installation. Keep a copy for removal later.
+This packages the working HP-based setup; the new installer has only been checked
+offline, so installation and a printed page still need testing. It does not use
+the unfinished replacement firmware. Keep this as a private family copy.
