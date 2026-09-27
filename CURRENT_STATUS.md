@@ -6,11 +6,15 @@ installed-printing change or print-driving hardware path occurred.
 
 Support decision: the owner abandoned the app/installer packaging experiment.
 Its code, generated downloads and disposable build files have been removed.
-Use a private clone and the existing `scripts/install.sh` and
+Use a clone and the existing `scripts/install.sh` and
 `scripts/uninstall.sh` on his dad's Apple Silicon Mac, with the Homebrew
 dependencies described in `README.md`. Installation on that Mac has not occurred.
 Do not reintroduce packaging unless requested. The original scripts/runtime and
 firmware research are unchanged; the validated research baseline is September 23.
+
+Repository visibility changed to public on September 27 at the owner's explicit
+request and verified through GitHub without authentication. Existing third-party
+assets and redistribution notices remain; visibility is not a license review.
 
 ## Current verified state
 

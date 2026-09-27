@@ -46,7 +46,7 @@ and stock USB identity alone do not establish this. Record the tested scope and
 remaining limitations; never substitute a test count for device evidence.
 
 Offline research, local tools, reversible cleanup, coherent commits and pushes
-to this repository's private `main` are authorized. Repository maintenance does
+to this repository's `main` are authorized. Repository maintenance does
 not authorize changing installed printing files or contacting the printer.
 
 - Do not enumerate/contact USB, send queries or upload firmware during offline work.
@@ -59,7 +59,8 @@ not authorize changing installed printing files or contacting the printer.
   permission. Unknown custom instructions are not assumed mechanically inert.
 - Do not alter the installed queue, daemon, firmware or user runtime as research
   cleanup. Use the installer/uninstaller only for authorized printing maintenance.
-- Keep the repository private; retain stock assets, licenses and provenance.
+- The repository is public at Aayush's request. Do not change its visibility
+  without a new owner request. Retain stock assets, licenses and provenance.
 
 ## Evidence and validation
 
@@ -75,7 +76,7 @@ observations, instruction-derived facts, hypotheses and device-tested behavior.
   edits, check references and `git diff --check` instead of rebuilding firmware.
 - Toolchains under `/tmp` are disposable. Recover them using the pinned build
   scripts referenced in `analysis/README.md`; do not trust old tool inventories.
-- Review diffs, commit coherent checkpoints, push private `main`, and verify sync.
+- Review diffs, commit coherent checkpoints, push `main`, and verify sync.
   Do not commit unrelated user changes. Never run validation suites concurrently:
   they regenerate shared outputs.
 
