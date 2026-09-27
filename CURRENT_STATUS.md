@@ -1,8 +1,17 @@
 # Current handoff
 
-Updated: 2026-09-23. **The open replacement cannot print yet.**
+Updated: 2026-09-27. **The open replacement cannot print yet.**
 The working HP-based macOS setup is untouched. No printer contact, upload,
 installed-printing change or print-driving hardware path occurred.
+
+Support deliverable built: a self-contained installer for the working HP-based
+setup on Aayush's dad's Apple Silicon Mac. `packaging/macos/README.md` owns this work;
+`scripts/build-macos-package.py` builds the installer and remover under
+`dist/HP-LaserJet-1020-Plus/`. Ten offline package check groups pass,
+including sample conversion and mocked installation/removal. The generated
+package report is preserved beside the recipe. Installation and physical printing
+on the recipient Mac remain untested. The original manual installer/runtime are unchanged.
+The firmware research baseline below remains the September 23 checkpoint.
 
 ## Current verified state
 

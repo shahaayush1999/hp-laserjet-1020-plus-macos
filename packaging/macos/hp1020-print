@@ -1,0 +1,53 @@
+#!/bin/zsh
+# Invoked only for a submitted job, never by the installer or build checks.
+set -euo pipefail
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+BASE="/Library/Printers/hp1020"
+USB_BACKEND="/usr/libexec/cups/backend/usb"
+[[ $# == 3 ]] || exit 2
+umask 077
+work="$(mktemp -d /private/tmp/hp1020-print.XXXXXX)"
+trap 'rm -rf "$work"' EXIT
+
+run_with_timeout() {
+  local seconds="$1" pid elapsed=0
+  shift
+  "$@" &
+  pid=$!
+  while kill -0 "$pid" 2>/dev/null; do
+    if (( elapsed >= seconds )); then
+      kill -TERM "$pid" 2>/dev/null || true
+      sleep 1
+      kill -KILL "$pid" 2>/dev/null || true
+      wait "$pid" 2>/dev/null || true
+      return 124
+    fi
+    sleep 1
+    elapsed=$((elapsed + 1))
+  done
+  wait "$pid"
+}
+
+# Finish conversion before touching USB. Bad documents cannot trigger an upload.
+"$BASE/runtime/bin/hp1020-convert" "$1" "$work/document.zjs" "$2" "$3"
+run_with_timeout 15 "$USB_BACKEND" > "$work/devices"
+uris=("${(@f)$(awk '$1 == "direct" && $2 ~ /^usb:\/\/Hewlett-Packard\/HP%20LaserJet%201020(\?|%20Plus\?)/ {print $2}' "$work/devices")}")
+[[ ${#uris} == 1 && -n "$uris[1]" ]] || {
+  print -u2 'Connect exactly one HP LaserJet 1020/1020 Plus by USB, then submit the document again.'
+  exit 1
+}
+export DEVICE_URI="$uris[1]"
+
+# Preserve the working setup's firmware preload behavior on each document.
+fw_status=0
+run_with_timeout 25 "$USB_BACKEND" 1 root 'HP 1020 firmware' 1 '' "$BASE/runtime/sihp1020.dl" || fw_status=$?
+if (( fw_status != 0 )); then
+  print -u2 "Firmware preload ended with status $fw_status; attempting the document."
+fi
+send_status=0
+run_with_timeout 60 "$USB_BACKEND" 2 root 'HP 1020 document' 1 '' "$work/document.zjs" || send_status=$?
+if (( send_status != 0 )); then
+  print -u2 "USB delivery ended with status $send_status. Output may be partial; check the printer before resubmitting."
+  exit 1
+fi
+print 'Document delivered to the USB backend. Check the paper output.'

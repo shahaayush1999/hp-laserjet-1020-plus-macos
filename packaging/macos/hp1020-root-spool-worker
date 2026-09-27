@@ -1,0 +1,40 @@
+#!/bin/zsh
+set -euo pipefail
+setopt NULL_GLOB
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+BASE="/Library/Printers/hp1020"
+QUEUE="/private/var/spool/cups/tmp/hp1020queue"
+umask 077
+log() { print -r -- "$(date '+%Y-%m-%d %H:%M:%S') $*" >> "$BASE/spool-worker.log"; }
+
+# launchd runs one instance. Claimed jobs survive a crash in processing, and are
+# never retried automatically: the printer may already have printed them.
+while true; do
+  jobs=("$QUEUE/ready"/*)
+  (( ${#jobs} )) || break
+  for job in "${jobs[@]}"; do
+    [[ -d "$job" && ! -L "$job" ]] || { log 'Rejected invalid queue entry'; exit 1; }
+    name="${job:t}"
+    mv "$job" "$QUEUE/processing/$name"
+    job="$QUEUE/processing/$name"
+    if [[ ! -f "$job/document" || -L "$job/document" || ! -f "$job/options" || -L "$job/options" ]]; then
+      log "Invalid job $name"
+      mv "$job" "$QUEUE/failed/$name"
+      continue
+    fi
+    job_options=("${(@f)$(cat "$job/options")}")
+    if [[ ${#job_options} != 2 || ( "$job_options[1]" != a4 && "$job_options[1]" != letter ) || "$job_options[2]" != <1-999> ]]; then
+      log "Invalid options for $name"
+      mv "$job" "$QUEUE/failed/$name"
+      continue
+    fi
+    log "Sending $name"
+    if "$BASE/hp1020-print" "$job/document" "$job_options[1]" "$job_options[2]" >> "$BASE/spool-worker.log" 2>&1; then
+      rm -rf "$job"
+      log "USB delivery returned success for $name"
+    else
+      mv "$job" "$QUEUE/failed/$name"
+      log "Check paper output before resubmitting $name; retained in $QUEUE/failed"
+    fi
+  done
+done

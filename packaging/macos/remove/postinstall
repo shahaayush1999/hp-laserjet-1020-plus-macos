@@ -1,0 +1,14 @@
+#!/bin/zsh
+set -euo pipefail
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+[[ "$3" == / && $(id -u) == 0 ]] || exit 1
+BASE=/Library/Printers/hp1020
+[[ -f "$BASE/package-version" && ! -L "$BASE" ]] || exit 0
+cancel -a HP_LaserJet_1020_Plus 2>/dev/null || true
+lpadmin -x HP_LaserJet_1020_Plus 2>/dev/null || true
+launchctl bootout system /Library/LaunchDaemons/com.aayush.hp1020-root-spool-worker.plist 2>/dev/null || true
+rm -f /Library/LaunchDaemons/com.aayush.hp1020-root-spool-worker.plist
+rm -f /usr/libexec/cups/backend/hp1020queue /usr/libexec/cups/filter/hp1020passthrough
+rm -rf /Library/Printers/hp1020 /private/var/spool/cups/tmp/hp1020queue
+pkgutil --forget com.aayush.hp1020.driver >/dev/null 2>&1 || true
+print 'The packaged HP LaserJet 1020 Plus setup has been removed.'

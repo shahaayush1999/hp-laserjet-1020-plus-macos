@@ -1,0 +1,33 @@
+#!/bin/zsh
+# CUPS handoff only. Install mode 0700 makes CUPS run this backend as root.
+set -euo pipefail
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+BASE="/private/var/spool/cups/tmp/hp1020queue"
+if [[ $# == 0 ]]; then
+  print 'direct hp1020queue://localhost "HP LaserJet 1020 Plus" "HP LaserJet 1020 Plus" "MFG:Hewlett-Packard;MDL:HP LaserJet 1020;CMD:ACL;"'
+  exit 0
+fi
+[[ $# == 5 || $# == 6 ]] || exit 1
+[[ "$1" == <0-> && "$4" == <1-999> ]] || exit 1
+[[ -d "$BASE/incoming" && -d "$BASE/ready" ]] || exit 1
+paper=a4
+for option in ${(z)5}; do
+  case "$option" in
+    PageSize=Letter|media=Letter|media=na_letter_8.5x11in) paper=letter ;;
+    PageSize=A4|media=A4|media=iso_a4_210x297mm) paper=a4 ;;
+  esac
+done
+umask 077
+job="$(mktemp -d "$BASE/incoming/job-$1.XXXXXX")"
+trap '[[ -z "$job" ]] || rm -rf "$job"' EXIT
+if [[ $# == 6 ]]; then
+  cat -- "$6" > "$job/document"
+else
+  cat > "$job/document"
+fi
+[[ -s "$job/document" ]] || exit 1
+printf '%s\n%s\n' "$paper" "$4" > "$job/options"
+# Publish a complete job atomically; the daemon never sees a partial document.
+mv "$job" "$BASE/ready/${job:t}"
+job=''
+print -u2 "INFO: HP 1020 job $1 handed to the print worker."

@@ -1,0 +1,19 @@
+#!/bin/zsh
+set -euo pipefail
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+[[ "$3" == / && $(id -u) == 0 ]] || exit 1
+BASE=/Library/Printers/hp1020
+QUEUE=/private/var/spool/cups/tmp/hp1020queue
+PLIST=/Library/LaunchDaemons/com.aayush.hp1020-root-spool-worker.plist
+umask 077
+mkdir -p "$QUEUE"/{incoming,ready,processing,failed}
+chown -R root:wheel "$QUEUE"
+chmod 700 "$QUEUE" "$QUEUE"/{incoming,ready,processing,failed}
+"$BASE/runtime/bin/gs" --version
+"$BASE/runtime/bin/gsed" --version >/dev/null
+lpadmin -p HP_LaserJet_1020_Plus -v hp1020queue://localhost -P "$BASE/HP-LaserJet_1020-Plus-hp1020zjs.ppd" -L USB -D 'HP LaserJet 1020 Plus' -o printer-is-shared=false -o printer-error-policy=stop-printer
+launchctl bootstrap system "$PLIST"
+launchctl enable system/com.aayush.hp1020-root-spool-worker
+cupsaccept HP_LaserJet_1020_Plus
+cupsenable HP_LaserJet_1020_Plus
+print 'HP LaserJet 1020 Plus is installed. Connect it by USB and print from any app.'
