@@ -25,9 +25,10 @@ A second concrete shortcut now avoids the compressed-image hardware for offline
 image production. `open-firmware/image-core/` contains a bounded streaming JBIG
 wrapper and a bridge from the existing semantic parser/planner to packed row
 bands. The parser now retains each exact 20-byte BIH. Current focused checks
-pass, and the latest full sequential aggregate passed **100 consistency checks**
-in `/tmp/hp1020-full-raw-parser-bih-20260923.log` (child logs `hp1020-validation.9CdiDF`), including
-the bounded complete-stream, raw-contract, original producer and parser integrations below. All tested current source/fixture
+pass, and the latest full sequential aggregate passed **102 consistency checks**
+in `/tmp/hp1020-full-raw-handoff-20260928.log` (child logs `hp1020-validation.a6RCMj`), including
+the bounded complete-stream, raw-contract, original producer, parser/handoff and
+video-buffer initialization integrations below. All tested current source/fixture
 hashes match. No validation process remains running at this checkpoint.
 
 - `validate-hp1020-image-core.py --target`: 176 cases, 21 comparisons of original
@@ -279,9 +280,9 @@ Focused execution passes **22 parser/admission comparisons and two metadata-only
 controls** in the interpreter and independent QEMU. Full sequential validation
 passed **100 consistency checks and both suites** in
 `/tmp/hp1020-full-raw-parser-bih-20260923.log` (child logs `hp1020-validation.9CdiDF`).
-All current source and fixture hashes match. The initial 10-admission baseline
-and its source hashes remain preserved in commit `b015edd`. No research process
-remains running at this checkpoint.
+At that checkpoint all recorded source and fixture hashes matched. The initial
+10-admission baseline and its source hashes remain preserved in commit `b015edd`.
+The September 28 continuation below supersedes the admission-only next action.
 
 - The complete parser consumes explicit START_DOC, START_PAGE, chunk 12,
   END_PAGE and END_DOC input. Original allocation and queue code send messages
@@ -335,11 +336,99 @@ and the band pointer still equals its allocator return. This resolves the cache
 connection for explicit mixed-metadata fixtures, not physical protocol support,
 the cursor prefix, raw-mode reachability or a complete output contract.
 
-Next inspect pointer/mode changes between this actual admission and the existing
-prepare/render boundaries. A needed prefix or raw-mode transition must be proven,
-not supplied silently. Physical packing, live configuration and repeat-copy
-cursor restoration remain unresolved. Do not repeat the now-executed metadata,
-standalone selector or cancellation matrices.
+### Serialized raw handoff to preparation (2026-09-28)
+
+The same generator and `scripts/hp1020_raw_handoff.py` continue actual parser
+owners, allocations and pending END_PAGE/END_DOC packets. **Eight preparation
+continuations and four missing-dimension controls** agree in the interpreter and
+independent QEMU. The initial focused run used supplied output buffers; log
+`/tmp/hp1020-raw-handoff-final-20260928.log`, matching sources/reports preserved
+in `/tmp/hp1020-raw-handoff-tested-20260928/`. Current source executes original
+buffer initialization, as described below; do not substitute that earlier log
+for the expanded validation. The final full sequential run passed **102 checks
+and both suites** in `/tmp/hp1020-full-raw-handoff-20260928.log` (child logs
+`hp1020-validation.a6RCMj`). Current hashes match; both raw validators snapshot
+loaded sources before execution and reject any changed source before reporting.
+The initial execution agreed in both engines but failed a report byte-range gate
+because its constructor range ended inside an instruction. The final generator
+audits the complete original constructor before executing cases. This was a
+test-boundary error, not a stock execution failure; no report hash was patched.
+
+- JobMgr executes the queued endings and schedules one/two copies. Original
+  PrintMgr queueing, allocations and media matching send engine message 13;
+  the original RAM-only dispatcher transforms it into message 14. Original
+  PrintMgr then delivers message 11 to the VideoThread queue. Engine startup
+  message 24 is observed but its hardware handler is never executed.
+- Explicit ready/online and one-tray wildcard-media RAM supply prerequisites.
+  Datastore 1's null backing pointer needs a separately allocated 16-byte options
+  fixture; the original media matcher otherwise reaches a guarded null read.
+  That incomplete-fixture observation is not classified as a stock defect.
+  Original task scheduling, engine readiness and sensor behavior are not proved.
+- Fresh synthetic task contexts execute the original ENTRY and then cut to the
+  specified PrintMgr receive-loop prefix or VideoThread receive boundary. The
+  VideoThread hardware startup is excluded. The independent constructor prefix
+  now creates idle video state and output storage through the original allocator;
+  pool capacity remains explicit and separate from the parser-owned image.
+- Both source kinds 0/1 and copies 1/2 reach `0x10014baf`, before the first video
+  peripheral access, with valid work dimensions. Original preparation computes
+  stride 4 and clears the high IRQ-selection bit in video+0xfc because work+0x74
+  is still zero. Source kind 1 selects the alternate-render branch, but the later
+  call at `0x10015438` is not executed. Dispatch kind and IRQ family are distinct.
+- Executed-store observation and before/after bytes agree: work+0x74 remains
+  zero, payload+0x54 remains the actual allocator return, references remain 1/2,
+  and image bytes are unchanged. There is no late prefix or mode transition on
+  this path. Four absent/suppressed BIH-copy controls reach `0x10014a51` with
+  zero stride and stop before the division call; no divide failure is executed.
+- The byte-verified decoded-image census has exactly one immediate `s8i` at
+  base+116: the work constructor's zero store at `0x1000f271`. This deliberately
+  limited census does not exclude aliases, wider writes, dynamic code or external
+  input. Thirteen excluded-code controls reject before execution in both engines,
+  including the constructor's peripheral prefix and allocation retry calls.
+
+These are **zero additional native page lifecycles**, separate from the existing
+36 native pages. The continuation rules out a late transition in this tested
+software route; it does not prove that raw IRQ mode is globally unreachable or
+that arbitrary mixed metadata is supported physically.
+
+`scripts/hp1020_video_buffers.py` executes the original constructor from
+`0x10014738` to `0x100147e3`, before its peripheral tail. The actual helpers
+`0x10014838` and `0x1001488c` request `0x1900 + 0x8000` (39168) and `0x10000`
+(65536) bytes, both allocator kind 2. The first is filled with 0xff; the second
+retains pool-fill bytes. The constructor clears 260 video-state bytes, sets two
+sentinels, creates the embedded semaphore at video+0x74, and registers five IRQ
+handlers in RAM. This embedded semaphore is distinct from **work**+0x74's mode
+byte. No registered handler, retry sleep or peripheral tail executes. No boot
+memory discovery is inferred from the explicit 128-KiB synthetic pool.
+
+At the tested stride 4, preparation derives four first-buffer slots of 8192 bytes
+and four second-buffer slots of 16384 bytes. All spans fit their real allocated
+blocks; 6400 first-buffer bytes remain beyond the ring. Both output buffers still
+contain only their initialization bytes: **the source image has not been copied
+or decoded into them**. This recovers output storage and preparation, not image
+delivery or physical packing, and cannot explain a prefix on the distinct source
+image allocation.
+
+Two isolated idle buffer cases, with both fills, execute repeated allocation,
+release, empty release and reallocation. Existing buffers return 0 without a
+new allocation; original releases return 1 and clear both globals; empty releases
+return 0 without freeing. Reallocation reuses the same two addresses and original
+live parser allocations never change. Free marks the split blocks reusable rather
+than eagerly merging them; this is observed allocator behavior, not a leak.
+Four smaller-pool controls stop before retry calls: 16 KiB cannot allocate the
+first buffer (`0x1001486c`), while 64 KiB retains the first allocation but cannot
+allocate the second (`0x100148ad`). No sleep, retry or eventual recovery is run.
+Six excluded-code checks per buffer case also reject before execution in both
+engines. These idle allocation cycles are not completed page lifecycles.
+
+Next connect decoded software bands to this established descriptor-ring storage
+in a bounded offline experiment. First inspect the ordinary descriptor producer
+and consumer's RAM contract, then use actual allocation/slot geometry and compare
+every transferred byte with the existing decoder's source-pixel oracle. Keep
+readiness, consumption and any omitted peripheral prefixes explicit. Follow the
+normal descriptor IRQ family; do not force the raw flag or claim the legacy
+chunk-12 route supplies the standalone raw-retirement preconditions. Live
+configuration, physical packing, repeat submission and eventual hardware behavior
+remain unresolved. Do not repeat the metadata, selector or cancellation matrices.
 
 ## Preferred raster bypass (2026-09-10)
 

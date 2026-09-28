@@ -1,5 +1,5 @@
 {
-  "check_count": 100,
+  "check_count": 102,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -323,6 +323,18 @@
       "detail": "Actual chunk-12 parsing must retain original ownership construction, unchanged allocation cursor, zero raw-IRQ flag and queued endings; admission is not raw completion, another model's support or a completed page lifecycle.",
       "evidence": "analysis/hardware-boundary/raw-parser.json",
       "name": "stock_chunk12_parser_and_raw_admission_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Serialized original handoffs must preserve the actual image cursor and zero raw mode through RAM preparation using original output allocations; supplied task/media state and pre-peripheral stops do not establish native page completion or physical output.",
+      "evidence": "analysis/hardware-boundary/raw-parser.json",
+      "name": "stock_chunk12_serialized_prepare_boundary_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Original buffer allocation, idle initialization, release and reuse must remain distinct from page lifecycles; smaller synthetic pools stop before retry scheduling and all constructor hardware remains excluded.",
+      "evidence": "analysis/hardware-boundary/raw-parser.json",
+      "name": "stock_video_buffer_initialization_and_ownership_verified",
       "severity": "watch"
     },
     {

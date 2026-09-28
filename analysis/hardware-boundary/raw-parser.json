@@ -12,6 +12,84 @@
       "bytes": "c9532a0a782b0a010111025824352a166827ac10600002271c10da702b12652c1267dd305bfeb2dba065b1b128711b2b761469810228761418efd4888069813028711a1aefd5c0ec1fefd80e881c89a1af88998028711a0e881c89a2def0ae88998128711ac0fc0f881c297111ae88998264511dc0892f1268981028fc1098f39bf02476159f1328711a9811287116297111287526cd9228711ac0ec1fefc30e881c0f8808288105287511287110cd8128711ac0ec1fefbd0e881caf8828810328751028710fcd8128711ac0ec1fefb70e881caf8828810128750f28711ac0ec1fefb20e881cc0a3af88888019efa928761628711625761228752618efa5299101288101011b0228750a29750b01110258253a",
       "end": "0x1000a170",
       "sha256": "9506b267102b74699ed49cc70adfe7838b060f6ba89f28f942ca8fed4effca91"
+    },
+    {
+      "begin": "0x1000f228",
+      "bytes": "6c10042a0a942b0a01011102580fc20aa2022a2c58011102580fa02a2c50011102580f9e2a2c60011102580f9c2a2c68011102580f9ac090292538c080282621282622282623292490292474292477022a025bffe2060000",
+      "end": "0x1000f280",
+      "sha256": "17becb59436e89b034aef6451f96559556f07cecb0a82b6497e7051027e2379f"
+    },
+    {
+      "begin": "0x1000e6b0",
+      "bytes": "1fdf1328f000cd8412df0b8821c88d888328821d288203c8832a8212ccaa2a120301110258134c63fd4228a106cc83c08128a506c08129a13928a47869910263fd2a1fdf0528f200658d2118defb288100648d180111025801a263fd0f12defb282000270a0069810b01110258023627240063fcf71fdeef8af164acef8aa364acea27a46988f1888328821dc8808883280a0128a4685801dc",
+      "end": "0x1000e749",
+      "sha256": "d170d630ae2aaaf72fd14d3e3716e7e86a9db82196f9a51ba8440d2246699e83"
+    },
+    {
+      "begin": "0x1000ed90",
+      "bytes": "6c100618dd548280230a006420cb14dd522841006480c228220325821c6450b42841006480ae865329621264904d2a912428910678a144289078cb8ed790287106783b01d380c0c0cfc078a12e284100ca88b088284500287124c0a1b188287524c08b9810286212db102816030111025812152971242871067899d029621364904d2a912428910678a144284100cb8ed790287106783b01d380c0c0cfc078a12e284100ca88b088284500287124c0a1b188287524c08b9810286213db102816030111025812002971242871067899d08550655f4a8220652f36d10f",
+      "end": "0x1000ee6c",
+      "sha256": "0dce79762a750509fd1052b6749cc841441c4c3e472569b3a0d12ee60222864f"
+    },
+    {
+      "begin": "0x10013c48",
+      "bytes": "16caca1acac8db10c7cf0111025811118910749107c08f78916463ffe5286218c88c286219cc8c28120328661963ffd28813286618276218887068872f287214888319caba2882149590cd80077a0258031e077a0201110258055c60000eb0886f8209da70580318da705805e1c1809810c0a1011b020111025bfe6563ff83",
+      "end": "0x10013cc7",
+      "sha256": "ace9a6943351a6011c55defc35c82f38a82b18c689e1d7ca2ec92c23efb32ffb"
+    },
+    {
+      "begin": "0x10014910",
+      "bytes": "6c1006d420c0fc9f10c0f09f11061600c2a00111025bf21419c7928f110aa3022f9630cc3928411bcc84280a0128963012c78c27221bc97606e63101020028221b69830522221a60000212c7b806000006e6310102001ac7aac7bf011102580e0dc08128261c2a0a0a011102580a0cc0ab011102580a0ac1a3011102580a08c1a4011102580a06c1a5011102580a0419c7a80c020097900c020088906f8524da90077b020c020088a00c020089a0b1990c020099a00c020029a20002880a2b86296e95df1bc767c0c019c7992cb63e2cb6262cb6252cb6362cb6370c02009c900c020088902cb6386f8434ddb0099b020c020088b00888090c02008ab00d880a0c020089b00aaa099c88b1990c020099b00c020028b2000daa0a2ca6096e84cf17c750c0501ac4e425763c284221c690288c1f09880108361426762edb60011102581b05c78c08aa012a763326762f280a012876312a41112872302a763225763d64806b69a15029410a281a2c78990718c7519580600057282a58789916c0a22a763d0f681128762f19c74a18c76a2a7632600037284ab0789934c0a42a763d0f681128762f280a0228763119c74218c7622a763260001469a21429410a282a5878990b19c73c18c75d2a763d28960015c72427522e1ac4bddb70011102581ade16c75318c74f0c02009a602c523d8a8007cc282a56140c02008960aca80e77110799289850a9880c020089600799289851a9880c02008960c0b098520799280c02008d60a98807dd289853ad88285615011102581a6018c73c2b522e0c0200896088800dbb110b99289854a9880c0200896098550b99280c02008a60a9880baa2898560a880828560728411328563428411328563528411928563b28411828563a284074c88a28523f19c4a609880260000828523f19c5b909880128563f",
+      "end": "0x10014baf",
+      "sha256": "05b8f54cb71d3d602e86b832cd3c0acbd1d047091232f925022095dd2ee69632"
+    },
+    {
+      "begin": "0x10016164",
+      "bytes": "6c10088820298cf5c385798b0260013518c20d08980a2882000a8000c2859810c0c09c11c0a1db1018c1e50aa9022984282c861a2c861b0111025bf52e5bffbd600102c08e98202a0a01022b020111025bf5286000ef2a0a005bff0e18bf1d0a0a4f08a7016570dd12c1d529221ac994c181981099131ac1f0db10c7cf0111025807bd27261a29221b6490b9c08b98109913da70011b020111025bf50827261b6000a22a0a015bfef15bffa6c0a05bfef9600091c0829815c18698142a0a012b1c100111025bf50b60007a2a0a015bfef160007118c1bac090298428c091998ec070077a025bfeeb19c1b528921a279428c88b28921bcc8c882328961b60004528220328961a17c1ad28721a2a814001110258000e2a76125bfea528721a8880698704c08128760e887ec9821ac1c45bfe7518bef508a201cc2ac081987ed10f1ac1c05bfe70220a00060000",
+      "end": "0x100162b0",
+      "sha256": "132b310962f798b8361d2078950529b48066ed2d082c5bb2a429e628af20aca2"
+    },
+    {
+      "begin": "0x10014738",
+      "bytes": "6c1004c05ada50011102580a9bc03bda30011102580a98c1a3011102580a96c1a4011102580a94240a15044a02011102580a9101110258003258004616c827da60011102580e7bc020db2017c7fb2c1a04da70011102581b4eda601bc8202c0a01011102580e5fda5018c81d1bc81e287617287640011102580a6e1bc81b033a02011102580a6b1bc8192a0a13011102580a681bc817044a02011102580a651bc8152a0a14011102580a62",
+      "end": "0x100147e3",
+      "sha256": "85e3a73a4960ffe2b3d633ba899cb324e06a834879d30a045e6998e7c531ab83"
+    },
+    {
+      "begin": "0x10014838",
+      "bytes": "6c10041ac7fd88a0658044d7a019c7ca18c7fb16c5882896160992022a2216c0b2a6aa0111025bfa562a7600ccaa2a0a14011102580b7f63ffe18a702c22162b0aff06cc08011102581b11c021060000c020d10f",
+      "end": "0x1001488c",
+      "sha256": "1dee84a4c759501c985ddb528ce4669542658ed5eafd3fe135c66a6b026e3e8b"
+    },
+    {
+      "begin": "0x1001488c",
+      "bytes": "6c100419c7ea8890ce80d2901ac5a2c0b20111025bfa459a20ccaa2a0a14011102580b6f63ffe4c021060000c020d10f",
+      "end": "0x100148bc",
+      "sha256": "ce9a3bda3da8280568f54254396bc7d7ad02afe0efc0cd311a8d0a1457a6fe92"
+    },
+    {
+      "begin": "0x100148bc",
+      "bytes": "6c100417c7dc8270c920022a020111025bfacec0809870c021060000d10f",
+      "end": "0x100148da",
+      "sha256": "7207becc8a2916426281a65a7e3e944ce2b6443e56c9d371e70a9e7daa1c10a2"
+    },
+    {
+      "begin": "0x100148dc",
+      "bytes": "6c100417c7d68270c920022a020111025bfac6c0809870c021060000d10f",
+      "end": "0x100148fa",
+      "sha256": "4f560682d3118d89b8084092fa734ff6b3a1b5d9def2ce9b3f9c61b7b4e1ab00"
+    },
+    {
+      "begin": "0x1001816c",
+      "bytes": "6c1004c826892018b912789103c02cd10f18ba478980c89b18b6ff8880cc8418ba57789903c123d10fda2001110258088ad2a0d10f",
+      "end": "0x100181a1",
+      "sha256": "927ddea12df13740b24287d3b1023506a11c78a916ed766a280276ec612cc0d1"
+    },
+    {
+      "begin": "0x1001716c",
+      "bytes": "6c100214be3c05f60004240a8240934005e631010200d10f",
+      "end": "0x10017184",
+      "sha256": "4065949c2ab133edcc82d87aaa7d42d42600ed937a41e44f22a8aa0cbb4c7861"
     }
   ],
   "cases": [
@@ -4365,7 +4443,4017 @@
     "Two metadata-only chunk-12 controls allocate no data and emit no message 9. All twenty-four comparisons agree between the bounded interpreter and independent QEMU, including pool partitions, bytes and explicit host boundaries.",
     "The original standalone helper at 0x10010420 is never entered by this parser route. This establishes a separate software producer, not that helper's caller, raw-mode reachability, completion, second-copy cursor restoration or physical output."
   ],
-  "limits": "Synthetic single-thread RAM and seeded allocator/queue state; input callbacks, document begin/end, document publication and task readiness are explicit boundaries. Nonempty runs stop immediately after the first raw-list admission, with END_PAGE/END_DOC still queued. The raw IRQ flag is not forced, no raw retirement/VideoThread/PrintMgr/engine/custom instruction/MMIO/USB path executes, and zero completed page lifecycles or physical printing are claimed. Numeric chunk 12 exists in this stock ELF; its host header name is not proof of another model's support. The open parser grammar is unchanged.",
+  "handoff_cases": [
+    {
+      "bitmap": 0,
+      "completed_lifecycles": 0,
+      "copies": 1,
+      "engine_packets": [
+        {
+          "queue": 0,
+          "type": 24
+        },
+        {
+          "queue": 0,
+          "words": [
+            13,
+            0,
+            0,
+            574620076
+          ]
+        }
+      ],
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_unchanged": true,
+      "outcome": "pre_peripheral_prepare",
+      "output_layout": {
+        "all_spans_inside_original_allocations": true,
+        "buffers_unchanged": true,
+        "first_slot_bytes": 8192,
+        "first_slots": [
+          574620496,
+          574628688,
+          574636880,
+          574645072
+        ],
+        "first_unused_tail": 6400,
+        "second_slot_bytes": 16384,
+        "second_slots": [
+          574659696,
+          574676080,
+          574692464,
+          574708848
+        ],
+        "stride": 4
+      },
+      "page_bitmap": 1,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2147483648
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          2147483648
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          44,
+          2684354560
+        ],
+        [
+          574620280,
+          120,
+          2147483648
+        ],
+        [
+          574620412,
+          20,
+          2147483648
+        ],
+        [
+          574620444,
+          16,
+          2147483648
+        ],
+        [
+          574620472,
+          39196,
+          2147483648
+        ],
+        [
+          574659680,
+          65564,
+          2147483648
+        ],
+        [
+          574725256,
+          25452,
+          1073741824
+        ]
+      ],
+      "prepare_stop": "0x10014baf",
+      "prepare_stride": 4,
+      "rejected_before_execution": [
+        "0x10013c33",
+        "0x10014baf",
+        "0x10014bb8",
+        "0x10014bc3",
+        "0x1001451c",
+        "0x10015438",
+        "0x10015648",
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "separate_bih_chunk": true,
+      "stages": [
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "834e4462815c491a8a21bba9c1e23383008d1fa82421ab0f4df1b71ef601eb6a",
+          "phase": "admission",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 0,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "8c03b81c0d6d75da911a990242b90d2fa98bcd92ea7cf6fdfd2e033c1a237282"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "834e4462815c491a8a21bba9c1e23383008d1fa82421ab0f4df1b71ef601eb6a",
+          "phase": "job_endings",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "55ab601f1ba83f910d8f7b0ee1c9b3ab76d78b84daef32a60b837e5a117bbb84"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "834e4462815c491a8a21bba9c1e23383008d1fa82421ab0f4df1b71ef601eb6a",
+          "phase": "printmgr_request",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "55ab601f1ba83f910d8f7b0ee1c9b3ab76d78b84daef32a60b837e5a117bbb84"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "834e4462815c491a8a21bba9c1e23383008d1fa82421ab0f4df1b71ef601eb6a",
+          "phase": "video_queued",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "55ab601f1ba83f910d8f7b0ee1c9b3ab76d78b84daef32a60b837e5a117bbb84"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "834e4462815c491a8a21bba9c1e23383008d1fa82421ab0f4df1b71ef601eb6a",
+          "phase": "prepare_boundary",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "55ab601f1ba83f910d8f7b0ee1c9b3ab76d78b84daef32a60b837e5a117bbb84"
+        }
+      ],
+      "status": "pass",
+      "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+      "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+      "tracked_stores": [
+        {
+          "address": 268628156,
+          "field": "video_irq_mode",
+          "pc": "0x10014bac",
+          "phase": "video_prepare",
+          "size": 4,
+          "value": 0
+        }
+      ],
+      "video_initialization": {
+        "allocations": [
+          {
+            "block": [
+              574620472,
+              39196,
+              2147483648
+            ],
+            "pointer": 574620496,
+            "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+            "size": 39168
+          },
+          {
+            "block": [
+              574659680,
+              65564,
+              2147483648
+            ],
+            "pointer": 574659696,
+            "sha256": "de2f256064a0af797747c2b97505dc0b9f3df0de4f489eac731c23ae9ca9cc31",
+            "size": 65536
+          }
+        ],
+        "hardware_tail_executed": false,
+        "outcome": "initialized_before_peripherals",
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            44,
+            2684354560
+          ],
+          [
+            574620280,
+            120,
+            2147483648
+          ],
+          [
+            574620412,
+            20,
+            2147483648
+          ],
+          [
+            574620444,
+            16,
+            2147483648
+          ],
+          [
+            574620472,
+            39196,
+            2147483648
+          ],
+          [
+            574659680,
+            65564,
+            2147483648
+          ],
+          [
+            574725256,
+            25452,
+            1073741824
+          ]
+        ],
+        "pool_size": 131072,
+        "registered_handlers": {
+          "10": 268518524,
+          "11": 268518584,
+          "19": 268518044,
+          "20": 268518108,
+          "21": 268518328
+        },
+        "retry_executed": false,
+        "stop": "0x100147e3",
+        "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+      },
+      "video_mode_word": 0
+    },
+    {
+      "bitmap": 0,
+      "completed_lifecycles": 0,
+      "copies": 2,
+      "engine_packets": [
+        {
+          "queue": 0,
+          "type": 24
+        },
+        {
+          "queue": 0,
+          "words": [
+            13,
+            0,
+            0,
+            574620076
+          ]
+        }
+      ],
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_unchanged": true,
+      "outcome": "pre_peripheral_prepare",
+      "output_layout": {
+        "all_spans_inside_original_allocations": true,
+        "buffers_unchanged": true,
+        "first_slot_bytes": 8192,
+        "first_slots": [
+          574620512,
+          574628704,
+          574636896,
+          574645088
+        ],
+        "first_unused_tail": 6400,
+        "second_slot_bytes": 16384,
+        "second_slots": [
+          574659728,
+          574676112,
+          574692496,
+          574708880
+        ],
+        "stride": 4
+      },
+      "page_bitmap": 1,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2147483648
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          2147483648
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          44,
+          2684354560
+        ],
+        [
+          574620280,
+          120,
+          2147483648
+        ],
+        [
+          574620412,
+          20,
+          2147483648
+        ],
+        [
+          574620444,
+          16,
+          2147483648
+        ],
+        [
+          574620472,
+          16,
+          2147483648
+        ],
+        [
+          574620500,
+          39196,
+          2147483648
+        ],
+        [
+          574659708,
+          65564,
+          2147483648
+        ],
+        [
+          574725284,
+          25424,
+          1073741824
+        ]
+      ],
+      "prepare_stop": "0x10014baf",
+      "prepare_stride": 4,
+      "rejected_before_execution": [
+        "0x10013c33",
+        "0x10014baf",
+        "0x10014bb8",
+        "0x10014bc3",
+        "0x1001451c",
+        "0x10015438",
+        "0x10015648",
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "separate_bih_chunk": true,
+      "stages": [
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "aeb0712e6deee79bccbbb8e645c9c9c7a067e612ff01f0e23977acda93be5749",
+          "phase": "admission",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 0,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "5d89fdafe7498e1d450f841d6914d6b9988668c72ab9157fd2a07445d872126e"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "aeb0712e6deee79bccbbb8e645c9c9c7a067e612ff01f0e23977acda93be5749",
+          "phase": "job_endings",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 2,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "7e2fc3bf0dfe56c34fe3b91b157e0deeb041d9db41cce8f64b08f0faa66bd002"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "aeb0712e6deee79bccbbb8e645c9c9c7a067e612ff01f0e23977acda93be5749",
+          "phase": "printmgr_request",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 2,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "7e2fc3bf0dfe56c34fe3b91b157e0deeb041d9db41cce8f64b08f0faa66bd002"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "aeb0712e6deee79bccbbb8e645c9c9c7a067e612ff01f0e23977acda93be5749",
+          "phase": "video_queued",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 2,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "7e2fc3bf0dfe56c34fe3b91b157e0deeb041d9db41cce8f64b08f0faa66bd002"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "aeb0712e6deee79bccbbb8e645c9c9c7a067e612ff01f0e23977acda93be5749",
+          "phase": "prepare_boundary",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 2,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "7e2fc3bf0dfe56c34fe3b91b157e0deeb041d9db41cce8f64b08f0faa66bd002"
+        }
+      ],
+      "status": "pass",
+      "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+      "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+      "tracked_stores": [
+        {
+          "address": 268628156,
+          "field": "video_irq_mode",
+          "pc": "0x10014bac",
+          "phase": "video_prepare",
+          "size": 4,
+          "value": 0
+        }
+      ],
+      "video_initialization": {
+        "allocations": [
+          {
+            "block": [
+              574620500,
+              39196,
+              2147483648
+            ],
+            "pointer": 574620512,
+            "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+            "size": 39168
+          },
+          {
+            "block": [
+              574659708,
+              65564,
+              2147483648
+            ],
+            "pointer": 574659728,
+            "sha256": "de2f256064a0af797747c2b97505dc0b9f3df0de4f489eac731c23ae9ca9cc31",
+            "size": 65536
+          }
+        ],
+        "hardware_tail_executed": false,
+        "outcome": "initialized_before_peripherals",
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            44,
+            2684354560
+          ],
+          [
+            574620280,
+            120,
+            2147483648
+          ],
+          [
+            574620412,
+            20,
+            2147483648
+          ],
+          [
+            574620444,
+            16,
+            2147483648
+          ],
+          [
+            574620472,
+            16,
+            2147483648
+          ],
+          [
+            574620500,
+            39196,
+            2147483648
+          ],
+          [
+            574659708,
+            65564,
+            2147483648
+          ],
+          [
+            574725284,
+            25424,
+            1073741824
+          ]
+        ],
+        "pool_size": 131072,
+        "registered_handlers": {
+          "10": 268518524,
+          "11": 268518584,
+          "19": 268518044,
+          "20": 268518108,
+          "21": 268518328
+        },
+        "retry_executed": false,
+        "stop": "0x100147e3",
+        "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+      },
+      "video_mode_word": 0
+    },
+    {
+      "bitmap": 1,
+      "completed_lifecycles": 0,
+      "copies": 1,
+      "engine_packets": [
+        {
+          "queue": 0,
+          "type": 24
+        },
+        {
+          "queue": 0,
+          "words": [
+            13,
+            0,
+            0,
+            574620076
+          ]
+        }
+      ],
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_unchanged": true,
+      "outcome": "pre_peripheral_prepare",
+      "output_layout": {
+        "all_spans_inside_original_allocations": true,
+        "buffers_unchanged": true,
+        "first_slot_bytes": 8192,
+        "first_slots": [
+          574620496,
+          574628688,
+          574636880,
+          574645072
+        ],
+        "first_unused_tail": 6400,
+        "second_slot_bytes": 16384,
+        "second_slots": [
+          574659696,
+          574676080,
+          574692464,
+          574708848
+        ],
+        "stride": 4
+      },
+      "page_bitmap": 1,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2147483648
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          2147483648
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          44,
+          2684354560
+        ],
+        [
+          574620280,
+          120,
+          2147483648
+        ],
+        [
+          574620412,
+          20,
+          2147483648
+        ],
+        [
+          574620444,
+          16,
+          2147483648
+        ],
+        [
+          574620472,
+          39196,
+          2147483648
+        ],
+        [
+          574659680,
+          65564,
+          2147483648
+        ],
+        [
+          574725256,
+          25452,
+          1073741824
+        ]
+      ],
+      "prepare_stop": "0x10014baf",
+      "prepare_stride": 4,
+      "rejected_before_execution": [
+        "0x10013c33",
+        "0x10014baf",
+        "0x10014bb8",
+        "0x10014bc3",
+        "0x1001451c",
+        "0x10015438",
+        "0x10015648",
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "separate_bih_chunk": true,
+      "stages": [
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "d9499389cb69410ab88f1610db90da05dcfb9dfce9493cf4bca42077600a3ce8",
+          "phase": "admission",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 0,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "8c03b81c0d6d75da911a990242b90d2fa98bcd92ea7cf6fdfd2e033c1a237282"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "d9499389cb69410ab88f1610db90da05dcfb9dfce9493cf4bca42077600a3ce8",
+          "phase": "job_endings",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "55ab601f1ba83f910d8f7b0ee1c9b3ab76d78b84daef32a60b837e5a117bbb84"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "d9499389cb69410ab88f1610db90da05dcfb9dfce9493cf4bca42077600a3ce8",
+          "phase": "printmgr_request",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "55ab601f1ba83f910d8f7b0ee1c9b3ab76d78b84daef32a60b837e5a117bbb84"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "d9499389cb69410ab88f1610db90da05dcfb9dfce9493cf4bca42077600a3ce8",
+          "phase": "video_queued",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "55ab601f1ba83f910d8f7b0ee1c9b3ab76d78b84daef32a60b837e5a117bbb84"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "d9499389cb69410ab88f1610db90da05dcfb9dfce9493cf4bca42077600a3ce8",
+          "phase": "prepare_boundary",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "55ab601f1ba83f910d8f7b0ee1c9b3ab76d78b84daef32a60b837e5a117bbb84"
+        }
+      ],
+      "status": "pass",
+      "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+      "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+      "tracked_stores": [
+        {
+          "address": 268628156,
+          "field": "video_irq_mode",
+          "pc": "0x10014bac",
+          "phase": "video_prepare",
+          "size": 4,
+          "value": 0
+        }
+      ],
+      "video_initialization": {
+        "allocations": [
+          {
+            "block": [
+              574620472,
+              39196,
+              2147483648
+            ],
+            "pointer": 574620496,
+            "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+            "size": 39168
+          },
+          {
+            "block": [
+              574659680,
+              65564,
+              2147483648
+            ],
+            "pointer": 574659696,
+            "sha256": "de2f256064a0af797747c2b97505dc0b9f3df0de4f489eac731c23ae9ca9cc31",
+            "size": 65536
+          }
+        ],
+        "hardware_tail_executed": false,
+        "outcome": "initialized_before_peripherals",
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            44,
+            2684354560
+          ],
+          [
+            574620280,
+            120,
+            2147483648
+          ],
+          [
+            574620412,
+            20,
+            2147483648
+          ],
+          [
+            574620444,
+            16,
+            2147483648
+          ],
+          [
+            574620472,
+            39196,
+            2147483648
+          ],
+          [
+            574659680,
+            65564,
+            2147483648
+          ],
+          [
+            574725256,
+            25452,
+            1073741824
+          ]
+        ],
+        "pool_size": 131072,
+        "registered_handlers": {
+          "10": 268518524,
+          "11": 268518584,
+          "19": 268518044,
+          "20": 268518108,
+          "21": 268518328
+        },
+        "retry_executed": false,
+        "stop": "0x100147e3",
+        "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+      },
+      "video_mode_word": 0
+    },
+    {
+      "bitmap": 1,
+      "completed_lifecycles": 0,
+      "copies": 2,
+      "engine_packets": [
+        {
+          "queue": 0,
+          "type": 24
+        },
+        {
+          "queue": 0,
+          "words": [
+            13,
+            0,
+            0,
+            574620076
+          ]
+        }
+      ],
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_unchanged": true,
+      "outcome": "pre_peripheral_prepare",
+      "output_layout": {
+        "all_spans_inside_original_allocations": true,
+        "buffers_unchanged": true,
+        "first_slot_bytes": 8192,
+        "first_slots": [
+          574620512,
+          574628704,
+          574636896,
+          574645088
+        ],
+        "first_unused_tail": 6400,
+        "second_slot_bytes": 16384,
+        "second_slots": [
+          574659728,
+          574676112,
+          574692496,
+          574708880
+        ],
+        "stride": 4
+      },
+      "page_bitmap": 1,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2147483648
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          2147483648
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          44,
+          2684354560
+        ],
+        [
+          574620280,
+          120,
+          2147483648
+        ],
+        [
+          574620412,
+          20,
+          2147483648
+        ],
+        [
+          574620444,
+          16,
+          2147483648
+        ],
+        [
+          574620472,
+          16,
+          2147483648
+        ],
+        [
+          574620500,
+          39196,
+          2147483648
+        ],
+        [
+          574659708,
+          65564,
+          2147483648
+        ],
+        [
+          574725284,
+          25424,
+          1073741824
+        ]
+      ],
+      "prepare_stop": "0x10014baf",
+      "prepare_stride": 4,
+      "rejected_before_execution": [
+        "0x10013c33",
+        "0x10014baf",
+        "0x10014bb8",
+        "0x10014bc3",
+        "0x1001451c",
+        "0x10015438",
+        "0x10015648",
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "separate_bih_chunk": true,
+      "stages": [
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "eb8609892d2e30e43e486e864ca6fd563d03e09cbe2082ef525f54e6876a2bc6",
+          "phase": "admission",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 0,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "5d89fdafe7498e1d450f841d6914d6b9988668c72ab9157fd2a07445d872126e"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "eb8609892d2e30e43e486e864ca6fd563d03e09cbe2082ef525f54e6876a2bc6",
+          "phase": "job_endings",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 2,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "7e2fc3bf0dfe56c34fe3b91b157e0deeb041d9db41cce8f64b08f0faa66bd002"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "eb8609892d2e30e43e486e864ca6fd563d03e09cbe2082ef525f54e6876a2bc6",
+          "phase": "printmgr_request",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 2,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "7e2fc3bf0dfe56c34fe3b91b157e0deeb041d9db41cce8f64b08f0faa66bd002"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "eb8609892d2e30e43e486e864ca6fd563d03e09cbe2082ef525f54e6876a2bc6",
+          "phase": "video_queued",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 2,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "7e2fc3bf0dfe56c34fe3b91b157e0deeb041d9db41cce8f64b08f0faa66bd002"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "eb8609892d2e30e43e486e864ca6fd563d03e09cbe2082ef525f54e6876a2bc6",
+          "phase": "prepare_boundary",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 2,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "7e2fc3bf0dfe56c34fe3b91b157e0deeb041d9db41cce8f64b08f0faa66bd002"
+        }
+      ],
+      "status": "pass",
+      "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+      "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+      "tracked_stores": [
+        {
+          "address": 268628156,
+          "field": "video_irq_mode",
+          "pc": "0x10014bac",
+          "phase": "video_prepare",
+          "size": 4,
+          "value": 0
+        }
+      ],
+      "video_initialization": {
+        "allocations": [
+          {
+            "block": [
+              574620500,
+              39196,
+              2147483648
+            ],
+            "pointer": 574620512,
+            "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+            "size": 39168
+          },
+          {
+            "block": [
+              574659708,
+              65564,
+              2147483648
+            ],
+            "pointer": 574659728,
+            "sha256": "de2f256064a0af797747c2b97505dc0b9f3df0de4f489eac731c23ae9ca9cc31",
+            "size": 65536
+          }
+        ],
+        "hardware_tail_executed": false,
+        "outcome": "initialized_before_peripherals",
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            44,
+            2684354560
+          ],
+          [
+            574620280,
+            120,
+            2147483648
+          ],
+          [
+            574620412,
+            20,
+            2147483648
+          ],
+          [
+            574620444,
+            16,
+            2147483648
+          ],
+          [
+            574620472,
+            16,
+            2147483648
+          ],
+          [
+            574620500,
+            39196,
+            2147483648
+          ],
+          [
+            574659708,
+            65564,
+            2147483648
+          ],
+          [
+            574725284,
+            25424,
+            1073741824
+          ]
+        ],
+        "pool_size": 131072,
+        "registered_handlers": {
+          "10": 268518524,
+          "11": 268518584,
+          "19": 268518044,
+          "20": 268518108,
+          "21": 268518328
+        },
+        "retry_executed": false,
+        "stop": "0x100147e3",
+        "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+      },
+      "video_mode_word": 0
+    },
+    {
+      "bitmap": 0,
+      "completed_lifecycles": 0,
+      "copies": 1,
+      "engine_packets": [
+        {
+          "queue": 0,
+          "type": 24
+        },
+        {
+          "queue": 0,
+          "words": [
+            13,
+            0,
+            0,
+            574620076
+          ]
+        }
+      ],
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_unchanged": true,
+      "outcome": "pre_peripheral_prepare",
+      "output_layout": {
+        "all_spans_inside_original_allocations": true,
+        "buffers_unchanged": true,
+        "first_slot_bytes": 8192,
+        "first_slots": [
+          574620496,
+          574628688,
+          574636880,
+          574645072
+        ],
+        "first_unused_tail": 6400,
+        "second_slot_bytes": 16384,
+        "second_slots": [
+          574659696,
+          574676080,
+          574692464,
+          574708848
+        ],
+        "stride": 4
+      },
+      "page_bitmap": 1,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2147483648
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          2147483648
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          44,
+          2684354560
+        ],
+        [
+          574620280,
+          120,
+          2147483648
+        ],
+        [
+          574620412,
+          20,
+          2147483648
+        ],
+        [
+          574620444,
+          16,
+          2147483648
+        ],
+        [
+          574620472,
+          39196,
+          2147483648
+        ],
+        [
+          574659680,
+          65564,
+          2147483648
+        ],
+        [
+          574725256,
+          25452,
+          1073741824
+        ]
+      ],
+      "prepare_stop": "0x10014baf",
+      "prepare_stride": 4,
+      "rejected_before_execution": [
+        "0x10013c33",
+        "0x10014baf",
+        "0x10014bb8",
+        "0x10014bc3",
+        "0x1001451c",
+        "0x10015438",
+        "0x10015648",
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "separate_bih_chunk": true,
+      "stages": [
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "698d6c5d85c3acf8e670d104423fdcdb8dcec6e7bad342c2db9bb852980fabf8",
+          "phase": "admission",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 0,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "098e368b8aebe54cb267d40ad8e80e0692f6557249fe8c18389c43cd378fddf0"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "698d6c5d85c3acf8e670d104423fdcdb8dcec6e7bad342c2db9bb852980fabf8",
+          "phase": "job_endings",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "b10b588dcbf71214483cb918493048c6a1da9f119a5f61fef25a84f94eed4f6e"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "698d6c5d85c3acf8e670d104423fdcdb8dcec6e7bad342c2db9bb852980fabf8",
+          "phase": "printmgr_request",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "4b8c354271e8a9c7167fe897b77c06a92d6b13efecad32aa6b8ccc09eef9dd84"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "698d6c5d85c3acf8e670d104423fdcdb8dcec6e7bad342c2db9bb852980fabf8",
+          "phase": "video_queued",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "4b8c354271e8a9c7167fe897b77c06a92d6b13efecad32aa6b8ccc09eef9dd84"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "698d6c5d85c3acf8e670d104423fdcdb8dcec6e7bad342c2db9bb852980fabf8",
+          "phase": "prepare_boundary",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "4b8c354271e8a9c7167fe897b77c06a92d6b13efecad32aa6b8ccc09eef9dd84"
+        }
+      ],
+      "status": "pass",
+      "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+      "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+      "tracked_stores": [
+        {
+          "address": 268628156,
+          "field": "video_irq_mode",
+          "pc": "0x10014bac",
+          "phase": "video_prepare",
+          "size": 4,
+          "value": 0
+        }
+      ],
+      "video_initialization": {
+        "allocations": [
+          {
+            "block": [
+              574620472,
+              39196,
+              2147483648
+            ],
+            "pointer": 574620496,
+            "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+            "size": 39168
+          },
+          {
+            "block": [
+              574659680,
+              65564,
+              2147483648
+            ],
+            "pointer": 574659696,
+            "sha256": "f7701dc18296bf8e27dae431fcbe3e981bb869bf80ac2e6a173b3152820c8853",
+            "size": 65536
+          }
+        ],
+        "hardware_tail_executed": false,
+        "outcome": "initialized_before_peripherals",
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            44,
+            2684354560
+          ],
+          [
+            574620280,
+            120,
+            2147483648
+          ],
+          [
+            574620412,
+            20,
+            2147483648
+          ],
+          [
+            574620444,
+            16,
+            2147483648
+          ],
+          [
+            574620472,
+            39196,
+            2147483648
+          ],
+          [
+            574659680,
+            65564,
+            2147483648
+          ],
+          [
+            574725256,
+            25452,
+            1073741824
+          ]
+        ],
+        "pool_size": 131072,
+        "registered_handlers": {
+          "10": 268518524,
+          "11": 268518584,
+          "19": 268518044,
+          "20": 268518108,
+          "21": 268518328
+        },
+        "retry_executed": false,
+        "stop": "0x100147e3",
+        "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+      },
+      "video_mode_word": 0
+    },
+    {
+      "bitmap": 0,
+      "completed_lifecycles": 0,
+      "copies": 2,
+      "engine_packets": [
+        {
+          "queue": 0,
+          "type": 24
+        },
+        {
+          "queue": 0,
+          "words": [
+            13,
+            0,
+            0,
+            574620076
+          ]
+        }
+      ],
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_unchanged": true,
+      "outcome": "pre_peripheral_prepare",
+      "output_layout": {
+        "all_spans_inside_original_allocations": true,
+        "buffers_unchanged": true,
+        "first_slot_bytes": 8192,
+        "first_slots": [
+          574620512,
+          574628704,
+          574636896,
+          574645088
+        ],
+        "first_unused_tail": 6400,
+        "second_slot_bytes": 16384,
+        "second_slots": [
+          574659728,
+          574676112,
+          574692496,
+          574708880
+        ],
+        "stride": 4
+      },
+      "page_bitmap": 1,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2147483648
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          2147483648
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          44,
+          2684354560
+        ],
+        [
+          574620280,
+          120,
+          2147483648
+        ],
+        [
+          574620412,
+          20,
+          2147483648
+        ],
+        [
+          574620444,
+          16,
+          2147483648
+        ],
+        [
+          574620472,
+          16,
+          2147483648
+        ],
+        [
+          574620500,
+          39196,
+          2147483648
+        ],
+        [
+          574659708,
+          65564,
+          2147483648
+        ],
+        [
+          574725284,
+          25424,
+          1073741824
+        ]
+      ],
+      "prepare_stop": "0x10014baf",
+      "prepare_stride": 4,
+      "rejected_before_execution": [
+        "0x10013c33",
+        "0x10014baf",
+        "0x10014bb8",
+        "0x10014bc3",
+        "0x1001451c",
+        "0x10015438",
+        "0x10015648",
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "separate_bih_chunk": true,
+      "stages": [
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "182e04f3790d6b53ef8b1962102a554b7e343e6898fde8f6eb16bee2a763ffb6",
+          "phase": "admission",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 0,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "807b2e01f8713353fa0d93e749ab00e6b95f5c7a826f87eb5ced8e1900e45348"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "182e04f3790d6b53ef8b1962102a554b7e343e6898fde8f6eb16bee2a763ffb6",
+          "phase": "job_endings",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 2,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "0c0314adf32a642505e33c18ad36037131fdd5002068fa8859435881a023c48f"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "182e04f3790d6b53ef8b1962102a554b7e343e6898fde8f6eb16bee2a763ffb6",
+          "phase": "printmgr_request",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 2,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "5f382402125416302766ab816fe96f7b4aba38f98a974e34b49bad973e3a29ec"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "182e04f3790d6b53ef8b1962102a554b7e343e6898fde8f6eb16bee2a763ffb6",
+          "phase": "video_queued",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 2,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "5f382402125416302766ab816fe96f7b4aba38f98a974e34b49bad973e3a29ec"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "182e04f3790d6b53ef8b1962102a554b7e343e6898fde8f6eb16bee2a763ffb6",
+          "phase": "prepare_boundary",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 2,
+          "source_kind": 1,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "5f382402125416302766ab816fe96f7b4aba38f98a974e34b49bad973e3a29ec"
+        }
+      ],
+      "status": "pass",
+      "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+      "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+      "tracked_stores": [
+        {
+          "address": 268628156,
+          "field": "video_irq_mode",
+          "pc": "0x10014bac",
+          "phase": "video_prepare",
+          "size": 4,
+          "value": 0
+        }
+      ],
+      "video_initialization": {
+        "allocations": [
+          {
+            "block": [
+              574620500,
+              39196,
+              2147483648
+            ],
+            "pointer": 574620512,
+            "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+            "size": 39168
+          },
+          {
+            "block": [
+              574659708,
+              65564,
+              2147483648
+            ],
+            "pointer": 574659728,
+            "sha256": "f7701dc18296bf8e27dae431fcbe3e981bb869bf80ac2e6a173b3152820c8853",
+            "size": 65536
+          }
+        ],
+        "hardware_tail_executed": false,
+        "outcome": "initialized_before_peripherals",
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            44,
+            2684354560
+          ],
+          [
+            574620280,
+            120,
+            2147483648
+          ],
+          [
+            574620412,
+            20,
+            2147483648
+          ],
+          [
+            574620444,
+            16,
+            2147483648
+          ],
+          [
+            574620472,
+            16,
+            2147483648
+          ],
+          [
+            574620500,
+            39196,
+            2147483648
+          ],
+          [
+            574659708,
+            65564,
+            2147483648
+          ],
+          [
+            574725284,
+            25424,
+            1073741824
+          ]
+        ],
+        "pool_size": 131072,
+        "registered_handlers": {
+          "10": 268518524,
+          "11": 268518584,
+          "19": 268518044,
+          "20": 268518108,
+          "21": 268518328
+        },
+        "retry_executed": false,
+        "stop": "0x100147e3",
+        "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+      },
+      "video_mode_word": 0
+    },
+    {
+      "bitmap": 1,
+      "completed_lifecycles": 0,
+      "copies": 1,
+      "engine_packets": [
+        {
+          "queue": 0,
+          "type": 24
+        },
+        {
+          "queue": 0,
+          "words": [
+            13,
+            0,
+            0,
+            574620076
+          ]
+        }
+      ],
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_unchanged": true,
+      "outcome": "pre_peripheral_prepare",
+      "output_layout": {
+        "all_spans_inside_original_allocations": true,
+        "buffers_unchanged": true,
+        "first_slot_bytes": 8192,
+        "first_slots": [
+          574620496,
+          574628688,
+          574636880,
+          574645072
+        ],
+        "first_unused_tail": 6400,
+        "second_slot_bytes": 16384,
+        "second_slots": [
+          574659696,
+          574676080,
+          574692464,
+          574708848
+        ],
+        "stride": 4
+      },
+      "page_bitmap": 1,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2147483648
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          2147483648
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          44,
+          2684354560
+        ],
+        [
+          574620280,
+          120,
+          2147483648
+        ],
+        [
+          574620412,
+          20,
+          2147483648
+        ],
+        [
+          574620444,
+          16,
+          2147483648
+        ],
+        [
+          574620472,
+          39196,
+          2147483648
+        ],
+        [
+          574659680,
+          65564,
+          2147483648
+        ],
+        [
+          574725256,
+          25452,
+          1073741824
+        ]
+      ],
+      "prepare_stop": "0x10014baf",
+      "prepare_stride": 4,
+      "rejected_before_execution": [
+        "0x10013c33",
+        "0x10014baf",
+        "0x10014bb8",
+        "0x10014bc3",
+        "0x1001451c",
+        "0x10015438",
+        "0x10015648",
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "separate_bih_chunk": true,
+      "stages": [
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "b7baa76bcd32c9fd90aa4c0a4eb55b2ed1ca7a2b5a59bb1c0851968e55163c26",
+          "phase": "admission",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 0,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "098e368b8aebe54cb267d40ad8e80e0692f6557249fe8c18389c43cd378fddf0"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "b7baa76bcd32c9fd90aa4c0a4eb55b2ed1ca7a2b5a59bb1c0851968e55163c26",
+          "phase": "job_endings",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "b10b588dcbf71214483cb918493048c6a1da9f119a5f61fef25a84f94eed4f6e"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "b7baa76bcd32c9fd90aa4c0a4eb55b2ed1ca7a2b5a59bb1c0851968e55163c26",
+          "phase": "printmgr_request",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "4b8c354271e8a9c7167fe897b77c06a92d6b13efecad32aa6b8ccc09eef9dd84"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "b7baa76bcd32c9fd90aa4c0a4eb55b2ed1ca7a2b5a59bb1c0851968e55163c26",
+          "phase": "video_queued",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "4b8c354271e8a9c7167fe897b77c06a92d6b13efecad32aa6b8ccc09eef9dd84"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "b7baa76bcd32c9fd90aa4c0a4eb55b2ed1ca7a2b5a59bb1c0851968e55163c26",
+          "phase": "prepare_boundary",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "4b8c354271e8a9c7167fe897b77c06a92d6b13efecad32aa6b8ccc09eef9dd84"
+        }
+      ],
+      "status": "pass",
+      "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+      "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+      "tracked_stores": [
+        {
+          "address": 268628156,
+          "field": "video_irq_mode",
+          "pc": "0x10014bac",
+          "phase": "video_prepare",
+          "size": 4,
+          "value": 0
+        }
+      ],
+      "video_initialization": {
+        "allocations": [
+          {
+            "block": [
+              574620472,
+              39196,
+              2147483648
+            ],
+            "pointer": 574620496,
+            "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+            "size": 39168
+          },
+          {
+            "block": [
+              574659680,
+              65564,
+              2147483648
+            ],
+            "pointer": 574659696,
+            "sha256": "f7701dc18296bf8e27dae431fcbe3e981bb869bf80ac2e6a173b3152820c8853",
+            "size": 65536
+          }
+        ],
+        "hardware_tail_executed": false,
+        "outcome": "initialized_before_peripherals",
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            44,
+            2684354560
+          ],
+          [
+            574620280,
+            120,
+            2147483648
+          ],
+          [
+            574620412,
+            20,
+            2147483648
+          ],
+          [
+            574620444,
+            16,
+            2147483648
+          ],
+          [
+            574620472,
+            39196,
+            2147483648
+          ],
+          [
+            574659680,
+            65564,
+            2147483648
+          ],
+          [
+            574725256,
+            25452,
+            1073741824
+          ]
+        ],
+        "pool_size": 131072,
+        "registered_handlers": {
+          "10": 268518524,
+          "11": 268518584,
+          "19": 268518044,
+          "20": 268518108,
+          "21": 268518328
+        },
+        "retry_executed": false,
+        "stop": "0x100147e3",
+        "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+      },
+      "video_mode_word": 0
+    },
+    {
+      "bitmap": 1,
+      "completed_lifecycles": 0,
+      "copies": 2,
+      "engine_packets": [
+        {
+          "queue": 0,
+          "type": 24
+        },
+        {
+          "queue": 0,
+          "words": [
+            13,
+            0,
+            0,
+            574620076
+          ]
+        }
+      ],
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_unchanged": true,
+      "outcome": "pre_peripheral_prepare",
+      "output_layout": {
+        "all_spans_inside_original_allocations": true,
+        "buffers_unchanged": true,
+        "first_slot_bytes": 8192,
+        "first_slots": [
+          574620512,
+          574628704,
+          574636896,
+          574645088
+        ],
+        "first_unused_tail": 6400,
+        "second_slot_bytes": 16384,
+        "second_slots": [
+          574659728,
+          574676112,
+          574692496,
+          574708880
+        ],
+        "stride": 4
+      },
+      "page_bitmap": 1,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2147483648
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          2147483648
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          44,
+          2684354560
+        ],
+        [
+          574620280,
+          120,
+          2147483648
+        ],
+        [
+          574620412,
+          20,
+          2147483648
+        ],
+        [
+          574620444,
+          16,
+          2147483648
+        ],
+        [
+          574620472,
+          16,
+          2147483648
+        ],
+        [
+          574620500,
+          39196,
+          2147483648
+        ],
+        [
+          574659708,
+          65564,
+          2147483648
+        ],
+        [
+          574725284,
+          25424,
+          1073741824
+        ]
+      ],
+      "prepare_stop": "0x10014baf",
+      "prepare_stride": 4,
+      "rejected_before_execution": [
+        "0x10013c33",
+        "0x10014baf",
+        "0x10014bb8",
+        "0x10014bc3",
+        "0x1001451c",
+        "0x10015438",
+        "0x10015648",
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "separate_bih_chunk": true,
+      "stages": [
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "c24a97a45892a0de6b3580aac4e00058b111d5ba45769901172fd610114cc283",
+          "phase": "admission",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 0,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "807b2e01f8713353fa0d93e749ab00e6b95f5c7a826f87eb5ced8e1900e45348"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "c24a97a45892a0de6b3580aac4e00058b111d5ba45769901172fd610114cc283",
+          "phase": "job_endings",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 2,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "0c0314adf32a642505e33c18ad36037131fdd5002068fa8859435881a023c48f"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "c24a97a45892a0de6b3580aac4e00058b111d5ba45769901172fd610114cc283",
+          "phase": "printmgr_request",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 2,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "5f382402125416302766ab816fe96f7b4aba38f98a974e34b49bad973e3a29ec"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "c24a97a45892a0de6b3580aac4e00058b111d5ba45769901172fd610114cc283",
+          "phase": "video_queued",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 2,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "5f382402125416302766ab816fe96f7b4aba38f98a974e34b49bad973e3a29ec"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "c24a97a45892a0de6b3580aac4e00058b111d5ba45769901172fd610114cc283",
+          "phase": "prepare_boundary",
+          "raw_irq_flag": 0,
+          "references": 2,
+          "scheduled_copies": 2,
+          "source_kind": 0,
+          "work_bih_fields": [
+            32,
+            4,
+            4
+          ],
+          "work_sha256": "5f382402125416302766ab816fe96f7b4aba38f98a974e34b49bad973e3a29ec"
+        }
+      ],
+      "status": "pass",
+      "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+      "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+      "tracked_stores": [
+        {
+          "address": 268628156,
+          "field": "video_irq_mode",
+          "pc": "0x10014bac",
+          "phase": "video_prepare",
+          "size": 4,
+          "value": 0
+        }
+      ],
+      "video_initialization": {
+        "allocations": [
+          {
+            "block": [
+              574620500,
+              39196,
+              2147483648
+            ],
+            "pointer": 574620512,
+            "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+            "size": 39168
+          },
+          {
+            "block": [
+              574659708,
+              65564,
+              2147483648
+            ],
+            "pointer": 574659728,
+            "sha256": "f7701dc18296bf8e27dae431fcbe3e981bb869bf80ac2e6a173b3152820c8853",
+            "size": 65536
+          }
+        ],
+        "hardware_tail_executed": false,
+        "outcome": "initialized_before_peripherals",
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            44,
+            2684354560
+          ],
+          [
+            574620280,
+            120,
+            2147483648
+          ],
+          [
+            574620412,
+            20,
+            2147483648
+          ],
+          [
+            574620444,
+            16,
+            2147483648
+          ],
+          [
+            574620472,
+            16,
+            2147483648
+          ],
+          [
+            574620500,
+            39196,
+            2147483648
+          ],
+          [
+            574659708,
+            65564,
+            2147483648
+          ],
+          [
+            574725284,
+            25424,
+            1073741824
+          ]
+        ],
+        "pool_size": 131072,
+        "registered_handlers": {
+          "10": 268518524,
+          "11": 268518584,
+          "19": 268518044,
+          "20": 268518108,
+          "21": 268518328
+        },
+        "retry_executed": false,
+        "stop": "0x100147e3",
+        "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+      },
+      "video_mode_word": 0
+    },
+    {
+      "bitmap": 0,
+      "completed_lifecycles": 0,
+      "copies": 1,
+      "engine_packets": [
+        {
+          "queue": 0,
+          "type": 24
+        },
+        {
+          "queue": 0,
+          "words": [
+            13,
+            0,
+            0,
+            574620076
+          ]
+        }
+      ],
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_unchanged": true,
+      "outcome": "zero_stride_predivision_stop",
+      "output_layout": null,
+      "page_bitmap": 0,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2147483648
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          2147483648
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          44,
+          2684354560
+        ],
+        [
+          574620280,
+          120,
+          2147483648
+        ],
+        [
+          574620412,
+          20,
+          2147483648
+        ],
+        [
+          574620444,
+          16,
+          2147483648
+        ],
+        [
+          574620472,
+          39196,
+          2147483648
+        ],
+        [
+          574659680,
+          65564,
+          2147483648
+        ],
+        [
+          574725256,
+          25452,
+          1073741824
+        ]
+      ],
+      "prepare_stop": "0x10014a51",
+      "prepare_stride": 0,
+      "rejected_before_execution": [
+        "0x10013c33",
+        "0x10014baf",
+        "0x10014bb8",
+        "0x10014bc3",
+        "0x1001451c",
+        "0x10015438",
+        "0x10015648",
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "separate_bih_chunk": true,
+      "stages": [
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "834e4462815c491a8a21bba9c1e23383008d1fa82421ab0f4df1b71ef601eb6a",
+          "phase": "admission",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 0,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "4eb3d783ce14c64994ba0b11ff419ee61ef8e9302f91a76c16a0f5afb500b423"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "834e4462815c491a8a21bba9c1e23383008d1fa82421ab0f4df1b71ef601eb6a",
+          "phase": "job_endings",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "02ba93ebbdd404e470c8d8def48e21fdf6ce70ac13b42ebff5fe4553267fef2d"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "834e4462815c491a8a21bba9c1e23383008d1fa82421ab0f4df1b71ef601eb6a",
+          "phase": "printmgr_request",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "02ba93ebbdd404e470c8d8def48e21fdf6ce70ac13b42ebff5fe4553267fef2d"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "834e4462815c491a8a21bba9c1e23383008d1fa82421ab0f4df1b71ef601eb6a",
+          "phase": "video_queued",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "02ba93ebbdd404e470c8d8def48e21fdf6ce70ac13b42ebff5fe4553267fef2d"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "834e4462815c491a8a21bba9c1e23383008d1fa82421ab0f4df1b71ef601eb6a",
+          "phase": "prepare_boundary",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "02ba93ebbdd404e470c8d8def48e21fdf6ce70ac13b42ebff5fe4553267fef2d"
+        }
+      ],
+      "status": "pass",
+      "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+      "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+      "tracked_stores": [],
+      "video_initialization": {
+        "allocations": [
+          {
+            "block": [
+              574620472,
+              39196,
+              2147483648
+            ],
+            "pointer": 574620496,
+            "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+            "size": 39168
+          },
+          {
+            "block": [
+              574659680,
+              65564,
+              2147483648
+            ],
+            "pointer": 574659696,
+            "sha256": "de2f256064a0af797747c2b97505dc0b9f3df0de4f489eac731c23ae9ca9cc31",
+            "size": 65536
+          }
+        ],
+        "hardware_tail_executed": false,
+        "outcome": "initialized_before_peripherals",
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            44,
+            2684354560
+          ],
+          [
+            574620280,
+            120,
+            2147483648
+          ],
+          [
+            574620412,
+            20,
+            2147483648
+          ],
+          [
+            574620444,
+            16,
+            2147483648
+          ],
+          [
+            574620472,
+            39196,
+            2147483648
+          ],
+          [
+            574659680,
+            65564,
+            2147483648
+          ],
+          [
+            574725256,
+            25452,
+            1073741824
+          ]
+        ],
+        "pool_size": 131072,
+        "registered_handlers": {
+          "10": 268518524,
+          "11": 268518584,
+          "19": 268518044,
+          "20": 268518108,
+          "21": 268518328
+        },
+        "retry_executed": false,
+        "stop": "0x100147e3",
+        "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+      },
+      "video_mode_word": 0
+    },
+    {
+      "bitmap": 0,
+      "completed_lifecycles": 0,
+      "copies": 1,
+      "engine_packets": [
+        {
+          "queue": 0,
+          "type": 24
+        },
+        {
+          "queue": 0,
+          "words": [
+            13,
+            0,
+            0,
+            574620076
+          ]
+        }
+      ],
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "image_unchanged": true,
+      "outcome": "zero_stride_predivision_stop",
+      "output_layout": null,
+      "page_bitmap": 1,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2684354560
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          16,
+          2147483648
+        ],
+        [
+          574619920,
+          40,
+          2147483648
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          120,
+          2147483648
+        ],
+        [
+          574620356,
+          20,
+          2147483648
+        ],
+        [
+          574620388,
+          16,
+          2147483648
+        ],
+        [
+          574620416,
+          39196,
+          2147483648
+        ],
+        [
+          574659624,
+          65564,
+          2147483648
+        ],
+        [
+          574725200,
+          25508,
+          1073741824
+        ]
+      ],
+      "prepare_stop": "0x10014a51",
+      "prepare_stride": 0,
+      "rejected_before_execution": [
+        "0x10013c33",
+        "0x10014baf",
+        "0x10014bb8",
+        "0x10014bc3",
+        "0x1001451c",
+        "0x10015438",
+        "0x10015648",
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "separate_bih_chunk": false,
+      "stages": [
+        {
+          "input_pointer": 574619664,
+          "payload_sha256": "1862787c62490f04e715253e7711617fbbf4467d9e42478ff159312375ba7af1",
+          "phase": "admission",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 0,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "13f86d124713fd0179c6f6b57e03626ac95c64e97cb4d07001a690bccec1465b"
+        },
+        {
+          "input_pointer": 574619664,
+          "payload_sha256": "1862787c62490f04e715253e7711617fbbf4467d9e42478ff159312375ba7af1",
+          "phase": "job_endings",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "edec8d699ea54c3212eb7e5e44c664f27fc3187901ae0ee8866bfb4f60251fc0"
+        },
+        {
+          "input_pointer": 574619664,
+          "payload_sha256": "1862787c62490f04e715253e7711617fbbf4467d9e42478ff159312375ba7af1",
+          "phase": "printmgr_request",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "edec8d699ea54c3212eb7e5e44c664f27fc3187901ae0ee8866bfb4f60251fc0"
+        },
+        {
+          "input_pointer": 574619664,
+          "payload_sha256": "1862787c62490f04e715253e7711617fbbf4467d9e42478ff159312375ba7af1",
+          "phase": "video_queued",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "edec8d699ea54c3212eb7e5e44c664f27fc3187901ae0ee8866bfb4f60251fc0"
+        },
+        {
+          "input_pointer": 574619664,
+          "payload_sha256": "1862787c62490f04e715253e7711617fbbf4467d9e42478ff159312375ba7af1",
+          "phase": "prepare_boundary",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "edec8d699ea54c3212eb7e5e44c664f27fc3187901ae0ee8866bfb4f60251fc0"
+        }
+      ],
+      "status": "pass",
+      "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+      "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+      "tracked_stores": [],
+      "video_initialization": {
+        "allocations": [
+          {
+            "block": [
+              574620416,
+              39196,
+              2147483648
+            ],
+            "pointer": 574620432,
+            "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+            "size": 39168
+          },
+          {
+            "block": [
+              574659624,
+              65564,
+              2147483648
+            ],
+            "pointer": 574659648,
+            "sha256": "de2f256064a0af797747c2b97505dc0b9f3df0de4f489eac731c23ae9ca9cc31",
+            "size": 65536
+          }
+        ],
+        "hardware_tail_executed": false,
+        "outcome": "initialized_before_peripherals",
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2684354560
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            16,
+            2147483648
+          ],
+          [
+            574619920,
+            40,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            120,
+            2147483648
+          ],
+          [
+            574620356,
+            20,
+            2147483648
+          ],
+          [
+            574620388,
+            16,
+            2147483648
+          ],
+          [
+            574620416,
+            39196,
+            2147483648
+          ],
+          [
+            574659624,
+            65564,
+            2147483648
+          ],
+          [
+            574725200,
+            25508,
+            1073741824
+          ]
+        ],
+        "pool_size": 131072,
+        "registered_handlers": {
+          "10": 268518524,
+          "11": 268518584,
+          "19": 268518044,
+          "20": 268518108,
+          "21": 268518328
+        },
+        "retry_executed": false,
+        "stop": "0x100147e3",
+        "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+      },
+      "video_mode_word": 0
+    },
+    {
+      "bitmap": 0,
+      "completed_lifecycles": 0,
+      "copies": 1,
+      "engine_packets": [
+        {
+          "queue": 0,
+          "type": 24
+        },
+        {
+          "queue": 0,
+          "words": [
+            13,
+            0,
+            0,
+            574620076
+          ]
+        }
+      ],
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_unchanged": true,
+      "outcome": "zero_stride_predivision_stop",
+      "output_layout": null,
+      "page_bitmap": 0,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2147483648
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          2147483648
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          44,
+          2684354560
+        ],
+        [
+          574620280,
+          120,
+          2147483648
+        ],
+        [
+          574620412,
+          20,
+          2147483648
+        ],
+        [
+          574620444,
+          16,
+          2147483648
+        ],
+        [
+          574620472,
+          39196,
+          2147483648
+        ],
+        [
+          574659680,
+          65564,
+          2147483648
+        ],
+        [
+          574725256,
+          25452,
+          1073741824
+        ]
+      ],
+      "prepare_stop": "0x10014a51",
+      "prepare_stride": 0,
+      "rejected_before_execution": [
+        "0x10013c33",
+        "0x10014baf",
+        "0x10014bb8",
+        "0x10014bc3",
+        "0x1001451c",
+        "0x10015438",
+        "0x10015648",
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "separate_bih_chunk": true,
+      "stages": [
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "698d6c5d85c3acf8e670d104423fdcdb8dcec6e7bad342c2db9bb852980fabf8",
+          "phase": "admission",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 0,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "0c49f45ec8293687c847bfda930cefebb16200de4827490f160c08c95f5768cb"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "698d6c5d85c3acf8e670d104423fdcdb8dcec6e7bad342c2db9bb852980fabf8",
+          "phase": "job_endings",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "751585c79b4f62daa1aed576621e619a2aba1728f5d362709ae4b4a02f160385"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "698d6c5d85c3acf8e670d104423fdcdb8dcec6e7bad342c2db9bb852980fabf8",
+          "phase": "printmgr_request",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "19ef1c549618bdc15eceddca1e828a0602d474af93ee1d346202d32bc1085036"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "698d6c5d85c3acf8e670d104423fdcdb8dcec6e7bad342c2db9bb852980fabf8",
+          "phase": "video_queued",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "19ef1c549618bdc15eceddca1e828a0602d474af93ee1d346202d32bc1085036"
+        },
+        {
+          "input_pointer": 574620240,
+          "payload_sha256": "698d6c5d85c3acf8e670d104423fdcdb8dcec6e7bad342c2db9bb852980fabf8",
+          "phase": "prepare_boundary",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "19ef1c549618bdc15eceddca1e828a0602d474af93ee1d346202d32bc1085036"
+        }
+      ],
+      "status": "pass",
+      "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+      "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+      "tracked_stores": [],
+      "video_initialization": {
+        "allocations": [
+          {
+            "block": [
+              574620472,
+              39196,
+              2147483648
+            ],
+            "pointer": 574620496,
+            "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+            "size": 39168
+          },
+          {
+            "block": [
+              574659680,
+              65564,
+              2147483648
+            ],
+            "pointer": 574659696,
+            "sha256": "f7701dc18296bf8e27dae431fcbe3e981bb869bf80ac2e6a173b3152820c8853",
+            "size": 65536
+          }
+        ],
+        "hardware_tail_executed": false,
+        "outcome": "initialized_before_peripherals",
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            44,
+            2684354560
+          ],
+          [
+            574620280,
+            120,
+            2147483648
+          ],
+          [
+            574620412,
+            20,
+            2147483648
+          ],
+          [
+            574620444,
+            16,
+            2147483648
+          ],
+          [
+            574620472,
+            39196,
+            2147483648
+          ],
+          [
+            574659680,
+            65564,
+            2147483648
+          ],
+          [
+            574725256,
+            25452,
+            1073741824
+          ]
+        ],
+        "pool_size": 131072,
+        "registered_handlers": {
+          "10": 268518524,
+          "11": 268518584,
+          "19": 268518044,
+          "20": 268518108,
+          "21": 268518328
+        },
+        "retry_executed": false,
+        "stop": "0x100147e3",
+        "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+      },
+      "video_mode_word": 0
+    },
+    {
+      "bitmap": 0,
+      "completed_lifecycles": 0,
+      "copies": 1,
+      "engine_packets": [
+        {
+          "queue": 0,
+          "type": 24
+        },
+        {
+          "queue": 0,
+          "words": [
+            13,
+            0,
+            0,
+            574620076
+          ]
+        }
+      ],
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "image_unchanged": true,
+      "outcome": "zero_stride_predivision_stop",
+      "output_layout": null,
+      "page_bitmap": 1,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          2684354560
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          16,
+          2147483648
+        ],
+        [
+          574619920,
+          40,
+          2147483648
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          120,
+          2147483648
+        ],
+        [
+          574620356,
+          20,
+          2147483648
+        ],
+        [
+          574620388,
+          16,
+          2147483648
+        ],
+        [
+          574620416,
+          39196,
+          2147483648
+        ],
+        [
+          574659624,
+          65564,
+          2147483648
+        ],
+        [
+          574725200,
+          25508,
+          1073741824
+        ]
+      ],
+      "prepare_stop": "0x10014a51",
+      "prepare_stride": 0,
+      "rejected_before_execution": [
+        "0x10013c33",
+        "0x10014baf",
+        "0x10014bb8",
+        "0x10014bc3",
+        "0x1001451c",
+        "0x10015438",
+        "0x10015648",
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "separate_bih_chunk": false,
+      "stages": [
+        {
+          "input_pointer": 574619664,
+          "payload_sha256": "87364c726e97c791fb01aeb86122be8f4ac43a107041f9a4d4bc5d8f576ad78b",
+          "phase": "admission",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 0,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "8c921313937a5f9b0bf2d10db11e4e17e0578350a09602e93518359f32ef10b8"
+        },
+        {
+          "input_pointer": 574619664,
+          "payload_sha256": "87364c726e97c791fb01aeb86122be8f4ac43a107041f9a4d4bc5d8f576ad78b",
+          "phase": "job_endings",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "067af59a3012105dbf17bf82d6eeb25e1231a5a53da4ef7f07d891a1aba70503"
+        },
+        {
+          "input_pointer": 574619664,
+          "payload_sha256": "87364c726e97c791fb01aeb86122be8f4ac43a107041f9a4d4bc5d8f576ad78b",
+          "phase": "printmgr_request",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "5c481278268490ddf1b5e5682f8b091b8fb48524405a9106ce0cb23f048d6638"
+        },
+        {
+          "input_pointer": 574619664,
+          "payload_sha256": "87364c726e97c791fb01aeb86122be8f4ac43a107041f9a4d4bc5d8f576ad78b",
+          "phase": "video_queued",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "5c481278268490ddf1b5e5682f8b091b8fb48524405a9106ce0cb23f048d6638"
+        },
+        {
+          "input_pointer": 574619664,
+          "payload_sha256": "87364c726e97c791fb01aeb86122be8f4ac43a107041f9a4d4bc5d8f576ad78b",
+          "phase": "prepare_boundary",
+          "raw_irq_flag": 0,
+          "references": 1,
+          "scheduled_copies": 1,
+          "source_kind": 1,
+          "work_bih_fields": [
+            0,
+            0,
+            0
+          ],
+          "work_sha256": "5c481278268490ddf1b5e5682f8b091b8fb48524405a9106ce0cb23f048d6638"
+        }
+      ],
+      "status": "pass",
+      "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+      "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+      "tracked_stores": [],
+      "video_initialization": {
+        "allocations": [
+          {
+            "block": [
+              574620416,
+              39196,
+              2147483648
+            ],
+            "pointer": 574620432,
+            "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+            "size": 39168
+          },
+          {
+            "block": [
+              574659624,
+              65564,
+              2147483648
+            ],
+            "pointer": 574659648,
+            "sha256": "f7701dc18296bf8e27dae431fcbe3e981bb869bf80ac2e6a173b3152820c8853",
+            "size": 65536
+          }
+        ],
+        "hardware_tail_executed": false,
+        "outcome": "initialized_before_peripherals",
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2684354560
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            16,
+            2147483648
+          ],
+          [
+            574619920,
+            40,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            120,
+            2147483648
+          ],
+          [
+            574620356,
+            20,
+            2147483648
+          ],
+          [
+            574620388,
+            16,
+            2147483648
+          ],
+          [
+            574620416,
+            39196,
+            2147483648
+          ],
+          [
+            574659624,
+            65564,
+            2147483648
+          ],
+          [
+            574725200,
+            25508,
+            1073741824
+          ]
+        ],
+        "pool_size": 131072,
+        "registered_handlers": {
+          "10": 268518524,
+          "11": 268518584,
+          "19": 268518044,
+          "20": 268518108,
+          "21": 268518328
+        },
+        "retry_executed": false,
+        "stop": "0x100147e3",
+        "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+      },
+      "video_mode_word": 0
+    }
+  ],
+  "handoff_dimension_controls": 4,
+  "handoff_findings": [
+    "Eight additional serialized continuations retain actual parser-owned allocations through END_PAGE/END_DOC, original queue-1 scheduling, PrintMgr/media selection, original engine message-13-to-14 acknowledgement, queue-8 receipt and the RAM prefix of VideoThread prepare. Copies 1/2 and source kinds 0/1 are crossed with both allocation fills. These are not scheduled native page lifecycles.",
+    "All eight reach 0x10014baf before the first video peripheral access. The original prepare computes stride 4 and clears the video IRQ high bit from the still-zero work+0x74. Source kind 1 has selected the alternate-render branch, but that later render call and every peripheral instruction remain excluded.",
+    "No original store in these continuations changes work+0x74 or payload+0x54. The image pointer remains the original allocator return, references remain 1/2 and all image bytes remain unchanged. This path does not supply a late 16-byte prefix or establish the raw IRQ family.",
+    "Four missing-work-dimension controls reach the call at 0x10014a51 with zero stride. They stop before original division; neither a divide failure nor a hardware fault is executed. Page metadata that suppresses the BIH copy and absent separate BIH delivery remain distinct causes.",
+    "The byte-verified whole-decoded-image census finds one immediate S8I at base+116, the work constructor's zero store at 0x1000f271. This limited census does not cover aliases, wider stores, dynamic code or external writers.",
+    "Original queues, allocator, media matching and acknowledgement execute. Ready/online/media RAM and a 128-KiB pool remain explicit inputs. Original video initialization now allocates both output buffers, clears 260 state bytes, creates its embedded semaphore and registers handlers in RAM before its peripheral boundary. PrintMgr resumes and VideoThread entry still use specified cuts in fresh synthetic contexts; no original task schedule or complete hardware preparation is inferred.",
+    "The original video helpers request 39168 and 65536 bytes with allocator kind 2. The first is filled with 0xff, the second retains allocation-fill bytes. All four prepared source slots and four secondary slots fit inside the real allocations; at stride 4 their capacities are 8192 and 16384 bytes per slot, with 6400 unused bytes after the first ring. These output buffers are distinct from the parser source image and do not establish its missing prefix.",
+    "Two isolated idle allocation/release/reuse cases preserve parser owners and image bytes. Repeated allocation returns 0 without allocating; original frees clear both globals, repeated empty frees return 0, and later allocation reuses both addresses. Free marks the split blocks reusable without eagerly coalescing the partition. Four smaller-pool controls stop before either original retry sleep, preserving zero or one successful buffer allocation."
+  ],
+  "handoff_limits": "The additional continuations are serialized compositions of original routines with explicit task-entry cuts, supplied ready/media state and synthetic pool capacity. Engine startup message 24 is observed without executing its hardware handler; only the pure message-13 acknowledgement runs. No device readiness, mechanical operation, output packing, raw IRQ reachability, retirement, second-copy cursor restoration, native scheduling or completed page lifecycle is proved. Thirteen code-boundary controls reject omitted peripheral, render, raw-retirement, retry and custom-code entries before execution in each engine. The buffer-only controls reject six initialization/retry boundaries. The constructor prefix does not prove firmware boot, registered-handler behavior or device memory availability.",
+  "handoff_prepare_cases": 8,
+  "immediate_raw_mode_byte_stores": [
+    {
+      "bytes": "292474",
+      "operands": [
+        9,
+        2,
+        116
+      ],
+      "pc": "0x1000f271"
+    }
+  ],
+  "limits": "Synthetic single-thread RAM and seeded allocator/queue state; input callbacks, document begin/end, document publication and task readiness are explicit boundaries. Nonempty runs stop immediately after the first raw-list admission, with END_PAGE/END_DOC still queued. The raw IRQ flag is not forced, and those admission-only cases execute no raw retirement/VideoThread/PrintMgr/engine/custom instruction/MMIO/USB path. Zero completed page lifecycles or physical printing are claimed. Numeric chunk 12 exists in this stock ELF; its host header name is not proof of another model's support. The open parser grammar is unchanged.",
   "metadata_only_controls": 2,
   "qemu_version": "QEMU emulator version 11.1.1",
   "source_sha256": {
@@ -4378,6 +8466,7 @@
     "scripts/hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
     "scripts/hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
     "scripts/hp1020_qemu_timers.py": "34beea0dd76a324d546e38ebfe18603932c4afbd9133a9a37c98aaf775492f06",
+    "scripts/hp1020_raw_handoff.py": "0a3fffc4d35d8d19b1184113265fb888ddbbba8102509552b410194d8555f80a",
     "scripts/hp1020_stock_jobmgr_harness.py": "4c863cff55c7027ed3f348d188c93225dacc0c0442b9f71792c8db96ce7ced93",
     "scripts/hp1020_stock_lifecycle_harness.py": "d08e611620854498fa9fd65e809fd042219fdbb4e0093d051c8972fb0b433f95",
     "scripts/hp1020_stock_notifications.py": "d0acd7130585cc38a48368d2d10e26f2bef6534c9f124dfbae8b91991c98e9ca",
@@ -4388,12 +8477,765 @@
     "scripts/hp1020_stock_status_publication.py": "0f2276305116672937c0aa96fe9fd67c34dc84cc89ff1be77d286c1a926acea3",
     "scripts/hp1020_stock_status_queue.py": "6f34a9c83c5e01b65380f5acb80d068f75452dc841922ba9892a5cd82e21b634",
     "scripts/hp1020_stock_stop.py": "1f716972e7d044b070eff24b05e9ac7fcf532a54131f5c69e42276c6db987de0",
+    "scripts/hp1020_video_buffers.py": "a35533c553b4dcb9ca2e1d7bb7bc56675e14d43a122b59bddd22aa2d09a0e0c4",
     "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
     "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
     "scripts/hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
-    "scripts/validate-hp1020-raw-parser.py": "f80bf724d06a866d2f3639f02b19c696aad78216debc54889f47e84b28c98f07",
-    "scripts/validate-hp1020-raw-producer.py": "18f69b93eaa861eed57f379bf8d7226dda46c34a6adb0c656e66f985dcfbc833"
+    "scripts/validate-hp1020-raw-parser.py": "6cd7296b094271145f167a20865e961cb76b68d618466f2b33eac06f94299e50",
+    "scripts/validate-hp1020-raw-producer.py": "56011425ef7c8832b8090cdacafb4f8694d4ed48db76255a3cd31c6f2cf84154"
   },
   "status": "pass",
-  "stock_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d"
+  "stock_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "video_buffer_capacity_controls": 4,
+  "video_buffer_cases": [
+    {
+      "allocations": [
+        {
+          "block": [
+            574620412,
+            39196,
+            2147483648
+          ],
+          "pointer": 574620432,
+          "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+          "size": 39168
+        },
+        {
+          "block": [
+            574659620,
+            65564,
+            2147483648
+          ],
+          "pointer": 574659632,
+          "sha256": "de2f256064a0af797747c2b97505dc0b9f3df0de4f489eac731c23ae9ca9cc31",
+          "size": 65536
+        }
+      ],
+      "completed_lifecycles": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "hardware_tail_executed": false,
+      "outcome": "initialized_before_peripherals",
+      "parser_owners_and_image_unchanged": true,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          536870912
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          44,
+          2684354560
+        ],
+        [
+          574620280,
+          120,
+          2147483648
+        ],
+        [
+          574620412,
+          39196,
+          2147483648
+        ],
+        [
+          574659620,
+          65564,
+          2147483648
+        ],
+        [
+          574725196,
+          25512,
+          1073741824
+        ]
+      ],
+      "pool_size": 131072,
+      "registered_handlers": {
+        "10": 268518524,
+        "11": 268518584,
+        "19": 268518044,
+        "20": 268518108,
+        "21": 268518328
+      },
+      "rejected_before_execution": [
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "release_and_reuse": {
+        "already_initialized_returns": [
+          0,
+          0
+        ],
+        "completed_page_lifecycles": 0,
+        "empty_release_returns": [
+          0,
+          0
+        ],
+        "final_video_pointers": [
+          0,
+          0
+        ],
+        "freed_pool_blocks": [
+          [
+            574619648,
+            44,
+            536870912
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            0
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            44,
+            2684354560
+          ],
+          [
+            574620280,
+            120,
+            2147483648
+          ],
+          [
+            574620412,
+            39196,
+            0
+          ],
+          [
+            574659620,
+            65564,
+            0
+          ],
+          [
+            574725196,
+            25512,
+            1073741824
+          ]
+        ],
+        "original_live_allocations_unchanged": true,
+        "reallocation_returns": [
+          1,
+          1
+        ],
+        "release_returns": [
+          1,
+          1
+        ],
+        "same_addresses_reused": true
+      },
+      "retry_executed": false,
+      "status": "pass",
+      "stop": "0x100147e3",
+      "video_sha256": "3790024eae45da01d653418cb639355e297e8d8263ab442c3695ea0272f446ce"
+    },
+    {
+      "allocations": [
+        {
+          "block": [
+            574620412,
+            39196,
+            2147483648
+          ],
+          "pointer": 574620432,
+          "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+          "size": 39168
+        },
+        {
+          "block": [
+            574659620,
+            65564,
+            2147483648
+          ],
+          "pointer": 574659632,
+          "sha256": "f7701dc18296bf8e27dae431fcbe3e981bb869bf80ac2e6a173b3152820c8853",
+          "size": 65536
+        }
+      ],
+      "completed_lifecycles": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "hardware_tail_executed": false,
+      "outcome": "initialized_before_peripherals",
+      "parser_owners_and_image_unchanged": true,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          536870912
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          44,
+          2684354560
+        ],
+        [
+          574620280,
+          120,
+          2147483648
+        ],
+        [
+          574620412,
+          39196,
+          2147483648
+        ],
+        [
+          574659620,
+          65564,
+          2147483648
+        ],
+        [
+          574725196,
+          25512,
+          1073741824
+        ]
+      ],
+      "pool_size": 131072,
+      "registered_handlers": {
+        "10": 268518524,
+        "11": 268518584,
+        "19": 268518044,
+        "20": 268518108,
+        "21": 268518328
+      },
+      "rejected_before_execution": [
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "release_and_reuse": {
+        "already_initialized_returns": [
+          0,
+          0
+        ],
+        "completed_page_lifecycles": 0,
+        "empty_release_returns": [
+          0,
+          0
+        ],
+        "final_video_pointers": [
+          0,
+          0
+        ],
+        "freed_pool_blocks": [
+          [
+            574619648,
+            44,
+            536870912
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            0
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            44,
+            2684354560
+          ],
+          [
+            574620280,
+            120,
+            2147483648
+          ],
+          [
+            574620412,
+            39196,
+            0
+          ],
+          [
+            574659620,
+            65564,
+            0
+          ],
+          [
+            574725196,
+            25512,
+            1073741824
+          ]
+        ],
+        "original_live_allocations_unchanged": true,
+        "reallocation_returns": [
+          1,
+          1
+        ],
+        "release_returns": [
+          1,
+          1
+        ],
+        "same_addresses_reused": true
+      },
+      "retry_executed": false,
+      "status": "pass",
+      "stop": "0x100147e3",
+      "video_sha256": "3790024eae45da01d653418cb639355e297e8d8263ab442c3695ea0272f446ce"
+    },
+    {
+      "allocations": [],
+      "completed_lifecycles": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "hardware_tail_executed": false,
+      "outcome": "allocation_failed_before_retry",
+      "parser_owners_and_image_unchanged": true,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          536870912
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          44,
+          2684354560
+        ],
+        [
+          574620280,
+          120,
+          2147483648
+        ],
+        [
+          574620412,
+          15608,
+          1073741824
+        ]
+      ],
+      "pool_size": 16384,
+      "registered_handlers": {},
+      "rejected_before_execution": [
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "retry_executed": false,
+      "status": "pass",
+      "stop": "0x1001486c",
+      "video_sha256": "d5a6c4e3d62fb78a05947431c66d883facf45a67e5f8416447a233de608749fe"
+    },
+    {
+      "allocations": [],
+      "completed_lifecycles": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "hardware_tail_executed": false,
+      "outcome": "allocation_failed_before_retry",
+      "parser_owners_and_image_unchanged": true,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          536870912
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          44,
+          2684354560
+        ],
+        [
+          574620280,
+          120,
+          2147483648
+        ],
+        [
+          574620412,
+          15608,
+          1073741824
+        ]
+      ],
+      "pool_size": 16384,
+      "registered_handlers": {},
+      "rejected_before_execution": [
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "retry_executed": false,
+      "status": "pass",
+      "stop": "0x1001486c",
+      "video_sha256": "80d60f8ab45bc37ed6607c967cb61553fa0820cb9c476e2f532b6c6f65584624"
+    },
+    {
+      "allocations": [
+        {
+          "block": [
+            574620412,
+            39196,
+            2147483648
+          ],
+          "pointer": 574620432,
+          "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+          "size": 39168
+        }
+      ],
+      "completed_lifecycles": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "hardware_tail_executed": false,
+      "outcome": "allocation_failed_before_retry",
+      "parser_owners_and_image_unchanged": true,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          536870912
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          44,
+          2684354560
+        ],
+        [
+          574620280,
+          120,
+          2147483648
+        ],
+        [
+          574620412,
+          39196,
+          2147483648
+        ],
+        [
+          574659620,
+          25552,
+          1073741824
+        ]
+      ],
+      "pool_size": 65536,
+      "registered_handlers": {},
+      "rejected_before_execution": [
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "retry_executed": false,
+      "status": "pass",
+      "stop": "0x100148ad",
+      "video_sha256": "d5a6c4e3d62fb78a05947431c66d883facf45a67e5f8416447a233de608749fe"
+    },
+    {
+      "allocations": [
+        {
+          "block": [
+            574620412,
+            39196,
+            2147483648
+          ],
+          "pointer": 574620432,
+          "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+          "size": 39168
+        }
+      ],
+      "completed_lifecycles": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "hardware_tail_executed": false,
+      "outcome": "allocation_failed_before_retry",
+      "parser_owners_and_image_unchanged": true,
+      "pool_blocks": [
+        [
+          574619648,
+          44,
+          536870912
+        ],
+        [
+          574619704,
+          120,
+          2147483648
+        ],
+        [
+          574619836,
+          16,
+          2147483648
+        ],
+        [
+          574619864,
+          16,
+          2147483648
+        ],
+        [
+          574619892,
+          68,
+          0
+        ],
+        [
+          574619972,
+          80,
+          2147483648
+        ],
+        [
+          574620064,
+          148,
+          2147483648
+        ],
+        [
+          574620224,
+          44,
+          2684354560
+        ],
+        [
+          574620280,
+          120,
+          2147483648
+        ],
+        [
+          574620412,
+          39196,
+          2147483648
+        ],
+        [
+          574659620,
+          25552,
+          1073741824
+        ]
+      ],
+      "pool_size": 65536,
+      "registered_handlers": {},
+      "rejected_before_execution": [
+        "0x100147e3",
+        "0x100147ee",
+        "0x100147f8",
+        "0x1001486c",
+        "0x100148ad",
+        "0x1001766c"
+      ],
+      "retry_executed": false,
+      "status": "pass",
+      "stop": "0x100148ad",
+      "video_sha256": "80d60f8ab45bc37ed6607c967cb61553fa0820cb9c476e2f532b6c6f65584624"
+    }
+  ],
+  "video_buffer_release_cases": 2
 }

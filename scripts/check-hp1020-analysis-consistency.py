@@ -1142,6 +1142,77 @@ def build_report() -> dict[str, Any]:
                                 for name,digest in raw_parser["source_sha256"].items()),
                         "Actual chunk-12 parsing must retain original ownership construction, unchanged allocation cursor, zero raw-IRQ flag and queued endings; admission is not raw completion, another model's support or a completed page lifecycle.",
                         evidence="analysis/hardware-boundary/raw-parser.json"))
+    raw_handoffs = raw_parser["handoff_cases"]
+    raw_prepared = [c for c in raw_handoffs if c["outcome"] == "pre_peripheral_prepare"]
+    raw_no_dimensions = [c for c in raw_handoffs if c["outcome"] == "zero_stride_predivision_stop"]
+    checks.append(check("stock_chunk12_serialized_prepare_boundary_verified",
+                        raw_parser["handoff_prepare_cases"] == len(raw_prepared) == 8
+                        and raw_parser["handoff_dimension_controls"] == len(raw_no_dimensions) == 4
+                        and len(raw_handoffs) == 12
+                        and "scripts/hp1020_raw_handoff.py" in raw_parser["source_sha256"]
+                        and raw_parser["immediate_raw_mode_byte_stores"] ==
+                            [dict(pc="0x1000f271",bytes="292474",operands=[9,2,116])]
+                        and {(c["fill"],c["bitmap"],c["copies"]) for c in raw_prepared} ==
+                            {(f,b,n) for f in (0,204) for b in (0,1) for n in (1,2)}
+                        and {(c["fill"],c["page_bitmap"],c["separate_bih_chunk"]) for c in raw_no_dimensions} ==
+                            {(f,p,p == 0) for f in (0,204) for p in (0,1)}
+                        and all(c["status"] == "pass" and c["completed_lifecycles"] == 0
+                                and c["engines"] == ["bounded_interpreter","independent_qemu"]
+                                and c["image_unchanged"] and len(c["rejected_before_execution"]) == 13
+                                and [s["phase"] for s in c["stages"]] ==
+                                    ["admission","job_endings","printmgr_request","video_queued","prepare_boundary"]
+                                and all(s["raw_irq_flag"] == 0 and s["references"] == c["copies"]
+                                        and s["input_pointer"] == c["stages"][0]["input_pointer"]
+                                        and s["payload_sha256"] == c["stages"][0]["payload_sha256"]
+                                        and s["source_kind"] == (1 if c["bitmap"] == 0 else 0)
+                                        for s in c["stages"])
+                                and all(w["field"] == "video_irq_mode" and w["pc"] == "0x10014bac"
+                                        for w in c["tracked_stores"])
+                                for c in raw_handoffs)
+                        and all(c["prepare_stop"] == "0x10014baf" and c["prepare_stride"] == 4
+                                and c["page_bitmap"] == 1 and c["separate_bih_chunk"]
+                                and c["video_mode_word"] == 0
+                                and c["output_layout"]["all_spans_inside_original_allocations"]
+                                and c["output_layout"]["buffers_unchanged"]
+                                and c["output_layout"]["first_slot_bytes"] == 8192
+                                and c["output_layout"]["second_slot_bytes"] == 16384
+                                and c["output_layout"]["first_unused_tail"] == 6400
+                                and len(c["tracked_stores"]) == 1 for c in raw_prepared)
+                        and all(c["prepare_stop"] == "0x10014a51" and c["prepare_stride"] == 0
+                                and c["tracked_stores"] == [] and c["output_layout"] is None
+                                for c in raw_no_dimensions),
+                        "Serialized original handoffs must preserve the actual image cursor and zero raw mode through RAM preparation using original output allocations; supplied task/media state and pre-peripheral stops do not establish native page completion or physical output.",
+                        evidence="analysis/hardware-boundary/raw-parser.json"))
+    buffer_cases = raw_parser["video_buffer_cases"]
+    buffer_release = [c for c in buffer_cases if "release_and_reuse" in c]
+    buffer_limits = [c for c in buffer_cases if "release_and_reuse" not in c]
+    initialized = [c["video_initialization"] for c in raw_handoffs]+buffer_release
+    checks.append(check("stock_video_buffer_initialization_and_ownership_verified",
+                        raw_parser["video_buffer_release_cases"] == len(buffer_release) == 2
+                        and raw_parser["video_buffer_capacity_controls"] == len(buffer_limits) == 4
+                        and "scripts/hp1020_video_buffers.py" in raw_parser["source_sha256"]
+                        and {(c["pool_size"],c["fill"]) for c in buffer_cases} ==
+                            {(n,f) for n in (131072,16384,65536) for f in (0,204)}
+                        and all(c["status"] == "pass" and c["completed_lifecycles"] == 0
+                                and c["engines"] == ["bounded_interpreter","independent_qemu"]
+                                and c["parser_owners_and_image_unchanged"]
+                                and not c["hardware_tail_executed"] and not c["retry_executed"]
+                                and len(c["rejected_before_execution"]) == 6 for c in buffer_cases)
+                        and all(c["outcome"] == "initialized_before_peripherals"
+                                and c["stop"] == "0x100147e3" and c["pool_size"] == 131072
+                                and [a["size"] for a in c["allocations"]] == [39168,65536]
+                                and len(c["registered_handlers"]) == 5 for c in initialized)
+                        and all(c["release_and_reuse"]["same_addresses_reused"]
+                                and c["release_and_reuse"]["original_live_allocations_unchanged"]
+                                and c["release_and_reuse"]["final_video_pointers"] == [0,0]
+                                and c["release_and_reuse"]["completed_page_lifecycles"] == 0
+                                for c in buffer_release)
+                        and all(c["outcome"] == "allocation_failed_before_retry"
+                                and c["stop"] == ("0x1001486c" if c["pool_size"] == 16384 else "0x100148ad")
+                                and len(c["allocations"]) == (0 if c["pool_size"] == 16384 else 1)
+                                and c["registered_handlers"] == {} for c in buffer_limits),
+                        "Original buffer allocation, idle initialization, release and reuse must remain distinct from page lifecycles; smaller synthetic pools stop before retry scheduling and all constructor hardware remains excluded.",
+                        evidence="analysis/hardware-boundary/raw-parser.json"))
     checks.append(check("raster_callback_argument_and_unknown_isa_boundary",
                         callbacks["status"] == "pass" and callbacks["call_contract"]["argument_count"] == 4
                         and [len(f["unknown_instructions"]) for f in callbacks["functions"]] == [16,40,84],

@@ -3,7 +3,8 @@
 
 The parser, allocator, queues and owner hierarchy run from stock bytes. Input,
 document notification/publication and readiness remain explicit host boundaries.
-The JobMgr run stops after admission, before the queued page/document endings.
+Admission-only cases stop before the queued page/document endings. Separate
+serialized continuations stop before VideoThread's first peripheral access.
 """
 import hashlib
 import importlib.util
@@ -29,6 +30,8 @@ from hp1020_stock_queue import THREAD, BUFFER
 from hp1020_xtensa_call0 import Program, Machine
 from hp1020_qemu_ram import QemuRAM, RETURN
 from hp1020_qemu_pipeline import start
+import hp1020_raw_handoff as handoff
+import hp1020_video_buffers as video_buffers
 
 INPUT_HOST = {INPUT_CALLBACK,PUSHBACK_CALLBACK,0x1001262c,0x100126b0}
 HOST = INPUT_HOST|{raw.READY,0x1000f164}
@@ -63,8 +66,8 @@ def stream(bitmap,copies,fallback,empty,page_bitmap,bih_chunk):
 
 
 class Parser(raw.RawProducer):
-    def __init__(self,program,fill,data):
-        super().__init__(program,fill)
+    def __init__(self,program,fill,data,pool_size=16384):
+        super().__init__(program,fill,pool_size=pool_size)
         self.code_ranges += JOB_CODE+[(0x10009b4c,0x1000a264),(0x1000f1c4,0x1000f280),
             (0x100111b4,0x100111ec),(0x100130c4,0x100130d4),
             (0x100169d4,0x10016a38),(0x1001b56c,0x1001b59c)]
@@ -119,11 +122,11 @@ class Parser(raw.RawProducer):
 
 
 def execute(program,engine,*,bitmap=0,copies=1,fill=0,fallback=False,empty=False,
-            page_bitmap=None,bih_chunk=False):
+            page_bitmap=None,bih_chunk=False,state_class=Parser,return_state=False):
     if page_bitmap is None:
         page_bitmap = bitmap
     data = stream(bitmap,copies,fallback,empty,page_bitmap,bih_chunk)
-    state = Parser(program,fill,data)
+    state = state_class(program,fill,data)
     invoke(state,0x10017554,qemu=engine)
     state.put(THREAD,bytes(256))
     state.write(state.read(0x10006a9c,4),4,THREAD)
@@ -169,6 +172,7 @@ def execute(program,engine,*,bitmap=0,copies=1,fill=0,fallback=False,empty=False
         assert not bih_chunk and state.data_allocations == [] and 0x1000a0df not in visited
         result.update(outcome='metadata_only_no_raw_message',admission_executed=False,
             pool_blocks=state.blocks(),host_boundaries=state.boundaries)
+        assert not return_state, 'handoff requires an admitted data band'
         return result
     raw_packet = packets[4 if bih_chunk else 3]
     work,node = packets[2][3],raw_packet[3]
@@ -255,19 +259,28 @@ def execute(program,engine,*,bitmap=0,copies=1,fill=0,fallback=False,empty=False
         bih_source_freed=True if bih_chunk else None,
         work_bih_fields=[state.read(work+i,4) for i in (132,136,140)],
         pending_message_types=[6,2])
-    return result
+    return (state,result) if return_state else result
 
 
 def main():
+    tested_sources = raw.source_hashes()
     prefix = os.environ.get('XTENSA_PREFIX','/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf')
     program = Program(ROOT/'analysis/sihp1020.elf',prefix)
     assert sha(program.path.read_bytes()) == STOCK_SHA
     memory = Machine(program)
     audited = []
-    for begin,end in [(0x10009e36,0x10009e45),(0x1000a05d,0x1000a170)]:
+    for begin,end in [(0x10009e36,0x10009e45),(0x1000a05d,0x1000a170),
+                      (0x1000f228,0x1000f280),(0x1000e6b0,0x1000e749),
+                      (0x1000ed90,0x1000ee6c),(0x10013c48,0x10013cc7),
+                      (0x10014910,0x10014baf),(0x10016164,0x100162b0)]+video_buffers.AUDIT:
         block,off = memory.span(begin,end-begin,execute=True)
         data = bytes(block[off:off+end-begin])
-        assert sum(len(v[2]) for pc,v in program.instructions.items() if begin <= pc < end) == len(data)
+        pc,decoded = begin,bytearray()
+        while pc < end:
+            encoded = program.instruction(pc)[2]
+            decoded.extend(encoded)
+            pc += len(encoded)
+        assert pc == end and decoded == data
         audited.append(dict(begin=hex(begin),end=hex(end),bytes=data.hex(),sha256=sha(data)))
     block,off = memory.span(0x100036f0,13*4)
     dispatch = bytes(block[off:off+13*4])
@@ -281,6 +294,8 @@ def main():
     parameters += [dict(fill=fill,page_bitmap=page_bitmap,bitmap=1-page_bitmap)
                    for fill in (0,204) for page_bitmap in (0,1)]
     observations = []
+    handoffs = []
+    buffer_cases = []
     with QemuRAM() as engine:
         for parameter in parameters:
             expected = execute(program,None,**parameter)
@@ -289,14 +304,58 @@ def main():
             actual['engines'] = ['bounded_interpreter','independent_qemu']
             observations.append(actual)
             print(f'original chunk-12 parser/admission {parameter}: {actual["outcome"]}',flush=True)
+        handoff_parameters = [dict(fill=fill,bitmap=bitmap,copies=copies,
+                                   page_bitmap=1,bih_chunk=True)
+                              for fill in (0,204) for bitmap in (0,1) for copies in (1,2)]
+        handoff_parameters += [dict(fill=fill,bitmap=0,page_bitmap=page_bitmap,
+                                    bih_chunk=bool(page_bitmap == 0))
+                               for fill in (0,204) for page_bitmap in (0,1)]
+        extended = handoff.state_class(Parser)
+        for parameter in handoff_parameters:
+            results = []
+            for target in (None,engine):
+                state,admission = execute(program,target,**parameter,
+                    state_class=extended,return_state=True)
+                results.append(handoff.run(state,target,admission))
+            assert results[0] == results[1],(parameter,results)
+            result = results[1]
+            result['engines'] = ['bounded_interpreter','independent_qemu']
+            handoffs.append(result)
+            print(f'original chunk-12 handoff {parameter}: {result["outcome"]}',flush=True)
+        for size in (131072,16384,65536):
+            for fill in (0,204):
+                results = []
+                for target in (None,engine):
+                    state,admission = execute(program,target,fill=fill,bitmap=0,
+                        page_bitmap=1,bih_chunk=True,
+                        state_class=handoff.state_class(Parser,pool_size=size),return_state=True)
+                    before = state.blocks()
+                    work,payload = admission['owner_hierarchy']['work'],admission['payload']
+                    owners = state.bytes_at(work,148),state.bytes_at(payload,104)
+                    result = video_buffers.initialize(state,target,fill,handoff.bounded)
+                    if size == 131072:
+                        result['release_and_reuse'] = video_buffers.release_and_reuse(state,target,result,before)
+                    else:
+                        assert result['outcome'] == 'allocation_failed_before_retry'
+                    assert owners == (state.bytes_at(work,148),state.bytes_at(payload,104))
+                    assert state.bytes_at(admission['input_pointer'],len(IMAGE)) == IMAGE
+                    result.update(status='pass',fill=fill,completed_lifecycles=0,
+                        parser_owners_and_image_unchanged=True,
+                        rejected_before_execution=handoff.reject_excluded(state,target,video_buffers.EXCLUDED))
+                    results.append(result)
+                assert results[0] == results[1],(size,fill,results)
+                result = results[1]
+                result['engines'] = ['bounded_interpreter','independent_qemu']
+                buffer_cases.append(result)
+                print(f'original video buffers pool={size} fill={fill}: {result["outcome"]}',flush=True)
         version = engine.version
-    sources = {Path(__file__).resolve()}
-    for module in list(sys.modules.values()):
-        path = getattr(module,'__file__',None)
-        if path:
-            path = Path(path).resolve()
-            if path.is_relative_to(ROOT/'scripts') and path.is_file():
-                sources.add(path)
+    mode_stores = [dict(pc=hex(pc),bytes=encoded.hex(),operands=list(args))
+                   for pc,(op,args,encoded) in program.instructions.items()
+                   if op == 's8i' and args[2] == 116]
+    assert mode_stores == [dict(pc='0x1000f271',bytes='292474',operands=[9,2,116])]
+    # The census is intentionally limited to immediate byte stores at base+116.
+    # It does not rule out aliases, wider writes, dynamic code or external input.
+    assert raw.source_hashes() == tested_sources, 'research sources changed during execution'
     findings = [
         'Twenty-two nonempty chunk-12 inputs run through the full original parser, real allocator/queue and JobMgr admission. Original document/page/work packets construct the owner hierarchy; input callbacks, readiness and document notification/publication remain host boundaries.',
         'Each band data allocation requests exactly 16 bytes with allocator kind 0. The parser stores the returned pointer unchanged in payload+0x54, and admission preserves it. This route does not supply the 16-byte image prefix used in the separate raw-retirement fixtures.',
@@ -307,22 +366,48 @@ def main():
         'Two metadata-only chunk-12 controls allocate no data and emit no message 9. All twenty-four comparisons agree between the bounded interpreter and independent QEMU, including pool partitions, bytes and explicit host boundaries.',
         'The original standalone helper at 0x10010420 is never entered by this parser route. This establishes a separate software producer, not that helper\'s caller, raw-mode reachability, completion, second-copy cursor restoration or physical output.'
     ]
+    handoff_findings = [
+        'Eight additional serialized continuations retain actual parser-owned allocations through END_PAGE/END_DOC, original queue-1 scheduling, PrintMgr/media selection, original engine message-13-to-14 acknowledgement, queue-8 receipt and the RAM prefix of VideoThread prepare. Copies 1/2 and source kinds 0/1 are crossed with both allocation fills. These are not scheduled native page lifecycles.',
+        'All eight reach 0x10014baf before the first video peripheral access. The original prepare computes stride 4 and clears the video IRQ high bit from the still-zero work+0x74. Source kind 1 has selected the alternate-render branch, but that later render call and every peripheral instruction remain excluded.',
+        'No original store in these continuations changes work+0x74 or payload+0x54. The image pointer remains the original allocator return, references remain 1/2 and all image bytes remain unchanged. This path does not supply a late 16-byte prefix or establish the raw IRQ family.',
+        'Four missing-work-dimension controls reach the call at 0x10014a51 with zero stride. They stop before original division; neither a divide failure nor a hardware fault is executed. Page metadata that suppresses the BIH copy and absent separate BIH delivery remain distinct causes.',
+        'The byte-verified whole-decoded-image census finds one immediate S8I at base+116, the work constructor\'s zero store at 0x1000f271. This limited census does not cover aliases, wider stores, dynamic code or external writers.',
+        'Original queues, allocator, media matching and acknowledgement execute. Ready/online/media RAM and a 128-KiB pool remain explicit inputs. Original video initialization now allocates both output buffers, clears 260 state bytes, creates its embedded semaphore and registers handlers in RAM before its peripheral boundary. PrintMgr resumes and VideoThread entry still use specified cuts in fresh synthetic contexts; no original task schedule or complete hardware preparation is inferred.',
+        'The original video helpers request 39168 and 65536 bytes with allocator kind 2. The first is filled with 0xff, the second retains allocation-fill bytes. All four prepared source slots and four secondary slots fit inside the real allocations; at stride 4 their capacities are 8192 and 16384 bytes per slot, with 6400 unused bytes after the first ring. These output buffers are distinct from the parser source image and do not establish its missing prefix.',
+        'Two isolated idle allocation/release/reuse cases preserve parser owners and image bytes. Repeated allocation returns 0 without allocating; original frees clear both globals, repeated empty frees return 0, and later allocation reuses both addresses. Free marks the split blocks reusable without eagerly coalescing the partition. Four smaller-pool controls stop before either original retry sleep, preserving zero or one successful buffer allocation.'
+    ]
     limits = ('Synthetic single-thread RAM and seeded allocator/queue state; input callbacks, document begin/end, '
               'document publication and task readiness are explicit boundaries. Nonempty runs stop immediately '
               'after the first raw-list admission, with END_PAGE/END_DOC still queued. The raw IRQ flag is not '
-              'forced, no raw retirement/VideoThread/PrintMgr/engine/custom instruction/MMIO/USB path executes, '
-              'and zero completed page lifecycles or physical printing are claimed. Numeric chunk 12 exists in '
+              'forced, and those admission-only cases execute no raw retirement/VideoThread/PrintMgr/engine/custom instruction/MMIO/USB path. '
+              'Zero completed page lifecycles or physical printing are claimed. Numeric chunk 12 exists in '
               'this stock ELF; its host header name is not proof of another model\'s support. The open parser grammar is unchanged.')
+    handoff_limits = ('The additional continuations are serialized compositions of original routines with explicit '
+        'task-entry cuts, supplied ready/media state and synthetic pool capacity. Engine startup message 24 is observed '
+        'without executing its hardware handler; only the pure message-13 acknowledgement runs. '
+        'No device readiness, mechanical operation, output packing, raw IRQ reachability, retirement, '
+        'second-copy cursor restoration, native scheduling or completed page lifecycle is proved. '
+        'Thirteen code-boundary controls reject omitted peripheral, render, raw-retirement, retry and custom-code entries '
+        'before execution in each engine. The buffer-only controls reject six initialization/retry boundaries. '
+        'The constructor prefix does not prove firmware boot, registered-handler behavior or device memory availability.')
     report = dict(status='pass',cases=observations,admission_cases=22,metadata_only_controls=2,
+        handoff_cases=handoffs,handoff_prepare_cases=8,handoff_dimension_controls=4,
+        video_buffer_cases=buffer_cases,video_buffer_release_cases=2,video_buffer_capacity_controls=4,
+        immediate_raw_mode_byte_stores=mode_stores,handoff_findings=handoff_findings,
+        handoff_limits=handoff_limits,
         completed_lifecycles=0,stock_elf_sha256=STOCK_SHA,qemu_version=version,
-        source_sha256={str(p.relative_to(ROOT)):sha(p.read_bytes()) for p in sorted(sources)},
+        source_sha256=tested_sources,
         audited_stock_ranges=audited,dispatch_table_bytes=dispatch.hex(),
         dispatch_table_sha256=sha(dispatch),findings=findings,limits=limits)
     OUT.with_suffix('.json').write_text(json.dumps(report,indent=2,sort_keys=True)+'\n')
     OUT.with_suffix('.md').write_text('# Original chunk-12 parser and raw-list admission\n\n'
         +'22 parser/admission cases and 2 metadata-only controls agree in the interpreter and independent QEMU. Zero completed page lifecycles.\n\n'
-        +'\n'.join('- '+finding for finding in findings)+'\n\n'+limits+'\n')
-    print('original chunk-12: 22 admission cases, 2 non-emitting controls; no completed page lifecycles')
+        +'\n'.join('- '+finding for finding in findings)+'\n\n'+limits+'\n\n'
+        +'## Serialized continuation to preparation (2026-09-28)\n\n'
+        +'8 preparation cases and 4 pre-division controls agree between both engines.\n\n'
+        +'Original buffer initialization replaces supplied output pointers in those continuations. Two separate idle release/reuse cases and four pre-retry capacity controls also agree.\n\n'
+        +'\n'.join('- '+finding for finding in handoff_findings)+'\n\n'+handoff_limits+'\n')
+    print('original chunk-12: 22 admissions, 2 non-emitting controls, 8 prepare continuations, 4 dimension controls; video buffers: 2 idle release/reuse, 4 capacity controls; no completed page lifecycles')
 
 
 if __name__ == '__main__':

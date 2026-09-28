@@ -54,9 +54,22 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def source_hashes():
+    """Bind reports to loaded repository sources and reject mid-run edits."""
+    import sys
+    sources = {Path(__file__).resolve()}
+    for module in list(sys.modules.values()):
+        path = getattr(module,'__file__',None)
+        if path:
+            path = Path(path).resolve()
+            if path.is_relative_to(ROOT/'scripts') and path.is_file():
+                sources.add(path)
+    return {str(p.relative_to(ROOT)):sha(p.read_bytes()) for p in sorted(sources)}
+
+
 class RawProducer(PoolRAM):
-    def __init__(self,program,fill):
-        super().__init__(program,size=16384,fill=fill)
+    def __init__(self,program,fill,pool_size=16384):
+        super().__init__(program,size=pool_size,fill=fill)
         self.code_ranges += PRODUCER+ADMISSION+EVENT+CLEANUP+VECTORS+[
             (0x1001b770,0x1001b788),(0x1001451c,0x1001455a)]
         self.admitting = False
@@ -255,6 +268,7 @@ def release_once(program,engine,fixture,fill,input_kind,copies):
 
 
 def main():
+    tested_sources = source_hashes()
     prefix = os.environ.get('XTENSA_PREFIX','/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf')
     program = Program(ROOT/'analysis/sihp1020.elf',prefix)
     assert sha(program.path.read_bytes()) == '2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d'
@@ -292,14 +306,7 @@ def main():
             releases = [release_once(program,engine,fixture,fill,kind,copies)
                         for fill in (0,204) for kind in (1,2) for copies in (1,2)]
             version = engine.version
-    sources = {Path(__file__)}
-    # Include every loaded repository module used by this experiment.
-    import sys
-    for module in list(sys.modules.values()):
-        path = getattr(module,'__file__',None)
-        if path:
-            path = Path(path).resolve()
-            if path.is_relative_to(ROOT/'scripts') and path.is_file(): sources.add(path)
+    assert source_hashes() == tested_sources, 'research sources changed during execution'
     findings = [
         'The full original helper allocates its 120-byte node through the stock pool, initializes its embedded payload and sends message 9 through the original queue. The queue is then consumed by original JobMgr admission. The caller, owner hierarchy and ordinary ready state are explicit fixtures.',
         'Descriptor selector 0 maps to message selector 3 and appends the node. Descriptor selectors 1/2/3 map to 0/1/2; JobMgr still assigns references but does not append them to the tested raw list. No physical color or channel interpretation is assigned.',
@@ -315,7 +322,7 @@ def main():
               'boot, MMIO, custom instruction, USB contact, physical packing or printing is claimed.')
     report = dict(status='pass',producer_admission_cases=builders,reference_cases=references,
         metadata_controls=flags,release_cases=releases,completed_lifecycles=0,
-        source_sha256={str(p.relative_to(ROOT)):sha(p.read_bytes()) for p in sorted(sources)},
+        source_sha256=tested_sources,
         stock_elf_sha256=sha(program.path.read_bytes()),qemu_version=version,
         fixture_source=WRAPPER,fixture_source_sha256=sha(WRAPPER.encode()),
         fixture_elf_sha256=sha(fixture_bytes),fixture_elf_bytes=fixture_bytes.hex(),

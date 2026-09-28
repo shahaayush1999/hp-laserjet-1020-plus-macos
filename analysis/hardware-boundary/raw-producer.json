@@ -2845,7 +2845,7 @@
     "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
     "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
     "scripts/hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
-    "scripts/validate-hp1020-raw-producer.py": "18f69b93eaa861eed57f379bf8d7226dda46c34a6adb0c656e66f985dcfbc833"
+    "scripts/validate-hp1020-raw-producer.py": "56011425ef7c8832b8090cdacafb4f8694d4ed48db76255a3cd31c6f2cf84154"
   },
   "status": "pass",
   "stock_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d"
