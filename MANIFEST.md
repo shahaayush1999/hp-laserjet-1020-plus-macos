@@ -21,6 +21,18 @@ then simulates package management, installation, cleanup and USB calls. It recor
 exact tested source hashes and limitations in `assets/macos-setup-validation.json`.
 Python is not required by the end-user install or uninstall scripts.
 
+The direct encoder conversion cases include `-n2`; they do not exercise print
+dialog copy propagation, collation, the asynchronous queue or device status.
+On September 28, read-only installed-script inspection and a relocated backend
+reproduction confirmed that 1 and 4 requested copies enqueue the same single
+document without copy metadata and return success before any worker runs.
+The repository backend likewise drops the CUPS copy/options arguments. These
+support defects remain unfixed; the saved validation report is not evidence of
+complete driver behavior. CUPS documents the [backend argument and exit-status
+contract](https://www.cups.org/doc/man-backend.html) and the separate
+[scheduler status messages](https://openprinting.github.io/cups/doc/api-filter.html).
+There is no implemented paper-out or physical-completion feedback path.
+
 Firmware research keeps its own hashes and recovery instructions in
 `analysis/README.md`. The abandoned self-contained runtime bundle and its build
 machinery were removed; Git retains that history.

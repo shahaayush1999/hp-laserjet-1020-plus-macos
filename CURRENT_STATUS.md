@@ -1,8 +1,25 @@
 # Current handoff
 
 Updated: 2026-09-28. **The open replacement cannot print yet.**
-The working HP-based macOS setup is untouched. No printer contact, upload,
-installed-printing change or print-driving hardware path occurred.
+The HP-based macOS setup prints, but has the support gaps below. It is untouched.
+No printer contact, upload, installed-printing change or print-driving hardware
+path occurred.
+
+**Current support issue (September 28):** requested copies are lost; jobs leave
+the macOS queue without waiting for the worker; no paper-out alert is provided.
+Read-only inspection confirmed this in the installed backend, passthrough filter,
+worker and per-user helper. A temporary, relocated copy of the installed backend
+produced one identical document and no copy metadata for both 1 and 4 requested
+copies, returning success without running a worker. Repository sources retain
+the same defects: backend arguments 4/5 are discarded, the worker receives only
+a filename, and the helper sends one copy. No fix or live test has occurred.
+Next support work: preserve copy counts through the handoff and produce complete
+document sets; keep CUPS attached through processing/transfer with failure and
+cancellation handling. Do not mistake transfer completion for physical printing.
+Paper-out/physical completion needs verified device feedback; existing PJL probe
+plans are not proof of working alerts. Printer contact still needs authorization.
+The 12 setup checks below cover conversion/install/cleanup, not print-dialog copy
+propagation or queue/status behavior; direct encoder `-n2` cases did not cover it.
 
 Support decision: the owner reversed the self-contained bundle experiment.
 Use **git clone + `scripts/install.sh` + `scripts/uninstall.sh`**, with Homebrew

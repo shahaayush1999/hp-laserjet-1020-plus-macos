@@ -18,6 +18,8 @@ If macOS first asks to install Apple's Command Line Tools when you run `git`, co
 
 Once installed, print from any app and select **HP LaserJet 1020 Plus**. The normal printing path uses **A4 paper**. Start with one page.
 
+Known limitations: the current setup ignores the print dialog's copy count and sends only one copy. Jobs disappear from the Mac's print queue when handed to the background worker, before printing finishes. Paper-out alerts and live printing progress are not implemented. These issues are confirmed and remain unfixed.
+
 ## Uninstall
 
 Finish printing, open Terminal in the cloned repository folder, and run:
