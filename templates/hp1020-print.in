@@ -1,97 +1,19 @@
 #!/bin/zsh
+# Compatibility command: submit through the same CUPS path used by the print dialog.
 set -euo pipefail
-
-DRIVER_DIR="/Library/Printers/hp1020/runtime"
-DEVICE_URI=@@DEVICE_URI_SHELL@@
-BREW_PREFIX=@@BREW_PREFIX_SHELL@@
-USB_BACKEND="/usr/libexec/cups/backend/usb"
-
-usage() {
-  print "Usage: hp1020-print [--no-firmware] [-p a4|letter] FILE.pdf|FILE.ps" >&2
-  exit 2
-}
-
-paper="a4"
-send_firmware=1
-while [[ $# -gt 0 ]]; do
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+printer=@@PRINTER_NAME_SHELL@@
+paper=A4
+copies=1
+while (( $# )); do
   case "$1" in
-    --no-firmware) send_firmware=0; shift ;;
-    -p) [[ $# -ge 2 ]] || usage; paper="$2"; shift 2 ;;
-    -p*) paper="${1#-p}"; shift ;;
+    -p) (( $# >= 2 )) || exit 2; paper="$2"; shift 2 ;;
+    -n) (( $# >= 2 )) || exit 2; copies="$2"; shift 2 ;;
     --) shift; break ;;
-    -*) usage ;;
+    -*) print -u2 -- 'Usage: hp1020-print [-p a4|letter] [-n COPIES] FILE'; exit 2 ;;
     *) break ;;
   esac
 done
-
-[[ $# -eq 1 ]] || usage
-input="$1"
-[[ -f "$input" ]] || {
-  print "hp1020-print: file not found: $input" >&2
-  exit 1
-}
-
-case "$paper" in
-  a4|A4) paper_code=9 ;;
-  letter|Letter) paper_code=1 ;;
-  *) print "hp1020-print: unsupported paper '$paper' (use a4 or letter)" >&2; exit 2 ;;
-esac
-
-tmp_zjs="$(mktemp -t hp1020.XXXXXX.zjs)"
-trap 'rm -f "$tmp_zjs"' EXIT
-
-export PATH="$DRIVER_DIR:$BREW_PREFIX/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-export GSBIN=gs
-unset GS_LIB GS_OPTIONS GS_FONTPATH GS_DEVICE
-export DEVICE_URI
-
-job_user="${USER:-root}"
-
-run_with_timeout() {
-  local seconds="$1"
-  shift
-  "$@" &
-  local pid="$!"
-  local elapsed=0
-  while kill -0 "$pid" 2>/dev/null; do
-    if (( elapsed >= seconds )); then
-      kill -TERM "$pid" 2>/dev/null || true
-      sleep 1
-      kill -KILL "$pid" 2>/dev/null || true
-      wait "$pid" 2>/dev/null || true
-      return 124
-    fi
-    sleep 1
-    elapsed=$((elapsed + 1))
-  done
-  wait "$pid"
-}
-
-# Complete conversion before any firmware or document transfer.
-"$DRIVER_DIR/foo2zjs-wrapper" -P -z1 -L0 -p"$paper_code" "$input" > "$tmp_zjs"
-[[ -s "$tmp_zjs" ]] || { print -u2 -- "Conversion produced no print data."; exit 1; }
-
-if [[ "$send_firmware" -eq 1 ]]; then
-  set +e
-  run_with_timeout 25 "$USB_BACKEND" 1 "$job_user" "HP 1020 firmware" 1 "" "$DRIVER_DIR/sihp1020.dl"
-  fw_status="$?"
-  set -e
-  if [[ "$fw_status" -eq 124 ]]; then
-    print "Firmware preload timed out; continuing."
-  elif [[ "$fw_status" -ne 0 ]]; then
-    print "Firmware preload failed with status $fw_status; continuing."
-  fi
-fi
-
-set +e
-run_with_timeout 60 "$USB_BACKEND" 2 "$job_user" "$(basename "$input")" 1 "" "$tmp_zjs"
-cmd_status="$?"
-set -e
-if [[ "$cmd_status" -ne 0 ]]; then
-  if [[ "$cmd_status" -eq 124 ]]; then
-    print -u2 -- "Document transfer timed out; check the printer before retrying."
-  fi
-  exit "$cmd_status"
-fi
-
-print "Sent $(basename "$input") to HP LaserJet 1020."
+(( $# == 1 )) && [[ "$copies" == <1-9999> && -f "$1" ]] || exit 2
+case "$paper" in a4|A4) paper=A4 ;; letter|Letter) paper=Letter ;; *) exit 2 ;; esac
+exec lp -d "$printer" -n "$copies" -o "PageSize=$paper" -o Collate=True -- "$1"

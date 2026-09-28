@@ -9,9 +9,13 @@ admin_script="$render_dir/remove-admin"
 admin_variables > "$admin_script"
 cat >> "$admin_script" <<'ADMIN'
 PLIST="/Library/LaunchDaemons/$LABEL.plist"
-launchctl bootout system "$PLIST" 2>/dev/null || true
+queue_existed=0
+lpstat -p "$PRINTER_NAME" >/dev/null 2>&1 && queue_existed=1
+if (( queue_existed )); then cupsreject "$PRINTER_NAME"; fi
 cancel -a "$PRINTER_NAME" 2>/dev/null || true
-lpadmin -x "$PRINTER_NAME" 2>/dev/null || true
+launchctl bootout system "$PLIST" 2>/dev/null || true
+launchctl bootout "gui/$(id -u "$USER_NAME")/com.aayush.hp1020-spool-worker" 2>/dev/null || true
+if (( queue_existed )); then lpadmin -x "$PRINTER_NAME"; fi
 rm -f "$PLIST"
 rm -f /usr/libexec/cups/backend/hp1020queue
 rm -f /usr/libexec/cups/filter/hp1020passthrough

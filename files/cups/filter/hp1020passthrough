@@ -1,8 +1,12 @@
 #!/bin/zsh
 set -euo pipefail
 
-if [[ $# -ge 6 && -n "${6:-}" ]]; then
-  cat "$6"
+# Output of the mandatory CUPS layout/copy filters. The worker must never
+# apply the copy count a second time; raw submissions have no such marker.
+(( $# == 5 || $# == 6 )) || exit 1
+print -r -- 'HP1020-CUPS-PS-2'
+if [[ $# == 6 && -n "$6" ]]; then
+  cat -- "$6"
 else
   cat
 fi

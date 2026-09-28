@@ -1,37 +1,84 @@
 #!/bin/zsh
 set -euo pipefail
-
+unsetopt BG_NICE
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 QUEUE_DIR="/private/var/spool/cups/tmp/hp1020queue"
 
-if [[ $# -eq 0 ]]; then
+if (( $# == 0 )); then
   print 'direct hp1020queue://localhost "HP LaserJet 1020 Plus" "HP LaserJet 1020 Plus" "MFG:Hewlett-Packard;MDL:HP LaserJet 1020;CMD:ACL;DES:HP LaserJet 1020;"'
   exit 0
 fi
-
-if [[ $# -lt 5 ]]; then
-  print "ERROR: hp1020queue expects CUPS backend arguments" >&2
-  exit 1
+if (( $# != 5 && $# != 6 )) || [[ "$1" != <1-> || "$4" != <1-9999> ]]; then
+  print -u2 -- 'ERROR: Invalid HP 1020 job arguments.'
+  exit 5
 fi
 
-job_id="$1"
-job_user="$2"
-job_title="$3"
-input="${6:-}"
-mkdir -p "$QUEUE_DIR"
+umask 077
+pending=""
+published=""
+copy_pid=""
+cleanup() {
+  if [[ -n "$copy_pid" ]]; then
+    kill -TERM "$copy_pid" 2>/dev/null || true
+    wait "$copy_pid" 2>/dev/null || true
+  fi
+  if [[ -n "$pending" ]]; then rm -rf -- "$pending"; fi
+}
+cancel_job() {
+  # Closing the reply pipe also cancels work, including after SIGKILL/crashes.
+  if [[ -n "$published" && -d "$published" ]]; then
+    touch "$published/cancel" 2>/dev/null || true
+  fi
+  exit 0
+}
+trap cleanup EXIT
+trap cancel_job TERM INT HUP
 
-safe_title="$(print -r -- "$job_title" | tr -cs '[:alnum:]._- ' '_' | cut -c 1-80)"
-stamp="$(date +%Y%m%d%H%M%S)"
-job_path="$QUEUE_DIR/${stamp}-${job_id}-${safe_title}"
-pending="$(mktemp "$QUEUE_DIR/.incoming.XXXXXX")"
-trap 'rm -f "$pending"' EXIT
-
-if [[ -z "$input" ]]; then
-  cat > "$pending"
+# Only the installer creates/owns the shared spool directory.
+if [[ ! -d "$QUEUE_DIR" || -L "$QUEUE_DIR" ]]; then
+  print -u2 -- 'ERROR: HP 1020 worker is not installed. Reinstall the printer setup.'
+  exit 3
+fi
+pending="$(mktemp -d "$QUEUE_DIR/.incoming.XXXXXXXX")"
+print -r -- "$$" > "$pending/owner"
+# NUL-separated fields are data, never shell code; titles may contain newlines.
+printf '%s\0' 'HP1020-TICKET-2' "$1" "$2" "$3" "$4" "$5" > "$pending/ticket"
+if [[ -n "${6:-}" ]]; then
+  cat -- "$6" > "$pending/document" &
 else
-  cat "$input" > "$pending"
+  exec {input_fd}<&0
+  cat <&$input_fd > "$pending/document" &
 fi
+copy_pid="$!"
+wait "$copy_pid"
+copy_pid=""
+mkfifo -m 600 "$pending/reply"
+exec {reply_fd}<>"$pending/reply"
+published="$QUEUE_DIR/job-${1}-${pending:t}"
+mv -- "$pending" "$published"
+pending=""
+print -u2 -- 'INFO: Waiting for the HP 1020 worker.'
 
-chmod 640 "$pending"
-# The worker only sees complete documents; its glob excludes .incoming files.
-mv "$pending" "$job_path"
-print "INFO: Queued HP 1020 job $job_id for $job_user at $job_path" >&2
+# Success is reported only after the worker finishes. No automatic retry after
+# uncertain output: that can duplicate sheets already accepted by the printer.
+quiet_ticks=0
+while true; do
+  if IFS= read -r -t 1 response <&$reply_fd; then
+    quiet_ticks=0
+    case "$response" in
+      'RESULT 0') exit 0 ;;
+      'RESULT 3') exit 3 ;;
+      'RESULT 5') exit 5 ;;
+      'HEARTBEAT') ;;
+      INFO:*|ERROR:*|WARNING:*|STATE:*) print -ru2 -- "$response" ;;
+      *) print -u2 -- 'ERROR: Invalid response from the HP 1020 worker.'; touch "$published/cancel"; exit 3 ;;
+    esac
+  else
+    quiet_ticks=$((quiet_ticks + 1))
+    if (( quiet_ticks >= 60 )); then
+      touch "$published/cancel" 2>/dev/null || true
+      print -u2 -- 'ERROR: HP 1020 worker stopped responding. Job held; check before resuming.'
+      exit 3
+    fi
+  fi
+done

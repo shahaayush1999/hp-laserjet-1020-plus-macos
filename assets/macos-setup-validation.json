@@ -3,7 +3,8 @@
     "native encoder build and four PDF/PostScript conversions match every original encoder chunk",
     "invalid document conversion fails",
     "preflight rejects wrong platform, missing build tools/device, pending jobs and sudo invocation before package changes",
-    "fresh setup bootstraps official Homebrew URLs, renders before mock USB, then removes its packages/Homebrew repeatably",
+    "fresh setup bootstraps official Homebrew URLs, routes helper through CUPS, then removes its packages/Homebrew repeatably",
+    "administrative installation uses staged files even when the repository is inaccessible",
     "pre-existing Homebrew, requested packages and unrelated orphan dependencies are preserved",
     "newly shared dependencies are preserved for other software",
     "reinstallation keeps original ownership; Homebrew is retained when later used for other software",
@@ -11,56 +12,62 @@
     "interrupted package bookkeeping recovers without claiming unrelated later installs",
     "failed cleanup retains its ownership record and succeeds on retry",
     "failed cask inventory keeps Homebrew and its cleanup record until a successful retry",
-    "cancelled administrative installation can still undo the added dependencies"
+    "cancelled administrative installation can still undo the added dependencies",
+    "copy/startup/readiness/fatal-shell failures restore files, queue PPD and previous acceptance",
+    "job arriving after dependency setup prevents replacing files or stopping the worker",
+    "legacy worker backlog is preserved and blocks an unsafe update",
+    "failed queue removal retains driver files and packages; cleanup can be retried"
   ],
-  "count": 12,
+  "count": 17,
   "conversion_cases": [
     {
       "format": ".ps",
       "paper_code": "9",
       "copies": "1",
       "original_chunks_match": true,
-      "sha256": "69c5c2d6826de9c05cd25cf656c2f4076d94d9eb52dc82f403769c9ba964bf9a"
+      "sha256": "b37a2f76e8060b7314c7d30fb2938b084add6aab99572a71c1d535cfcdd8139f"
     },
     {
       "format": ".ps",
       "paper_code": "1",
       "copies": "2",
       "original_chunks_match": true,
-      "sha256": "5b36aaa55a8f25784e43810794804ea0405bf37d7a70194e1b1d975a9df3f132"
+      "sha256": "7d31d5a7866f41216f5ea9468c12de340f13776e18f567f3e2b2669342fdde73"
     },
     {
       "format": ".pdf",
       "paper_code": "9",
       "copies": "1",
       "original_chunks_match": true,
-      "sha256": "ad70d7bac56f8d437aa46b1d5103674a8c6469779919fc4b8501421bcbde179a"
+      "sha256": "649f8a82f71a7937b42cc9dcc90cbc11b12e488847af78515ac62beae8d469a7"
     },
     {
       "format": ".pdf",
       "paper_code": "1",
       "copies": "2",
       "original_chunks_match": true,
-      "sha256": "18291672951a272c5e5e39a3b17f024aae96347e5cf978eae3c732943bd3f065"
+      "sha256": "ee3f17c6c5363f22d472d0f249fcc72f4a7087354897b2b57b2f55482c6bdb55"
     }
   ],
   "source_sha256": {
-    "templates/hp1020-root-spool-worker.in": "f6552ce9bccf9954f38e54302b1d6ebc9760d477adaf13217ff71194d012e0eb",
-    "templates/hp1020-print.in": "80415ec34526a902e6d78c7e9f41a898fad870224dacf985536d4577e99d310b",
-    "templates/com.aayush.hp1020-root-spool-worker.plist.in": "d9ee14d590fa21b483ced37f039963863678cb05354fe52e7dbcbe1448b51527",
+    "templates/hp1020-root-spool-worker.in": "0f69c2c544c62210d42bb69958ce6ac9edd3abf991f5ebd6628395a77eadf8be",
+    "templates/hp1020-print.in": "50b20117d16097d518cf99dbad609991bacb1c0bd128e9bcf345bad0eb9c6849",
+    "templates/com.aayush.hp1020-root-spool-worker.plist.in": "fe25e3091eecf5474695b85a98facfa618c6c2d581273f75b93e07fd7d59ef2e",
     "assets/runtime/foo2zjs-pstops": "cbdfc9f8b4b58d645917138197bdf8a5e36541b6778aa0e395741d9e97e5220d",
     "assets/runtime/sihp1020.dl": "133b21fe0cb24bfe53e2eff2f00a82cce4beb970749049661ade7a6801f22663",
     "assets/runtime/foo2zjs": "d1eb0f58654b9b31e8739fa41113b04437c1eb25ee43a11874f069078551b441",
     "assets/runtime/foo2zjs-wrapper": "e587cdc6bdce297dbfee14ef814cff6748de045253ae84d1e220091e9978e346",
+    "files/macos/hp1020-service.py": "c47ba4963e7a9cb8698a6f4e94bf37b499c0f4532049d9dd53fa5fbcca25d312",
+    "files/macos/hp1020-usb-run.c": "19473b610000c32f691830f2ccd49ac410eebe7c306c2082237972a213f07097",
     "assets/licenses/foo2zjs-COPYING": "9c504edb1ae0bc25cf6191a06f1087c7a8d229b87df4f704fbcaa8415e28935f",
-    "files/cups/backend/hp1020queue": "076d037952f48ec0162934aa717aa275243cc62cf1b1bfe2a43329d9b617ca89",
-    "files/cups/filter/hp1020passthrough": "d6d0507fd0d0bddfe21bc96dbec6662a7f3fc50d3c7488e1cfbf5a11c1a2be89",
-    "files/ppd/HP-LaserJet_1020-Plus-hp1020zjs.ppd": "42d466fb268fbc926cadab1f7bcb1e79b80c776f16a29096637d64881fb2742a",
-    "scripts/install.sh": "8c67b88f2f9cc2348516f7d595ceb04c5ba2f13d8346e96989b66e62f9163954",
-    "scripts/uninstall.sh": "b9635378a86b523e64a36aaa3335a82bbb4a655e5c0689c0c18043462b6d4472",
-    "scripts/macos-common.sh": "be0de263e539e3a5e105e8ccab4447aa939617b7ab6add1f441f76532a2e8e80",
-    "scripts/rebuild-runtime-from-vendor.sh": "07ab2f590c17cf8c37ccd184861dc1b6c6c4ac0c48a8c0e518ad847baa0adaf4",
-    "scripts/diagnose.sh": "c79fbfec72a0c939f17894abeb9a8c7c4c1355c9906998d76916ca425198a4d3",
+    "files/cups/backend/hp1020queue": "497d08666f6c5d3aa9dc9887418d57aea8ac27f057ab35e6cfa46d8ab3f04a14",
+    "files/cups/filter/hp1020passthrough": "273aa32916c5b495aa8ec81977bef44b5462984a58bba95452a5dad837c6de15",
+    "files/ppd/HP-LaserJet_1020-Plus-hp1020zjs.ppd": "9310082842fa74e6712f4099e38b01f3b9d1f729d506b52df0696a4878f080a3",
+    "scripts/install.sh": "e76862eff3f5672dfc5f260e106f026309a9f362526a9b48057964ebb7931554",
+    "scripts/uninstall.sh": "513b565973421ad8e68fb38e0ebac6dbc995dbc854f1c1f4ab3b4792e9282ec2",
+    "scripts/macos-common.sh": "a5b053b7df7f9848465da60b4af06dcf6a3c1678c69af78e71bd9f580f09c26a",
+    "scripts/rebuild-runtime-from-vendor.sh": "a545ac37b29e07dc4297a2b8c67a8020c3e68909e9936f055df19cb7b16ad8aa",
+    "scripts/diagnose.sh": "dd9c84b157776f17fc5bde96cd08a1deea6f71becf167d0e1650b515f5d78bd5",
     "scripts/print-test.sh": "8f9d3683e04ee50c06e5f385c3ba6dfe73373e8eae00482f45a0429146d0d62a",
     "vendor/foo2zjs-source/foo2zjs.c": "82a8acc1ffe81efbb372942d186e4fd9a5bb1ad7268f67bc1c8f6f1276cc3e3a",
     "vendor/foo2zjs-source/zjs.h": "d62b56934283fdccfb9137bbf98d8faeab2c6b032b8b4a9732b963c8d5a9cc89",
@@ -68,7 +75,7 @@
     "vendor/foo2zjs-source/jbig.h": "0c016a8c69e349c510630edbf5b96057be952c2ac19c1a9b8488ad8c9864d7a4",
     "vendor/foo2zjs-source/jbig_ar.c": "a51552d2f839ce8b758400660bd423b95b4b25cde11e65cc4e7d6c63c1a19d6f",
     "vendor/foo2zjs-source/jbig_ar.h": "292c4c43c944e2573b558d89b7004cec6c59c70dbbfd7b9890868a2291d1250a",
-    "scripts/validate-macos-setup.py": "e9fa832f98ace658aed43b5632a1648fcd7204b29c6820d7bdde434ea6e0c441"
+    "scripts/validate-macos-setup.py": "176d50d643ffd2f7b2f989dbad5a77eeeaf0ea009c9c44296dd3cc66457e260e"
   },
   "host_macos": "27.0",
   "renderer_version": "10.07.0",

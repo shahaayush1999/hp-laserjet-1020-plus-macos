@@ -28,7 +28,7 @@ admin_variables() {
   print 'set -euo pipefail'
   print 'export PATH=/usr/bin:/bin:/usr/sbin:/sbin'
   local variable
-  for variable in ROOT render_dir PRINTER_NAME LABEL USER_HOME; do
+  for variable in ROOT render_dir PRINTER_NAME LABEL USER_HOME USER_NAME; do
     printf '%s=%q\n' "$variable" "${(P)variable}"
   done
 }
@@ -74,7 +74,7 @@ install_dependencies() {
   "$BREW" list --formula -1 | LC_ALL=C sort -u > "$render_dir/before"
   local -a missing
   local formula
-  for formula in ghostscript gnu-sed; do
+  for formula in ghostscript gnu-sed python@3.14; do
     grep -Fxq "$formula" "$render_dir/before" || missing+=("$formula")
   done
   if (( ${#missing} )); then
@@ -93,6 +93,8 @@ install_dependencies() {
   BREW_PREFIX="$("$BREW" --prefix)"
   "$BREW_PREFIX/bin/gs" --version > /dev/null
   "$BREW_PREFIX/bin/gsed" --version > /dev/null
+  PYTHON="$BREW_PREFIX/opt/python@3.14/bin/python3.14"
+  "$PYTHON" --version > /dev/null
 }
 
 remove_dependencies() {

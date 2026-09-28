@@ -5,7 +5,7 @@ This is not legal advice. It is a practical summary of the redistribution postur
 ## Summary
 
 This repository is public at the owner's request. The installer obtains
-Ghostscript and GNU sed from Homebrew; the original foo2zjs sources and HP
+Ghostscript, GNU sed and Python from Homebrew; the original foo2zjs sources and HP
 firmware remain included. Publication does not resolve the HP firmware
 redistribution concerns below.
 
@@ -26,6 +26,8 @@ Files written for this setup:
 
 - `files/cups/backend/hp1020queue`
 - `files/cups/filter/hp1020passthrough`
+- `files/macos/hp1020-service.py`
+- `files/macos/hp1020-usb-run.c`
 - `templates/hp1020-print.in`
 - `templates/hp1020-root-spool-worker.in`
 - `templates/com.aayush.hp1020-root-spool-worker.plist.in`

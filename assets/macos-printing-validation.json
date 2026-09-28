@@ -1,0 +1,135 @@
+{
+  "count": 38,
+  "checks": [
+    "fd wiring and side-channel encoding interoperate with the system CUPS library",
+    "baseline: native filters through worker and USB capture preserve selected pages/copies",
+    "four-copies: native filters through worker and USB capture preserve selected pages/copies",
+    "queue-copy-default: native filters through worker and USB capture preserve selected pages/copies",
+    "uncollated: native filters through worker and USB capture preserve selected pages/copies",
+    "postscript-copies: native filters through worker and USB capture preserve selected pages/copies",
+    "page-range: native filters through worker and USB capture preserve selected pages/copies",
+    "reverse: native filters through worker and USB capture preserve selected pages/copies",
+    "odd-pages: native filters through worker and USB capture preserve selected pages/copies",
+    "even-pages: native filters through worker and USB capture preserve selected pages/copies",
+    "landscape: native filters through worker and USB capture preserve selected pages/copies",
+    "two-up: native filters through worker and USB capture preserve selected pages/copies",
+    "letter: native filters through worker and USB capture preserve selected pages/copies",
+    "normal CUPS stdin delivery preserves every page",
+    "cancellation during stdin capture terminates the copy process and removes partial data",
+    "out-of-paper keeps job active, reports alert, clears on real status and waits for completion",
+    "unplug: failure holds the job without automatic replay",
+    "stall: failure holds the job without automatic replay",
+    "no-id: failure holds the job without automatic replay",
+    "disconnected printer stays queued and continues on reconnection without resubmission",
+    "missing feedback is explicitly unconfirmed, never presented as physical completion",
+    "firmware-ok: load only if missing; require FWVER before document transfer",
+    "firmware-bad-firmware: load only if missing; require FWVER before document transfer",
+    "cancel 15/paper: reset requested, USB group killed and private documents removed",
+    "cancel 9/paper: reset requested, USB group killed and private documents removed",
+    "cancel 15/stubborn: reset requested, USB group killed and private documents removed",
+    "queued cancellation performs no USB operation",
+    "cancellation during conversion kills pipeline descendants before any USB contact",
+    "worker crash/restart removes temporary documents and holds started jobs without replay",
+    "five jobs serialize; a second worker cannot steal the active worker lock",
+    "raw: reject before firmware or document transfer",
+    "paper-size: reject before firmware or document transfer",
+    "duplex: reject before firmware or document transfer",
+    "conversion: reject before firmware or document transfer",
+    "symlinked input rejected without reading outside the spool or changing its target",
+    "fragmented/malformed/stale status cannot fake completion or clear actual attention reasons",
+    "abandoned incoming data is removed while live captures are preserved",
+    "missing worker holds after the real timeout; later startup cannot print abandoned work"
+  ],
+  "conversions": [
+    {
+      "case": "baseline",
+      "rendered_pages": 3,
+      "sha256": "8e7595438cec29edfb41212e12d6681ac159be6951efaa46b9b95356300c2386"
+    },
+    {
+      "case": "four-copies",
+      "rendered_pages": 12,
+      "sha256": "cbae576b1204a612aecdd0efcaac9ab77c28a96849000e51e2ece4fb24e4a2cb"
+    },
+    {
+      "case": "queue-copy-default",
+      "rendered_pages": 9,
+      "sha256": "ba4608275e0af6eb5a92c2011b795efdc63ff78fc822f504e0b5d2cfc6b44226"
+    },
+    {
+      "case": "uncollated",
+      "rendered_pages": 9,
+      "sha256": "10a72746324eac993488a45d38dd06febe206dd2c154986ca52ea3bf9b96fe8b"
+    },
+    {
+      "case": "postscript-copies",
+      "rendered_pages": 6,
+      "sha256": "56899d19e67b27be0ba9bc41009445543b9af76aaa14b27a08b41c483371789c"
+    },
+    {
+      "case": "page-range",
+      "rendered_pages": 4,
+      "sha256": "dc57ab3efad929599a9f55f65dec19d32e0837cea5b1a95cee75e8a1579d3fb7"
+    },
+    {
+      "case": "reverse",
+      "rendered_pages": 3,
+      "sha256": "5d43baf8293293a1f1b9719f9dd31e7adf3a96b07092b4033e60c69702746349"
+    },
+    {
+      "case": "odd-pages",
+      "rendered_pages": 2,
+      "sha256": "ac09a609cf2da88139ef7daa76f26932684f28bab537578e6d1de0558a64c935"
+    },
+    {
+      "case": "even-pages",
+      "rendered_pages": 1,
+      "sha256": "51b508b6fdcee98c70acee12c9b09e26a995dc8133cd741a7fffc758a375942a"
+    },
+    {
+      "case": "landscape",
+      "rendered_pages": 3,
+      "sha256": "7f56bff70fa5863431503391613dd16074afe526de778fa2d13fe1e34342d49d"
+    },
+    {
+      "case": "two-up",
+      "rendered_pages": 2,
+      "sha256": "24a31316b873e9578a74539dfd137da50ce396af60baff69c84fede771287747"
+    },
+    {
+      "case": "letter",
+      "rendered_pages": 6,
+      "sha256": "2a6837e1403a42c95828950a30cac2dc4f03e05fb2bef78466fd98618b62eb14"
+    }
+  ],
+  "source_sha256": {
+    "files/macos/hp1020-service.py": "c47ba4963e7a9cb8698a6f4e94bf37b499c0f4532049d9dd53fa5fbcca25d312",
+    "files/macos/hp1020-usb-run.c": "19473b610000c32f691830f2ccd49ac410eebe7c306c2082237972a213f07097",
+    "files/cups/backend/hp1020queue": "497d08666f6c5d3aa9dc9887418d57aea8ac27f057ab35e6cfa46d8ab3f04a14",
+    "files/cups/filter/hp1020passthrough": "273aa32916c5b495aa8ec81977bef44b5462984a58bba95452a5dad837c6de15",
+    "files/ppd/HP-LaserJet_1020-Plus-hp1020zjs.ppd": "9310082842fa74e6712f4099e38b01f3b9d1f729d506b52df0696a4878f080a3",
+    "scripts/rebuild-runtime-from-vendor.sh": "a545ac37b29e07dc4297a2b8c67a8020c3e68909e9936f055df19cb7b16ad8aa",
+    "assets/runtime/foo2zjs-wrapper": "e587cdc6bdce297dbfee14ef814cff6748de045253ae84d1e220091e9978e346",
+    "assets/runtime/foo2zjs-pstops": "cbdfc9f8b4b58d645917138197bdf8a5e36541b6778aa0e395741d9e97e5220d",
+    "vendor/foo2zjs-source/foo2zjs.c": "82a8acc1ffe81efbb372942d186e4fd9a5bb1ad7268f67bc1c8f6f1276cc3e3a",
+    "scripts/validate-macos-printing.py": "0fb2d7c25a9ab19935ab24b87b0e6968b1657d1bcc27a8085321a2b8d92eb845",
+    "vendor/foo2zjs-source/zjs.h": "d62b56934283fdccfb9137bbf98d8faeab2c6b032b8b4a9732b963c8d5a9cc89",
+    "vendor/foo2zjs-source/jbig.c": "835ce9b964a6735187b6e064562695063a65f35fe29924de1d60db660c3e21b3",
+    "vendor/foo2zjs-source/jbig.h": "0c016a8c69e349c510630edbf5b96057be952c2ac19c1a9b8488ad8c9864d7a4",
+    "vendor/foo2zjs-source/jbig_ar.c": "a51552d2f839ce8b758400660bd423b95b4b25cde11e65cc4e7d6c63c1a19d6f",
+    "vendor/foo2zjs-source/jbig_ar.h": "292c4c43c944e2573b558d89b7004cec6c59c70dbbfd7b9890868a2291d1250a",
+    "assets/runtime/sihp1020.dl": "133b21fe0cb24bfe53e2eff2f00a82cce4beb970749049661ade7a6801f22663"
+  },
+  "real_macos_filters": true,
+  "real_ghostscript_and_encoder": true,
+  "host_macos": "27.0",
+  "ghostscript_version": "10.07.0",
+  "python_version": "3.14.5 (main, May 10 2026, 10:21:34) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "cups_scheduler_and_gui": false,
+  "usb_transport": "simulated with real fd 3/4 wiring",
+  "accelerated_worker_timeouts": true,
+  "actual_installation": false,
+  "printer_contact": false,
+  "physical_print_test": false,
+  "device_status_compatibility": "not yet hardware-verified"
+}

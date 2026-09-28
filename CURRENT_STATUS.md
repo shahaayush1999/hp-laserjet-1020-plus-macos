@@ -1,42 +1,48 @@
 # Current handoff
 
 Updated: 2026-09-28. **The open replacement cannot print yet.**
-The HP-based macOS setup prints, but has the support gaps below. It is untouched.
-No printer contact, upload, installed-printing change or print-driving hardware
-path occurred.
+Current work is maintenance of the separate HP-based macOS printing setup.
+No printer enumeration, query, firmware upload or physical test occurred.
 
-**Current support issue (September 28):** requested copies are lost; jobs leave
-the macOS queue without waiting for the worker; no paper-out alert is provided.
-Read-only inspection confirmed this in the installed backend, passthrough filter,
-worker and per-user helper. A temporary, relocated copy of the installed backend
-produced one identical document and no copy metadata for both 1 and 4 requested
-copies, returning success without running a worker. Repository sources retain
-the same defects: backend arguments 4/5 are discarded, the worker receives only
-a filename, and the helper sends one copy. No fix or live test has occurred.
-Next support work: preserve copy counts through the handoff and produce complete
-document sets; keep CUPS attached through processing/transfer with failure and
-cancellation handling. Do not mistake transfer completion for physical printing.
-Paper-out/physical completion needs verified device feedback; existing PJL probe
-plans are not proof of working alerts. Printer contact still needs authorization.
-The 12 setup checks below cover conversion/install/cleanup, not print-dialog copy
-propagation or queue/status behavior; direct encoder `-n2` cases did not cover it.
+**Support fixes implemented and installed on the owner’s Mac:** the PPD now uses Apple's
+native copy/layout filters. Complete collated and uncollated document sets,
+page selection/order/layout and A4/Letter are verified through real native
+filters, Ghostscript and encoder output. The backend stays connected to a
+serialized `_lp` worker for progress, cancellation and failures. Known PJL
+feedback drives paper/cover/jam reasons; matching job name/page count is required
+for confirmed completion. Missing feedback is explicitly unconfirmed. Failed
+transfers/restarted work are held without automatic replay. Firmware is loaded
+only when FWVER is absent and must be verified before sending a document.
+Cancellation requests the standard USB reset, kills descendants, and cleans up.
+New jobs have no extra document archive; crash leftovers are removed on restart.
 
-Support decision: the owner reversed the self-contained bundle experiment.
+Sequential support validation passed **38 printing checks and 17 setup checks**.
+Exact tested hashes/scope are in `assets/macos-printing-validation.json` and
+`assets/macos-setup-validation.json`; all match. The latter includes protected
+repository access and fatal shell failures after a real update exposed those
+problems. The original setup was restored and checked, then the staged-input
+installer succeeded. Installed source/firmware/license bytes match; both native
+binaries verify; the service runs as `_lp`; the queue is enabled, accepting and
+idle with collated sets as default. The old per-user helper/runtime is retired.
+An additional offline run through the installed native filter chain and encoder
+produced four ordered two-page sets (eight output pages, encoder copies one).
+No print job was submitted. See `MANIFEST.md` for the deployment/test details.
+
+The offline suites simulate USB, Homebrew and administration. Real installation
+and idle startup are separately verified; actual CUPS scheduler/UI, device
+feedback, buffer reset, fresh-Mac installation and physical output remain
+unverified. Next support evidence: one explicitly authorized, freshly power-cycled
+printer test for copies and paper/queue feedback. Do not ask the owner to manually
+exercise every edge case or claim live alerts are proven. The first-attempt
+recovery backup remains at `/private/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/hp1020-rollback.XXXXXXXX.CbLay5meYi`.
+
 Use **git clone + `scripts/install.sh` + `scripts/uninstall.sh`**, with Homebrew
-handling downloads. Do not reintroduce apps, packages, ZIP handoffs or bundled
-Ghostscript/GNU sed. The installer bootstraps official Homebrew if absent,
-installs missing dependencies, compiles the small foo2zjs encoder for the host,
-and sets up the existing queue/worker approach. Package ownership persists in
-`~/.local/state/hp1020/`; removal handles added dependencies and a newly created,
-unused Homebrew installation, preserving pre-existing/shared packages. Interrupted
-or failed cleanup keeps its record for retry. Run as the same normal Mac user.
-Twelve focused offline checks passed; exact hashes and scope are in
-`assets/macos-setup-validation.json`. Four conversion cases match all original
-encoder chunks. Homebrew, administration and USB calls were mocked. No fresh-Mac
-installation or physical print test occurred. Original `assets/runtime/`, vendor
-sources and firmware research remain unchanged; the research baseline is still
-September 23. README uses a shallow clone so obsolete archives in Git history
-are not fetched. The removed bundle and reports remain recoverable in Git.
+for Ghostscript/GNU sed/Python. Do not reintroduce apps, packages or ZIP handoffs.
+Ownership survives reinstall; cleanup preserves pre-existing/shared packages and
+retains failed-cleanup records for retry. Failed replacement restores prior
+files/queue PPD and requires service readiness before enabling the updated queue.
+`README.md` is user setup; `MANIFEST.md` owns support implementation/test detail.
+Original runtime/vendor assets and the September 23 research baseline are intact.
 
 Repository visibility changed to public on September 27 at the owner's explicit
 request and verified through GitHub without authentication. Existing third-party
@@ -103,8 +109,9 @@ Do not repeat the completed selector matrix or resolved empty-document
 cancellation/END_DOC ordering.
 Queues: engine 0, PrintMgr 1, JobMgr 3, Video 8, StatusMgr 10.
 
-Offline only: no USB enumeration/contact, queries, uploads, installed-printing
-changes or print-driving MMIO. Unknown custom instructions are not inert.
+Firmware research remains offline: no USB enumeration/contact, queries, uploads,
+installed-printing changes or print-driving MMIO. The authorized support update
+above is separate from research. Unknown custom instructions are not inert.
 No research process remains running. Engine-ready packing, cache
 visibility, physical throughput, boot, printing and power-cycle recovery remain
 unproven. Passing software tests do not establish physical output.

@@ -1,6 +1,6 @@
 *PPD-Adobe: "4.3"
 *FormatVersion: "4.3"
-*FileVersion: "1.0"
+*FileVersion: "2.0"
 *LanguageVersion: English
 *LanguageEncoding: ISOLatin1
 *PCFileName: "HP1020ZJ.PPD"
@@ -19,9 +19,13 @@
 *TTRasterizer: Type42
 *cupsVersion: 2.0
 *cupsManualCopies: True
+*% The host PostScript renderer implements NumCopies, including uncollated sets.
+*cupsMaxCopies: 9999
 *cupsModelNumber: 1020
-*cupsFilter: "application/pdf 0 hp1020passthrough"
-*cupsFilter: "application/postscript 0 hp1020passthrough"
+*% Require Apple's PDF/PS and pstops filters for copies, ranges and layout.
+*cupsFilter: "application/vnd.cups-postscript 0 hp1020passthrough"
+*cupsSingleFile: True
+*cupsIPPReason com.hp1020.status-unavailable/Printer completion unconfirmed: ""
 *1284DeviceID: "MFG:Hewlett-Packard;MDL:HP LaserJet 1020;CMD:ACL;DES:HP LaserJet 1020;"
 
 *OpenUI *PageSize/Media Size: PickOne

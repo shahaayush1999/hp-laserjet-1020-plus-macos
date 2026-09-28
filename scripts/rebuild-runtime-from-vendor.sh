@@ -9,6 +9,9 @@ mkdir -p "$OUT"
 /usr/bin/clang -O2 -arch arm64 -I "$SRC" -o "$OUT/foo2zjs" \
   "$SRC/foo2zjs.c" "$SRC/jbig.c" "$SRC/jbig_ar.c"
 /usr/bin/codesign --force --sign - "$OUT/foo2zjs"
+/usr/bin/clang -O2 -arch arm64 -Wall -Wextra -Werror \
+  "$ROOT/files/macos/hp1020-usb-run.c" -o "$OUT/hp1020-usb-run"
+/usr/bin/codesign --force --sign - "$OUT/hp1020-usb-run"
 # Quote filenames and propagate renderer failures through the original pipeline.
 awk '
   NR == 1 { print "#!/bin/bash"; print "set -o pipefail"; next }

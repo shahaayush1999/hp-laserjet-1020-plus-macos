@@ -1,34 +1,4 @@
 #!/bin/zsh
 set -euo pipefail
-setopt NULL_GLOB
-
-QUEUE="/private/var/spool/cups/tmp/hp1020queue"
-BASE="/Library/Printers/hp1020"
-DONE="$BASE/done"
-FAILED="$BASE/failed"
-LOG="$BASE/spool-worker.log"
-LOCKDIR="$BASE/spool-worker.lock"
-PRINTER="/Library/Printers/hp1020/hp1020-print"
-
-mkdir -p "$QUEUE" "$DONE" "$FAILED"
-chown root:_lp "$QUEUE" 2>/dev/null || true
-chmod 2770 "$QUEUE" 2>/dev/null || true
-
-rmdir "$LOCKDIR" 2>/dev/null || true
-if ! mkdir "$LOCKDIR" 2>/dev/null; then
-  exit 0
-fi
-trap 'rmdir "$LOCKDIR" 2>/dev/null || true' EXIT
-
-for job in "$QUEUE"/*; do
-  [[ -f "$job" ]] || continue
-  name="$(basename "$job")"
-  print "$(date '+%Y-%m-%d %H:%M:%S') printing $name" >> "$LOG"
-  if "$PRINTER" "$job" >> "$LOG" 2>&1; then
-    mv "$job" "$DONE/$name"
-    print "$(date '+%Y-%m-%d %H:%M:%S') done $name" >> "$LOG"
-  else
-    mv "$job" "$FAILED/$name"
-    print "$(date '+%Y-%m-%d %H:%M:%S') failed $name" >> "$LOG"
-  fi
-done
+exec @@PYTHON_SHELL@@ -I /Library/Printers/hp1020/hp1020-service.py \
+  --brew-prefix @@BREW_PREFIX_SHELL@@ --device-uri @@DEVICE_URI_SHELL@@ worker

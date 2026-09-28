@@ -1,32 +1,23 @@
 #!/bin/zsh
+# Software-only diagnostics. Does not enumerate or query USB devices.
 set -euo pipefail
-
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 PRINTER_NAME="${HP1020_PRINTER_NAME:-HP_LaserJet_1020_Plus}"
 LABEL="${HP1020_LABEL:-com.aayush.hp1020-root-spool-worker}"
 
-printf '%s\n' '--- CUPS queue ---'
-lpstat -p "$PRINTER_NAME" -v -l 2>&1 || true
+print -- 'Printer queue and waiting jobs:'
+lpstat -p "$PRINTER_NAME" -l 2>&1 || true
 lpstat -W not-completed -o "$PRINTER_NAME" 2>&1 || true
-
-printf '\n%s\n' '--- USB backends ---'
-lpinfo -v 2>&1 | grep -En 'usb|LaserJet|Hewlett|hp1020' || true
-env -i PATH=/usr/bin:/bin:/usr/sbin:/sbin /usr/libexec/cups/backend/usb 2>&1 | sed -n '1,80p' || true
-
-printf '\n%s\n' '--- LaunchDaemon ---'
+print -- 'Printer worker:'
 launchctl print "system/$LABEL" 2>&1 | grep -E 'state =|runs =|last exit|last terminating|pid =|path =' || true
-
-printf '\n%s\n' '--- Worker log ---'
-tail -n 140 /Library/Printers/hp1020/spool-worker.log 2>/dev/null || true
-
-printf '\n%s\n' '--- Processes ---'
-ps ax -o pid,user,command | grep -E 'hp1020|foo2zjs|backend/usb' | grep -v grep || true
-
-printf '\n%s\n' '--- Homebrew tools ---'
+print -- 'Required software:'
 /opt/homebrew/bin/gs --version 2>&1 || true
 /opt/homebrew/bin/gsed --version 2>&1 | head -n 1 || true
+/opt/homebrew/opt/python@3.14/bin/python3.14 --version 2>&1 || true
 
-if [[ "${1:-}" == "--admin" ]]; then
-  printf '\n%s\n' '--- Protected spool state ---'
+if [[ "${1:-}" == --admin ]]; then
   osascript \
-    -e 'do shell script "echo TMP; ls -l /private/var/spool/cups/tmp/hp1020queue 2>/dev/null || true; echo DONE; ls -lt /Library/Printers/hp1020/done 2>/dev/null | head -n 20 || true; echo FAILED; ls -lt /Library/Printers/hp1020/failed 2>/dev/null | head -n 20 || true" with administrator privileges'
+    -e 'do shell script "tail -n 80 /Library/Printers/hp1020/state/spool-worker.log 2>/dev/null; tail -n 20 /Library/Printers/hp1020/state/launchd.err.log 2>/dev/null; exit 0" with administrator privileges'
+else
+  print -- 'For protected worker logs, run: zsh scripts/diagnose.sh --admin'
 fi

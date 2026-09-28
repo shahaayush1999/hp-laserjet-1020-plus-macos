@@ -9,15 +9,19 @@
   <array>
     <string>/Library/Printers/hp1020/hp1020-root-spool-worker</string>
   </array>
-  <key>WatchPaths</key>
-  <array>
-    <string>/private/var/spool/cups/tmp/hp1020queue</string>
-  </array>
+  <key>UserName</key>
+  <string>_lp</string>
+  <key>GroupName</key>
+  <string>_lp</string>
+  <key>KeepAlive</key>
+  <true/>
+  <key>ThrottleInterval</key>
+  <integer>5</integer>
   <key>RunAtLoad</key>
   <true/>
   <key>StandardOutPath</key>
-  <string>/Library/Printers/hp1020/launchd.out.log</string>
+  <string>/dev/null</string>
   <key>StandardErrorPath</key>
-  <string>/Library/Printers/hp1020/launchd.err.log</string>
+  <string>/Library/Printers/hp1020/state/launchd.err.log</string>
 </dict>
 </plist>
