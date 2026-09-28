@@ -1,5 +1,5 @@
 {
-  "check_count": 102,
+  "check_count": 104,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -335,6 +335,18 @@
       "detail": "Original buffer allocation, idle initialization, release and reuse must remain distinct from page lifecycles; smaller synthetic pools stop before retry scheduling and all constructor hardware remains excluded.",
       "evidence": "analysis/hardware-boundary/raw-parser.json",
       "name": "stock_video_buffer_initialization_and_ownership_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Decoded pixels must match every selected-slot byte through explicitly supplied fill/acceptance/completion boundaries; claimed buffers, host-selected wrap indices and released descriptors do not prove native page lifecycles or physical output.",
+      "evidence": "analysis/hardware-boundary/software-ring.json",
+      "name": "decoded_pixels_in_original_ring_storage_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Original ring indices must wrap only after actual claims/publications/accounting/releases; a full ring and accepted-but-uncompleted slot retain ownership, while physical readiness and completion remain supplied.",
+      "evidence": "analysis/hardware-boundary/software-ring.json",
+      "name": "decoded_pixels_continuous_ring_ownership_verified",
       "severity": "watch"
     },
     {

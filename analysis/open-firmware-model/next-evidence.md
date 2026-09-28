@@ -25,11 +25,12 @@ A second concrete shortcut now avoids the compressed-image hardware for offline
 image production. `open-firmware/image-core/` contains a bounded streaming JBIG
 wrapper and a bridge from the existing semantic parser/planner to packed row
 bands. The parser now retains each exact 20-byte BIH. Current focused checks
-pass, and the latest full sequential aggregate passed **102 consistency checks**
-in `/tmp/hp1020-full-raw-handoff-20260928.log` (child logs `hp1020-validation.a6RCMj`), including
+pass, and the latest full sequential aggregate passed **104 consistency checks**
+in `/tmp/hp1020-full-software-ring-20260928.log` (child logs `hp1020-validation.Rqozd4`), including
 the bounded complete-stream, raw-contract, original producer, parser/handoff and
-video-buffer initialization integrations below. All tested current source/fixture
-hashes match. No validation process remains running at this checkpoint.
+video-buffer initialization and software-ring delivery integrations below. All
+tested source/fixture hashes match. No validation process remains running at this
+checkpoint. Later drafts are separate from this executed result.
 
 - `validate-hp1020-image-core.py --target`: 176 cases, 21 comparisons of original
   versus normalized headers through the original full decoder, 32 separately
@@ -420,9 +421,9 @@ allocate the second (`0x100148ad`). No sleep, retry or eventual recovery is run.
 Six excluded-code checks per buffer case also reject before execution in both
 engines. These idle allocation cycles are not completed page lifecycles.
 
-The next connection was inspected directly in the original bytes after the full
-run. These are **instruction-derived boundaries, not a newly executed delivery
-experiment**. Literal `0x100067bc` is `video+0x20 = 0x1002efe0`, the four embedded
+The next connection was inspected directly in the original bytes after that full
+run, then executed in the separate bounded delivery experiment below. Literal
+`0x100067bc` is `video+0x20 = 0x1002efe0`, the four embedded
 12-byte descriptors. Original producer `0x10014244` selects index video+0xe0,
 requires descriptor+0 == 0 and remaining video+0xd0 != 0, then stores
 `min(remaining, video+0xcc)` at descriptor+8 (`9362` at `0x1001426e`). It subtracts
@@ -450,15 +451,81 @@ aligned strides; it is not additional original execution or a physical format
 claim. A software decoder emitting four rows at a time may need to accumulate
 multiple bands before publishing the original descriptor's larger count.
 
-Next execute these bounded RAM stages using actual allocation/slot geometry,
-copy software-decoded bytes before publishing completion, and compare every byte
-against the decoder's source-pixel oracle. Include multi-slot wrap, withheld
-nonfinal data and partial-final bands. Keep readiness, consumption and omitted
-peripheral prefixes explicit. Follow the normal descriptor IRQ family; do not
-force the raw flag or claim the legacy chunk-12 route supplies standalone raw
-retirement's preconditions. Live configuration, physical packing, repeat
-submission and eventual hardware behavior remain unresolved. Do not repeat the
-metadata, selector or cancellation matrices.
+### Software-decoded pixels in original output storage (2026-09-28)
+
+`scripts/validate-hp1020-software-ring.py` generates
+`hardware-boundary/software-ring.json/.md`. Focused execution passes **eight
+isolated buffer transfers and two continuous five-transfer sequences** in both
+the bounded interpreter and independent QEMU. Log:
+`/tmp/hp1020-software-ring-final-20260928.log`; prerequisite parser log
+`/tmp/hp1020-raw-parser-delivery-20260928.log`. The consistency gate passes **104
+checks**. The full sequential aggregate passed both suites in
+`/tmp/hp1020-full-software-ring-20260928.log`, child logs `hp1020-validation.Rqozd4`.
+All recorded current source hashes match. The earlier four-case report with exact matching
+sources is preserved in `/tmp/hp1020-software-ring-four-20260928/`; subsequent
+source changes were executed again, never relabeled by manually editing hashes.
+
+- The compiled open decoder runs in QEMU on the existing
+  `9600x132-stripe128-edges.jbg` fixture. Its first 17 rows agree byte for byte
+  with the original full decoder built under ASan/UBSan and the generated source
+  pattern. The host crops one/four/17 rows and declares them as a short raw input;
+  this is an explicit adapter, not native streaming integration or a new claim
+  that the original chunk-12 grammar accepts the normal JBIG stream.
+- Actual chunk-12 parsing, owner allocation, JobMgr/PrintMgr handoff and video
+  initialization/preparation run with width 9600 and the chosen height. At
+  stride 1200 the first-ring slot capacity is four rows/4800 bytes. Source
+  allocation, work and payload remain unchanged throughout delivery. The work
+  raw flag stays zero; no source prefix is inserted or subtracted.
+- The original claim prefix stops at `0x10014290` before peripheral writes.
+  Its descriptor already says owned while pixels are still the old contents.
+  The supplied software adapter invokes original `memcpy` with an explicit
+  source offset; it is not a recovered stock caller. Every intended pixel and
+  every byte of both actual allocated output buffers are compared after copying.
+- After explicit copied-data completion, a fresh original IRQ entry cuts to
+  `0x1001445d` and runs the RAM publication tail through `0x10014468`. A fresh
+  band-queue entry cuts past physical readiness to `0x10013f57`, with the real
+  video/descriptor pointers, and stops at `0x10014014`. Callback-disabled
+  selection returns the populated first-ring pointer. Output acceptance is
+  supplied at `0x100140c9`; it decrements +0xd4 and advances +0xdc, stopping at
+  `0x100140e5`. Output completion is separately supplied through the original
+  normal-mode classification/release at `0x1001451c..0x10014576`.
+- The eight isolated cases vary zero/nonzero pool fill, first/last ring slot,
+  and one/four rows. Last-slot index three is an explicit fixture in this matrix.
+  Temporarily clearing the final flag reaches the one-slot withholding branch;
+  restoring the actual final flag permits selection. Occupied and zero-remaining
+  producer controls return without writes. Unwritten final-slot bytes stay 0xff.
+- The two continuous cases vary pool fill and retain constructor-zero indices.
+  Five publications/acceptances/releases use slots **0,1,2,3,0** and row counts
+  **4,4,4,4,1**, with all index advances performed by original instructions.
+  The first actual nonfinal band is withheld before the second publication.
+  Four published slots block the next producer claim. Accepting slot zero
+  advances +0xdc but leaves it owned, so a second claim still stops. Only the
+  separately supplied completion releases it for the fifth band. The final
+  one-row reuse leaves earlier bytes outside that row exactly intact. Concatenated
+  selected bands equal all 20400 source bytes; final indices are 1/1/1, both
+  remaining counts zero, and all four ownership flags clear. No final flag or
+  index is patched in these continuous cases; interleaving is host-selected.
+- Thirteen excluded-code controls per case reject before execution. The source
+  pool and owner references remain live: retiring output descriptors does not
+  establish page/source cleanup. These observations are **zero additional native
+  page lifecycles**, zero hardware transfers, and no physical-format or throughput
+  proof. No compressed-image DMA, output writes, status read, custom callback,
+  native asynchronous task scheduling or automatic completion runs.
+
+The transfer-ring generator now separates input-ring indices +0x94/+0x98 from
+output claim/publication/selection/release indices +0xe0/+0xdc/+0xd8. Its earlier
+description of +0xdc as only a recovery latch was incomplete, and descriptor+4
+is now identified as the final-band flag against original bytes/execution.
+
+Next connect the bounded C decoder's band pause/release API directly to software
+output ownership in one compiled RAM fixture, removing the host pixel-copy
+bridge. Preserve full-ring backpressure, early acceptance versus late completion,
+exact bytes and partial-final semantics. A software output consumer must remain
+explicit; do not introduce peripheral calls or imply native page cleanup from
+descriptor completion. Follow the normal descriptor family and do not force the
+raw flag. Live configuration, physical packing, repeated page submission and
+eventual hardware behavior remain unresolved. Do not repeat the metadata,
+selector or cancellation matrices.
 
 ## Preferred raster bypass (2026-09-10)
 

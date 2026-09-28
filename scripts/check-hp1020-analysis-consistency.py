@@ -1213,6 +1213,83 @@ def build_report() -> dict[str, Any]:
                                 and c["registered_handlers"] == {} for c in buffer_limits),
                         "Original buffer allocation, idle initialization, release and reuse must remain distinct from page lifecycles; smaller synthetic pools stop before retry scheduling and all constructor hardware remains excluded.",
                         evidence="analysis/hardware-boundary/raw-parser.json"))
+    software_ring = read_json("analysis/hardware-boundary/software-ring.json")
+    checks.append(check("decoded_pixels_in_original_ring_storage_verified",
+                        software_ring["status"] == "pass"
+                        and software_ring["buffer_transfer_cases"] == len(software_ring["cases"]) == 8
+                        and software_ring["completed_page_lifecycles"] == 0
+                        and software_ring["stock_elf_sha256"] == raw_parser["stock_elf_sha256"]
+                        and software_ring["raw_parser_report_sha256"] == hashlib.sha256(
+                            (ROOT_DIR/"analysis/hardware-boundary/raw-parser.json").read_bytes()).hexdigest()
+                        and software_ring["image"]["bytes"] == 4800
+                        and software_ring["image"]["rows"] == 4 and software_ring["image"]["stride"] == 1200
+                        and software_ring["image"]["bie_sha256"] == hashlib.sha256(
+                            (ROOT_DIR/"analysis/open-firmware-model/image-core/fixtures/9600x132-stripe128-edges.jbg").read_bytes()).hexdigest()
+                        and software_ring["image"]["target_elf_sha256"] == image["target"]["elf_sha256"]
+                        and set(software_ring["bands"]) == {"1","4"}
+                        and all(software_ring["bands"][str(r)]["rows"] == r
+                                and software_ring["bands"][str(r)]["bytes"] == r*1200 for r in (1,4))
+                        and software_ring["bands"]["4"]["sha256"] == software_ring["image"]["sha256"]
+                        and {(c["fill"],c["initial_index"],c["image_rows"]) for c in software_ring["cases"]} ==
+                            {(f,i,r) for f in (0,204) for i in (0,3) for r in (1,4)}
+                        and all(c["status"] == "pass" and c["completed_page_lifecycles"] == c["hardware_transfers"] == 0
+                                and c["engines"] == ["bounded_interpreter","independent_qemu"]
+                                and c["final_index"] == (c["initial_index"]+1)&3
+                                and c["all_image_bytes_equal"] and c["only_selected_slot_changed"]
+                                and c["source_owners_and_pool_unchanged"] and c["image_bytes"] == c["image_rows"]*1200
+                                and c["image_sha256"] == software_ring["bands"][str(c["image_rows"])]["sha256"]
+                                and c["occupied_guard_stop"] == c["no_remaining_guard_stop"] == "0x1001429a"
+                                and c["nonfinal_collision_stop"] == "0x100140f6"
+                                and len(c["rejected_before_execution"]) == 13
+                                and len(c["supplied_boundaries"]) == 5
+                                and [s["phase"] for s in c["stages"]] ==
+                                    ["prepared","claimed_before_pixels","software_pixels_copied","fill_published",
+                                     "final_buffer_selected","output_accounted","descriptor_released"]
+                                and c["stages"][1]["descriptor"] == [1,1,c["image_rows"]]
+                                and c["stages"][1]["target_sha256"] == c["stages"][0]["target_sha256"]
+                                and all(s["target_sha256"] == c["image_sha256"] for s in c["stages"][2:])
+                                and c["stages"][-1]["descriptor"] == [0,1,c["image_rows"]]
+                                and c["stages"][-1]["indices"] == [c["final_index"]]*3
+                                and c["stages"][-1]["remaining"] == [0,0]
+                                for c in software_ring["cases"])
+                        and all(hashlib.sha256((ROOT_DIR/name).read_bytes()).hexdigest() == digest
+                                for name,digest in software_ring["source_sha256"].items()),
+                        "Decoded pixels must match every selected-slot byte through explicitly supplied fill/acceptance/completion boundaries; claimed buffers, host-selected wrap indices and released descriptors do not prove native page lifecycles or physical output.",
+                        evidence="analysis/hardware-boundary/software-ring.json"))
+    checks.append(check("decoded_pixels_continuous_ring_ownership_verified",
+                        software_ring["sequence_cases"] == len(software_ring["sequences"]) == 2
+                        and software_ring["sequence_buffer_transfers"] == 10
+                        and software_ring["sequence_image"]["rows"] == 17
+                        and software_ring["sequence_image"]["bytes"] == 20400
+                        and {c["fill"] for c in software_ring["sequences"]} == {0,204}
+                        and all(c["status"] == "pass" and c["completed_page_lifecycles"] == c["hardware_transfers"] == 0
+                                and c["engines"] == ["bounded_interpreter","independent_qemu"]
+                                and c["buffer_transfers"] == len(c["produced"]) == len(c["selected"]) == 5
+                                and [p["index"] for p in c["produced"]] == [p["index"] for p in c["selected"]]
+                                    == c["retired"] == [0,1,2,3,0]
+                                and [p["rows"] for p in c["produced"]] == [p["rows"] for p in c["selected"]] == [4,4,4,4,1]
+                                and [p["source_offset"] for p in c["produced"]] ==
+                                    [p["source_offset"] for p in c["selected"]] == [0,4800,9600,14400,19200]
+                                and [p["sha256"] for p in c["produced"]] == [p["sha256"] for p in c["selected"]]
+                                and c["image_bytes"] == 20400 and c["image_rows"] == 17
+                                and c["image_sha256"] == c["output_sha256"] == software_ring["sequence_image"]["sha256"]
+                                and c["all_image_bytes_equal"] and c["whole_buffer_guards_equal"]
+                                and c["source_owners_and_pool_unchanged"]
+                                and c["final_indices"] == [1,1,1] and c["final_remaining"] == [0,0]
+                                and len(c["supplied_boundaries"]) == 6 and len(c["rejected_before_execution"]) == 13
+                                and c["events"][0]["indices"] == [0,0,0]
+                                and c["events"][0]["remaining"] == [17,17]
+                                and {e["phase"] for e in c["events"]} >=
+                                    {"nonfinal_withheld","full_ring_producer_blocked","accepted_without_completion_still_blocked",
+                                     "descriptor_released","no_remaining_data"}
+                                and all(e["descriptors"][0][0] == 1 for e in c["events"]
+                                        if e["phase"] in ("full_ring_producer_blocked","accepted_without_completion_still_blocked"))
+                                and all(e["descriptors"][e["index"]][0] == 1 for e in c["events"]
+                                        if e["phase"] == "output_accounted_still_owned")
+                                and all(d[0] == 0 for d in c["events"][-1]["descriptors"])
+                                for c in software_ring["sequences"]),
+                        "Original ring indices must wrap only after actual claims/publications/accounting/releases; a full ring and accepted-but-uncompleted slot retain ownership, while physical readiness and completion remain supplied.",
+                        evidence="analysis/hardware-boundary/software-ring.json"))
     checks.append(check("raster_callback_argument_and_unknown_isa_boundary",
                         callbacks["status"] == "pass" and callbacks["call_contract"]["argument_count"] == 4
                         and [len(f["unknown_instructions"]) for f in callbacks["functions"]] == [16,40,84],

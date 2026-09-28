@@ -135,8 +135,9 @@ def literal_values(elf: ElfImage) -> dict[str, str]:
 
 def ring_state_fields() -> list[dict[str, str]]:
     return [
-        {"offset": "+0x20 + slot*0x0c", "field": "ring descriptor busy flag", "meaning": "cleared by IRQ path; helper sets related descriptor record busy"},
-        {"offset": "+0x24 + slot*0x0c", "field": "ring descriptor secondary field", "meaning": "initialized by prepare; exact ownership still unresolved"},
+        {"offset": "+0x20 + slot*0x0c", "field": "output descriptor owned flag", "meaning": "0x10014283 claims it before pixels are filled; 0x10014569 releases it after supplied completion; it is not a ready-pixels flag"},
+        {"offset": "+0x24 + slot*0x0c", "field": "final output band flag", "meaning": "0x1001427e..0x10014281 sets it when remaining +0xd0 reaches zero; 0x10013f6f..0x10013f72 permits the otherwise-withheld final slot"},
+        {"offset": "+0x28 + slot*0x0c", "field": "output band row/unit count", "meaning": "0x1001426e stores min(+0xcc,+0xd0); 0x100140cc reads it for output accounting"},
         {"offset": "+0x94", "field": "consumer/read index candidate", "meaning": "render treats equality with next producer index as ring full"},
         {"offset": "+0x98", "field": "producer/write index candidate", "meaning": "render advances `(value + 1) & 3` after descriptor setup"},
         {"offset": "+0x9c", "field": "active raster-list pointer", "meaning": "set from work +0x50 and walked by raw-band refresh"},
@@ -145,9 +146,10 @@ def ring_state_fields() -> list[dict[str, str]]:
         {"offset": "+0xb8", "field": "stride bytes candidate", "meaning": "used by band helper as transfer length multiplier"},
         {"offset": "+0xcc", "field": "maximum chunk lines/units", "meaning": "caps helper chunk size"},
         {"offset": "+0xd0", "field": "remaining transfer units", "meaning": "helper decrements this by the chosen chunk"},
+        {"offset": "+0xd4", "field": "remaining output units", "meaning": "0x100140c9..0x100140d7 subtracts the selected descriptor count after the output-write boundary"},
         {"offset": "+0xd8", "field": "IRQ done index candidate", "meaning": "advanced `(value + 1) & 3` when band-done bit 0x20 arrives"},
-        {"offset": "+0xdc", "field": "reset/rearm latch", "meaning": "cleared on one block-status recovery branch"},
-        {"offset": "+0xe0", "field": "helper descriptor slot selector", "meaning": "chooses `descriptor_base + slot*0x0c` and source pointer at state + slot*4"},
+        {"offset": "+0xdc", "field": "next output-selection index", "meaning": "0x10013f60 selects it; 0x100140e2 advances it modulo four after output accounting; recovery also clears it"},
+        {"offset": "+0xe0", "field": "next fill/publication index", "meaning": "chooses `descriptor_base + slot*0x0c` and buffer at state + slot*4; 0x10014468 advances it modulo four at the fill-completion RAM tail"},
         {"offset": "+0xf0", "field": "band-done happened flag", "meaning": "set by IRQ path after handling block status"},
         {"offset": "+0xf8", "field": "band-done counter", "meaning": "incremented when block status bit 0x20 is seen"},
         {"offset": "+0xfc", "field": "raw-band/reset mode sign field", "meaning": "negative path drains +0xa0 and refreshes raw bands; nonnegative path advances descriptor ring"},
@@ -161,7 +163,7 @@ def ownership_sequences(literals: dict[str, str]) -> list[dict[str, Any]]:
             "function": "0x10014910 hp1020_video_prepare_page_candidate",
             "steps": [
                 "clear five saved pointer slots beginning at video_state +0xa4",
-                "clear producer index +0x98, consumer index +0x94, IRQ done index +0xd8, and latch +0xdc",
+                "clear input producer index +0x98, input consumer index +0x94, output done index +0xd8, and output-selection index +0xdc",
                 "clear four 0x0c-byte ring records beginning at video_state +0x20",
                 "derive stride +0xb8 from work +0x84 and derive maximum chunk +0xcc",
             ],
@@ -274,7 +276,8 @@ def build_report(elf_path: Path) -> dict[str, Any]:
         "checks": checks,
         "open_firmware_implication": [
             "A printing replacement needs the ring ownership rules, not just the 0xb200 descriptor writes.",
-            "The normal render path protects a modulo-4 producer/consumer ring and returns 0x1003 when the next slot would collide with the consumer index.",
+            "The normal render path protects the input ring at +0x94/+0x98 and returns 0x1003 when the next slot would collide with the consumer index. This differs from the four output descriptors controlled by +0xe0/+0xdc/+0xd8.",
+            "Output ownership, completed fill publication, output acceptance and completed consumption are separate stages. The RAM cuts and exact byte comparisons are owned by analysis/hardware-boundary/software-ring.json; they omit physical readiness and transfer operations.",
             "The interrupt/band-done path is responsible for clearing completed ring records and refilling channel-B descriptors.",
             "The remaining hard unknown is the exact interrupt/event timing that advances the consumer side under live hardware.",
         ],

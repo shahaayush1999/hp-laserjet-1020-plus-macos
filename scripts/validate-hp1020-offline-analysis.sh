@@ -227,6 +227,9 @@ run_step "Execute original raw producer, queue admission and bounded allocator c
 run_step "Execute original chunk-12 parser construction and queue admission" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-raw-parser.py"
 
+run_step "Deliver decoded software pixels through bounded original ring storage" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-software-ring.py"
+
 run_step "Regenerate video band queue/list model" \
   "$ROOT_DIR/scripts/model-hp1020-video-band-queue.py"
 

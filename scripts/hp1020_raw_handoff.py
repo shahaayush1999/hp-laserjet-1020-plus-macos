@@ -227,9 +227,11 @@ def run(state,engine,admission):
     assert {branch,0x10014910,0x10014a3b}.issubset(visited)
     assert state.read(video+96,4) == work
     assert state.read(queues[8]+16,4) == 0
-    dimensions_present = admission['work_bih_fields'] == [32,4,4]
+    width = state.read(payload+88,4)
+    rows = state.read(payload+32,2)
+    dimensions_present = admission['work_bih_fields'] == [width,rows,rows]
     assert (stop == PREPARE_END) == dimensions_present
-    assert state.read(video+184,4) == (4 if dimensions_present else 0)
+    assert state.read(video+184,4) == (width//8 if dimensions_present else 0)
     if dimensions_present:
         assert 0x10014bac in visited and state.read(video+252,4)&0x80000000 == 0
         layout = video_buffers.prepared_layout(state,initialization)
@@ -241,7 +243,7 @@ def run(state,engine,admission):
                and s['source_kind'] == admission['source_kind']
                and s['references'] == admission['copies'] for s in stages)
     assert not any(w['field'] in ('image_cursor','work_raw_mode') for w in state.handoff_writes)
-    assert state.bytes_at(admission['input_pointer'],16) == bytes(range(16))
+    assert sha(state.bytes_at(admission['input_pointer'],admission['data_allocations'][-1]['size'])) == admission['image_sha256']
     rejected = reject_excluded(state,engine,EXCLUDED)
     return dict(status='pass',bitmap=admission['bitmap'],page_bitmap=admission['page_bitmap'],
         copies=admission['copies'],fill=admission['fill'],

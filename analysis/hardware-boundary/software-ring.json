@@ -1,0 +1,7016 @@
+{
+  "audited_stock_ranges": [
+    {
+      "begin": "0x10014244",
+      "bytes": "6c100417c94a22723814c95b02230904360a856007220a8820cf59227234cb24247233d320734b01d340936222723414c95d03220c227634c03102353895619360826223722e15c956032228",
+      "end": "0x10014290",
+      "sha256": "1d0e77c5d85e8a5d709c83013e21a986309114de8cef636db2cfcc89e81b1d8c"
+    },
+    {
+      "begin": "0x100143b8",
+      "bytes": "6c1004",
+      "end": "0x100143bb",
+      "sha256": "06512cd3f115855cb7243fd12c981045b3e3713ec26afb1f4d0d6352c37ca6ed"
+    },
+    {
+      "begin": "0x1001445d",
+      "bytes": "19c8c4289238b188080841289638",
+      "end": "0x1001446b",
+      "sha256": "9d180cd07d707db1db2c2bb1c4abc249b6cef6b8ee48408e6d7724f70e04d290"
+    },
+    {
+      "begin": "0x10013f34",
+      "bytes": "6c1004",
+      "end": "0x10013f37",
+      "sha256": "06512cd3f115855cb7243fd12c981045b3e3713ec26afb1f4d0d6352c37ca6ed"
+    },
+    {
+      "begin": "0x10013f57",
+      "bytes": "d7b012ca1ac040d3902a723729723828ac0108084179890528520164818007a80a297230868064909188206480768851ca8e885229722e0988282a723d0929140a9928c0b0a86a79bb171cc9f394a0b4aa28c22e29c23d082814098828b1bb78b3ea88522972350e8811798314287237078a0a89a418c8b079830618c798a89898a42a723d2d722e2872378c520daa2807880a2b82040c2c140ecc112822000a6a0c",
+      "end": "0x10013ff9",
+      "sha256": "50284dd56e243743e9dbf9c5ad6a7707c1ccd3e484af519db4a30da28d674e01"
+    },
+    {
+      "begin": "0x10013ffc",
+      "bytes": "287230c88f8820c88b28723707880a8884dc80600001dc60",
+      "end": "0x10014014",
+      "sha256": "29bec823ffad225d2dcc8a31460fda4121667fc89a1e5c786defec0929fd6d62"
+    },
+    {
+      "begin": "0x100140c9",
+      "bytes": "29723588521ac9bb08990c28723729763519c9b9b188080841287637",
+      "end": "0x100140e5",
+      "sha256": "12d32e66a0af6157ecf9f01336a91ca52227dbe9fcce648b2079951859237f9e"
+    },
+    {
+      "begin": "0x100144d0",
+      "bytes": "6c1004",
+      "end": "0x100144d3",
+      "sha256": "06512cd3f115855cb7243fd12c981045b3e3713ec26afb1f4d0d6352c37ca6ed"
+    },
+    {
+      "begin": "0x1001451c",
+      "bytes": "28a23f08f950cb9a",
+      "end": "0x10014524",
+      "sha256": "6d8648240640c78346fdce556cc6af7db283272bbb78eb1ba9a287e15b772a4e"
+    },
+    {
+      "begin": "0x10014560",
+      "bytes": "28a2360888090a880a998828a236b18808084128a636",
+      "end": "0x10014576",
+      "sha256": "d3e84bb99fa8cc02f36afe2721abff4818c66f29033a82d62fea97f55564f4e3"
+    }
+  ],
+  "bands": {
+    "1": {
+      "bytes": 1200,
+      "rows": 1,
+      "sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+    },
+    "4": {
+      "bytes": 4800,
+      "rows": 4,
+      "sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+    }
+  },
+  "buffer_transfer_cases": 8,
+  "cases": [
+    {
+      "all_image_bytes_equal": true,
+      "completed_page_lifecycles": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "final_index": 1,
+      "hardware_transfers": 0,
+      "image_bytes": 1200,
+      "image_rows": 1,
+      "image_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a",
+      "index_origin": "constructor zero",
+      "initial_index": 0,
+      "no_remaining_guard_stop": "0x1001429a",
+      "nonfinal_collision_stop": "0x100140f6",
+      "occupied_guard_stop": "0x1001429a",
+      "only_selected_slot_changed": true,
+      "preparation": {
+        "bitmap": 0,
+        "completed_lifecycles": 0,
+        "copies": 1,
+        "engine_packets": [
+          {
+            "queue": 0,
+            "type": 24
+          },
+          {
+            "queue": 0,
+            "words": [
+              13,
+              0,
+              0,
+              574620076
+            ]
+          }
+        ],
+        "fill": 0,
+        "image_unchanged": true,
+        "outcome": "pre_peripheral_prepare",
+        "output_layout": {
+          "all_spans_inside_original_allocations": true,
+          "buffers_unchanged": true,
+          "first_slot_bytes": 4800,
+          "first_slots": [
+            574621680,
+            574626480,
+            574631280,
+            574636080
+          ],
+          "first_unused_tail": 19968,
+          "second_slot_bytes": 9600,
+          "second_slots": [
+            574660880,
+            574670480,
+            574680080,
+            574689680
+          ],
+          "stride": 1200
+        },
+        "page_bitmap": 1,
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            1228,
+            2684354560
+          ],
+          [
+            574621464,
+            120,
+            2147483648
+          ],
+          [
+            574621596,
+            20,
+            2147483648
+          ],
+          [
+            574621628,
+            16,
+            2147483648
+          ],
+          [
+            574621656,
+            39196,
+            2147483648
+          ],
+          [
+            574660864,
+            65564,
+            2147483648
+          ],
+          [
+            574726440,
+            24268,
+            1073741824
+          ]
+        ],
+        "prepare_stop": "0x10014baf",
+        "prepare_stride": 1200,
+        "rejected_before_execution": [
+          "0x10013c33",
+          "0x10014baf",
+          "0x10014bb8",
+          "0x10014bc3",
+          "0x1001451c",
+          "0x10015438",
+          "0x10015648",
+          "0x100147e3",
+          "0x100147ee",
+          "0x100147f8",
+          "0x1001486c",
+          "0x100148ad",
+          "0x1001766c"
+        ],
+        "separate_bih_chunk": true,
+        "stages": [
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "1e8393aa925c0670b8bbcec50346162eae95a7fb03c14caf655917a2978052f5",
+            "phase": "admission",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 0,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "f1903790d5e550004e8acf2061de13f33ab2557329502726eeb7639a8686401d"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "1e8393aa925c0670b8bbcec50346162eae95a7fb03c14caf655917a2978052f5",
+            "phase": "job_endings",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "5d26e6b416957d591379d5fe530fc0dd15b6f7758664922bebcb991ed454fd75"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "1e8393aa925c0670b8bbcec50346162eae95a7fb03c14caf655917a2978052f5",
+            "phase": "printmgr_request",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "5d26e6b416957d591379d5fe530fc0dd15b6f7758664922bebcb991ed454fd75"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "1e8393aa925c0670b8bbcec50346162eae95a7fb03c14caf655917a2978052f5",
+            "phase": "video_queued",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "5d26e6b416957d591379d5fe530fc0dd15b6f7758664922bebcb991ed454fd75"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "1e8393aa925c0670b8bbcec50346162eae95a7fb03c14caf655917a2978052f5",
+            "phase": "prepare_boundary",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "5d26e6b416957d591379d5fe530fc0dd15b6f7758664922bebcb991ed454fd75"
+          }
+        ],
+        "status": "pass",
+        "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+        "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+        "tracked_stores": [
+          {
+            "address": 268628156,
+            "field": "video_irq_mode",
+            "pc": "0x10014bac",
+            "phase": "video_prepare",
+            "size": 4,
+            "value": 0
+          }
+        ],
+        "video_initialization": {
+          "allocations": [
+            {
+              "block": [
+                574621656,
+                39196,
+                2147483648
+              ],
+              "pointer": 574621680,
+              "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+              "size": 39168
+            },
+            {
+              "block": [
+                574660864,
+                65564,
+                2147483648
+              ],
+              "pointer": 574660880,
+              "sha256": "de2f256064a0af797747c2b97505dc0b9f3df0de4f489eac731c23ae9ca9cc31",
+              "size": 65536
+            }
+          ],
+          "hardware_tail_executed": false,
+          "outcome": "initialized_before_peripherals",
+          "pool_blocks": [
+            [
+              574619648,
+              44,
+              2147483648
+            ],
+            [
+              574619704,
+              120,
+              2147483648
+            ],
+            [
+              574619836,
+              16,
+              2147483648
+            ],
+            [
+              574619864,
+              16,
+              2147483648
+            ],
+            [
+              574619892,
+              68,
+              2147483648
+            ],
+            [
+              574619972,
+              80,
+              2147483648
+            ],
+            [
+              574620064,
+              148,
+              2147483648
+            ],
+            [
+              574620224,
+              1228,
+              2684354560
+            ],
+            [
+              574621464,
+              120,
+              2147483648
+            ],
+            [
+              574621596,
+              20,
+              2147483648
+            ],
+            [
+              574621628,
+              16,
+              2147483648
+            ],
+            [
+              574621656,
+              39196,
+              2147483648
+            ],
+            [
+              574660864,
+              65564,
+              2147483648
+            ],
+            [
+              574726440,
+              24268,
+              1073741824
+            ]
+          ],
+          "pool_size": 131072,
+          "registered_handlers": {
+            "10": 268518524,
+            "11": 268518584,
+            "19": 268518044,
+            "20": 268518108,
+            "21": 268518328
+          },
+          "retry_executed": false,
+          "stop": "0x100147e3",
+          "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+        },
+        "video_mode_word": 0
+      },
+      "rejected_before_execution": [
+        "0x10014290",
+        "0x10014293",
+        "0x10014298",
+        "0x100143bb",
+        "0x1001446b",
+        "0x10013f4c",
+        "0x10013ff9",
+        "0x10014014",
+        "0x100140c7",
+        "0x100140e5",
+        "0x10014524",
+        "0x10014576",
+        "0x10015648"
+      ],
+      "selected_pointer": 574621680,
+      "source_owners_and_pool_unchanged": true,
+      "stages": [
+        {
+          "descriptor": [
+            0,
+            0,
+            0
+          ],
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "prepared",
+          "remaining": [
+            1,
+            1
+          ],
+          "target_sha256": "710baa8a6ca5b64e17e58b95140486de08b5dcd1369ef96114c39a72a18647ee"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            0,
+            1
+          ],
+          "target_sha256": "710baa8a6ca5b64e17e58b95140486de08b5dcd1369ef96114c39a72a18647ee"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "software_pixels_copied",
+          "remaining": [
+            0,
+            1
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            1,
+            0,
+            0
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            0,
+            1
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            1,
+            0,
+            0
+          ],
+          "phase": "final_buffer_selected",
+          "remaining": [
+            0,
+            1
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            1,
+            1,
+            0
+          ],
+          "phase": "output_accounted",
+          "remaining": [
+            0,
+            0
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        },
+        {
+          "descriptor": [
+            0,
+            1,
+            1
+          ],
+          "indices": [
+            1,
+            1,
+            1
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            0,
+            0
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        }
+      ],
+      "status": "pass",
+      "supplied_boundaries": [
+        "decoder capture to raw input",
+        "software memcpy adapter",
+        "fill completion",
+        "output acceptance",
+        "output completion"
+      ]
+    },
+    {
+      "all_image_bytes_equal": true,
+      "completed_page_lifecycles": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "final_index": 1,
+      "hardware_transfers": 0,
+      "image_bytes": 4800,
+      "image_rows": 4,
+      "image_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351",
+      "index_origin": "constructor zero",
+      "initial_index": 0,
+      "no_remaining_guard_stop": "0x1001429a",
+      "nonfinal_collision_stop": "0x100140f6",
+      "occupied_guard_stop": "0x1001429a",
+      "only_selected_slot_changed": true,
+      "preparation": {
+        "bitmap": 0,
+        "completed_lifecycles": 0,
+        "copies": 1,
+        "engine_packets": [
+          {
+            "queue": 0,
+            "type": 24
+          },
+          {
+            "queue": 0,
+            "words": [
+              13,
+              0,
+              0,
+              574620076
+            ]
+          }
+        ],
+        "fill": 0,
+        "image_unchanged": true,
+        "outcome": "pre_peripheral_prepare",
+        "output_layout": {
+          "all_spans_inside_original_allocations": true,
+          "buffers_unchanged": true,
+          "first_slot_bytes": 4800,
+          "first_slots": [
+            574625280,
+            574630080,
+            574634880,
+            574639680
+          ],
+          "first_unused_tail": 19968,
+          "second_slot_bytes": 9600,
+          "second_slots": [
+            574664480,
+            574674080,
+            574683680,
+            574693280
+          ],
+          "stride": 1200
+        },
+        "page_bitmap": 1,
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            4828,
+            2684354560
+          ],
+          [
+            574625064,
+            120,
+            2147483648
+          ],
+          [
+            574625196,
+            20,
+            2147483648
+          ],
+          [
+            574625228,
+            16,
+            2147483648
+          ],
+          [
+            574625256,
+            39196,
+            2147483648
+          ],
+          [
+            574664464,
+            65564,
+            2147483648
+          ],
+          [
+            574730040,
+            20668,
+            1073741824
+          ]
+        ],
+        "prepare_stop": "0x10014baf",
+        "prepare_stride": 1200,
+        "rejected_before_execution": [
+          "0x10013c33",
+          "0x10014baf",
+          "0x10014bb8",
+          "0x10014bc3",
+          "0x1001451c",
+          "0x10015438",
+          "0x10015648",
+          "0x100147e3",
+          "0x100147ee",
+          "0x100147f8",
+          "0x1001486c",
+          "0x100148ad",
+          "0x1001766c"
+        ],
+        "separate_bih_chunk": true,
+        "stages": [
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "74dde8a7efded64a9bc1dbe3b65151282c55d9ae26c797de6725b0b2bbf9ea42",
+            "phase": "admission",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 0,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "6bc7e98b6d9dd1db51e85a09ba6c157d68b98290e4ad887ba4cb7289ba992f29"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "74dde8a7efded64a9bc1dbe3b65151282c55d9ae26c797de6725b0b2bbf9ea42",
+            "phase": "job_endings",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "e01e5154f007b68c2479d90388208a4ae7b70c9db866a9fe11980b96d49237b2"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "74dde8a7efded64a9bc1dbe3b65151282c55d9ae26c797de6725b0b2bbf9ea42",
+            "phase": "printmgr_request",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "e01e5154f007b68c2479d90388208a4ae7b70c9db866a9fe11980b96d49237b2"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "74dde8a7efded64a9bc1dbe3b65151282c55d9ae26c797de6725b0b2bbf9ea42",
+            "phase": "video_queued",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "e01e5154f007b68c2479d90388208a4ae7b70c9db866a9fe11980b96d49237b2"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "74dde8a7efded64a9bc1dbe3b65151282c55d9ae26c797de6725b0b2bbf9ea42",
+            "phase": "prepare_boundary",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "e01e5154f007b68c2479d90388208a4ae7b70c9db866a9fe11980b96d49237b2"
+          }
+        ],
+        "status": "pass",
+        "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+        "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+        "tracked_stores": [
+          {
+            "address": 268628156,
+            "field": "video_irq_mode",
+            "pc": "0x10014bac",
+            "phase": "video_prepare",
+            "size": 4,
+            "value": 0
+          }
+        ],
+        "video_initialization": {
+          "allocations": [
+            {
+              "block": [
+                574625256,
+                39196,
+                2147483648
+              ],
+              "pointer": 574625280,
+              "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+              "size": 39168
+            },
+            {
+              "block": [
+                574664464,
+                65564,
+                2147483648
+              ],
+              "pointer": 574664480,
+              "sha256": "de2f256064a0af797747c2b97505dc0b9f3df0de4f489eac731c23ae9ca9cc31",
+              "size": 65536
+            }
+          ],
+          "hardware_tail_executed": false,
+          "outcome": "initialized_before_peripherals",
+          "pool_blocks": [
+            [
+              574619648,
+              44,
+              2147483648
+            ],
+            [
+              574619704,
+              120,
+              2147483648
+            ],
+            [
+              574619836,
+              16,
+              2147483648
+            ],
+            [
+              574619864,
+              16,
+              2147483648
+            ],
+            [
+              574619892,
+              68,
+              2147483648
+            ],
+            [
+              574619972,
+              80,
+              2147483648
+            ],
+            [
+              574620064,
+              148,
+              2147483648
+            ],
+            [
+              574620224,
+              4828,
+              2684354560
+            ],
+            [
+              574625064,
+              120,
+              2147483648
+            ],
+            [
+              574625196,
+              20,
+              2147483648
+            ],
+            [
+              574625228,
+              16,
+              2147483648
+            ],
+            [
+              574625256,
+              39196,
+              2147483648
+            ],
+            [
+              574664464,
+              65564,
+              2147483648
+            ],
+            [
+              574730040,
+              20668,
+              1073741824
+            ]
+          ],
+          "pool_size": 131072,
+          "registered_handlers": {
+            "10": 268518524,
+            "11": 268518584,
+            "19": 268518044,
+            "20": 268518108,
+            "21": 268518328
+          },
+          "retry_executed": false,
+          "stop": "0x100147e3",
+          "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+        },
+        "video_mode_word": 0
+      },
+      "rejected_before_execution": [
+        "0x10014290",
+        "0x10014293",
+        "0x10014298",
+        "0x100143bb",
+        "0x1001446b",
+        "0x10013f4c",
+        "0x10013ff9",
+        "0x10014014",
+        "0x100140c7",
+        "0x100140e5",
+        "0x10014524",
+        "0x10014576",
+        "0x10015648"
+      ],
+      "selected_pointer": 574625280,
+      "source_owners_and_pool_unchanged": true,
+      "stages": [
+        {
+          "descriptor": [
+            0,
+            0,
+            0
+          ],
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "prepared",
+          "remaining": [
+            4,
+            4
+          ],
+          "target_sha256": "09e99f4973f0e70d5214b6f40ca74070fbfc18627880ff90803b4174e36d3b96"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            0,
+            4
+          ],
+          "target_sha256": "09e99f4973f0e70d5214b6f40ca74070fbfc18627880ff90803b4174e36d3b96"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "software_pixels_copied",
+          "remaining": [
+            0,
+            4
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            1,
+            0,
+            0
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            0,
+            4
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            1,
+            0,
+            0
+          ],
+          "phase": "final_buffer_selected",
+          "remaining": [
+            0,
+            4
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            1,
+            1,
+            0
+          ],
+          "phase": "output_accounted",
+          "remaining": [
+            0,
+            0
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        },
+        {
+          "descriptor": [
+            0,
+            1,
+            4
+          ],
+          "indices": [
+            1,
+            1,
+            1
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            0,
+            0
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        }
+      ],
+      "status": "pass",
+      "supplied_boundaries": [
+        "decoder capture to raw input",
+        "software memcpy adapter",
+        "fill completion",
+        "output acceptance",
+        "output completion"
+      ]
+    },
+    {
+      "all_image_bytes_equal": true,
+      "completed_page_lifecycles": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "final_index": 0,
+      "hardware_transfers": 0,
+      "image_bytes": 1200,
+      "image_rows": 1,
+      "image_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a",
+      "index_origin": "explicit wrap fixture",
+      "initial_index": 3,
+      "no_remaining_guard_stop": "0x1001429a",
+      "nonfinal_collision_stop": "0x100140f6",
+      "occupied_guard_stop": "0x1001429a",
+      "only_selected_slot_changed": true,
+      "preparation": {
+        "bitmap": 0,
+        "completed_lifecycles": 0,
+        "copies": 1,
+        "engine_packets": [
+          {
+            "queue": 0,
+            "type": 24
+          },
+          {
+            "queue": 0,
+            "words": [
+              13,
+              0,
+              0,
+              574620076
+            ]
+          }
+        ],
+        "fill": 0,
+        "image_unchanged": true,
+        "outcome": "pre_peripheral_prepare",
+        "output_layout": {
+          "all_spans_inside_original_allocations": true,
+          "buffers_unchanged": true,
+          "first_slot_bytes": 4800,
+          "first_slots": [
+            574621680,
+            574626480,
+            574631280,
+            574636080
+          ],
+          "first_unused_tail": 19968,
+          "second_slot_bytes": 9600,
+          "second_slots": [
+            574660880,
+            574670480,
+            574680080,
+            574689680
+          ],
+          "stride": 1200
+        },
+        "page_bitmap": 1,
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            1228,
+            2684354560
+          ],
+          [
+            574621464,
+            120,
+            2147483648
+          ],
+          [
+            574621596,
+            20,
+            2147483648
+          ],
+          [
+            574621628,
+            16,
+            2147483648
+          ],
+          [
+            574621656,
+            39196,
+            2147483648
+          ],
+          [
+            574660864,
+            65564,
+            2147483648
+          ],
+          [
+            574726440,
+            24268,
+            1073741824
+          ]
+        ],
+        "prepare_stop": "0x10014baf",
+        "prepare_stride": 1200,
+        "rejected_before_execution": [
+          "0x10013c33",
+          "0x10014baf",
+          "0x10014bb8",
+          "0x10014bc3",
+          "0x1001451c",
+          "0x10015438",
+          "0x10015648",
+          "0x100147e3",
+          "0x100147ee",
+          "0x100147f8",
+          "0x1001486c",
+          "0x100148ad",
+          "0x1001766c"
+        ],
+        "separate_bih_chunk": true,
+        "stages": [
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "1e8393aa925c0670b8bbcec50346162eae95a7fb03c14caf655917a2978052f5",
+            "phase": "admission",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 0,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "f1903790d5e550004e8acf2061de13f33ab2557329502726eeb7639a8686401d"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "1e8393aa925c0670b8bbcec50346162eae95a7fb03c14caf655917a2978052f5",
+            "phase": "job_endings",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "5d26e6b416957d591379d5fe530fc0dd15b6f7758664922bebcb991ed454fd75"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "1e8393aa925c0670b8bbcec50346162eae95a7fb03c14caf655917a2978052f5",
+            "phase": "printmgr_request",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "5d26e6b416957d591379d5fe530fc0dd15b6f7758664922bebcb991ed454fd75"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "1e8393aa925c0670b8bbcec50346162eae95a7fb03c14caf655917a2978052f5",
+            "phase": "video_queued",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "5d26e6b416957d591379d5fe530fc0dd15b6f7758664922bebcb991ed454fd75"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "1e8393aa925c0670b8bbcec50346162eae95a7fb03c14caf655917a2978052f5",
+            "phase": "prepare_boundary",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "5d26e6b416957d591379d5fe530fc0dd15b6f7758664922bebcb991ed454fd75"
+          }
+        ],
+        "status": "pass",
+        "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+        "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+        "tracked_stores": [
+          {
+            "address": 268628156,
+            "field": "video_irq_mode",
+            "pc": "0x10014bac",
+            "phase": "video_prepare",
+            "size": 4,
+            "value": 0
+          }
+        ],
+        "video_initialization": {
+          "allocations": [
+            {
+              "block": [
+                574621656,
+                39196,
+                2147483648
+              ],
+              "pointer": 574621680,
+              "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+              "size": 39168
+            },
+            {
+              "block": [
+                574660864,
+                65564,
+                2147483648
+              ],
+              "pointer": 574660880,
+              "sha256": "de2f256064a0af797747c2b97505dc0b9f3df0de4f489eac731c23ae9ca9cc31",
+              "size": 65536
+            }
+          ],
+          "hardware_tail_executed": false,
+          "outcome": "initialized_before_peripherals",
+          "pool_blocks": [
+            [
+              574619648,
+              44,
+              2147483648
+            ],
+            [
+              574619704,
+              120,
+              2147483648
+            ],
+            [
+              574619836,
+              16,
+              2147483648
+            ],
+            [
+              574619864,
+              16,
+              2147483648
+            ],
+            [
+              574619892,
+              68,
+              2147483648
+            ],
+            [
+              574619972,
+              80,
+              2147483648
+            ],
+            [
+              574620064,
+              148,
+              2147483648
+            ],
+            [
+              574620224,
+              1228,
+              2684354560
+            ],
+            [
+              574621464,
+              120,
+              2147483648
+            ],
+            [
+              574621596,
+              20,
+              2147483648
+            ],
+            [
+              574621628,
+              16,
+              2147483648
+            ],
+            [
+              574621656,
+              39196,
+              2147483648
+            ],
+            [
+              574660864,
+              65564,
+              2147483648
+            ],
+            [
+              574726440,
+              24268,
+              1073741824
+            ]
+          ],
+          "pool_size": 131072,
+          "registered_handlers": {
+            "10": 268518524,
+            "11": 268518584,
+            "19": 268518044,
+            "20": 268518108,
+            "21": 268518328
+          },
+          "retry_executed": false,
+          "stop": "0x100147e3",
+          "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+        },
+        "video_mode_word": 0
+      },
+      "rejected_before_execution": [
+        "0x10014290",
+        "0x10014293",
+        "0x10014298",
+        "0x100143bb",
+        "0x1001446b",
+        "0x10013f4c",
+        "0x10013ff9",
+        "0x10014014",
+        "0x100140c7",
+        "0x100140e5",
+        "0x10014524",
+        "0x10014576",
+        "0x10015648"
+      ],
+      "selected_pointer": 574636080,
+      "source_owners_and_pool_unchanged": true,
+      "stages": [
+        {
+          "descriptor": [
+            0,
+            0,
+            0
+          ],
+          "indices": [
+            3,
+            3,
+            3
+          ],
+          "phase": "prepared",
+          "remaining": [
+            1,
+            1
+          ],
+          "target_sha256": "710baa8a6ca5b64e17e58b95140486de08b5dcd1369ef96114c39a72a18647ee"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            3,
+            3,
+            3
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            0,
+            1
+          ],
+          "target_sha256": "710baa8a6ca5b64e17e58b95140486de08b5dcd1369ef96114c39a72a18647ee"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            3,
+            3,
+            3
+          ],
+          "phase": "software_pixels_copied",
+          "remaining": [
+            0,
+            1
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            0,
+            3,
+            3
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            0,
+            1
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            0,
+            3,
+            3
+          ],
+          "phase": "final_buffer_selected",
+          "remaining": [
+            0,
+            1
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            0,
+            0,
+            3
+          ],
+          "phase": "output_accounted",
+          "remaining": [
+            0,
+            0
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        },
+        {
+          "descriptor": [
+            0,
+            1,
+            1
+          ],
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            0,
+            0
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        }
+      ],
+      "status": "pass",
+      "supplied_boundaries": [
+        "decoder capture to raw input",
+        "software memcpy adapter",
+        "fill completion",
+        "output acceptance",
+        "output completion"
+      ]
+    },
+    {
+      "all_image_bytes_equal": true,
+      "completed_page_lifecycles": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 0,
+      "final_index": 0,
+      "hardware_transfers": 0,
+      "image_bytes": 4800,
+      "image_rows": 4,
+      "image_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351",
+      "index_origin": "explicit wrap fixture",
+      "initial_index": 3,
+      "no_remaining_guard_stop": "0x1001429a",
+      "nonfinal_collision_stop": "0x100140f6",
+      "occupied_guard_stop": "0x1001429a",
+      "only_selected_slot_changed": true,
+      "preparation": {
+        "bitmap": 0,
+        "completed_lifecycles": 0,
+        "copies": 1,
+        "engine_packets": [
+          {
+            "queue": 0,
+            "type": 24
+          },
+          {
+            "queue": 0,
+            "words": [
+              13,
+              0,
+              0,
+              574620076
+            ]
+          }
+        ],
+        "fill": 0,
+        "image_unchanged": true,
+        "outcome": "pre_peripheral_prepare",
+        "output_layout": {
+          "all_spans_inside_original_allocations": true,
+          "buffers_unchanged": true,
+          "first_slot_bytes": 4800,
+          "first_slots": [
+            574625280,
+            574630080,
+            574634880,
+            574639680
+          ],
+          "first_unused_tail": 19968,
+          "second_slot_bytes": 9600,
+          "second_slots": [
+            574664480,
+            574674080,
+            574683680,
+            574693280
+          ],
+          "stride": 1200
+        },
+        "page_bitmap": 1,
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            4828,
+            2684354560
+          ],
+          [
+            574625064,
+            120,
+            2147483648
+          ],
+          [
+            574625196,
+            20,
+            2147483648
+          ],
+          [
+            574625228,
+            16,
+            2147483648
+          ],
+          [
+            574625256,
+            39196,
+            2147483648
+          ],
+          [
+            574664464,
+            65564,
+            2147483648
+          ],
+          [
+            574730040,
+            20668,
+            1073741824
+          ]
+        ],
+        "prepare_stop": "0x10014baf",
+        "prepare_stride": 1200,
+        "rejected_before_execution": [
+          "0x10013c33",
+          "0x10014baf",
+          "0x10014bb8",
+          "0x10014bc3",
+          "0x1001451c",
+          "0x10015438",
+          "0x10015648",
+          "0x100147e3",
+          "0x100147ee",
+          "0x100147f8",
+          "0x1001486c",
+          "0x100148ad",
+          "0x1001766c"
+        ],
+        "separate_bih_chunk": true,
+        "stages": [
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "74dde8a7efded64a9bc1dbe3b65151282c55d9ae26c797de6725b0b2bbf9ea42",
+            "phase": "admission",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 0,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "6bc7e98b6d9dd1db51e85a09ba6c157d68b98290e4ad887ba4cb7289ba992f29"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "74dde8a7efded64a9bc1dbe3b65151282c55d9ae26c797de6725b0b2bbf9ea42",
+            "phase": "job_endings",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "e01e5154f007b68c2479d90388208a4ae7b70c9db866a9fe11980b96d49237b2"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "74dde8a7efded64a9bc1dbe3b65151282c55d9ae26c797de6725b0b2bbf9ea42",
+            "phase": "printmgr_request",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "e01e5154f007b68c2479d90388208a4ae7b70c9db866a9fe11980b96d49237b2"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "74dde8a7efded64a9bc1dbe3b65151282c55d9ae26c797de6725b0b2bbf9ea42",
+            "phase": "video_queued",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "e01e5154f007b68c2479d90388208a4ae7b70c9db866a9fe11980b96d49237b2"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "74dde8a7efded64a9bc1dbe3b65151282c55d9ae26c797de6725b0b2bbf9ea42",
+            "phase": "prepare_boundary",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "e01e5154f007b68c2479d90388208a4ae7b70c9db866a9fe11980b96d49237b2"
+          }
+        ],
+        "status": "pass",
+        "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+        "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+        "tracked_stores": [
+          {
+            "address": 268628156,
+            "field": "video_irq_mode",
+            "pc": "0x10014bac",
+            "phase": "video_prepare",
+            "size": 4,
+            "value": 0
+          }
+        ],
+        "video_initialization": {
+          "allocations": [
+            {
+              "block": [
+                574625256,
+                39196,
+                2147483648
+              ],
+              "pointer": 574625280,
+              "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+              "size": 39168
+            },
+            {
+              "block": [
+                574664464,
+                65564,
+                2147483648
+              ],
+              "pointer": 574664480,
+              "sha256": "de2f256064a0af797747c2b97505dc0b9f3df0de4f489eac731c23ae9ca9cc31",
+              "size": 65536
+            }
+          ],
+          "hardware_tail_executed": false,
+          "outcome": "initialized_before_peripherals",
+          "pool_blocks": [
+            [
+              574619648,
+              44,
+              2147483648
+            ],
+            [
+              574619704,
+              120,
+              2147483648
+            ],
+            [
+              574619836,
+              16,
+              2147483648
+            ],
+            [
+              574619864,
+              16,
+              2147483648
+            ],
+            [
+              574619892,
+              68,
+              2147483648
+            ],
+            [
+              574619972,
+              80,
+              2147483648
+            ],
+            [
+              574620064,
+              148,
+              2147483648
+            ],
+            [
+              574620224,
+              4828,
+              2684354560
+            ],
+            [
+              574625064,
+              120,
+              2147483648
+            ],
+            [
+              574625196,
+              20,
+              2147483648
+            ],
+            [
+              574625228,
+              16,
+              2147483648
+            ],
+            [
+              574625256,
+              39196,
+              2147483648
+            ],
+            [
+              574664464,
+              65564,
+              2147483648
+            ],
+            [
+              574730040,
+              20668,
+              1073741824
+            ]
+          ],
+          "pool_size": 131072,
+          "registered_handlers": {
+            "10": 268518524,
+            "11": 268518584,
+            "19": 268518044,
+            "20": 268518108,
+            "21": 268518328
+          },
+          "retry_executed": false,
+          "stop": "0x100147e3",
+          "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+        },
+        "video_mode_word": 0
+      },
+      "rejected_before_execution": [
+        "0x10014290",
+        "0x10014293",
+        "0x10014298",
+        "0x100143bb",
+        "0x1001446b",
+        "0x10013f4c",
+        "0x10013ff9",
+        "0x10014014",
+        "0x100140c7",
+        "0x100140e5",
+        "0x10014524",
+        "0x10014576",
+        "0x10015648"
+      ],
+      "selected_pointer": 574639680,
+      "source_owners_and_pool_unchanged": true,
+      "stages": [
+        {
+          "descriptor": [
+            0,
+            0,
+            0
+          ],
+          "indices": [
+            3,
+            3,
+            3
+          ],
+          "phase": "prepared",
+          "remaining": [
+            4,
+            4
+          ],
+          "target_sha256": "09e99f4973f0e70d5214b6f40ca74070fbfc18627880ff90803b4174e36d3b96"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            3,
+            3,
+            3
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            0,
+            4
+          ],
+          "target_sha256": "09e99f4973f0e70d5214b6f40ca74070fbfc18627880ff90803b4174e36d3b96"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            3,
+            3,
+            3
+          ],
+          "phase": "software_pixels_copied",
+          "remaining": [
+            0,
+            4
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            0,
+            3,
+            3
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            0,
+            4
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            0,
+            3,
+            3
+          ],
+          "phase": "final_buffer_selected",
+          "remaining": [
+            0,
+            4
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            0,
+            0,
+            3
+          ],
+          "phase": "output_accounted",
+          "remaining": [
+            0,
+            0
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        },
+        {
+          "descriptor": [
+            0,
+            1,
+            4
+          ],
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            0,
+            0
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        }
+      ],
+      "status": "pass",
+      "supplied_boundaries": [
+        "decoder capture to raw input",
+        "software memcpy adapter",
+        "fill completion",
+        "output acceptance",
+        "output completion"
+      ]
+    },
+    {
+      "all_image_bytes_equal": true,
+      "completed_page_lifecycles": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "final_index": 1,
+      "hardware_transfers": 0,
+      "image_bytes": 1200,
+      "image_rows": 1,
+      "image_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a",
+      "index_origin": "constructor zero",
+      "initial_index": 0,
+      "no_remaining_guard_stop": "0x1001429a",
+      "nonfinal_collision_stop": "0x100140f6",
+      "occupied_guard_stop": "0x1001429a",
+      "only_selected_slot_changed": true,
+      "preparation": {
+        "bitmap": 0,
+        "completed_lifecycles": 0,
+        "copies": 1,
+        "engine_packets": [
+          {
+            "queue": 0,
+            "type": 24
+          },
+          {
+            "queue": 0,
+            "words": [
+              13,
+              0,
+              0,
+              574620076
+            ]
+          }
+        ],
+        "fill": 204,
+        "image_unchanged": true,
+        "outcome": "pre_peripheral_prepare",
+        "output_layout": {
+          "all_spans_inside_original_allocations": true,
+          "buffers_unchanged": true,
+          "first_slot_bytes": 4800,
+          "first_slots": [
+            574621680,
+            574626480,
+            574631280,
+            574636080
+          ],
+          "first_unused_tail": 19968,
+          "second_slot_bytes": 9600,
+          "second_slots": [
+            574660880,
+            574670480,
+            574680080,
+            574689680
+          ],
+          "stride": 1200
+        },
+        "page_bitmap": 1,
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            1228,
+            2684354560
+          ],
+          [
+            574621464,
+            120,
+            2147483648
+          ],
+          [
+            574621596,
+            20,
+            2147483648
+          ],
+          [
+            574621628,
+            16,
+            2147483648
+          ],
+          [
+            574621656,
+            39196,
+            2147483648
+          ],
+          [
+            574660864,
+            65564,
+            2147483648
+          ],
+          [
+            574726440,
+            24268,
+            1073741824
+          ]
+        ],
+        "prepare_stop": "0x10014baf",
+        "prepare_stride": 1200,
+        "rejected_before_execution": [
+          "0x10013c33",
+          "0x10014baf",
+          "0x10014bb8",
+          "0x10014bc3",
+          "0x1001451c",
+          "0x10015438",
+          "0x10015648",
+          "0x100147e3",
+          "0x100147ee",
+          "0x100147f8",
+          "0x1001486c",
+          "0x100148ad",
+          "0x1001766c"
+        ],
+        "separate_bih_chunk": true,
+        "stages": [
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "4e362c6ce463962545f578a0a604ca567c4ffb0dbb26ad8f809f6948c7e7de36",
+            "phase": "admission",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 0,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "87d5e8e9b29a788977ccfab8580010fab2b02d61e4002a2d0d228aed9e483c2f"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "4e362c6ce463962545f578a0a604ca567c4ffb0dbb26ad8f809f6948c7e7de36",
+            "phase": "job_endings",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "a8b3d6f01675e1c1e18dc7bb7bf18f2c4f917a9af03301ee81bd5af17381e061"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "4e362c6ce463962545f578a0a604ca567c4ffb0dbb26ad8f809f6948c7e7de36",
+            "phase": "printmgr_request",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "37b71dd4a86f9e7f85f8d4b22cab4fe695b3ed6ae250fbe8cf21a7c33525e3b5"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "4e362c6ce463962545f578a0a604ca567c4ffb0dbb26ad8f809f6948c7e7de36",
+            "phase": "video_queued",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "37b71dd4a86f9e7f85f8d4b22cab4fe695b3ed6ae250fbe8cf21a7c33525e3b5"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "4e362c6ce463962545f578a0a604ca567c4ffb0dbb26ad8f809f6948c7e7de36",
+            "phase": "prepare_boundary",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "37b71dd4a86f9e7f85f8d4b22cab4fe695b3ed6ae250fbe8cf21a7c33525e3b5"
+          }
+        ],
+        "status": "pass",
+        "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+        "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+        "tracked_stores": [
+          {
+            "address": 268628156,
+            "field": "video_irq_mode",
+            "pc": "0x10014bac",
+            "phase": "video_prepare",
+            "size": 4,
+            "value": 0
+          }
+        ],
+        "video_initialization": {
+          "allocations": [
+            {
+              "block": [
+                574621656,
+                39196,
+                2147483648
+              ],
+              "pointer": 574621680,
+              "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+              "size": 39168
+            },
+            {
+              "block": [
+                574660864,
+                65564,
+                2147483648
+              ],
+              "pointer": 574660880,
+              "sha256": "f7701dc18296bf8e27dae431fcbe3e981bb869bf80ac2e6a173b3152820c8853",
+              "size": 65536
+            }
+          ],
+          "hardware_tail_executed": false,
+          "outcome": "initialized_before_peripherals",
+          "pool_blocks": [
+            [
+              574619648,
+              44,
+              2147483648
+            ],
+            [
+              574619704,
+              120,
+              2147483648
+            ],
+            [
+              574619836,
+              16,
+              2147483648
+            ],
+            [
+              574619864,
+              16,
+              2147483648
+            ],
+            [
+              574619892,
+              68,
+              2147483648
+            ],
+            [
+              574619972,
+              80,
+              2147483648
+            ],
+            [
+              574620064,
+              148,
+              2147483648
+            ],
+            [
+              574620224,
+              1228,
+              2684354560
+            ],
+            [
+              574621464,
+              120,
+              2147483648
+            ],
+            [
+              574621596,
+              20,
+              2147483648
+            ],
+            [
+              574621628,
+              16,
+              2147483648
+            ],
+            [
+              574621656,
+              39196,
+              2147483648
+            ],
+            [
+              574660864,
+              65564,
+              2147483648
+            ],
+            [
+              574726440,
+              24268,
+              1073741824
+            ]
+          ],
+          "pool_size": 131072,
+          "registered_handlers": {
+            "10": 268518524,
+            "11": 268518584,
+            "19": 268518044,
+            "20": 268518108,
+            "21": 268518328
+          },
+          "retry_executed": false,
+          "stop": "0x100147e3",
+          "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+        },
+        "video_mode_word": 0
+      },
+      "rejected_before_execution": [
+        "0x10014290",
+        "0x10014293",
+        "0x10014298",
+        "0x100143bb",
+        "0x1001446b",
+        "0x10013f4c",
+        "0x10013ff9",
+        "0x10014014",
+        "0x100140c7",
+        "0x100140e5",
+        "0x10014524",
+        "0x10014576",
+        "0x10015648"
+      ],
+      "selected_pointer": 574621680,
+      "source_owners_and_pool_unchanged": true,
+      "stages": [
+        {
+          "descriptor": [
+            0,
+            0,
+            0
+          ],
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "prepared",
+          "remaining": [
+            1,
+            1
+          ],
+          "target_sha256": "710baa8a6ca5b64e17e58b95140486de08b5dcd1369ef96114c39a72a18647ee"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            0,
+            1
+          ],
+          "target_sha256": "710baa8a6ca5b64e17e58b95140486de08b5dcd1369ef96114c39a72a18647ee"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "software_pixels_copied",
+          "remaining": [
+            0,
+            1
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            1,
+            0,
+            0
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            0,
+            1
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            1,
+            0,
+            0
+          ],
+          "phase": "final_buffer_selected",
+          "remaining": [
+            0,
+            1
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            1,
+            1,
+            0
+          ],
+          "phase": "output_accounted",
+          "remaining": [
+            0,
+            0
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        },
+        {
+          "descriptor": [
+            0,
+            1,
+            1
+          ],
+          "indices": [
+            1,
+            1,
+            1
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            0,
+            0
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        }
+      ],
+      "status": "pass",
+      "supplied_boundaries": [
+        "decoder capture to raw input",
+        "software memcpy adapter",
+        "fill completion",
+        "output acceptance",
+        "output completion"
+      ]
+    },
+    {
+      "all_image_bytes_equal": true,
+      "completed_page_lifecycles": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "final_index": 1,
+      "hardware_transfers": 0,
+      "image_bytes": 4800,
+      "image_rows": 4,
+      "image_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351",
+      "index_origin": "constructor zero",
+      "initial_index": 0,
+      "no_remaining_guard_stop": "0x1001429a",
+      "nonfinal_collision_stop": "0x100140f6",
+      "occupied_guard_stop": "0x1001429a",
+      "only_selected_slot_changed": true,
+      "preparation": {
+        "bitmap": 0,
+        "completed_lifecycles": 0,
+        "copies": 1,
+        "engine_packets": [
+          {
+            "queue": 0,
+            "type": 24
+          },
+          {
+            "queue": 0,
+            "words": [
+              13,
+              0,
+              0,
+              574620076
+            ]
+          }
+        ],
+        "fill": 204,
+        "image_unchanged": true,
+        "outcome": "pre_peripheral_prepare",
+        "output_layout": {
+          "all_spans_inside_original_allocations": true,
+          "buffers_unchanged": true,
+          "first_slot_bytes": 4800,
+          "first_slots": [
+            574625280,
+            574630080,
+            574634880,
+            574639680
+          ],
+          "first_unused_tail": 19968,
+          "second_slot_bytes": 9600,
+          "second_slots": [
+            574664480,
+            574674080,
+            574683680,
+            574693280
+          ],
+          "stride": 1200
+        },
+        "page_bitmap": 1,
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            4828,
+            2684354560
+          ],
+          [
+            574625064,
+            120,
+            2147483648
+          ],
+          [
+            574625196,
+            20,
+            2147483648
+          ],
+          [
+            574625228,
+            16,
+            2147483648
+          ],
+          [
+            574625256,
+            39196,
+            2147483648
+          ],
+          [
+            574664464,
+            65564,
+            2147483648
+          ],
+          [
+            574730040,
+            20668,
+            1073741824
+          ]
+        ],
+        "prepare_stop": "0x10014baf",
+        "prepare_stride": 1200,
+        "rejected_before_execution": [
+          "0x10013c33",
+          "0x10014baf",
+          "0x10014bb8",
+          "0x10014bc3",
+          "0x1001451c",
+          "0x10015438",
+          "0x10015648",
+          "0x100147e3",
+          "0x100147ee",
+          "0x100147f8",
+          "0x1001486c",
+          "0x100148ad",
+          "0x1001766c"
+        ],
+        "separate_bih_chunk": true,
+        "stages": [
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "7069b7f513e72280c6e55c92aad9eca288df8842372340a05b09b1bc3a2741a7",
+            "phase": "admission",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 0,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "0048b92ad21e8ce9a63abf0b46887ec75258dba181f4bb70ec6795b51419b22a"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "7069b7f513e72280c6e55c92aad9eca288df8842372340a05b09b1bc3a2741a7",
+            "phase": "job_endings",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "d7ea0c4fdb585c4bec4a92000e81af1ac832fb77e592f567a44502f2055a7201"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "7069b7f513e72280c6e55c92aad9eca288df8842372340a05b09b1bc3a2741a7",
+            "phase": "printmgr_request",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "11e353bb7d91f2e7bf7df1e1d85a5531cb44454122b6b59157f8467702e9f491"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "7069b7f513e72280c6e55c92aad9eca288df8842372340a05b09b1bc3a2741a7",
+            "phase": "video_queued",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "11e353bb7d91f2e7bf7df1e1d85a5531cb44454122b6b59157f8467702e9f491"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "7069b7f513e72280c6e55c92aad9eca288df8842372340a05b09b1bc3a2741a7",
+            "phase": "prepare_boundary",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "11e353bb7d91f2e7bf7df1e1d85a5531cb44454122b6b59157f8467702e9f491"
+          }
+        ],
+        "status": "pass",
+        "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+        "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+        "tracked_stores": [
+          {
+            "address": 268628156,
+            "field": "video_irq_mode",
+            "pc": "0x10014bac",
+            "phase": "video_prepare",
+            "size": 4,
+            "value": 0
+          }
+        ],
+        "video_initialization": {
+          "allocations": [
+            {
+              "block": [
+                574625256,
+                39196,
+                2147483648
+              ],
+              "pointer": 574625280,
+              "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+              "size": 39168
+            },
+            {
+              "block": [
+                574664464,
+                65564,
+                2147483648
+              ],
+              "pointer": 574664480,
+              "sha256": "f7701dc18296bf8e27dae431fcbe3e981bb869bf80ac2e6a173b3152820c8853",
+              "size": 65536
+            }
+          ],
+          "hardware_tail_executed": false,
+          "outcome": "initialized_before_peripherals",
+          "pool_blocks": [
+            [
+              574619648,
+              44,
+              2147483648
+            ],
+            [
+              574619704,
+              120,
+              2147483648
+            ],
+            [
+              574619836,
+              16,
+              2147483648
+            ],
+            [
+              574619864,
+              16,
+              2147483648
+            ],
+            [
+              574619892,
+              68,
+              2147483648
+            ],
+            [
+              574619972,
+              80,
+              2147483648
+            ],
+            [
+              574620064,
+              148,
+              2147483648
+            ],
+            [
+              574620224,
+              4828,
+              2684354560
+            ],
+            [
+              574625064,
+              120,
+              2147483648
+            ],
+            [
+              574625196,
+              20,
+              2147483648
+            ],
+            [
+              574625228,
+              16,
+              2147483648
+            ],
+            [
+              574625256,
+              39196,
+              2147483648
+            ],
+            [
+              574664464,
+              65564,
+              2147483648
+            ],
+            [
+              574730040,
+              20668,
+              1073741824
+            ]
+          ],
+          "pool_size": 131072,
+          "registered_handlers": {
+            "10": 268518524,
+            "11": 268518584,
+            "19": 268518044,
+            "20": 268518108,
+            "21": 268518328
+          },
+          "retry_executed": false,
+          "stop": "0x100147e3",
+          "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+        },
+        "video_mode_word": 0
+      },
+      "rejected_before_execution": [
+        "0x10014290",
+        "0x10014293",
+        "0x10014298",
+        "0x100143bb",
+        "0x1001446b",
+        "0x10013f4c",
+        "0x10013ff9",
+        "0x10014014",
+        "0x100140c7",
+        "0x100140e5",
+        "0x10014524",
+        "0x10014576",
+        "0x10015648"
+      ],
+      "selected_pointer": 574625280,
+      "source_owners_and_pool_unchanged": true,
+      "stages": [
+        {
+          "descriptor": [
+            0,
+            0,
+            0
+          ],
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "prepared",
+          "remaining": [
+            4,
+            4
+          ],
+          "target_sha256": "09e99f4973f0e70d5214b6f40ca74070fbfc18627880ff90803b4174e36d3b96"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            0,
+            4
+          ],
+          "target_sha256": "09e99f4973f0e70d5214b6f40ca74070fbfc18627880ff90803b4174e36d3b96"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "software_pixels_copied",
+          "remaining": [
+            0,
+            4
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            1,
+            0,
+            0
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            0,
+            4
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            1,
+            0,
+            0
+          ],
+          "phase": "final_buffer_selected",
+          "remaining": [
+            0,
+            4
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            1,
+            1,
+            0
+          ],
+          "phase": "output_accounted",
+          "remaining": [
+            0,
+            0
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        },
+        {
+          "descriptor": [
+            0,
+            1,
+            4
+          ],
+          "indices": [
+            1,
+            1,
+            1
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            0,
+            0
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        }
+      ],
+      "status": "pass",
+      "supplied_boundaries": [
+        "decoder capture to raw input",
+        "software memcpy adapter",
+        "fill completion",
+        "output acceptance",
+        "output completion"
+      ]
+    },
+    {
+      "all_image_bytes_equal": true,
+      "completed_page_lifecycles": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "final_index": 0,
+      "hardware_transfers": 0,
+      "image_bytes": 1200,
+      "image_rows": 1,
+      "image_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a",
+      "index_origin": "explicit wrap fixture",
+      "initial_index": 3,
+      "no_remaining_guard_stop": "0x1001429a",
+      "nonfinal_collision_stop": "0x100140f6",
+      "occupied_guard_stop": "0x1001429a",
+      "only_selected_slot_changed": true,
+      "preparation": {
+        "bitmap": 0,
+        "completed_lifecycles": 0,
+        "copies": 1,
+        "engine_packets": [
+          {
+            "queue": 0,
+            "type": 24
+          },
+          {
+            "queue": 0,
+            "words": [
+              13,
+              0,
+              0,
+              574620076
+            ]
+          }
+        ],
+        "fill": 204,
+        "image_unchanged": true,
+        "outcome": "pre_peripheral_prepare",
+        "output_layout": {
+          "all_spans_inside_original_allocations": true,
+          "buffers_unchanged": true,
+          "first_slot_bytes": 4800,
+          "first_slots": [
+            574621680,
+            574626480,
+            574631280,
+            574636080
+          ],
+          "first_unused_tail": 19968,
+          "second_slot_bytes": 9600,
+          "second_slots": [
+            574660880,
+            574670480,
+            574680080,
+            574689680
+          ],
+          "stride": 1200
+        },
+        "page_bitmap": 1,
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            1228,
+            2684354560
+          ],
+          [
+            574621464,
+            120,
+            2147483648
+          ],
+          [
+            574621596,
+            20,
+            2147483648
+          ],
+          [
+            574621628,
+            16,
+            2147483648
+          ],
+          [
+            574621656,
+            39196,
+            2147483648
+          ],
+          [
+            574660864,
+            65564,
+            2147483648
+          ],
+          [
+            574726440,
+            24268,
+            1073741824
+          ]
+        ],
+        "prepare_stop": "0x10014baf",
+        "prepare_stride": 1200,
+        "rejected_before_execution": [
+          "0x10013c33",
+          "0x10014baf",
+          "0x10014bb8",
+          "0x10014bc3",
+          "0x1001451c",
+          "0x10015438",
+          "0x10015648",
+          "0x100147e3",
+          "0x100147ee",
+          "0x100147f8",
+          "0x1001486c",
+          "0x100148ad",
+          "0x1001766c"
+        ],
+        "separate_bih_chunk": true,
+        "stages": [
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "4e362c6ce463962545f578a0a604ca567c4ffb0dbb26ad8f809f6948c7e7de36",
+            "phase": "admission",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 0,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "87d5e8e9b29a788977ccfab8580010fab2b02d61e4002a2d0d228aed9e483c2f"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "4e362c6ce463962545f578a0a604ca567c4ffb0dbb26ad8f809f6948c7e7de36",
+            "phase": "job_endings",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "a8b3d6f01675e1c1e18dc7bb7bf18f2c4f917a9af03301ee81bd5af17381e061"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "4e362c6ce463962545f578a0a604ca567c4ffb0dbb26ad8f809f6948c7e7de36",
+            "phase": "printmgr_request",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "37b71dd4a86f9e7f85f8d4b22cab4fe695b3ed6ae250fbe8cf21a7c33525e3b5"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "4e362c6ce463962545f578a0a604ca567c4ffb0dbb26ad8f809f6948c7e7de36",
+            "phase": "video_queued",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "37b71dd4a86f9e7f85f8d4b22cab4fe695b3ed6ae250fbe8cf21a7c33525e3b5"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "4e362c6ce463962545f578a0a604ca567c4ffb0dbb26ad8f809f6948c7e7de36",
+            "phase": "prepare_boundary",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              1,
+              1
+            ],
+            "work_sha256": "37b71dd4a86f9e7f85f8d4b22cab4fe695b3ed6ae250fbe8cf21a7c33525e3b5"
+          }
+        ],
+        "status": "pass",
+        "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+        "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+        "tracked_stores": [
+          {
+            "address": 268628156,
+            "field": "video_irq_mode",
+            "pc": "0x10014bac",
+            "phase": "video_prepare",
+            "size": 4,
+            "value": 0
+          }
+        ],
+        "video_initialization": {
+          "allocations": [
+            {
+              "block": [
+                574621656,
+                39196,
+                2147483648
+              ],
+              "pointer": 574621680,
+              "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+              "size": 39168
+            },
+            {
+              "block": [
+                574660864,
+                65564,
+                2147483648
+              ],
+              "pointer": 574660880,
+              "sha256": "f7701dc18296bf8e27dae431fcbe3e981bb869bf80ac2e6a173b3152820c8853",
+              "size": 65536
+            }
+          ],
+          "hardware_tail_executed": false,
+          "outcome": "initialized_before_peripherals",
+          "pool_blocks": [
+            [
+              574619648,
+              44,
+              2147483648
+            ],
+            [
+              574619704,
+              120,
+              2147483648
+            ],
+            [
+              574619836,
+              16,
+              2147483648
+            ],
+            [
+              574619864,
+              16,
+              2147483648
+            ],
+            [
+              574619892,
+              68,
+              2147483648
+            ],
+            [
+              574619972,
+              80,
+              2147483648
+            ],
+            [
+              574620064,
+              148,
+              2147483648
+            ],
+            [
+              574620224,
+              1228,
+              2684354560
+            ],
+            [
+              574621464,
+              120,
+              2147483648
+            ],
+            [
+              574621596,
+              20,
+              2147483648
+            ],
+            [
+              574621628,
+              16,
+              2147483648
+            ],
+            [
+              574621656,
+              39196,
+              2147483648
+            ],
+            [
+              574660864,
+              65564,
+              2147483648
+            ],
+            [
+              574726440,
+              24268,
+              1073741824
+            ]
+          ],
+          "pool_size": 131072,
+          "registered_handlers": {
+            "10": 268518524,
+            "11": 268518584,
+            "19": 268518044,
+            "20": 268518108,
+            "21": 268518328
+          },
+          "retry_executed": false,
+          "stop": "0x100147e3",
+          "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+        },
+        "video_mode_word": 0
+      },
+      "rejected_before_execution": [
+        "0x10014290",
+        "0x10014293",
+        "0x10014298",
+        "0x100143bb",
+        "0x1001446b",
+        "0x10013f4c",
+        "0x10013ff9",
+        "0x10014014",
+        "0x100140c7",
+        "0x100140e5",
+        "0x10014524",
+        "0x10014576",
+        "0x10015648"
+      ],
+      "selected_pointer": 574636080,
+      "source_owners_and_pool_unchanged": true,
+      "stages": [
+        {
+          "descriptor": [
+            0,
+            0,
+            0
+          ],
+          "indices": [
+            3,
+            3,
+            3
+          ],
+          "phase": "prepared",
+          "remaining": [
+            1,
+            1
+          ],
+          "target_sha256": "710baa8a6ca5b64e17e58b95140486de08b5dcd1369ef96114c39a72a18647ee"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            3,
+            3,
+            3
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            0,
+            1
+          ],
+          "target_sha256": "710baa8a6ca5b64e17e58b95140486de08b5dcd1369ef96114c39a72a18647ee"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            3,
+            3,
+            3
+          ],
+          "phase": "software_pixels_copied",
+          "remaining": [
+            0,
+            1
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            0,
+            3,
+            3
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            0,
+            1
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            0,
+            3,
+            3
+          ],
+          "phase": "final_buffer_selected",
+          "remaining": [
+            0,
+            1
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            1
+          ],
+          "indices": [
+            0,
+            0,
+            3
+          ],
+          "phase": "output_accounted",
+          "remaining": [
+            0,
+            0
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        },
+        {
+          "descriptor": [
+            0,
+            1,
+            1
+          ],
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            0,
+            0
+          ],
+          "target_sha256": "3a0aa86745f493f309c4332645374a22995f73fd5849de509c8e60cc71b0d79a"
+        }
+      ],
+      "status": "pass",
+      "supplied_boundaries": [
+        "decoder capture to raw input",
+        "software memcpy adapter",
+        "fill completion",
+        "output acceptance",
+        "output completion"
+      ]
+    },
+    {
+      "all_image_bytes_equal": true,
+      "completed_page_lifecycles": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "fill": 204,
+      "final_index": 0,
+      "hardware_transfers": 0,
+      "image_bytes": 4800,
+      "image_rows": 4,
+      "image_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351",
+      "index_origin": "explicit wrap fixture",
+      "initial_index": 3,
+      "no_remaining_guard_stop": "0x1001429a",
+      "nonfinal_collision_stop": "0x100140f6",
+      "occupied_guard_stop": "0x1001429a",
+      "only_selected_slot_changed": true,
+      "preparation": {
+        "bitmap": 0,
+        "completed_lifecycles": 0,
+        "copies": 1,
+        "engine_packets": [
+          {
+            "queue": 0,
+            "type": 24
+          },
+          {
+            "queue": 0,
+            "words": [
+              13,
+              0,
+              0,
+              574620076
+            ]
+          }
+        ],
+        "fill": 204,
+        "image_unchanged": true,
+        "outcome": "pre_peripheral_prepare",
+        "output_layout": {
+          "all_spans_inside_original_allocations": true,
+          "buffers_unchanged": true,
+          "first_slot_bytes": 4800,
+          "first_slots": [
+            574625280,
+            574630080,
+            574634880,
+            574639680
+          ],
+          "first_unused_tail": 19968,
+          "second_slot_bytes": 9600,
+          "second_slots": [
+            574664480,
+            574674080,
+            574683680,
+            574693280
+          ],
+          "stride": 1200
+        },
+        "page_bitmap": 1,
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            4828,
+            2684354560
+          ],
+          [
+            574625064,
+            120,
+            2147483648
+          ],
+          [
+            574625196,
+            20,
+            2147483648
+          ],
+          [
+            574625228,
+            16,
+            2147483648
+          ],
+          [
+            574625256,
+            39196,
+            2147483648
+          ],
+          [
+            574664464,
+            65564,
+            2147483648
+          ],
+          [
+            574730040,
+            20668,
+            1073741824
+          ]
+        ],
+        "prepare_stop": "0x10014baf",
+        "prepare_stride": 1200,
+        "rejected_before_execution": [
+          "0x10013c33",
+          "0x10014baf",
+          "0x10014bb8",
+          "0x10014bc3",
+          "0x1001451c",
+          "0x10015438",
+          "0x10015648",
+          "0x100147e3",
+          "0x100147ee",
+          "0x100147f8",
+          "0x1001486c",
+          "0x100148ad",
+          "0x1001766c"
+        ],
+        "separate_bih_chunk": true,
+        "stages": [
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "7069b7f513e72280c6e55c92aad9eca288df8842372340a05b09b1bc3a2741a7",
+            "phase": "admission",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 0,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "0048b92ad21e8ce9a63abf0b46887ec75258dba181f4bb70ec6795b51419b22a"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "7069b7f513e72280c6e55c92aad9eca288df8842372340a05b09b1bc3a2741a7",
+            "phase": "job_endings",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "d7ea0c4fdb585c4bec4a92000e81af1ac832fb77e592f567a44502f2055a7201"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "7069b7f513e72280c6e55c92aad9eca288df8842372340a05b09b1bc3a2741a7",
+            "phase": "printmgr_request",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "11e353bb7d91f2e7bf7df1e1d85a5531cb44454122b6b59157f8467702e9f491"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "7069b7f513e72280c6e55c92aad9eca288df8842372340a05b09b1bc3a2741a7",
+            "phase": "video_queued",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "11e353bb7d91f2e7bf7df1e1d85a5531cb44454122b6b59157f8467702e9f491"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "7069b7f513e72280c6e55c92aad9eca288df8842372340a05b09b1bc3a2741a7",
+            "phase": "prepare_boundary",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              4,
+              4
+            ],
+            "work_sha256": "11e353bb7d91f2e7bf7df1e1d85a5531cb44454122b6b59157f8467702e9f491"
+          }
+        ],
+        "status": "pass",
+        "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+        "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+        "tracked_stores": [
+          {
+            "address": 268628156,
+            "field": "video_irq_mode",
+            "pc": "0x10014bac",
+            "phase": "video_prepare",
+            "size": 4,
+            "value": 0
+          }
+        ],
+        "video_initialization": {
+          "allocations": [
+            {
+              "block": [
+                574625256,
+                39196,
+                2147483648
+              ],
+              "pointer": 574625280,
+              "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+              "size": 39168
+            },
+            {
+              "block": [
+                574664464,
+                65564,
+                2147483648
+              ],
+              "pointer": 574664480,
+              "sha256": "f7701dc18296bf8e27dae431fcbe3e981bb869bf80ac2e6a173b3152820c8853",
+              "size": 65536
+            }
+          ],
+          "hardware_tail_executed": false,
+          "outcome": "initialized_before_peripherals",
+          "pool_blocks": [
+            [
+              574619648,
+              44,
+              2147483648
+            ],
+            [
+              574619704,
+              120,
+              2147483648
+            ],
+            [
+              574619836,
+              16,
+              2147483648
+            ],
+            [
+              574619864,
+              16,
+              2147483648
+            ],
+            [
+              574619892,
+              68,
+              2147483648
+            ],
+            [
+              574619972,
+              80,
+              2147483648
+            ],
+            [
+              574620064,
+              148,
+              2147483648
+            ],
+            [
+              574620224,
+              4828,
+              2684354560
+            ],
+            [
+              574625064,
+              120,
+              2147483648
+            ],
+            [
+              574625196,
+              20,
+              2147483648
+            ],
+            [
+              574625228,
+              16,
+              2147483648
+            ],
+            [
+              574625256,
+              39196,
+              2147483648
+            ],
+            [
+              574664464,
+              65564,
+              2147483648
+            ],
+            [
+              574730040,
+              20668,
+              1073741824
+            ]
+          ],
+          "pool_size": 131072,
+          "registered_handlers": {
+            "10": 268518524,
+            "11": 268518584,
+            "19": 268518044,
+            "20": 268518108,
+            "21": 268518328
+          },
+          "retry_executed": false,
+          "stop": "0x100147e3",
+          "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+        },
+        "video_mode_word": 0
+      },
+      "rejected_before_execution": [
+        "0x10014290",
+        "0x10014293",
+        "0x10014298",
+        "0x100143bb",
+        "0x1001446b",
+        "0x10013f4c",
+        "0x10013ff9",
+        "0x10014014",
+        "0x100140c7",
+        "0x100140e5",
+        "0x10014524",
+        "0x10014576",
+        "0x10015648"
+      ],
+      "selected_pointer": 574639680,
+      "source_owners_and_pool_unchanged": true,
+      "stages": [
+        {
+          "descriptor": [
+            0,
+            0,
+            0
+          ],
+          "indices": [
+            3,
+            3,
+            3
+          ],
+          "phase": "prepared",
+          "remaining": [
+            4,
+            4
+          ],
+          "target_sha256": "09e99f4973f0e70d5214b6f40ca74070fbfc18627880ff90803b4174e36d3b96"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            3,
+            3,
+            3
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            0,
+            4
+          ],
+          "target_sha256": "09e99f4973f0e70d5214b6f40ca74070fbfc18627880ff90803b4174e36d3b96"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            3,
+            3,
+            3
+          ],
+          "phase": "software_pixels_copied",
+          "remaining": [
+            0,
+            4
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            0,
+            3,
+            3
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            0,
+            4
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            0,
+            3,
+            3
+          ],
+          "phase": "final_buffer_selected",
+          "remaining": [
+            0,
+            4
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        },
+        {
+          "descriptor": [
+            1,
+            1,
+            4
+          ],
+          "indices": [
+            0,
+            0,
+            3
+          ],
+          "phase": "output_accounted",
+          "remaining": [
+            0,
+            0
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        },
+        {
+          "descriptor": [
+            0,
+            1,
+            4
+          ],
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            0,
+            0
+          ],
+          "target_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351"
+        }
+      ],
+      "status": "pass",
+      "supplied_boundaries": [
+        "decoder capture to raw input",
+        "software memcpy adapter",
+        "fill completion",
+        "output acceptance",
+        "output completion"
+      ]
+    }
+  ],
+  "completed_page_lifecycles": 0,
+  "findings": [
+    "Eight bounded buffer-transfer cases use the current open decoder target output, compare every pixel with sanitized original full decoding, pass its first one or four 9600-bit rows through actual chunk-12 parser ownership and original video allocation/preparation, then copy to the real first-ring storage with original memcpy. The host bridge and software-copy caller are explicit, not a recovered original pipeline.",
+    "The original descriptor prefix claims one or four rows while its slot still contains initialization bytes. The one-row final band leaves the rest of its four-row slot unchanged. Original occupied and zero-remaining controls skip all descriptor writes. An explicit copied-data completion enters the original RAM publication tail; the original callback-disabled band gate then selects the exact populated slot.",
+    "Clearing the final flag as a separate control reaches the original one-slot withholding boundary; restoring the actual final flag permits selection. Original post-output RAM accounting and normal-mode retirement release that descriptor after explicitly supplied acceptance/completion. No raw source-pointer subtraction or reference decrement occurs.",
+    "Both fills and initial indices zero/three agree in the interpreter and independent QEMU, including every pixel, pool partition, owners, output guards and final indices one/zero. Index three is supplied to exercise wrap arithmetic, not evidence of three preceding transfers. Only the selected first-ring slot changes; the second buffer and source allocation remain unchanged.",
+    "Two additional 17-row sequences begin at constructor-zero indices and publish four actual nonfinal bands, fill all four slots, and stop the producer on a still-owned slot. Output acceptance alone does not free it. After explicitly supplied completion, original retirement releases it and original indices wrap for a one-row final band. Every selected byte concatenates to the original 17 rows. No ring index or final flag is patched in these sequences.",
+    "The actual first nonfinal band is withheld before the second publication. Each continuous sequence delivers row counts 4,4,4,4,1 in slots 0,1,2,3,0. Unwritten bytes in the reused final slot retain the earlier band exactly; the whole first-buffer guard, second buffer, source ownership and pool remain unchanged apart from the intended copies. Readiness, source offsets, completion and scheduling order remain explicit host inputs.",
+    "Thirteen excluded-code controls per case reject before execution. Compressed-image DMA, actual output writes, readiness/status reads, custom callbacks and automatic completion never run. Eight isolated transfers plus two five-transfer sequences are zero completed native page lifecycles and no physical output proof."
+  ],
+  "image": {
+    "bie_sha256": "2bf7a47792e5ae80129e41ec4e5a20bbd675c81c00bda365fa06627ac06c845d",
+    "bytes": 4800,
+    "rows": 4,
+    "scope": "First one or four rows cropped from the existing 9600x132 fixture and declared as a short raw input",
+    "sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351",
+    "stride": 1200,
+    "target_elf_sha256": "69171ee416b870e3a282313fc00250186858af8ac72f082fc9ac5eb28ef5c5de"
+  },
+  "qemu_version": "QEMU emulator version 11.1.1",
+  "raw_parser_report_sha256": "65e709e84bf7eeb26064c465f9087157291d026e9d1adcd71e427944084ccbaa",
+  "sequence_buffer_transfers": 10,
+  "sequence_cases": 2,
+  "sequence_image": {
+    "bytes": 20400,
+    "rows": 17,
+    "scope": "First 17 rows cropped from the existing 9600x132 fixture and declared as one raw input",
+    "sha256": "b7599f2c3b71382cbd6e90620f1e78a7e87c66d6218d8f6b2993cb3de3a4f301"
+  },
+  "sequences": [
+    {
+      "all_image_bytes_equal": true,
+      "buffer_transfers": 5,
+      "completed_page_lifecycles": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "events": [
+        {
+          "descriptors": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "first_buffer_sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+          "index": null,
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "prepared",
+          "remaining": [
+            17,
+            17
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "first_buffer_sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+          "index": 0,
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            13,
+            17
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "first_buffer_sha256": "90f6871ac24de45dba44420f07384669255cba5df691af213795fc24eee2bf0c",
+          "index": 0,
+          "indices": [
+            1,
+            0,
+            0
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            13,
+            17
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "first_buffer_sha256": "90f6871ac24de45dba44420f07384669255cba5df691af213795fc24eee2bf0c",
+          "index": 0,
+          "indices": [
+            1,
+            0,
+            0
+          ],
+          "phase": "nonfinal_withheld",
+          "remaining": [
+            13,
+            17
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "first_buffer_sha256": "90f6871ac24de45dba44420f07384669255cba5df691af213795fc24eee2bf0c",
+          "index": 1,
+          "indices": [
+            1,
+            0,
+            0
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            9,
+            17
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "first_buffer_sha256": "0acd5fabe4a4349a20bd4d0e28cd9a997d793aaf65bd2d4306ef53389abeb6e8",
+          "index": 1,
+          "indices": [
+            2,
+            0,
+            0
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            9,
+            17
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "first_buffer_sha256": "0acd5fabe4a4349a20bd4d0e28cd9a997d793aaf65bd2d4306ef53389abeb6e8",
+          "index": 2,
+          "indices": [
+            2,
+            0,
+            0
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            5,
+            17
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "first_buffer_sha256": "566eb7180aaa055b9e9b27947e2f85570c8c414153650fda93519e2e70432799",
+          "index": 2,
+          "indices": [
+            3,
+            0,
+            0
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            5,
+            17
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "566eb7180aaa055b9e9b27947e2f85570c8c414153650fda93519e2e70432799",
+          "index": 3,
+          "indices": [
+            3,
+            0,
+            0
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            1,
+            17
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "6ec2910626fa29cc19d1088dbd241e37546c707704165337aea83eeb2bad7ad6",
+          "index": 3,
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            1,
+            17
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "6ec2910626fa29cc19d1088dbd241e37546c707704165337aea83eeb2bad7ad6",
+          "index": null,
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "full_ring_producer_blocked",
+          "remaining": [
+            1,
+            17
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "6ec2910626fa29cc19d1088dbd241e37546c707704165337aea83eeb2bad7ad6",
+          "index": 0,
+          "indices": [
+            0,
+            1,
+            0
+          ],
+          "phase": "output_accounted_still_owned",
+          "remaining": [
+            1,
+            13
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "6ec2910626fa29cc19d1088dbd241e37546c707704165337aea83eeb2bad7ad6",
+          "index": null,
+          "indices": [
+            0,
+            1,
+            0
+          ],
+          "phase": "accepted_without_completion_still_blocked",
+          "remaining": [
+            1,
+            13
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "6ec2910626fa29cc19d1088dbd241e37546c707704165337aea83eeb2bad7ad6",
+          "index": 0,
+          "indices": [
+            0,
+            1,
+            1
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            1,
+            13
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "6ec2910626fa29cc19d1088dbd241e37546c707704165337aea83eeb2bad7ad6",
+          "index": 0,
+          "indices": [
+            0,
+            1,
+            1
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            0,
+            13
+          ],
+          "rows": 1
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 0,
+          "indices": [
+            1,
+            1,
+            1
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            0,
+            13
+          ],
+          "rows": 1
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 1,
+          "indices": [
+            1,
+            2,
+            1
+          ],
+          "phase": "output_accounted_still_owned",
+          "remaining": [
+            0,
+            9
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 1,
+          "indices": [
+            1,
+            2,
+            2
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            0,
+            9
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 2,
+          "indices": [
+            1,
+            3,
+            2
+          ],
+          "phase": "output_accounted_still_owned",
+          "remaining": [
+            0,
+            5
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 2,
+          "indices": [
+            1,
+            3,
+            3
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            0,
+            5
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 3,
+          "indices": [
+            1,
+            0,
+            3
+          ],
+          "phase": "output_accounted_still_owned",
+          "remaining": [
+            0,
+            1
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 3,
+          "indices": [
+            1,
+            0,
+            0
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            0,
+            1
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 0,
+          "indices": [
+            1,
+            1,
+            0
+          ],
+          "phase": "output_accounted_still_owned",
+          "remaining": [
+            0,
+            0
+          ],
+          "rows": 1
+        },
+        {
+          "descriptors": [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 0,
+          "indices": [
+            1,
+            1,
+            1
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            0,
+            0
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": null,
+          "indices": [
+            1,
+            1,
+            1
+          ],
+          "phase": "no_remaining_data",
+          "remaining": [
+            0,
+            0
+          ],
+          "rows": null
+        }
+      ],
+      "fill": 0,
+      "final_indices": [
+        1,
+        1,
+        1
+      ],
+      "final_remaining": [
+        0,
+        0
+      ],
+      "hardware_transfers": 0,
+      "image_bytes": 20400,
+      "image_rows": 17,
+      "image_sha256": "b7599f2c3b71382cbd6e90620f1e78a7e87c66d6218d8f6b2993cb3de3a4f301",
+      "index_origin": "original constructor zero; only original code advances indices",
+      "output_sha256": "b7599f2c3b71382cbd6e90620f1e78a7e87c66d6218d8f6b2993cb3de3a4f301",
+      "preparation": {
+        "bitmap": 0,
+        "completed_lifecycles": 0,
+        "copies": 1,
+        "engine_packets": [
+          {
+            "queue": 0,
+            "type": 24
+          },
+          {
+            "queue": 0,
+            "words": [
+              13,
+              0,
+              0,
+              574620076
+            ]
+          }
+        ],
+        "fill": 0,
+        "image_unchanged": true,
+        "outcome": "pre_peripheral_prepare",
+        "output_layout": {
+          "all_spans_inside_original_allocations": true,
+          "buffers_unchanged": true,
+          "first_slot_bytes": 4800,
+          "first_slots": [
+            574640880,
+            574645680,
+            574650480,
+            574655280
+          ],
+          "first_unused_tail": 19968,
+          "second_slot_bytes": 9600,
+          "second_slots": [
+            574680080,
+            574689680,
+            574699280,
+            574708880
+          ],
+          "stride": 1200
+        },
+        "page_bitmap": 1,
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            20428,
+            2684354560
+          ],
+          [
+            574640664,
+            120,
+            2147483648
+          ],
+          [
+            574640796,
+            20,
+            2147483648
+          ],
+          [
+            574640828,
+            16,
+            2147483648
+          ],
+          [
+            574640856,
+            39196,
+            2147483648
+          ],
+          [
+            574680064,
+            65564,
+            2147483648
+          ],
+          [
+            574745640,
+            5068,
+            1073741824
+          ]
+        ],
+        "prepare_stop": "0x10014baf",
+        "prepare_stride": 1200,
+        "rejected_before_execution": [
+          "0x10013c33",
+          "0x10014baf",
+          "0x10014bb8",
+          "0x10014bc3",
+          "0x1001451c",
+          "0x10015438",
+          "0x10015648",
+          "0x100147e3",
+          "0x100147ee",
+          "0x100147f8",
+          "0x1001486c",
+          "0x100148ad",
+          "0x1001766c"
+        ],
+        "separate_bih_chunk": true,
+        "stages": [
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "5ec8545a0f85b901410b60e46b92957a87c63c847d956bc01303e9e477330794",
+            "phase": "admission",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 0,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              17,
+              17
+            ],
+            "work_sha256": "0c60c7854eecf5ebe15c3ffb5d60e37a78dd839be3bb468c12e2af5909adf9d8"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "5ec8545a0f85b901410b60e46b92957a87c63c847d956bc01303e9e477330794",
+            "phase": "job_endings",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              17,
+              17
+            ],
+            "work_sha256": "2634996177b18e387ae3bbbbdc2c259f7a1c5831e710496b90355016961ebbaf"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "5ec8545a0f85b901410b60e46b92957a87c63c847d956bc01303e9e477330794",
+            "phase": "printmgr_request",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              17,
+              17
+            ],
+            "work_sha256": "2634996177b18e387ae3bbbbdc2c259f7a1c5831e710496b90355016961ebbaf"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "5ec8545a0f85b901410b60e46b92957a87c63c847d956bc01303e9e477330794",
+            "phase": "video_queued",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              17,
+              17
+            ],
+            "work_sha256": "2634996177b18e387ae3bbbbdc2c259f7a1c5831e710496b90355016961ebbaf"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "5ec8545a0f85b901410b60e46b92957a87c63c847d956bc01303e9e477330794",
+            "phase": "prepare_boundary",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              17,
+              17
+            ],
+            "work_sha256": "2634996177b18e387ae3bbbbdc2c259f7a1c5831e710496b90355016961ebbaf"
+          }
+        ],
+        "status": "pass",
+        "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+        "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+        "tracked_stores": [
+          {
+            "address": 268628156,
+            "field": "video_irq_mode",
+            "pc": "0x10014bac",
+            "phase": "video_prepare",
+            "size": 4,
+            "value": 0
+          }
+        ],
+        "video_initialization": {
+          "allocations": [
+            {
+              "block": [
+                574640856,
+                39196,
+                2147483648
+              ],
+              "pointer": 574640880,
+              "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+              "size": 39168
+            },
+            {
+              "block": [
+                574680064,
+                65564,
+                2147483648
+              ],
+              "pointer": 574680080,
+              "sha256": "de2f256064a0af797747c2b97505dc0b9f3df0de4f489eac731c23ae9ca9cc31",
+              "size": 65536
+            }
+          ],
+          "hardware_tail_executed": false,
+          "outcome": "initialized_before_peripherals",
+          "pool_blocks": [
+            [
+              574619648,
+              44,
+              2147483648
+            ],
+            [
+              574619704,
+              120,
+              2147483648
+            ],
+            [
+              574619836,
+              16,
+              2147483648
+            ],
+            [
+              574619864,
+              16,
+              2147483648
+            ],
+            [
+              574619892,
+              68,
+              2147483648
+            ],
+            [
+              574619972,
+              80,
+              2147483648
+            ],
+            [
+              574620064,
+              148,
+              2147483648
+            ],
+            [
+              574620224,
+              20428,
+              2684354560
+            ],
+            [
+              574640664,
+              120,
+              2147483648
+            ],
+            [
+              574640796,
+              20,
+              2147483648
+            ],
+            [
+              574640828,
+              16,
+              2147483648
+            ],
+            [
+              574640856,
+              39196,
+              2147483648
+            ],
+            [
+              574680064,
+              65564,
+              2147483648
+            ],
+            [
+              574745640,
+              5068,
+              1073741824
+            ]
+          ],
+          "pool_size": 131072,
+          "registered_handlers": {
+            "10": 268518524,
+            "11": 268518584,
+            "19": 268518044,
+            "20": 268518108,
+            "21": 268518328
+          },
+          "retry_executed": false,
+          "stop": "0x100147e3",
+          "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+        },
+        "video_mode_word": 0
+      },
+      "produced": [
+        {
+          "index": 0,
+          "rows": 4,
+          "sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351",
+          "source_offset": 0,
+          "target": 574640880
+        },
+        {
+          "index": 1,
+          "rows": 4,
+          "sha256": "e87c2788b0ad0838cf66152bac8c71b2481a90322eb4ad73f3e2110e13e795ef",
+          "source_offset": 4800,
+          "target": 574645680
+        },
+        {
+          "index": 2,
+          "rows": 4,
+          "sha256": "e48e1357ea809ac804cdcf197d6af1d7d8352968848b6699860a3c26d98d5491",
+          "source_offset": 9600,
+          "target": 574650480
+        },
+        {
+          "index": 3,
+          "rows": 4,
+          "sha256": "5da92d231b9c5d2026ae6427fe8e579352c2db084b9165d34e501e36b2a7716a",
+          "source_offset": 14400,
+          "target": 574655280
+        },
+        {
+          "index": 0,
+          "rows": 1,
+          "sha256": "4156e1741c7099ca14f7825ea71c888cceb7415bdf3663cbe9272aa9793890c7",
+          "source_offset": 19200,
+          "target": 574640880
+        }
+      ],
+      "rejected_before_execution": [
+        "0x10014290",
+        "0x10014293",
+        "0x10014298",
+        "0x100143bb",
+        "0x1001446b",
+        "0x10013f4c",
+        "0x10013ff9",
+        "0x10014014",
+        "0x100140c7",
+        "0x100140e5",
+        "0x10014524",
+        "0x10014576",
+        "0x10015648"
+      ],
+      "retired": [
+        0,
+        1,
+        2,
+        3,
+        0
+      ],
+      "selected": [
+        {
+          "index": 0,
+          "pointer": 574640880,
+          "rows": 4,
+          "sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351",
+          "source_offset": 0
+        },
+        {
+          "index": 1,
+          "pointer": 574645680,
+          "rows": 4,
+          "sha256": "e87c2788b0ad0838cf66152bac8c71b2481a90322eb4ad73f3e2110e13e795ef",
+          "source_offset": 4800
+        },
+        {
+          "index": 2,
+          "pointer": 574650480,
+          "rows": 4,
+          "sha256": "e48e1357ea809ac804cdcf197d6af1d7d8352968848b6699860a3c26d98d5491",
+          "source_offset": 9600
+        },
+        {
+          "index": 3,
+          "pointer": 574655280,
+          "rows": 4,
+          "sha256": "5da92d231b9c5d2026ae6427fe8e579352c2db084b9165d34e501e36b2a7716a",
+          "source_offset": 14400
+        },
+        {
+          "index": 0,
+          "pointer": 574640880,
+          "rows": 1,
+          "sha256": "4156e1741c7099ca14f7825ea71c888cceb7415bdf3663cbe9272aa9793890c7",
+          "source_offset": 19200
+        }
+      ],
+      "source_owners_and_pool_unchanged": true,
+      "status": "pass",
+      "supplied_boundaries": [
+        "decoder capture to raw input",
+        "software memcpy adapter with explicit source offsets",
+        "fill completion",
+        "output ready and acceptance",
+        "output completion",
+        "host-selected interleaving"
+      ],
+      "whole_buffer_guards_equal": true
+    },
+    {
+      "all_image_bytes_equal": true,
+      "buffer_transfers": 5,
+      "completed_page_lifecycles": 0,
+      "engines": [
+        "bounded_interpreter",
+        "independent_qemu"
+      ],
+      "events": [
+        {
+          "descriptors": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "first_buffer_sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+          "index": null,
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "prepared",
+          "remaining": [
+            17,
+            17
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "first_buffer_sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+          "index": 0,
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            13,
+            17
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "first_buffer_sha256": "90f6871ac24de45dba44420f07384669255cba5df691af213795fc24eee2bf0c",
+          "index": 0,
+          "indices": [
+            1,
+            0,
+            0
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            13,
+            17
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "first_buffer_sha256": "90f6871ac24de45dba44420f07384669255cba5df691af213795fc24eee2bf0c",
+          "index": 0,
+          "indices": [
+            1,
+            0,
+            0
+          ],
+          "phase": "nonfinal_withheld",
+          "remaining": [
+            13,
+            17
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "first_buffer_sha256": "90f6871ac24de45dba44420f07384669255cba5df691af213795fc24eee2bf0c",
+          "index": 1,
+          "indices": [
+            1,
+            0,
+            0
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            9,
+            17
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "first_buffer_sha256": "0acd5fabe4a4349a20bd4d0e28cd9a997d793aaf65bd2d4306ef53389abeb6e8",
+          "index": 1,
+          "indices": [
+            2,
+            0,
+            0
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            9,
+            17
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "first_buffer_sha256": "0acd5fabe4a4349a20bd4d0e28cd9a997d793aaf65bd2d4306ef53389abeb6e8",
+          "index": 2,
+          "indices": [
+            2,
+            0,
+            0
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            5,
+            17
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "first_buffer_sha256": "566eb7180aaa055b9e9b27947e2f85570c8c414153650fda93519e2e70432799",
+          "index": 2,
+          "indices": [
+            3,
+            0,
+            0
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            5,
+            17
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "566eb7180aaa055b9e9b27947e2f85570c8c414153650fda93519e2e70432799",
+          "index": 3,
+          "indices": [
+            3,
+            0,
+            0
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            1,
+            17
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "6ec2910626fa29cc19d1088dbd241e37546c707704165337aea83eeb2bad7ad6",
+          "index": 3,
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            1,
+            17
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "6ec2910626fa29cc19d1088dbd241e37546c707704165337aea83eeb2bad7ad6",
+          "index": null,
+          "indices": [
+            0,
+            0,
+            0
+          ],
+          "phase": "full_ring_producer_blocked",
+          "remaining": [
+            1,
+            17
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "6ec2910626fa29cc19d1088dbd241e37546c707704165337aea83eeb2bad7ad6",
+          "index": 0,
+          "indices": [
+            0,
+            1,
+            0
+          ],
+          "phase": "output_accounted_still_owned",
+          "remaining": [
+            1,
+            13
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "6ec2910626fa29cc19d1088dbd241e37546c707704165337aea83eeb2bad7ad6",
+          "index": null,
+          "indices": [
+            0,
+            1,
+            0
+          ],
+          "phase": "accepted_without_completion_still_blocked",
+          "remaining": [
+            1,
+            13
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "6ec2910626fa29cc19d1088dbd241e37546c707704165337aea83eeb2bad7ad6",
+          "index": 0,
+          "indices": [
+            0,
+            1,
+            1
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            1,
+            13
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "6ec2910626fa29cc19d1088dbd241e37546c707704165337aea83eeb2bad7ad6",
+          "index": 0,
+          "indices": [
+            0,
+            1,
+            1
+          ],
+          "phase": "claimed_before_pixels",
+          "remaining": [
+            0,
+            13
+          ],
+          "rows": 1
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 0,
+          "indices": [
+            1,
+            1,
+            1
+          ],
+          "phase": "fill_published",
+          "remaining": [
+            0,
+            13
+          ],
+          "rows": 1
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 1,
+          "indices": [
+            1,
+            2,
+            1
+          ],
+          "phase": "output_accounted_still_owned",
+          "remaining": [
+            0,
+            9
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 1,
+          "indices": [
+            1,
+            2,
+            2
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            0,
+            9
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 2,
+          "indices": [
+            1,
+            3,
+            2
+          ],
+          "phase": "output_accounted_still_owned",
+          "remaining": [
+            0,
+            5
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 2,
+          "indices": [
+            1,
+            3,
+            3
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            0,
+            5
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 3,
+          "indices": [
+            1,
+            0,
+            3
+          ],
+          "phase": "output_accounted_still_owned",
+          "remaining": [
+            0,
+            1
+          ],
+          "rows": 4
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 3,
+          "indices": [
+            1,
+            0,
+            0
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            0,
+            1
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 0,
+          "indices": [
+            1,
+            1,
+            0
+          ],
+          "phase": "output_accounted_still_owned",
+          "remaining": [
+            0,
+            0
+          ],
+          "rows": 1
+        },
+        {
+          "descriptors": [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": 0,
+          "indices": [
+            1,
+            1,
+            1
+          ],
+          "phase": "descriptor_released",
+          "remaining": [
+            0,
+            0
+          ],
+          "rows": null
+        },
+        {
+          "descriptors": [
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              4
+            ]
+          ],
+          "first_buffer_sha256": "0992d8ae92efd80a5206447e830807f9156acf6943ad372abed5c218b3c249cf",
+          "index": null,
+          "indices": [
+            1,
+            1,
+            1
+          ],
+          "phase": "no_remaining_data",
+          "remaining": [
+            0,
+            0
+          ],
+          "rows": null
+        }
+      ],
+      "fill": 204,
+      "final_indices": [
+        1,
+        1,
+        1
+      ],
+      "final_remaining": [
+        0,
+        0
+      ],
+      "hardware_transfers": 0,
+      "image_bytes": 20400,
+      "image_rows": 17,
+      "image_sha256": "b7599f2c3b71382cbd6e90620f1e78a7e87c66d6218d8f6b2993cb3de3a4f301",
+      "index_origin": "original constructor zero; only original code advances indices",
+      "output_sha256": "b7599f2c3b71382cbd6e90620f1e78a7e87c66d6218d8f6b2993cb3de3a4f301",
+      "preparation": {
+        "bitmap": 0,
+        "completed_lifecycles": 0,
+        "copies": 1,
+        "engine_packets": [
+          {
+            "queue": 0,
+            "type": 24
+          },
+          {
+            "queue": 0,
+            "words": [
+              13,
+              0,
+              0,
+              574620076
+            ]
+          }
+        ],
+        "fill": 204,
+        "image_unchanged": true,
+        "outcome": "pre_peripheral_prepare",
+        "output_layout": {
+          "all_spans_inside_original_allocations": true,
+          "buffers_unchanged": true,
+          "first_slot_bytes": 4800,
+          "first_slots": [
+            574640880,
+            574645680,
+            574650480,
+            574655280
+          ],
+          "first_unused_tail": 19968,
+          "second_slot_bytes": 9600,
+          "second_slots": [
+            574680080,
+            574689680,
+            574699280,
+            574708880
+          ],
+          "stride": 1200
+        },
+        "page_bitmap": 1,
+        "pool_blocks": [
+          [
+            574619648,
+            44,
+            2147483648
+          ],
+          [
+            574619704,
+            120,
+            2147483648
+          ],
+          [
+            574619836,
+            16,
+            2147483648
+          ],
+          [
+            574619864,
+            16,
+            2147483648
+          ],
+          [
+            574619892,
+            68,
+            2147483648
+          ],
+          [
+            574619972,
+            80,
+            2147483648
+          ],
+          [
+            574620064,
+            148,
+            2147483648
+          ],
+          [
+            574620224,
+            20428,
+            2684354560
+          ],
+          [
+            574640664,
+            120,
+            2147483648
+          ],
+          [
+            574640796,
+            20,
+            2147483648
+          ],
+          [
+            574640828,
+            16,
+            2147483648
+          ],
+          [
+            574640856,
+            39196,
+            2147483648
+          ],
+          [
+            574680064,
+            65564,
+            2147483648
+          ],
+          [
+            574745640,
+            5068,
+            1073741824
+          ]
+        ],
+        "prepare_stop": "0x10014baf",
+        "prepare_stride": 1200,
+        "rejected_before_execution": [
+          "0x10013c33",
+          "0x10014baf",
+          "0x10014bb8",
+          "0x10014bc3",
+          "0x1001451c",
+          "0x10015438",
+          "0x10015648",
+          "0x100147e3",
+          "0x100147ee",
+          "0x100147f8",
+          "0x1001486c",
+          "0x100148ad",
+          "0x1001766c"
+        ],
+        "separate_bih_chunk": true,
+        "stages": [
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "d95ef2b5c751edadc6c563e84c6fd7c16083fd2217cf1dd762d04eb202281930",
+            "phase": "admission",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 0,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              17,
+              17
+            ],
+            "work_sha256": "c081cf90200a7c70742dc82eb61953093e980408493a52a172669b0408dc7e8a"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "d95ef2b5c751edadc6c563e84c6fd7c16083fd2217cf1dd762d04eb202281930",
+            "phase": "job_endings",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              17,
+              17
+            ],
+            "work_sha256": "2bf0ac7d12c6f954734406ecd4dac7563a2ec18d0ef177be7b236f423319f877"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "d95ef2b5c751edadc6c563e84c6fd7c16083fd2217cf1dd762d04eb202281930",
+            "phase": "printmgr_request",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              17,
+              17
+            ],
+            "work_sha256": "059ef657d022ef33164ec0b1ba0b951571618777fd01eeecfe3bdd0c340d3345"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "d95ef2b5c751edadc6c563e84c6fd7c16083fd2217cf1dd762d04eb202281930",
+            "phase": "video_queued",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              17,
+              17
+            ],
+            "work_sha256": "059ef657d022ef33164ec0b1ba0b951571618777fd01eeecfe3bdd0c340d3345"
+          },
+          {
+            "input_pointer": 574620240,
+            "payload_sha256": "d95ef2b5c751edadc6c563e84c6fd7c16083fd2217cf1dd762d04eb202281930",
+            "phase": "prepare_boundary",
+            "raw_irq_flag": 0,
+            "references": 1,
+            "scheduled_copies": 1,
+            "source_kind": 1,
+            "work_bih_fields": [
+              9600,
+              17,
+              17
+            ],
+            "work_sha256": "059ef657d022ef33164ec0b1ba0b951571618777fd01eeecfe3bdd0c340d3345"
+          }
+        ],
+        "status": "pass",
+        "supplied_state": "ready/online/media RAM and 128-KiB pool; original video initialization prefix; no device feedback",
+        "task_context": "serialized entry and explicit receive-loop cuts; no native scheduler",
+        "tracked_stores": [
+          {
+            "address": 268628156,
+            "field": "video_irq_mode",
+            "pc": "0x10014bac",
+            "phase": "video_prepare",
+            "size": 4,
+            "value": 0
+          }
+        ],
+        "video_initialization": {
+          "allocations": [
+            {
+              "block": [
+                574640856,
+                39196,
+                2147483648
+              ],
+              "pointer": 574640880,
+              "sha256": "dedaa98c47f47866cecaccd0b8e038433b7f19b5a50c913e9b7b89fd472c3efc",
+              "size": 39168
+            },
+            {
+              "block": [
+                574680064,
+                65564,
+                2147483648
+              ],
+              "pointer": 574680080,
+              "sha256": "f7701dc18296bf8e27dae431fcbe3e981bb869bf80ac2e6a173b3152820c8853",
+              "size": 65536
+            }
+          ],
+          "hardware_tail_executed": false,
+          "outcome": "initialized_before_peripherals",
+          "pool_blocks": [
+            [
+              574619648,
+              44,
+              2147483648
+            ],
+            [
+              574619704,
+              120,
+              2147483648
+            ],
+            [
+              574619836,
+              16,
+              2147483648
+            ],
+            [
+              574619864,
+              16,
+              2147483648
+            ],
+            [
+              574619892,
+              68,
+              2147483648
+            ],
+            [
+              574619972,
+              80,
+              2147483648
+            ],
+            [
+              574620064,
+              148,
+              2147483648
+            ],
+            [
+              574620224,
+              20428,
+              2684354560
+            ],
+            [
+              574640664,
+              120,
+              2147483648
+            ],
+            [
+              574640796,
+              20,
+              2147483648
+            ],
+            [
+              574640828,
+              16,
+              2147483648
+            ],
+            [
+              574640856,
+              39196,
+              2147483648
+            ],
+            [
+              574680064,
+              65564,
+              2147483648
+            ],
+            [
+              574745640,
+              5068,
+              1073741824
+            ]
+          ],
+          "pool_size": 131072,
+          "registered_handlers": {
+            "10": 268518524,
+            "11": 268518584,
+            "19": 268518044,
+            "20": 268518108,
+            "21": 268518328
+          },
+          "retry_executed": false,
+          "stop": "0x100147e3",
+          "video_sha256": "e20ae5ec0417ebdc25cc1d44627b02e741a349f4b050c2d2feae7247ad80513a"
+        },
+        "video_mode_word": 0
+      },
+      "produced": [
+        {
+          "index": 0,
+          "rows": 4,
+          "sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351",
+          "source_offset": 0,
+          "target": 574640880
+        },
+        {
+          "index": 1,
+          "rows": 4,
+          "sha256": "e87c2788b0ad0838cf66152bac8c71b2481a90322eb4ad73f3e2110e13e795ef",
+          "source_offset": 4800,
+          "target": 574645680
+        },
+        {
+          "index": 2,
+          "rows": 4,
+          "sha256": "e48e1357ea809ac804cdcf197d6af1d7d8352968848b6699860a3c26d98d5491",
+          "source_offset": 9600,
+          "target": 574650480
+        },
+        {
+          "index": 3,
+          "rows": 4,
+          "sha256": "5da92d231b9c5d2026ae6427fe8e579352c2db084b9165d34e501e36b2a7716a",
+          "source_offset": 14400,
+          "target": 574655280
+        },
+        {
+          "index": 0,
+          "rows": 1,
+          "sha256": "4156e1741c7099ca14f7825ea71c888cceb7415bdf3663cbe9272aa9793890c7",
+          "source_offset": 19200,
+          "target": 574640880
+        }
+      ],
+      "rejected_before_execution": [
+        "0x10014290",
+        "0x10014293",
+        "0x10014298",
+        "0x100143bb",
+        "0x1001446b",
+        "0x10013f4c",
+        "0x10013ff9",
+        "0x10014014",
+        "0x100140c7",
+        "0x100140e5",
+        "0x10014524",
+        "0x10014576",
+        "0x10015648"
+      ],
+      "retired": [
+        0,
+        1,
+        2,
+        3,
+        0
+      ],
+      "selected": [
+        {
+          "index": 0,
+          "pointer": 574640880,
+          "rows": 4,
+          "sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351",
+          "source_offset": 0
+        },
+        {
+          "index": 1,
+          "pointer": 574645680,
+          "rows": 4,
+          "sha256": "e87c2788b0ad0838cf66152bac8c71b2481a90322eb4ad73f3e2110e13e795ef",
+          "source_offset": 4800
+        },
+        {
+          "index": 2,
+          "pointer": 574650480,
+          "rows": 4,
+          "sha256": "e48e1357ea809ac804cdcf197d6af1d7d8352968848b6699860a3c26d98d5491",
+          "source_offset": 9600
+        },
+        {
+          "index": 3,
+          "pointer": 574655280,
+          "rows": 4,
+          "sha256": "5da92d231b9c5d2026ae6427fe8e579352c2db084b9165d34e501e36b2a7716a",
+          "source_offset": 14400
+        },
+        {
+          "index": 0,
+          "pointer": 574640880,
+          "rows": 1,
+          "sha256": "4156e1741c7099ca14f7825ea71c888cceb7415bdf3663cbe9272aa9793890c7",
+          "source_offset": 19200
+        }
+      ],
+      "source_owners_and_pool_unchanged": true,
+      "status": "pass",
+      "supplied_boundaries": [
+        "decoder capture to raw input",
+        "software memcpy adapter with explicit source offsets",
+        "fill completion",
+        "output ready and acceptance",
+        "output completion",
+        "host-selected interleaving"
+      ],
+      "whole_buffer_guards_equal": true
+    }
+  ],
+  "source_sha256": {
+    "open-firmware/image-core/fixture.c": "3f527c7d5aaeb21c3774d500b21749b7fd47c35932b7e3b763542b609830fddc",
+    "open-firmware/image-core/freestanding/assert.h": "7c7d52be2164bd97b2d2ac21bcb924b57a9463f6886e935de787af41b0762300",
+    "open-firmware/image-core/freestanding/stdlib.h": "39047fd5646fd815176a77090f3dc48ed493390f777f8490bc03c0cd19225149",
+    "open-firmware/image-core/freestanding/string.h": "0b5a9c6e01dcced149dd23cef1b6b82532a151b1f14bc9ebc3723c9b69623d98",
+    "open-firmware/image-core/host-check.c": "d6ed21f91dfe89c2ffd49f6de471ac71e8f3817f4f607ebea7e1824b2814be73",
+    "open-firmware/image-core/host-page-check.c": "82398dff184a2945ac6387a72a32fa650ec8405177d42f1cb77ef371e3385951",
+    "open-firmware/image-core/host-stream-check.c": "ce8a046353d341e7774a15d0c034613123299310dad10accd56282892d4b4a4d",
+    "open-firmware/image-core/hp1020_image.c": "537e7085f7ee18871f9090fb7b274164a21e908ca299451be4c8d5e3c6914fc8",
+    "open-firmware/image-core/hp1020_image.h": "d15afe12a0aed6ac71b676d540562cf96e5f165047786101994a1fd53de85808",
+    "open-firmware/image-core/hp1020_image_page.c": "1b3fa5dcd571585a27341b7d5e239fd2424bae89413d18c0d1800fa7f69d281f",
+    "open-firmware/image-core/hp1020_image_page.h": "770ed16d200cdb7d978621cf4d457ab7270df80b6d33248b0925fb4f1c798df2",
+    "open-firmware/image-core/hp1020_image_stream.c": "25669045cbbda48f55101c1c2deaf158a13f89edd38d0e9711365a65c0291664",
+    "open-firmware/image-core/hp1020_image_stream.h": "977186ea8865273483192c01bab501f572378163943940f9df4d7b7671ff1beb",
+    "open-firmware/image-core/page-fixture.c": "b0153ce2ba71208dd59ed81442abbfe2586797f4c3d4947014d698da4f099b9e",
+    "open-firmware/image-core/reference.c": "4632dd64ca1df51f0a103f2d3acc54ec3dba500ce1803c21233cb13e6265dbac",
+    "open-firmware/image-core/stream-fixture.c": "37a549b7417e904744b4f6f9163845f958c2bea8b574f5b899dc1f2094fbfb3e",
+    "open-firmware/image-core/target-check.ld": "2dd6d8b7f04ccdd20ee0dd34404221f22f6e29b29ea7798e4738bd2128d4934b",
+    "open-firmware/image-core/target-memory.c": "e403177bc94925c479c90defca770fa36535cf5161bdde84b8e57ea6ff6ca2c3",
+    "open-firmware/semantic-core/freestanding/memory.c": "9678a7810cf3756484c6bf178f7a206a180ace6cbce3502f247055a462a19bfc",
+    "open-firmware/semantic-core/hp1020_page_plan.c": "16f6608918c620f437d09fe1f56c8f1043d9c60a4e6b8b3f2cd5220ff57e0517",
+    "open-firmware/semantic-core/hp1020_page_plan.h": "1df6b7a2f4ccf752d3ac127e70b48ac8fb93cd6ce4c02431622d5d0ea1326f23",
+    "open-firmware/semantic-core/hp1020_semantic.c": "72b6c1509fd89fa71fef0227fbc08eda4eb935a1a4531751771072427b11d007",
+    "open-firmware/semantic-core/hp1020_semantic.h": "6e0278b817e85a9bd47eefd6d5169038f3c09c141eaaa5fe347ea976ab1a180a",
+    "scripts/build-hp1020-image-target.sh": "349753ddc2d55a54c01aa070f63527387bd63039ff5dd91550169a70eff85891",
+    "scripts/hp1020_qemu_context.py": "ec85435943eacdb827dcaa41387663a6eb62f536e98ae753cb8b373f04ac6067",
+    "scripts/hp1020_qemu_multitask.py": "2353e573a0136984739c7eff9e70ebe5e1aa2634eac381522c3097a49b193aae",
+    "scripts/hp1020_qemu_pipeline.py": "3a6ea4ef1c1dfa3b0bc02df4ba5601facb1c27396685c8c9e847122bb443ef39",
+    "scripts/hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
+    "scripts/hp1020_qemu_scheduled_status.py": "9a715e6cd064d55994a3bfe89a8822cc9a6ce60e7f640193f2e9b52054244890",
+    "scripts/hp1020_qemu_scheduler.py": "6bb45fc44d99da27be5b307b216969207ceb1a8b05bff780108d672d7ab3e724",
+    "scripts/hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
+    "scripts/hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
+    "scripts/hp1020_qemu_timers.py": "34beea0dd76a324d546e38ebfe18603932c4afbd9133a9a37c98aaf775492f06",
+    "scripts/hp1020_raw_handoff.py": "bccde7331c401ba34a75220026c9fd7b6418410e6a721ec0d6893d7622ee3801",
+    "scripts/hp1020_stock_jobmgr_harness.py": "4c863cff55c7027ed3f348d188c93225dacc0c0442b9f71792c8db96ce7ced93",
+    "scripts/hp1020_stock_lifecycle_harness.py": "d08e611620854498fa9fd65e809fd042219fdbb4e0093d051c8972fb0b433f95",
+    "scripts/hp1020_stock_notifications.py": "d0acd7130585cc38a48368d2d10e26f2bef6534c9f124dfbae8b91991c98e9ca",
+    "scripts/hp1020_stock_parser_harness.py": "87175798036cb376447ae70cb4a35f82f7a3f06a3ca166c89c9ca8b8e38bba90",
+    "scripts/hp1020_stock_pool.py": "bdc1ce5a01fdb9dff49ed82570e5094ba376eaa44e970fcd2ba3a5cf4743628b",
+    "scripts/hp1020_stock_printmgr_harness.py": "6f5afe219a3f0aebca235a8f510ad2cac468c9624fbfe518e4593e4c79e50275",
+    "scripts/hp1020_stock_queue.py": "799275c643095b20c613ef64fdddb93b277404519f2681d70c3573323b872e11",
+    "scripts/hp1020_stock_status_publication.py": "0f2276305116672937c0aa96fe9fd67c34dc84cc89ff1be77d286c1a926acea3",
+    "scripts/hp1020_stock_status_queue.py": "6f34a9c83c5e01b65380f5acb80d068f75452dc841922ba9892a5cd82e21b634",
+    "scripts/hp1020_stock_stop.py": "1f716972e7d044b070eff24b05e9ac7fcf532a54131f5c69e42276c6db987de0",
+    "scripts/hp1020_video_buffers.py": "a35533c553b4dcb9ca2e1d7bb7bc56675e14d43a122b59bddd22aa2d09a0e0c4",
+    "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
+    "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
+    "scripts/hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
+    "scripts/validate-hp1020-image-core.py": "710f1de84a4467c03bc7977d56be1138e94e8709f43a5a36475e7090186159ff",
+    "scripts/validate-hp1020-raw-parser.py": "6430a9a53c3c88b587e6553fdbbf39b4fd0b94620c314dbd1bd7a1457a85ec1c",
+    "scripts/validate-hp1020-raw-producer.py": "56011425ef7c8832b8090cdacafb4f8694d4ed48db76255a3cd31c6f2cf84154",
+    "scripts/validate-hp1020-software-ring.py": "9915226492da49ccc8c216a4265d06b69e4df8d11d12bbeeb9fa81cc63ceb146",
+    "vendor/foo2zjs-source/jbig.c": "835ce9b964a6735187b6e064562695063a65f35fe29924de1d60db660c3e21b3",
+    "vendor/foo2zjs-source/jbig.h": "0c016a8c69e349c510630edbf5b96057be952c2ac19c1a9b8488ad8c9864d7a4",
+    "vendor/foo2zjs-source/jbig_ar.c": "a51552d2f839ce8b758400660bd423b95b4b25cde11e65cc4e7d6c63c1a19d6f",
+    "vendor/foo2zjs-source/jbig_ar.h": "292c4c43c944e2573b558d89b7004cec6c59c70dbbfd7b9890868a2291d1250a",
+    "vendor/jbigkit-2.1/libjbig/jbig85.c": "5e0782db94a94d199975f74ce493d32099aee5c9ae686c05e65831a1227a5fac",
+    "vendor/jbigkit-2.1/libjbig/jbig85.h": "1c87939e042d7b03a19412dd3f8d0e9614ebbacc1aad5c4f2cfbd9bf11bd514e",
+    "vendor/jbigkit-2.1/libjbig/jbig_ar.c": "ae9fa2575d73a0cd50c6a32621ab2b6c4ca5f1115d27d636f461275c1d1e62f3",
+    "vendor/jbigkit-2.1/libjbig/jbig_ar.h": "c5dcac0af444f6b5b4470775a3b1f020243970692e8d776767e717154f3de7fa"
+  },
+  "status": "pass",
+  "stock_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d"
+}

@@ -36,8 +36,9 @@ This is a generated offline model. It does not contact the printer.
 
 | Offset | Field | Meaning |
 |---:|---|---|
-| `+0x20 + slot*0x0c` | ring descriptor busy flag | cleared by IRQ path; helper sets related descriptor record busy |
-| `+0x24 + slot*0x0c` | ring descriptor secondary field | initialized by prepare; exact ownership still unresolved |
+| `+0x20 + slot*0x0c` | output descriptor owned flag | 0x10014283 claims it before pixels are filled; 0x10014569 releases it after supplied completion; it is not a ready-pixels flag |
+| `+0x24 + slot*0x0c` | final output band flag | 0x1001427e..0x10014281 sets it when remaining +0xd0 reaches zero; 0x10013f6f..0x10013f72 permits the otherwise-withheld final slot |
+| `+0x28 + slot*0x0c` | output band row/unit count | 0x1001426e stores min(+0xcc,+0xd0); 0x100140cc reads it for output accounting |
 | `+0x94` | consumer/read index candidate | render treats equality with next producer index as ring full |
 | `+0x98` | producer/write index candidate | render advances `(value + 1) & 3` after descriptor setup |
 | `+0x9c` | active raster-list pointer | set from work +0x50 and walked by raw-band refresh |
@@ -46,9 +47,10 @@ This is a generated offline model. It does not contact the printer.
 | `+0xb8` | stride bytes candidate | used by band helper as transfer length multiplier |
 | `+0xcc` | maximum chunk lines/units | caps helper chunk size |
 | `+0xd0` | remaining transfer units | helper decrements this by the chosen chunk |
+| `+0xd4` | remaining output units | 0x100140c9..0x100140d7 subtracts the selected descriptor count after the output-write boundary |
 | `+0xd8` | IRQ done index candidate | advanced `(value + 1) & 3` when band-done bit 0x20 arrives |
-| `+0xdc` | reset/rearm latch | cleared on one block-status recovery branch |
-| `+0xe0` | helper descriptor slot selector | chooses `descriptor_base + slot*0x0c` and source pointer at state + slot*4 |
+| `+0xdc` | next output-selection index | 0x10013f60 selects it; 0x100140e2 advances it modulo four after output accounting; recovery also clears it |
+| `+0xe0` | next fill/publication index | chooses `descriptor_base + slot*0x0c` and buffer at state + slot*4; 0x10014468 advances it modulo four at the fill-completion RAM tail |
 | `+0xf0` | band-done happened flag | set by IRQ path after handling block status |
 | `+0xf8` | band-done counter | incremented when block status bit 0x20 is seen |
 | `+0xfc` | raw-band/reset mode sign field | negative path drains +0xa0 and refreshes raw bands; nonnegative path advances descriptor ring |
@@ -61,7 +63,7 @@ This is a generated offline model. It does not contact the printer.
 - registers: -
 
 1. clear five saved pointer slots beginning at video_state +0xa4
-2. clear producer index +0x98, consumer index +0x94, IRQ done index +0xd8, and latch +0xdc
+2. clear input producer index +0x98, input consumer index +0x94, output done index +0xd8, and output-selection index +0xdc
 3. clear four 0x0c-byte ring records beginning at video_state +0x20
 4. derive stride +0xb8 from work +0x84 and derive maximum chunk +0xcc
 
@@ -159,7 +161,8 @@ This is a generated offline model. It does not contact the printer.
 ## Open Firmware Meaning
 
 - A printing replacement needs the ring ownership rules, not just the 0xb200 descriptor writes.
-- The normal render path protects a modulo-4 producer/consumer ring and returns 0x1003 when the next slot would collide with the consumer index.
+- The normal render path protects the input ring at +0x94/+0x98 and returns 0x1003 when the next slot would collide with the consumer index. This differs from the four output descriptors controlled by +0xe0/+0xdc/+0xd8.
+- Output ownership, completed fill publication, output acceptance and completed consumption are separate stages. The RAM cuts and exact byte comparisons are owned by analysis/hardware-boundary/software-ring.json; they omit physical readiness and transfer operations.
 - The interrupt/band-done path is responsible for clearing completed ring records and refilling channel-B descriptors.
 - The remaining hard unknown is the exact interrupt/event timing that advances the consumer side under live hardware.
 

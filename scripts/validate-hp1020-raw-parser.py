@@ -53,16 +53,16 @@ def chunk(kind,items=(),data=b''):
     return struct.pack('>IIIHH',16+len(metadata)+len(data),kind,len(items),len(metadata),0x5a5a)+metadata+data
 
 
-def stream(bitmap,copies,fallback,empty,page_bitmap,bih_chunk):
-    page = [item(k,v) for k,v in [(4,copies),(8,600),(9,600),(12,32),(13,4),
-                                 (16,1),(17,32),(18,4),(0x65,page_bitmap)]]
+def stream(bitmap,copies,fallback,empty,page_bitmap,bih_chunk,width,rows,image,bih):
+    page = [item(k,v) for k,v in [(4,copies),(8,600),(9,600),(12,width),(13,rows),
+                                 (16,1),(17,width),(18,rows),(0x65,page_bitmap)]]
     band = [item(k,v) for k,v in [(20,4),(0x65,bitmap),(16,1),(0x67,1)]]
     if not fallback:
-        band += [item(0x68,32),item(0x69,4)]
-    band += [struct.pack('>IHBBI',32,0x66,4,0,20)+BIH]
+        band += [item(0x68,width),item(0x69,rows)]
+    band += [struct.pack('>IHBBI',32,0x66,4,0,20)+bih]
     return (b'JZJZ'+chunk(0,[item(0,1),item(2,1)])+chunk(2,page)
-            +(chunk(4,data=BIH) if bih_chunk else b'')
-            +chunk(12,band,b'' if empty else IMAGE)+chunk(3)+chunk(1))
+            +(chunk(4,data=bih) if bih_chunk else b'')
+            +chunk(12,band,b'' if empty else image)+chunk(3)+chunk(1))
 
 
 class Parser(raw.RawProducer):
@@ -122,10 +122,14 @@ class Parser(raw.RawProducer):
 
 
 def execute(program,engine,*,bitmap=0,copies=1,fill=0,fallback=False,empty=False,
-            page_bitmap=None,bih_chunk=False,state_class=Parser,return_state=False):
+            page_bitmap=None,bih_chunk=False,state_class=Parser,return_state=False,
+            width=32,rows=4,image=IMAGE):
+    assert 0 < width <= 16384 and width%32 == 0 and 1 <= rows <= 17
+    assert len(image) == width//8*rows
+    bih = BIH[:4]+struct.pack('>III',width,rows,rows)+BIH[16:]
     if page_bitmap is None:
         page_bitmap = bitmap
-    data = stream(bitmap,copies,fallback,empty,page_bitmap,bih_chunk)
+    data = stream(bitmap,copies,fallback,empty,page_bitmap,bih_chunk,width,rows,image,bih)
     state = state_class(program,fill,data)
     invoke(state,0x10017554,qemu=engine)
     state.put(THREAD,bytes(256))
@@ -179,19 +183,19 @@ def execute(program,engine,*,bitmap=0,copies=1,fill=0,fallback=False,empty=False
     payload = state.read(node+12,4)
     pointer = state.read(payload+84,4)
     assert len(state.data_allocations) == (2 if bih_chunk else 1)
-    assert state.data_allocations[-1] == dict(size=16,kind=0,pointer=pointer)
+    assert state.data_allocations[-1] == dict(size=len(image),kind=0,pointer=pointer)
     if bih_chunk:
         assert state.data_allocations[0] == dict(size=20,kind=0,pointer=packets[3][3])
-        assert state.bytes_at(packets[3][3],20) == BIH
+        assert state.bytes_at(packets[3][3],20) == bih
     assert payload == node+16 and raw_packet[1] == 3
-    assert state.read(payload+72,4) == len(IMAGE)
+    assert state.read(payload+72,4) == len(image)
     assert state.read(payload+80,4) == (1 if bitmap == 0 else 0)
-    assert state.read(payload+30,2) == state.read(payload+88,4) == 32
-    assert state.read(payload+32,2) == 4 and state.read(payload+34,2) == 1
+    assert state.read(payload+30,2) == state.read(payload+88,4) == width
+    assert state.read(payload+32,2) == rows and state.read(payload+34,2) == 1
     assert state.read(payload+76,2) == 1 and state.read(payload+78,2) == fill*257
     assert state.read(work+116,1) == 0
     assert state.read(work+54,2) == (1 if page_bitmap == 0 else 0)
-    assert state.bytes_at(pointer,len(IMAGE)) == IMAGE
+    assert state.bytes_at(pointer,len(image)) == image
     # Document and child initialization are inline parser arms; only the work
     # constructor is a separate call. Do not infer use of the other initializer.
     required = {0x10009efe,0x10009f86,0x1000a0df,0x1000a16d,0x1000f228}
@@ -229,20 +233,20 @@ def execute(program,engine,*,bitmap=0,copies=1,fill=0,fallback=False,empty=False
     assert state.read(payload+78,2) == state.read(work+78,2) == copies
     assert state.read(work+116,1) == 0 and state.read(payload+84,4) == pointer
     job_bih = state.bytes_at(state.read(0x10006304,4),20)
-    assert job_bih == (BIH if bih_chunk else bytes(20))
+    assert job_bih == (bih if bih_chunk else bytes(20))
     blocks = state.blocks()
     if bih_chunk:
         bih_pointer = state.data_allocations[0]['pointer']
         assert {0x1001b38c,0x10013408}.issubset(job_visited)
         assert any(not flags&0x80000000 and base+12 <= bih_pointer
                    and bih_pointer+20 <= base+12+size for base,size,flags in blocks)
-    expected_work_bih = BIH[4:16] if bih_chunk and page_bitmap == 1 else bytes(12)
+    expected_work_bih = bih[4:16] if bih_chunk and page_bitmap == 1 else bytes(12)
     assert state.bytes_at(work+132,12) == expected_work_bih
-    assert state.read(work+144,1) == (BIH[19] if bih_chunk and page_bitmap == 1 else 0)
+    assert state.read(work+144,1) == (bih[19] if bih_chunk and page_bitmap == 1 else 0)
     after = state.bytes_at(payload,104)
     expected = bytearray(before)
     expected[78:80] = copies.to_bytes(2,'big')
-    assert after == expected and state.bytes_at(pointer,len(IMAGE)) == IMAGE
+    assert after == expected and state.bytes_at(pointer,len(image)) == image
     assert state.read(queue+16,4) == 2
     pending = state.read(queue+32,4)
     assert [state.read(pending+i*16,4) for i in range(2)] == [6,2]
@@ -254,7 +258,7 @@ def execute(program,engine,*,bitmap=0,copies=1,fill=0,fallback=False,empty=False
         owner_hierarchy=dict(document_node=doc_node,document=doc,child_node=child_node,child=child,work=work),
         owner_hierarchy_origin='original queued document/page/work messages',
         pool_blocks=blocks,host_boundaries=state.boundaries,
-        image_sha256=sha(state.bytes_at(pointer,len(IMAGE))),admission_stop=hex(state.admission_stop),
+        image_sha256=sha(state.bytes_at(pointer,len(image))),admission_stop=hex(state.admission_stop),
         job_bih_cache=job_bih.hex(),
         bih_source_freed=True if bih_chunk else None,
         work_bih_fields=[state.read(work+i,4) for i in (132,136,140)],

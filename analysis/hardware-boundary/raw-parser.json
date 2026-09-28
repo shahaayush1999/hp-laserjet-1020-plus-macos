@@ -8466,7 +8466,7 @@
     "scripts/hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
     "scripts/hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
     "scripts/hp1020_qemu_timers.py": "34beea0dd76a324d546e38ebfe18603932c4afbd9133a9a37c98aaf775492f06",
-    "scripts/hp1020_raw_handoff.py": "0a3fffc4d35d8d19b1184113265fb888ddbbba8102509552b410194d8555f80a",
+    "scripts/hp1020_raw_handoff.py": "bccde7331c401ba34a75220026c9fd7b6418410e6a721ec0d6893d7622ee3801",
     "scripts/hp1020_stock_jobmgr_harness.py": "4c863cff55c7027ed3f348d188c93225dacc0c0442b9f71792c8db96ce7ced93",
     "scripts/hp1020_stock_lifecycle_harness.py": "d08e611620854498fa9fd65e809fd042219fdbb4e0093d051c8972fb0b433f95",
     "scripts/hp1020_stock_notifications.py": "d0acd7130585cc38a48368d2d10e26f2bef6534c9f124dfbae8b91991c98e9ca",
@@ -8481,7 +8481,7 @@
     "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
     "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
     "scripts/hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
-    "scripts/validate-hp1020-raw-parser.py": "6cd7296b094271145f167a20865e961cb76b68d618466f2b33eac06f94299e50",
+    "scripts/validate-hp1020-raw-parser.py": "6430a9a53c3c88b587e6553fdbbf39b4fd0b94620c314dbd1bd7a1457a85ec1c",
     "scripts/validate-hp1020-raw-producer.py": "56011425ef7c8832b8090cdacafb4f8694d4ed48db76255a3cd31c6f2cf84154"
   },
   "status": "pass",
