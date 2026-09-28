@@ -1,29 +1,20 @@
 #!/bin/zsh
-# Build the small encoder for this Mac; preserve the original research runtime.
+# Build native CUPS components, preserving upstream/research sources unchanged.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 [[ $# == 1 ]] || { print -u2 -- "Usage: $0 OUTPUT_DIRECTORY"; exit 2; }
 OUT="$1"
 SRC="$ROOT/vendor/foo2zjs-source"
 mkdir -p "$OUT"
-/usr/bin/clang -O2 -arch arm64 -I "$SRC" -o "$OUT/foo2zjs" \
-  "$SRC/foo2zjs.c" "$SRC/jbig.c" "$SRC/jbig_ar.c"
-/usr/bin/codesign --force --sign - "$OUT/foo2zjs"
-/usr/bin/clang -O2 -arch arm64 -Wall -Wextra -Werror \
-  "$ROOT/files/macos/hp1020-usb-run.c" -o "$OUT/hp1020-usb-run"
-/usr/bin/codesign --force --sign - "$OUT/hp1020-usb-run"
-# Quote filenames and propagate renderer failures through the original pipeline.
-awk '
-  NR == 1 { print "#!/bin/bash"; print "set -o pipefail"; next }
-  /exec < \$1/ { sub(/exec < \$1/, "exec < \"$1\""); quoted++ }
-  $0 == "if [ -x /usr/bin/logger ]; then" {
-    print "pipeline_status=$?"
-    print "[ \"$pipeline_status\" -eq 0 ] || exit \"$pipeline_status\""
-    guarded++
-  }
-  { print }
-  END { if (quoted != 1 || guarded != 1) exit 1 }
-' "$ROOT/assets/runtime/foo2zjs-wrapper" > "$OUT/foo2zjs-wrapper"
-cp "$ROOT/assets/runtime/foo2zjs-pstops" "$OUT/foo2zjs-pstops"
+work="$(mktemp -d -t hp1020-build.XXXXXXXX)"
+trap 'rm -rf "$work"' EXIT
+/usr/bin/clang -O2 -arch arm64 -I "$SRC" -Dmain=foo2zjs_main -c "$SRC/foo2zjs.c" -o "$work/encoder.o"
+/usr/bin/clang -O2 -arch arm64 -I "$SRC" -c "$SRC/jbig.c" -o "$work/jbig.o"
+/usr/bin/clang -O2 -arch arm64 -I "$SRC" -c "$SRC/jbig_ar.c" -o "$work/jbig_ar.o"
+flags=(-O2 -arch arm64 -Wall -Wextra -Werror -Wno-deprecated-declarations -Wno-unused-function)
+/usr/bin/clang "${flags[@]}" "$ROOT/files/macos/rastertohp1020.c" "$work/encoder.o" "$work/jbig.o" "$work/jbig_ar.o" -lcups -o "$OUT/rastertohp1020"
+/usr/bin/clang "${flags[@]}" "$ROOT/files/macos/hp1020-backend.c" -lcups -o "$OUT/hp1020"
+for binary in "$OUT/rastertohp1020" "$OUT/hp1020"; do
+  /usr/bin/codesign --force --sign - "$binary"
+done
 cp "$ROOT/assets/runtime/sihp1020.dl" "$OUT/sihp1020.dl"
-chmod 755 "$OUT/foo2zjs" "$OUT/foo2zjs-wrapper" "$OUT/foo2zjs-pstops"

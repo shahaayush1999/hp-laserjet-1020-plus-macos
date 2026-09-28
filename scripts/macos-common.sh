@@ -58,45 +58,6 @@ record_dependencies() {
   rm -f "$STATE/before" "$STATE/expected"
 }
 
-install_dependencies() {
-  mkdir -p "$STATE"
-  chmod 700 "$STATE"
-  if [[ ! -x "$BREW" ]]; then
-    [[ -e /opt/homebrew ]] || touch "$STATE/created-homebrew"
-    print -- "Installing Homebrew from its official installer..."
-    curl --fail --location --proto '=https' --tlsv1.2 \
-      https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh \
-      -o "$render_dir/homebrew-install.sh"
-    /bin/bash "$render_dir/homebrew-install.sh"
-  fi
-  [[ -x "$BREW" ]] || { print -u2 -- "Homebrew installation did not finish."; return 1; }
-  record_dependencies
-  "$BREW" list --formula -1 | LC_ALL=C sort -u > "$render_dir/before"
-  local -a missing
-  local formula
-  for formula in ghostscript gnu-sed python@3.14; do
-    grep -Fxq "$formula" "$render_dir/before" || missing+=("$formula")
-  done
-  if (( ${#missing} )); then
-    # Limit ownership to this installation's dependency tree, even if another
-    # Homebrew operation happens to complete at the same time.
-    "$BREW" deps --union --include-build --include-implicit "${missing[@]}" > "$render_dir/expected"
-    printf '%s\n' "${missing[@]}" >> "$render_dir/expected"
-    LC_ALL=C sort -u "$render_dir/expected" -o "$render_dir/expected"
-    cp "$render_dir/before" "$STATE/before"
-    cp "$render_dir/expected" "$STATE/expected"
-    local result=0
-    "$BREW" install --formula "${missing[@]}" || result=$?
-    record_dependencies
-    (( result == 0 )) || return "$result"
-  fi
-  BREW_PREFIX="$("$BREW" --prefix)"
-  "$BREW_PREFIX/bin/gs" --version > /dev/null
-  "$BREW_PREFIX/bin/gsed" --version > /dev/null
-  PYTHON="$BREW_PREFIX/opt/python@3.14/bin/python3.14"
-  "$PYTHON" --version > /dev/null
-}
-
 remove_dependencies() {
   [[ -d "$STATE" ]] || return 0
   if [[ ! -x "$BREW" ]]; then

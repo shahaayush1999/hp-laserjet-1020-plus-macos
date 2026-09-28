@@ -4,7 +4,7 @@ This repository is a local compatibility package for an HP LaserJet 1020 Plus on
 
 It includes:
 
-- custom shell scripts, a Python print worker and a small C descriptor launcher
+- installation scripts and a native CUPS raster filter/backend
 - a PPD describing the printer queue
 - a built local copy of foo2zjs runtime files
 - the foo2zjs source snapshot used for the local runtime
@@ -14,8 +14,9 @@ It includes:
 
 The foo2zjs files are GPLv2. See `assets/licenses/foo2zjs-COPYING`.
 
-The installer obtains Ghostscript, GNU sed and Python from Homebrew. Their binaries and
-source archives are not bundled in the current checkout.
+The native driver uses macOS system libraries and the included foo2zjs source.
+It does not require Ghostscript, GNU sed or Python at runtime. The raster filter
+links the GPL foo2zjs/JBIG encoder; its buildable source and license are included.
 
 The streaming JBIG subset and image component are GPL version 2 or later.
 See `vendor/jbigkit-2.1/COPYING`, its source notices, `PROVENANCE.md` and the

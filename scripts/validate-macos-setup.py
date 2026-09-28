@@ -2,7 +2,8 @@
 """Test repository setup with isolated Homebrew, admin, CUPS and USB fixtures.
 
 Never runs real package-manager mutations, installation or printer commands.
-End users run the two zsh scripts; installation adds the worker's Python runtime.
+End users run two zsh scripts. The new driver needs only macOS; Homebrew
+fixtures exercise cleanup of ownership records left by earlier versions.
 """
 import hashlib
 import json
@@ -19,13 +20,12 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
 SYSTEM_PATH = "/usr/bin:/bin:/usr/sbin:/sbin"
-INPUTS = [*(ROOT / "templates").glob("*.in"), *(ROOT / "assets/runtime").glob("*"),
-          *(ROOT / 'files/macos').glob('*.py'), *(ROOT / 'files/macos').glob('*.c'),
-          ROOT / "assets/licenses/foo2zjs-COPYING", ROOT / "files/cups/backend/hp1020queue",
-          ROOT / "files/cups/filter/hp1020passthrough", ROOT / "files/ppd/HP-LaserJet_1020-Plus-hp1020zjs.ppd",
-          *(ROOT / "scripts" / name for name in ("install.sh", "uninstall.sh", "macos-common.sh",
-             "rebuild-runtime-from-vendor.sh", "diagnose.sh", "print-test.sh")),
-          *(ROOT / "vendor/foo2zjs-source" / name for name in ("foo2zjs.c", "zjs.h", "jbig.c", "jbig.h", "jbig_ar.c", "jbig_ar.h"))]
+INPUTS = [ROOT / 'templates/hp1020-print.in', ROOT / 'assets/runtime/sihp1020.dl',
+          *(ROOT / 'files/macos').glob('*.c'), *(ROOT / 'files/macos').glob('*.h'),
+          ROOT / 'assets/licenses/foo2zjs-COPYING', ROOT / 'files/ppd/HP-LaserJet_1020-Plus-hp1020zjs.ppd',
+          *(ROOT / 'scripts' / name for name in ('install.sh','uninstall.sh','macos-common.sh',
+             'rebuild-runtime-from-vendor.sh','diagnose.sh','print-test.sh')),
+          *(ROOT / 'vendor/foo2zjs-source' / name for name in ('foo2zjs.c','zjs.h','jbig.c','jbig.h','jbig_ar.c','jbig_ar.h'))]
 
 def command(args, *, env=None, data=None, ok=True):
     with subprocess.Popen([str(a) for a in args], stdin=subprocess.PIPE, stdout=subprocess.PIPE,
@@ -119,34 +119,9 @@ def main():
     with tempfile.TemporaryDirectory(prefix='hp1020-setup-check-') as folder:
         test = Path(folder)
         clean = {'PATH': SYSTEM_PATH, 'HOME': str(test), 'USER': 'fixture', 'LC_ALL': 'C', 'TMPDIR': str(test)}
-        # Compile only the encoder; render with the already-installed Homebrew tools.
-        runtime = test / 'runtime with spaces'
-        command(['/bin/zsh', ROOT / 'scripts/rebuild-runtime-from-vendor.sh', runtime], env=clean)
-        command(['/usr/bin/codesign', '--verify', '--strict', runtime / 'foo2zjs'])
-        assert command(['/usr/bin/lipo', '-archs', runtime / 'foo2zjs']).stdout.strip() == b'arm64'
-        ps = test / 'sample with spaces.ps'
-        ps.write_text('%!PS-Adobe-3.0\n%%Pages: 2\n/Helvetica findfont 18 scalefont setfont\n'
-                      '72 720 moveto (Homebrew printer setup) show\n0.3 setgray 72 400 100 90 rectfill showpage\n'
-                      '0 setgray 100 300 75 0 360 arc stroke showpage\n%%EOF\n')
-        pdf = test / 'sample with spaces.pdf'
+        pdf = test / 'fixture.pdf'
+        pdf.write_bytes(b'%PDF fixture for submission argument checks only')
         gs, gsed = Path('/opt/homebrew/bin/gs'), Path('/opt/homebrew/bin/gsed')
-        command([gs, '-q', '-dBATCH', '-dNOPAUSE', '-sDEVICE=pdfwrite', f'-sOutputFile={pdf}', ps], env=clean)
-        env = dict(clean, PATH=f'{runtime}:/opt/homebrew/bin:{SYSTEM_PATH}', GSBIN='gs')
-        reference_env = dict(env, PATH=f'{ROOT / "assets/runtime"}:/opt/homebrew/bin:{SYSTEM_PATH}')
-        for document in (ps, pdf):
-            for code, copies in (('9', '1'), ('1', '2')):
-                opts = ['-P', '-z1', '-L0', '-p' + code, '-n' + copies]
-                actual = command([runtime / 'foo2zjs-wrapper', *opts, document], env=env).stdout
-                original = command([ROOT / 'assets/runtime/foo2zjs-wrapper', *opts], env=reference_env, data=document.read_bytes()).stdout
-                assert stream(actual) == stream(original)
-                conversions.append({'format': document.suffix, 'paper_code': code, 'copies': copies,
-                                    'original_chunks_match': True, 'sha256': hashlib.sha256(actual).hexdigest()})
-        passed('native encoder build and four PDF/PostScript conversions match every original encoder chunk')
-        invalid = test / 'invalid.pdf'
-        invalid.write_bytes(b'%PDF-1.7\nbroken\n')
-        assert command([runtime / 'foo2zjs-wrapper', '-P', '-z1', invalid], env=env, ok=False).returncode
-        passed('invalid document conversion fails')
-
         def fixture(name, packages=(), existing=True):
             area = test / name
             target, mock, repo = area / 'target', area / 'mock-bin', area / "Dad's repo $(touch UNEXPECTED)"
@@ -163,7 +138,9 @@ def main():
                        MOCK_QUEUE=str(area / 'queue-exists'), MOCK_LAUNCH_MARKER=str(area / 'launch-failed'))
             env['MOCK_READY'] = str(target / 'Library/Printers/hp1020/state/ready')
             env['MOCK_QUEUE_PPD'] = str(target / 'private/etc/cups/ppd/HP_LaserJet_1020_Plus.ppd')
+            env['MOCK_URI'] = str(area / 'queue-uri')
             env['MOCK_ACCEPTED'] = str(area / 'queue-accepted')
+            env['MOCK_ENABLED'] = str(area / 'queue-enabled')
             env['MOCK_REPO'] = str(repo)
             env['MOCK_PYTHON'] = sys.executable
             env['MOCK_ADMIN_RUNNER'] = str(write_script(area / 'admin-runner.py', '''
@@ -171,7 +148,7 @@ import os, pathlib, subprocess, sys
 script = pathlib.Path(sys.argv[1])
 if os.environ.get('MOCK_FATAL_EXPANSION') == '1':
     content = script.read_text()
-    line = 'rm -rf "$BASE/runtime" "$BASE/Licenses"'
+    line = 'rm -rf "$BASE"'
     assert content.count(line) == 1
     script.write_text(content.replace(line, line + '\\nprint -- "$render_dir/missing-file-"*'))
 repo = pathlib.Path(os.environ['MOCK_REPO'])
@@ -227,7 +204,12 @@ case "${0:t}" in
   sysctl) print "${MOCK_ARM64:-1}" ;;
   xcrun) [[ "${MOCK_NO_CLT:-0}" == 0 ]] || exit 1; exec /usr/bin/xcrun "$@" ;;
   lpstat)
-    if [[ "$1" == -p ]]; then [[ -e "$MOCK_QUEUE" ]] || exit 1
+    if [[ "$1" == -p ]]; then
+      [[ -e "$MOCK_QUEUE" ]] || exit 1
+      if [[ -e "$MOCK_ENABLED" ]]; then print 'printer HP_LaserJet_1020_Plus is idle'
+      else print 'printer HP_LaserJet_1020_Plus disabled since fixture'; fi
+    elif [[ "$1" == -v ]]; then
+      print -r -- "device for HP_LaserJet_1020_Plus: $(cat "$MOCK_URI")"
     elif [[ "$1" == -a ]]; then
       [[ ! -e "$MOCK_ACCEPTED" ]] || print 'HP_LaserJet_1020_Plus accepting requests'
     elif [[ "${MOCK_PENDING:-0}" == 1 || ( "${MOCK_PENDING_ADMIN:-0}" == 1 && "${MOCK_ADMIN:-0}" == 1 ) ]]; then
@@ -242,14 +224,22 @@ case "${0:t}" in
       [[ "${MOCK_QUEUE_REMOVE_FAIL:-0}" != 1 ]] || exit 1
       rm -f "$MOCK_QUEUE" "$MOCK_QUEUE_PPD"
     else
+      if [[ "${MOCK_LPADMIN_FAIL:-0}" == 1 && ! -e "$MOCK_LAUNCH_MARKER" ]]; then touch "$MOCK_LAUNCH_MARKER"; exit 1; fi
       touch "$MOCK_QUEUE"
       for (( i=1; i<$#; i++ )); do
+        if [[ "$argv[$i]" == -v ]]; then print -r -- "$argv[$((i+1))]" > "$MOCK_URI"; fi
         if [[ "$argv[$i]" == -P && "$argv[$((i+1))]" != "$MOCK_QUEUE_PPD" ]]; then
           cp "$argv[$((i+1))]" "$MOCK_QUEUE_PPD"
         fi
       done
     fi ;;
-  cupsaccept) touch "$MOCK_ACCEPTED" ;;
+  cupsaccept)
+    if [[ "${MOCK_ACCEPT_FAIL:-0}" == 1 && ! -e "$MOCK_LAUNCH_MARKER" ]]; then touch "$MOCK_LAUNCH_MARKER"; exit 1; fi
+    touch "$MOCK_ACCEPTED" ;;
+  cupsenable)
+    if [[ "${MOCK_ENABLE_FAIL:-0}" == 1 && ! -e "$MOCK_LAUNCH_MARKER" ]]; then touch "$MOCK_LAUNCH_MARKER"; exit 1; fi
+    touch "$MOCK_ENABLED" ;;
+  cupsdisable) rm -f "$MOCK_ENABLED" ;;
   cupsreject) rm -f "$MOCK_ACCEPTED" ;;
   launchctl)
     if [[ "$1" == bootstrap && "${MOCK_LAUNCH_FAIL:-0}" == 1 && ! -e "$MOCK_LAUNCH_MARKER" ]]; then
@@ -258,8 +248,11 @@ case "${0:t}" in
     if [[ "$1" == bootstrap && "${MOCK_NOT_READY:-0}" != 1 ]]; then
       print -r -- "HP1020-SERVICE-2 $PPID" > "$MOCK_READY"
     fi ;;
+  cupstestppd)
+    if [[ "${MOCK_HEALTH_FAIL:-0}" == 1 && "${MOCK_ADMIN:-0}" == 1 && ! -e "$MOCK_LAUNCH_MARKER" ]]; then touch "$MOCK_LAUNCH_MARKER"; exit 1; fi
+    exec /usr/bin/cupstestppd -I filters "$@" ;;
   install)
-    if [[ "${MOCK_COPY_FAIL:-0}" == 1 && "$argv[-1]" == */hp1020-service.py ]]; then exit 1; fi
+    if [[ "${MOCK_COPY_FAIL:-0}" == 1 && "$argv[-1]" == */runtime/rastertohp1020 ]]; then exit 1; fi
     args=()
     while (( $# )); do
       case "$1" in -o|-g) shift 2 ;; *) args+=("$1"); shift ;; esac
@@ -269,7 +262,7 @@ esac
 exit 0
 '''
             for tool in ('id', 'sysctl', 'xcrun', 'xcode-select', 'lpstat', 'lpinfo', 'osascript', 'install',
-                         'chown', 'launchctl', 'lpadmin', 'cupsaccept', 'cupsreject', 'cupsenable', 'cancel', 'lp'):
+                         'chown', 'launchctl', 'lpadmin', 'cupsaccept', 'cupsreject', 'cupsenable', 'cupsdisable', 'cupstestppd', 'cancel', 'lp'):
                 write_script(mock / tool, common)
             paths = ('/Library/Printers/hp1020', '/Library/LaunchDaemons/', '/private/var/spool/cups/tmp/hp1020queue',
                      '/private/etc/cups/ppd/', '/usr/libexec/cups/backend/', '/usr/libexec/cups/filter/', '/opt/homebrew')
@@ -277,7 +270,7 @@ exit 0
                 dst = repo / src.relative_to(ROOT)
                 dst.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(src, dst)
-                if src.suffix in ('.sh', '.in') or src.name in ('hp1020queue', 'hp1020passthrough'):
+                if src.suffix in ('.sh', '.in', '.ppd', '.h'):
                     text = dst.read_text()
                     for path in paths:
                         text = text.replace(path, str(target) + path)
@@ -301,137 +294,133 @@ exit "${MOCK_USB_EXIT:-0}"
             f['state'].write_text(json.dumps(data))
 
         f = fixture('fresh', existing=False)
-        for extra in ({'MOCK_ARM64': '0'}, {'MOCK_NO_CLT': '1'}, {'MOCK_DEVICE': 'none'}, {'MOCK_PENDING': '1'}, {'MOCK_UID': '0'}):
-            assert action(f, 'install', ok=False, **extra).returncode
+        for extra in ({'MOCK_ARM64':'0'},{'MOCK_NO_CLT':'1'},{'MOCK_DEVICE':'none'},{'MOCK_PENDING':'1'},{'MOCK_UID':'0'}):
+            assert action(f,'install',ok=False,**extra).returncode
             assert not f['prefix'].exists() and not f['base'].exists()
-        passed('preflight rejects wrong platform, missing build tools/device, pending jobs and sudo invocation before package changes')
-        action(f, 'install')
-        assert packages(f) == {'ghostscript', 'gnu-sed', 'fontlib', 'python@3.14', 'pydep'}
-        assert set((f['record'] / 'formulae').read_text().splitlines()) == packages(f)
-        assert (f['record'] / 'created-homebrew').exists()
-        command([f['base'] / 'hp1020-print', '-n', '4', '-p', 'Letter', pdf], env=f['env'])
-        assert 'lp -d HP_LaserJet_1020_Plus -n 4 -o PageSize=Letter -o Collate=True -- ' in Path(f['env']['MOCK_CALLS']).read_text()
-        assert command([f['base'] / 'hp1020-print', test / 'absent.pdf'], env=f['env'], ok=False).returncode
+        passed('preflight rejects unsupported platform, missing tools/device, pending jobs and sudo before changes')
+        action(f,'install')
+        assert not f['prefix'].exists() and not f['record'].exists()
+        assert (f['base']/'runtime/rastertohp1020').exists()
+        assert not (f['base']/'hp1020-service.py').exists()
+        assert not (f['target']/'Library/LaunchDaemons/com.aayush.hp1020-root-spool-worker.plist').exists()
+        command([f['base']/'hp1020-print','-n','4','-p','Letter',pdf],env=f['env'])
+        calls=Path(f['env']['MOCK_CALLS']).read_text()
+        assert 'lp -d HP_LaserJet_1020_Plus -n 4 -o PageSize=Letter -o Collate=True -- ' in calls
+        assert 'curl ' not in calls and 'brew ' not in calls and 'launchctl bootstrap' not in calls
         assert not Path(f['env']['MOCK_USB_CALLS']).exists()
-        assert (f['base'] / 'hp1020-service.py').exists()
-        plist = plistlib.loads((f['target'] / 'Library/LaunchDaemons/com.aayush.hp1020-root-spool-worker.plist').read_bytes())
-        assert plist['UserName'] == '_lp' and plist['GroupName'] == '_lp' and plist['KeepAlive'] is True
-        action(f, 'uninstall')
-        action(f, 'uninstall')
-        assert not f['base'].exists() and not f['prefix'].exists() and not f['record'].exists()
-        assert not packages(f)
-        passed('fresh setup bootstraps official Homebrew URLs, routes helper through CUPS, then removes its packages/Homebrew repeatably')
+        assert command([f['base']/'hp1020-print',test/'absent.pdf'],env=f['env'],ok=False).returncode
+        action(f,'uninstall'); action(f,'uninstall')
+        assert not f['base'].exists() and not f['prefix'].exists()
+        passed('fresh native install/uninstall needs no packages, private queue or daemon; helper submits through CUPS')
 
-        f = fixture('protected-source')
-        action(f, 'install', MOCK_REPO_HIDDEN='1')
-        assert (f['base'] / 'hp1020-service.py').exists()
-        action(f, 'uninstall')
-        passed('administrative installation uses staged files even when the repository is inaccessible')
+        f=fixture('protected-source')
+        action(f,'install',MOCK_REPO_HIDDEN='1')
+        assert (f['base']/'runtime/rastertohp1020').exists()
+        action(f,'uninstall')
+        passed('elevated installation uses staged input with the repository inaccessible')
 
-        f = fixture('existing', ('ghostscript', 'fontlib', 'orphan', 'python@3.14', 'pydep'))
-        action(f, 'install')
-        assert (f['record'] / 'formulae').read_text().splitlines() == ['gnu-sed']
-        action(f, 'uninstall')
-        assert packages(f) == {'ghostscript', 'fontlib', 'orphan', 'python@3.14', 'pydep'} and f['prefix'].exists()
-        passed('pre-existing Homebrew, requested packages and unrelated orphan dependencies are preserved')
+        def owned(f,names,created=False):
+            f['record'].mkdir(parents=True,exist_ok=True)
+            (f['record']/'formulae').write_text('\n'.join(sorted(names))+'\n')
+            if created: (f['record']/'created-homebrew').touch()
 
-        f = fixture('shared', ('orphan',))
-        action(f, 'install')
-        add_packages(f, 'other-app')
-        action(f, 'uninstall')
-        assert packages(f) == {'other-app', 'fontlib', 'orphan'}
-        passed('newly shared dependencies are preserved for other software')
+        f=fixture('pre-existing',('ghostscript','gnu-sed','python@3.14','fontlib','pydep','orphan'))
+        action(f,'install'); action(f,'install'); action(f,'uninstall')
+        assert packages(f)=={'ghostscript','gnu-sed','python@3.14','fontlib','pydep','orphan'}
+        passed('pre-existing Homebrew packages survive installation, reinstallation and removal')
 
-        f = fixture('reinstall', existing=False)
-        action(f, 'install')
-        add_packages(f, 'unrelated')
-        action(f, 'install')
-        assert 'unrelated' not in (f['record'] / 'formulae').read_text().splitlines()
-        action(f, 'uninstall')
-        assert packages(f) == {'unrelated'} and f['prefix'].exists()
-        passed('reinstallation keeps original ownership; Homebrew is retained when later used for other software')
+        old_packages={'ghostscript','gnu-sed','python@3.14','fontlib','pydep'}
+        f=fixture('legacy-migration',old_packages)
+        owned(f,old_packages,True)
+        f['base'].mkdir(parents=True)
+        (f['base']/'hp1020-service.py').write_text('old service')
+        (f['base']/'runtime').mkdir(); (f['base']/'runtime/old-worker').touch()
+        for name in ('usr/libexec/cups/backend/hp1020queue','usr/libexec/cups/filter/hp1020passthrough','usr/libexec/cups/filter/hp1020zjs','Library/LaunchDaemons/com.aayush.hp1020-root-spool-worker.plist'):
+            (f['target']/name).write_text('legacy component')
+        Path(f['env']['MOCK_QUEUE']).touch(); Path(f['env']['MOCK_URI']).write_text('hp1020queue://localhost')
+        Path(f['env']['MOCK_QUEUE_PPD']).write_text('old PPD')
+        assert action(f,'install',ok=False,MOCK_COPY_FAIL='1').returncode
+        assert (f['base']/'hp1020-service.py').read_text()=='old service'
+        assert Path(f['env']['MOCK_URI']).read_text().strip()=='hp1020queue://localhost'
+        assert packages(f)==old_packages
+        action(f,'install')
+        assert not (f['base']/'hp1020-service.py').exists() and not (f['base']/'runtime/old-worker').exists()
+        assert not (f['target']/'usr/libexec/cups/filter/hp1020zjs').exists()
+        assert not packages(f) and not f['prefix'].exists() and not f['record'].exists()
+        assert Path(f['env']['MOCK_URI']).read_text().startswith('hp1020://Hewlett-Packard/')
+        passed('legacy migration rolls back completely on failure, then removes old worker/files and only owned packages')
 
-        f = fixture('partial', ('orphan',))
-        assert action(f, 'install', ok=False, MOCK_INSTALL_FAIL='1').returncode
-        assert not f['base'].exists() and (f['record'] / 'formulae').read_text().splitlines() == ['fontlib']
-        action(f, 'uninstall')
-        assert packages(f) == {'orphan'}
-        passed('partially failed dependency installation remains removable')
+        f=fixture('shared',old_packages|{'other-app','orphan'})
+        owned(f,old_packages,True); action(f,'install'); action(f,'uninstall')
+        assert packages(f)=={'other-app','fontlib','orphan'} and f['prefix'].exists()
+        passed('cleanup preserves dependencies now used by other software and its Homebrew installation')
 
-        f = fixture('interrupted', ('orphan', 'fontlib', 'unrelated'))
+        f=fixture('interrupted',('orphan','fontlib','unrelated'))
         f['record'].mkdir(parents=True)
-        (f['record'] / 'before').write_text('orphan\n')
-        (f['record'] / 'expected').write_text('fontlib\nghostscript\ngnu-sed\n')
-        action(f, 'uninstall')
-        assert packages(f) == {'orphan', 'unrelated'}
-        passed('interrupted package bookkeeping recovers without claiming unrelated later installs')
+        (f['record']/'before').write_text('orphan\n')
+        (f['record']/'expected').write_text('fontlib\nghostscript\ngnu-sed\n')
+        action(f,'uninstall')
+        assert packages(f)=={'orphan','unrelated'}
+        passed('interrupted old package bookkeeping recovers without claiming unrelated packages')
 
-        f = fixture('retry', ())
-        action(f, 'install')
-        assert action(f, 'uninstall', ok=False, MOCK_UNINSTALL_FAIL='1').returncode
-        assert f['record'].exists()
-        action(f, 'uninstall')
-        assert not packages(f) and not f['record'].exists()
-        passed('failed cleanup retains its ownership record and succeeds on retry')
+        f=fixture('retry',old_packages); owned(f,old_packages)
+        action(f,'install',MOCK_UNINSTALL_FAIL='1')
+        assert f['record'].exists() and (f['base']/'runtime/rastertohp1020').exists()
+        action(f,'install'); assert not packages(f) and not f['record'].exists()
+        passed('package cleanup failure retains its record and working native driver for retry')
 
-        f = fixture('cask-query-failure', existing=False)
-        action(f, 'install')
-        assert action(f, 'uninstall', ok=False, MOCK_CASK_QUERY_FAIL='1').returncode
+        f=fixture('cask-query-failure',old_packages); owned(f,old_packages,True)
+        assert action(f,'uninstall',ok=False,MOCK_CASK_QUERY_FAIL='1').returncode
         assert f['record'].exists() and f['prefix'].exists()
-        action(f, 'uninstall')
-        assert not f['record'].exists() and not f['prefix'].exists()
-        passed('failed cask inventory keeps Homebrew and its cleanup record until a successful retry')
+        action(f,'uninstall'); assert not f['record'].exists() and not f['prefix'].exists()
+        passed('failed package inventory preserves Homebrew and cleanup record until successful retry')
 
-        f = fixture('admin-cancel', existing=False)
-        assert action(f, 'install', ok=False, MOCK_ADMIN_FAIL='1').returncode
-        assert not f['base'].exists()
-        action(f, 'uninstall')
-        assert not packages(f) and not f['prefix'].exists()
-        passed('cancelled administrative installation can still undo the added dependencies')
+        f=fixture('admin-cancel',existing=False)
+        assert action(f,'install',ok=False,MOCK_ADMIN_FAIL='1').returncode
+        assert not f['base'].exists() and not f['prefix'].exists()
+        passed('cancelled administrator authorization leaves no installed driver or added dependencies')
 
-        f = fixture('rollback', ())
-        action(f, 'install')
-        queue_ppd = Path(f['env']['MOCK_QUEUE_PPD'])
-        queue_ppd.write_text(queue_ppd.read_text() + '*% Locally retained queue setting\\n')
-        saved_queue_ppd = queue_ppd.read_bytes()
-        saved = {p.relative_to(f['base']): p.read_bytes() for p in f['base'].rglob('*')
-                 if p.is_file() and 'state' not in p.relative_to(f['base']).parts}
-        for variable in ('MOCK_COPY_FAIL', 'MOCK_LAUNCH_FAIL', 'MOCK_NOT_READY', 'MOCK_FATAL_EXPANSION'):
-            assert action(f, 'install', ok=False, **{variable: '1'}).returncode
-            assert all((f['base'] / name).read_bytes() == content for name, content in saved.items())
-            assert Path(f['env']['MOCK_QUEUE']).exists()
-            assert queue_ppd.read_bytes() == saved_queue_ppd
+        f=fixture('rollback')
+        action(f,'install')
+        queue_ppd=Path(f['env']['MOCK_QUEUE_PPD'])
+        queue_ppd.write_text(queue_ppd.read_text()+'*% Local queue setting\n')
+        saved_ppd=queue_ppd.read_bytes(); saved_uri=Path(f['env']['MOCK_URI']).read_text()
+        saved={p.relative_to(f['base']):p.read_bytes() for p in f['base'].rglob('*') if p.is_file()}
+        for variable in ('MOCK_COPY_FAIL','MOCK_LPADMIN_FAIL','MOCK_HEALTH_FAIL','MOCK_FATAL_EXPANSION','MOCK_ENABLE_FAIL','MOCK_ACCEPT_FAIL'):
+            Path(f['env']['MOCK_LAUNCH_MARKER']).unlink(missing_ok=True)
+            assert action(f,'install',ok=False,**{variable:'1'}).returncode
+            assert all((f['base']/n).read_bytes()==content for n,content in saved.items())
+            assert queue_ppd.read_bytes()==saved_ppd and Path(f['env']['MOCK_URI']).read_text()==saved_uri
             assert Path(f['env']['MOCK_ACCEPTED']).exists()
         Path(f['env']['MOCK_ACCEPTED']).unlink()
-        assert action(f, 'install', ok=False, MOCK_COPY_FAIL='1').returncode
-        assert not Path(f['env']['MOCK_ACCEPTED']).exists()
-        passed('copy/startup/readiness/fatal-shell failures restore files, queue PPD and previous acceptance')
+        Path(f['env']['MOCK_ENABLED']).unlink()
+        Path(f['env']['MOCK_LAUNCH_MARKER']).unlink(missing_ok=True)
+        assert action(f,'install',ok=False,MOCK_ACCEPT_FAIL='1').returncode
+        assert not Path(f['env']['MOCK_ACCEPTED']).exists() and not Path(f['env']['MOCK_ENABLED']).exists()
+        passed('copy, queue, health, fatal-shell and final enable/accept failures restore files, URI, PPD and disabled/rejecting state')
 
-        calls = Path(f['env']['MOCK_CALLS']).read_text()
-        assert action(f, 'install', ok=False, MOCK_PENDING_ADMIN='1').returncode
-        new_calls = Path(f['env']['MOCK_CALLS']).read_text()[len(calls):]
-        assert 'install -m ' not in new_calls and 'launchctl bootout' not in new_calls
-        assert all((f['base'] / name).read_bytes() == content for name, content in saved.items())
-        passed('job arriving after dependency setup prevents replacing files or stopping the worker')
-
-        queue = f['target'] / 'private/var/spool/cups/tmp/hp1020queue'
-        (queue / 'old-job').write_text('pending old worker job')
-        assert action(f, 'install', ok=False).returncode
-        assert (queue / 'old-job').read_text() == 'pending old worker job'
-        (queue / 'old-job').unlink()
-        passed('legacy worker backlog is preserved and blocks an unsafe update')
-
-        before_packages = packages(f)
-        assert action(f, 'uninstall', ok=False, MOCK_QUEUE_REMOVE_FAIL='1').returncode
-        assert (f['base'] / 'runtime/foo2zjs').exists() and packages(f) == before_packages
-        action(f, 'uninstall')
-        passed('failed queue removal retains driver files and packages; cleanup can be retried')
+        calls=Path(f['env']['MOCK_CALLS']).read_text()
+        assert action(f,'install',ok=False,MOCK_PENDING_ADMIN='1').returncode
+        new=Path(f['env']['MOCK_CALLS']).read_text()[len(calls):]
+        assert 'install -m ' not in new and 'launchctl bootout' not in new
+        passed('job arriving during build prevents installed changes')
+        queue=f['target']/'private/var/spool/cups/tmp/hp1020queue'; queue.mkdir(parents=True)
+        for name in ('old-job','.incoming.unfinished'):
+            (queue/name).write_text('pending legacy job')
+            assert action(f,'install',ok=False).returncode and (queue/name).exists()
+            (queue/name).unlink()
+        passed('visible and hidden legacy pending jobs block migration without deleting documents')
+        assert action(f,'uninstall',ok=False,MOCK_QUEUE_REMOVE_FAIL='1').returncode
+        assert (f['base']/'runtime/rastertohp1020').exists()
+        action(f,'uninstall')
+        passed('failed queue removal preserves installed driver until cleanup can be retried')
+        assert not (ROOT/'UNEXPECTED').exists()
 
     sources = INPUTS + [Path(__file__)]
     report = {'checks': checks, 'count': len(checks), 'conversion_cases': conversions,
               'source_sha256': {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},
               'host_macos': command(['/usr/bin/sw_vers', '-productVersion']).stdout.decode().strip(),
-              'renderer_version': command(['/opt/homebrew/bin/gs', '--version']).stdout.decode().strip(),
+              'runtime_dependencies': 'macOS only',
               'actual_installation': False, 'actual_homebrew_changes': False, 'printer_contact': False,
               'physical_print_test': False, 'fresh_mac_installation': False}
     (ROOT / 'assets/macos-setup-validation.json').write_text(json.dumps(report, indent=2) + '\n')

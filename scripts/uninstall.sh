@@ -17,8 +17,8 @@ launchctl bootout system "$PLIST" 2>/dev/null || true
 launchctl bootout "gui/$(id -u "$USER_NAME")/com.aayush.hp1020-spool-worker" 2>/dev/null || true
 if (( queue_existed )); then lpadmin -x "$PRINTER_NAME"; fi
 rm -f "$PLIST"
-rm -f /usr/libexec/cups/backend/hp1020queue
-rm -f /usr/libexec/cups/filter/hp1020passthrough
+rm -f /usr/libexec/cups/backend/hp1020 /usr/libexec/cups/backend/hp1020queue
+rm -f /usr/libexec/cups/filter/hp1020passthrough /usr/libexec/cups/filter/hp1020zjs
 rm -f "/private/etc/cups/ppd/$PRINTER_NAME.ppd"
 rm -rf /Library/Printers/hp1020
 rm -rf /private/var/spool/cups/tmp/hp1020queue

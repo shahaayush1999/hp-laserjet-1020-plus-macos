@@ -1,117 +1,89 @@
 # Current handoff
 
-Updated: 2026-09-28. **The open replacement cannot print yet.**
-Current work is maintenance of the separate HP-based macOS printing setup.
-No printer enumeration, query, firmware upload or physical test occurred.
+Updated: 2026-09-28. **The open replacement cannot print yet.** Current work is
+an owner-authorized redesign of the separate HP-based macOS driver. No printer
+enumeration, query, upload or physical test has occurred during this redesign.
 
-**Support fixes implemented and installed on the owner’s Mac:** the PPD now uses Apple's
-native copy/layout filters. Complete collated and uncollated document sets,
-page selection/order/layout and A4/Letter are verified through real native
-filters, Ghostscript and encoder output. The backend stays connected to a
-serialized `_lp` worker for progress, cancellation and failures. Known PJL
-feedback drives paper/cover/jam reasons; matching job name/page count is required
-for confirmed completion. Missing feedback is explicitly unconfirmed. Failed
-transfers/restarted work are held without automatic replay. Firmware is loaded
-only when FWVER is absent and must be verified before sending a document.
-Cancellation requests the standard USB reset, kills descendants, and cleans up.
-New jobs have no extra document archive; crash leftovers are removed on restart.
+## Native Mac driver — in progress
 
-Sequential support validation passed **38 printing checks and 17 setup checks**.
-Exact tested hashes/scope are in `assets/macos-printing-validation.json` and
-`assets/macos-setup-validation.json`; all match. The latter includes protected
-repository access and fatal shell failures after a real update exposed those
-problems. The original setup was restored and checked, then the staged-input
-installer succeeded. Installed source/firmware/license bytes match; both native
-binaries verify; the service runs as `_lp`; the queue is enabled, accepting and
-idle with collated sets as default. The old per-user helper/runtime is retired.
-An additional offline run through the installed native filter chain and encoder
-produced four ordered two-page sets (eight output pages, encoder copies one).
-No print job was submitted. See `MANIFEST.md` for the deployment/test details.
+The owner requested a conventional driver and delegated implementation. The
+repository now uses Apple's native PDF/raster rendering, a small C raster
+adapter linked to the unchanged foo2zjs encoder, and a per-job CUPS backend.
+CUPS owns the queue and job lifetime. The private spool/FIFO, Python worker,
+launch daemon, descriptor launcher and Homebrew runtime requirements are removed.
+Clone/install/uninstall remains the user flow; do not restore apps/packages/ZIPs.
 
-The offline suites simulate USB, Homebrew and administration. Real installation
-and idle startup are separately verified; actual CUPS scheduler/UI, device
-feedback, buffer reset, fresh-Mac installation and physical output remain
-unverified. Next support evidence: one explicitly authorized, freshly power-cycled
-printer test for copies and paper/queue feedback. Do not ask the owner to manually
-exercise every edge case or claim live alerts are proven. The first-attempt
-recovery backup remains at `/private/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/hp1020-rollback.XXXXXXXX.CbLay5meYi`.
+Native tests verify copies/order, selected pages, layout, A4/Letter and original
+encoder chunks. Known PDF marks confirm page placement. Separate fake transports
+exercise status, paper wait, cancellation/reset, cold firmware readiness,
+failures and holds. System libcups independently checks the channel encoding.
+No software check establishes real printer feedback or physical output.
 
-Use **git clone + `scripts/install.sh` + `scripts/uninstall.sh`**, with Homebrew
-for Ghostscript/GNU sed/Python. Do not reintroduce apps, packages or ZIP handoffs.
-Ownership survives reinstall; cleanup preserves pre-existing/shared packages and
-retains failed-cleanup records for retry. Failed replacement restores prior
-files/queue PPD and requires service readiness before enabling the updated queue.
-`README.md` is user setup; `MANIFEST.md` owns support implementation/test detail.
-Original runtime/vendor assets and the September 23 research baseline are intact.
+Final sequential runs passed **35 native printing checks, 14 setup checks and
+three source-derived sandbox checks**. All generated source hashes match.
+Static analysis found and prompted fixes to I/O/descriptor error paths; the
+post-fix analysis has no diagnostics with the unused-errno checker excluded.
+The actual status parser also passed AddressSanitizer/UBSan. Generated reports
+own tested hashes; never edit them manually. `MANIFEST.md` owns the details.
 
-Repository visibility changed to public on September 27 at the owner's explicit
-request and verified through GitHub without authentication. Existing third-party
-assets and redistribution notices remain; visibility is not a license review.
+The installed setup is still the earlier validated worker-based revision
+(b53fcbd). **The native redesign has not been installed.** A staged actual CUPS
+scheduler test requires administrator execution because Apple's cupsd binary
+is root-executable only. The macOS password prompt was unanswered and cancelled;
+`sudo -n` also reports that a password is required. No permission auto-review
+rejection occurred. Obtain the owner's physical approval in macOS's dialog,
+never a password in chat. Finish all other validation/review first.
 
-## Current verified state
+The reproducible sandbox suite uses the exact profile-generation functions from
+hash-pinned Apple CUPS source, with distinct filter/backend policies. Real Mac
+rendering produced twelve pages for four three-page copies; the fake transport
+completed the document, and a negative control denied reading a harmless user
+file. This ran as the current user, **not `_lp` or actual cupsd**. Final evidence
+is in `/private/tmp/hp1020-sandbox-1svgn82u/stage/`, with hashes recorded in
+`assets/macos-sandbox-validation.json`. Recovery is in MANIFEST. Old experiments
+in `/private/tmp/hp1020-native-driver-eval/` are superseded by this final run.
 
-- Full sequential validation passed **100 consistency checks** and both suites.
-  Log: `/tmp/hp1020-full-raw-parser-bih-20260923.log`; child logs `hp1020-validation.9CdiDF`.
-  All current report source and fixture hashes match the tested files.
-- The open JBIG decoder produces packed image bands: 176 focused cases,
-  21 original/normalized-header comparisons, 32 separately classified mutations
-  and 66 QEMU cases. Complete-file integration passes 57 host and 35 QEMU cases.
-- The bounded stream bridge passes **65 host and 43 QEMU cases**. A detailed
-  page with 10,112,256 decoded bytes and 161 BID chunks passes with reused input
-  storage. Target state and fixed buffers total **91,028 bytes**, excluding
-  code/stack/caller packets/test capture. Host comparisons cover every output
-  byte; larger target outputs use a prefix plus complete hash and counts.
-- Legacy retained parsing still rejects 129/257 BID partitions; the new stream
-  mode accepts the same image bytes. Its synchronous consumer has no asynchronous
-  queue/retry protocol. Output remains provisional until finish succeeds.
-- The raw-buffer contract passes **68 separate fragments and two controls**.
-  Deliberately unprefixed pointers yield before-buffer free requests in two
-  conditional fixtures, not stock faults. This older test observes free requests;
-  the following test executes actual allocation and cleanup.
-- Original raw-producer/admission checks pass **52 interpreter/QEMU comparisons**
-  and **eight conditional release cases** with the original allocator and queue.
-  JobMgr initializes references, and only descriptor selector 0 reaches this
-  raw list. A supplied 16-byte prefix permits original cleanup after one raw
-  completion; a second reference retains ownership with an adjusted cursor.
-  These results are included in the full sequential validation above.
-- Actual chunk-12 parsing passes **22 admission cases and two metadata-only
-  controls** in both engines. Original queued messages create the owner hierarchy.
-  The image pointer equals the allocator return and the raw IRQ flag stays zero
-  at the checked boundaries. This is a separate producer from the standalone
-  helper. Separate BIH delivery fills later work dimensions only with page bitmap
-  setting 1; two mixed-metadata cases combine those dimensions with source kind 1.
-  The raw IRQ flag and unadvanced cursor remain unresolved. No consumer or
-  completed page lifecycle is added. These cases are included in the full run.
+Next: when the owner is at the Mac, run the real isolated scheduler fixture and
+deploy using macOS's administrator dialog. An asynchronous question asks whether
+he is available for that physical action; no answer yet. Prepare a **fresh**
+`/private/tmp/hp1020-NAME` using `scripts/validate-macos-scheduler.py --prepare`.
+Existing staging directories contain direct test events and must not be reused.
+The scheduler fixture is staged/compiled but **has not executed as administrator**;
+investigate failures and do not count it as validated. It has only a compiled
+fake transport, a private socket and temporary roots. Never use the installed
+scheduler or real USB backend for this experiment.
 
-## Preserved evidence and limits
+Only after that check, update the installed driver with its saved USB URI to avoid
+discovery. Restore normal CUPS sandbox settings with backup/config validation:
+a legacy `Sandboxing off` line exists in `/private/etc/cups/cups-files.conf`, but
+its effective behavior is unestablished. Installer scripts do not alter that
+configuration. Verify installed bytes/signatures and an idle queue without
+submitting jobs. Hardware tests still require a specific request and fresh power
+cycle. Do not ask the owner to exercise every edge case manually.
 
-Use `analysis/README.md` for recovery and the image/raw-contract sections of
-`analysis/open-firmware-model/next-evidence.md` for detailed evidence and scope.
-Pinned GPL sources, the reproduced upstream pointer finding and matching source
-snapshots remain preserved. Software image cases are not stock page lifecycles.
+Direct PS/EPS support was deliberately removed: macOS's old conversion API
+returned success with zero bytes, then failed in the CUPS environment. The draft
+was discarded. Normal apps already use PDF; legacy files must be exported to PDF
+in a supporting app. The test-page script uses native text conversion. This
+limitation and migration cleanup are documented in README. Preserve stock assets,
+GPL source/licenses and the previous recovery backup listed in Git history.
 
-Existing stock evidence stays separate: 26 completed empty-document lifecycles,
-six conditional null reads, 28 bounded retirement cases and 36 native page
-lifecycles with supplied FIFO consumption/completion. The 42 bypass cases are
-fragment selections/stops. All 36 page fixtures preserve datastore 32 before/after,
-not over every boot/engine write. The historical 64-chunk budget stop is retained.
+## Separate firmware research baseline
 
-## Next action and restrictions
+September 23 full sequential validation passed **100 consistency checks** and
+both suites. Log `/tmp/hp1020-full-raw-parser-bih-20260923.log`, child logs
+`hp1020-validation.9CdiDF`. Support changes do not relabel that baseline.
 
-Resolve the input buffer prefix, cursor, metadata and timing before an adapter.
-The standalone producer's actual caller remains unproven. The distinct chunk-12
-path executes through admission without adding a prefix. Actual BIH delivery and
-independent page/band metadata now resolve the work-dimension copy, while raw IRQ
-mode stays zero. Next trace pointer/mode changes before the excluded hardware
-boundary; do not assume the mixed-metadata fixtures are physically supported.
-Keep source-kind dispatch, raw IRQ mode and engine output selection distinct.
-Do not repeat the completed selector matrix or resolved empty-document
-cancellation/END_DOC ordering.
-Queues: engine 0, PrintMgr 1, JobMgr 3, Video 8, StatusMgr 10.
+Image decoding, bounded stream integration and original raw-producer/admission
+work are retained with exact evidence in `analysis/README.md` and
+`analysis/open-firmware-model/next-evidence.md`. Most recent raw chunk-12 evidence:
+22 admission cases and two metadata controls in both engines; separate BIH and
+page/band metadata explain work dimensions, but raw IRQ mode remains zero and
+cursor/prefix ownership remain unresolved. Next trace those changes before the
+excluded hardware boundary; do not repeat resolved selector/cancellation work.
 
-Firmware research remains offline: no USB enumeration/contact, queries, uploads,
-installed-printing changes or print-driving MMIO. The authorized support update
-above is separate from research. Unknown custom instructions are not inert.
-No research process remains running. Engine-ready packing, cache
-visibility, physical throughput, boot, printing and power-cycle recovery remain
-unproven. Passing software tests do not establish physical output.
+Preserve distinctions: 26 completed empty-document lifecycles, six conditional
+null reads, 28 bounded retirement cases, 36 native page lifecycles with supplied
+FIFO consumption/completion, and 42 fragment/bypass cases. Software image tests
+are not extra stock page lifecycles. Physical printing, boot/engine behavior and
+power-cycle recovery remain unproven. No research processes are running.

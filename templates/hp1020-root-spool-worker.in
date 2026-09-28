@@ -1,4 +1,0 @@
-#!/bin/zsh
-set -euo pipefail
-exec @@PYTHON_SHELL@@ -I /Library/Printers/hp1020/hp1020-service.py \
-  --brew-prefix @@BREW_PREFIX_SHELL@@ --device-uri @@DEVICE_URI_SHELL@@ worker

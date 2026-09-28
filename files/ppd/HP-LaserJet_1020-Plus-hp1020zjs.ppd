@@ -1,6 +1,6 @@
 *PPD-Adobe: "4.3"
 *FormatVersion: "4.3"
-*FileVersion: "2.0"
+*FileVersion: "3.0"
 *LanguageVersion: English
 *LanguageEncoding: ISOLatin1
 *PCFileName: "HP1020ZJ.PPD"
@@ -19,11 +19,10 @@
 *TTRasterizer: Type42
 *cupsVersion: 2.0
 *cupsManualCopies: True
-*% The host PostScript renderer implements NumCopies, including uncollated sets.
-*cupsMaxCopies: 9999
+*% Apple's raster renderer expands all requested copies in the selected order.
+*cupsMaxCopies: 1
 *cupsModelNumber: 1020
-*% Require Apple's PDF/PS and pstops filters for copies, ranges and layout.
-*cupsFilter: "application/vnd.cups-postscript 0 hp1020passthrough"
+*cupsFilter: "application/vnd.cups-raster 0 /Library/Printers/hp1020/runtime/rastertohp1020"
 *cupsSingleFile: True
 *cupsIPPReason com.hp1020.status-unavailable/Printer completion unconfirmed: ""
 *1284DeviceID: "MFG:Hewlett-Packard;MDL:HP LaserJet 1020;CMD:ACL;DES:HP LaserJet 1020;"
@@ -31,22 +30,22 @@
 *OpenUI *PageSize/Media Size: PickOne
 *OrderDependency: 10 AnySetup *PageSize
 *DefaultPageSize: A4
-*PageSize A4/A4: "<</PageSize[595 842]/ImagingBBox null>>setpagedevice"
+*PageSize A4/A4: "<</PageSize[595.2 841.92]/ImagingBBox null>>setpagedevice"
 *PageSize Letter/US Letter: "<</PageSize[612 792]/ImagingBBox null>>setpagedevice"
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion/Media Size: PickOne
 *OrderDependency: 10 AnySetup *PageRegion
 *DefaultPageRegion: A4
-*PageRegion A4/A4: "<</PageSize[595 842]/ImagingBBox null>>setpagedevice"
+*PageRegion A4/A4: "<</PageSize[595.2 841.92]/ImagingBBox null>>setpagedevice"
 *PageRegion Letter/US Letter: "<</PageSize[612 792]/ImagingBBox null>>setpagedevice"
 *CloseUI: *PageRegion
 
 *DefaultImageableArea: A4
-*ImageableArea A4/A4: "11.34 11.34 583.66 830.66"
-*ImageableArea Letter/US Letter: "11.34 11.34 600.66 780.66"
+*ImageableArea A4/A4: "11.52 11.52 583.68 830.40"
+*ImageableArea Letter/US Letter: "11.52 11.52 600.48 780.48"
 *DefaultPaperDimension: A4
-*PaperDimension A4/A4: "595 842"
+*PaperDimension A4/A4: "595.2 841.92"
 *PaperDimension Letter/US Letter: "612 792"
 
 *OpenUI *InputSlot/Paper Source: PickOne
@@ -58,7 +57,7 @@
 *OpenUI *Resolution/Print Quality: PickOne
 *OrderDependency: 30 AnySetup *Resolution
 *DefaultResolution: 1200x600dpi
-*Resolution 1200x600dpi/1200 x 600 dpi: ""
+*Resolution 1200x600dpi/1200 x 600 dpi: "<</HWResolution[1200 600]/cupsBitsPerColor 1/cupsColorSpace 3/cupsColorOrder 0>>setpagedevice"
 *CloseUI: *Resolution
 
 *DefaultFont: Courier

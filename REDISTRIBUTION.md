@@ -4,9 +4,9 @@ This is not legal advice. It is a practical summary of the redistribution postur
 
 ## Summary
 
-This repository is public at the owner's request. The installer obtains
-Ghostscript, GNU sed and Python from Homebrew; the original foo2zjs sources and HP
-firmware remain included. Publication does not resolve the HP firmware
+This repository is public at the owner's request. The native driver builds from
+the included foo2zjs and adapter sources using macOS libraries; the original HP
+firmware remains included. Publication does not resolve the HP firmware
 redistribution concerns below.
 
 For a public repo, the risky part is not the custom scripts or foo2zjs. The risky part is the HP firmware blob and related firmware artifacts:
@@ -24,16 +24,15 @@ The printer being old, unsupported, out of warranty, or no longer sold does not 
 
 Files written for this setup:
 
-- `files/cups/backend/hp1020queue`
-- `files/cups/filter/hp1020passthrough`
-- `files/macos/hp1020-service.py`
-- `files/macos/hp1020-usb-run.c`
+- `files/macos/hp1020-backend.c`
+- `files/macos/hp1020-common.h`
+- `files/macos/rastertohp1020.c`
 - `templates/hp1020-print.in`
-- `templates/hp1020-root-spool-worker.in`
-- `templates/com.aayush.hp1020-root-spool-worker.plist.in`
 - `scripts/*.sh`
 
-These can be released under a license chosen by the repo owner.
+Keep the GPL terms of the linked foo2zjs/JBIG components with the built raster
+filter, its adapter and complete corresponding sources. Other standalone custom
+scripts retain their existing repository licensing status.
 
 ### foo2zjs
 

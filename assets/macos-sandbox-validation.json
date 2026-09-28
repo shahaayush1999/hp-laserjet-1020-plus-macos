@@ -1,0 +1,49 @@
+{
+  "count": 3,
+  "checks": [
+    "native Mac rendering and encoding of four collated three-page sets under the filter policy",
+    "complete native backend/fake transport lifecycle under the backend policy",
+    "negative control: policy denies reading the public README in the user directory"
+  ],
+  "source_sha256": {
+    "scripts/validate-macos-scheduler.py": "091f72f32fe6c19a0d4b05578afe85661c8a23d1d808d04dc10847686fb60b8c",
+    "scripts/tests/hp1020-fake-usb.c": "7935a18f8d21decb6d59f0cd9143f9f9a2aff7813292a91cc76c2c9ade5501e8",
+    "scripts/rebuild-runtime-from-vendor.sh": "911dcc672cd51e240ded3ba5a6b6aa7d214d0bd745f81f690201774c9c215567",
+    "files/macos/hp1020-backend.c": "80382d184636cef6cdd0aa7db11900529d7f662dd0e5afe9e014bb35ea90e4e2",
+    "files/macos/hp1020-common.h": "519b927a93628e5e5a65c524e1d0bda2b1580373f7c63974f15ed3ade836b511",
+    "files/macos/rastertohp1020.c": "044d7dead44a961e5acd821d1e98ec3349a9bc35cb65802c39223a406b97ede8",
+    "files/ppd/HP-LaserJet_1020-Plus-hp1020zjs.ppd": "a7688a6f6fa0edf96552860af8153506b25b2776cf03f53c185a9198a4191586",
+    "assets/runtime/sihp1020.dl": "133b21fe0cb24bfe53e2eff2f00a82cce4beb970749049661ade7a6801f22663",
+    "scripts/tests/hp1020-usb-fixture.py.in": "8299e3ba88b0eb56a68f8c4902083aca1521227d6b40f87896dae3f0327a1f1f",
+    "scripts/tests/hp1020-status-test.c": "e46d2e3c404f300b75ba4b1727999a7025cc4cb7bbc427717ceb15ece4b83a3b",
+    "scripts/tests/hp1020-raster-read.c": "63bbebce4b7afdf32a2dbf3b22e99d9aed5a51f5c0435db5b42b3ada96e6b20f",
+    "scripts/validate-macos-printing.py": "5432b8ee35eb2052cdd26547cb1e7522381306dc15f251de9582a40a688a1755",
+    "vendor/foo2zjs-source/foo2zjs.c": "82a8acc1ffe81efbb372942d186e4fd9a5bb1ad7268f67bc1c8f6f1276cc3e3a",
+    "vendor/foo2zjs-source/zjs.h": "d62b56934283fdccfb9137bbf98d8faeab2c6b032b8b4a9732b963c8d5a9cc89",
+    "vendor/foo2zjs-source/jbig.c": "835ce9b964a6735187b6e064562695063a65f35fe29924de1d60db660c3e21b3",
+    "vendor/foo2zjs-source/jbig.h": "0c016a8c69e349c510630edbf5b96057be952c2ac19c1a9b8488ad8c9864d7a4",
+    "vendor/foo2zjs-source/jbig_ar.c": "a51552d2f839ce8b758400660bd423b95b4b25cde11e65cc4e7d6c63c1a19d6f",
+    "vendor/foo2zjs-source/jbig_ar.h": "292c4c43c944e2573b558d89b7004cec6c59c70dbbfd7b9890868a2291d1250a",
+    "scripts/validate-macos-sandbox.py": "aabb94052dca2bcbed778ad2c4b51947ea6dad0903ef0dca270b240ce0c87026"
+  },
+  "apple_cups_source_url": "https://raw.githubusercontent.com/apple/cups/master/scheduler/process.c",
+  "apple_cups_source_sha256": "0074e1403f3e3c1c5e789af10ab3b75a72a0a13b188446e84e2054bd322295b7",
+  "raw_evidence": "/private/tmp/hp1020-sandbox-1svgn82u/stage",
+  "evidence_sha256": {
+    "pages.pdf": "f14f5674ab9e46e5a0f90ee67b153b91e8ff2029d88ced43d68d4798d483ea8e",
+    "profile-builder.c": "9c32a616ea8f88c659e5c3124b74e0dbf0cc464489c69ce8b0d0653d0f55cd04",
+    "filter.sb": "69f3225b1e798270ab68ab7266a89395f1b677e9e959fc482b1d779701b89d14",
+    "backend.sb": "a9aa7f91283bc1ddfe8eac1047d0e73212d4f3646f1d84e368a438fb94f2e49a",
+    "render.log": "029f61e0626faee367aeefce1480cc1b4a67e386f6b7d6bf97bc1091c91bdcb0",
+    "output.zjs": "b0a12fca878a76cdc9e3cca7e921d250316baed46df44699b67f006c720b09db",
+    "backend.log": "57f76af2e0ad23f49b7f05f7433cb5f31606a09c2d0c6b7d972c422928d8c2b0",
+    "negative.log": "54e183da55bc24aecab44cbdf8d6ba001baf03ed4be4b7bdaf0bebb375b2852d",
+    "tmp/events": "7c7d3e82e92a43a7fb566e978edd837b560b37a9927f962e3d2ea1f384be40a5"
+  },
+  "uid": 501,
+  "native_cups_scheduler": false,
+  "lp_user_execution": false,
+  "printer_contact": false,
+  "installed_changes": false,
+  "physical_print_test": false
+}
