@@ -25,10 +25,11 @@ A second concrete shortcut now avoids the compressed-image hardware for offline
 image production. `open-firmware/image-core/` contains a bounded streaming JBIG
 wrapper and a bridge from the existing semantic parser/planner to packed row
 bands. The parser now retains each exact 20-byte BIH. Current focused checks
-pass, and the latest full sequential aggregate passed **104 consistency checks**
-in `/tmp/hp1020-full-software-ring-20260928.log` (child logs `hp1020-validation.Rqozd4`), including
+pass, and the latest full sequential aggregate passed **105 consistency checks**
+in `/tmp/hp1020-full-image-ring-20260928.log` (child logs `hp1020-validation.WTCBMK`), including
 the bounded complete-stream, raw-contract, original producer, parser/handoff and
-video-buffer initialization and software-ring delivery integrations below. All
+video-buffer initialization, original ring delivery and the direct compiled
+decoder/output-ring integrations below. All
 tested source/fixture hashes match. No validation process remains running at this
 checkpoint. Later drafts are separate from this executed result.
 
@@ -459,10 +460,12 @@ isolated buffer transfers and two continuous five-transfer sequences** in both
 the bounded interpreter and independent QEMU. Log:
 `/tmp/hp1020-software-ring-final-20260928.log`; prerequisite parser log
 `/tmp/hp1020-raw-parser-delivery-20260928.log`. The consistency gate passes **104
-checks**. The full sequential aggregate passed both suites in
-`/tmp/hp1020-full-software-ring-20260928.log`, child logs `hp1020-validation.Rqozd4`.
-All recorded current source hashes match. The earlier four-case report with exact matching
-sources is preserved in `/tmp/hp1020-software-ring-four-20260928/`; subsequent
+checks**. That full sequential aggregate passed both suites at checkpoint
+`7fe51be`, logged in `/tmp/hp1020-full-software-ring-20260928.log`, child logs
+`hp1020-validation.Rqozd4`. Its report was subsequently refreshed for the shared
+target in the 105-check run below; all current source hashes match. The earlier
+four-case report with exact matching sources is preserved in
+`/tmp/hp1020-software-ring-four-20260928/`; subsequent
 source changes were executed again, never relabeled by manually editing hashes.
 
 - The compiled open decoder runs in QEMU on the existing
@@ -517,15 +520,83 @@ output claim/publication/selection/release indices +0xe0/+0xdc/+0xd8. Its earlie
 description of +0xdc as only a recovery latch was incomplete, and descriptor+4
 is now identified as the final-band flag against original bytes/execution.
 
-Next connect the bounded C decoder's band pause/release API directly to software
-output ownership in one compiled RAM fixture, removing the host pixel-copy
-bridge. Preserve full-ring backpressure, early acceptance versus late completion,
-exact bytes and partial-final semantics. A software output consumer must remain
-explicit; do not introduce peripheral calls or imply native page cleanup from
-descriptor completion. Follow the normal descriptor family and do not force the
+The direct compiled connection that removes the host pixel-copy bridge is now
+executed below. The original and software structures remain separate; this does
+not turn the chunk-12 fixture into a native decoder/engine pipeline or supply its
+source-owner cleanup. Follow the normal descriptor family and do not force the
 raw flag. Live configuration, physical packing, repeated page submission and
-eventual hardware behavior remain unresolved. Do not repeat the metadata,
-selector or cancellation matrices.
+eventual hardware behavior remain unresolved.
+
+### Direct compiled decoder and software output ring (2026-09-28)
+
+`open-firmware/image-core/hp1020_image_ring.c/.h` implements bounded software
+ownership based on the recovered ring contract. `ring-fixture.c` connects the
+existing C decoder to it within a single compiled call. The implementation does
+not share the original firmware's structure ABI or assume a hardware address.
+The image is initialized with the recovered per-slot row capacity, so each
+decoder band fits one slot; no host pixel copy or raw-parser admission is used
+inside this compiled connection.
+
+`scripts/validate-hp1020-image-ring.py --target` passes **36 sanitized host and 36
+QEMU cases**, plus **11 API-rejection controls per engine**. Reports:
+`image-core/ring-validation.json/.md`; log
+`/tmp/hp1020-image-ring-target-20260928.log`. Original bounded ownership was
+refreshed against the shared target in
+`/tmp/hp1020-software-ring-shared-target-20260928.log`, after the decoder's 176
+cases/66 target checks passed in `/tmp/hp1020-image-core-ring-build-20260928.log`.
+Full sequential validation passed **105 consistency checks and both suites** in
+`/tmp/hp1020-full-image-ring-20260928.log` (child logs `hp1020-validation.WTCBMK`).
+All recorded sources and fixtures match; no validation process remains running.
+The initial host build stopped on a Darwin common-section alignment warning;
+using the existing host checks'
+`-fno-common` flag resolved it. That was a build diagnostic, not a pixel/ownership
+failure. Its log and initial unexecuted draft remain outside the current evidence.
+The initial host-only report and every exact tested source were preserved in
+`/tmp/hp1020-image-ring-host-first-20260928/`; only the stronger current host/target
+report remains at the maintained evidence path. No report hashes were patched.
+
+- Width/height cases are 9600x17, 9600x132, 1024x129, 512x33, 32x8 and 16384x4,
+  each with fills 0/204 and input fragments 1/7/65536. Original full JBIG decoding
+  and source patterns agree with every output byte. Both engines compare the
+  entire 32800-byte guarded storage, preserving all bytes outside intended copies.
+  A new original full-decoder encode supplies the actual 9600x17 BIE, rather than
+  cropping decoded pixels on the host. Its source pixels equal the earlier
+  bounded original sequence's first 17 rows.
+- Every 17-row case matches all 20 comparable original state snapshots: indices,
+  both remaining counts, all owned/final/count descriptor fields and ordering.
+  The intermediate original claim-before-copy snapshot is deliberately absent
+  from the C call comparison: software push is a serialized copy/publication
+  operation, not an emulated DMA claim/interrupt. Six host and six target
+  comparisons establish the same observable publication/acceptance/release
+  contract under the supplied consumer ordering.
+- The longest image emits 33 bands, pauses on a full ring 29 times, and wraps
+  repeatedly. A blocked push copies nothing and retains the pending decoder
+  band. Feed/finish while paused consume no new input. Acceptance advances the
+  selection index but retains ownership; another push remains blocked and
+  byte-identical until explicit completion releases the slot. Input fragments
+  are poisoned after every feed, proving that caller input can be reused.
+- Invalid geometry/capacity, wrong band order/size, premature or duplicate
+  acceptance/completion and an out-of-range completion index return sticky
+  errors without releasing owned storage. This is API rejection evidence, not
+  printer fault recovery. Caller storage/nonoverlap and a single execution
+  context remain API preconditions; no lock or native IRQ interleaving is tested.
+- Target component state plus minimum buffers totals **30824 bytes** at
+  9600-bit width: image state 4312, ring state 112, history 2400, decoder band 4800,
+  output slots 19200. Code, stack, compressed caller input and large fixture
+  captures are excluded. This is not a full printer memory requirement.
+- The target is the same byte-audited BE/call0 RAM ELF, with a simulated consumer.
+  **Zero additional native page lifecycles or hardware transfers** are claimed.
+  Decoded rows remain provisional until decoder/framing success. Draining the
+  software ring does not retire stock work/source owners or acknowledge a page.
+  Odd-row image cases do not broaden the existing stricter ZjStream planner.
+
+Next use this software ring from the existing bounded ZjStream band's consumer,
+then verify per-page draining and different image sizes across consecutive
+pages/documents with reused input chunks. Keep output readiness/completion
+explicit and check late input rejection separately from already emitted rows.
+Original owner integration, native scheduling, live configuration, physical
+packing, engine behavior and power-cycle recovery remain unproven. Do not repeat
+the resolved metadata, selector or cancellation matrices.
 
 ## Preferred raster bypass (2026-09-10)
 

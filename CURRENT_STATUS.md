@@ -1,58 +1,58 @@
 # Current handoff
 
 Updated: 2026-09-28. **The open firmware replacement cannot print yet.** Offline
-research is active. Do not enumerate/contact the printer, upload firmware,
+research continues. Do not enumerate/contact the printer, upload firmware,
 execute print-driving hardware paths or change the installed printing setup.
 
 ## Latest firmware evidence
 
-Software-decoded pixels now enter actual original output-buffer allocations.
-**Eight isolated transfers and two continuous five-transfer sequences** agree
-byte for byte in the interpreter and independent QEMU. The continuous cases
-fill the four slots, block reuse while owned, distinguish output acceptance
-from completion, then wrap and reuse the released slot for a one-row final band.
-All 17 selected rows match the decoder/original-decoder/source-pixel oracle.
-Only intended bytes change; source owners and pool allocations remain intact.
-These are **zero additional native page lifecycles**. The host still bridges
-decoder output into parser input and supplies copies, readiness, completions and
-their ordering. No physical transfer or automatic consumer is claimed.
+The open C decoder now connects directly to a bounded software output ring.
+**36 sanitized host and 36 QEMU cases**, with 11 API rejection controls per
+engine, pass. Every pixel and every guarded storage byte is compared. Six cases
+per engine match the original bounded ownership trace exactly. Longer images
+exercise repeated full-ring pauses, delayed completion and buffer reuse. There
+is no host pixel-copy bridge between these C components. The simulated consumer
+still supplies acceptance/completion; this is **zero new native page lifecycles**.
 
-The full sequential `scripts/validate.sh` passed **104 consistency checks and
-both suites**, including all native pipeline/retirement/page regressions. Log:
-`/tmp/hp1020-full-software-ring-20260928.log`, child logs `hp1020-validation.Rqozd4`.
+The preceding original-code experiment passed eight isolated transfers and two
+continuous five-transfer sequences through actual original output allocations.
+It distinguished claiming, filling, selecting and releasing a buffer, including
+continuous wrap and a short final band. Source owners remain live after output
+retirement. The raw IRQ flag stays zero; no source prefix is inserted/subtracted.
+These serialized original stages and the new independent C ring are distinct.
+
+Full sequential `scripts/validate.sh` passed **105 consistency checks and both
+suites**, including native pipeline/retirement/page regressions. Log:
+`/tmp/hp1020-full-image-ring-20260928.log`; child logs `hp1020-validation.WTCBMK`.
 Current source hashes match the evidence. No validation process remains running
-at this checkpoint. The earlier 102-check baseline remains in `35ee3cc`; the
-four-case delivery source snapshot is separate from the expanded result.
+at this checkpoint. The previous 104-check checkpoint is committed at `7fe51be`.
+The first host-only report and exact matching sources are preserved outside the
+current evidence in `/tmp/hp1020-image-ring-host-first-20260928/`.
 
-The retained parser/preparation evidence includes 22 admissions, two metadata
-controls, eight preparation continuations and four missing-dimension stops.
-Original video allocation also passes two idle release/reuse cases and four
-pre-retry capacity controls. No late source-prefix adjustment or raw-mode
-activation occurs. The delivery experiment uses the normal descriptor branch,
-not the unrelated raw pointer-subtraction tail. Raw/delivery validators reject
-source changes during execution. Peripheral/custom-code guards remain closed.
+Reports: `analysis/hardware-boundary/software-ring.json/.md` and
+`analysis/open-firmware-model/image-core/ring-validation.json/.md`. Existing
+handoff details and the next experiment are in
+`analysis/open-firmware-model/next-evidence.md`. The target component needs 30824
+bytes of state/minimum buffers at A4 width, excluding code, stack, input and test
+captures. It is neither a complete firmware RAM budget nor an upload image.
 
-GCC 14.3.0, target headers and libgcc were recovered using the pinned build script,
-checksum and encoding/profile gates. Log `/tmp/hp1020-gcc-recovery-20260928.log`.
-Sandbox DNS required network permission for the same pinned source download.
-Tool recovery is in `analysis/README.md`; reports are
-`analysis/hardware-boundary/raw-parser.json/.md` and `software-ring.json/.md`.
-Detailed evidence and next steps are in the September 28 handoff/delivery sections of
-`analysis/open-firmware-model/next-evidence.md`.
-
-Next remove the host copy bridge by connecting the bounded C decoder's band
-pause/release contract to software output ownership in one compiled RAM fixture.
-An unexecuted implementation/fixture draft is in
-`/tmp/hp1020-ring-adapter-draft-20260928/`; it is not validated source or evidence.
-Keep consumption explicit; completion of the last descriptor does not retire
-the page/source owners. Stock input/output rings are distinct. Physical packing,
-live configuration, repeated page submission, boot/engine behavior and power-cycle
-recovery remain unproven. Do not repeat metadata, selector or cancellation matrices.
+Next connect the existing bounded ZjStream band consumer to this software ring,
+checking per-page draining and differently sized consecutive pages/documents with
+reused input chunks. Keep late input rejection distinct from emitted rows.
+Original owner integration, native scheduling, live configuration, physical
+packing, engine behavior and power-cycle recovery remain unproven. Do not repeat
+resolved metadata, selector or cancellation investigations.
 
 Preserve earlier categories: 26 completed empty-document lifecycles, six
 conditional null reads, 28 bounded retirement cases, 36 native page lifecycles
-with supplied FIFO consumption/completion, and 42 fragment/bypass cases.
-Software image tests and serialized continuations are not extra stock lifecycles.
+with supplied FIFO consumption/completion, and 42 fragment/bypass cases. Parser
+admission/preparation, video allocation controls and software-image cases are
+not extra native page lifecycles. Reports retain their actual tested hashes.
+
+GCC 14.3.0, target headers and libgcc were recovered through the pinned build
+script and checksum/encoding/profile gates. Log `/tmp/hp1020-gcc-recovery-20260928.log`;
+sandbox DNS needed permission for that same pinned download. Disposable tool
+recovery is in `analysis/README.md`.
 
 ## Installed Mac driver (separate, preserve)
 

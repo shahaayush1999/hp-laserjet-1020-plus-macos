@@ -1,0 +1,8 @@
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/ring-fixture.c:17:13:trace	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/ring-fixture.c:28:12:guard	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/ring-fixture.c:16:13:check$part$0	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/ring-fixture.c:16:13:check	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/ring-fixture.c:48:13:complete	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/ring-fixture.c:32:17:accept	64	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/ring-fixture.c:52:10:hp1020_ring_run	224	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/ring-fixture.c:127:10:hp1020_ring_api_control	176	static

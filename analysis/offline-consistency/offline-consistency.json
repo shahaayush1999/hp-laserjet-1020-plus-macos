@@ -1,5 +1,5 @@
 {
-  "check_count": 104,
+  "check_count": 105,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -347,6 +347,12 @@
       "detail": "Original ring indices must wrap only after actual claims/publications/accounting/releases; a full ring and accepted-but-uncompleted slot retain ownership, while physical readiness and completion remain supplied.",
       "evidence": "analysis/hardware-boundary/software-ring.json",
       "name": "decoded_pixels_continuous_ring_ownership_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "One compiled C decoder/ring fixture must preserve all pixels, whole-buffer guards, backpressure and the original bounded ownership trace; its explicit software consumer does not establish native page cleanup or physical output.",
+      "evidence": "analysis/open-firmware-model/image-core/ring-validation.json",
+      "name": "compiled_decoder_to_software_output_ring_verified",
       "severity": "watch"
     },
     {

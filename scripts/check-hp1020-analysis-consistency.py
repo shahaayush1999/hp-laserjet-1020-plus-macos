@@ -1290,6 +1290,48 @@ def build_report() -> dict[str, Any]:
                                 for c in software_ring["sequences"]),
                         "Original ring indices must wrap only after actual claims/publications/accounting/releases; a full ring and accepted-but-uncompleted slot retain ownership, while physical readiness and completion remain supplied.",
                         evidence="analysis/hardware-boundary/software-ring.json"))
+    image_ring = read_json("analysis/open-firmware-model/image-core/ring-validation.json")
+    ring_target = image_ring.get("target") or {}
+    ring_trace_phases = {"prepared":0,"fill_published":1,"nonfinal_withheld":2,
+                        "full_ring_producer_blocked":3,"output_accounted_still_owned":4,
+                        "accepted_without_completion_still_blocked":5,"descriptor_released":6,"no_remaining_data":7}
+    original_ring_traces = {c["fill"]:[[ring_trace_phases[e["phase"]],*e["indices"],*e["remaining"],
+                            *[v for d in e["descriptors"] for v in d]]
+                            for e in c["events"] if e["phase"] in ring_trace_phases]
+                            for c in software_ring["sequences"]}
+    checks.append(check("compiled_decoder_to_software_output_ring_verified",
+                        image_ring["status"] == ring_target.get("status") == "pass"
+                        and len(image_ring["cases"]) == len(ring_target.get("cases",[])) == 36
+                        and image_ring["completed_native_page_lifecycles"] == 0
+                        and image_ring["stock_ring_report_sha256"] == hashlib.sha256(
+                            (ROOT_DIR/"analysis/hardware-boundary/software-ring.json").read_bytes()).hexdigest()
+                        and image_ring["stock_ring_source_sha256"] == software_ring["source_sha256"]
+                        and ring_target.get("elf_sha256") == image_target.get("elf_sha256")
+                        and ring_target.get("api_controls") == len(image_ring["api_controls"]) == 11
+                        and {c["case"] for c in image_ring["api_controls"]} == set(range(11))
+                        and all(c["status"] == "pass" and c["sticky_error"] and c["owned_storage_preserved"]
+                                for c in image_ring["api_controls"])
+                        and {(c["width_bits"],c["rows"],c["fill"],c["fragment"]) for c in image_ring["cases"]} ==
+                            {(w,r,f,n) for w,r in ((9600,17),(9600,132),(1024,129),(512,33),(32,8),(16384,4))
+                             for f in (0,204) for n in (1,7,65536)}
+                        and sum(c["original_trace_equal"] for c in image_ring["cases"]) == 6
+                        and all(c["trace"] == original_ring_traces[c["fill"]]
+                                for c in image_ring["cases"] if c["original_trace_equal"])
+                        and all(c["status"] == "pass" and c["stats"][0:5] == [2,0,c["rows"],c["rows"],c["rows"]]
+                                and c["stats"][10:12] == [0,1] and c["stats"][17:19] == [0,1]
+                                and c["stats"][9] == max(0,c["stats"][5]-4)
+                                and c["stats"][21:24] == [c["stats"][5]&3]*3 for c in image_ring["cases"])
+                        and all(t["status"] == "pass" and t["case"] == c["case"]
+                                and t["all_output_bytes_equal"] and t["all_storage_bytes_equal"]
+                                and t["ownership_trace_equal"]
+                                and t["stats"][:14]+t["stats"][16:] == c["stats"][:14]+c["stats"][16:]
+                                for c,t in zip(image_ring["cases"],ring_target.get("cases",[])))
+                        and ring_target.get("a4_component_storage_bytes") == image_target.get("a4_state_history_band_bytes")
+                            +19200+ring_target.get("a4_ring_state_bytes",0)
+                        and all(hashlib.sha256((ROOT_DIR/name).read_bytes()).hexdigest() == digest
+                                for name,digest in {**image_ring["source_sha256"],**image_ring["fixture_sha256"]}.items()),
+                        "One compiled C decoder/ring fixture must preserve all pixels, whole-buffer guards, backpressure and the original bounded ownership trace; its explicit software consumer does not establish native page cleanup or physical output.",
+                        evidence="analysis/open-firmware-model/image-core/ring-validation.json"))
     checks.append(check("raster_callback_argument_and_unknown_isa_boundary",
                         callbacks["status"] == "pass" and callbacks["call_contract"]["argument_count"] == 4
                         and [len(f["unknown_instructions"]) for f in callbacks["functions"]] == [16,40,84],

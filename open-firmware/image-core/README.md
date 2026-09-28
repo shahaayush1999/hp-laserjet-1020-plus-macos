@@ -8,6 +8,11 @@ It does not print or drive any device. A separate `hp1020_image_page` bridge
 connects the existing semantic parser and planner to this decoder. Stock
 raw-buffer queue, engine, cache and USB integration remain separate work.
 
+`hp1020_image_ring.c` now adds bounded software output ownership, independently
+of the original firmware's structure layout. The compiled RAM fixture connects
+the decoder directly to this ring; no host pixel copy bridges these components.
+Acceptance/completion come from an explicit software consumer, not an engine.
+
 ## Contract
 
 `hp1020_image.h` defines a caller-owned state, two-row history buffer and one
@@ -83,6 +88,44 @@ binutils retains its instruction annotations. Prefer `annotated-disassembly.txt`
 over linear decoding of literal pools. A known libgcc divide-by-zero trap is
 identified separately; image geometry rejects zero divisors before division.
 The target is a RAM fixture with test arrays, not an uploadable firmware image.
+
+## Software output ring
+
+The ring accepts aligned image widths and uses the recovered callback-disabled
+slot capacity `(8192 / stride) & ~3` rows. Supply four nonoverlapping output slots
+and configure the decoder with that row capacity. A4-width input uses four
+4800-byte slots. This is a single-context API; it does not provide locks, IRQ
+handling, cache maintenance, original pool allocation or physical output.
+
+- Push one full decoder band, or the final shorter band, in row order. A full
+  ring returns `BLOCKED` without copying or changing ownership. Retain the
+  pending decoder band and retry; release it only after a successful copy.
+- Peek exposes a published slot, preserving the original one-slot delay for
+  the newest nonfinal band. Accept records output submission but keeps storage
+  owned. Complete releases it later, in order. Acceptance alone never permits
+  producer reuse. Mutating API errors are sticky; views are read-only.
+- Drained means all image rows have been consumed by this software fixture.
+  Require successful decoder/framing completion separately. Previously emitted
+  rows remain provisional on a late decode error. Reinitialization discards
+  ownership and therefore requires the caller to drain or abandon the old image.
+
+`python3 scripts/validate-hp1020-image-ring.py --target` runs 36 sanitized host
+cases and the same 36 in QEMU, with 11 API-rejection controls per engine. Every
+pixel and every output-storage byte is compared, including unused space and
+the previous contents of reused partial slots. Six 17-row cases match the
+original bounded ring ownership trace exactly. A 132-row image cycles through
+33 bands with 29 full-ring pauses. Input fragments are poisoned after use.
+The simulated consumer checks that an accepted but uncompleted slot still
+blocks reuse, while the pending decoder band survives the pause.
+
+The measured 32-bit target state and minimum buffers use **30824 bytes** for
+A4-width input: 4312 bytes of decoder state, 112 bytes of ring state, two history
+rows, one decoder band and four output slots. This excludes code, stack, caller
+input and test captures. It is not the RAM budget of a complete printer firmware.
+Reports are `analysis/open-firmware-model/image-core/ring-validation.json/.md`;
+host-only runs write separate reports. Odd-row image controls do not broaden the
+stricter ZjStream page planner's accepted grammar. Full stream/owner integration,
+native scheduling, page cleanup and physical packing remain separate questions.
 
 ## Complete-file bridge
 
