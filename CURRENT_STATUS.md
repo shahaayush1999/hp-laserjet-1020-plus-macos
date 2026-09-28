@@ -39,9 +39,13 @@ Tool recovery is in `analysis/README.md`; reports are
 are in the September 28 serialized-handoff section of
 `analysis/open-firmware-model/next-evidence.md`.
 
-Next inspect the ordinary descriptor producer/consumer RAM contract and connect
-software-decoded bands to the established ring storage with exact byte checks.
-Keep readiness/consumption explicit and peripheral prefixes excluded. Do not
+The follow-up stock-byte inspection located separate buffer claim, fill-publication
+and output-release stages: a claimed descriptor does not establish ready pixels.
+The next handoff records their precise RAM-only cuts and consumer delay. This
+is instruction-derived planning, not another executed lifecycle. Next connect
+software-decoded bands through those stages with exact byte checks, including
+ring wrap and partial final bands. Keep readiness/consumption explicit and
+peripheral prefixes excluded. Do not
 force raw IRQ mode or repeat resolved metadata, selector or cancellation matrices.
 Physical packing, live configuration, repeat submission, boot/engine behavior
 and power-cycle recovery remain unproven.

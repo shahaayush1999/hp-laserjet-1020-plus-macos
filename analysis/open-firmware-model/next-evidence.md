@@ -420,15 +420,45 @@ allocate the second (`0x100148ad`). No sleep, retry or eventual recovery is run.
 Six excluded-code checks per buffer case also reject before execution in both
 engines. These idle allocation cycles are not completed page lifecycles.
 
-Next connect decoded software bands to this established descriptor-ring storage
-in a bounded offline experiment. First inspect the ordinary descriptor producer
-and consumer's RAM contract, then use actual allocation/slot geometry and compare
-every transferred byte with the existing decoder's source-pixel oracle. Keep
-readiness, consumption and any omitted peripheral prefixes explicit. Follow the
-normal descriptor IRQ family; do not force the raw flag or claim the legacy
-chunk-12 route supplies the standalone raw-retirement preconditions. Live
-configuration, physical packing, repeat submission and eventual hardware behavior
-remain unresolved. Do not repeat the metadata, selector or cancellation matrices.
+The next connection was inspected directly in the original bytes after the full
+run. These are **instruction-derived boundaries, not a newly executed delivery
+experiment**. Literal `0x100067bc` is `video+0x20 = 0x1002efe0`, the four embedded
+12-byte descriptors. Original producer `0x10014244` selects index video+0xe0,
+requires descriptor+0 == 0 and remaining video+0xd0 != 0, then stores
+`min(remaining, video+0xcc)` at descriptor+8 (`9362` at `0x1001426e`). It subtracts
+that count from remaining (`227634` at `0x10014279`), sets descriptor+4 when the
+remaining count becomes zero (`9561` at `0x10014281`), and sets descriptor+0 to 1
+(`9360` at `0x10014283`). **This flag claims the buffer before it is filled; it
+does not prove ready pixels.** Stop this prefix at `0x10014290`: following stores
+at `0x10014293/0x10014298` target `0xb2080004/0xb2080008` and remain excluded.
+
+After an omitted peripheral-completion prefix, `0x1001445d..0x1001446b` advances
+video+0xe0 modulo four (`289638` at `0x10014468`), then would re-arm the producer
+and enter the band queue. The existing band gate at `0x10013f6c..0x10013f72`
+withholds a nonfinal descriptor when `(video+0xdc+1)&3 == video+0xe0`; a final
+descriptor may pass that collision. Therefore publication/consumer ordering must
+preserve this one-buffer delay, even with the custom callback disabled. Following
+an independently supplied output completion, normal-mode retirement clears the
+descriptor at video+0x20+12*(video+0xd8) (`9988` at `0x10014569`) and advances
+video+0xd8 modulo four (`28a636` at `0x10014573`). Stop before the re-arm call at
+`0x10014576`; the raw-list pointer-subtraction path is a different branch.
+
+For aligned strides 4..2048 in the narrow image profile, the original prepared
+cap `(8192 // stride) & ~3` equals `4 * (2048 // stride)`: its byte span exactly
+matches one first-buffer slot. This arithmetic identity was checked for all 512
+aligned strides; it is not additional original execution or a physical format
+claim. A software decoder emitting four rows at a time may need to accumulate
+multiple bands before publishing the original descriptor's larger count.
+
+Next execute these bounded RAM stages using actual allocation/slot geometry,
+copy software-decoded bytes before publishing completion, and compare every byte
+against the decoder's source-pixel oracle. Include multi-slot wrap, withheld
+nonfinal data and partial-final bands. Keep readiness, consumption and omitted
+peripheral prefixes explicit. Follow the normal descriptor IRQ family; do not
+force the raw flag or claim the legacy chunk-12 route supplies standalone raw
+retirement's preconditions. Live configuration, physical packing, repeat
+submission and eventual hardware behavior remain unresolved. Do not repeat the
+metadata, selector or cancellation matrices.
 
 ## Preferred raster bypass (2026-09-10)
 
