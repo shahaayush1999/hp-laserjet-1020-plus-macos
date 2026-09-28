@@ -20,7 +20,7 @@
   "source_sha256": {
     "templates/hp1020-print.in": "50b20117d16097d518cf99dbad609991bacb1c0bd128e9bcf345bad0eb9c6849",
     "assets/runtime/sihp1020.dl": "133b21fe0cb24bfe53e2eff2f00a82cce4beb970749049661ade7a6801f22663",
-    "files/macos/hp1020-backend.c": "80382d184636cef6cdd0aa7db11900529d7f662dd0e5afe9e014bb35ea90e4e2",
+    "files/macos/hp1020-backend.c": "f314c00de134d0954d090efce86bb6e26e072635530154375030b2d1c00d14e3",
     "files/macos/rastertohp1020.c": "044d7dead44a961e5acd821d1e98ec3349a9bc35cb65802c39223a406b97ede8",
     "files/macos/hp1020-common.h": "519b927a93628e5e5a65c524e1d0bda2b1580373f7c63974f15ed3ade836b511",
     "assets/licenses/foo2zjs-COPYING": "9c504edb1ae0bc25cf6191a06f1087c7a8d229b87df4f704fbcaa8415e28935f",

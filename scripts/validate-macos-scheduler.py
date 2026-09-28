@@ -100,7 +100,12 @@ def exercise(area):
             if not p.is_symlink(): os.chown(p,0,0)
     os.chown(area,0,0);os.chmod(area,0o755)
     for name in ('tmp','cache','spool'):os.chown(area/name,uid,gid);os.chmod(area/name,0o700)
-    run(['/usr/sbin/cupsd','-t','-c',area/'cupsd.conf','-s',area/'cups-files.conf'],env=env)
+    config=run(['/usr/sbin/cupsd','-t','-c',area/'cupsd.conf','-s',area/'cups-files.conf'],env=env)
+    (area/'config-check.log').write_bytes(config.stdout+config.stderr)
+    # macOS 27 accepts -s but ignores the alternate file settings. Do not start
+    # a supposedly isolated scheduler with the system's spool/backend paths.
+    assert b'-s ignored' not in config.stderr+config.stdout, 'This macOS cannot use the isolated scheduler; use validate-macos-system.py.'
+    assert (area/'error.log').exists(), 'Alternate logging/root settings were not applied; refusing to start.'
     log=(area/'daemon.log').open('wb')
     daemon=subprocess.Popen(['/usr/sbin/cupsd','-f','-c',str(area/'cupsd.conf'),'-s',str(area/'cups-files.conf')],stdout=log,stderr=log,env=env)
     checks=[]

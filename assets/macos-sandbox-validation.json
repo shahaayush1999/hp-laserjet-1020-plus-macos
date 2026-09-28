@@ -6,10 +6,10 @@
     "negative control: policy denies reading the public README in the user directory"
   ],
   "source_sha256": {
-    "scripts/validate-macos-scheduler.py": "091f72f32fe6c19a0d4b05578afe85661c8a23d1d808d04dc10847686fb60b8c",
-    "scripts/tests/hp1020-fake-usb.c": "7935a18f8d21decb6d59f0cd9143f9f9a2aff7813292a91cc76c2c9ade5501e8",
+    "scripts/validate-macos-scheduler.py": "b341413f759f2bf8d11203e99ed0261f35259e9f7642c7c3ef5b76f65b816e92",
+    "scripts/tests/hp1020-fake-usb.c": "a58467b7d94057117992843b7ff2e123622271d4021b3c92f6f4b16fa4453284",
     "scripts/rebuild-runtime-from-vendor.sh": "911dcc672cd51e240ded3ba5a6b6aa7d214d0bd745f81f690201774c9c215567",
-    "files/macos/hp1020-backend.c": "80382d184636cef6cdd0aa7db11900529d7f662dd0e5afe9e014bb35ea90e4e2",
+    "files/macos/hp1020-backend.c": "f314c00de134d0954d090efce86bb6e26e072635530154375030b2d1c00d14e3",
     "files/macos/hp1020-common.h": "519b927a93628e5e5a65c524e1d0bda2b1580373f7c63974f15ed3ade836b511",
     "files/macos/rastertohp1020.c": "044d7dead44a961e5acd821d1e98ec3349a9bc35cb65802c39223a406b97ede8",
     "files/ppd/HP-LaserJet_1020-Plus-hp1020zjs.ppd": "a7688a6f6fa0edf96552860af8153506b25b2776cf03f53c185a9198a4191586",
@@ -28,17 +28,17 @@
   },
   "apple_cups_source_url": "https://raw.githubusercontent.com/apple/cups/master/scheduler/process.c",
   "apple_cups_source_sha256": "0074e1403f3e3c1c5e789af10ab3b75a72a0a13b188446e84e2054bd322295b7",
-  "raw_evidence": "/private/tmp/hp1020-sandbox-1svgn82u/stage",
+  "raw_evidence": "/private/tmp/hp1020-sandbox-3wymtojl/stage",
   "evidence_sha256": {
     "pages.pdf": "f14f5674ab9e46e5a0f90ee67b153b91e8ff2029d88ced43d68d4798d483ea8e",
     "profile-builder.c": "9c32a616ea8f88c659e5c3124b74e0dbf0cc464489c69ce8b0d0653d0f55cd04",
-    "filter.sb": "69f3225b1e798270ab68ab7266a89395f1b677e9e959fc482b1d779701b89d14",
-    "backend.sb": "a9aa7f91283bc1ddfe8eac1047d0e73212d4f3646f1d84e368a438fb94f2e49a",
-    "render.log": "029f61e0626faee367aeefce1480cc1b4a67e386f6b7d6bf97bc1091c91bdcb0",
-    "output.zjs": "b0a12fca878a76cdc9e3cca7e921d250316baed46df44699b67f006c720b09db",
+    "filter.sb": "1381064fb0b0a18d785b0685be506c67a03429918a59f69e31c60d656e990329",
+    "backend.sb": "0331d6566b957bef754b65852665223018db9ad72c3b1ee9732de3ec0f60defc",
+    "render.log": "d172fcf79669ddfc6feec9885aa597e8a65c1568a8eab6291a0c5656b932c94a",
+    "output.zjs": "37f182278dd313067c2f1a7bb1a97498378f601f2f78af83016cc3f47a0362f7",
     "backend.log": "57f76af2e0ad23f49b7f05f7433cb5f31606a09c2d0c6b7d972c422928d8c2b0",
     "negative.log": "54e183da55bc24aecab44cbdf8d6ba001baf03ed4be4b7bdaf0bebb375b2852d",
-    "tmp/events": "7c7d3e82e92a43a7fb566e978edd837b560b37a9927f962e3d2ea1f384be40a5"
+    "tmp/events": "810ccdb56af023e6acab2587fe7e8e045bb447c3409152c7abdb55576ec67282"
   },
   "uid": 501,
   "native_cups_scheduler": false,

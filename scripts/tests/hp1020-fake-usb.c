@@ -1,6 +1,8 @@
 /* Offline scheduler fixture. Implements CUPS fd 3/4 only; no USB APIs. */
 #include <cups/sidechannel.h>
 #include <arpa/inet.h>
+#include <errno.h>
+#include <fcntl.h>
 #include <poll.h>
 #include <signal.h>
 #include <stdint.h>
@@ -26,6 +28,14 @@ int main(int argc,char **argv) {
     signal(SIGTERM,SIG_IGN); signal(SIGPIPE,SIG_IGN);
     const char *job=argv[1];
     event("open",job,0);
+#ifdef TEST_SANDBOX_PROBE
+    /* A harmless, world-writable fixture is writable by _lp outside CUPS.
+     * The real scheduler's sandbox must independently deny this write. */
+    int probe=open(TEST_SANDBOX_PROBE,O_WRONLY|O_APPEND);
+    if(probe>=0) {close(probe);event("sandbox-unrestricted",job,0);return 92;}
+    if(errno!=EPERM) {event("sandbox-unexpected-error",job,errno);return 93;}
+    event("sandbox-denied",job,0);
+#endif
     fprintf(stderr,"STATE: -connecting-to-device\n");
     char data[1024*1024], token[64]=""; size_t used=0;
     unsigned pages=0; int received=0,completed=0;

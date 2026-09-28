@@ -95,7 +95,7 @@
     }
   ],
   "source_sha256": {
-    "files/macos/hp1020-backend.c": "80382d184636cef6cdd0aa7db11900529d7f662dd0e5afe9e014bb35ea90e4e2",
+    "files/macos/hp1020-backend.c": "f314c00de134d0954d090efce86bb6e26e072635530154375030b2d1c00d14e3",
     "files/macos/rastertohp1020.c": "044d7dead44a961e5acd821d1e98ec3349a9bc35cb65802c39223a406b97ede8",
     "files/macos/hp1020-common.h": "519b927a93628e5e5a65c524e1d0bda2b1580373f7c63974f15ed3ade836b511",
     "files/ppd/HP-LaserJet_1020-Plus-hp1020zjs.ppd": "a7688a6f6fa0edf96552860af8153506b25b2776cf03f53c185a9198a4191586",
@@ -103,7 +103,7 @@
     "assets/runtime/sihp1020.dl": "133b21fe0cb24bfe53e2eff2f00a82cce4beb970749049661ade7a6801f22663",
     "scripts/tests/hp1020-usb-fixture.py.in": "8299e3ba88b0eb56a68f8c4902083aca1521227d6b40f87896dae3f0327a1f1f",
     "scripts/tests/hp1020-status-test.c": "e46d2e3c404f300b75ba4b1727999a7025cc4cb7bbc427717ceb15ece4b83a3b",
-    "scripts/tests/hp1020-fake-usb.c": "7935a18f8d21decb6d59f0cd9143f9f9a2aff7813292a91cc76c2c9ade5501e8",
+    "scripts/tests/hp1020-fake-usb.c": "a58467b7d94057117992843b7ff2e123622271d4021b3c92f6f4b16fa4453284",
     "scripts/tests/hp1020-raster-read.c": "63bbebce4b7afdf32a2dbf3b22e99d9aed5a51f5c0435db5b42b3ada96e6b20f",
     "scripts/validate-macos-printing.py": "5432b8ee35eb2052cdd26547cb1e7522381306dc15f251de9582a40a688a1755",
     "vendor/foo2zjs-source/foo2zjs.c": "82a8acc1ffe81efbb372942d186e4fd9a5bb1ad7268f67bc1c8f6f1276cc3e3a",

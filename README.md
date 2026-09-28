@@ -58,7 +58,7 @@ Normal app printing and PDF files use macOS's renderer. Legacy `.ps`/`.eps` file
 
 ## Scope
 
-The native redesign has passed offline rendering, simulated printer, setup and security checks. Its real macOS scheduler and administrator installation check is still pending; the owner’s existing installation has not been replaced. Details are recorded in [MANIFEST.md](MANIFEST.md). Physical output, device feedback and a fresh Mac installation remain separate checks; passing software tests does not establish those results.
+The native driver is installed on the owner's Mac. It passed offline rendering, setup and security checks, plus tests through the actual macOS print queue using a simulated printer: copies, five queued documents, paper recovery, cancellation and failed transfers. Details are recorded in [MANIFEST.md](MANIFEST.md). Physical output, real device feedback and a fresh Mac installation remain separate checks; passing software tests does not establish those results.
 
 Original firmware, foo2zjs source, licenses and research evidence remain included. See [NOTICE.md](NOTICE.md) and [REDISTRIBUTION.md](REDISTRIBUTION.md) for provenance.
 

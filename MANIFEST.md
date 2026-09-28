@@ -53,10 +53,12 @@ Before connection, jobs wait for reconnection and remain cancellable. Connected
 ID, transfer, close and progress timeouts bound failures; known paper/cover/jam
 conditions can wait for intervention. Failed transfer exits with CUPS HOLD, so
 uncertain output is not automatically replayed. Cancellation requests the
-standard USB soft reset, then reaps the native child. Apple's stdin USB backend
-ignores SIGTERM, so termination is bounded with SIGKILL after the reset attempt.
-CUPS also owns the process group. Device buffer-reset effectiveness still needs
-physical verification.
+standard USB soft reset, then closes the input pipe so Apple's backend can exit
+normally. Apple's reset handler drains queued input before resetting. Every
+cleanup wait is bounded; a failed forced termination cannot enter a blocking
+wait. If the transport cannot close, the backend requests that CUPS stop the
+queue instead of overlapping another connection. CUPS owns the process group.
+Device buffer-reset effectiveness still needs physical verification.
 
 ## Installation and migration
 
@@ -110,16 +112,38 @@ enable/accept gates. All hashes match. After I/O/remapping fixes, Clang static
 analysis reports no diagnostics with the unused-errno checker disabled; the
 actual status parser also passes AddressSanitizer/UndefinedBehaviorSanitizer.
 
-`scripts/validate-macos-scheduler.py --prepare /private/tmp/hp1020-NAME` stages a
-separate actual CUPS scheduler with a private socket, roots and **only a compiled
-fake transport**. Its staged `run.py --exercise` requires administrator execution
-because Apple's cupsd binary is root-executable only. It tests strict sandbox,
-real job scheduling, four copies, five queued documents, paper feedback, cancel
-and hold. It never uses the installed scheduler or a real USB backend. Preserve
-the generated profile, logs and result as evidence. This system-level run is
-not yet executed as administrator; it has not established a pass. The unanswered
-macOS password prompt was cancelled; noninteractive sudo also required a password.
-No tool approval review rejected the action.
+On macOS 27.0 (26A428), the attempted isolated scheduler printed `-s ignored.`
+and did not apply the alternate backend/log paths. Queue creation failed before
+any test job was submitted. `scripts/validate-macos-scheduler.py` now refuses to
+start a scheduler when that diagnostic or missing private log reveals that its
+settings were not applied. Its isolated execution remains unvalidated; its
+ordinary-user `prepare` function also builds fixtures for the other suites.
+
+`scripts/validate-macos-system.py --prepare /private/tmp/hp1020-NAME` prepares the
+replacement system test. Run that directory's `run.py --exercise` as administrator
+through macOS's password dialog. It adds a uniquely named temporary queue and
+native backend to the installed scheduler. That backend can execute **only its
+compiled fd-only simulator**, never Apple's USB backend. It does not discover
+devices or change an existing queue or global CUPS settings. Test files and the
+temporary queue are removed even on failure; raw evidence stays in staging.
+
+The actual scheduler passed **five lifecycle checks**: four collated three-page
+copies, five queued documents with one active transport, paper recovery and
+ordered completion, cancellation with no surviving helper before the next job,
+and transfer failure held without replay. The processes ran as `_lp` (UID 26).
+The scheduler's generated profiles were captured. A harmless fixture writable
+by an ordinary `_lp` process was denied by the CUPS sandbox, establishing that
+the policy was actually applied. The generated result is
+`assets/macos-system-validation.json`; its `raw_evidence` directory preserves
+the exact source map, generated profiles, queue snapshots and encoded fixtures.
+
+The first system run caught a real cancellation defect missed by the earlier
+source-derived sandbox check: the native child stayed alive while the backend
+blocked in `wait4` after a force-stop attempt. A same-UID stop outside the CUPS
+sandbox succeeded. The fix closes input after reset, checks forced-termination
+failure and bounds every wait. The final system run confirms cancellation and
+subsequent job progress without administrator process cleanup. The failed run
+and stack trace remain under `/private/tmp/hp1020-system-install-20260928-1/`.
 
 Separately, `scripts/validate-macos-sandbox.py` passed **three checks** on the final
 sources. It compiles the exact `cupsdCreateProfile` and quoting functions from
@@ -128,7 +152,7 @@ root exemption. It applies separate filter/backend profiles to actual native
 conversion and a native fake transport. Four three-page copies produce twelve
 pages; the mock confirms completion. A harmless repository-file read is denied
 as a negative control. These processes run as the current user, not `_lp` or an
-actual scheduler. Do not conflate this with the pending scheduler suite.
+actual scheduler. Keep that evidence separate from the actual system test above.
 
 The generated report is `assets/macos-sandbox-validation.json`; raw profiles,
 logs, compiler input and output are retained at its `raw_evidence` path. Recovery:
@@ -150,12 +174,36 @@ Original `assets/firmware-source/sihp1020.img` bytes were also checked directly:
 This supports the expected loaded-firmware identity, not a new boot-ROM/device
 observation. No live identity request occurred.
 
-The owner's installed setup is still the earlier, validated worker-based version.
-The native redesign has not yet been installed. A legacy `Sandboxing off` line
-was found in the installed cups-files.conf; its effective behavior has not been
-established. The native driver must pass the isolated strict-sandbox test before
-replacement and restoration of normal configuration. Do not describe tests as
-hardware, queue UI, fresh-Mac or physical-output proof.
+After all four suites passed sequentially, the owner-authorized installation
+succeeded using the saved USB URI without discovery. The old worker, daemon,
+bridge backend/filters and per-user runtime were removed. The queue uses the
+native backend, accepts jobs, defaults to collated sets and is idle with no
+pending jobs. Code signatures and root ownership were checked; installed
+binaries and stock firmware exactly match a fresh production build, and the
+installed driver PPD matches its source. The actual queue PPD's native filter
+reference and host-copy attributes were checked after installation. No real
+print job, device query or firmware upload occurred.
+
+The obsolete `Sandboxing off` line was removed with backup and a successful
+default `cupsd -t` check. No service restart was needed: the preceding actual
+system test had already demonstrated sandbox enforcement despite that legacy
+line. Its historical effective behavior is not inferred. The old installation
+and configuration are preserved in the root-only recovery directory
+`/private/tmp/hp1020-native-migration-backup-20260928/` (`paths.json` maps backups).
+The earlier recovery backup listed in Git history is also retained.
+
+Final installed SHA-256 values, also saved beside the comparison build at
+`/private/tmp/hp1020-native-installed-build-20260928/installed-hashes.json`:
+
+| Component | SHA-256 |
+| --- | --- |
+| rastertohp1020 | c41248b039f6719025f7112daeb54f653bd2a03cd228ff1fa403ba089943e134 |
+| hp1020 backend | ce381c3afcb38e5ab2939d4e79a61369e7d462684a05bc316917aa736d7e0f6b |
+| sihp1020.dl | 133b21fe0cb24bfe53e2eff2f00a82cce4beb970749049661ade7a6801f22663 |
+
+Do not describe simulated device feedback as hardware, queue UI, fresh-Mac or
+physical-output proof. All reported hashes belong to their actual executed
+sources; never update a report's hashes by hand after editing.
 
 The separate September 23 firmware-research baseline remains unchanged; use
 `analysis/README.md` for its hashes and recovery instructions.

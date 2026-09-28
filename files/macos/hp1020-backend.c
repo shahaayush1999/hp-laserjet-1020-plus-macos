@@ -191,6 +191,7 @@ static int pump(Transport *t, int milliseconds, int cancelling) {
         int status;
         pid_t result = waitpid(t->pid, &status, WNOHANG);
         if (result == t->pid) { t->exited = 1; t->exit_code = WIFEXITED(status) ? WEXITSTATUS(status) : 1; }
+        else if (result < 0 && errno == ECHILD) { t->exited = 1; t->exit_code = 1; }
     }
     return !t->cancelled;
 }
@@ -227,8 +228,8 @@ failed:
     for (int i = 0; i < 2; i++) { if (input[i] >= 0) close(input[i]); if (back[i] >= 0) close(back[i]); if (log[i] >= 0) close(log[i]); if (side[i] >= 0) close(side[i]); }
     return 0;
 }
-static void stop_usb(Transport *t, int reset) {
-    if (t->pid <= 0) return;
+static int stop_usb(Transport *t, int reset) {
+    if (t->pid <= 0) return 1;
     if (reset && !t->exited && t->connected && t->side >= 0) {
         t->pending = 0;
         packet(t->side, 1, 0, NULL, 0);
@@ -236,16 +237,23 @@ static void stop_usb(Transport *t, int reset) {
         while (!t->reset && !t->exited && hp_now() < until) pump(t, 50, 1);
         message(t->reset == 1 ? "Cancelled; printer buffer reset confirmed." : "Cancelled; printer buffer reset unconfirmed. A power cycle may be needed.");
     }
+    /* Apple's SOFT_RESET handler drains pending input before resetting. EOF
+     * then lets its stdin backend close normally. CUPS's macOS sandbox can
+     * deny even a same-UID child's kill, so never assume kill succeeded and
+     * enter a blocking wait. Keep every cleanup wait bounded. */
+    if (t->input >= 0) { close(t->input); t->input = -1; }
+    double until = hp_now() + HP1020_CLOSE_TIMEOUT;
+    while (!t->exited && hp_now() < until) pump(t, 50, 1);
     if (!t->exited) {
-        /* Apple's stdin USB backend ignores SIGTERM. A bounded kill closes
-         * its device handles; normal cancellation first requests SOFT_RESET. */
-        kill(t->pid, SIGKILL);
-        while (waitpid(t->pid, NULL, 0) < 0 && errno == EINTR) {}
-        t->exited = 1;
+        if (kill(t->pid, SIGKILL) < 0 && errno != ESRCH)
+            perror("ERROR: Could not terminate the USB transport");
+        until = hp_now() + 2;
+        while (!t->exited && hp_now() < until) pump(t, 50, 1);
     }
     int fds[] = {t->input, t->back, t->side, t->log};
     for (int i = 0; i < 4; i++) if (fds[i] >= 0) close(fds[i]);
     t->input = t->back = t->side = t->log = -1;
+    return t->exited;
 }
 static int transmit(Transport *t, FILE *file) {
     if (fseeko(file, 0, SEEK_SET)) return 0;
@@ -355,7 +363,7 @@ int main(int argc, char **argv) {
     FILE *raw = hp_temp(), *document = hp_temp();
     int source = argc == 7 ? open(argv[6], O_RDONLY | O_NOFOLLOW | O_NONBLOCK | O_CLOEXEC) : 0;
     Transport t = {.input=-1, .back=-1, .side=-1, .log=-1};
-    int ok = 0;
+    int ok = 0, stopped = 1;
     if (!raw || !document || source < 0) goto done;
     struct stat st;
     if (argc == 7 && (fstat(source, &st) || !S_ISREG(st.st_mode))) goto done;
@@ -396,8 +404,8 @@ int main(int argc, char **argv) {
         FILE *firmware = fopen(HP1020_BASE "/runtime/sihp1020.dl", "rb");
         int sent = firmware && transmit(&t, firmware) && finish(&t);
         if (firmware) fclose(firmware);
-        stop_usb(&t, hp_cancelled);
         if (!sent) goto done;
+        if (!stop_usb(&t, 0)) goto done;
         unsigned pages = t.pages; char token[64]; memcpy(token, t.token, sizeof(token));
         memset(&t, 0, sizeof(t)); t.input=t.back=t.side=t.log=-1; t.pages=pages; memcpy(t.token,token,sizeof(token));
         if (!start_usb(&t, uri, argv) || !firmware_loaded(t.ident)) {
@@ -407,12 +415,16 @@ int main(int argc, char **argv) {
     message("Sending the document.");
     ok = transmit(&t, document) && wait_pages(&t) && finish(&t);
 done:
-    stop_usb(&t, hp_cancelled);
+    stopped = stop_usb(&t, hp_cancelled);
     if (raw) fclose(raw);
     if (document) fclose(document);
     if (source > 0) close(source);
     if (parent_side >= 0) close(parent_side);
     if (parent_back >= 0) close(parent_back);
+    if (!stopped) {
+        fputs("ERROR: USB connection did not close. Reconnect the printer before resuming the queue.\n", stderr);
+        return 4; /* CUPS_BACKEND_STOP: do not overlap a stuck transport. */
+    }
     if (hp_cancelled) { message("Print job cancelled."); return 0; }
     if (!ok) fputs("ERROR: Job held. Check the printer and any partially printed pages before resuming.\n", stderr);
     return ok ? 0 : 3; /* CUPS_BACKEND_HOLD: no automatic duplicate printing. */
