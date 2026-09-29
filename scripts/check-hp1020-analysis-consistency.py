@@ -349,7 +349,9 @@ def build_report() -> dict[str, Any]:
             and scope_evidence.get("endpoint0_data_cases") == 24
             and scope_evidence.get("usb_bulk_lane_event_bit") == "0x00020000"
             and scope_evidence.get("usb_bulk_lane_status_register") == "0xb3000224"
-            and scope_evidence.get("usb_bulk_lane_ack_register") == "0xb3000220"
+            and scope_evidence.get("usb_bulk_lane_control_register") == "0xb3000220"
+            and scope_evidence.get("usb_tdc_status_bit") == "0x400"
+            and scope_evidence.get("usb_wake_is_successful_completion") is False
             and scope_evidence.get("usb_bulk_receive_status") == "pass"
             and scope_evidence.get("usb_bulk_transfer_record_stride") == "0x58"
             and scope_evidence.get("usb_bulk_receive_buffer_allocation") == "0x400 bytes"
@@ -545,14 +547,14 @@ def build_report() -> dict[str, Any]:
             and all(item.get("status") == "present" for item in bulk_contract_checks.values())
             and interrupt_bulk_lane.get("event_bit") == "0x00020000"
             and interrupt_bulk_lane.get("lane_status_register") == "0xb3000224"
-            and interrupt_bulk_lane.get("lane_ack_register") == "0xb3000220"
+            and interrupt_bulk_lane.get("lane_control_register") == "0xb3000220"
             and usb_bulk_callbacks.get("constants", {}).get("bulk_event_bit") == "0x00020000"
             and usb_bulk_callbacks.get("constants", {}).get("usb_endpoint_ack_register")
             == "0xb3000220"
             and shim_contract.get("bulk_read_state", {}).get("wait_event_bit") == "0x00020000"
             and shim_contract.get("hardware_receive_lane", {}).get("lane_status_register")
             == "0xb3000224"
-            and shim_contract.get("hardware_receive_lane", {}).get("lane_ack_register")
+            and shim_contract.get("hardware_receive_lane", {}).get("lane_control_register")
             == "0xb3000220"
             and {"0xb3000220", "0xb3000224"}.issubset(probe_registers)
             and ("0xb3000224", "read") in bulk_mmio_accesses
@@ -2266,8 +2268,13 @@ def build_report() -> dict[str, Any]:
             "usb_setup_source_narrowed_to_direct_buffer",
             setup_source.get("setup_packet_base_candidate") == "0x90021348"
             and {"0x2", "0x6", "0x7"}.issubset(set(setup_source.get("stock_descriptor_branch_offsets_seen", [])))
-            and setup_source.get("event_pointer_register") == "0xb3000214",
-            "Static USB evidence must preserve the narrowed setup-buffer candidate and separate event pointer boundary.",
+            and setup_source.get("setup_descriptor_pointer_register") == "0xb3000210"
+            and setup_source.get("out0_data_descriptor_pointer_register") == "0xb3000214"
+            and setup_source.get("setup_admission") == {
+                "owner_mask": "0xc0000000", "owner_value": "0x80000000", "rx_mask": "0x30000000", "rx_value": "0x00000000"}
+            and setup_source.get("raw_wire_fields", {}).get("6") == "wLength low"
+            and setup_source.get("stock_post_conversion_fields", {}).get("6") == "wLength high (after stock conversion)",
+            "Original SETUP admission uses SUBPTR, owner 2 and RX zero; stock post-conversion fields differ from raw wire bytes and ordinary OUT0 DESPTR.",
             evidence="analysis/usb-path/usb-setup-source.json",
         )
     )
@@ -2309,20 +2316,28 @@ def build_report() -> dict[str, Any]:
         check(
             "usb_interrupt_event_model_resolved",
             usb_interrupt_events.get("status") == "pass"
-            and usb_interrupt_events.get("constants", {}).get("completion_event_flags") == "0x10021318"
-            and usb_interrupt_events.get("event_scan", {}).get("completion_status_bit") == "0x400"
+            and usb_interrupt_events.get("constants", {}).get("usb_event_flags") == "0x10021318"
+            and usb_interrupt_events.get("event_scan", {}).get("tdc_status_bit") == "0x400"
+            and usb_interrupt_events.get("event_scan", {}).get("wake_hints_may_repeat") is True
+            and usb_interrupt_events.get("event_scan", {}).get("wake_without_tdc_possible") is True
+            and usb_interrupt_events.get("event_scan", {}).get("wake_is_successful_completion") is False
             and usb_interrupt_events.get("event_scan", {}).get("lane_stride") == "0x20"
             and usb_interrupt_events.get("event_scan", {}).get("bulk_receive_lane", {}).get("event_bit")
             == "0x00020000"
             and usb_interrupt_events.get("event_scan", {}).get("bulk_receive_lane", {}).get("lane_status_register")
             == "0xb3000224"
-            and usb_interrupt_events.get("event_scan", {}).get("bulk_receive_lane", {}).get("lane_ack_register")
+            and usb_interrupt_events.get("event_scan", {}).get("bulk_receive_lane", {}).get("lane_control_register")
             == "0xb3000220"
+            and usb_interrupt_events.get("event_scan", {}).get("bulk_receive_lane", {}).get("descriptor_initial")
+            == "0x90021370"
+            and usb_interrupt_events.get("event_scan", {}).get("bulk_receive_lane", {}).get("control_snak_mask") == "0x80"
+            and usb_interrupt_events.get("event_scan", {}).get("bulk_receive_lane", {}).get("status_ack_masks")
+                == ["0x200", "0x80", "0x40", "0x30", "0x400"]
             and usb_interrupt_events.get("event_scan", {}).get("bulk_buffer_updates", {}).get(
                 "available_size_word"
             )
             == "0x1001bc50",
-            "The USB interrupt event model must keep the completion event object, per-lane stride, 0x400 completion status bit, and bank-1/lane-1 bulk receive event.",
+            "USB task wake hints may repeat or occur without TDC; keep status acknowledgements distinct from OUT1 control commands and from successful completions.",
             evidence="analysis/usb-path/usb-interrupt-events.json",
         )
     )
@@ -2627,6 +2642,70 @@ def build_report() -> dict[str, Any]:
                             common and specific,
                             "Independent USB wire oracles, original event tokens, deferred reset gates and failed-request recovery execute in a synthetic DCD; unchanged upstream findings remain separate. No physical USB, bulk traffic, controller quiescence or printing is proved.",
                             evidence=path))
+
+    ingress = read_json("analysis/usb-path/setup-ingress.json")
+    ingress_cases = ingress["cases"]
+    checks.append(check("original_usb_setup_admission_and_wire_conversion",
+                        ingress["status"] == "pass" and len(ingress_cases) == 70
+                        and len(ingress["peripheral_rejection_controls"]) == 6
+                        and len(ingress["excluded_code_controls"]) == 14
+                        and ingress["private_literal_redirect"] == {
+                            "address": "0x10005ef4", "guarded_ram": "0x22700100", "original": "0xb3000210"}
+                        and ingress["original_entry"] == "0x10008ff0"
+                        and ingress["explicit_cut_resume"] == "0x1000935b"
+                        and ingress["actual_peripheral_accesses"] == ingress["completed_native_page_lifecycles"]
+                            == ingress["completed_usb_control_transfers"] == 0
+                        and ingress["supplied_service_calls"] == []
+                        and ingress["controller_quiescence_established"] is False
+                        and sum(not c["case"]["separate_pointer"] for c in ingress_cases) == 64
+                        and all(c[e]["status"] == "pass" and c[e]["failure"] is None
+                                and c[e]["exact_nonstack_memory_equal"] and c[e]["original_code_unchanged"]
+                                and c[e]["nonstack_memory"] == c[e]["expected_memory"]
+                                and c[e]["descriptor_status_passes_oracle"] ==
+                                    (c["case"]["owner"] == 2 and c["case"]["rx"] == 0)
+                                and c[e]["stop_before"] == ("0x1000941d" if
+                                    c["case"]["owner"] == 2 and c["case"]["rx"] == 0 else "0x10009890")
+                                for c in ingress_cases for e in ("interpreter", "qemu"))
+                        and all(c["interpreter"][k] == c["qemu"][k] for c in ingress_cases for k in
+                                ("status_record_after", "other_record_after", "raw_wire_fields", "nonstack_memory",
+                                 "register_a1_to_a15", "original_instructions_visited", "explicit_cuts"))
+                        and all(c[e]["status"] == "pass" and c[e]["failure"] == {
+                                    "type": "ValueError", "reason": "MMIO forbidden", "pc": hex(c["case"]["reject_pc"])}
+                                and c[e]["actual_peripheral_accesses"] == 0
+                                and c[e]["nonstack_memory"] == c[e]["expected_memory"]
+                                for c in ingress["peripheral_rejection_controls"] for e in ("interpreter", "qemu"))
+                        and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h
+                                for n,h in ingress["source_sha256"].items()),
+                        "Original guarded SETUP prefix uses an explicit cut and supplied stable RAM records; it does not execute request dispatch, IRQs, descriptor return or USB control transfers. TinyUSB needs original wire bytes.",
+                        evidence="analysis/usb-path/setup-ingress.json"))
+
+    composition = read_json("analysis/usb-path/tinyusb-printer/validation.json")
+    composed_target = composition.get("target") or {}
+    composed_cases = composition["cases"]
+    checks.append(check("reusable_usb_printer_decodes_exact_document_pixels",
+                        composition["status"] == composed_target.get("status") == "pass"
+                        and len(composed_cases) == len(composed_target.get("cases", [])) == 98
+                        and len(composition["source_sha256"]) == 76
+                        and composition["effective_source"]["patched"] is True
+                        and composition["effective_source"] == read_json(
+                            "analysis/usb-path/tinyusb-printer/target/effective-source.json")
+                        and composition["completed_native_page_lifecycles"] == composition["usb_transfers"] == 0
+                        and sum(c["scenario"].startswith("failed-follow-on/") for c in composed_cases) == 16
+                        and sum(c["scenario"].startswith("malformed-control-out/") for c in composed_cases) == 24
+                        and sum(c["scenario"] == "halt-owned-out/17" for c in composed_cases) == 2
+                        and all(c["status"] == t["status"] == "pass" and c["case"] == t["case"]
+                                and t["all_steps_equal"] and t["all_pixels_wire_and_storage_equal"]
+                                and t["component_state_and_memory_bytes"] == 128488
+                                and c["capture_sha256"] == t["capture_sha256"]
+                                and c["expected_pixels_sha256"] == c["capture_sha256"]["pixels"]
+                                and all(len(s) == 96 and s[15:17] == [0,1] for s in c["steps"])
+                                for c,t in zip(composed_cases, composed_target.get("cases", [])))
+                        and composed_target.get("elf_sha256") == hashlib.sha256(
+                            (ROOT_DIR/"analysis/usb-path/tinyusb-printer/target/target-check.elf").read_bytes()).hexdigest()
+                        and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h
+                                for key in ("source_sha256", "fixture_sha256") for n,h in composition[key].items()),
+                        "The reusable software adapter preserves original transfer identities, exact USB reply proposals and independent decoded pixels in both engines. Synthetic controller settlement, initial class reset and explicit input closure remain supplied; no physical USB or printing is established.",
+                        evidence="analysis/usb-path/tinyusb-printer/validation.json"))
 
     fail_count = severity_count(checks, "fail")
     return {

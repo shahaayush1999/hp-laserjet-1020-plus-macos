@@ -1,5 +1,5 @@
 {
-  "check_count": 116,
+  "check_count": 118,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -608,7 +608,7 @@
       "severity": "watch"
     },
     {
-      "detail": "Static USB evidence must preserve the narrowed setup-buffer candidate and separate event pointer boundary.",
+      "detail": "Original SETUP admission uses SUBPTR, owner 2 and RX zero; stock post-conversion fields differ from raw wire bytes and ordinary OUT0 DESPTR.",
       "evidence": "analysis/usb-path/usb-setup-source.json",
       "name": "usb_setup_source_narrowed_to_direct_buffer",
       "severity": "watch"
@@ -632,7 +632,7 @@
       "severity": "watch"
     },
     {
-      "detail": "The USB interrupt event model must keep the completion event object, per-lane stride, 0x400 completion status bit, and bank-1/lane-1 bulk receive event.",
+      "detail": "USB task wake hints may repeat or occur without TDC; keep status acknowledgements distinct from OUT1 control commands and from successful completions.",
       "evidence": "analysis/usb-path/usb-interrupt-events.json",
       "name": "usb_interrupt_event_model_resolved",
       "severity": "watch"
@@ -695,6 +695,18 @@
       "detail": "Independent USB wire oracles, original event tokens, deferred reset gates and failed-request recovery execute in a synthetic DCD; unchanged upstream findings remain separate. No physical USB, bulk traffic, controller quiescence or printing is proved.",
       "evidence": "analysis/usb-path/tinyusb-device/patched-validation.json",
       "name": "patched_reusable_usb_protocol_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Original guarded SETUP prefix uses an explicit cut and supplied stable RAM records; it does not execute request dispatch, IRQs, descriptor return or USB control transfers. TinyUSB needs original wire bytes.",
+      "evidence": "analysis/usb-path/setup-ingress.json",
+      "name": "original_usb_setup_admission_and_wire_conversion",
+      "severity": "watch"
+    },
+    {
+      "detail": "The reusable software adapter preserves original transfer identities, exact USB reply proposals and independent decoded pixels in both engines. Synthetic controller settlement, initial class reset and explicit input closure remain supplied; no physical USB or printing is established.",
+      "evidence": "analysis/usb-path/tinyusb-printer/validation.json",
+      "name": "reusable_usb_printer_decodes_exact_document_pixels",
       "severity": "watch"
     }
   ],

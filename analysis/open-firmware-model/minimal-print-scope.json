@@ -241,7 +241,7 @@
     "usb_bulk_descriptor_submit_register": "0xb3000234",
     "usb_bulk_endpoint_ack_register": "0xb3000220",
     "usb_bulk_event_bit": "0x00020000",
-    "usb_bulk_lane_ack_register": "0xb3000220",
+    "usb_bulk_lane_control_register": "0xb3000220",
     "usb_bulk_lane_event_bit": "0x00020000",
     "usb_bulk_lane_status_register": "0xb3000224",
     "usb_bulk_parser_entry": "0x10009d34",
@@ -250,7 +250,8 @@
     "usb_bulk_receive_buffer_allocation": "0x400 bytes",
     "usb_bulk_receive_status": "pass",
     "usb_bulk_transfer_record_stride": "0x58",
-    "usb_completion_status_bit": "0x400",
+    "usb_tdc_status_bit": "0x400",
+    "usb_wake_is_successful_completion": false,
     "work_objects": 1
   },
   "summary": "Minimum HP 1020 replacement-firmware scope for printing only."

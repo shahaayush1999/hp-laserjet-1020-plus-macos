@@ -1,8 +1,15 @@
 {
-  "event_pointer_register": "0xb3000214",
-  "event_signature": {
-    "mask": "0xc0000000",
-    "value": "0x80000000"
+  "evidence_scope": "Authored static contract; original SETUP admission/conversion is separately executed in setup-ingress.json. Family register names do not establish live HP behavior or authorize hardware access.",
+  "setup_descriptor_pointer_register": "0xb3000210",
+  "out0_data_descriptor_pointer_register": "0xb3000214",
+  "setup_record_pointer_global": "0x1001bbc0",
+  "setup_record_initial": "0x90021340",
+  "out0_data_descriptor_initial": "0x90022bc0",
+  "setup_admission": {
+    "owner_mask": "0xc0000000",
+    "owner_value": "0x80000000",
+    "rx_mask": "0x30000000",
+    "rx_value": "0x00000000"
   },
   "name": "HP 1020 endpoint-0 static handshake contract",
   "response_state": {
@@ -14,31 +21,32 @@
     }
   },
   "setup_packet_base_candidate": "0x90021348",
-  "setup_status_gates": [
+  "setup_field_representation": "Packet bytes begin at record+8 in raw USB wire order. Stock 0x10009399..0x1000940b reverses wIndex and wLength pairs before dispatch; wValue remains in wire order. The open marker reads raw wire bytes.",
+  "descriptor_speed_gates": [
     {
       "mask": "0x00006000",
-      "meaning": "controller speed/state gate",
+      "meaning": "DEVSTS enumerated-speed field under the pinned controller-family layout",
       "register": "0xb3000408"
     },
     {
       "mask": "0x00000003",
-      "meaning": "setup/status ready gate",
+      "meaning": "DEVCFG configured-speed field under the pinned controller-family layout; not a SETUP-ready bit",
       "register": "0xb3000400"
     }
   ],
   "usb_or_writes": [
     {
-      "meaning": "begin/control-IN data stage",
+      "meaning": "EP0 IN control F/flush request under the pinned family layout; no flush-completion proof",
       "or_value": "0x00000002",
       "register": "0xb3000000"
     },
     {
-      "meaning": "transfer descriptor kick pattern seen in stock data stage",
+      "meaning": "EP0 IN control CNAK plus P/poll-demand request; not a completion acknowledgement",
       "or_value": "0x00000108",
       "register": "0xb3000000"
     },
     {
-      "meaning": "event/interrupt acknowledgement fallback",
+      "meaning": "EP0 OUT control CNAK request; not interrupt acknowledgement or DMA quiescence",
       "or_value": "0x00000100",
       "register": "0xb3000200"
     }

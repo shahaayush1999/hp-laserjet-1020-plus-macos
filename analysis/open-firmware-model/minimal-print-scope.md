@@ -34,12 +34,12 @@ USB bulk receive and framing now have an offline-validated inert implementation.
 - required JobMgr messages missing: `none`
 - endpoint-0 modeled data/stall cases: `24` / `4`
 - control completion event object: `0x10021318`
-- USB completion status bit candidate: `0x400`
-- USB bulk interrupt lane: event bit `0x00020000`, status register `0xb3000224`, ack register `0xb3000220`
+- USB TDC status bit: `0x400`; wake alone establishes success: `false`
+- USB bulk interrupt lane: event bit `0x00020000`, status register `0xb3000224`, control register `0xb3000220`
 - marker rearm-flow checks/failures: `5` / `0`
 - USB bulk receive model: `pass`, record stride `0x58`, receive buffer `0x400 bytes`
 - USB bulk parser handoff: parser `0x10009d34`, read callback slot present `true`
-- USB bulk callback model: `pass`, event bit `0x00020000`, ack register `0xb3000220`
+- USB bulk callback model: `pass`, event bit `0x00020000`, OUT1 control register `0xb3000220` (legacy callback field name)
 - USB bulk re-arm model: `pass`, descriptor pool `0x90021370`, submit register `0xb3000234`
 - sideband access hits classified: `19`
 - sideband risk split: `+0x26=critical`, `+0x32=mode_critical`, `+0x30=unknown_low_in_current_static_view`

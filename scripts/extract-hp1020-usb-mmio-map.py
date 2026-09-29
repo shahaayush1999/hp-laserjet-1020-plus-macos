@@ -3,17 +3,24 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
+from hp1020_xtensa_properties import properties, section_bytes
+
 
 REPO = Path(__file__).resolve().parents[1]
 SOURCE = REPO / "analysis/usb-path/internal-blocks.md"
 OUT_JSON = REPO / "analysis/usb-path/usb-mmio-map.json"
 OUT_MD = REPO / "analysis/usb-path/usb-mmio-map.md"
+STOCK = REPO / "analysis/sihp1020.elf"
+STOCK_SHA256 = "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d"
+UDC_HEADER = REPO / "analysis/usb-path/controller-reference/linux-v6.12/amd5536udc.h"
+UDC_HEADER_SHA256 = "8dbf2ebffe7de042bdfea1c5e4e0d7e7ca334cb821fbfaa1cf9ccfeeae302648"
 
 INSTRUCTION_RE = re.compile(
     r"^- `(?P<pc>[0-9a-f]{8})` `(?P<insn>[^`]+)`(?: refs=(?P<refs>.*))?$"
@@ -30,59 +37,59 @@ L32I_RE = re.compile(r"^l32i(?:\.n)? (?P<dst>a\d+),(?P<base>a\d+),0x[0-9a-f]+$")
 
 REGISTER_NOTES: dict[str, dict[str, str]] = {
     "0xb3000000": {
-        "working_name": "main USB command/status kick",
-        "role": "Read/modify/write control bits. Evidence includes bit 0x2 before control-IN staging and bit 0x1 after setup completion; decompiler also shows 0x108 to start transfer descriptors.",
-        "open_firmware_relevance": "core endpoint-0 bring-up and transmit kick",
+        "working_name": "EP0 IN control (EPCTL)",
+        "role": "Original control requests include 0x2 and 0x108. Family names are F/flush and CNAK plus P/poll demand; bit 0 is S/stall. These are not interrupt acknowledgements.",
+        "open_firmware_relevance": "separate endpoint control intent from actual completion and safe buffer reuse",
     },
     "0xb300000c": {
-        "working_name": "endpoint/request ack register",
+        "working_name": "EP0 IN maximum-packet word",
         "role": "Written with 0x40 during descriptor request paths.",
-        "open_firmware_relevance": "likely needed to acknowledge/advance setup handling",
+        "open_firmware_relevance": "packet-size configuration, not acknowledgement",
     },
     "0xb3000014": {
         "working_name": "control-IN descriptor submit register",
-        "role": "Written with the transfer descriptor ring pointer before the 0x108 control-IN kick.",
+        "role": "Written with the transfer descriptor pointer before the 0x108 CNAK/poll-demand request. Original stores are 0x10008d0c and 0x10008f1b.",
         "open_firmware_relevance": "needed to submit endpoint-0 transfer descriptors without the stock helper",
     },
     "0xb3000028": {
-        "working_name": "post-response ack/kick register",
-        "role": "Written after descriptor-specific setup and before calling the control-IN sender.",
-        "open_firmware_relevance": "likely needed after preparing a descriptor response",
+        "working_name": "EP1 IN buffer-size word",
+        "role": "Endpoint 1 IN +0x08 is buffer-size configuration under the family layout; the stock path writes 0x40.",
+        "open_firmware_relevance": "buffer configuration, not acknowledgement or completion",
     },
     "0xb300002c": {
-        "working_name": "endpoint/request ack register",
+        "working_name": "EP1 IN maximum-packet word",
         "role": "Written with 0x40 or 0x200 in descriptor request paths.",
-        "open_firmware_relevance": "likely tied to full-speed/high-speed or direction-specific completion",
+        "open_firmware_relevance": "full/high-speed packet-size configuration",
     },
     "0xb3000200": {
-        "working_name": "USB event/interrupt ack register",
-        "role": "Read/modify/write with event bits 0x1 and 0x100.",
-        "open_firmware_relevance": "needed to acknowledge controller events without the stock interrupt/thread queue",
+        "working_name": "EP0 OUT control (EPCTL)",
+        "role": "Read/modify/write control requests include S/stall bit 0 and CNAK bit 8. CNAK does not acknowledge an interrupt or establish DMA quiescence.",
+        "open_firmware_relevance": "OUT0 endpoint control is separate from OUT0 status/interrupt acknowledgement",
     },
     "0xb300020c": {
-        "working_name": "endpoint/request ack register",
+        "working_name": "EP0 OUT maximum-packet/buffer word",
         "role": "Written with 0x40 in descriptor request paths.",
-        "open_firmware_relevance": "likely needed to clear/advance control endpoint state",
+        "open_firmware_relevance": "packet-size/buffer configuration, not acknowledgement",
     },
     "0xb3000214": {
-        "working_name": "USB event/setup buffer pointer",
-        "role": "Read as a pointer, then dereferenced as bytes that are compared against an event signature.",
-        "open_firmware_relevance": "plausible source of setup/event packet metadata",
+        "working_name": "EP0 OUT ordinary data/status descriptor pointer (DESPTR)",
+        "role": "At 0x10009890 the original reads DESPTR and checks descriptor ownership. SETUP instead uses the distinct SUBPTR register 0xb3000210.",
+        "open_firmware_relevance": "do not confuse ordinary OUT0 descriptor completion with SETUP storage",
     },
     "0xb300022c": {
-        "working_name": "endpoint/request ack register",
+        "working_name": "EP1 OUT maximum-packet/buffer word",
         "role": "Written with 0x40 or 0x200 in descriptor request paths.",
-        "open_firmware_relevance": "likely tied to endpoint request acknowledgement",
+        "open_firmware_relevance": "full/high-speed receive packet-size configuration",
     },
     "0xb3000400": {
-        "working_name": "control/setup status gate",
+        "working_name": "device configuration (DEVCFG)",
         "role": "Read before choosing descriptor response source. Low two bits are tested.",
-        "open_firmware_relevance": "likely tells whether a setup/status condition is ready",
+        "open_firmware_relevance": "low two bits select configured speed in the family layout; not SETUP readiness",
     },
     "0xb3000408": {
-        "working_name": "control/setup status gate",
-        "role": "Read and tested against a mask before choosing descriptor response source.",
-        "open_firmware_relevance": "likely selects the active descriptor/config branch",
+        "working_name": "device status (DEVSTS)",
+        "role": "Read and tested against 0x6000 before choosing descriptor response source; the family layout calls these enumerated-speed bits.",
+        "open_firmware_relevance": "speed-dependent descriptor/configuration selection, not SETUP ownership",
     },
     "0xb3000504": {
         "working_name": "control endpoint descriptor/config register",
@@ -105,6 +112,92 @@ REGISTER_NOTES: dict[str, dict[str, str]] = {
         "open_firmware_relevance": "part of stock setup response register programming",
     },
 }
+
+# This map is also consumed by an existing hardware allowlist. New semantic
+# evidence is separate metadata; do not add registers or write permissions.
+PRESERVED_REGISTERS = frozenset((
+    "0xb3000000", "0xb300000c", "0xb3000014", "0xb3000028", "0xb300002c",
+    "0xb3000200", "0xb300020c", "0xb3000214", "0xb300022c", "0xb3000400",
+    "0xb3000408", "0xb3000504", "0xb3000508", "0xb300050c", "0xb3000510",
+))
+LITERAL_ANCHORS = {
+    0x10005DF4: 0xB3000400, 0x10005E68: 0xB3000408, 0x10005EA4: 0x6000,
+    0x10005E90: 0xB3000000, 0x10005E24: 0xB3000200, 0x10005EA0: 0xB3000014,
+    0x10005E98: 0x1001BC58, 0x1001BC58: 0x900226F0,
+    0x10005E9C: 0xB300000C, 0x10005EE0: 0xB300002C,
+    0x10005EE4: 0xB300020C, 0x10005F08: 0xB300022C, 0x10005EDC: 0xB3000028,
+    0x10005EF4: 0xB3000210, 0x10005EF8: 0xB3000214,
+}
+BYTE_ANCHORS = {
+    0x10009476: ("18f27c", "load DEVSTS address literal"),
+    0x1000947C: ("8980", "sample DEVSTS"),
+    0x1000947E: ("18f289", "load enumerated-speed mask 0x6000"),
+    0x10009484: ("18f25c", "load DEVCFG address literal"),
+    0x1000948A: ("8880", "sample DEVCFG"),
+    0x1000948C: ("080841", "extract configured-speed low two bits"),
+    0x100094E2: ("19f289", "load OUT1 maximum-packet address"),
+    0x100094E5: ("c460", "movi.n a6,64: packet-size value"),
+    0x100094EC: ("9690", "write OUT1 packet size"),
+    0x100094EE: ("18f27d", "load OUT0 maximum-packet address"),
+    0x100094F1: ("19f26a", "load IN0 maximum-packet address"),
+    0x100094F7: ("9680", "write OUT0 packet size"),
+    0x100094FC: ("9690", "write IN0 packet size"),
+    0x100094FE: ("18f278", "load IN1 maximum-packet address"),
+    0x10009501: ("19f276", "load IN1 buffer-size address"),
+    0x10009507: ("9680", "write IN1 packet size"),
+    0x10009597: ("9690", "write IN1 buffer size"),
+    0x1000935B: ("18f2e6", "SETUP admission loads SUBPTR address"),
+    0x10009890: ("18f19a", "ordinary OUT0 admission loads DESPTR address"),
+    0x100098F9: ("16f14a", "load OUT0 control address"),
+    0x100098FC: ("2a1a00", "movi a10,0x100: CNAK request mask"),
+    0x10009909: ("0a8802", "add CNAK to sampled control"),
+    0x1000990F: ("9860", "write OUT0 control request"),
+    0x10008C2A: ("14f499", "load IN0 control address"),
+    0x10008C37: ("c022", "movi.n a2,2: F/flush request mask"),
+    0x10008C3F: ("9840", "write IN0 F request"),
+    0x10008C74: ("1cf489", "load IN0 descriptor global for zero-length path"),
+    0x10008D02: ("88c0", "load descriptor pointer through global"),
+    0x10008D04: ("19f467", "load IN0 DESPTR address"),
+    0x10008D0C: ("9890", "actual zero-length descriptor submission store"),
+    0x10008D13: ("291a08", "movi a9,0x108: CNAK and poll demand"),
+    0x10008D30: ("17f45a", "load IN0 descriptor global for nonempty path"),
+    0x10008F11: ("19f3e3", "load IN0 DESPTR address"),
+    0x10008F14: ("8870", "load descriptor pointer through global"),
+    0x10008F1B: ("9890", "actual nonempty descriptor submission store"),
+    0x10008F22: ("291a08", "movi a9,0x108: CNAK and poll demand"),
+}
+
+
+def corrected_byte_evidence() -> dict[str, Any]:
+    blob = STOCK.read_bytes()
+    if hashlib.sha256(blob).hexdigest() != STOCK_SHA256:
+        raise ValueError("USB register evidence differs from the pinned stock ELF")
+    sections, _ = properties(blob)
+    required = {address: (value.to_bytes(4, "big").hex(), "original address/value literal")
+                for address, value in LITERAL_ANCHORS.items()}
+    required.update(BYTE_ANCHORS)
+    checks = []
+    for address, (encoded, meaning) in required.items():
+        raw = bytes.fromhex(encoded)
+        if section_bytes(blob, sections, address, len(raw)) != raw:
+            raise ValueError(f"USB register evidence differs at {address:#x}")
+        checks.append(dict(status="present", address=hex(address), bytes=encoded, meaning=meaning))
+    header = UDC_HEADER.read_bytes()
+    if hashlib.sha256(header).hexdigest() != UDC_HEADER_SHA256:
+        raise ValueError("pinned controller-family header changed")
+    definitions = {name: int(value, 0) for name, value in re.findall(
+        r"^#define\s+(UDC_\w+)\s+(0x[0-9a-fA-F]+|[0-9]+)\s*(?:/\*.*)?$", header.decode(), re.M)}
+    for name, value in (("UDC_DEVCFG_SPD_MASK", 3), ("UDC_DEVSTS_ENUM_SPEED_MASK", 0x6000),
+                        ("UDC_EP_MAX_PKT_SIZE_ADDR", 0x0c), ("UDC_EPIN_BUFF_SIZE_ADDR", 8),
+                        ("UDC_EP_SUBPTR_ADDR", 0x10), ("UDC_EP_DESPTR_ADDR", 0x14),
+                        ("UDC_EPCTL_CNAK", 8), ("UDC_EPCTL_F", 1), ("UDC_EPCTL_P", 3)):
+        if definitions[name] != value:
+            raise ValueError(f"controller-family field differs: {name}")
+    return dict(stock_elf_sha256=STOCK_SHA256, original_byte_checks=checks,
+                controller_reference=dict(header=str(UDC_HEADER.relative_to(REPO)), sha256=UDC_HEADER_SHA256),
+                setup_descriptor_pointer_register="0xb3000210",
+                setup_register_is_added_to_allowlist=False,
+                semantic_limit="Family names describe original register intent, not verified HP hardware effects. SUBPTR is documented separately and does not expand the existing register/write allowlist.")
 
 
 def parse_int(value: str) -> int:
@@ -187,6 +280,7 @@ def infer_write_value(insn: str, constants: dict[str, int], last_or: dict[str, d
 
 
 def parse_internal_blocks() -> dict[str, Any]:
+    corrected = corrected_byte_evidence()
     target = None
     block = None
     constants: dict[str, int] = {}
@@ -274,8 +368,11 @@ def parse_internal_blocks() -> dict[str, Any]:
     add_manual_control_in_submit_register(registers)
 
     ordered = dict(sorted(registers.items()))
+    if set(ordered) != PRESERVED_REGISTERS:
+        raise ValueError("semantic correction must preserve the existing register allowlist")
     summary = {
         "source": str(SOURCE.relative_to(REPO)),
+        "corrected_evidence": corrected,
         "register_count": len(ordered),
         "access_totals": dict(
             sorted(
@@ -293,7 +390,7 @@ def parse_internal_blocks() -> dict[str, Any]:
 
 
 def add_manual_control_in_submit_register(registers: dict[str, dict[str, Any]]) -> None:
-    """Add evidence from the decompiled 0x10008c24 tail not present in internal-blocks.md."""
+    """Add exact original stores omitted by the saved internal-block extract."""
 
     addr = "0xb3000014"
     reg = registers.setdefault(
@@ -309,24 +406,24 @@ def add_manual_control_in_submit_register(registers: dict[str, dict[str, Any]]) 
             "pointer_symbols": {},
         },
     )
-    for pc in ("0x10008ce4", "0x10008e50"):
+    for pc in ("0x10008d0c", "0x10008f1b"):
         if any(event["pc"] == pc for event in reg["events"]):
             continue
         reg["counts"]["write"] += 1
         event = {
             "pc": pc,
             "access": "write",
-            "instruction": "*DAT_10005ea0 = *(undefined4 *)PTR_DAT_10005e98",
+            "instruction": "s32i.n a8,a9,0",
             "target": "0x10008c24",
-            "block": {"depth": 0, "start": "0x10008c24", "end": "0x10008eef"},
+            "block": {"depth": 0, "start": "0x10008c24", "end": "0x10008f39"},
             "pointer_literal": "0x10005ea0",
-            "note": "manual evidence from analysis/usb-path/decompiled-neighbors/10008c24_hp1020_usb_control_tx_data_stage_candidate.c",
+            "note": "Original instruction/literal anchors resolve IN0 DESPTR and global 0x1001bc58. Its file-backed initializer is 0x900226f0; no runtime transfer is observed.",
         }
         reg["events"].append(event)
         reg["write_values"].append(
             {
                 "pc": pc,
-                "source_register": "DAT_10005ea0",
+                "source_register": "a8",
                 "pointer_value": "0x900226f0",
             }
         )
@@ -341,24 +438,29 @@ def write_markdown(data: dict[str, Any]) -> None:
     lines = [
         "# HP 1020 USB MMIO Register Map",
         "",
-        "This is a generated map of USB-controller register evidence from",
-        "`analysis/usb-path/internal-blocks.md`. It narrows the open-firmware",
-        "USB-marker problem to the registers the stock endpoint-0 path actually",
-        "touches.",
+        "This generated map retains saved static references and verifies corrected",
+        "meanings against original bytes and the pinned controller-family header.",
+        "Its 15-register allowlist and permitted writes are unchanged; no hardware",
+        "operation or controller timing is validated here.",
         "",
         "## Plain-English Summary",
         "",
-        "The descriptor bytes are no longer the mystery. The remaining USB work is",
-        "figuring out the small controller handshake around setup packets and",
-        "control-IN responses.",
+        "Separate endpoint control requests, status acknowledgement, descriptor",
+        "ownership and speed/packet-size configuration. Similar numeric masks at",
+        "different addresses are not interchangeable operations.",
         "",
         "The important register family is `0xb300....`. Static evidence clusters it",
         "into four groups:",
         "",
-        "- setup/status gates: `0xb3000400`, `0xb3000408`",
+        "- configured/enumerated speed fields: `0xb3000400`, `0xb3000408`",
         "- descriptor/control register programming: `0xb3000504`, `0xb3000508`, `0xb300050c`, `0xb3000510`",
-        "- event/ack/kick registers: `0xb3000000`, `0xb300000c`, `0xb3000028`, `0xb300002c`, `0xb3000200`, `0xb300020c`, `0xb300022c`",
-        "- setup/event buffer pointer: `0xb3000214`",
+        "- EP0 IN/OUT control: `0xb3000000`, `0xb3000200`; maximum-packet/buffer words: `0xb300000c`, `0xb3000028`, `0xb300002c`, `0xb300020c`, `0xb300022c`",
+        "- ordinary OUT0 descriptor pointer (DESPTR): `0xb3000214`",
+        "",
+        "SETUP uses distinct SUBPTR `0xb3000210`, proven by original initialization",
+        "and admission bytes. It is documentation metadata here, not an addition",
+        "to this existing hardware allowlist. `setup-ingress.json` records the",
+        "separate RAM-only admission/conversion experiment.",
         "",
         "## Register Summary",
         "",
@@ -431,19 +533,26 @@ def write_markdown(data: dict[str, Any]) -> None:
         [
             "## What This Changes",
             "",
-            "This does not make a printer-side USB marker automatic, but it turns the",
-            "unknown from \"reverse engineer USB\" into a smaller checklist:",
+            "A controller adapter still needs distinct ownership and event contracts:",
             "",
-            "1. Poll/read `0xb3000400` and `0xb3000408` to identify setup readiness.",
-            "2. Confirm whether `0xb3000214` exposes an event/setup buffer after host enumeration.",
-            "3. Program the `0xb3000504..0xb3000510` group only after matching stock conditions.",
-            "4. Kick/ack with the observed `0x40`, `0x200`, `0x1`, `0x100`, and `0x108` patterns.",
+            "1. Keep configured/enumerated speed fields separate from SETUP ownership.",
+            "2. Preserve the original eight wire bytes and distinguish SETUP SUBPTR from ordinary OUT0 DESPTR.",
+            "3. Separate endpoint packet-size/buffer configuration from command/status masks.",
+            "4. Validate original transfer identity, descriptor completion and errors before publishing a completion event.",
             "",
-            "Until those register semantics are tested on hardware, an open USB marker is",
-            "still a controller-handshake problem rather than a descriptor-payload problem.",
+            "The original submission stores are `0x10008d0c` and `0x10008f1b`; older",
+            "manual PCs `0x10008ce4`/`0x10008e50` were not the submission stores.",
+            "Command intent, wake flags and supplied RAM completion do not establish",
+            "DMA/cache behavior, abort completion or safe physical buffer reuse.",
+            "Hardware tests still require the existing explicit owner authorization.",
             "",
         ]
     )
+
+    lines.extend(["## Original Byte Checks", "", "| Address | Bytes | Meaning |", "|---:|---|---|"])
+    for item in data["corrected_evidence"]["original_byte_checks"]:
+        lines.append(f"| `{item['address']}` | `{item['bytes']}` | {item['meaning']} |")
+    lines.append("")
 
     OUT_MD.write_text("\n".join(lines))
 

@@ -8,3 +8,4 @@ analysis/usb-path/printer-class/target/*.map -whitespace
 analysis/usb-path/tinyusb-device/target/*.map -whitespace
 analysis/usb-path/tinyusb-device/patched-target/*.map -whitespace
 open-firmware/tinyusb-device/patches/*.patch -whitespace
+analysis/usb-path/tinyusb-printer/target/*.map -whitespace

@@ -19,7 +19,7 @@
       "status": "present"
     },
     {
-      "detail": "USB interrupt model must preserve the bank-1/lane-1 bulk receive lane.",
+      "detail": "USB interrupt model must separate bank-1/lane-1 status acknowledgement, control requests and wake hints.",
       "evidence": "analysis/usb-path/usb-interrupt-events.json",
       "name": "interrupt_model_has_bulk_lane",
       "status": "present"
@@ -56,14 +56,22 @@
       }
     },
     "hardware_receive_lane": {
-      "ack_bits": [
+      "control_snak_mask": "0x80",
+      "descriptor_initial": "0x90021370",
+      "event_bit": "0x00020000",
+      "lane_control_register": "0xb3000220",
+      "lane_status_register": "0xb3000224",
+      "status_ack_masks": [
+        "0x200",
         "0x80",
+        "0x40",
+        "0x30",
         "0x400"
       ],
-      "completion_status_bit": "0x400",
-      "event_bit": "0x00020000",
-      "lane_ack_register": "0xb3000220",
-      "lane_status_register": "0xb3000224"
+      "tdc_status_bit": "0x400",
+      "wake_hints_may_repeat": true,
+      "wake_is_successful_completion": false,
+      "wake_without_tdc_possible": true
     },
     "parser_boundary": {
       "meaning": "The ZjStream parser is decoupled from USB hardware behind a read callback.",
@@ -82,7 +90,7 @@
   },
   "staged_plan": [
     {
-      "purpose": "Observe bank-1/lane-1 completion and buffer counters without printing.",
+      "purpose": "Observe bank-1/lane-1 status, descriptor ownership and buffer counters without printing; wake hints alone are not completion.",
       "requires_printer": true,
       "risk": "low if it never sends engine/video commands",
       "stage": "bulk_counter_probe"

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Synthetic TinyUSB device/control compatibility experiment; no USB hardware.
 
-This draft is not part of aggregate validation. Upstream bytes remain pinned.
+Unchanged and patched profiles are separate aggregate checks; upstream bytes stay pinned.
 Submitted packet captures are not observed USB transfers or printing evidence.
 """
 import argparse

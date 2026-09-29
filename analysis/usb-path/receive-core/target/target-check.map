@@ -29,11 +29,14 @@ Linker script and memory map
 
                 0x0000000020000000                . = 0x20000000
 
-.text           0x0000000020000000     0x3720
+.text           0x0000000020000000     0x377c
  *(.literal .literal.*)
+ .literal.slot  0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
  .literal.hp1020_usb_receive_init
                 0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
  .literal.hp1020_usb_receive_reserve
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
+ .literal.hp1020_usb_receive_complete_data
                 0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
  .literal.hp1020_usb_receive_complete
                 0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
@@ -187,428 +190,433 @@ Linker script and memory map
  .literal.arith_decode
                 0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
  *(.text .text.*)
- .text.hash     0x0000000020000000       0x25 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
- *fill*         0x0000000020000025        0x3 
- .text.snapshot
-                0x0000000020000028      0x226 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
- *fill*         0x000000002000024e        0x2 
- .text.progress
-                0x0000000020000250      0x132 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
-                                        0x152 (size before relaxing)
- *fill*         0x0000000020000382        0x2 
- .text.hp1020_rx_fixture_reset
-                0x0000000020000384       0xac /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
-                                         0xf0 (size before relaxing)
-                0x0000000020000394                hp1020_rx_fixture_reset
- .text.hp1020_rx_fixture_step
-                0x0000000020000430      0x2cb /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
-                                        0x2fb (size before relaxing)
-                0x000000002000044c                hp1020_rx_fixture_step
- *fill*         0x00000000200006fb        0x1 
- .text.hp1020_rx_fixture_storage
-                0x00000000200006fc        0x5 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
-                                          0x9 (size before relaxing)
-                0x00000000200006fc                hp1020_rx_fixture_storage
- *fill*         0x0000000020000701        0x3 
- .text.hp1020_rx_fixture_output
-                0x0000000020000704        0x5 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
-                                          0x9 (size before relaxing)
-                0x0000000020000704                hp1020_rx_fixture_output
- *fill*         0x0000000020000709        0x3 
- .text.hp1020_image_init
-                0x000000002000070c      0x18a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
-                0x0000000020000710                hp1020_image_init
- *fill*         0x0000000020000896        0x2 
- .text.hp1020_image_feed
-                0x0000000020000898       0x83 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
-                0x000000002000089c                hp1020_image_feed
- *fill*         0x000000002000091b        0x1 
- .text.band_out
-                0x000000002000091c       0x9b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
- *fill*         0x00000000200009b7        0x1 
- .text.chunk_in
-                0x00000000200009b8      0x22e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
-                                        0x232 (size before relaxing)
- *fill*         0x0000000020000be6        0x2 
- .text.hp1020_image_stream_init
-                0x0000000020000be8       0x70 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
-                                         0x74 (size before relaxing)
-                0x0000000020000bec                hp1020_image_stream_init
- .text.hp1020_image_stream_feed
-                0x0000000020000c58        0xa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
-                0x0000000020000c5c                hp1020_image_stream_feed
- *fill*         0x0000000020000c62        0x2 
- .text.hp1020_image_stream_finish
-                0x0000000020000c64        0xa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
-                0x0000000020000c68                hp1020_image_stream_finish
- *fill*         0x0000000020000c6e        0x2 
- .text.consume  0x0000000020000c70       0xca /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
- *fill*         0x0000000020000d3a        0x2 
- .text.hp1020_image_output_init
-                0x0000000020000d3c       0x63 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
-                0x0000000020000d40                hp1020_image_output_init
- *fill*         0x0000000020000d9f        0x1 
- .text.items    0x0000000020000da0      0x109 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
- *fill*         0x0000000020000ea9        0x3 
- .text.complete_chunk
-                0x0000000020000eac      0x279 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
- *fill*         0x0000000020001125        0x3 
- .text.hp1020_semantic_feed
-                0x0000000020001128      0x247 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
-                0x000000002000112c                hp1020_semantic_feed
- *fill*         0x000000002000136f        0x1 
- .text.hp1020_semantic_finish
-                0x0000000020001370       0x30 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
-                0x0000000020001374                hp1020_semantic_finish
- .text.hp1020_plan_page
-                0x00000000200013a0       0xfd /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_page_plan.o
-                                        0x101 (size before relaxing)
-                0x00000000200013a4                hp1020_plan_page
- *fill*         0x000000002000149d        0x3 
- .text.hp1020_plan_next_band
-                0x00000000200014a0       0xa1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_page_plan.o
-                                         0xa5 (size before relaxing)
-                0x00000000200014a0                hp1020_plan_next_band
- *fill*         0x0000000020001541        0x3 
- .text.jbg85_enc_init
-                0x0000000020001544       0x5d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
-                0x0000000020001548                jbg85_enc_init
- *fill*         0x00000000200015a1        0x3 
- .text.jbg85_strerror
-                0x00000000200015a4       0x1b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
-                0x00000000200015ac                jbg85_strerror
- *fill*         0x00000000200015bf        0x1 
- .text.jbg85_dec_init
-                0x00000000200015c0       0x4c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
-                0x00000000200015c4                jbg85_dec_init
- .text.jbg85_dec_in
-                0x000000002000160c      0x463 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
-                0x0000000020001614                jbg85_dec_in
- *fill*         0x0000000020001a6f        0x1 
- .text.jbg85_dec_end
-                0x0000000020001a70       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
-                0x0000000020001a74                jbg85_dec_end
- .text.arith_encode
-                0x0000000020001a88      0x15b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
-                0x0000000020001a94                arith_encode
- *fill*         0x0000000020001be3        0x1 
- .text.arith_decode
-                0x0000000020001be4      0x139 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
-                                        0x145 (size before relaxing)
-                0x0000000020001be4                arith_decode
- .text          0x0000000020001d1d        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
- *fill*         0x0000000020001d1d        0x3 
- .text.hp1020_usb_receive_init
-                0x0000000020001d20       0x3c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
-                0x0000000020001d20                hp1020_usb_receive_init
- .text.hp1020_usb_receive_reserve
-                0x0000000020001d5c       0x78 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
-                0x0000000020001d5c                hp1020_usb_receive_reserve
  .text.hp1020_usb_receive_complete
-                0x0000000020001dd4       0xb3 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
-                0x0000000020001dd4                hp1020_usb_receive_complete
- *fill*         0x0000000020001e87        0x1 
- .text.hp1020_usb_receive_fault
-                0x0000000020001e88       0x2c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
-                0x0000000020001e88                hp1020_usb_receive_fault
- .text.hp1020_usb_receive_peek
-                0x0000000020001eb4       0x3e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
-                0x0000000020001eb4                hp1020_usb_receive_peek
- *fill*         0x0000000020001ef2        0x2 
- .text.hp1020_usb_receive_release
-                0x0000000020001ef4       0x7d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
-                0x0000000020001ef4                hp1020_usb_receive_release
- *fill*         0x0000000020001f71        0x3 
- .text.hp1020_usb_receive_stop
-                0x0000000020001f74        0x7 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
-                0x0000000020001f74                hp1020_usb_receive_stop
- *fill*         0x0000000020001f7b        0x1 
- .text.hp1020_usb_receive_quiesced
-                0x0000000020001f7c       0x1a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
-                0x0000000020001f7c                hp1020_usb_receive_quiesced
- *fill*         0x0000000020001f96        0x2 
- .text.hp1020_usb_receive_restart
-                0x0000000020001f98       0x64 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
-                0x0000000020001f98                hp1020_usb_receive_restart
- .text          0x0000000020001ffc        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
- .text.hp1020_usb_document_init
-                0x0000000020001ffc       0x55 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
-                0x0000000020001ffc                hp1020_usb_document_init
- *fill*         0x0000000020002051        0x3 
- .text.hp1020_usb_document_pump
-                0x0000000020002054       0x7c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
-                0x0000000020002054                hp1020_usb_document_pump
- .text.hp1020_usb_document_finish
-                0x00000000200020d0       0x49 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
-                0x00000000200020d0                hp1020_usb_document_finish
- *fill*         0x0000000020002119        0x3 
- .text.hp1020_usb_document_output_quiesced
-                0x000000002000211c       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
-                0x000000002000211c                hp1020_usb_document_output_quiesced
- *fill*         0x000000002000213a        0x2 
- .text.hp1020_usb_document_restart
-                0x000000002000213c       0x57 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
-                0x000000002000213c                hp1020_usb_document_restart
- .text          0x0000000020002193        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
- *fill*         0x0000000020002193        0x0 
- *fill*         0x0000000020002193        0x0 
- *fill*         0x0000000020002193        0x0 
- *fill*         0x0000000020002193        0x0 
- *fill*         0x0000000020002193        0x0 
- *fill*         0x0000000020002193        0x0 
- .text          0x0000000020002193        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
- *fill*         0x0000000020002193        0x1 
- .text.be32     0x0000000020002194       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
- .text.row_out  0x00000000200021b4       0x74 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
- .text.result$part$0
-                0x0000000020002228       0x5a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
- *fill*         0x0000000020002282        0x0 
- *fill*         0x0000000020002282        0x0 
- *fill*         0x0000000020002282        0x2 
- .text.hp1020_image_release
-                0x0000000020002284       0x2a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
-                0x0000000020002284                hp1020_image_release
- *fill*         0x00000000200022ae        0x2 
- .text.hp1020_image_finish
-                0x00000000200022b0       0x64 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
-                0x00000000200022b0                hp1020_image_finish
- .text          0x0000000020002314        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_page.o
- .text.hp1020_image_page_init
-                0x0000000020002314      0x17b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_page.o
-                0x0000000020002314                hp1020_image_page_init
- *fill*         0x000000002000248f        0x1 
- .text.hp1020_image_page_next
-                0x0000000020002490      0x15b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_page.o
-                0x0000000020002490                hp1020_image_page_next
- *fill*         0x00000000200025eb        0x1 
- .text.hp1020_image_page_release
-                0x00000000200025ec       0x29 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_page.o
-                0x00000000200025ec                hp1020_image_page_release
- .text          0x0000000020002615        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
- *fill*         0x0000000020002615        0x3 
- .text.image_error
-                0x0000000020002618       0x1a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
- *fill*         0x0000000020002632        0x0 
- *fill*         0x0000000020002632        0x0 
- *fill*         0x0000000020002632        0x0 
- *fill*         0x0000000020002632        0x0 
- .text          0x0000000020002632        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
- *fill*         0x0000000020002632        0x2 
- .text.hp1020_image_ring_init
-                0x0000000020002634       0x7b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
-                0x0000000020002634                hp1020_image_ring_init
- *fill*         0x00000000200026af        0x1 
- .text.hp1020_image_ring_push
-                0x00000000200026b0       0xaf /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
-                0x00000000200026b0                hp1020_image_ring_push
- *fill*         0x000000002000275f        0x1 
- .text.hp1020_image_ring_peek
-                0x0000000020002760       0x4e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
-                0x0000000020002760                hp1020_image_ring_peek
- *fill*         0x00000000200027ae        0x2 
- .text.hp1020_image_ring_accept
-                0x00000000200027b0       0x50 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
-                0x00000000200027b0                hp1020_image_ring_accept
- .text.hp1020_image_ring_complete
-                0x0000000020002800       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
-                0x0000000020002800                hp1020_image_ring_complete
- *fill*         0x0000000020002832        0x2 
- .text.hp1020_image_ring_drained
-                0x0000000020002834       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
-                0x0000000020002834                hp1020_image_ring_drained
- .text          0x000000002000284c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
+                0x0000000020000000       0x98 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
+                0x0000000020000004                hp1020_usb_receive_complete
+ .text.hash     0x0000000020000098       0x25 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ *fill*         0x00000000200000bd        0x3 
+ .text.snapshot
+                0x00000000200000c0      0x226 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ *fill*         0x00000000200002e6        0x2 
  .text.progress
-                0x000000002000284c       0x59 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
- *fill*         0x00000000200028a5        0x3 
- .text.drain    0x00000000200028a8       0x4a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
- *fill*         0x00000000200028f2        0x0 
- *fill*         0x00000000200028f2        0x0 
- *fill*         0x00000000200028f2        0x2 
+                0x00000000200002e8      0x132 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+                                        0x152 (size before relaxing)
+ *fill*         0x000000002000041a        0x2 
+ .text.hp1020_rx_fixture_reset
+                0x000000002000041c       0xac /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+                                         0xf0 (size before relaxing)
+                0x000000002000042c                hp1020_rx_fixture_reset
+ .text.hp1020_rx_fixture_step
+                0x00000000200004c8      0x2cb /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+                                        0x2fb (size before relaxing)
+                0x00000000200004e4                hp1020_rx_fixture_step
+ *fill*         0x0000000020000793        0x1 
+ .text.hp1020_rx_fixture_storage
+                0x0000000020000794        0x5 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+                                          0x9 (size before relaxing)
+                0x0000000020000794                hp1020_rx_fixture_storage
+ *fill*         0x0000000020000799        0x3 
+ .text.hp1020_rx_fixture_output
+                0x000000002000079c        0x5 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+                                          0x9 (size before relaxing)
+                0x000000002000079c                hp1020_rx_fixture_output
+ *fill*         0x00000000200007a1        0x3 
+ .text.hp1020_image_init
+                0x00000000200007a4      0x18a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
+                0x00000000200007a8                hp1020_image_init
+ *fill*         0x000000002000092e        0x2 
+ .text.hp1020_image_feed
+                0x0000000020000930       0x83 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
+                0x0000000020000934                hp1020_image_feed
+ *fill*         0x00000000200009b3        0x1 
+ .text.band_out
+                0x00000000200009b4       0x9b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
+ *fill*         0x0000000020000a4f        0x1 
+ .text.chunk_in
+                0x0000000020000a50      0x22e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
+                                        0x232 (size before relaxing)
+ *fill*         0x0000000020000c7e        0x2 
+ .text.hp1020_image_stream_init
+                0x0000000020000c80       0x70 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
+                                         0x74 (size before relaxing)
+                0x0000000020000c84                hp1020_image_stream_init
+ .text.hp1020_image_stream_feed
+                0x0000000020000cf0        0xa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
+                0x0000000020000cf4                hp1020_image_stream_feed
+ *fill*         0x0000000020000cfa        0x2 
+ .text.hp1020_image_stream_finish
+                0x0000000020000cfc        0xa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
+                0x0000000020000d00                hp1020_image_stream_finish
+ *fill*         0x0000000020000d06        0x2 
+ .text.consume  0x0000000020000d08       0xca /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
+ *fill*         0x0000000020000dd2        0x2 
+ .text.hp1020_image_output_init
+                0x0000000020000dd4       0x63 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
+                0x0000000020000dd8                hp1020_image_output_init
+ *fill*         0x0000000020000e37        0x1 
+ .text.items    0x0000000020000e38      0x109 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
+ *fill*         0x0000000020000f41        0x3 
+ .text.complete_chunk
+                0x0000000020000f44      0x279 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
+ *fill*         0x00000000200011bd        0x3 
+ .text.hp1020_semantic_feed
+                0x00000000200011c0      0x247 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
+                0x00000000200011c4                hp1020_semantic_feed
+ *fill*         0x0000000020001407        0x1 
+ .text.hp1020_semantic_finish
+                0x0000000020001408       0x30 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
+                0x000000002000140c                hp1020_semantic_finish
+ .text.hp1020_plan_page
+                0x0000000020001438       0xfd /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_page_plan.o
+                                        0x101 (size before relaxing)
+                0x000000002000143c                hp1020_plan_page
+ *fill*         0x0000000020001535        0x3 
+ .text.hp1020_plan_next_band
+                0x0000000020001538       0xa1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_page_plan.o
+                                         0xa5 (size before relaxing)
+                0x0000000020001538                hp1020_plan_next_band
+ *fill*         0x00000000200015d9        0x3 
+ .text.jbg85_enc_init
+                0x00000000200015dc       0x5d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+                0x00000000200015e0                jbg85_enc_init
+ *fill*         0x0000000020001639        0x3 
+ .text.jbg85_strerror
+                0x000000002000163c       0x1b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+                0x0000000020001644                jbg85_strerror
+ *fill*         0x0000000020001657        0x1 
+ .text.jbg85_dec_init
+                0x0000000020001658       0x4c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+                0x000000002000165c                jbg85_dec_init
+ .text.jbg85_dec_in
+                0x00000000200016a4      0x463 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+                0x00000000200016ac                jbg85_dec_in
+ *fill*         0x0000000020001b07        0x1 
+ .text.jbg85_dec_end
+                0x0000000020001b08       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+                0x0000000020001b0c                jbg85_dec_end
+ .text.arith_encode
+                0x0000000020001b20      0x15b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
+                0x0000000020001b2c                arith_encode
+ *fill*         0x0000000020001c7b        0x1 
+ .text.arith_decode
+                0x0000000020001c7c      0x139 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
+                                        0x145 (size before relaxing)
+                0x0000000020001c7c                arith_decode
+ .text          0x0000000020001db5        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
+ *fill*         0x0000000020001db5        0x3 
+ .text.slot     0x0000000020001db8       0x49 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
+ *fill*         0x0000000020001e01        0x3 
+ .text.hp1020_usb_receive_init
+                0x0000000020001e04       0x3c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
+                0x0000000020001e04                hp1020_usb_receive_init
+ .text.hp1020_usb_receive_reserve
+                0x0000000020001e40       0x78 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
+                0x0000000020001e40                hp1020_usb_receive_reserve
+ .text.hp1020_usb_receive_complete_data
+                0x0000000020001eb8       0x57 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
+                0x0000000020001eb8                hp1020_usb_receive_complete_data
+ *fill*         0x0000000020001f0f        0x1 
+ .text.hp1020_usb_receive_fault
+                0x0000000020001f10       0x2c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
+                0x0000000020001f10                hp1020_usb_receive_fault
+ .text.hp1020_usb_receive_peek
+                0x0000000020001f3c       0x3e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
+                0x0000000020001f3c                hp1020_usb_receive_peek
+ *fill*         0x0000000020001f7a        0x2 
+ .text.hp1020_usb_receive_release
+                0x0000000020001f7c       0x51 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
+                0x0000000020001f7c                hp1020_usb_receive_release
+ *fill*         0x0000000020001fcd        0x3 
+ .text.hp1020_usb_receive_stop
+                0x0000000020001fd0        0x7 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
+                0x0000000020001fd0                hp1020_usb_receive_stop
+ *fill*         0x0000000020001fd7        0x1 
+ .text.hp1020_usb_receive_quiesced
+                0x0000000020001fd8       0x1a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
+                0x0000000020001fd8                hp1020_usb_receive_quiesced
+ *fill*         0x0000000020001ff2        0x2 
+ .text.hp1020_usb_receive_restart
+                0x0000000020001ff4       0x64 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
+                0x0000000020001ff4                hp1020_usb_receive_restart
+ .text          0x0000000020002058        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
+ .text.hp1020_usb_document_init
+                0x0000000020002058       0x55 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
+                0x0000000020002058                hp1020_usb_document_init
+ *fill*         0x00000000200020ad        0x3 
+ .text.hp1020_usb_document_pump
+                0x00000000200020b0       0x7c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
+                0x00000000200020b0                hp1020_usb_document_pump
+ .text.hp1020_usb_document_finish
+                0x000000002000212c       0x49 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
+                0x000000002000212c                hp1020_usb_document_finish
+ *fill*         0x0000000020002175        0x3 
+ .text.hp1020_usb_document_output_quiesced
+                0x0000000020002178       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
+                0x0000000020002178                hp1020_usb_document_output_quiesced
+ *fill*         0x0000000020002196        0x2 
+ .text.hp1020_usb_document_restart
+                0x0000000020002198       0x57 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
+                0x0000000020002198                hp1020_usb_document_restart
+ .text          0x00000000200021ef        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ *fill*         0x00000000200021ef        0x0 
+ *fill*         0x00000000200021ef        0x0 
+ *fill*         0x00000000200021ef        0x0 
+ *fill*         0x00000000200021ef        0x0 
+ *fill*         0x00000000200021ef        0x0 
+ *fill*         0x00000000200021ef        0x0 
+ .text          0x00000000200021ef        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
+ *fill*         0x00000000200021ef        0x1 
+ .text.be32     0x00000000200021f0       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
+ .text.row_out  0x0000000020002210       0x74 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
+ .text.result$part$0
+                0x0000000020002284       0x5a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
+ *fill*         0x00000000200022de        0x0 
+ *fill*         0x00000000200022de        0x0 
+ *fill*         0x00000000200022de        0x2 
+ .text.hp1020_image_release
+                0x00000000200022e0       0x2a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
+                0x00000000200022e0                hp1020_image_release
+ *fill*         0x000000002000230a        0x2 
+ .text.hp1020_image_finish
+                0x000000002000230c       0x64 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
+                0x000000002000230c                hp1020_image_finish
+ .text          0x0000000020002370        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_page.o
+ .text.hp1020_image_page_init
+                0x0000000020002370      0x17b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_page.o
+                0x0000000020002370                hp1020_image_page_init
+ *fill*         0x00000000200024eb        0x1 
+ .text.hp1020_image_page_next
+                0x00000000200024ec      0x15b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_page.o
+                0x00000000200024ec                hp1020_image_page_next
+ *fill*         0x0000000020002647        0x1 
+ .text.hp1020_image_page_release
+                0x0000000020002648       0x29 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_page.o
+                0x0000000020002648                hp1020_image_page_release
+ .text          0x0000000020002671        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
+ *fill*         0x0000000020002671        0x3 
+ .text.image_error
+                0x0000000020002674       0x1a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
+ *fill*         0x000000002000268e        0x0 
+ *fill*         0x000000002000268e        0x0 
+ *fill*         0x000000002000268e        0x0 
+ *fill*         0x000000002000268e        0x0 
+ .text          0x000000002000268e        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
+ *fill*         0x000000002000268e        0x2 
+ .text.hp1020_image_ring_init
+                0x0000000020002690       0x7b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
+                0x0000000020002690                hp1020_image_ring_init
+ *fill*         0x000000002000270b        0x1 
+ .text.hp1020_image_ring_push
+                0x000000002000270c       0xaf /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
+                0x000000002000270c                hp1020_image_ring_push
+ *fill*         0x00000000200027bb        0x1 
+ .text.hp1020_image_ring_peek
+                0x00000000200027bc       0x4e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
+                0x00000000200027bc                hp1020_image_ring_peek
+ *fill*         0x000000002000280a        0x2 
+ .text.hp1020_image_ring_accept
+                0x000000002000280c       0x50 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
+                0x000000002000280c                hp1020_image_ring_accept
+ .text.hp1020_image_ring_complete
+                0x000000002000285c       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
+                0x000000002000285c                hp1020_image_ring_complete
+ *fill*         0x000000002000288e        0x2 
+ .text.hp1020_image_ring_drained
+                0x0000000020002890       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
+                0x0000000020002890                hp1020_image_ring_drained
+ .text          0x00000000200028a8        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
+ .text.progress
+                0x00000000200028a8       0x59 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
+ *fill*         0x0000000020002901        0x3 
+ .text.drain    0x0000000020002904       0x4a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
+ *fill*         0x000000002000294e        0x0 
+ *fill*         0x000000002000294e        0x0 
+ *fill*         0x000000002000294e        0x2 
  .text.hp1020_image_output_feed
-                0x00000000200028f4       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
-                0x00000000200028f4                hp1020_image_output_feed
- *fill*         0x000000002000291f        0x1 
+                0x0000000020002950       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
+                0x0000000020002950                hp1020_image_output_feed
+ *fill*         0x000000002000297b        0x1 
  .text.hp1020_image_output_finish
-                0x0000000020002920       0x39 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
-                0x0000000020002920                hp1020_image_output_finish
- .text          0x0000000020002959        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
- *fill*         0x0000000020002959        0x3 
- .text.be32     0x000000002000295c       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
- *fill*         0x000000002000297c        0x0 
- *fill*         0x000000002000297c        0x0 
- .text.hp1020_semantic_init
-                0x000000002000297c       0x39 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
-                0x000000002000297c                hp1020_semantic_init
+                0x000000002000297c       0x39 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
+                0x000000002000297c                hp1020_image_output_finish
+ .text          0x00000000200029b5        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
  *fill*         0x00000000200029b5        0x3 
+ .text.be32     0x00000000200029b8       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
+ *fill*         0x00000000200029d8        0x0 
+ *fill*         0x00000000200029d8        0x0 
+ .text.hp1020_semantic_init
+                0x00000000200029d8       0x39 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
+                0x00000000200029d8                hp1020_semantic_init
+ *fill*         0x0000000020002a11        0x3 
  .text.hp1020_semantic_init_streaming
-                0x00000000200029b8       0x33 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
-                0x00000000200029b8                hp1020_semantic_init_streaming
- *fill*         0x00000000200029eb        0x0 
- *fill*         0x00000000200029eb        0x0 
- .text          0x00000000200029eb        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_page_plan.o
- *fill*         0x00000000200029eb        0x0 
- .text          0x00000000200029eb        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/target-memory.o
- *fill*         0x00000000200029eb        0x1 
- .text.memcmp   0x00000000200029ec       0x23 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/target-memory.o
-                0x00000000200029ec                memcmp
- .text          0x0000000020002a0f        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/memory.o
- *fill*         0x0000000020002a0f        0x1 
- .text.memset   0x0000000020002a10       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/memory.o
-                0x0000000020002a10                memset
- *fill*         0x0000000020002a22        0x2 
- .text.memcpy   0x0000000020002a24       0x16 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/memory.o
-                0x0000000020002a24                memcpy
- .text          0x0000000020002a3a        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
- *fill*         0x0000000020002a3a        0x2 
+                0x0000000020002a14       0x33 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
+                0x0000000020002a14                hp1020_semantic_init_streaming
+ *fill*         0x0000000020002a47        0x0 
+ *fill*         0x0000000020002a47        0x0 
+ .text          0x0000000020002a47        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_page_plan.o
+ *fill*         0x0000000020002a47        0x0 
+ .text          0x0000000020002a47        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/target-memory.o
+ *fill*         0x0000000020002a47        0x1 
+ .text.memcmp   0x0000000020002a48       0x23 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/target-memory.o
+                0x0000000020002a48                memcmp
+ .text          0x0000000020002a6b        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/memory.o
+ *fill*         0x0000000020002a6b        0x1 
+ .text.memset   0x0000000020002a6c       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/memory.o
+                0x0000000020002a6c                memset
+ *fill*         0x0000000020002a7e        0x2 
+ .text.memcpy   0x0000000020002a80       0x16 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/memory.o
+                0x0000000020002a80                memcpy
+ .text          0x0000000020002a96        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+ *fill*         0x0000000020002a96        0x2 
  .text.enc_byte_out
-                0x0000000020002a3c       0x1f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
- *fill*         0x0000000020002a5b        0x1 
+                0x0000000020002a98       0x1f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+ *fill*         0x0000000020002ab7        0x1 
  .text.decode_pscd
-                0x0000000020002a5c      0x3ef /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
- *fill*         0x0000000020002e4b        0x1 
+                0x0000000020002ab8      0x3ef /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+ *fill*         0x0000000020002ea7        0x1 
  .text.finish_sde
-                0x0000000020002e4c       0x85 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
- *fill*         0x0000000020002ed1        0x3 
+                0x0000000020002ea8       0x85 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+ *fill*         0x0000000020002f2d        0x3 
  .text.output_newlen
-                0x0000000020002ed4       0x67 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
- *fill*         0x0000000020002f3b        0x0 
- *fill*         0x0000000020002f3b        0x1 
+                0x0000000020002f30       0x67 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+ *fill*         0x0000000020002f97        0x0 
+ *fill*         0x0000000020002f97        0x1 
  .text.jbg85_enc_options
-                0x0000000020002f3c       0x17 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
-                0x0000000020002f3c                jbg85_enc_options
- *fill*         0x0000000020002f53        0x1 
+                0x0000000020002f98       0x17 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+                0x0000000020002f98                jbg85_enc_options
+ *fill*         0x0000000020002faf        0x1 
  .text.jbg85_enc_lineout
-                0x0000000020002f54      0x568 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
-                0x0000000020002f54                jbg85_enc_lineout
+                0x0000000020002fb0      0x568 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+                0x0000000020002fb0                jbg85_enc_lineout
  .text.jbg85_enc_newlen
-                0x00000000200034bc       0x72 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
-                0x00000000200034bc                jbg85_enc_newlen
- *fill*         0x000000002000352e        0x2 
+                0x0000000020003518       0x72 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+                0x0000000020003518                jbg85_enc_newlen
+ *fill*         0x000000002000358a        0x2 
  .text.jbg85_enc_abort
-                0x0000000020003530       0x31 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
-                0x0000000020003530                jbg85_enc_abort
- *fill*         0x0000000020003561        0x0 
- *fill*         0x0000000020003561        0x0 
- *fill*         0x0000000020003561        0x0 
- .text          0x0000000020003561        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
- *fill*         0x0000000020003561        0x3 
+                0x000000002000358c       0x31 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+                0x000000002000358c                jbg85_enc_abort
+ *fill*         0x00000000200035bd        0x0 
+ *fill*         0x00000000200035bd        0x0 
+ *fill*         0x00000000200035bd        0x0 
+ .text          0x00000000200035bd        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
+ *fill*         0x00000000200035bd        0x3 
  .text.arith_encode_init
-                0x0000000020003564       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
-                0x0000000020003564                arith_encode_init
- *fill*         0x0000000020003596        0x2 
+                0x00000000200035c0       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
+                0x00000000200035c0                arith_encode_init
+ *fill*         0x00000000200035f2        0x2 
  .text.arith_encode_flush
-                0x0000000020003598      0x110 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
-                0x0000000020003598                arith_encode_flush
- *fill*         0x00000000200036a8        0x0 
+                0x00000000200035f4      0x110 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
+                0x00000000200035f4                arith_encode_flush
+ *fill*         0x0000000020003704        0x0 
  .text.arith_decode_init
-                0x00000000200036a8       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
-                0x00000000200036a8                arith_decode_init
- *fill*         0x00000000200036d3        0x0 
- *fill*         0x00000000200036d3        0x1 
- .text          0x00000000200036d4       0x4c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
-                0x00000000200036d4                __udivsi3
+                0x0000000020003704       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
+                0x0000000020003704                arith_decode_init
+ *fill*         0x000000002000372f        0x0 
+ *fill*         0x000000002000372f        0x1 
+ .text          0x0000000020003730       0x4c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+                0x0000000020003730                __udivsi3
 
-.rodata         0x0000000020003720      0x40a
+.rodata         0x000000002000377c      0x40a
  *(.rodata .rodata.*)
  .rodata.hp1020_rx_fixture_step
-                0x0000000020003720       0x30 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
- .rodata.items  0x0000000020003750       0x3c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
+                0x000000002000377c       0x30 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ .rodata.items  0x00000000200037ac       0x3c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
  .rodata.complete_chunk
-                0x000000002000378c       0x1c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
+                0x00000000200037e8       0x1c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
  .rodata.jbg85_strerror.str1.1
-                0x00000000200037a8       0x2e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
- *fill*         0x00000000200037d6        0x2 
+                0x0000000020003804       0x2e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+ *fill*         0x0000000020003832        0x2 
  .rodata.jbg85_dec_in
-                0x00000000200037d8       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+                0x0000000020003834       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
  .rodata.str1.1
-                0x00000000200037f8      0x103 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
- *fill*         0x00000000200038fb        0x1 
+                0x0000000020003854      0x103 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+ *fill*         0x0000000020003957        0x1 
  .rodata.errmsg
-                0x00000000200038fc       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+                0x0000000020003958       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
  .rodata.jbg85_version
-                0x000000002000391c       0x4a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
-                0x000000002000391c                jbg85_version
+                0x0000000020003978       0x4a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+                0x0000000020003978                jbg85_version
  .rodata.nlpstab
-                0x0000000020003966       0x71 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
+                0x00000000200039c2       0x71 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
  .rodata.nmpstab
-                0x00000000200039d7       0x71 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
+                0x0000000020003a33       0x71 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
  .rodata.lsztab
-                0x0000000020003a48       0xe2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
+                0x0000000020003aa4       0xe2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
 
-.data           0x0000000020003b2c        0x0
+.data           0x0000000020003b88        0x0
  *(.data .data.*)
- .data          0x0000000020003b2c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
- .data          0x0000000020003b2c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
- .data          0x0000000020003b2c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
- .data          0x0000000020003b2c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
- .data          0x0000000020003b2c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_page.o
- .data          0x0000000020003b2c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
- .data          0x0000000020003b2c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
- .data          0x0000000020003b2c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
- .data          0x0000000020003b2c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
- .data          0x0000000020003b2c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_page_plan.o
- .data          0x0000000020003b2c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/target-memory.o
- .data          0x0000000020003b2c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/memory.o
- .data          0x0000000020003b2c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
- .data          0x0000000020003b2c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
- .data          0x0000000020003b2c        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+ .data          0x0000000020003b88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
+ .data          0x0000000020003b88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
+ .data          0x0000000020003b88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ .data          0x0000000020003b88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
+ .data          0x0000000020003b88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_page.o
+ .data          0x0000000020003b88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
+ .data          0x0000000020003b88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
+ .data          0x0000000020003b88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
+ .data          0x0000000020003b88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
+ .data          0x0000000020003b88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_page_plan.o
+ .data          0x0000000020003b88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/target-memory.o
+ .data          0x0000000020003b88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/memory.o
+ .data          0x0000000020003b88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+ .data          0x0000000020003b88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
+ .data          0x0000000020003b88        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
 
-.bss            0x0000000020003b30    0x80e88
+.bss            0x0000000020003b90    0x80e88
  *(.bss .bss.* COMMON)
- .bss           0x0000000020003b30        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
- .bss           0x0000000020003b30        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
- .bss           0x0000000020003b30        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ .bss           0x0000000020003b90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
+ .bss           0x0000000020003b90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
+ .bss           0x0000000020003b90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
  .bss.last_length
-                0x0000000020003b30        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+                0x0000000020003b90        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
  .bss.received_hash
-                0x0000000020003b34        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
- .bss.received  0x0000000020003b38        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
- .bss.calls     0x0000000020003b3c        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+                0x0000000020003b94        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ .bss.received  0x0000000020003b98        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ .bss.calls     0x0000000020003b9c        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
  .bss.completed
-                0x0000000020003b40        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
- .bss.accepted  0x0000000020003b44        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
- .bss.bytes     0x0000000020003b48        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+                0x0000000020003ba0        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ .bss.accepted  0x0000000020003ba4        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ .bss.bytes     0x0000000020003ba8        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
  .bss.violations
-                0x0000000020003b4c        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+                0x0000000020003bac        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
  .bss.owned_hash
-                0x0000000020003b50       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
- .bss.inflight  0x0000000020003b60        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
- .bss.fail_at   0x0000000020003b64        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
- .bss.mode      0x0000000020003b68        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
- .bss.fill      0x0000000020003b6c        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+                0x0000000020003bb0       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ .bss.inflight  0x0000000020003bc0        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ .bss.fail_at   0x0000000020003bc4        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ .bss.mode      0x0000000020003bc8        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ .bss.fill      0x0000000020003bcc        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
  .bss.preserved_slots
-                0x0000000020003b70       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+                0x0000000020003bd0       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
  .bss.preserved_output
-                0x0000000020003bb0     0x3430 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+                0x0000000020003c10     0x3430 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
  .bss.preserved_memory
-                0x0000000020006fe0    0x1c010 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
- .bss.tickets   0x0000000020022ff0       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
- .bss.memory    0x0000000020023030    0x1c030 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
- .bss.state     0x000000002003f060     0x3498 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+                0x0000000020007040    0x1c010 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ .bss.tickets   0x0000000020023050       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ .bss.memory    0x0000000020023090    0x1c030 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ .bss.state     0x000000002003f0c0     0x3498 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
  .bss.hp1020_rx_fixture_stats
-                0x00000000200424f8       0xc0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
-                0x00000000200424f8                hp1020_rx_fixture_stats
+                0x0000000020042558       0xc0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+                0x0000000020042558                hp1020_rx_fixture_stats
  .bss.hp1020_rx_fixture_received
-                0x00000000200425b8     0x2000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
-                0x00000000200425b8                hp1020_rx_fixture_received
+                0x0000000020042618     0x2000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+                0x0000000020042618                hp1020_rx_fixture_received
  .bss.hp1020_rx_fixture_capture
-                0x00000000200445b8    0x40000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
-                0x00000000200445b8                hp1020_rx_fixture_capture
+                0x0000000020044618    0x40000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+                0x0000000020044618                hp1020_rx_fixture_capture
  .bss.hp1020_rx_fixture_input
-                0x00000000200845b8      0x400 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
-                0x00000000200845b8                hp1020_rx_fixture_input
- .bss           0x00000000200849b8        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
- .bss           0x00000000200849b8        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_page.o
- .bss           0x00000000200849b8        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
- .bss           0x00000000200849b8        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
- .bss           0x00000000200849b8        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
- .bss           0x00000000200849b8        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
- .bss           0x00000000200849b8        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_page_plan.o
- .bss           0x00000000200849b8        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/target-memory.o
- .bss           0x00000000200849b8        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/memory.o
- .bss           0x00000000200849b8        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
- .bss           0x00000000200849b8        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
- .bss           0x00000000200849b8        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+                0x0000000020084618      0x400 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+                0x0000000020084618                hp1020_rx_fixture_input
+ .bss           0x0000000020084a18        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
+ .bss           0x0000000020084a18        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_page.o
+ .bss           0x0000000020084a18        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
+ .bss           0x0000000020084a18        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
+ .bss           0x0000000020084a18        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
+ .bss           0x0000000020084a18        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
+ .bss           0x0000000020084a18        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_page_plan.o
+ .bss           0x0000000020084a18        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/target-memory.o
+ .bss           0x0000000020084a18        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/memory.o
+ .bss           0x0000000020084a18        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+ .bss           0x0000000020084a18        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
+ .bss           0x0000000020084a18        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
 
 /DISCARD/
  *(.comment)
@@ -648,35 +656,36 @@ OUTPUT(/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analys
  .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
  .xtensa.info   0x0000000000000038        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
 
-.xt.prop        0x0000000000000000     0x2ea4
- .xt.prop       0x0000000000000000      0x2e8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
- .xt.prop       0x00000000000002e8      0x144 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
- .xt.prop       0x000000000000042c      0x570 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
- .xt.prop       0x000000000000099c      0x30c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
- .xt.prop       0x0000000000000ca8      0x24c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_page.o
- .xt.prop       0x0000000000000ef4      0x324 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
- .xt.prop       0x0000000000001218      0x21c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
- .xt.prop       0x0000000000001434      0x1e0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
- .xt.prop       0x0000000000001614      0x7a4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
- .xt.prop       0x0000000000001db8       0xd8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_page_plan.o
- .xt.prop       0x0000000000001e90       0x54 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/target-memory.o
- .xt.prop       0x0000000000001ee4       0x78 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/memory.o
- .xt.prop       0x0000000000001f5c      0xb4c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
- .xt.prop       0x0000000000002aa8      0x360 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
- .xt.prop       0x0000000000002e08       0x9c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
-
-.xt.lit         0x0000000000000000       0xc8
- .xt.lit        0x0000000000000000       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+.xt.lit         0x0000000000000000       0xd0
+ .xt.lit        0x0000000000000000        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
+ .xt.lit        0x0000000000000008       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
                                          0x38 (size before relaxing)
- .xt.lit        0x0000000000000028       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
- .xt.lit        0x0000000000000038       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
- .xt.lit        0x0000000000000060       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
- .xt.lit        0x0000000000000070       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
- .xt.lit        0x0000000000000090        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_page_plan.o
+ .xt.lit        0x0000000000000030       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
+ .xt.lit        0x0000000000000040       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
+ .xt.lit        0x0000000000000068       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
+ .xt.lit        0x0000000000000078       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
+ .xt.lit        0x0000000000000098        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_page_plan.o
                                          0x10 (size before relaxing)
- .xt.lit        0x0000000000000098       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
- .xt.lit        0x00000000000000c0        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
+ .xt.lit        0x00000000000000a0       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+ .xt.lit        0x00000000000000c8        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
                                          0x10 (size before relaxing)
+
+.xt.prop        0x0000000000000000     0x2f4c
+ .xt.prop       0x0000000000000000      0x390 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_receive.o
+ .xt.prop       0x0000000000000390      0x144 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_usb_document.o
+ .xt.prop       0x00000000000004d4      0x570 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/fixture.o
+ .xt.prop       0x0000000000000a44      0x30c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image.o
+ .xt.prop       0x0000000000000d50      0x24c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_page.o
+ .xt.prop       0x0000000000000f9c      0x324 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_stream.o
+ .xt.prop       0x00000000000012c0      0x21c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_ring.o
+ .xt.prop       0x00000000000014dc      0x1e0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_image_output.o
+ .xt.prop       0x00000000000016bc      0x7a4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_semantic.o
+ .xt.prop       0x0000000000001e60       0xd8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/hp1020_page_plan.o
+ .xt.prop       0x0000000000001f38       0x54 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/target-memory.o
+ .xt.prop       0x0000000000001f8c       0x78 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/memory.o
+ .xt.prop       0x0000000000002004      0xb4c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig85.o
+ .xt.prop       0x0000000000002b50      0x360 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/receive-core/target/jbig_ar.o
+ .xt.prop       0x0000000000002eb0       0x9c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
 
 .debug_line     0x0000000000000000       0xfe
  .debug_line    0x0000000000000000       0xfe /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)

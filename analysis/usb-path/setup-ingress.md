@@ -1,0 +1,13 @@
+# Original USB SETUP ingress
+
+70 conditional cases agree in both engines; 6 controls reject before peripheral access. Zero USB transfers or page lifecycles.
+
+Under supplied stable record bytes, the original SETUP prefix admits owner 2 and RX status 0 only. It obtains the status pointer through OUT0 SUBPTR, then independently obtains the request pointer from global 0x1001bbc0 and adds 8. Only wIndex and wLength byte pairs are reversed in place; bmRequestType, bRequest and both wValue bytes are preserved. Every mutable nonstack byte is compared against an independent oracle.
+
+The eight supplied packet bytes are USB wire order. Initial stock global 0x1001bbc0 is 0x90021340, so its packet starts at 0x90021348. SUBPTR 0xb3000210 is distinct from ordinary OUT0 data/status DESPTR 0xb3000214. The latter initially points to 0x90022bc0; the bulk OUT descriptor global initially points to 0x90021370. These initializers and submission stores are static evidence only.
+
+Pass a retained copy of the original eight wire bytes to dcd_event_setup_received. Its pinned implementation converts wValue, wIndex and wLength itself; passing the stock post-conversion buffer would reverse wIndex/wLength twice on the big-endian target. Preserve descriptor/request identity and ownership until copying is safe. The mismatched-pointer controls demonstrate an original assumption, not a recommended adapter allowance.
+
+Audited but unexecuted IRQ bytes acknowledge the sampled EPINT word before lane status reads. A latched OUT TDC condition can call event-set at 0x100084b4 and again at 0x100086c0; a non-TDC OUT path can reach the latter call too. HE/BNA status clearing does not itself prevent these later wake paths. These are task wake hints, not one-to-one successful transfer completions or quiescence promises. Endpoint event bits are IN n / OUT 16+n; a DCD adapter must explicitly translate USB endpoint addresses into these bit positions.
+
+Fresh original ENTRY is followed by an explicit cut omitting initialization and event wait. After ENTRY every a2..a15 register is independently poisoned; selected instructions define their own input pointers. Status/header bytes, packet bytes, pointer correspondence and stability are supplied. One original address literal is privately redirected to RAM; no peripheral is modeled. Primary cases cover all 4 owner and 4 RX values with two packets and two fills; six separate-pointer controls are deliberately inconsistent arithmetic states. No hardware SETUP arrival, IRQ execution, DMA byte order, cache coherency, concurrent overwrite, descriptor return, dispatch, status stage, reset, abort, physical status or printing is established. Reaching the admitted boundary does not mean the request is protocol-valid.

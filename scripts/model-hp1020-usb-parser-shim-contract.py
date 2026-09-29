@@ -77,9 +77,14 @@ def build_contract() -> dict[str, Any]:
         "hardware_receive_lane": {
             "event_bit": bulk_lane.get("event_bit"),
             "lane_status_register": bulk_lane.get("lane_status_register"),
-            "lane_ack_register": bulk_lane.get("lane_ack_register"),
-            "completion_status_bit": interrupt_scan.get("completion_status_bit"),
-            "ack_bits": bulk_lane.get("ack_bits"),
+            "lane_control_register": bulk_lane.get("lane_control_register"),
+            "tdc_status_bit": interrupt_scan.get("tdc_status_bit"),
+            "control_snak_mask": bulk_lane.get("control_snak_mask"),
+            "status_ack_masks": bulk_lane.get("status_ack_masks"),
+            "wake_hints_may_repeat": interrupt_scan.get("wake_hints_may_repeat"),
+            "wake_without_tdc_possible": interrupt_scan.get("wake_without_tdc_possible"),
+            "wake_is_successful_completion": interrupt_scan.get("wake_is_successful_completion"),
+            "descriptor_initial": bulk_lane.get("descriptor_initial"),
         },
         "descriptor_rearm": {
             "descriptor_pool": rearm_constants.get("descriptor_pool"),
@@ -97,7 +102,7 @@ def build_contract() -> dict[str, Any]:
     staged_plan = [
         {
             "stage": "bulk_counter_probe",
-            "purpose": "Observe bank-1/lane-1 completion and buffer counters without printing.",
+            "purpose": "Observe bank-1/lane-1 status, descriptor ownership and buffer counters without printing; wake hints alone are not completion.",
             "requires_printer": True,
             "risk": "low if it never sends engine/video commands",
         },
@@ -145,8 +150,11 @@ def build_contract() -> dict[str, Any]:
             interrupt_events.get("status") == "pass"
             and bulk_lane.get("event_bit") == "0x00020000"
             and bulk_lane.get("lane_status_register") == "0xb3000224"
-            and bulk_lane.get("lane_ack_register") == "0xb3000220",
-            "USB interrupt model must preserve the bank-1/lane-1 bulk receive lane.",
+            and bulk_lane.get("lane_control_register") == "0xb3000220"
+            and bulk_lane.get("control_snak_mask") == "0x80"
+            and bulk_lane.get("status_ack_masks") == ["0x200", "0x80", "0x40", "0x30", "0x400"]
+            and interrupt_scan.get("wake_is_successful_completion") is False,
+            "USB interrupt model must separate bank-1/lane-1 status acknowledgement, control requests and wake hints.",
             "analysis/usb-path/usb-interrupt-events.json",
         ),
         check(
@@ -179,7 +187,7 @@ def render_markdown(contract: dict[str, Any]) -> str:
         "",
         "## Plain-English Meaning",
         "",
-        "The stock firmware keeps the print parser away from raw USB hardware. USB fills a buffer, wakes a read callback, and that callback feeds parser bytes. For open firmware, the next narrow software target is to reproduce that shim: accept bulk bytes, maintain the buffer counters, and provide a parser-facing read function.",
+        "The stock firmware keeps the print parser behind a read callback. Its interrupt task issues wake hints that may repeat and do not alone prove a successful transfer. An independent receive adapter must validate ownership, original transfer identity, count and errors before exposing input bytes. The original internal counters and scheduling are evidence, not requirements for the replacement.",
         "",
         "## Parser Boundary",
         "",

@@ -57,7 +57,7 @@
   ],
   "checks": [
     {
-      "detail": "bank-1/lane-1 status, ack, and event bit remain fixed",
+      "detail": "bank-1/lane-1 status and control addresses remain fixed; wake hints do not assert success",
       "name": "bulk_lane_matches_interrupt_model",
       "status": "present"
     },
@@ -67,7 +67,7 @@
       "status": "present"
     },
     {
-      "detail": "callback and lane mask registers agree with the probe allowlist",
+      "detail": "legacy callback field usb_endpoint_ack_register denotes OUT1 control; its address and the lane mask remain in the unchanged probe allowlist",
       "name": "callback_ack_matches_contract",
       "status": "present"
     },
@@ -77,7 +77,7 @@
       "status": "present"
     },
     {
-      "detail": "raw big-endian stock ELF contains the direct event/register/buffer literals; lane status 0xb3000224 is the decompiled +4 status word derived from base 0xb3000220",
+      "detail": "raw stock ELF contains the direct literals; byte-gated interrupt evidence derives lane EPSTS 0xb3000224 independently of EPCTL 0xb3000220",
       "name": "stock_elf_contains_resolved_bulk_literals",
       "status": "present"
     },
@@ -100,6 +100,374 @@
       "0xb3000224": "lane status word at 0xb3000220 + 0x4; not stored as a standalone stock ELF literal"
     },
     "elf": "analysis/sihp1020.elf",
+    "interrupt_original_byte_checks": [
+      {
+        "address": "0x10005de8",
+        "bytes": "b3000414",
+        "meaning": "irq_pending_lanes",
+        "status": "present"
+      },
+      {
+        "address": "0x10005e00",
+        "bytes": "b3000418",
+        "meaning": "masked_lane_word",
+        "status": "present"
+      },
+      {
+        "address": "0x10005df4",
+        "bytes": "b3000400",
+        "meaning": "device_config_register",
+        "status": "present"
+      },
+      {
+        "address": "0x10005e04",
+        "bytes": "b3000004",
+        "meaning": "lane_bank0_base",
+        "status": "present"
+      },
+      {
+        "address": "0x10005e08",
+        "bytes": "b3000204",
+        "meaning": "lane_bank1_base",
+        "status": "present"
+      },
+      {
+        "address": "0x10005e18",
+        "bytes": "10021318",
+        "meaning": "usb_event_flags",
+        "status": "present"
+      },
+      {
+        "address": "0x10005e24",
+        "bytes": "b3000200",
+        "meaning": "out0_control_register",
+        "status": "present"
+      },
+      {
+        "address": "0x10005e2c",
+        "bytes": "1001bc48",
+        "meaning": "bulk_descriptor_pointer_global",
+        "status": "present"
+      },
+      {
+        "address": "0x10005e30",
+        "bytes": "c0000000",
+        "meaning": "descriptor_owner_mask",
+        "status": "present"
+      },
+      {
+        "address": "0x10005e34",
+        "bytes": "80000000",
+        "meaning": "descriptor_owner_done",
+        "status": "present"
+      },
+      {
+        "address": "0x10008219",
+        "bytes": "8880",
+        "meaning": "l32i.n a8,a8,0: sample EPINT pending word",
+        "status": "present"
+      },
+      {
+        "address": "0x1000821d",
+        "bytes": "9810",
+        "meaning": "s32i.n a8,a1,0: preserve sampled pending word",
+        "status": "present"
+      },
+      {
+        "address": "0x1000837e",
+        "bytes": "c030",
+        "meaning": "movi.n a3,0: start IN bank",
+        "status": "present"
+      },
+      {
+        "address": "0x10008380",
+        "bytes": "c021",
+        "meaning": "movi.n a2,1: event-bit source",
+        "status": "present"
+      },
+      {
+        "address": "0x10008382",
+        "bytes": "d430",
+        "meaning": "mov.n a4,a3: event-bit bank offset starts zero",
+        "status": "present"
+      },
+      {
+        "address": "0x1000838d",
+        "bytes": "8a80",
+        "meaning": "l32i.n a10,a8,0: read endpoint mask",
+        "status": "present"
+      },
+      {
+        "address": "0x1000838f",
+        "bytes": "8e10",
+        "meaning": "l32i.n a14,a1,0: reload sampled EPINT",
+        "status": "present"
+      },
+      {
+        "address": "0x1000839b",
+        "bytes": "9e90",
+        "meaning": "s32i.n a14,a9,0: acknowledge sampled EPINT before lane reads",
+        "status": "present"
+      },
+      {
+        "address": "0x100083c9",
+        "bytes": "19f68e",
+        "meaning": "l32r a9,0x10005e04: IN status base",
+        "status": "present"
+      },
+      {
+        "address": "0x100083e0",
+        "bytes": "19f68a",
+        "meaning": "l32r a9,0x10005e08: OUT status base",
+        "status": "present"
+      },
+      {
+        "address": "0x100083e3",
+        "bytes": "0b5811",
+        "meaning": "slli a8,a5,5: lane stride 32 bytes",
+        "status": "present"
+      },
+      {
+        "address": "0x100083eb",
+        "bytes": "8670",
+        "meaning": "l32i.n a6,a7,0: sample lane status once",
+        "status": "present"
+      },
+      {
+        "address": "0x100083ed",
+        "bytes": "282a00",
+        "meaning": "movi a8,0x200: HE acknowledgement mask",
+        "status": "present"
+      },
+      {
+        "address": "0x100083f0",
+        "bytes": "786004",
+        "meaning": "bnone a6,a8,0x100083f8: HE absent skips its store only",
+        "status": "present"
+      },
+      {
+        "address": "0x100083f6",
+        "bytes": "9870",
+        "meaning": "s32i.n a8,a7,0: HE status acknowledgement",
+        "status": "present"
+      },
+      {
+        "address": "0x100083f8",
+        "bytes": "280a80",
+        "meaning": "movi a8,128: BNA acknowledgement mask",
+        "status": "present"
+      },
+      {
+        "address": "0x100083fb",
+        "bytes": "786005",
+        "meaning": "bnone a6,a8,0x10008404: BNA absent skips its store only",
+        "status": "present"
+      },
+      {
+        "address": "0x10008401",
+        "bytes": "287600",
+        "meaning": "s32i a8,a7,0: BNA status acknowledgement",
+        "status": "present"
+      },
+      {
+        "address": "0x10008404",
+        "bytes": "c480",
+        "meaning": "movi.n a8,64: IN status mask",
+        "status": "present"
+      },
+      {
+        "address": "0x1000840c",
+        "bytes": "9870",
+        "meaning": "s32i.n a8,a7,0: IN status acknowledgement",
+        "status": "present"
+      },
+      {
+        "address": "0x10008439",
+        "bytes": "c380",
+        "meaning": "movi.n a8,48: OUT type mask",
+        "status": "present"
+      },
+      {
+        "address": "0x1000843b",
+        "bytes": "086801",
+        "meaning": "and a8,a6,a8: retain sampled OUT status bits",
+        "status": "present"
+      },
+      {
+        "address": "0x10008443",
+        "bytes": "287600",
+        "meaning": "s32i a8,a7,0: OUT type status acknowledgement",
+        "status": "present"
+      },
+      {
+        "address": "0x10008446",
+        "bytes": "284a00",
+        "meaning": "movi a8,0x400: TDC acknowledgement mask",
+        "status": "present"
+      },
+      {
+        "address": "0x10008449",
+        "bytes": "78606a",
+        "meaning": "bnone a6,a8,0x100084b7: no TDC still reaches OUT service",
+        "status": "present"
+      },
+      {
+        "address": "0x1000844f",
+        "bytes": "9870",
+        "meaning": "s32i.n a8,a7,0: TDC status acknowledgement",
+        "status": "present"
+      },
+      {
+        "address": "0x10008459",
+        "bytes": "69724c",
+        "meaning": "bnei a7,2,0x100084a9: IN1 is the special list path",
+        "status": "present"
+      },
+      {
+        "address": "0x100084a9",
+        "bytes": "1af65b",
+        "meaning": "l32r a10,0x10005e18: first wake event object",
+        "status": "present"
+      },
+      {
+        "address": "0x100084ac",
+        "bytes": "db70",
+        "meaning": "mov.n a11,a7: first wake uses lane event bit",
+        "status": "present"
+      },
+      {
+        "address": "0x100084b4",
+        "bytes": "583e3d",
+        "meaning": "call8 0x10017dac: TDC-associated wake before OUT processing",
+        "status": "present"
+      },
+      {
+        "address": "0x100084b7",
+        "bytes": "683102",
+        "meaning": "beqi a3,1,0x100084bd: OUT service path",
+        "status": "present"
+      },
+      {
+        "address": "0x100084c8",
+        "bytes": "685102",
+        "meaning": "beqi a5,1,0x100084ce: OUT1 special receive processing",
+        "status": "present"
+      },
+      {
+        "address": "0x100084cb",
+        "bytes": "6001e1",
+        "meaning": "j 0x100086b0: other OUT lanes still wake",
+        "status": "present"
+      },
+      {
+        "address": "0x100084d4",
+        "bytes": "6481d8",
+        "meaning": "beqz a8,0x100086b0: inactive bulk path still wakes",
+        "status": "present"
+      },
+      {
+        "address": "0x100084d7",
+        "bytes": "18f653",
+        "meaning": "l32r a8,0x10005e24: OUT0 control base",
+        "status": "present"
+      },
+      {
+        "address": "0x100084da",
+        "bytes": "0b3911",
+        "meaning": "slli a9,a3,5: OUT bank value 1 selects control+0x20",
+        "status": "present"
+      },
+      {
+        "address": "0x100084dd",
+        "bytes": "2a0a80",
+        "meaning": "movi a10,128: SNAK control request mask",
+        "status": "present"
+      },
+      {
+        "address": "0x100084e0",
+        "bytes": "a899",
+        "meaning": "add.n a9,a9,a8: OUT1 control address",
+        "status": "present"
+      },
+      {
+        "address": "0x100084ea",
+        "bytes": "0a8802",
+        "meaning": "or a8,a8,a10: add SNAK request",
+        "status": "present"
+      },
+      {
+        "address": "0x100084f3",
+        "bytes": "289600",
+        "meaning": "s32i a8,a9,0: SNAK request, not EPSTS acknowledgement",
+        "status": "present"
+      },
+      {
+        "address": "0x100084f9",
+        "bytes": "18f64c",
+        "meaning": "l32r a8,0x10005e2c: bulk descriptor global",
+        "status": "present"
+      },
+      {
+        "address": "0x100084fc",
+        "bytes": "8b80",
+        "meaning": "l32i.n a11,a8,0: bulk descriptor pointer",
+        "status": "present"
+      },
+      {
+        "address": "0x100086ad",
+        "bytes": "580011",
+        "meaning": "call8 0x100086f4: rearm on applicable path before common OUT wake",
+        "status": "present"
+      },
+      {
+        "address": "0x100086b0",
+        "bytes": "1af5da",
+        "meaning": "l32r a10,0x10005e18: common OUT wake object",
+        "status": "present"
+      },
+      {
+        "address": "0x100086b3",
+        "bytes": "a54b",
+        "meaning": "add.n a11,a4,a5: bank offset plus lane",
+        "status": "present"
+      },
+      {
+        "address": "0x100086b5",
+        "bytes": "00b104",
+        "meaning": "ssl a11: select event-bit position",
+        "status": "present"
+      },
+      {
+        "address": "0x100086b8",
+        "bytes": "002b1a",
+        "meaning": "sll a11,a2: event bit",
+        "status": "present"
+      },
+      {
+        "address": "0x100086c0",
+        "bytes": "583dba",
+        "meaning": "call8 0x10017dac: common OUT wake",
+        "status": "present"
+      },
+      {
+        "address": "0x100086db",
+        "bytes": "244c10",
+        "meaning": "addi a4,a4,16: OUT event offset 16",
+        "status": "present"
+      },
+      {
+        "address": "0x100086de",
+        "bytes": "233c01",
+        "meaning": "addi a3,a3,1: advance bank",
+        "status": "present"
+      },
+      {
+        "address": "0x1001bc48",
+        "bytes": "90021370",
+        "meaning": "file-backed initial bulk descriptor pointer",
+        "status": "present"
+      }
+    ],
     "saved_decompilation_checks": [
       {
         "missing_needles": [],
@@ -216,13 +584,13 @@
           "target": "0x100096af"
         }
       ],
-      "open_firmware_relevance": "core endpoint-0 bring-up and transmit kick",
+      "open_firmware_relevance": "separate endpoint control intent from actual completion and safe buffer reuse",
       "pointer_symbols": {
         "0x10005e90": 5
       },
       "register": "0xb3000000",
-      "role": "Read/modify/write control bits. Evidence includes bit 0x2 before control-IN staging and bit 0x1 after setup completion; decompiler also shows 0x108 to start transfer descriptors.",
-      "working_name": "main USB command/status kick",
+      "role": "Original control requests include 0x2 and 0x108. Family names are F/flush and CNAK plus P/poll demand; bit 0 is S/stall. These are not interrupt acknowledgements.",
+      "working_name": "EP0 IN control (EPCTL)",
       "write_values": [
         {
           "pc": "0x1000987f",
@@ -282,13 +650,13 @@
           }
         }
       ],
-      "open_firmware_relevance": "likely needed to acknowledge/advance setup handling",
+      "open_firmware_relevance": "packet-size configuration, not acknowledgement",
       "pointer_symbols": {
         "0x10005e9c": 2
       },
       "register": "0xb300000c",
       "role": "Written with 0x40 during descriptor request paths.",
-      "working_name": "endpoint/request ack register",
+      "working_name": "EP0 IN maximum-packet word",
       "write_values": [
         {
           "immediate": 64,
@@ -314,12 +682,12 @@
           "access": "write",
           "block": {
             "depth": 0,
-            "end": "0x10008eef",
+            "end": "0x10008f39",
             "start": "0x10008c24"
           },
-          "instruction": "*DAT_10005ea0 = *(undefined4 *)PTR_DAT_10005e98",
-          "note": "manual evidence from analysis/usb-path/decompiled-neighbors/10008c24_hp1020_usb_control_tx_data_stage_candidate.c",
-          "pc": "0x10008ce4",
+          "instruction": "s32i.n a8,a9,0",
+          "note": "Original instruction/literal anchors resolve IN0 DESPTR and global 0x1001bc58. Its file-backed initializer is 0x900226f0; no runtime transfer is observed.",
+          "pc": "0x10008d0c",
           "pointer_literal": "0x10005ea0",
           "target": "0x10008c24"
         },
@@ -327,12 +695,12 @@
           "access": "write",
           "block": {
             "depth": 0,
-            "end": "0x10008eef",
+            "end": "0x10008f39",
             "start": "0x10008c24"
           },
-          "instruction": "*DAT_10005ea0 = *(undefined4 *)PTR_DAT_10005e98",
-          "note": "manual evidence from analysis/usb-path/decompiled-neighbors/10008c24_hp1020_usb_control_tx_data_stage_candidate.c",
-          "pc": "0x10008e50",
+          "instruction": "s32i.n a8,a9,0",
+          "note": "Original instruction/literal anchors resolve IN0 DESPTR and global 0x1001bc58. Its file-backed initializer is 0x900226f0; no runtime transfer is observed.",
+          "pc": "0x10008f1b",
           "pointer_literal": "0x10005ea0",
           "target": "0x10008c24"
         }
@@ -342,18 +710,18 @@
         "0x10005ea0": 2
       },
       "register": "0xb3000014",
-      "role": "Written with the transfer descriptor ring pointer before the 0x108 control-IN kick.",
+      "role": "Written with the transfer descriptor pointer before the 0x108 CNAK/poll-demand request. Original stores are 0x10008d0c and 0x10008f1b.",
       "working_name": "control-IN descriptor submit register",
       "write_values": [
         {
-          "pc": "0x10008ce4",
+          "pc": "0x10008d0c",
           "pointer_value": "0x900226f0",
-          "source_register": "DAT_10005ea0"
+          "source_register": "a8"
         },
         {
-          "pc": "0x10008e50",
+          "pc": "0x10008f1b",
           "pointer_value": "0x900226f0",
-          "source_register": "DAT_10005ea0"
+          "source_register": "a8"
         }
       ]
     },
@@ -380,11 +748,11 @@
           }
         }
       ],
-      "open_firmware_relevance": "likely needed after preparing a descriptor response",
+      "open_firmware_relevance": "buffer configuration, not acknowledgement or completion",
       "pointer_symbols": {},
       "register": "0xb3000028",
-      "role": "Written after descriptor-specific setup and before calling the control-IN sender.",
-      "working_name": "post-response ack/kick register",
+      "role": "Endpoint 1 IN +0x08 is buffer-size configuration under the family layout; the stock path writes 0x40.",
+      "working_name": "EP1 IN buffer-size word",
       "write_values": [
         {
           "pc": "0x10009597",
@@ -433,13 +801,13 @@
           }
         }
       ],
-      "open_firmware_relevance": "likely tied to full-speed/high-speed or direction-specific completion",
+      "open_firmware_relevance": "full/high-speed packet-size configuration",
       "pointer_symbols": {
         "0x10005ee0": 2
       },
       "register": "0xb300002c",
       "role": "Written with 0x40 or 0x200 in descriptor request paths.",
-      "working_name": "endpoint/request ack register",
+      "working_name": "EP1 IN maximum-packet word",
       "write_values": [
         {
           "immediate": 64,
@@ -461,8 +829,8 @@
       "allowed_write_masks": [
         "or 0x00000100"
       ],
-      "evidence": "stock USB2Thread sets bit 0x100 after arming bulk receive",
-      "role": "bank-1 event acknowledgement/enable register"
+      "evidence": "stock USB2Thread sets CNAK bit 8; this is endpoint control, not interrupt acknowledgement",
+      "role": "EP0 OUT control (CNAK request)"
     },
     "0xb300020c": {
       "counts": {
@@ -505,13 +873,13 @@
           }
         }
       ],
-      "open_firmware_relevance": "likely needed to clear/advance control endpoint state",
+      "open_firmware_relevance": "packet-size/buffer configuration, not acknowledgement",
       "pointer_symbols": {
         "0x10005ee4": 2
       },
       "register": "0xb300020c",
       "role": "Written with 0x40 in descriptor request paths.",
-      "working_name": "endpoint/request ack register",
+      "working_name": "EP0 OUT maximum-packet/buffer word",
       "write_values": [
         {
           "immediate": 64,
@@ -546,13 +914,13 @@
           "target": "0x10009859"
         }
       ],
-      "open_firmware_relevance": "plausible source of setup/event packet metadata",
+      "open_firmware_relevance": "do not confuse ordinary OUT0 descriptor completion with SETUP storage",
       "pointer_symbols": {
         "0x10005ef8": 1
       },
       "register": "0xb3000214",
-      "role": "Read as a pointer, then dereferenced as bytes that are compared against an event signature.",
-      "working_name": "USB event/setup buffer pointer",
+      "role": "At 0x10009890 the original reads DESPTR and checks descriptor ownership. SETUP instead uses the distinct SUBPTR register 0xb3000210.",
+      "working_name": "EP0 OUT ordinary data/status descriptor pointer (DESPTR)",
       "write_values": []
     },
     "0xb3000220": {
@@ -564,8 +932,8 @@
         "or 0x00000080",
         "or 0x00000100"
       ],
-      "evidence": "stock interrupt lane and bulk read callback acknowledge bits 0x80/0x100",
-      "role": "bulk OUT lane acknowledgement/re-arm register"
+      "evidence": "stock interrupt path requests SNAK 0x80; the bulk callback requests CNAK 0x100; neither proves DMA quiescence",
+      "role": "EP1 OUT control (SNAK/CNAK requests)"
     },
     "0xb3000224": {
       "access": [
@@ -575,7 +943,7 @@
       "allowed_write_values": [
         "0x00000400"
       ],
-      "evidence": "stock interrupt task clears completion status bit 0x400 before processing descriptor",
+      "evidence": "stock interrupt task acknowledges latched TDC status 0x400; successful completion still needs ownership/error validation",
       "role": "bank-1 lane-1 bulk OUT status"
     },
     "0xb300022c": {
@@ -632,13 +1000,13 @@
           "target": "0x100095b3"
         }
       ],
-      "open_firmware_relevance": "likely tells whether a setup/status condition is ready",
+      "open_firmware_relevance": "low two bits select configured speed in the family layout; not SETUP readiness",
       "pointer_symbols": {
         "0x10005df4": 2
       },
       "register": "0xb3000400",
       "role": "Read before choosing descriptor response source. Low two bits are tested.",
-      "working_name": "control/setup status gate",
+      "working_name": "device configuration (DEVCFG)",
       "write_values": []
     },
     "0xb3000404": {
@@ -649,8 +1017,8 @@
       "allowed_write_masks": [
         "or 0x00000008"
       ],
-      "evidence": "stock USB2Thread sets bit 0x8 before enabling bulk service",
-      "role": "USB interrupt/service enable word"
+      "evidence": "stock sets bit 0x8, named TDE by the pinned family header; RDE is the separate bit 0x4",
+      "role": "USB device control (DEVCTL), transmit-DMA enable request"
     },
     "0xb3000408": {
       "counts": {
@@ -697,13 +1065,13 @@
           "target": "0x100096e5"
         }
       ],
-      "open_firmware_relevance": "likely selects the active descriptor/config branch",
+      "open_firmware_relevance": "speed-dependent descriptor/configuration selection, not SETUP ownership",
       "pointer_symbols": {
         "0x10005e68": 3
       },
       "register": "0xb3000408",
-      "role": "Read and tested against a mask before choosing descriptor response source.",
-      "working_name": "control/setup status gate",
+      "role": "Read and tested against 0x6000 before choosing descriptor response source; the family layout calls these enumerated-speed bits.",
+      "working_name": "device status (DEVSTS)",
       "write_values": []
     },
     "0xb3000418": {
@@ -955,10 +1323,11 @@
       "allowed_write_masks": [
         "or 0x00000005"
       ],
-      "evidence": "stock USB2Thread reads bit 0 for speed and sets service bits 0/2",
-      "role": "USB global speed/service control"
+      "evidence": "stock USB2Thread tests bit 0 and sets bits 0/2; the family UDC header does not define this wrapper register",
+      "role": "HP USB wrapper control; bit meanings incompletely established"
     }
   },
+  "semantic_correction_only": true,
   "status": "pass",
   "summary": "Combined endpoint-0 and bulk OUT USB MMIO contract for the mechanically inert parser probe."
 }

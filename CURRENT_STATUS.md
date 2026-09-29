@@ -7,47 +7,56 @@ reusing open components and verifying hardware contracts. AGENTS.md owns scope.
 
 ## Latest firmware evidence
 
-The existing printer-class/document composition passes 73 host/73 QEMU cases:
-ID/status/reset, retained responses/output, stale events, exact decoded pixels
-and fresh document recovery. Target state/fixed memory is 128216 bytes, excluding
-code, stack, immutable ID and test captures. Physical quiescence remains supplied.
+The reusable TinyUSB adapter now connects synthetic bulk reception to the open
+class/receive/JBIG/output path. **98 sanitized host/98 QEMU cases pass**, checking
+independent exact pixels, USB reply proposals, retained buffers, stale events,
+reset/configuration recovery and malformed controls. Target state/fixed memory
+is 128488 bytes, excluding code, stack, TinyUSB and fixture captures. This is a
+synthetic DCD, not a real controller port. Initial wire SOFT_RESET, three external
+recovery promises, synchronous output and explicit input close remain supplied.
+Reports and earlier failed/passed source snapshots: `analysis/usb-path/tinyusb-printer/`.
 
-TinyUSB's generic protocol core is now composed with that class. **52 unchanged
-host/52 QEMU scenarios** retain 14 protocol observations and 32 BE status-byte
-mismatches. A separate two-file patch fixes serialization, request routing, failed
-EP0 progression and configuration context; **160 host/160 QEMU scenarios pass**
-with exact wire proposals and recovery. Vendor originals remain pinned and
-unchanged. This is a synthetic DCD/event fixture: no real controller, bulk payload
-or page decoding passes through TinyUSB yet. Reports and byte-preserved earlier
-sources/builds/captures: `analysis/usb-path/tinyusb-device/`. Focused log:
-`/tmp/hp1020-tinyusb-patched-target-20260929.log`.
+The normalized receive API preserves the original raw-descriptor wrapper; its
+75 host/75 QEMU regression passes. The separate printer-class composition retains
+73/73. Unchanged pinned TinyUSB retains its 52/52 baseline with 14 protocol
+observations and 32 BE status-byte mismatches; the two-file patched core passes
+160/160. Vendor originals stay unchanged. Every current source hash matches.
 
-Original pause/restore passes 46 conditional cases in both engines. It requests
-pause/resume and saves NAK state but does not establish DMA quiescence. Separate
-original reset/status and output-format/pointer experiments remain bounded before
-peripheral access. The old receive model's false thread-descriptor/name and
-max-packet labels are corrected against 46 byte checks.
+Original SETUP ingress passes 70 interpreter/QEMU cases, six pre-MMIO rejection
+controls per engine and 14 excluded-code controls. It distinguishes SUBPTR from
+ordinary OUT0 DESPTR and verifies stock field swaps before dispatch. Six older
+generators and the authored contract now distinguish these representations,
+register roles and task wake hints from successful transfer completion. All
+hardware allowlists and original write permissions remain unchanged.
+Original pause/restore retains 46 conditional cases; it does not prove DMA stop.
 
-Full sequential validation passed **116 consistency checks and both suites**,
-log `/tmp/hp1020-full-tinyusb-20260929.log` (child `hp1020-validation.qvzwiA`).
-The C path emits SRC/MEMW; exact annotated stock bytes gate these standard
-instructions in the shared auditor. Reports were regenerated and their current
-source hashes match; no report hashes were patched manually. No printer contact.
+Latest **full sequential validation passes 118 consistency checks and both suites**.
+Log: `/tmp/hp1020-full-reusable-printer-20260929.log`; child
+`hp1020-validation.quvweZ`. Reports were regenerated normally; no hashes were
+patched to claim untested source. No printer contact or installed-driver changes.
+GCC, binutils and QEMU currently work; pinned recovery is in `analysis/README.md`.
 
-Next connect protocol bulk reception to page decoding through a reusable adapter,
-and execute the independent original SETUP-ingress draft sequentially. Explicit
-transport/control identities, configuration admission, cancellation and input
-closure require care. Local adapter/test and SETUP drafts are **unexecuted and
-excluded from this checkpoint's validation**. Detailed questions/evidence:
-`analysis/open-firmware-model/next-evidence.md`; topic map/tool recovery:
-`analysis/README.md`. GCC, binutils and QEMU currently work.
+## Next work
+
+Review/commit/push this validated checkpoint, then apply and execute the separate
+unapplied `/tmp/hp1020-continuous-streaming.patch`, automatic-recovery patches and
+independent oracle/test drafts. They add validated END_PAGE/END_DOC observations
+without closing ordinary input and recovery after a new configuration without
+fabricating a host reset. They are **not implemented or tested in the 98 cases**.
+A failed initial configuration acknowledgement must stay fenced and retain any
+bound EP0 owner. Preserve source snapshots before investigating failures.
+
+`scripts/validate-hp1020-usb-idle-receive.py` is a saved **unexecuted draft**.
+Its bounded next experiment checks original background RDE-enable intent with
+three private RAM literal redirects and supplied interrupt/delay services. It
+cannot establish physical quiescence. Run it sequentially, never alongside
+another validator. Detailed evidence/plans: `analysis/open-firmware-model/next-evidence.md`.
 
 Keep separate: 26 completed empty-document lifecycles, six conditional original
 null reads, 28 retirement cases, 36 native page lifecycles with supplied completion,
-and 42 fragment/bypass cases. New protocol/control fragments add **zero native
-page lifecycles and zero USB transfers**. Receive retains 75 host/75 QEMU cases,
-image output 45/45, stream 66/44. Copies remain metadata. Boot, actual USB, engine
-timing/cache, physical status/printing and power-cycle recovery remain unproved.
+and 42 fragment/bypass cases. New USB/control/adapter checks add zero native page
+lifecycles and zero USB transfers. Copies remain metadata. Boot, actual USB,
+engine timing/cache, physical status/printing and power-cycle recovery are unproved.
 
 ## Installed Mac driver (separate, preserve)
 

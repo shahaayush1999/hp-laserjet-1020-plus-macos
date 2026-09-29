@@ -392248,8 +392248,8 @@
     "open-firmware/usb-printer-class/hp1020_usb_printer.h": "dd4e5d5cc4c54ed576e9df7a49f212b096cc40fdbda5c5c0b2b4ee409c7f7374",
     "open-firmware/usb-receive-core/hp1020_usb_document.c": "408290aa9788d15becf9e8f43fc6c2b86d3742088acbf934b5876fa4e80422e3",
     "open-firmware/usb-receive-core/hp1020_usb_document.h": "25bab3c9ece8db73dfe59ac10877212c3691ee037c69e874f78a50d625ef3f21",
-    "open-firmware/usb-receive-core/hp1020_usb_receive.c": "66c9f9840994b788bbdd36ba8381370ecc3026170e6313677f845060b452cd7d",
-    "open-firmware/usb-receive-core/hp1020_usb_receive.h": "fdcc568bc62bc2e9c66da4bbd7bc7a06fdbcd4cbc4813153dcbda01340036da1",
+    "open-firmware/usb-receive-core/hp1020_usb_receive.c": "352413d1c3d5cd8dbe1aa1788ab27383d1c45bfc344842d3b9b08c7e64827a8e",
+    "open-firmware/usb-receive-core/hp1020_usb_receive.h": "20853cc8f4504b216d9bb0c1732da5b79c97b05796e7ea4b2a17ecc296389367",
     "scripts/build-hp1020-tinyusb-target.sh": "cd73bae1812cbfbe30fef82dd3a653dc49343fc9e9727e77c8bf4814429029a9",
     "scripts/check-hp1020-c-compiler-profile.py": "c9d5cce3591a402f1b3f0e4ad343fb1064747a4d9c256b4a61cea60eccdf8aa4",
     "scripts/hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
@@ -392257,7 +392257,7 @@
     "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
     "scripts/prepare-hp1020-tinyusb.py": "5609cbf3c13156746cba4ddc1011ae45f4ffac4fd0f79142495290138b5c86df",
     "scripts/validate-hp1020-image-core.py": "fdfab43e675b8fbf20ecd49154afa33089a8e78866e294346d625fec21b7c27c",
-    "scripts/validate-hp1020-tinyusb-device.py": "df9bdba407abfd7b64bff62f4fe2d91a998ee2f212c708ebcf0fa2d35516b0a1",
+    "scripts/validate-hp1020-tinyusb-device.py": "7ae8bc400bda72533e301247529ce5c5491ac056ce5535b87df38b32e9e1bf5a",
     "vendor/jbigkit-2.1/libjbig/jbig85.c": "5e0782db94a94d199975f74ce493d32099aee5c9ae686c05e65831a1227a5fac",
     "vendor/jbigkit-2.1/libjbig/jbig85.h": "1c87939e042d7b03a19412dd3f8d0e9614ebbacc1aad5c4f2cfbd9bf11bd514e",
     "vendor/jbigkit-2.1/libjbig/jbig_ar.c": "ae9fa2575d73a0cd50c6a32621ab2b6c4ca5f1115d27d636f461275c1d1e62f3",
@@ -392287,11 +392287,11 @@
   "target": {
     "audit": {
       "division_by_zero_traps": [
-        "0x200061f5"
+        "0x20006251"
       ],
-      "instruction_bytes": 24155,
-      "instruction_ranges": 336,
-      "instructions": 9413,
+      "instruction_bytes": 24240,
+      "instruction_ranges": 338,
+      "instructions": 9455,
       "opcodes": [
         "add",
         "add.n",
@@ -392371,7 +392371,7 @@
       "rodata_bytes": 1272,
       "scope": "All annotated code uses the conservative standard ISA; unused encoder code remains. Not a device instruction trace.",
       "test_fixture_bss_bytes": 164820,
-      "text_bytes": 25088
+      "text_bytes": 25180
     },
     "cases": [
       {
@@ -393815,7 +393815,7 @@
         "wire_mismatches": []
       }
     ],
-    "elf_sha256": "04deec4b877299bce44b696ccc610f014e4e74ac31d42e43bea6e92dd873a310",
+    "elf_sha256": "70b947439127406da33b8f5b6e556a7b35c530ccedceb5f2e10aa06eb6c85f1b",
     "qemu_version": "QEMU emulator version 11.1.1"
   },
   "upstream_commit": "dae3f9a366bfcddbf9dcf1b48d7500286a849539",

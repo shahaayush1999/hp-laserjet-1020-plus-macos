@@ -413,16 +413,17 @@ def build_scope() -> dict[str, Any]:
             "endpoint0_data_cases": endpoint_data_cases,
             "endpoint0_stall_cases": endpoint_stall_cases,
             "control_completion_event_object": control_completion.get("event_object"),
-            "usb_completion_status_bit": usb_interrupt_events.get("event_scan", {}).get("completion_status_bit"),
+            "usb_tdc_status_bit": usb_interrupt_events.get("event_scan", {}).get("tdc_status_bit"),
             "usb_bulk_lane_event_bit": usb_interrupt_events.get("event_scan", {})
             .get("bulk_receive_lane", {})
             .get("event_bit"),
             "usb_bulk_lane_status_register": usb_interrupt_events.get("event_scan", {})
             .get("bulk_receive_lane", {})
             .get("lane_status_register"),
-            "usb_bulk_lane_ack_register": usb_interrupt_events.get("event_scan", {})
+            "usb_bulk_lane_control_register": usb_interrupt_events.get("event_scan", {})
             .get("bulk_receive_lane", {})
-            .get("lane_ack_register"),
+            .get("lane_control_register"),
+            "usb_wake_is_successful_completion": usb_interrupt_events.get("event_scan", {}).get("wake_is_successful_completion"),
             "marker_rearm_checks": len(marker_rearm),
             "marker_rearm_failures": fail_count(marker_rearm),
             "usb_bulk_receive_status": usb_bulk_receive.get("status"),
@@ -498,12 +499,12 @@ def render_markdown(scope: dict[str, Any]) -> str:
             f"- required JobMgr messages missing: `{', '.join(map(str, evidence['missing_required_messages'])) or 'none'}`",
             f"- endpoint-0 modeled data/stall cases: `{evidence['endpoint0_data_cases']}` / `{evidence['endpoint0_stall_cases']}`",
             f"- control completion event object: `{evidence['control_completion_event_object']}`",
-            f"- USB completion status bit candidate: `{evidence['usb_completion_status_bit']}`",
-            f"- USB bulk interrupt lane: event bit `{evidence['usb_bulk_lane_event_bit']}`, status register `{evidence['usb_bulk_lane_status_register']}`, ack register `{evidence['usb_bulk_lane_ack_register']}`",
+            f"- USB TDC status bit: `{evidence['usb_tdc_status_bit']}`; wake alone establishes success: `{str(evidence['usb_wake_is_successful_completion']).lower()}`",
+            f"- USB bulk interrupt lane: event bit `{evidence['usb_bulk_lane_event_bit']}`, status register `{evidence['usb_bulk_lane_status_register']}`, control register `{evidence['usb_bulk_lane_control_register']}`",
             f"- marker rearm-flow checks/failures: `{evidence['marker_rearm_checks']}` / `{evidence['marker_rearm_failures']}`",
             f"- USB bulk receive model: `{evidence['usb_bulk_receive_status']}`, record stride `{evidence['usb_bulk_transfer_record_stride']}`, receive buffer `{evidence['usb_bulk_receive_buffer_allocation']}`",
             f"- USB bulk parser handoff: parser `{evidence['usb_bulk_parser_entry']}`, read callback slot present `{str(evidence['usb_bulk_parser_reads_via_callback']).lower()}`",
-            f"- USB bulk callback model: `{evidence['usb_bulk_callback_status']}`, event bit `{evidence['usb_bulk_event_bit']}`, ack register `{evidence['usb_bulk_endpoint_ack_register']}`",
+            f"- USB bulk callback model: `{evidence['usb_bulk_callback_status']}`, event bit `{evidence['usb_bulk_event_bit']}`, OUT1 control register `{evidence['usb_bulk_endpoint_ack_register']}` (legacy callback field name)",
             f"- USB bulk re-arm model: `{evidence['usb_bulk_rearm_status']}`, descriptor pool `{evidence['usb_bulk_descriptor_pool']}`, submit register `{evidence['usb_bulk_descriptor_submit_register']}`",
             f"- sideband access hits classified: `{evidence['sideband_access_hits']}`",
             f"- sideband risk split: `+0x26={evidence['sideband_0x26_risk']}`, `+0x32={evidence['sideband_0x32_risk']}`, `+0x30={evidence['sideband_0x30_risk']}`",

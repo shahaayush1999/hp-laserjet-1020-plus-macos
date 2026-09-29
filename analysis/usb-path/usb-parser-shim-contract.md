@@ -4,7 +4,7 @@ This generated report combines the current USB receive models into one implement
 
 ## Plain-English Meaning
 
-The stock firmware keeps the print parser away from raw USB hardware. USB fills a buffer, wakes a read callback, and that callback feeds parser bytes. For open firmware, the next narrow software target is to reproduce that shim: accept bulk bytes, maintain the buffer counters, and provide a parser-facing read function.
+The stock firmware keeps the print parser behind a read callback. Its interrupt task issues wake hints that may repeat and do not alone prove a successful transfer. An independent receive adapter must validate ownership, original transfer identity, count and errors before exposing input bytes. The original internal counters and scheduling are evidence, not requirements for the replacement.
 
 ## Parser Boundary
 
@@ -38,9 +38,14 @@ The stock firmware keeps the print parser away from raw USB hardware. USB fills 
 
 - `event_bit`: `0x00020000`
 - `lane_status_register`: `0xb3000224`
-- `lane_ack_register`: `0xb3000220`
-- `completion_status_bit`: `0x400`
-- `ack_bits`: `0x80`, `0x400`
+- `lane_control_register`: `0xb3000220`
+- `tdc_status_bit`: `0x400`
+- `control_snak_mask`: `0x80`
+- `status_ack_masks`: `0x200`, `0x80`, `0x40`, `0x30`, `0x400`
+- `wake_hints_may_repeat`: `True`
+- `wake_without_tdc_possible`: `True`
+- `wake_is_successful_completion`: `False`
+- `descriptor_initial`: `0x90021370`
 
 ## Descriptor Re-Arm
 
@@ -57,7 +62,7 @@ The stock firmware keeps the print parser away from raw USB hardware. USB fills 
 
 | Stage | Purpose | Requires printer | Risk |
 |---|---|---:|---|
-| `bulk_counter_probe` | Observe bank-1/lane-1 completion and buffer counters without printing. | `true` | `low if it never sends engine/video commands` |
+| `bulk_counter_probe` | Observe bank-1/lane-1 status, descriptor ownership and buffer counters without printing; wake hints alone are not completion. | `true` | `low if it never sends engine/video commands` |
 | `bulk_echo_or_discard_firmware` | Accept bulk OUT bytes, update a counter/state marker, and keep the printer mechanically idle. | `true` | `low-to-medium until endpoint-0 marker execution is proven` |
 | `minimal_zjs_chunk_reader` | Parse only enough ZjStream framing to count document/page/raster chunks, still without video or engine output. | `false` | `software-only until connected to USB receive` |
 | `print_path_handoff` | Only after USB receive and chunk parsing are proven, connect parsed raster/page objects to video/engine models. | `true` | `high` |
@@ -75,6 +80,6 @@ Do not drive video/engine hardware from open code until endpoint-0 execution, bu
 | `present` | `bulk_receive_model_passes` | `analysis/usb-path/usb-bulk-receive-model.json` | Bulk receive registration model must be green. |
 | `present` | `bulk_callback_model_passes` | `analysis/usb-path/usb-bulk-callbacks-model.json` | Bulk callback model must be green. |
 | `present` | `bulk_rearm_model_passes` | `analysis/usb-path/usb-bulk-rearm-model.json` | Bulk re-arm model must be green. |
-| `present` | `interrupt_model_has_bulk_lane` | `analysis/usb-path/usb-interrupt-events.json` | USB interrupt model must preserve the bank-1/lane-1 bulk receive lane. |
+| `present` | `interrupt_model_has_bulk_lane` | `analysis/usb-path/usb-interrupt-events.json` | USB interrupt model must separate bank-1/lane-1 status acknowledgement, control requests and wake hints. |
 | `present` | `descriptor_rearm_constants_resolved` | `analysis/usb-path/usb-bulk-rearm-model.json` | Descriptor pool, buffer base, and submit register must be concrete. |
 

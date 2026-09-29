@@ -45,6 +45,15 @@ enum hp1020_rx_result hp1020_usb_receive_reserve(struct hp1020_usb_receive *, ui
  * A recognized but invalid completion stops without releasing any buffer. */
 enum hp1020_rx_result hp1020_usb_receive_complete(struct hp1020_usb_receive *,
     struct hp1020_rx_ticket, uint32_t descriptor_status, uint32_t endpoint_fault);
+/* Normalized successful transport completion, without stock descriptor bits.
+ * The caller promises this exact reservation's transfer ended, all its writes
+ * are CPU-visible and length is the actual data count. Report transport faults
+ * independently before pumping any READY data. This is not an all-generation
+ * quiescence promise and does not settle late callbacks. Zero length is a
+ * consumed empty transfer, never EOF. Stale/stopped/size checks are shared with
+ * the raw descriptor-policy wrapper; invalid recognized counts keep ownership. */
+enum hp1020_rx_result hp1020_usb_receive_complete_data(struct hp1020_usb_receive *,
+    struct hp1020_rx_ticket, uint32_t length);
 /* Endpoint-wide events need no live ticket. Report them before consuming any
  * queued data, even when the queue is empty or the descriptor is already ready.
  * Old-generation events are stale; any current nonzero fault fences the stream. */

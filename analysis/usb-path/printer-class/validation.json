@@ -163454,8 +163454,8 @@
     "open-firmware/usb-printer-class/target-check.ld": "a60f2c5d23bd4fa037c0298f8ce6dec6316390fc5b23e9845dcd3ee52d2b1cba",
     "open-firmware/usb-receive-core/hp1020_usb_document.c": "408290aa9788d15becf9e8f43fc6c2b86d3742088acbf934b5876fa4e80422e3",
     "open-firmware/usb-receive-core/hp1020_usb_document.h": "25bab3c9ece8db73dfe59ac10877212c3691ee037c69e874f78a50d625ef3f21",
-    "open-firmware/usb-receive-core/hp1020_usb_receive.c": "66c9f9840994b788bbdd36ba8381370ecc3026170e6313677f845060b452cd7d",
-    "open-firmware/usb-receive-core/hp1020_usb_receive.h": "fdcc568bc62bc2e9c66da4bbd7bc7a06fdbcd4cbc4813153dcbda01340036da1",
+    "open-firmware/usb-receive-core/hp1020_usb_receive.c": "352413d1c3d5cd8dbe1aa1788ab27383d1c45bfc344842d3b9b08c7e64827a8e",
+    "open-firmware/usb-receive-core/hp1020_usb_receive.h": "20853cc8f4504b216d9bb0c1732da5b79c97b05796e7ea4b2a17ecc296389367",
     "scripts/build-hp1020-usb-printer-target.sh": "3d83470c33d76f80d706d025527de00ff79b1959ba0c1cb94b4b211d1fee119f",
     "scripts/check-hp1020-c-compiler-profile.py": "c9d5cce3591a402f1b3f0e4ad343fb1064747a4d9c256b4a61cea60eccdf8aa4",
     "scripts/hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
@@ -163477,11 +163477,11 @@
   "target": {
     "audit": {
       "division_by_zero_traps": [
-        "0x20003e71"
+        "0x20003ecd"
       ],
-      "instruction_bytes": 15444,
-      "instruction_ranges": 189,
-      "instructions": 6116,
+      "instruction_bytes": 15529,
+      "instruction_ranges": 191,
+      "instructions": 6158,
       "opcodes": [
         "add",
         "add.n",
@@ -163558,7 +163558,7 @@
       "rodata_bytes": 986,
       "scope": "All annotated code uses the conservative standard ISA; unused encoder code remains. Not a device instruction trace.",
       "test_fixture_bss_bytes": 553288,
-      "text_bytes": 15996
+      "text_bytes": 16088
     },
     "cases": [
       {
@@ -164073,7 +164073,7 @@
         "status": "pass"
       }
     ],
-    "elf_sha256": "78f5b9c7567a41553c73c51d798811d8423ca36fd0702fa452b6a09ab0ba8285",
+    "elf_sha256": "60167a1a67a409f6cb518dcb95788ab9c9ef042665ea2ff18d40aefbf74f92f5",
     "qemu_version": "QEMU emulator version 11.1.1",
     "state_and_memory_bytes": 128216,
     "status": "pass"

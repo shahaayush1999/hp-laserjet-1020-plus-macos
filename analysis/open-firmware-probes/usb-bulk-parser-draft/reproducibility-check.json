@@ -82,14 +82,14 @@
     },
     {
       "file": "endpoint0-sequence-scan.json",
-      "first_sha256": "541b3bbeb6916f432f90e65c97d37806816740336c1d7f16e68200131a18ef0e",
-      "second_sha256": "541b3bbeb6916f432f90e65c97d37806816740336c1d7f16e68200131a18ef0e",
+      "first_sha256": "30a3e80128715602b227823fe7b6fdc314161e4d634490b18485c9d698402d4f",
+      "second_sha256": "30a3e80128715602b227823fe7b6fdc314161e4d634490b18485c9d698402d4f",
       "status": "pass"
     },
     {
       "file": "endpoint0-sequence-scan.md",
-      "first_sha256": "58112ef17d554cf34a65a8fc6e23e5e7342f14e8fc27bef642b003088d0aa0dd",
-      "second_sha256": "58112ef17d554cf34a65a8fc6e23e5e7342f14e8fc27bef642b003088d0aa0dd",
+      "first_sha256": "c75cfee4c504012aa17e01e7779f0a0aa88ab0b63b4d4b38671dff97bcb1b8b4",
+      "second_sha256": "c75cfee4c504012aa17e01e7779f0a0aa88ab0b63b4d4b38671dff97bcb1b8b4",
       "status": "pass"
     },
     {

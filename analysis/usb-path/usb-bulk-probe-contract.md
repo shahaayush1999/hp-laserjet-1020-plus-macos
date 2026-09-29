@@ -10,14 +10,14 @@ This generated allowlist combines the existing endpoint-0 map with only the stoc
 
 | Register | Access | Role | Permitted writes | Evidence |
 |---:|---|---|---|---|
-| `0xb3000200` | `read, write` | bank-1 event acknowledgement/enable register | `or 0x00000100` | stock USB2Thread sets bit 0x100 after arming bulk receive |
-| `0xb3000220` | `read, write` | bulk OUT lane acknowledgement/re-arm register | `or 0x00000080, or 0x00000100` | stock interrupt lane and bulk read callback acknowledge bits 0x80/0x100 |
-| `0xb3000224` | `read, write` | bank-1 lane-1 bulk OUT status | `0x00000400` | stock interrupt task clears completion status bit 0x400 before processing descriptor |
+| `0xb3000200` | `read, write` | EP0 OUT control (CNAK request) | `or 0x00000100` | stock USB2Thread sets CNAK bit 8; this is endpoint control, not interrupt acknowledgement |
+| `0xb3000220` | `read, write` | EP1 OUT control (SNAK/CNAK requests) | `or 0x00000080, or 0x00000100` | stock interrupt path requests SNAK 0x80; the bulk callback requests CNAK 0x100; neither proves DMA quiescence |
+| `0xb3000224` | `read, write` | bank-1 lane-1 bulk OUT status | `0x00000400` | stock interrupt task acknowledges latched TDC status 0x400; successful completion still needs ownership/error validation |
 | `0xb300022c` | `write` | bulk OUT endpoint maximum-packet/config word | `0x00000040, 0x00000200` | stock USB2Thread selects 64-byte full-speed or 512-byte high-speed receive packets |
 | `0xb3000234` | `write` | bulk OUT receive descriptor submit register | `0x90021370` | stock re-arm helper submits descriptor pool 0x90021370 |
-| `0xb3000404` | `read, write` | USB interrupt/service enable word | `or 0x00000008` | stock USB2Thread sets bit 0x8 before enabling bulk service |
+| `0xb3000404` | `read, write` | USB device control (DEVCTL), transmit-DMA enable request | `or 0x00000008` | stock sets bit 0x8, named TDE by the pinned family header; RDE is the separate bit 0x4 |
 | `0xb3000418` | `write` | USB event-lane mask word | `0xfffcfffe` | stock USB2Thread leaves endpoint-0 and bank-1 service lanes unmasked |
-| `0xb3010000` | `read, write` | USB global speed/service control | `or 0x00000005` | stock USB2Thread reads bit 0 for speed and sets service bits 0/2 |
+| `0xb3010000` | `read, write` | HP USB wrapper control; bit meanings incompletely established | `or 0x00000005` | stock USB2Thread tests bit 0 and sets bits 0/2; the family UDC header does not define this wrapper register |
 
 ## Allowed Memory
 
@@ -58,9 +58,9 @@ This generated allowlist combines the existing endpoint-0 map with only the stoc
 
 | Status | Check | Detail |
 |---|---|---|
-| `present` | `bulk_lane_matches_interrupt_model` | bank-1/lane-1 status, ack, and event bit remain fixed |
+| `present` | `bulk_lane_matches_interrupt_model` | bank-1/lane-1 status and control addresses remain fixed; wake hints do not assert success |
 | `present` | `descriptor_submit_matches_rearm_model` | descriptor pool, buffer, and submit register remain fixed |
-| `present` | `callback_ack_matches_contract` | callback and lane mask registers agree with the probe allowlist |
+| `present` | `callback_ack_matches_contract` | legacy callback field usb_endpoint_ack_register denotes OUT1 control; its address and the lane mask remain in the unchanged probe allowlist |
 | `present` | `all_bulk_registers_are_usb_only` | all additions stay in the mapped USB controller families |
-| `present` | `stock_elf_contains_resolved_bulk_literals` | raw big-endian stock ELF contains the direct event/register/buffer literals; lane status 0xb3000224 is the decompiled +4 status word derived from base 0xb3000220 |
+| `present` | `stock_elf_contains_resolved_bulk_literals` | raw stock ELF contains the direct literals; byte-gated interrupt evidence derives lane EPSTS 0xb3000224 independently of EPCTL 0xb3000220 |
 | `present` | `saved_decompilation_preserves_bulk_contract` | USB2Thread, interrupt task, re-arm helper, callback, and parser boundary evidence all remain present |

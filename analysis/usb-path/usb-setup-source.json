@@ -1,15 +1,13 @@
 {
   "classification": {
-    "direct_setup_buffer": "The stock descriptor branch reads setup-like request fields from 0x90021348 + offset. The strongest direct evidence is descriptor index/type and wLength reads.",
-    "event_pointer_register": "0xb3000214 is better treated as an event/envelope pointer. The stock code reads a pointer, then checks a high-bit event signature, rather than using it as the 8-byte setup packet itself.",
+    "descriptor_distinction": "SETUP uses SUBPTR 0xb3000210 and requires owner 2 plus RX status 0. DESPTR 0xb3000214 belongs to the separate ordinary OUT0 data/status descriptor. The high status bits denote descriptor ownership, not an event signature.",
+    "direct_setup_buffer": "Original initialization submits the SETUP record from global 0x1001bbc0 to OUT0 SUBPTR. The file-backed global is 0x90021340; request bytes are at record+8. Admission later reads status through SUBPTR but independently reloads the global for request fields. Pointer correspondence and stable ownership therefore need an explicit adapter contract.",
+    "field_representation": "Raw USB wValue/wIndex/wLength are little-endian pairs. Original 0x10009399..0x1000940b reverses wIndex and wLength in place before the listed stock dispatch reads. It preserves wValue bytes. The open marker reads raw bytes; its labels remain wire order. TinyUSB dcd_event_setup_received needs the original eight wire bytes, not the stock converted record.",
     "open_marker_choice": "The current USB marker draft uses the direct 0x90021348 setup-buffer candidate and records bmRequestType, bRequest, wValue, and wLength before any USB writes.",
     "remaining_live_unknown": "Static analysis narrows the address, but cannot prove that the same RAM slot is populated after our uploaded firmware starts, or which controller gate sequence is live on real hardware."
   },
-  "event_pointer_register": "0xb3000214",
-  "event_signature": {
-    "mask": "0xc0000000",
-    "value": "0x80000000"
-  },
+  "execution_evidence": "analysis/usb-path/setup-ingress.json",
+  "ingress_code_sha256": "e63fe132beeff99b0602625ec3f3d4a5f8fe3c5c048c0d2a5ceb65d8c5f175aa",
   "open_marker_offsets_read": [
     "0x0",
     "0x1",
@@ -24,45 +22,225 @@
       "field": "bmRequestType",
       "instruction": "l8ui\ta3, a2, 0",
       "offset": "0x0",
-      "pc": "0x10005e25"
+      "pc": "0x10005e25",
+      "representation": "raw_usb_wire"
     },
     {
       "description": "candidate USB setup packet buffer at 0x90021348",
       "field": "bRequest",
       "instruction": "l8ui\ta3, a2, 1",
       "offset": "0x1",
-      "pc": "0x10005e36"
+      "pc": "0x10005e36",
+      "representation": "raw_usb_wire"
     },
     {
       "description": "candidate USB setup packet buffer at 0x90021348",
       "field": "wValue low / descriptor index",
       "instruction": "l8ui\ta3, a2, 2",
       "offset": "0x2",
-      "pc": "0x10005e43"
+      "pc": "0x10005e43",
+      "representation": "raw_usb_wire"
     },
     {
       "description": "candidate USB setup packet buffer at 0x90021348",
       "field": "wValue high / descriptor type",
       "instruction": "l8ui\ta3, a2, 3",
       "offset": "0x3",
-      "pc": "0x10005e4a"
+      "pc": "0x10005e4a",
+      "representation": "raw_usb_wire"
     },
     {
       "description": "candidate USB setup packet buffer at 0x90021348",
       "field": "wLength low",
       "instruction": "l8ui\ta3, a11, 6",
       "offset": "0x6",
-      "pc": "0x10005eb7"
+      "pc": "0x10005eb7",
+      "representation": "raw_usb_wire"
     },
     {
       "description": "candidate USB setup packet buffer at 0x90021348",
       "field": "wLength high",
       "instruction": "l8ui\ta3, a11, 7",
       "offset": "0x7",
-      "pc": "0x10005ebe"
+      "pc": "0x10005ebe",
+      "representation": "raw_usb_wire"
     }
   ],
+  "original_byte_checks": [
+    {
+      "address": "0x10005ee8",
+      "bytes": "1001bbc0",
+      "meaning": "original literal/initializer",
+      "status": "present"
+    },
+    {
+      "address": "0x10005ef4",
+      "bytes": "b3000210",
+      "meaning": "original literal/initializer",
+      "status": "present"
+    },
+    {
+      "address": "0x10005ef8",
+      "bytes": "b3000214",
+      "meaning": "original literal/initializer",
+      "status": "present"
+    },
+    {
+      "address": "0x10005e30",
+      "bytes": "c0000000",
+      "meaning": "original literal/initializer",
+      "status": "present"
+    },
+    {
+      "address": "0x10005e34",
+      "bytes": "80000000",
+      "meaning": "original literal/initializer",
+      "status": "present"
+    },
+    {
+      "address": "0x10005f24",
+      "bytes": "30000000",
+      "meaning": "original literal/initializer",
+      "status": "present"
+    },
+    {
+      "address": "0x1001bbc0",
+      "bytes": "90021340",
+      "meaning": "original literal/initializer",
+      "status": "present"
+    },
+    {
+      "address": "0x1001bc60",
+      "bytes": "90022bc0",
+      "meaning": "original literal/initializer",
+      "status": "present"
+    },
+    {
+      "address": "0x1001bc48",
+      "bytes": "90021370",
+      "meaning": "original literal/initializer",
+      "status": "present"
+    },
+    {
+      "address": "0x10009123",
+      "bytes": "1bf371",
+      "meaning": "l32r a11,0x10005ee8: SETUP-record global",
+      "status": "present"
+    },
+    {
+      "address": "0x100091a5",
+      "bytes": "19f353",
+      "meaning": "l32r a9,0x10005ef4: OUT0 SUBPTR address",
+      "status": "present"
+    },
+    {
+      "address": "0x100091a8",
+      "bytes": "88b0",
+      "meaning": "l32i.n a8,a11,0: initial SETUP-record pointer",
+      "status": "present"
+    },
+    {
+      "address": "0x100091b0",
+      "bytes": "9890",
+      "meaning": "s32i.n a8,a9,0: SETUP pointer submission",
+      "status": "present"
+    },
+    {
+      "address": "0x100091bc",
+      "bytes": "1bf34f",
+      "meaning": "l32r a11,0x10005ef8: distinct OUT0 DESPTR",
+      "status": "present"
+    },
+    {
+      "address": "0x100091c7",
+      "bytes": "98b0",
+      "meaning": "s32i.n a8,a11,0: ordinary OUT0 descriptor submission",
+      "status": "present"
+    },
+    {
+      "address": "0x10009361",
+      "bytes": "8b80",
+      "meaning": "l32i.n a11,a8,0: status pointer through SUBPTR",
+      "status": "present"
+    },
+    {
+      "address": "0x1000938a",
+      "bytes": "798102",
+      "meaning": "beq a8,a9,0x10009390: owner comparison",
+      "status": "present"
+    },
+    {
+      "address": "0x10009393",
+      "bytes": "78a002",
+      "meaning": "bnone a10,a8,0x10009399: RX mask must be zero",
+      "status": "present"
+    },
+    {
+      "address": "0x1000939c",
+      "bytes": "2c8200",
+      "meaning": "l32i a12,a8,0: independent SETUP-record global",
+      "status": "present"
+    },
+    {
+      "address": "0x1000939f",
+      "bytes": "24cc08",
+      "meaning": "addi a4,a12,8: request bytes follow two words",
+      "status": "present"
+    },
+    {
+      "address": "0x100093c6",
+      "bytes": "284406",
+      "meaning": "s8i a8,a4,6: stock wLength high byte",
+      "status": "present"
+    },
+    {
+      "address": "0x100093d5",
+      "bytes": "2a4407",
+      "meaning": "s8i a10,a4,7: stock wLength low byte",
+      "status": "present"
+    },
+    {
+      "address": "0x100093fc",
+      "bytes": "284404",
+      "meaning": "s8i a8,a4,4: stock wIndex high byte",
+      "status": "present"
+    },
+    {
+      "address": "0x1000940b",
+      "bytes": "2a4405",
+      "meaning": "s8i a10,a4,5: stock wIndex low byte",
+      "status": "present"
+    },
+    {
+      "address": "0x10009890",
+      "bytes": "18f19a",
+      "meaning": "l32r a8,0x10005ef8: subsequent ordinary OUT0 descriptor path",
+      "status": "present"
+    }
+  ],
+  "out0_data_descriptor_initial": "0x90022bc0",
+  "out0_data_descriptor_pointer_register": "0xb3000214",
+  "raw_wire_fields": {
+    "0": "bmRequestType",
+    "1": "bRequest",
+    "2": "wValue low / descriptor index",
+    "3": "wValue high / descriptor type",
+    "4": "wIndex low",
+    "5": "wIndex high",
+    "6": "wLength low",
+    "7": "wLength high"
+  },
+  "setup_admission": {
+    "owner_mask": "0xc0000000",
+    "owner_value": "0x80000000",
+    "rx_mask": "0x30000000",
+    "rx_value": "0x00000000"
+  },
+  "setup_descriptor_pointer_register": "0xb3000210",
   "setup_packet_base_candidate": "0x90021348",
+  "setup_packet_record_pointer_global": "0x1001bbc0",
+  "setup_record_initial": "0x90021340",
+  "status": "pass",
   "stock_descriptor_branch_offsets_seen": [
     "0x2",
     "0x4",
@@ -70,102 +248,125 @@
     "0x6",
     "0x7"
   ],
+  "stock_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "stock_post_conversion_fields": {
+    "0": "bmRequestType",
+    "1": "bRequest",
+    "2": "wValue low / descriptor index",
+    "3": "wValue high / descriptor type",
+    "4": "wIndex high (after stock conversion)",
+    "5": "wIndex low (after stock conversion)",
+    "6": "wLength high (after stock conversion)",
+    "7": "wLength low (after stock conversion)"
+  },
   "stock_setup_refs": [
     {
       "address": "0x9002134e",
-      "field": "wLength low",
+      "field": "wLength high (after stock conversion)",
       "instruction": "l8ui a8,a4,0x6",
       "offset": "0x6",
       "pc": "0x10009498",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134f",
-      "field": "wLength high",
+      "field": "wLength low (after stock conversion)",
       "instruction": "l8ui a9,a4,0x7",
       "offset": "0x7",
       "pc": "0x1000949e",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134e",
-      "field": "wLength low",
+      "field": "wLength high (after stock conversion)",
       "instruction": "l8ui a8,a4,0x6",
       "offset": "0x6",
       "pc": "0x100094aa",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134f",
-      "field": "wLength high",
+      "field": "wLength low (after stock conversion)",
       "instruction": "l8ui a9,a4,0x7",
       "offset": "0x7",
       "pc": "0x100094ad",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134e",
-      "field": "wLength low",
+      "field": "wLength high (after stock conversion)",
       "instruction": "l8ui a8,a4,0x6",
       "offset": "0x6",
       "pc": "0x10009512",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134f",
-      "field": "wLength high",
+      "field": "wLength low (after stock conversion)",
       "instruction": "l8ui a9,a4,0x7",
       "offset": "0x7",
       "pc": "0x10009517",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134e",
-      "field": "wLength low",
+      "field": "wLength high (after stock conversion)",
       "instruction": "l8ui a8,a4,0x6",
       "offset": "0x6",
       "pc": "0x10009523",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134f",
-      "field": "wLength high",
+      "field": "wLength low (after stock conversion)",
       "instruction": "l8ui a9,a4,0x7",
       "offset": "0x7",
       "pc": "0x10009526",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134e",
-      "field": "wLength low",
+      "field": "wLength high (after stock conversion)",
       "instruction": "l8ui a8,a4,0x6",
       "offset": "0x6",
       "pc": "0x100095dc",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134f",
-      "field": "wLength high",
+      "field": "wLength low (after stock conversion)",
       "instruction": "l8ui a9,a4,0x7",
       "offset": "0x7",
       "pc": "0x100095e2",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134e",
-      "field": "wLength low",
+      "field": "wLength high (after stock conversion)",
       "instruction": "l8ui a8,a4,0x6",
       "offset": "0x6",
       "pc": "0x1000969a",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134f",
-      "field": "wLength high",
+      "field": "wLength low (after stock conversion)",
       "instruction": "l8ui a9,a4,0x7",
       "offset": "0x7",
       "pc": "0x1000969d",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134a",
@@ -173,39 +374,44 @@
       "instruction": "l8ui a8,a4,0x2",
       "offset": "0x2",
       "pc": "0x100095f9",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134c",
-      "field": "wIndex low",
+      "field": "wIndex high (after stock conversion)",
       "instruction": "l8ui a9,a4,0x4",
       "offset": "0x4",
       "pc": "0x1000961f",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134d",
-      "field": "wIndex high",
+      "field": "wIndex low (after stock conversion)",
       "instruction": "l8ui a8,a4,0x5",
       "offset": "0x5",
       "pc": "0x10009631",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134e",
-      "field": "wLength low",
+      "field": "wLength high (after stock conversion)",
       "instruction": "l8ui a8,a4,0x6",
       "offset": "0x6",
       "pc": "0x10009604",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134f",
-      "field": "wLength high",
+      "field": "wLength low (after stock conversion)",
       "instruction": "l8ui a9,a4,0x7",
       "offset": "0x7",
       "pc": "0x10009607",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134a",
@@ -213,7 +419,8 @@
       "instruction": "l8ui a8,a4,0x2",
       "offset": "0x2",
       "pc": "0x10009643",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134a",
@@ -221,104 +428,117 @@
       "instruction": "l8ui a8,a4,0x2",
       "offset": "0x2",
       "pc": "0x1000964f",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134e",
-      "field": "wLength low",
+      "field": "wLength high (after stock conversion)",
       "instruction": "l8ui a9,a4,0x6",
       "offset": "0x6",
       "pc": "0x10009682",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134f",
-      "field": "wLength high",
+      "field": "wLength low (after stock conversion)",
       "instruction": "l8ui a8,a4,0x7",
       "offset": "0x7",
       "pc": "0x10009688",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134e",
-      "field": "wLength low",
+      "field": "wLength high (after stock conversion)",
       "instruction": "l8ui a8,a4,0x6",
       "offset": "0x6",
       "pc": "0x1000969a",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134f",
-      "field": "wLength high",
+      "field": "wLength low (after stock conversion)",
       "instruction": "l8ui a9,a4,0x7",
       "offset": "0x7",
       "pc": "0x1000969d",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134e",
-      "field": "wLength low",
+      "field": "wLength high (after stock conversion)",
       "instruction": "l8ui a8,a4,0x6",
       "offset": "0x6",
       "pc": "0x100096b5",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134f",
-      "field": "wLength high",
+      "field": "wLength low (after stock conversion)",
       "instruction": "l8ui a9,a4,0x7",
       "offset": "0x7",
       "pc": "0x100096b8",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134e",
-      "field": "wLength low",
+      "field": "wLength high (after stock conversion)",
       "instruction": "l8ui a8,a4,0x6",
       "offset": "0x6",
       "pc": "0x100096c6",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134f",
-      "field": "wLength high",
+      "field": "wLength low (after stock conversion)",
       "instruction": "l8ui a9,a4,0x7",
       "offset": "0x7",
       "pc": "0x100096c9",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134e",
-      "field": "wLength low",
+      "field": "wLength high (after stock conversion)",
       "instruction": "l8ui a8,a4,0x6",
       "offset": "0x6",
       "pc": "0x100096eb",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134f",
-      "field": "wLength high",
+      "field": "wLength low (after stock conversion)",
       "instruction": "l8ui a9,a4,0x7",
       "offset": "0x7",
       "pc": "0x100096f1",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134e",
-      "field": "wLength low",
+      "field": "wLength high (after stock conversion)",
       "instruction": "l8ui a8,a4,0x6",
       "offset": "0x6",
       "pc": "0x100096fd",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     },
     {
       "address": "0x9002134f",
-      "field": "wLength high",
+      "field": "wLength low (after stock conversion)",
       "instruction": "l8ui a9,a4,0x7",
       "offset": "0x7",
       "pc": "0x10009700",
-      "reference_kind": "READ"
+      "reference_kind": "READ",
+      "representation": "stock_after_wIndex_wLength_conversion"
     }
   ],
-  "summary": "Static model of where endpoint-0 setup request bytes appear to come from."
+  "summary": "Original-byte SETUP storage/admission and separate raw-wire/post-conversion field views."
 }

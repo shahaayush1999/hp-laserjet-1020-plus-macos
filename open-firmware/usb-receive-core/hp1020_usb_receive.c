@@ -38,7 +38,13 @@ enum hp1020_rx_result hp1020_usb_receive_complete(struct hp1020_usb_receive *s,
     if(endpoint_fault)return fail(s,HP1020_RX_ENDPOINT);
     if((status>>30)!=2)return HP1020_RX_WAIT;
     if((status&0x30000000u) || !(status&0x08000000u))return fail(s,HP1020_RX_STATUS);
-    uint32_t length=status&0xffffu;
+    return hp1020_usb_receive_complete_data(s,ticket,status&0xffffu);
+}
+enum hp1020_rx_result hp1020_usb_receive_complete_data(struct hp1020_usb_receive *s,
+    struct hp1020_rx_ticket ticket,uint32_t length) {
+    struct hp1020_rx_slot *p=slot(s,ticket);
+    if(!p || p->ready)return HP1020_RX_STALE;
+    if(s->stopped)return HP1020_RX_STOPPED;
     if(length>p->capacity)return fail(s,HP1020_RX_LIMIT);
     p->length=length;p->ready=1;
     return HP1020_RX_OK;

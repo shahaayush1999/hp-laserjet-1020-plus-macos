@@ -187,7 +187,7 @@
     "value": "0x00000040"
   },
   {
-    "description": "begin/control-IN data stage",
+    "description": "EP0 IN control F/flush request under the pinned family layout; no flush-completion proof",
     "instruction": "s32i.n\ta9, a8, 0",
     "kind": "endpoint0_or_write",
     "operation": "or",
@@ -209,7 +209,7 @@
     "value": "0x900226f0"
   },
   {
-    "description": "transfer descriptor kick pattern seen in stock data stage",
+    "description": "EP0 IN control CNAK plus P/poll-demand request; not a completion acknowledgement",
     "instruction": "s32i.n\ta9, a8, 0",
     "kind": "endpoint0_or_write",
     "operation": "or",

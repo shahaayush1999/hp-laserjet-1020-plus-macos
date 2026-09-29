@@ -26,22 +26,22 @@ OUT_MD = ROOT / "analysis/usb-path/usb-bulk-probe-contract.md"
 
 BULK_REGISTERS: dict[str, dict[str, Any]] = {
     "0xb3000200": {
-        "role": "bank-1 event acknowledgement/enable register",
+        "role": "EP0 OUT control (CNAK request)",
         "access": ["read", "write"],
         "allowed_write_masks": ["or 0x00000100"],
-        "evidence": "stock USB2Thread sets bit 0x100 after arming bulk receive",
+        "evidence": "stock USB2Thread sets CNAK bit 8; this is endpoint control, not interrupt acknowledgement",
     },
     "0xb3000220": {
-        "role": "bulk OUT lane acknowledgement/re-arm register",
+        "role": "EP1 OUT control (SNAK/CNAK requests)",
         "access": ["read", "write"],
         "allowed_write_masks": ["or 0x00000080", "or 0x00000100"],
-        "evidence": "stock interrupt lane and bulk read callback acknowledge bits 0x80/0x100",
+        "evidence": "stock interrupt path requests SNAK 0x80; the bulk callback requests CNAK 0x100; neither proves DMA quiescence",
     },
     "0xb3000224": {
         "role": "bank-1 lane-1 bulk OUT status",
         "access": ["read", "write"],
         "allowed_write_values": ["0x00000400"],
-        "evidence": "stock interrupt task clears completion status bit 0x400 before processing descriptor",
+        "evidence": "stock interrupt task acknowledges latched TDC status 0x400; successful completion still needs ownership/error validation",
     },
     "0xb300022c": {
         "role": "bulk OUT endpoint maximum-packet/config word",
@@ -56,10 +56,10 @@ BULK_REGISTERS: dict[str, dict[str, Any]] = {
         "evidence": "stock re-arm helper submits descriptor pool 0x90021370",
     },
     "0xb3000404": {
-        "role": "USB interrupt/service enable word",
+        "role": "USB device control (DEVCTL), transmit-DMA enable request",
         "access": ["read", "write"],
         "allowed_write_masks": ["or 0x00000008"],
-        "evidence": "stock USB2Thread sets bit 0x8 before enabling bulk service",
+        "evidence": "stock sets bit 0x8, named TDE by the pinned family header; RDE is the separate bit 0x4",
     },
     "0xb3000418": {
         "role": "USB event-lane mask word",
@@ -68,10 +68,10 @@ BULK_REGISTERS: dict[str, dict[str, Any]] = {
         "evidence": "stock USB2Thread leaves endpoint-0 and bank-1 service lanes unmasked",
     },
     "0xb3010000": {
-        "role": "USB global speed/service control",
+        "role": "HP USB wrapper control; bit meanings incompletely established",
         "access": ["read", "write"],
         "allowed_write_masks": ["or 0x00000005"],
-        "evidence": "stock USB2Thread reads bit 0 for speed and sets service bits 0/2",
+        "evidence": "stock USB2Thread tests bit 0 and sets bits 0/2; the family UDC header does not define this wrapper register",
     },
 }
 
@@ -181,9 +181,11 @@ def build() -> dict[str, Any]:
         check(
             "bulk_lane_matches_interrupt_model",
             lane.get("lane_status_register") == "0xb3000224"
-            and lane.get("lane_ack_register") == "0xb3000220"
-            and lane.get("event_bit") == "0x00020000",
-            "bank-1/lane-1 status, ack, and event bit remain fixed",
+            and lane.get("lane_control_register") == "0xb3000220"
+            and lane.get("event_bit") == "0x00020000"
+            and lane.get("control_snak_mask") == "0x80"
+            and interrupt.get("event_scan", {}).get("wake_is_successful_completion") is False,
+            "bank-1/lane-1 status and control addresses remain fixed; wake hints do not assert success",
         ),
         check(
             "descriptor_submit_matches_rearm_model",
@@ -196,7 +198,7 @@ def build() -> dict[str, Any]:
             "callback_ack_matches_contract",
             callback_constants.get("usb_endpoint_ack_register") == "0xb3000220"
             and callback_constants.get("usb_status_register") == "0xb3000418",
-            "callback and lane mask registers agree with the probe allowlist",
+            "legacy callback field usb_endpoint_ack_register denotes OUT1 control; its address and the lane mask remain in the unchanged probe allowlist",
         ),
         check(
             "all_bulk_registers_are_usb_only",
@@ -206,7 +208,7 @@ def build() -> dict[str, Any]:
         check(
             "stock_elf_contains_resolved_bulk_literals",
             all(stock_bytes.count(value.to_bytes(4, "big")) > 0 for value in direct_stock_values),
-            "raw big-endian stock ELF contains the direct event/register/buffer literals; lane status 0xb3000224 is the decompiled +4 status word derived from base 0xb3000220",
+            "raw stock ELF contains the direct literals; byte-gated interrupt evidence derives lane EPSTS 0xb3000224 independently of EPCTL 0xb3000220",
         ),
         check(
             "saved_decompilation_preserves_bulk_contract",
@@ -218,6 +220,7 @@ def build() -> dict[str, Any]:
     return {
         "summary": "Combined endpoint-0 and bulk OUT USB MMIO contract for the mechanically inert parser probe.",
         "status": status,
+        "semantic_correction_only": True,
         "registers": registers,
         "bulk_registers": sorted(BULK_REGISTERS),
         "allowed_memory": {
@@ -240,6 +243,7 @@ def build() -> dict[str, Any]:
                 "0xb3000224": "lane status word at 0xb3000220 + 0x4; not stored as a standalone stock ELF literal"
             },
             "saved_decompilation_checks": evidence_results,
+            "interrupt_original_byte_checks": interrupt.get("original_byte_checks", []),
         },
         "checks": checks,
     }

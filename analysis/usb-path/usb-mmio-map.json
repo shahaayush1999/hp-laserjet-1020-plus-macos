@@ -4,6 +4,324 @@
     "read": 11,
     "write": 22
   },
+  "corrected_evidence": {
+    "controller_reference": {
+      "header": "analysis/usb-path/controller-reference/linux-v6.12/amd5536udc.h",
+      "sha256": "8dbf2ebffe7de042bdfea1c5e4e0d7e7ca334cb821fbfaa1cf9ccfeeae302648"
+    },
+    "original_byte_checks": [
+      {
+        "address": "0x10005df4",
+        "bytes": "b3000400",
+        "meaning": "original address/value literal",
+        "status": "present"
+      },
+      {
+        "address": "0x10005e68",
+        "bytes": "b3000408",
+        "meaning": "original address/value literal",
+        "status": "present"
+      },
+      {
+        "address": "0x10005ea4",
+        "bytes": "00006000",
+        "meaning": "original address/value literal",
+        "status": "present"
+      },
+      {
+        "address": "0x10005e90",
+        "bytes": "b3000000",
+        "meaning": "original address/value literal",
+        "status": "present"
+      },
+      {
+        "address": "0x10005e24",
+        "bytes": "b3000200",
+        "meaning": "original address/value literal",
+        "status": "present"
+      },
+      {
+        "address": "0x10005ea0",
+        "bytes": "b3000014",
+        "meaning": "original address/value literal",
+        "status": "present"
+      },
+      {
+        "address": "0x10005e98",
+        "bytes": "1001bc58",
+        "meaning": "original address/value literal",
+        "status": "present"
+      },
+      {
+        "address": "0x1001bc58",
+        "bytes": "900226f0",
+        "meaning": "original address/value literal",
+        "status": "present"
+      },
+      {
+        "address": "0x10005e9c",
+        "bytes": "b300000c",
+        "meaning": "original address/value literal",
+        "status": "present"
+      },
+      {
+        "address": "0x10005ee0",
+        "bytes": "b300002c",
+        "meaning": "original address/value literal",
+        "status": "present"
+      },
+      {
+        "address": "0x10005ee4",
+        "bytes": "b300020c",
+        "meaning": "original address/value literal",
+        "status": "present"
+      },
+      {
+        "address": "0x10005f08",
+        "bytes": "b300022c",
+        "meaning": "original address/value literal",
+        "status": "present"
+      },
+      {
+        "address": "0x10005edc",
+        "bytes": "b3000028",
+        "meaning": "original address/value literal",
+        "status": "present"
+      },
+      {
+        "address": "0x10005ef4",
+        "bytes": "b3000210",
+        "meaning": "original address/value literal",
+        "status": "present"
+      },
+      {
+        "address": "0x10005ef8",
+        "bytes": "b3000214",
+        "meaning": "original address/value literal",
+        "status": "present"
+      },
+      {
+        "address": "0x10009476",
+        "bytes": "18f27c",
+        "meaning": "load DEVSTS address literal",
+        "status": "present"
+      },
+      {
+        "address": "0x1000947c",
+        "bytes": "8980",
+        "meaning": "sample DEVSTS",
+        "status": "present"
+      },
+      {
+        "address": "0x1000947e",
+        "bytes": "18f289",
+        "meaning": "load enumerated-speed mask 0x6000",
+        "status": "present"
+      },
+      {
+        "address": "0x10009484",
+        "bytes": "18f25c",
+        "meaning": "load DEVCFG address literal",
+        "status": "present"
+      },
+      {
+        "address": "0x1000948a",
+        "bytes": "8880",
+        "meaning": "sample DEVCFG",
+        "status": "present"
+      },
+      {
+        "address": "0x1000948c",
+        "bytes": "080841",
+        "meaning": "extract configured-speed low two bits",
+        "status": "present"
+      },
+      {
+        "address": "0x100094e2",
+        "bytes": "19f289",
+        "meaning": "load OUT1 maximum-packet address",
+        "status": "present"
+      },
+      {
+        "address": "0x100094e5",
+        "bytes": "c460",
+        "meaning": "movi.n a6,64: packet-size value",
+        "status": "present"
+      },
+      {
+        "address": "0x100094ec",
+        "bytes": "9690",
+        "meaning": "write OUT1 packet size",
+        "status": "present"
+      },
+      {
+        "address": "0x100094ee",
+        "bytes": "18f27d",
+        "meaning": "load OUT0 maximum-packet address",
+        "status": "present"
+      },
+      {
+        "address": "0x100094f1",
+        "bytes": "19f26a",
+        "meaning": "load IN0 maximum-packet address",
+        "status": "present"
+      },
+      {
+        "address": "0x100094f7",
+        "bytes": "9680",
+        "meaning": "write OUT0 packet size",
+        "status": "present"
+      },
+      {
+        "address": "0x100094fc",
+        "bytes": "9690",
+        "meaning": "write IN0 packet size",
+        "status": "present"
+      },
+      {
+        "address": "0x100094fe",
+        "bytes": "18f278",
+        "meaning": "load IN1 maximum-packet address",
+        "status": "present"
+      },
+      {
+        "address": "0x10009501",
+        "bytes": "19f276",
+        "meaning": "load IN1 buffer-size address",
+        "status": "present"
+      },
+      {
+        "address": "0x10009507",
+        "bytes": "9680",
+        "meaning": "write IN1 packet size",
+        "status": "present"
+      },
+      {
+        "address": "0x10009597",
+        "bytes": "9690",
+        "meaning": "write IN1 buffer size",
+        "status": "present"
+      },
+      {
+        "address": "0x1000935b",
+        "bytes": "18f2e6",
+        "meaning": "SETUP admission loads SUBPTR address",
+        "status": "present"
+      },
+      {
+        "address": "0x10009890",
+        "bytes": "18f19a",
+        "meaning": "ordinary OUT0 admission loads DESPTR address",
+        "status": "present"
+      },
+      {
+        "address": "0x100098f9",
+        "bytes": "16f14a",
+        "meaning": "load OUT0 control address",
+        "status": "present"
+      },
+      {
+        "address": "0x100098fc",
+        "bytes": "2a1a00",
+        "meaning": "movi a10,0x100: CNAK request mask",
+        "status": "present"
+      },
+      {
+        "address": "0x10009909",
+        "bytes": "0a8802",
+        "meaning": "add CNAK to sampled control",
+        "status": "present"
+      },
+      {
+        "address": "0x1000990f",
+        "bytes": "9860",
+        "meaning": "write OUT0 control request",
+        "status": "present"
+      },
+      {
+        "address": "0x10008c2a",
+        "bytes": "14f499",
+        "meaning": "load IN0 control address",
+        "status": "present"
+      },
+      {
+        "address": "0x10008c37",
+        "bytes": "c022",
+        "meaning": "movi.n a2,2: F/flush request mask",
+        "status": "present"
+      },
+      {
+        "address": "0x10008c3f",
+        "bytes": "9840",
+        "meaning": "write IN0 F request",
+        "status": "present"
+      },
+      {
+        "address": "0x10008c74",
+        "bytes": "1cf489",
+        "meaning": "load IN0 descriptor global for zero-length path",
+        "status": "present"
+      },
+      {
+        "address": "0x10008d02",
+        "bytes": "88c0",
+        "meaning": "load descriptor pointer through global",
+        "status": "present"
+      },
+      {
+        "address": "0x10008d04",
+        "bytes": "19f467",
+        "meaning": "load IN0 DESPTR address",
+        "status": "present"
+      },
+      {
+        "address": "0x10008d0c",
+        "bytes": "9890",
+        "meaning": "actual zero-length descriptor submission store",
+        "status": "present"
+      },
+      {
+        "address": "0x10008d13",
+        "bytes": "291a08",
+        "meaning": "movi a9,0x108: CNAK and poll demand",
+        "status": "present"
+      },
+      {
+        "address": "0x10008d30",
+        "bytes": "17f45a",
+        "meaning": "load IN0 descriptor global for nonempty path",
+        "status": "present"
+      },
+      {
+        "address": "0x10008f11",
+        "bytes": "19f3e3",
+        "meaning": "load IN0 DESPTR address",
+        "status": "present"
+      },
+      {
+        "address": "0x10008f14",
+        "bytes": "8870",
+        "meaning": "load descriptor pointer through global",
+        "status": "present"
+      },
+      {
+        "address": "0x10008f1b",
+        "bytes": "9890",
+        "meaning": "actual nonempty descriptor submission store",
+        "status": "present"
+      },
+      {
+        "address": "0x10008f22",
+        "bytes": "291a08",
+        "meaning": "movi a9,0x108: CNAK and poll demand",
+        "status": "present"
+      }
+    ],
+    "semantic_limit": "Family names describe original register intent, not verified HP hardware effects. SUBPTR is documented separately and does not expand the existing register/write allowlist.",
+    "setup_descriptor_pointer_register": "0xb3000210",
+    "setup_register_is_added_to_allowlist": false,
+    "stock_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d"
+  },
   "register_count": 15,
   "registers": {
     "0xb3000000": {
@@ -88,13 +406,13 @@
           "target": "0x100096af"
         }
       ],
-      "open_firmware_relevance": "core endpoint-0 bring-up and transmit kick",
+      "open_firmware_relevance": "separate endpoint control intent from actual completion and safe buffer reuse",
       "pointer_symbols": {
         "0x10005e90": 5
       },
       "register": "0xb3000000",
-      "role": "Read/modify/write control bits. Evidence includes bit 0x2 before control-IN staging and bit 0x1 after setup completion; decompiler also shows 0x108 to start transfer descriptors.",
-      "working_name": "main USB command/status kick",
+      "role": "Original control requests include 0x2 and 0x108. Family names are F/flush and CNAK plus P/poll demand; bit 0 is S/stall. These are not interrupt acknowledgements.",
+      "working_name": "EP0 IN control (EPCTL)",
       "write_values": [
         {
           "pc": "0x1000987f",
@@ -154,13 +472,13 @@
           }
         }
       ],
-      "open_firmware_relevance": "likely needed to acknowledge/advance setup handling",
+      "open_firmware_relevance": "packet-size configuration, not acknowledgement",
       "pointer_symbols": {
         "0x10005e9c": 2
       },
       "register": "0xb300000c",
       "role": "Written with 0x40 during descriptor request paths.",
-      "working_name": "endpoint/request ack register",
+      "working_name": "EP0 IN maximum-packet word",
       "write_values": [
         {
           "immediate": 64,
@@ -186,12 +504,12 @@
           "access": "write",
           "block": {
             "depth": 0,
-            "end": "0x10008eef",
+            "end": "0x10008f39",
             "start": "0x10008c24"
           },
-          "instruction": "*DAT_10005ea0 = *(undefined4 *)PTR_DAT_10005e98",
-          "note": "manual evidence from analysis/usb-path/decompiled-neighbors/10008c24_hp1020_usb_control_tx_data_stage_candidate.c",
-          "pc": "0x10008ce4",
+          "instruction": "s32i.n a8,a9,0",
+          "note": "Original instruction/literal anchors resolve IN0 DESPTR and global 0x1001bc58. Its file-backed initializer is 0x900226f0; no runtime transfer is observed.",
+          "pc": "0x10008d0c",
           "pointer_literal": "0x10005ea0",
           "target": "0x10008c24"
         },
@@ -199,12 +517,12 @@
           "access": "write",
           "block": {
             "depth": 0,
-            "end": "0x10008eef",
+            "end": "0x10008f39",
             "start": "0x10008c24"
           },
-          "instruction": "*DAT_10005ea0 = *(undefined4 *)PTR_DAT_10005e98",
-          "note": "manual evidence from analysis/usb-path/decompiled-neighbors/10008c24_hp1020_usb_control_tx_data_stage_candidate.c",
-          "pc": "0x10008e50",
+          "instruction": "s32i.n a8,a9,0",
+          "note": "Original instruction/literal anchors resolve IN0 DESPTR and global 0x1001bc58. Its file-backed initializer is 0x900226f0; no runtime transfer is observed.",
+          "pc": "0x10008f1b",
           "pointer_literal": "0x10005ea0",
           "target": "0x10008c24"
         }
@@ -214,18 +532,18 @@
         "0x10005ea0": 2
       },
       "register": "0xb3000014",
-      "role": "Written with the transfer descriptor ring pointer before the 0x108 control-IN kick.",
+      "role": "Written with the transfer descriptor pointer before the 0x108 CNAK/poll-demand request. Original stores are 0x10008d0c and 0x10008f1b.",
       "working_name": "control-IN descriptor submit register",
       "write_values": [
         {
-          "pc": "0x10008ce4",
+          "pc": "0x10008d0c",
           "pointer_value": "0x900226f0",
-          "source_register": "DAT_10005ea0"
+          "source_register": "a8"
         },
         {
-          "pc": "0x10008e50",
+          "pc": "0x10008f1b",
           "pointer_value": "0x900226f0",
-          "source_register": "DAT_10005ea0"
+          "source_register": "a8"
         }
       ]
     },
@@ -252,11 +570,11 @@
           }
         }
       ],
-      "open_firmware_relevance": "likely needed after preparing a descriptor response",
+      "open_firmware_relevance": "buffer configuration, not acknowledgement or completion",
       "pointer_symbols": {},
       "register": "0xb3000028",
-      "role": "Written after descriptor-specific setup and before calling the control-IN sender.",
-      "working_name": "post-response ack/kick register",
+      "role": "Endpoint 1 IN +0x08 is buffer-size configuration under the family layout; the stock path writes 0x40.",
+      "working_name": "EP1 IN buffer-size word",
       "write_values": [
         {
           "pc": "0x10009597",
@@ -305,13 +623,13 @@
           }
         }
       ],
-      "open_firmware_relevance": "likely tied to full-speed/high-speed or direction-specific completion",
+      "open_firmware_relevance": "full/high-speed packet-size configuration",
       "pointer_symbols": {
         "0x10005ee0": 2
       },
       "register": "0xb300002c",
       "role": "Written with 0x40 or 0x200 in descriptor request paths.",
-      "working_name": "endpoint/request ack register",
+      "working_name": "EP1 IN maximum-packet word",
       "write_values": [
         {
           "immediate": 64,
@@ -395,13 +713,13 @@
           }
         }
       ],
-      "open_firmware_relevance": "needed to acknowledge controller events without the stock interrupt/thread queue",
+      "open_firmware_relevance": "OUT0 endpoint control is separate from OUT0 status/interrupt acknowledgement",
       "pointer_symbols": {
         "0x10005e24": 4
       },
       "register": "0xb3000200",
-      "role": "Read/modify/write with event bits 0x1 and 0x100.",
-      "working_name": "USB event/interrupt ack register",
+      "role": "Read/modify/write control requests include S/stall bit 0 and CNAK bit 8. CNAK does not acknowledge an interrupt or establish DMA quiescence.",
+      "working_name": "EP0 OUT control (EPCTL)",
       "write_values": [
         {
           "pc": "0x10009870",
@@ -461,13 +779,13 @@
           }
         }
       ],
-      "open_firmware_relevance": "likely needed to clear/advance control endpoint state",
+      "open_firmware_relevance": "packet-size/buffer configuration, not acknowledgement",
       "pointer_symbols": {
         "0x10005ee4": 2
       },
       "register": "0xb300020c",
       "role": "Written with 0x40 in descriptor request paths.",
-      "working_name": "endpoint/request ack register",
+      "working_name": "EP0 OUT maximum-packet/buffer word",
       "write_values": [
         {
           "immediate": 64,
@@ -502,13 +820,13 @@
           "target": "0x10009859"
         }
       ],
-      "open_firmware_relevance": "plausible source of setup/event packet metadata",
+      "open_firmware_relevance": "do not confuse ordinary OUT0 descriptor completion with SETUP storage",
       "pointer_symbols": {
         "0x10005ef8": 1
       },
       "register": "0xb3000214",
-      "role": "Read as a pointer, then dereferenced as bytes that are compared against an event signature.",
-      "working_name": "USB event/setup buffer pointer",
+      "role": "At 0x10009890 the original reads DESPTR and checks descriptor ownership. SETUP instead uses the distinct SUBPTR register 0xb3000210.",
+      "working_name": "EP0 OUT ordinary data/status descriptor pointer (DESPTR)",
       "write_values": []
     },
     "0xb300022c": {
@@ -552,13 +870,13 @@
           }
         }
       ],
-      "open_firmware_relevance": "likely tied to endpoint request acknowledgement",
+      "open_firmware_relevance": "full/high-speed receive packet-size configuration",
       "pointer_symbols": {
         "0x10005f08": 2
       },
       "register": "0xb300022c",
       "role": "Written with 0x40 or 0x200 in descriptor request paths.",
-      "working_name": "endpoint/request ack register",
+      "working_name": "EP1 OUT maximum-packet/buffer word",
       "write_values": [
         {
           "immediate": 64,
@@ -605,13 +923,13 @@
           "target": "0x100095b3"
         }
       ],
-      "open_firmware_relevance": "likely tells whether a setup/status condition is ready",
+      "open_firmware_relevance": "low two bits select configured speed in the family layout; not SETUP readiness",
       "pointer_symbols": {
         "0x10005df4": 2
       },
       "register": "0xb3000400",
       "role": "Read before choosing descriptor response source. Low two bits are tested.",
-      "working_name": "control/setup status gate",
+      "working_name": "device configuration (DEVCFG)",
       "write_values": []
     },
     "0xb3000408": {
@@ -659,13 +977,13 @@
           "target": "0x100096e5"
         }
       ],
-      "open_firmware_relevance": "likely selects the active descriptor/config branch",
+      "open_firmware_relevance": "speed-dependent descriptor/configuration selection, not SETUP ownership",
       "pointer_symbols": {
         "0x10005e68": 3
       },
       "register": "0xb3000408",
-      "role": "Read and tested against a mask before choosing descriptor response source.",
-      "working_name": "control/setup status gate",
+      "role": "Read and tested against 0x6000 before choosing descriptor response source; the family layout calls these enumerated-speed bits.",
+      "working_name": "device status (DEVSTS)",
       "write_values": []
     },
     "0xb3000504": {

@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `116`
+- checks: `118`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -115,11 +115,11 @@ It does not contact the printer.
 | `usb_marker_behavior_models_descriptor_responder` | `watch` | The host-side marker model must cover standard USB descriptors, both stock product gates, clipped host length, and polling continuation for non-matching setup/gate states. | `analysis/open-firmware-probes/usb-marker-draft/behavior-model.json` |
 | `usb_marker_behavior_models_data_stage` | `watch` | The marker behavior model must include the descriptor submit register, transfer kick, and post-response rearm plan, not just the setup decision. | `analysis/open-firmware-probes/usb-marker-draft/behavior-model.json` |
 | `host_endpoint0_model_has_open_marker_product_string` | `watch` | The pure host endpoint-0 model must include the open marker string response case. | `analysis/usb-path/open-endpoint0-model.json` |
-| `usb_setup_source_narrowed_to_direct_buffer` | `watch` | Static USB evidence must preserve the narrowed setup-buffer candidate and separate event pointer boundary. | `analysis/usb-path/usb-setup-source.json` |
+| `usb_setup_source_narrowed_to_direct_buffer` | `watch` | Original SETUP admission uses SUBPTR, owner 2 and RX zero; stock post-conversion fields differ from raw wire bytes and ordinary OUT0 DESPTR. | `analysis/usb-path/usb-setup-source.json` |
 | `usb_marker_reads_required_setup_fields` | `watch` | The open marker draft must read request type, request, descriptor selector, and host length before responding. | `analysis/usb-path/usb-setup-source.json` |
 | `control_in_data_stage_constants_resolved` | `watch` | Control-IN data-stage constants must preserve descriptor ring, staging buffer, and submit register evidence. | `analysis/usb-path/control-in-data-stage.json` |
 | `control_completion_event_model_resolved` | `watch` | The control completion path must remain modeled as event flags, with separate control-IN and USB2Thread wake bits. | `analysis/usb-path/control-completion-event.json` |
-| `usb_interrupt_event_model_resolved` | `watch` | The USB interrupt event model must keep the completion event object, per-lane stride, 0x400 completion status bit, and bank-1/lane-1 bulk receive event. | `analysis/usb-path/usb-interrupt-events.json` |
+| `usb_interrupt_event_model_resolved` | `watch` | USB task wake hints may repeat or occur without TDC; keep status acknowledgements distinct from OUT1 control commands and from successful completions. | `analysis/usb-path/usb-interrupt-events.json` |
 | `control_in_open_marker_descriptor_shape` | `watch` | A 38-byte open marker response should model as one flagged control-IN descriptor. | `analysis/usb-path/control-in-data-stage.json` |
 | `control_in_large_response_batches` | `watch` | Large control-IN responses should preserve the modeled five-descriptor batch limit before another kick. | `analysis/usb-path/control-in-data-stage.json` |
 | `stock_usb_descriptor_software_and_family_reference_verified` | `watch` | Pinned open-controller definitions and original RAM-only descriptor behavior must agree; family compatibility remains an inference, with no live USB transfer or printer lifecycle claim. | `analysis/usb-path/controller-family.json` |
@@ -130,6 +130,8 @@ It does not contact the printer.
 | `original_usb_pause_restore_intent_without_quiescence_claim` | `watch` | Original command intent uses three private RAM redirects and a supplied delay; saved NAK state and TDE changes do not establish DMA cancellation, real register effects or a recovered reset lifecycle. | `analysis/usb-path/pause-resume.json` |
 | `unchanged_upstream_usb_limitations_preserved` | `watch` | Independent USB wire oracles, original event tokens, deferred reset gates and failed-request recovery execute in a synthetic DCD; unchanged upstream findings remain separate. No physical USB, bulk traffic, controller quiescence or printing is proved. | `analysis/usb-path/tinyusb-device/upstream-baseline.json` |
 | `patched_reusable_usb_protocol_verified` | `watch` | Independent USB wire oracles, original event tokens, deferred reset gates and failed-request recovery execute in a synthetic DCD; unchanged upstream findings remain separate. No physical USB, bulk traffic, controller quiescence or printing is proved. | `analysis/usb-path/tinyusb-device/patched-validation.json` |
+| `original_usb_setup_admission_and_wire_conversion` | `watch` | Original guarded SETUP prefix uses an explicit cut and supplied stable RAM records; it does not execute request dispatch, IRQs, descriptor return or USB control transfers. TinyUSB needs original wire bytes. | `analysis/usb-path/setup-ingress.json` |
+| `reusable_usb_printer_decodes_exact_document_pixels` | `watch` | The reusable software adapter preserves original transfer identities, exact USB reply proposals and independent decoded pixels in both engines. Synthetic controller settlement, initial class reset and explicit input closure remain supplied; no physical USB or printing is established. | `analysis/usb-path/tinyusb-printer/validation.json` |
 
 ## Practical Meaning
 
