@@ -7,58 +7,54 @@ reusing open components and verifying hardware contracts. AGENTS.md owns scope.
 
 ## Current offline work
 
-The current checkpoint passes **121 consistency checks and both sequential
-validation suites**, including native pipeline, retirement and page checks. Log:
-`/tmp/hp1020-full-udc-boundary-20260929.log`; child `hp1020-validation.csAmPs`.
-The preceding completed/pushed baseline is `67672b9` (118 checks). GCC, binutils
-and QEMU work; pinned recovery is in `analysis/README.md`.
+The latest full run passes **124 consistency checks and both sequential suites**.
+Log `/tmp/hp1020-full-ep0-boundary-20260929.log`; child
+`hp1020-validation.JolOPF`. Tools work; pinned recovery is in `analysis/README.md`.
+This includes continuous documents, automatic recovery,132 adapter/34 continuous
+and34 RAM-only OUT cases per host/QEMU. The prior failed stream-size gate and
+reproduced standard-reply failure remain archived separately.
 
-Continuous-document/recovery source passes **132/132 host/QEMU adapter,
-34/34 continuous, 82/82 class, 45/45 output and 75/75 receive** cases. Valid
-page/document boundaries drain software output and notify without closing input;
-configuration starts recovery without a fake host reset. Three settlement
-promises remain external. The initial standard-reply failure was reproduced and
-fixed; exact failed/passed sources and captures are preserved. Protocol baselines
-retain 52/52 and 160/160. A prior aggregate stopped at an obsolete stream-size
-expectation; the checker now matches measured91032 bytes, with no report-hash
-edits. That stopped attempt is archived separately.
+New work included in that completed aggregate:
 
-The RAM-only OUT descriptor bridge passes **34 sanitized host/34 QEMU scenarios**
-through actual TinyUSB dispatch to exact pixels/document events. Both directions
-of disagreement between a saved completion and live bytes are checked. Source
-closure97; component/descriptor overhead80 bytes beyond adapter128536.
-`open-firmware/udc-out/` retains the original adapter cookie with no new queue.
-Mode, CPU/DMA mapping, cache ordering, immutable observations and settlement are
-supplied; descriptor bits do not prove them. No physical DCD exists.
+- Original EP0 construction:66 profiles per engine (36 construction,12 pointer,
+  16 pre-MMIO,2 excluded-length controls),18 excluded PCs. All mutable RAM,
+  registers and ordered accesses agree. Supplied mid-function cuts; no original
+  ENTRY, copy/cache helper, completion or peripheral access.
+- Exact-cookie retained faults:20 host/20 QEMU. Faults retain borrowed bytes and
+  suppress a late successful ACK/follow-on. Superseded/old-generation faults
+  cannot stop newer input. Target adapter state remains128536 bytes.
+- Separate EP0 IN staging/OUT status descriptors:50 host/50 QEMU; real TinyUSB
+  packet splitting/DATA ZLP/status, exact wire/pixels/events, immutable snapshots,
+  malformed facts, stale cookies and recovery. Component/allocation overhead296
+  bytes;92 sources/six fixtures. Bulk remains normalized in this experiment.
 
-Original idle receive retains58 conditional cases/62 invocations per engine,
-six pre-MMIO rejection controls per engine and15 excluded controls. Its supplied
-services show delayed receive-enable intent, not a proven stock race or DMA stop.
-SETUP ingress70 and pause/restore46 remain separate. The legacy control-IN pointer
-model now distinguishes active unchanged pointers from initialization ADD; it
-establishes no physical address alias.
+Exact first failed and passed captures/sources are archived beside their reports.
+Packet-fault first run reached all cases but stopped at an audit-listing hash
+check; the capture generator was corrected. EP0 first run passed50 host then
+stopped before target build due to unadapted draft paths; only builder integration
+changed. Neither failed run is relabelled as a completed success.
 
 ## Next action
 
-Commit/push this validated checkpoint, then integrate and execute the reviewed
-EP0 drafts sequentially: original construction cuts, exact-cookie adapter fault
-handling and separate IN0/OUT0 descriptor/staging boundaries. Drafts are under
-`/tmp/hp1020-ep0-construction-draft-20260929.py`,
-`/tmp/hp1020-ep0-adapter-draft-20260929/`,
-`/tmp/hp1020-udc-ep0-draft-20260929/` and
-`/tmp/hp1020-udc-ep0-validation.py`; none has executed. First close the fixture's
-retirement-time original-buffer check gap and consume the executed original
-report as the new component's byte oracle. EP0 cookie epochs are control epochs,
-not bulk transport epochs. Never run validators concurrently or alter tested
-source closures during execution. Detailed evidence/unresolved questions live in
-`analysis/open-firmware-model/next-evidence.md`.
+Commit/push this validated checkpoint, then integrate the unexecuted SETUP bridge
+from `/tmp/hp1020-setup-ingress-next-20260929/` and composed fixture from
+`/tmp/hp1020-udc-composed-draft-20260929/`. The lead's unexecuted34-profile validator
+is `/tmp/hp1020-udc-composed-validation.py`. Independent reviews added held-request
+gates for old reset ACKs and delayed publication, exact reset-WAIT retry, and
+terminal controller-settlement versus pending-adapter distinctions. No new
+draft is validated yet. Execute focused checks sequentially, preserve failures,
+then add its aggregate gate and rerun the full suite before the next checkpoint.
+Do not repeat completed70-case stock SETUP analysis. The next bounded stock
+candidate is its unexecuted post-dispatch retirement/rearm tail; a separate agent
+is drafting it under `/tmp`. Ordering, hardware stall clearing and old-buffer
+settlement remain separate supplied facts. Details are in `next-evidence.md`.
 
 Keep separate:26 completed empty-document lifecycles, six conditional original
 null reads,28 retirement cases,36 native page lifecycles with supplied completion,
-and42 fragment/bypass cases. New USB/component checks add zero physical USB or
-native page lifecycles. Copies remain metadata; output is synchronous. Boot,
-actual USB/cache/engine behavior, physical status/printing and power-cycle
-recovery remain unproved. Do not repeat cancellation/END_DOC ordering research.
+and42 fragment/bypass cases. USB/component checks add zero physical USB or native
+page lifecycles. Copies remain metadata; output is synchronous. Boot, actual
+USB/cache/engine behavior, physical status/printing and power-cycle recovery are
+unproved. No physical DCD exists. Do not repeat cancellation/END_DOC research.
 
 ## Installed Mac driver (separate, preserve)
 

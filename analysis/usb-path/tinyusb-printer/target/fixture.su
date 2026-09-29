@@ -37,5 +37,5 @@
 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/tinyusb-printer-test/fixture.c:216:6:dcd_edpt_clear_stall	16	static
 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/tinyusb-printer-test/fixture.c:259:10:hp1020_bulk_fixture_reset	128	static
 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/tinyusb-printer-test/fixture.c:290:10:hp1020_bulk_fixture_step	112	static
-/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/tinyusb-printer-test/fixture.c:350:10:hp1020_bulk_fixture_receive_storage	0	static
-/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/tinyusb-printer-test/fixture.c:351:10:hp1020_bulk_fixture_output_storage	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/tinyusb-printer-test/fixture.c:369:10:hp1020_bulk_fixture_receive_storage	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/tinyusb-printer-test/fixture.c:370:10:hp1020_bulk_fixture_output_storage	0	static

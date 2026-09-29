@@ -340,6 +340,25 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op,uint32_t a,uint32_t b,uint32_t c,u
         /* Synthetic counter saturation only; no production restart/repair API. */
         document.output.stream.parser.documents=a;
         document.output.documents_completed=a;r=HP1020_TUSB_OK;
+    } else if(op==19 && c<=5) {
+        /* Exact retained identity or one deliberately forged field. This does
+         * not settle the synthetic DCD packet or alter the saved original. */
+        struct hp1020_tusb_cookie cookie={0};
+        if(a>0 && a<4096 && history[a].id==a)cookie=history[a];
+        if(c==1)cookie.id^=d;
+        else if(c==2)cookie.epoch^=d;
+        else if(c==3)cookie.generation^=d;
+        else if(c==4)cookie.sequence^=d;
+        else if(c==5)cookie.endpoint^=(uint8_t)d;
+        r=hp1020_tusb_adapter_packet_fault(&adapter,cookie,b);
+    } else if(op==20 && a==0 && b==UINT32_MAX) {
+        /* Test-only exhaustion seed; never a runtime repair operation. */
+        adapter.transport_epoch=b;r=HP1020_TUSB_OK;
+    } else if(op==20 && a==1 && b>0 && b<4096 && history[b].id==b) {
+        /* Test-only serialized reentry refusal. Do not call any callback. */
+        adapter.busy=1;
+        r=hp1020_tusb_adapter_packet_fault(&adapter,history[b],c);
+        adapter.busy=0;
     }
     (void)d;
     if(protect && old_generation==document.receive.generation &&

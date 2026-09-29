@@ -1,5 +1,5 @@
 {
-  "check_count": 121,
+  "check_count": 124,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -725,6 +725,24 @@
       "detail": "A single controller-format OUT record retains the original adapter cookie through exact pages and document notifications. Immutable observations, mode, CPU/DMA mapping, visibility and settlement are supplied; raw descriptor bits never acknowledge global quiescence. No physical DCD or printing is established.",
       "evidence": "analysis/usb-path/udc-out/validation.json",
       "name": "original_cookie_bulk_descriptor_to_document_pipeline",
+      "severity": "watch"
+    },
+    {
+      "detail": "Original IN0/OUT0 construction cuts must retain literal BE descriptors, exact ordered writes and complete RAM guards. Active pointers pass through unchanged; initialization uses a separate wrapped ADD. Supplied registers/MPS and pre-MMIO cuts establish no control transfer, mapping, cache visibility or settlement.",
+      "evidence": "analysis/usb-path/ep0-construction.json",
+      "name": "original_ep0_construction_cuts_preserve_bytes_and_hardware_exclusions",
+      "severity": "watch"
+    },
+    {
+      "detail": "Exact current packet faults fence input while retaining borrowed packets, bytes and completion counts; stale identities remain inert. These focused recovery documents use explicit stream close, separately from continuous-document evidence. Faults do not establish controller settlement or reset promises.",
+      "evidence": "analysis/usb-path/tinyusb-printer/packet-fault-validation.json",
+      "name": "retained_packet_faults_preserve_original_ownership_and_reject_stale_identities",
+      "severity": "watch"
+    },
+    {
+      "detail": "Two EP0 records preserve exact cookies, supplied DMA addresses, literal descriptor bytes and real NULL/zero original buffers. Prepared and published storage remains distinct; wire, pixels and document observations agree across both engines. Actual IN count, visibility, mapping and settlement remain supplied, with normalized bulk input and no physical DCD or printing.",
+      "evidence": "analysis/usb-path/udc-ep0/validation.json",
+      "name": "original_cookie_ep0_descriptors_preserve_publication_fault_and_recovery_boundaries",
       "severity": "watch"
     }
   ],

@@ -503,7 +503,7 @@ static enum hp1020_tusb_result complete_locked(struct hp1020_tusb_adapter *s,
     p->result = (uint8_t)result;
     p->expected_cancel = (uint8_t)(p->cancel_requested && result == XFER_RESULT_ABORTED);
     p->state = HP1020_TUSB_OWNER_PENDING;
-    if (result != XFER_RESULT_SUCCESS && !p->expected_cancel) {
+    if (result != XFER_RESULT_SUCCESS && !p->expected_cancel && !p->packet_fault) {
         /* Stop consumption at event admission, before a caller can pump READY
          * data. A failure from a superseded EP0 request cannot fault new work. */
         if (cookie.endpoint == s->config.ep_out || cookie.epoch == s->control_epoch)
@@ -522,6 +522,34 @@ enum hp1020_tusb_result hp1020_tusb_adapter_complete(struct hp1020_tusb_adapter 
 enum hp1020_tusb_result hp1020_tusb_adapter_cancelled(struct hp1020_tusb_adapter *s,
     struct hp1020_tusb_cookie cookie) {
     return hp1020_tusb_adapter_complete(s, cookie, XFER_RESULT_ABORTED, 0);
+}
+
+enum hp1020_tusb_result hp1020_tusb_adapter_packet_fault(struct hp1020_tusb_adapter *s,
+    struct hp1020_tusb_cookie cookie, uint32_t reason) {
+    enum hp1020_tusb_result r = enter(s);
+    if (r) return r;
+    struct hp1020_tusb_owner *p = owner_for(s, cookie.endpoint);
+    if (!p || p->state != HP1020_TUSB_OWNER_DCD || !cookie.id ||
+        !same_cookie(p->cookie, cookie)) return leave(s, HP1020_TUSB_STALE);
+    if (cookie.generation != s->printer->document->receive.generation)
+        return leave(s, HP1020_TUSB_STALE);
+    if (cookie.endpoint == s->config.ep_out) {
+        if (!cookie.epoch || cookie.epoch != s->active_transport_epoch)
+            return leave(s, HP1020_TUSB_STALE);
+    } else if (!cookie.epoch || cookie.epoch != s->control_epoch ||
+        cookie.epoch != s->active_control_epoch || s->pending_kind) {
+        return leave(s, HP1020_TUSB_STALE);
+    }
+    if (!reason) return leave(s, HP1020_TUSB_OK);
+    if (s->exhausted) return leave(s, HP1020_TUSB_LIMIT);
+    if (p->packet_fault) return leave(s, HP1020_TUSB_OK);
+    /* A fault is not settlement. Latch once before requesting cancellation;
+     * duplicate observations cannot erase later promises or exhaust identities.
+     * EP0 uses its control identity, never the bulk transport-epoch API. */
+    p->packet_fault = 1;
+    r = fence(s, cookie.generation, reason);
+    request_cancel(s, p);
+    return leave(s, r);
 }
 
 enum hp1020_tusb_result hp1020_tusb_adapter_fault(struct hp1020_tusb_adapter *s,
@@ -554,7 +582,12 @@ static bool deliver(struct hp1020_tusb_adapter *s, struct hp1020_tusb_owner *p) 
     memset(p, 0, sizeof(*p));
     const bool bulk = s->delivering.cookie.endpoint == s->config.ep_out;
     const uint32_t submission_generation = s->printer->document->receive.generation;
-    if (bulk || (!s->exhausted && s->delivering.cookie.epoch == s->control_epoch &&
+    /* A genuinely settled packet may still arrive as SUCCESS after its fault.
+     * Retire that ownership, but never acknowledge or advance a faulted EP0
+     * request. A fresh SETUP resets the core's control state after retirement.
+     * Bulk settlement still dispatches to clear BUSY; the document is fenced. */
+    if (bulk || (!s->delivering.packet_fault && !s->exhausted &&
+        s->delivering.cookie.epoch == s->control_epoch &&
         s->delivering.cookie.epoch == s->active_control_epoch)) {
         /* The side ledger is retained until TinyUSB invokes the real class
          * callback, which receives only endpoint/result/count upstream. */
@@ -590,7 +623,7 @@ static bool deliver(struct hp1020_tusb_adapter *s, struct hp1020_tusb_owner *p) 
     }
     const bool failed = s->delivering.result != XFER_RESULT_SUCCESS;
     s->delivering_live = 0;
-    if (!bulk && failed) release_response(s);
+    if (!bulk && (failed || s->delivering.packet_fault)) release_response(s);
     return true;
 }
 

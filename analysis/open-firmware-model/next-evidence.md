@@ -1388,22 +1388,105 @@ its acceptance policy is intentionally stricter than the original owner/count
 fragment. It reuses the completed 12 rearm/51 status reference cases without
 claiming new original execution.
 
-The next bounded seam is EP0: separate16-byte IN0/OUT0 normal descriptors with
-64-byte staging/status buffers, existing TinyUSB packetization and exact adapter
-cookies. SETUP's embedded-wire layout remains separate. Active IN0 submissions
-load/store the unchanged supplied pointer; the corrected legacy control-IN model
-now checks contiguous original instruction slices and distinguishes the initial
-HOST_BUSY pointer ADD modulo32 bits. The former OR/physical-alias label was not
-supported. Low/high pointer controls expose the distinction; generated evidence
-is `analysis/usb-path/control-in-data-stage.{json,md}`.
+The EP0 seam is now executed. `scripts/validate-hp1020-usb-ep0-construction.py`
+passes66 conditional profiles in both the guarded interpreter and QEMU:
+36 descriptor constructions,12 pointer-only,16 pre-MMIO and2 excluded-length65
+controls, with18 excluded-PC controls. The10-source closure, literal BE16-byte
+oracles, ordered writes, every read, registers and all mutable RAM including
+stack agree. These are explicit mid-function register/RAM cuts, with no original
+ENTRY, copy/cache helper, service substitutions or literal redirects. All
+peripheral accesses stop before execution. Captures:
+`/tmp/hp1020-ep0-construction-rzkl2u5c`; log
+`/tmp/hp1020-ep0-construction-first-20260929.log`; durable report/snapshot:
+`analysis/usb-path/ep0-construction.json/.md` and its `source-snapshots/` directory.
 
-The original sender constructs and waits but does not establish postcompletion
-TX-count or settlement semantics. A future IN bridge must require an independent
-actual-length observation and settlement. EP0 cookie epochs are control epochs;
-never pass one as a bulk transport epoch. Exact-cookie retained-fault ingress and
-the small EP0 component are still unexecuted drafts under `/tmp`, outside this
-checkpoint. No new queue, fake completion, MMIO or hardware operation is needed
-for that next RAM experiment.
+Active IN0 pointer submissions preserve the supplied low/high pointer. Separate
+initialization adds0x80000000 modulo32; the earlier OR/physical-alias label was
+wrong. Neither path proves a DMA address translation. The ADD-only execution
+does not claim HOST_BUSY construction. The corrected legacy static model retains
+its separate pre-correction snapshot and contiguous original byte anchors.
+
+`hp1020_tusb_adapter_packet_fault` now uses an exact retained cookie and its
+correct control/transport domain. A current fault fences input/recovery and
+requests cancellation while retaining storage. A later real EP0 SUCCESS cannot
+submit another packet or acknowledge the faulted request. Superseded/retired or
+older-generation cookies are STALE, never permission to settle. Generation2 can
+be active while generation1's configuration status is still borrowed; that old
+fault must not stop generation2 bulk input. Actual settled cancellation still
+retires the old owner. The20 host/20 QEMU focused profiles cover this, direct
+SET_ADDRESS, data/status faults, promise invalidation, repeated/mutated cookies,
+reentry, bulk behavior and terminal identity limits. Target state stays128536.
+Report: `analysis/usb-path/tinyusb-printer/packet-fault-validation.json/.md`.
+
+The first packet-fault run completed20 host and20 target profiles, then failed
+its final artifact gate: a copied preexisting annotated-disassembly listing was
+rewritten by the audit for the captured ELF/path. It emitted no success report.
+The ELF and other build bytes were unchanged. The generator now omits that
+stale derived file when copying build outputs, checks build hashes across audit,
+then captures the freshly generated listing and checks every artifact through
+replay. Failed `/tmp/hp1020-tinyusb-packet-fault-5v523_sg` and successful
+`/tmp/hp1020-tinyusb-packet-fault-vs8yc_mm` sources/captures are archived separately;
+logs `/tmp/hp1020-packet-fault-{first,fixed-capture}-20260929.log`.
+
+`open-firmware/udc-ep0/` now passes50 sanitized host/50 QEMU scenarios. Each of
+IN0/OUT0 has a stationary16-byte descriptor and separate64-byte packet allocation.
+Actual TinyUSB submissions bind the original pointer/cookie; IN bytes copy only
+into separate staging. Publication exposes that staging, preserving original
+borrowed bytes and unused tails. OUT supports status ZLP only. Actual TinyUSB
+handles response splitting, DATA ZLP and status direction. No new queue, cookie
+allocator, fake completion, SETUP record parser or hardware action is added.
+Target component/allocation overhead296 bytes beyond adapter128536;92 exact
+sources/six fixtures. Report: `analysis/usb-path/udc-ep0/validation.json/.md`.
+
+The50 profiles cover split responses, short and zero packets, direct SET_ADDRESS,
+continuous documents, recovery,448 owner/status/count combinations, raw boolean
+facts, delayed publication, malformed descriptors, explicit faults and settlement,
+span/source alias rejection, cookie replay/reuse, superseded requests and an
+old-generation retained status beside current bulk data. Both directions of
+current saved-snapshot/live-storage disagreement are exercised. The original
+borrowed buffer is checked immediately after each settling call, before the
+fixture clears its independent live flag; staging/wire cannot mask corruption.
+IN completion low16 deliberately differs from the independently supplied actual
+count; descriptor fields alone never establish success, visibility or settlement.
+
+The first EP0 run passed all50 host cases then stopped before target compilation
+because the imported draft builder retained `/tmp`-specific paths. Exact capture
+`/tmp/hp1020-udc-ep0-srkbp5vo`, log `/tmp/hp1020-udc-ep0-first-20260929.log`.
+Only the build integration changed before the subsequent50/50 success, log
+`/tmp/hp1020-udc-ep0-integrated-build-20260929.log`. Both source closures and raw
+captures are preserved in the EP0 report's `source-snapshots/` directory.
+
+The full sequential aggregate now passes124 consistency checks and both suites,
+including the original construction, packet-fault and EP0 gates. Log
+`/tmp/hp1020-full-ep0-boundary-20260929.log`; child `hp1020-validation.JolOPF`.
+It follows the committed/pushed121-check baseline `bcec270`. Pre-aggregate checks
+had exactly five stale source-closure failures; regenerating through the full
+suite resolved them without changing reported hashes by hand. The bulk report
+generator now writes compact JSON to avoid an unnecessarily large text artifact;
+old report bytes remain preserved in the existing exact snapshots.
+
+Next practical seam: one immutable SETUP capture into existing adapter dispatch,
+then compose it with EP0 and bulk descriptors in one fixture. Existing70-case
+SETUP execution already owns the byte/admission evidence; do not repeat it.
+A SETUP capture has no transfer cookie yet. Exactly-once ordered capture identity
+must distinguish a replay from a genuinely identical new request and stale
+pre-reset input from retained post-reset retry. Copying a stable CPU-visible
+record does not settle old EP0 storage, clear hardware stalls/toggles or rearm
+SETUP. Keep these caller-supplied facts explicit; no physical DCD exists.
+
+The unexecuted bridge is in `/tmp/hp1020-setup-ingress-next-20260929/`, with one
+retained immutable observation and a shared externally supplied monotonic
+SETUP/reset sequence. The unexecuted composed fixture is in
+`/tmp/hp1020-udc-composed-draft-20260929/`; the lead's34-profile draft validator is
+`/tmp/hp1020-udc-composed-validation.py`. Integrate only after committing this
+124-check checkpoint. No draft code has been compiled or executed. A review
+identified that ordinary service/arm/pump gating alone is insufficient: finishing
+an older class reset can emit a deferred ACK, and manual descriptor publication
+can expose older prepared work. All require full progress permission while a
+newer capture is held. Exact-cookie settlement remains independently allowed.
+The matrix distinguishes controller descriptor release from adapter notifications
+still PENDING at terminal exhaustion, and tests the narrow service-only exception
+for draining an already admitted reset. No physical quiescence is inferred.
 
 ### Original SETUP ingress and corrected legacy evidence (2026-09-29)
 

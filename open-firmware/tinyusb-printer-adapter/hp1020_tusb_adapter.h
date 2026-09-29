@@ -49,6 +49,9 @@ struct hp1020_tusb_owner {
     /* Captured before the DCD returns. Direct-DCD SET_ADDRESS status does
      * not pass through usbd_edpt_xfer and has no core BUSY transition. */
     uint8_t core_busy_at_bind;
+    /* An admitted packet fault keeps DCD ownership until real settlement and
+     * permanently suppresses protocol progress from this EP0 packet. */
+    uint8_t packet_fault;
 };
 
 /* Public for allocation and read-only diagnostics; fields are adapter-owned.
@@ -124,6 +127,19 @@ enum hp1020_tusb_result hp1020_tusb_adapter_complete(struct hp1020_tusb_adapter 
     struct hp1020_tusb_cookie, xfer_result_t result, uint32_t length);
 enum hp1020_tusb_result hp1020_tusb_adapter_cancelled(struct hp1020_tusb_adapter *,
     struct hp1020_tusb_cookie);
+/* Unsettled packet fault, after the initiating TinyUSB call returns. Requires
+ * the exact original DCD-owned cookie and its current identity domain/receive
+ * generation. EP0 epochs are control identities; bulk epochs are transport
+ * identities. A zero reason is a validated no-op. Nonzero faults fence input
+ * and pending recovery, request cancellation, and retain every borrowed byte.
+ * Repeats are idempotent. No completion/event/ACK is manufactured. A later real
+ * EP0 settlement retires the owner without advancing the faulted request, even
+ * if that late result is SUCCESS; fresh SETUP restores protocol permission.
+ * STALE (including superseded/older-generation or already settled ownership)
+ * has no side effects and never grants settlement. WAIT needs retry; LIMIT is
+ * terminal fencing, still requiring explicit settlement of retained owners. */
+enum hp1020_tusb_result hp1020_tusb_adapter_packet_fault(struct hp1020_tusb_adapter *,
+    struct hp1020_tusb_cookie, uint32_t reason);
 enum hp1020_tusb_result hp1020_tusb_adapter_fault(struct hp1020_tusb_adapter *,
     uint32_t transport_epoch, uint32_t generation, uint32_t reason);
 
@@ -137,10 +153,10 @@ enum hp1020_tusb_result hp1020_tusb_adapter_service(struct hp1020_tusb_adapter *
 enum hp1020_tusb_result hp1020_tusb_adapter_arm_out(struct hp1020_tusb_adapter *);
 enum hp1020_rx_result hp1020_tusb_adapter_pump(struct hp1020_tusb_adapter *);
 
-/* Explicit externally supplied end-of-input for this first profile. A short
- * packet or ZLP is never EOF. close stops admission without stopping pumping;
- * finish waits for all reservations/callbacks. Continuous jobs need a later
- * parser-level END_DOC notification and completed-page drain, not raw EOF. */
+/* Explicit stream shutdown. A short packet or ZLP is never EOF. close stops
+ * admission without stopping pumping; finish waits for all reservations and
+ * callbacks. Ordinary END_DOC boundaries already drain completed pages and
+ * notify the document consumer without closing the stream or supplying EOF. */
 enum hp1020_tusb_result hp1020_tusb_adapter_close_input(struct hp1020_tusb_adapter *);
 enum hp1020_rx_result hp1020_tusb_adapter_finish(struct hp1020_tusb_adapter *);
 

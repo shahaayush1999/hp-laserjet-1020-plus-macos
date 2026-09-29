@@ -212,3 +212,20 @@ oracle now uses the retained EP0 identity. The first target build stopped before
 execution because fixture alphabet generation pulled in a modulus divide-by-zero
 trap not admitted by the auditor. A simple alphabet loop avoids that test-only
 helper; no instruction-audit allowance was widened.
+
+## Retained packet faults
+
+`hp1020_tusb_adapter_packet_fault` accepts only the exact original still-owned
+cookie in its current control/transport domain and receive generation. It fences
+input and requests cancellation without freeing storage or fabricating a
+completion. A real late EP0 SUCCESS retires faulted ownership without issuing a
+follow-on packet or ACK. Superseded or older-generation faults cannot affect new
+work. Bulk settlement still clears the real core BUSY state while input is fenced.
+
+Separate `packet-fault-validation.{json,md}` evidence under the existing adapter
+evidence directory passes20 host/20 QEMU cases and measures unchanged128536-byte
+target state. The first run reached all40 case executions but failed its final
+artifact gate because audit generation replaced a previously copied listing.
+Exact failed evidence is retained; the generator now snapshots build artifacts
+before audit and the derived listing afterward, then checks both through replay.
+These tests supply settlement; faults and cancellation requests never prove it.

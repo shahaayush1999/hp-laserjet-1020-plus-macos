@@ -2853,6 +2853,358 @@ def build_report() -> dict[str, Any]:
                         "A single controller-format OUT record retains the original adapter cookie through exact pages and document notifications. Immutable observations, mode, CPU/DMA mapping, visibility and settlement are supplied; raw descriptor bits never acknowledge global quiescence. No physical DCD or printing is established.",
                         evidence="analysis/usb-path/udc-out/validation.json"))
 
+    # One gate for the executed mid-function stock cuts. Do not import their
+    # generator: these byte, address, profile and pointer oracles are independent.
+    ep0_construction = read_json("analysis/usb-path/ep0-construction.json")
+    ep0_stock = (ROOT_DIR/"analysis/sihp1020.elf").read_bytes()
+    ep0_stock_sha = "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d"
+    ep0_sources = {
+        "analysis/sihp1020.elf", "scripts/validate-hp1020-usb-ep0-construction.py",
+        *("scripts/"+name+".py" for name in (
+            "hp1020_qemu_multitask", "hp1020_qemu_ram", "hp1020_qemu_stock_parser",
+            "hp1020_stock_parser_harness", "hp1020_stock_stop", "hp1020_xtensa_call0",
+            "hp1020_xtensa_properties", "hp1020_xtensa_stock")),
+    }
+    ep0_ranges = {
+        "in-zero": [(0x10008c7e,0x10008d0c)],
+        "in-small": [(0x10008d3f,0x10008d48),(0x10008e04,0x10008e9e),(0x10008f08,0x10008f1b)],
+        "out-zero": [(0x10009136,0x100091a5)],
+        "active-zero-pointer": [(0x10008d02,0x10008d0c)],
+        "active-small-pointer": [(0x10008f11,0x10008f1b)],
+        "initial-add-pointer": [(0x100092aa,0x100092ba)],
+    }
+    ep0_mmio = (
+        ("zero-mps-read",0x10008c7c,{"8":0xb300000c}),
+        ("zero-submit",0x10008d0c,{"8":0x22900100,"9":0xb3000014}),
+        ("small-submit",0x10008f1b,{"8":0x22900100,"9":0xb3000014}),
+        ("out-mps-write",0x10009129,{"5":64,"8":0xb300020c}),
+        ("out-setup-submit",0x100091b0,{"8":0x22900100,"9":0xb3000210}),
+        ("out-normal-submit",0x100091c7,{"8":0x22900100,"11":0xb3000214}),
+        ("initial-in-submit",0x100092ba,{"8":0x100226f0,"11":0xb3000014}),
+    )
+    ep0_inputs = []
+    for seed in (0x31,0xcc):
+        for pointer in (0x11223340,0x91b2c3d0,0x01234567):
+            for length in (0,1,18,63,64):
+                kind = "in-zero" if length == 0 else "in-small"
+                ep0_inputs.append(dict(name=f"{kind}-n{length}-p{pointer:08x}-s{seed:02x}",
+                    kind=kind,seed=seed,length=length,pointer=pointer,effect="descriptor"))
+            ep0_inputs.append(dict(name=f"out-zero-p{pointer:08x}-s{seed:02x}",
+                kind="out-zero",seed=seed,length=0,pointer=pointer,effect="descriptor"))
+        for kind in ("active-zero-pointer","active-small-pointer","initial-add-pointer"):
+            for pointer in (0x100226f0,0x900226f0):
+                ep0_inputs.append(dict(name=f"{kind}-p{pointer:08x}-s{seed:02x}",
+                    kind=kind,seed=seed,length=0,pointer=pointer,effect="pointer"))
+        ep0_inputs.append(dict(name=f"excluded-multi-descriptor-n65-s{seed:02x}",
+            kind="in-small",seed=seed,length=65,pointer=0x11223340,effect="none",stop=0x10008d48))
+        for label,pc,registers in ep0_mmio:
+            ep0_inputs.append(dict(name=f"mmio-{label}-s{seed:02x}",kind="mmio-instruction",
+                seed=seed,length=0,pointer=0x11223340,effect="none",entry=pc,stop=pc,
+                registers=registers,reject_mmio=True))
+        ep0_inputs.append(dict(name=f"mmio-small-mps-read-s{seed:02x}",kind="in-small",
+            seed=seed,length=18,pointer=0x11223340,effect="none",stop=0x10008e0f,
+            registers={"6":0xb300000c},reject_mmio=True))
+    ep0_excluded = {
+        0x10008c24,0x10008c35,0x10008c44,0x10008c69,0x10008c7c,0x10008d0c,
+        0x10008d25,0x10008d48,0x10008e9e,0x10008f1b,0x10008f30,0x10009129,
+        0x10009132,0x10009134,0x100091a5,0x100091b0,0x100091c7,0x100092ba,
+    }
+    ep0_literals = {
+        0x10005e18:0x10021318,0x10005e34:0x80000000,0x10005e80:0x08000000,
+        0x10005ea0:0xb3000014,0x10005eac:0xb3010000,
+        0x10005eec:0x1001bc60,0x10005ef0:0x1001bc68,
+    }
+    # Fixed .text mapping belongs to the pinned ELF hash above, not a mutable
+    # report's claimed address-to-file mapping.
+    def ep0_original_bytes(address: int, size: int) -> bytes:
+        if not (0x10005c80 <= address <= address+size <= 0x1001bb8f):
+            return b""
+        offset = 0x31e0 + address - 0x10005c80
+        return ep0_stock[offset:offset+size]
+
+    ep0_audit = ep0_construction["original_byte_audit"]
+    ep0_audit_ranges = {(int(r["begin"],16),int(r["end"],16)) for r in ep0_audit["ranges"]}
+    ep0_expected_ranges = {span for ranges in ep0_ranges.values() for span in ranges}
+    ep0_expected_ranges.update((pc,pc+2) for _,pc,_ in ep0_mmio)
+    ep0_audit_ok = (len(ep0_audit["ranges"]) == len(ep0_expected_ranges)
+        and ep0_audit_ranges == ep0_expected_ranges
+        and ep0_audit["literals"] == {hex(a):hex(v) for a,v in ep0_literals.items()}
+        and all(ep0_original_bytes(a,4) == v.to_bytes(4,"big") for a,v in ep0_literals.items())
+        and all(bytes.fromhex(r["bytes"]) == ep0_original_bytes(int(r["begin"],16),int(r["end"],16)-int(r["begin"],16))
+                and hashlib.sha256(bytes.fromhex(r["bytes"])).hexdigest() == r["sha256"]
+                for r in ep0_audit["ranges"]))
+    ep0_allowed = {"l32i","l8ui","s32i","s8i","l32r","movi","mov","add","addi",
+                   "slli","mull","extui","memw","bltu","bnei","j"}
+    ep0_instruction_pcs = set()
+    for begin,end in ep0_expected_ranges:
+        pc = begin
+        while pc < end:
+            instruction = ep0_audit["instructions"][hex(pc)]
+            raw = bytes.fromhex(instruction["bytes"])
+            ep0_audit_ok &= (len(raw) in (2,3) and pc+len(raw) <= end
+                and raw == ep0_original_bytes(pc,len(raw))
+                and instruction["op"].removesuffix(".n") in ep0_allowed)
+            ep0_instruction_pcs.add(pc)
+            if not raw:
+                break
+            pc += len(raw)
+        ep0_audit_ok &= pc == end
+    ep0_audit_ok &= set(ep0_audit["instructions"]) == {hex(pc) for pc in ep0_instruction_pcs}
+    ep0_audit_ok &= all(bytes.fromhex(anchor[2]) == ep0_original_bytes(int(pc,16),len(bytes.fromhex(anchor[2])))
+                        for pc,anchor in ep0_audit["static_extra_anchors"].items())
+    ep0_audit_ok &= all(ep0_audit["static_extra_anchors"].get(hex(pc)) == anchor for pc,anchor in {
+        0x10008d42:["bltu",[8,9,0x10008d48],"798302"],
+        0x10008e9b:["j",[0x10008f08],"600069"],
+        0x1000912d:["movi.n",[7,0],"c070"],
+        0x10009179:["movi.n",[4,8],"c048"],
+        0x100092aa:["l32i.n",[8,11,0],"88b0"],
+        0x100092b2:["add.n",[8,8,9],"a988"],
+    }.items())
+    ep0_spans = ((0x10000370,0x1000049c),(0x1001bb90,0x1001d640),
+                 (0x1001d640,0x100351e0),(0x21000000,0x21020000),(0x22900000,0x22901000))
+    ep0_templates = {(seed,a,b):bytes((seed+(a>>8)+i*17+(i>>4)*3)&255 for i in range(b-a))
+                     for seed in (0x31,0xcc) for a,b in ep0_spans}
+    ep0_stores = {
+        "in-zero": (0x10008c83,0x10008c89,0x10008c8f,0x10008c92,0x10008c99,0x10008c9c,
+                    0x10008c9f,0x10008ca2,0x10008ca7,0x10008caa,0x10008cad,0x10008cb0,
+                    0x10008cc8,0x10008cd9,0x10008cea,0x10008cf9),
+        "in-small": (0x10008e20,0x10008e26,0x10008e2c,0x10008e2f,0x10008e36,0x10008e39,
+                     0x10008e3c,0x10008e3f,0x10008e46,0x10008e49,0x10008e4c,0x10008e4f,
+                     0x10008e69,0x10008e78,0x10008e87,0x10008e96),
+        "out-zero": (0x10009143,0x10009149,0x1000914f,0x10009152,0x10009157,0x1000915a,
+                     0x1000915d,0x10009160,0x10009165,0x10009168,0x1000916b,0x1000916e,
+                     0x1000917e,0x1000918a,0x10009196,0x100091a2),
+    }
+
+    def ep0_memory_put(memory: dict, address: int, data: bytes) -> None:
+        for (begin,end),raw in memory.items():
+            if begin <= address and address+len(data) <= end:
+                raw[address-begin:address-begin+len(data)] = data
+                return
+        raise ValueError("EP0 consistency oracle write outside its fixed RAM")
+
+    def ep0_manifest(memory: dict) -> list[dict]:
+        return [dict(begin=hex(a),end=hex(b),bytes=b-a,sha256=hashlib.sha256(raw).hexdigest())
+                for (a,b),raw in sorted(memory.items())]
+
+    ep0_cases_ok = [c["input"] for c in ep0_construction["cases"]] == ep0_inputs
+    for case,given in zip(ep0_construction["cases"],ep0_inputs):
+        kind,effect = given["kind"],given["effect"]
+        before = {(a,b):bytearray(ep0_templates[given["seed"],a,b]) for a,b in ep0_spans}
+        descriptor_pointer = given["pointer"] if effect == "pointer" else 0x22900100
+        for address,value in ((0x22900040,descriptor_pointer),(0x22900044,given["pointer"]),
+                              (0x22900048,64),(0x2290033c,given["length"]),
+                              (0x1001bc60,0x22900100),(0x1001bc68,given["pointer"])):
+            ep0_memory_put(before,address,value.to_bytes(4,"big"))
+        after = {span:raw.copy() for span,raw in before.items()}
+        wanted = b"".join(v.to_bytes(4,"big") for v in (0x08000000+given["length"],0,given["pointer"],0))
+        expected_writes = []
+        if effect == "descriptor":
+            ep0_memory_put(after,0x22900100,wanted)
+            for pc,offset in zip(ep0_stores[kind],(8,9,10,11,4,5,6,7,12,13,14,15,0,1,2,3)):
+                expected_writes.append(dict(pc=hex(pc),kind="write",address=hex(0x22900100+offset),size=1,value=hex(wanted[offset])))
+            if kind != "out-zero":
+                ep0_memory_put(after,0x2290033c,bytes(4))
+                expected_writes.append(dict(pc=hex(0x10008cfc if kind == "in-zero" else 0x10008e99),
+                    kind="write",address="0x2290033c",size=4,value="0x0"))
+        ranges = ep0_ranges[kind] if kind != "mmio-instruction" else [(given["entry"],given["entry"]+2)]
+        entry,stop = ranges[0][0],given.get("stop",ranges[-1][1])
+        before_manifest,after_manifest = ep0_manifest(before),ep0_manifest(after)
+        descriptor_hex = bytes(after[0x22900000,0x22901000][0x100:0x110]).hex()
+        ep0_cases_ok &= case["status"] == "pass"
+        for engine in ("interpreter","qemu"):
+            record = case[engine]
+            retired = [int(pc,16) for pc in record["original_instructions_retired"]]
+            reason = "MMIO forbidden" if given.get("reject_mmio") else (
+                "execution outside selected stock routines: " if engine == "interpreter" else
+                "native tasks left selected code: ")+hex(stop)
+            ep0_cases_ok &= (record["status"] == "pass" and record["engine"] == engine
+                and record["entry"] == hex(entry) and record["stop_before"] == hex(stop)
+                and record["failure"] == dict(type="ValueError",reason=reason,pc=hex(stop))
+                and record["actual_peripheral_accesses"] == 0
+                and all(record[key] is True for key in ("all_mutable_and_guard_ram_equal","ordered_write_trace_equal","original_code_unchanged"))
+                and record["literal_descriptor_checked"] is (effect == "descriptor")
+                and record["pointer_oracle_checked"] is (effect == "pointer")
+                and record["before_memory"] == before_manifest
+                and record["expected_memory"] == record["actual_memory"] == after_manifest
+                and record["descriptor_hex"] == descriptor_hex
+                and record["expected_descriptor_hex"] == (wanted.hex() if effect == "descriptor" else None)
+                and record["expected_writes"] == [a for a in record["accesses"] if a["kind"] == "write"] == expected_writes
+                and len(record["registers"]) == 16 and record["registers"][:2] == ["0xfffffffc","0x2101fef0"]
+                and record["pointer_register_a8"] == record["registers"][8]
+                and retired == sorted(set(retired)) and stop not in retired
+                and not ep0_excluded.intersection(retired)
+                and all(any(a <= pc < b for a,b in ranges) and pc in ep0_instruction_pcs for pc in retired)
+                and 0 <= record["engine_steps"] <= 256
+                and record["engine_steps"] == len(retired)+int(engine == "interpreter" and given.get("reject_mmio",False)))
+            if effect in ("descriptor","pointer"):
+                pointer = 0x22900100 if effect == "descriptor" else given["pointer"]
+                if kind == "initial-add-pointer":
+                    pointer = (pointer+0x80000000)&0xffffffff
+                ep0_cases_ok &= record["pointer_register_a8"] == hex(pointer)
+            # Check reads against the initial RAM plus earlier observed writes;
+            # no encoded payload pointer, peripheral address or arbitrary RAM is read.
+            memory = {span:raw.copy() for span,raw in before.items()}
+            for event in record["accesses"]:
+                address,size,value = int(event["address"],16),event["size"],int(event["value"],16)
+                ep0_cases_ok &= int(event["pc"],16) in retired
+                if event["kind"] == "write":
+                    ep0_memory_put(memory,address,value.to_bytes(size,"big"))
+                else:
+                    if address in ep0_literals and size == 4:
+                        expected_value = ep0_literals[address]
+                    elif ((size == 4 and address in (0x22900040,0x22900044,0x22900048,0x2290033c,0x1001bc60,0x1001bc68))
+                          or (size == 1 and 0x22900100 <= address < 0x22900110)):
+                        raw = next(raw[address-a:address-a+size] for (a,b),raw in memory.items() if a <= address and address+size <= b)
+                        expected_value = int.from_bytes(raw,"big")
+                    else:
+                        expected_value = None
+                    ep0_cases_ok &= event["kind"] == "read" and value == expected_value
+        ep0_cases_ok &= all(case["interpreter"][key] == case["qemu"][key] for key in (
+            "registers","accesses","original_instructions_retired","before_memory","actual_memory","expected_writes"))
+    checks.append(check("original_ep0_construction_cuts_preserve_bytes_and_hardware_exclusions",
+                        ep0_construction["status"] == "pass" and ep0_cases_ok and ep0_audit_ok
+                        and ep0_construction["counts"] == dict(construction=36,pointer_only=12,mmio_rejections=16,excluded_multi_descriptor=2)
+                        and ep0_construction["stock_elf_sha256"] == hashlib.sha256(ep0_stock).hexdigest() == ep0_stock_sha
+                        and ep0_construction["actual_peripheral_accesses"] == ep0_construction["completed_usb_control_transfers"]
+                            == ep0_construction["completed_native_page_lifecycles"] == 0
+                        and ep0_construction["controller_quiescence_established"] is False
+                        and ep0_construction["omitted_startup_prefix"] is True
+                        and ep0_construction["original_entry_executed"] is False
+                        and ep0_construction["private_literal_redirects"] == ep0_construction["supplied_services"] == []
+                        and len(ep0_construction["excluded_code_controls"]) == len(ep0_excluded)
+                        and {int(r["pc"],16) for r in ep0_construction["excluded_code_controls"]} == ep0_excluded
+                        and all(r["status"] == "rejected before instruction execution in both engines" for r in ep0_construction["excluded_code_controls"])
+                        and set(ep0_construction["source_sha256"]) == set(ep0_construction["source_origins"]) == ep0_sources
+                        and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h for n,h in ep0_construction["source_sha256"].items()),
+                        "Original IN0/OUT0 construction cuts must retain literal BE descriptors, exact ordered writes and complete RAM guards. Active pointers pass through unchanged; initialization uses a separate wrapped ADD. Supplied registers/MPS and pre-MMIO cuts establish no control transfer, mapping, cache visibility or settlement.",
+                        evidence="analysis/usb-path/ep0-construction.json"))
+
+    def usb_packet_capture_equal(case: dict, target: dict, documents: bool = False) -> bool:
+        wire = bytearray()
+        for oracle in case["packet_oracles"]:
+            data = bytes.fromhex(oracle["expected_hex"])
+            row = case["steps"][oracle["step"]]
+            if oracle["offset"] != len(wire) or not row[28] or row[29] != len(data):
+                return False
+            wire.extend(data)
+        captures = case["capture_sha256"]
+        ok = (case["status"] == target["status"] == "pass" and case["case"] == target["case"]
+            and target["all_steps_equal"] is True and captures == target["capture_sha256"]
+            and set(captures) == ({"pixels","wire","receive","output","documents","ep0"} if documents else {"pixels","wire","receive","output"})
+            and hashlib.sha256(wire).hexdigest() == captures["wire"] and len(wire) == case["steps"][-1][24]
+            and case["expected_pixels_sha256"] == captures["pixels"] and case["pixels_bytes"] == case["steps"][-1][50]
+            and len(case["steps"]) == len(case["events"])
+            and all(len(row) == 96 and row[15:17] == [0,1] and row[0] == event["result"]
+                    for row,event in zip(case["steps"],case["events"])))
+        if documents:
+            expected = b"".join(v.to_bytes(4,"big") for record in case["expected_documents"] for v in record)
+            ok &= (hashlib.sha256(expected).hexdigest() == captures["documents"]
+                and case["steps"][-1][90:92] == [len(case["expected_documents"]),sum(d[4] == 0 for d in case["expected_documents"])])
+        return ok
+
+    packet_fault = read_json("analysis/usb-path/tinyusb-printer/packet-fault-validation.json")
+    packet_fault_target = packet_fault.get("target") or {}
+    packet_fault_names = {"packet-fault/"+name for name in ("current-in-data","current-out-status","pending-recovery",
+        "direct-address","identity-and-busy","settled-and-reused","superseded-setup","older-generation","bulk","transport-limit")}
+    packet_fault_retains = True
+    for case in packet_fault["cases"]:
+        for before,row,event in zip([case["initial"]]+case["steps"],case["steps"],case["events"]):
+            if event["words"][0] != 19:
+                continue
+            packet_fault_retains &= (row[13] == before[13] and row[17:20] == before[17:20]
+                and row[24:36] == before[24:36] and row[50:62] == before[50:62])
+            if row[0] in (1,2) or event["words"][2] == 0:
+                packet_fault_retains &= row[1:] == before[1:]
+            elif row[0] == 0 and before[7] == 0:
+                packet_fault_retains &= row[4] == before[4]+1 and row[7] == row[9] == row[36] == 1 and row[14] == before[13]
+    checks.append(check("retained_packet_faults_preserve_original_ownership_and_reject_stale_identities",
+                        packet_fault["status"] == packet_fault_target.get("status") == "pass" and packet_fault_retains
+                        and len(packet_fault["cases"]) == len(packet_fault_target.get("cases",[])) == 20
+                        and {(c["scenario"],c["fill"],c["capacity"],c["interface"]) for c in packet_fault["cases"]}
+                            == {(name,fill,64,3) for name in packet_fault_names for fill in (0,204)}
+                        and packet_fault["usb_transfers"] == packet_fault["completed_native_page_lifecycles"] == 0
+                        and len(packet_fault["source_sha256"]) == 77
+                        and set(packet_fault["source_sha256"]) == set(composition["source_sha256"]) | {"scripts/validate-hp1020-tinyusb-packet-fault.py"}
+                        and packet_fault["fixture_sha256"] == composition["fixture_sha256"] and len(packet_fault["fixture_sha256"]) == 6
+                        and packet_fault["effective_source"] == composition["effective_source"] == read_json("analysis/usb-path/tinyusb-printer/target/effective-source.json")
+                        and all(usb_packet_capture_equal(c,t) and t["all_pixels_wire_and_storage_equal"] is True
+                                and t["measured_target_state_and_memory_bytes"] == 128536
+                                for c,t in zip(packet_fault["cases"],packet_fault_target.get("cases",[])))
+                        and packet_fault_target.get("elf_sha256") == packet_fault_target["captured_artifact_sha256"]["target-check.elf"]
+                            == hashlib.sha256((ROOT_DIR/"analysis/usb-path/tinyusb-printer/target/target-check.elf").read_bytes()).hexdigest()
+                        and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h
+                                for key in ("source_sha256","fixture_sha256") for n,h in packet_fault[key].items()),
+                        "Exact current packet faults fence input while retaining borrowed packets, bytes and completion counts; stale identities remain inert. These focused recovery documents use explicit stream close, separately from continuous-document evidence. Faults do not establish controller settlement or reset promises.",
+                        evidence="analysis/usb-path/tinyusb-printer/packet-fault-validation.json"))
+
+    ep0 = read_json("analysis/usb-path/udc-ep0/validation.json")
+    ep0_target,ep0_reference = ep0.get("target") or {},ep0["original_reference"]
+    ep0_profiles = {("protocol",fill,64,interface) for fill in (0,204) for interface in (0,3)}
+    ep0_names = {"direct-address","older-generation-fault","data-zlp","initial-spans","prepare-rejection","old-cookie","superseded-fault"}
+    ep0_names |= {f"status/{role}/{owner}" for role in ("in","out") for owner in range(4)}
+    ep0_names |= {f"{kind}/{role}" for kind in ("facts","publication","cancel","fault") for role in ("in","out")}
+    ep0_profiles |= {(name,fill,64,3) for name in ep0_names for fill in (0,204)}
+    ep0_expected_sources = set(composition["source_sha256"]) | set(ep0_construction["source_sha256"]) | {
+        "analysis/usb-path/ep0-construction.json", "scripts/validate-hp1020-continuous-printer.py",
+        "scripts/validate-hp1020-udc-ep0.py", "scripts/build-hp1020-udc-ep0-target.sh",
+        *("open-firmware/udc-ep0-test/"+name for name in ("fixture.c","host-check.c","target-check.ld")),
+        *("open-firmware/udc-ep0/"+name for name in ("hp1020_udc_ep0.c","hp1020_udc_ep0.h")),
+    }
+    ep0_descriptors_ok = True
+    for case in ep0["cases"]:
+        prepared,published = {},set()
+        for oracle in case["descriptor_oracles"]:
+            slot,n,cookie = oracle["slot"],oracle["requested"],oracle["cookie"]
+            row = case["steps"][oracle["step"]]
+            p = case["ep0_steps"][oracle["step"]][8+48*slot:56+48*slot]
+            desc_dma,packet_dma = ((0x13579bd0,0x3579bdf0),(0xa468ace0,0xb68ace00))[slot]
+            wanted = b"".join(v.to_bytes(4,"big") for v in (0x08000000|n,0,packet_dma,0))
+            ep0_descriptors_ok &= (slot in (0,1) and 0 <= n <= 64 and (slot == 1 or n == 0)
+                and len(cookie) == 5 and all(v > 0 for v in cookie[:3]) and cookie[3:] == [0,slot*0x80]
+                and oracle["descriptor"] == wanted.hex() and p[11:14] == [desc_dma,packet_dma,64])
+            if oracle["kind"] == "prepare":
+                ep0_descriptors_ok &= (cookie[0] not in prepared and cookie == [row[21],row[3],row[32],0,slot*0x80]
+                    and row[22:24] == [slot*0x80,n] and p[0] in (1,2) and p[5:11] == [n]+cookie
+                    and b"".join(v.to_bytes(4,"big") for v in p[14:18]) == wanted and p[46] == int(n == 0))
+                prepared[cookie[0]] = (cookie,n,slot)
+            else:
+                ep0_descriptors_ok &= (oracle["kind"] == "publish" and cookie[0] not in published
+                    and prepared.get(cookie[0]) == (cookie,n,slot) and p[22:31] == cookie+[desc_dma,packet_dma,n,64]
+                    and b"".join(v.to_bytes(4,"big") for v in p[18:22]) == wanted and p[47] == int(n == 0))
+                published.add(cookie[0])
+        for slot in (0,1):
+            p = case["ep0_steps"][-1][8+48*slot:56+48*slot]
+            ep0_descriptors_ok &= p[31:33] == [sum(v[2] == slot for v in prepared.values()),sum(prepared[i][2] == slot for i in published)]
+    checks.append(check("original_cookie_ep0_descriptors_preserve_publication_fault_and_recovery_boundaries",
+                        ep0["status"] == ep0_target.get("status") == "pass" and ep0_descriptors_ok
+                        and len(ep0["cases"]) == len(ep0_target.get("cases",[])) == 50
+                        and {(c["scenario"],c["fill"],c["capacity"],c["interface"]) for c in ep0["cases"]} == ep0_profiles
+                        and ep0["actual_peripheral_accesses"] == ep0["usb_transfers"] == ep0["completed_native_page_lifecycles"] == 0
+                        and ep0["controller_quiescence_established"] is False
+                        and [ep0_reference[k] for k in ("completed_construction_cases_reused","completed_pointer_cases_reused","pre_mmio_controls_reused","out_of_profile_controls_reused","excluded_pc_controls_reused")] == [36,12,16,2,18]
+                        and ep0_reference["newly_executed_stock_instructions"] == 0 and ep0_reference["original_entry_executed"] is False
+                        and ep0_reference["active_pointer_preserved"] is True and ep0_reference["initial_pointer_add_modulo32"] is True
+                        and ep0_reference["completion_count_visibility_and_settlement_supplied"] is True and ep0_reference["physical_address_translation_established"] is False
+                        and ep0_reference["report"] == "analysis/usb-path/ep0-construction.json"
+                        and ep0_reference["report_sha256"] == hashlib.sha256((ROOT_DIR/ep0_reference["report"]).read_bytes()).hexdigest()
+                        and ep0_reference["stock_sha256"] == ep0_stock_sha
+                        and ep0_reference["original_descriptor_vectors"] == [dict(kind=c["input"]["kind"],length=c["input"]["length"],pointer=c["input"]["pointer"],bytes=c["interpreter"]["descriptor_hex"]) for c in ep0_construction["cases"] if c["input"]["effect"] == "descriptor"]
+                        and len(ep0["source_sha256"]) == 92 and set(ep0["source_sha256"]) == ep0_expected_sources
+                        and ep0["fixture_sha256"] == packet_fault["fixture_sha256"] and len(ep0["fixture_sha256"]) == 6
+                        and ep0["effective_source"] == packet_fault["effective_source"] == read_json("analysis/usb-path/udc-ep0/target/effective-source.json")
+                        and all(usb_packet_capture_equal(c,t,True) and t["all_pixels_wire_notifications_descriptors_and_storage_equal"] is True
+                                and t["adapter_state_and_memory_bytes"] == 128536 and t["descriptor_component_bytes"] == 296
+                                and len(c["ep0_steps"]) == len(c["steps"])
+                                and all(len(row) == 104 and row[2:5] == [0,1,1] for row in c["ep0_steps"])
+                                for c,t in zip(ep0["cases"],ep0_target.get("cases",[])))
+                        and ep0_target.get("elf_sha256") == ep0_target["captured_artifact_sha256"]["target-check.elf"]
+                            == hashlib.sha256((ROOT_DIR/"analysis/usb-path/udc-ep0/target/target-check.elf").read_bytes()).hexdigest()
+                        and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h
+                                for key in ("source_sha256","fixture_sha256") for n,h in ep0[key].items()),
+                        "Two EP0 records preserve exact cookies, supplied DMA addresses, literal descriptor bytes and real NULL/zero original buffers. Prepared and published storage remains distinct; wire, pixels and document observations agree across both engines. Actual IN count, visibility, mapping and settlement remain supplied, with normalized bulk input and no physical DCD or printing.",
+                        evidence="analysis/usb-path/udc-ep0/validation.json"))
+
     fail_count = severity_count(checks, "fail")
     return {
         "summary": "Cross-report consistency gate for the current offline reverse-engineering state.",

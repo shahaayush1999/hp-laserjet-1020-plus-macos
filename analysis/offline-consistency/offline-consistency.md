@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `121`
+- checks: `124`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -135,6 +135,9 @@ It does not contact the printer.
 | `original_usb_idle_receive_enable_requires_separate_quiescence` | `watch` | Original helper intent can re-enable receiving after a supplied delay-return register change. Three RAM redirects and supplied services do not establish a reachable scheduling race, actual DMA behavior, cancellation settlement or quiescence. | `analysis/usb-path/idle-receive.json` |
 | `continuous_printer_document_boundaries_without_transport_eof` | `watch` | Validated END_PAGE drains and exactly-once END_DOC observations retain their original receive generation. Ordinary documents need no EOF or reset; notification/output failures stop input without erasing prior observations. Supplied settlement and synchronous output remain limits, not physical printing proof. | `analysis/usb-path/continuous-printer/validation.json` |
 | `original_cookie_bulk_descriptor_to_document_pipeline` | `watch` | A single controller-format OUT record retains the original adapter cookie through exact pages and document notifications. Immutable observations, mode, CPU/DMA mapping, visibility and settlement are supplied; raw descriptor bits never acknowledge global quiescence. No physical DCD or printing is established. | `analysis/usb-path/udc-out/validation.json` |
+| `original_ep0_construction_cuts_preserve_bytes_and_hardware_exclusions` | `watch` | Original IN0/OUT0 construction cuts must retain literal BE descriptors, exact ordered writes and complete RAM guards. Active pointers pass through unchanged; initialization uses a separate wrapped ADD. Supplied registers/MPS and pre-MMIO cuts establish no control transfer, mapping, cache visibility or settlement. | `analysis/usb-path/ep0-construction.json` |
+| `retained_packet_faults_preserve_original_ownership_and_reject_stale_identities` | `watch` | Exact current packet faults fence input while retaining borrowed packets, bytes and completion counts; stale identities remain inert. These focused recovery documents use explicit stream close, separately from continuous-document evidence. Faults do not establish controller settlement or reset promises. | `analysis/usb-path/tinyusb-printer/packet-fault-validation.json` |
+| `original_cookie_ep0_descriptors_preserve_publication_fault_and_recovery_boundaries` | `watch` | Two EP0 records preserve exact cookies, supplied DMA addresses, literal descriptor bytes and real NULL/zero original buffers. Prepared and published storage remains distinct; wire, pixels and document observations agree across both engines. Actual IN count, visibility, mapping and settlement remain supplied, with normalized bulk input and no physical DCD or printing. | `analysis/usb-path/udc-ep0/validation.json` |
 
 ## Practical Meaning
 

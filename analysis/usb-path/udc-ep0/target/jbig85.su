@@ -1,0 +1,13 @@
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig85.c:87:13:enc_byte_out	32	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig85.c:601:15:decode_pscd	80	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig85.c:786:12:finish_sde	32	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig85.c:154:13:output_newlen	32	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig85.c:98:6:jbg85_enc_init	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig85.c:140:6:jbg85_enc_options	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig85.c:182:6:jbg85_enc_lineout	96	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig85.c:500:6:jbg85_enc_newlen	32	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig85.c:534:6:jbg85_enc_abort	32	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig85.c:548:13:jbg85_strerror	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig85.c:561:6:jbg85_dec_init	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig85.c:841:5:jbg85_dec_in	64	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig85.c:1091:5:jbg85_dec_end	0	static

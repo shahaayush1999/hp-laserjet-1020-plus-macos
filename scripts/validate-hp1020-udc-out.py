@@ -558,7 +558,7 @@ def main():
         scope='One original-cookie RAM descriptor per 64-byte OUT submission, actual patched TinyUSB dispatch and existing bounded receive/JBIG/output with independent byte, packet, notification and pixel oracles.',
         limits='No physical DCD, controller/MMIO/boot/cache/IRQ implementation or printing. Packet64/BE mode, exact CPU/DMA mapping, cache visibility/publication order, immutable original-cookie observations and transfer settlement remain supplied. Descriptor owner bits do not settle DMA or acknowledge global reset promises. Synchronous software output; copies remain metadata.')
     name = 'validation' if args.target else 'host-validation'
-    text = json.dumps(report, indent=2, sort_keys=True)+'\n'
+    text = json.dumps(report, separators=(',', ':'), sort_keys=True)+'\n'
     (temp/(name+'.json')).write_text(text)
     (OUT/(name+'.json')).write_text(text)
     (OUT/(name+'.md')).write_text('# One-descriptor USB OUT execution\n\n'+report['scope']+'\n\n'+
