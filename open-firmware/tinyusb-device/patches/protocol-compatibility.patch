@@ -1,0 +1,158 @@
+diff --git a/src/device/usbd.c b/src/device/usbd.c
+--- a/src/device/usbd.c
++++ b/src/device/usbd.c
+@@ -84,6 +84,12 @@
+   return false;
+ }
+ 
++TU_ATTR_WEAK bool usbd_app_control_route_cb(uint8_t rhport, tusb_control_request_t const* request,
++                                            uint8_t* interface_number) {
++  (void) rhport; (void) request; (void) interface_number;
++  return false;
++}
++
+ TU_ATTR_WEAK bool dcd_deinit(uint8_t rhport) {
+   (void) rhport;
+   return false;
+@@ -123,6 +129,7 @@
+   uint8_t* buffer;
+   uint16_t data_len;
+   uint16_t total_xferred;
++  bool failed; // A failed request cannot resume before a new SETUP or bus reset.
+   usbd_control_xfer_cb_t complete_cb;
+ } usbd_control_xfer_t;
+ 
+@@ -134,13 +141,9 @@
+   volatile uint8_t addressed;
+   volatile uint8_t suspended;
+ 
+-  union {
+-    struct TU_ATTR_PACKED {
+-      uint8_t self_powered     : 1; // configuration descriptor's attribute;
+-      uint8_t remote_wakeup_en : 1; // enable/disable by host
+-    };
+-    uint8_t dev_state_bm;
+-  };
++  // Logical state only; GET_STATUS constructs its wire bits explicitly.
++  uint8_t self_powered;     // configuration descriptor's attribute
++  uint8_t remote_wakeup_en; // enable/disable by host
+ 
+   uint8_t          cfg_num; // current active configuration (0x00 is not configured)
+   uint8_t          speed;
+@@ -869,6 +872,7 @@
+ bool tud_control_status(uint8_t rhport, const tusb_control_request_t* request) {
+   // _usbd_dev.ctrl_xfer fields are pre-initialized at process_setup_received entry
+   (void) request;
++  TU_VERIFY(!_usbd_dev.ctrl_xfer.failed);
+   return status_stage_xact(rhport, status_stage_ep(&_usbd_dev.ctrl_xfer.request));
+ }
+ 
+@@ -877,6 +881,7 @@
+   // _usbd_dev.ctrl_xfer.request and reset fields are pre-initialized at process_setup_received entry
+   (void) request;
+   usbd_control_xfer_t* const ctrl_xfer = &_usbd_dev.ctrl_xfer;
++  TU_VERIFY(!ctrl_xfer->failed);
+   ctrl_xfer->buffer = (uint8_t*) buffer;
+   ctrl_xfer->data_len = tu_min16(len, ctrl_xfer->request.wLength);
+ 
+@@ -895,8 +900,18 @@
+ 
+ // Callback when a transaction completes on the DATA stage or Status stage of EP0
+ static bool usbd_control_xfer_cb(uint8_t rhport, uint8_t ep_addr, xfer_result_t result, uint32_t xferred_bytes) {
+-  (void) result;
+   usbd_control_xfer_t* const ctrl_xfer = &_usbd_dev.ctrl_xfer;
++  TU_VERIFY(!ctrl_xfer->failed);
++  if (result != XFER_RESULT_SUCCESS) {
++    // Do not interpret failed DATA or STATUS as successful protocol progress.
++    // Latch before calling the DCD: stalling may start controller cancellation,
++    // but it does not prove buffer ownership or queued callbacks are settled.
++    ctrl_xfer->failed = true;
++    ctrl_xfer->complete_cb = NULL;
++    usbd_edpt_stall(rhport, TU_EP0_OUT);
++    usbd_edpt_stall(rhport, TU_EP0_IN);
++    return false;
++  }
+ 
+   // Status Stage complete: ep_addr matches the resolved Status stage endpoint
+   uint8_t const ep_status = status_stage_ep(&ctrl_xfer->request);
+@@ -992,11 +1007,14 @@
+           dcd_sof_enable(rhport, false);
+           dcd_edpt_close_all(rhport);
+ 
+-          // close all drivers and current configured state except bus speed
++          // Reset configuration state, retaining this SET_CONFIGURATION's
++          // control context. A real bus reset still clears the whole context.
+           const uint8_t speed = _usbd_dev.speed;
++          usbd_control_xfer_t const control = _usbd_dev.ctrl_xfer;
+           configuration_reset(rhport);
+ 
+           _usbd_dev.speed = speed; // restore speed
++          _usbd_dev.ctrl_xfer = control;
+         }
+ 
+         _usbd_dev.cfg_num = cfg_num;
+@@ -1061,7 +1079,9 @@
+       // Device status bit mask
+       // - Bit 0: Self Powered TODO must invoke callback to get actual status
+       // - Bit 1: Remote Wakeup enabled
+-      uint16_t status = (uint16_t) _usbd_dev.dev_state_bm;
++      uint16_t const bits = (_usbd_dev.self_powered ? 0x0001u : 0u) |
++                            (_usbd_dev.remote_wakeup_en ? 0x0002u : 0u);
++      uint16_t status = tu_htole16(bits);
+       tud_control_xfer(rhport, p_request, &status, 2);
+       return true;
+     }
+@@ -1084,10 +1104,25 @@
+   ctrl_xfer->buffer = NULL;
+   ctrl_xfer->total_xferred = 0;
+   ctrl_xfer->data_len = 0;
++  ctrl_xfer->failed = false;
+   ctrl_xfer->complete_cb = NULL;
+ 
+   p_request = &ctrl_xfer->request; // re-direct request pointer to internal copy (modifiable for hacking)
+   TU_ASSERT(p_request->bmRequestType_bit.type < TUSB_REQ_TYPE_INVALID);
++
++  // Applications may route exceptional CLASS encodings to an already opened
++  // interface. Preserve the original request; a claimed driver's rejection is
++  // final, rather than falling through to a different interface or recipient.
++  if (TUSB_REQ_TYPE_CLASS == p_request->bmRequestType_bit.type) {
++    uint8_t itf = TUSB_INDEX_INVALID_8;
++    if (usbd_app_control_route_cb(rhport, p_request, &itf)) {
++      TU_VERIFY(_usbd_dev.cfg_num != 0);
++      TU_VERIFY(itf < TU_ARRAY_SIZE(_usbd_dev.itf2drv));
++      usbd_class_driver_t const* driver = get_driver(_usbd_dev.itf2drv[itf]);
++      TU_VERIFY(driver);
++      return invoke_class_control(rhport, driver, p_request);
++    }
++  }
+ 
+   // Vendor request
+   if ( p_request->bmRequestType_bit.type == TUSB_REQ_TYPE_VENDOR ) {
+@@ -1196,7 +1231,7 @@
+         // Handle STD request to endpoint
+         switch (p_request->bRequest) { //-V2520
+           case TUSB_REQ_GET_STATUS: {
+-            uint16_t status = usbd_edpt_stalled(rhport, ep_addr) ? 0x0001u : 0x0000u;
++            uint16_t status = tu_htole16(usbd_edpt_stalled(rhport, ep_addr) ? 0x0001u : 0x0000u);
+             tud_control_xfer(rhport, p_request, &status, 2);
+           }
+           break;
+diff --git a/src/device/usbd_pvt.h b/src/device/usbd_pvt.h
+--- a/src/device/usbd_pvt.h
++++ b/src/device/usbd_pvt.h
+@@ -65,6 +65,15 @@
+ // Can be implemented by application to extend/overwrite class driver support.
+ // Note: The drivers array must be accessible at all time when stack is active
+ usbd_class_driver_t const* usbd_app_driver_get_cb(uint8_t* driver_count);
++
++// Optional application routing for CLASS SETUP only; weak default returns false.
++// Return false for normal core routing, or true with an interface number to
++// claim the request. The core requires a configured, mapped interface and calls
++// its driver once with the unchanged request; a rejection then stalls without
++// fallback. This selector must not submit transfers, mutate the request, or
++// re-enter the device task. It does not grant ownership or quiescence promises.
++bool usbd_app_control_route_cb(uint8_t rhport, tusb_control_request_t const* request,
++                              uint8_t* interface_number);
+ 
+ typedef bool (*usbd_control_xfer_cb_t)(uint8_t rhport, uint8_t stage, tusb_control_request_t const * request);
+ 

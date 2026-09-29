@@ -4,7 +4,7 @@
   "project": "TinyUSB",
   "release": "0.21.0",
   "repository": "https://github.com/hathach/tinyusb.git",
-  "scope": "Selected generic device/EP0 and OS_NONE source closure for an unexecuted offline synthetic DCD experiment. No controller port or class source is included.",
+  "scope": "Unchanged generic device/EP0 and OS_NONE source closure for separately executed upstream and patched synthetic DCD experiments. No controller port or class source is included; local patches apply only to disposable verified copies.",
   "upstream_files": {
     "LICENSE": {
       "sha256": "f878d62e47e693ea64160218edb1b9b4755f4839a3179e5bef4a6b0359399431",

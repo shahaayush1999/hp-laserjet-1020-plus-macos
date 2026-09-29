@@ -6,8 +6,10 @@ manifest also records SHA256. `LICENSE` retains the upstream MIT license.
 
 This is the small generic device/EP0, FIFO and OS_NONE source closure for a
 synthetic offline compatibility experiment. Built-in classes and hardware DCD
-ports are excluded. Nothing has been built or executed from this selection yet.
-No actual USB enumeration or printer operation is implied.
+ports are excluded. Unchanged and locally patched builds are executed separately
+on the host and simulated BE target; see `open-firmware/tinyusb-device/README.md`.
+The vendor files stay unchanged: the reviewed patch is applied only to verified
+disposable copies. No actual USB enumeration or printer operation is implied.
 
 Any future local changes must preserve the original bytes and provenance,
 carry a reviewable patch, and be tested independently of the upstream baseline.

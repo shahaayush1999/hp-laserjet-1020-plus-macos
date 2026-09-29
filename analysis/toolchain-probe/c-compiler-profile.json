@@ -50,6 +50,16 @@
       "address": "0x10013f75",
       "bytes": "07a80a",
       "instruction": "addx4"
+    },
+    {
+      "address": "0x10016f2b",
+      "bytes": "054418",
+      "instruction": "src"
+    },
+    {
+      "address": "0x10008211",
+      "bytes": "0c0200",
+      "instruction": "memw"
     }
   ]
 }

@@ -1,0 +1,5 @@
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig_ar.c:106:6:arith_encode_init	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig_ar.c:122:6:arith_encode_flush	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig_ar.c:170:6:arith_encode	32	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig_ar.c:262:6:arith_decode_init	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/vendor/jbigkit-2.1/libjbig/jbig_ar.c:328:5:arith_decode	16	static

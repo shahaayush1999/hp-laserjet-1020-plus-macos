@@ -88,6 +88,17 @@ def audit_target(path):
     assert ranges
     program=Program(path,PREFIX); program.instructions={}; program.annotated_code=ranges
     allowed=set('add add.n addi addi.n addmi addx2 addx4 addx8 and bbci bbsi beq beqi beqz beqz.n bge bgei bgeu bgeui bgez blt blti bltu bltui bltz bne bnei bnez bnez.n bnone bany ball bnall call0 callx0 extui j jx l16si l16ui l32i l32i.n l32r l8ui mov.n moveqz movgez movi movi.n movltz movnez mull neg nsau nop nop.n or ret ret.n s16i s32i s32i.n s8i sll slli sra srai srl srli ssl ssr sub subx2 subx4 subx8 xor'.split())
+    # GCC emits SRC for rotations and MEMW around volatile USB-core state.
+    # Both are standard instructions present in the original annotated code;
+    # verify those bytes here as well as in the compiler-profile gate. This
+    # permits no custom opcodes, peripheral addresses or new divide traps.
+    stock=(ROOT/'analysis/sihp1020.elf').read_bytes()
+    stock_sections,stock_tables=properties(stock)
+    for op,address,expected in (('src',0x10016f2b,bytes.fromhex('054418')),
+                                ('memw',0x10008211,bytes.fromhex('0c0200'))):
+        assert any(a<=address and address+3<=a+n for a,n in stock_tables['.xt.insn'])
+        assert section_bytes(stock,stock_sections,address,3)==expected
+        allowed.add(op)
     listings=[]; traps=[]
     for address,size in ranges:
         assert not any(address<b and a<address+size for a,b in literals)

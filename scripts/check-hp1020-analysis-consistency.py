@@ -399,7 +399,15 @@ def build_report() -> dict[str, Any]:
             usb_bulk_receive.get("status") == "pass"
             and usb_bulk_receive.get("transfer_record", {}).get("record_stride") == "0x58"
             and usb_bulk_receive.get("transfer_record", {}).get("buffer_allocation") == "0x400 bytes"
-            and usb_bulk_receive.get("parser_handoff", {}).get("usb2thread_descriptor") == "0x10005fc4"
+            and usb_bulk_receive.get("parser_handoff", {}).get("parser_entry_literal") == "0x10005fdc"
+            and usb_bulk_receive.get("parser_handoff", {}).get("parser_registration_call") == "0x10009b45"
+            and usb_bulk_receive.get("usb2thread_creation", {}).get("call_site") == "0x10009a08"
+            and usb_bulk_receive.get("constants", {}).get("usb2thread_name") == "0x10003530"
+            and usb_bulk_receive.get("constants", {}).get("usb_saved_out1_nak_word") == "0x10021588"
+            and usb_bulk_receive.get("constants", {}).get("out1_max_packet_register") == "0xb300022c"
+            and usb_bulk_receive.get("adjacent_literals_are_not_a_task_descriptor") is True
+            and len(usb_bulk_receive.get("original_byte_checks", [])) == 46
+            and all(item.get("status") == "present" for item in usb_bulk_receive.get("original_byte_checks", []))
             and usb_bulk_receive.get("parser_handoff", {}).get("parser_entry") == "0x10009d34"
             and usb_bulk_receive.get("parser_handoff", {}).get("parser_reads_via_param_0x0c_callback") is True
             and usb_bulk_receive.get("parser_handoff", {}).get("parser_sends_jobmgr_queue") == 3
@@ -2530,6 +2538,95 @@ def build_report() -> dict[str, Any]:
                                 for n,h in port_status["source_sha256"].items()),
                         "Original isolated zero definitions and status-response construction must produce the fixed byte before sender entry; unrelated supplied status RAM is not physical calibration or observed USB traffic.",
                         evidence="analysis/usb-path/port-status.json"))
+
+    usb_pause = read_json("analysis/usb-path/pause-resume.json")
+    pause_cases = usb_pause["cases"]
+    checks.append(check("original_usb_pause_restore_intent_without_quiescence_claim",
+                        usb_pause["status"] == "pass" and len(pause_cases) == 46
+                        and usb_pause["controller_quiescence_established"] is False
+                        and usb_pause["actual_peripheral_accesses"] == usb_pause["completed_native_page_lifecycles"]
+                            == usb_pause["completed_usb_control_transfers"] == 0
+                        and len(usb_pause["private_literal_redirects"]) == 3
+                        and len(usb_pause["original_byte_ranges"]) == 2
+                        and len(usb_pause["unredirected_controls"]) == 6
+                        and len(usb_pause["excluded_code_controls"]) == 9
+                        and usb_pause["direct_call_sites"] == {"0x10009a10": ["0x100121f3"], "0x10009a70": []}
+                        and all(not x for x in usb_pause["aligned_function_pointer_literals"].values())
+                        and [c["argument"] for c in usb_pause["supplied_services"]] == [200000]
+                        and sum(c["kind"] == "pause_then_supplied_resume" for c in pause_cases) == 32
+                        and sum(c["kind"] == "conditional_resume_with_supplied_saved_words" for c in pause_cases) == 6
+                        and sum(c["kind"] == "second_pause_overwrites_saved_state" for c in pause_cases) == 8
+                        and all(a["supplied_before_call"] == b["supplied_before_call"]
+                                and all(a["observation"][k] == b["observation"][k] for k in
+                                        ("entry", "trace", "nonstack_memory", "expected_memory", "original_instructions_visited"))
+                                and all(x["observation"]["status"] == "pass"
+                                        and x["observation"]["trace"] == x["observation"]["expected_trace"]
+                                        and x["observation"]["nonstack_memory"] == x["observation"]["expected_memory"]
+                                        and x["observation"]["descriptor_payload_and_other_nonstack_bytes_preserved"]
+                                        for x in (a,b))
+                                for c in pause_cases for a,b in zip(c["interpreter"], c["qemu"]))
+                        and all(c[e]["status"] == "pass"
+                                and c[e]["failure"] == {"reason": "MMIO forbidden", "pc": c["rejected_before_memory_access"]}
+                                and c[e]["trace"] == c[e]["expected_trace"]
+                                and c[e]["nonstack_memory"] == c[e]["expected_memory"]
+                                for c in usb_pause["unredirected_controls"] for e in ("interpreter", "qemu"))
+                        and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h
+                                for n,h in usb_pause["source_sha256"].items()),
+                        "Original command intent uses three private RAM redirects and a supplied delay; saved NAK state and TDE changes do not establish DMA cancellation, real register effects or a recovered reset lifecycle.",
+                        evidence="analysis/usb-path/pause-resume.json"))
+
+    for patched, report_name, count in ((False, "upstream-baseline", 52), (True, "patched-validation", 160)):
+        path = f"analysis/usb-path/tinyusb-device/{report_name}.json"
+        protocol = read_json(path)
+        target = protocol.get("target") or {}
+        rows = protocol["cases"]
+        source = protocol["effective_source"]
+        target_path = "patched-target" if patched else "target"
+        common = (protocol["patched"] is patched and source["patched"] is patched
+                  and protocol["upstream_commit"] == source["upstream_commit"]
+                      == "dae3f9a366bfcddbf9dcf1b48d7500286a849539"
+                  and len(rows) == len(target.get("cases", [])) == count
+                  and len(source["effective_sha256"]) == 19 and len(protocol["source_sha256"]) == 68
+                  and protocol["usb_transfers"] == protocol["completed_usb_control_transfers"]
+                      == protocol["completed_native_page_lifecycles"] == 0
+                  and target.get("elf_sha256") == hashlib.sha256(
+                      (ROOT_DIR/f"analysis/usb-path/tinyusb-device/{target_path}/target-check.elf").read_bytes()).hexdigest()
+                  and source == read_json(f"analysis/usb-path/tinyusb-device/{target_path}/effective-source.json")
+                  and all(t["case"] == c["case"] and t["all_nonwire_states_equal"]
+                          and t["component_state_and_memory_bytes"] == 128216
+                          and all(len(s) == 72 and s[11:13] == [0,1]
+                                  and s[61] == c["initial"][61] for s in c["steps"])
+                          for c,t in zip(rows, target.get("cases", [])))
+                  and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h
+                          for n,h in protocol["source_sha256"].items()))
+        if patched:
+            specific = (protocol["status"] == "pass" and not protocol["observed_protocol_limitations"]
+                        and not protocol["observed_big_endian_mismatches"]
+                        and all(c["host_status"] == t["status"] == "pass" and not t["wire_mismatches"]
+                                and c["capture_sha256"] == t["capture_sha256"]
+                                for c,t in zip(rows, target.get("cases", [])))
+                        and sum(c["scenario"].startswith("failed-ep0/") for c in rows) == 100
+                        and {int(c["scenario"].rsplit("/",1)[1]) for c in rows
+                             if c["scenario"].startswith("failed-ep0/")} == {1,2,3,4,5}
+                        and sum(c["scenario"] == "claimed-routing-rejection-is-final" for c in rows) == 4
+                        and sum(c["scenario"] == "late-failure-does-not-stop-current-generation" for c in rows) == 4
+                        and len(source["patch_manifest"]["files"]) == 2
+                        and source["patch_manifest"]["patch_sha256"] == hashlib.sha256(
+                            (ROOT_DIR/"open-firmware/tinyusb-device/patches/protocol-compatibility.patch").read_bytes()).hexdigest())
+        else:
+            specific = (protocol["status"] == "upstream_compatibility_findings"
+                        and len(protocol["observed_protocol_limitations"]) == 14
+                        and len(protocol["observed_big_endian_mismatches"]) == 32
+                        and source["patch_manifest"] is None
+                        and {f["kind"] for f in protocol["observed_protocol_limitations"]} == {
+                            "unsupported_custom_driver_high_byte_interface", "unsupported_legacy_reset_recipient",
+                            "ignored_current_ep0_failure", "configuration_reset_erases_control_request"}
+                        and source["effective_sha256"] == {
+                            name: record["sha256"] for name, record in protocol["upstream_provenance"]["upstream_files"].items()})
+        checks.append(check("patched_reusable_usb_protocol_verified" if patched else "unchanged_upstream_usb_limitations_preserved",
+                            common and specific,
+                            "Independent USB wire oracles, original event tokens, deferred reset gates and failed-request recovery execute in a synthetic DCD; unchanged upstream findings remain separate. No physical USB, bulk traffic, controller quiescence or printing is proved.",
+                            evidence=path))
 
     fail_count = severity_count(checks, "fail")
     return {

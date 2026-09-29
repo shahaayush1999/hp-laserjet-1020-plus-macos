@@ -1,4 +1,5 @@
 {
+  "adjacent_literals_are_not_a_task_descriptor": true,
   "checks": [
     {
       "evidence": "analysis/usb-path/decompiled-neighbors/10008ff0_hp1020_usb2_thread.c",
@@ -64,8 +65,8 @@
     "completion_event_flags": "0x10021318",
     "descriptor_pool_a": "0x1001bc48",
     "descriptor_pool_b": "0x1001bc58",
-    "endpoint_ack_register": "0xb300022c",
     "endpoint_config_word": "0x10021590",
+    "out1_max_packet_register": "0xb300022c",
     "parser_entry": "0x10009d34",
     "pending_transfer_list": "0x10022740",
     "registered_callback_a": "0x100087b8",
@@ -77,25 +78,364 @@
     "transfer_ring_index": "0x1001f214",
     "transfer_state": "0x100212d4",
     "transfer_token_shift_word": "0x1001f238",
-    "usb2thread_descriptor_word0": "0x10003530",
+    "usb2thread_control_block": "0x10021598",
+    "usb2thread_entry": "0x10008ff0",
     "usb2thread_event_bit": "0x00010000",
-    "usb2thread_name": "0x10021588",
+    "usb2thread_name": "0x10003530",
+    "usb2thread_stack_start": "0x10022768",
+    "usb_pause_delay_argument": "0x00030d40",
+    "usb_saved_out0_nak_word": "0x10021384",
+    "usb_saved_out1_nak_word": "0x10021588",
     "zjs_magic": "0x1001bc78"
   },
+  "controller_reference": {
+    "header": "analysis/usb-path/controller-reference/linux-v6.12/amd5536udc.h",
+    "limit": "Family layout supports NAK/max-packet naming; it does not identify HP silicon or establish quiescence.",
+    "sha256": "8dbf2ebffe7de042bdfea1c5e4e0d7e7ca334cb821fbfaa1cf9ccfeeae302648"
+  },
+  "independent_adjacent_literals": [
+    {
+      "address": "0x10005fc0",
+      "name": "usb2thread_control_block",
+      "value": "0x10021598"
+    },
+    {
+      "address": "0x10005fc4",
+      "name": "usb2thread_name",
+      "value": "0x10003530"
+    },
+    {
+      "address": "0x10005fc8",
+      "name": "usb2thread_entry",
+      "value": "0x10008ff0"
+    },
+    {
+      "address": "0x10005fcc",
+      "name": "usb2thread_stack_start",
+      "value": "0x10022768"
+    },
+    {
+      "address": "0x10005fd0",
+      "name": "usb_saved_out1_nak_word",
+      "value": "0x10021588"
+    },
+    {
+      "address": "0x10005fd4",
+      "name": "usb_saved_out0_nak_word",
+      "value": "0x10021384"
+    },
+    {
+      "address": "0x10005fd8",
+      "name": "usb_pause_delay_argument",
+      "value": "0x00030d40"
+    },
+    {
+      "address": "0x10005fdc",
+      "name": "parser_entry",
+      "value": "0x10009d34"
+    },
+    {
+      "address": "0x10005fe0",
+      "name": "zjs_magic",
+      "value": "0x1001bc78"
+    }
+  ],
   "open_firmware_implication": [
     "The stock path separates USB transfer registration from ZjStream parsing through a callback table passed as parser param_1.",
     "An open firmware can keep the host-side ZjStream parser model, but still needs a bulk OUT receiver that can present a blocking/read callback at param_1+0x0c.",
     "The immediate software target after endpoint-0 proof is not video hardware; it is a small bulk-receive/read-callback shim that feeds the already-modeled ZjStream chunk loop."
   ],
+  "original_byte_checks": [
+    {
+      "address": "0x10005f08",
+      "bytes": "b300022c",
+      "meaning": "out1_max_packet_register",
+      "status": "present"
+    },
+    {
+      "address": "0x10005fc0",
+      "bytes": "10021598",
+      "meaning": "usb2thread_control_block",
+      "status": "present"
+    },
+    {
+      "address": "0x10005fc4",
+      "bytes": "10003530",
+      "meaning": "usb2thread_name",
+      "status": "present"
+    },
+    {
+      "address": "0x10005fc8",
+      "bytes": "10008ff0",
+      "meaning": "usb2thread_entry",
+      "status": "present"
+    },
+    {
+      "address": "0x10005fcc",
+      "bytes": "10022768",
+      "meaning": "usb2thread_stack_start",
+      "status": "present"
+    },
+    {
+      "address": "0x10005fd0",
+      "bytes": "10021588",
+      "meaning": "usb_saved_out1_nak_word",
+      "status": "present"
+    },
+    {
+      "address": "0x10005fd4",
+      "bytes": "10021384",
+      "meaning": "usb_saved_out0_nak_word",
+      "status": "present"
+    },
+    {
+      "address": "0x10005fd8",
+      "bytes": "00030d40",
+      "meaning": "usb_pause_delay_argument",
+      "status": "present"
+    },
+    {
+      "address": "0x10005fdc",
+      "bytes": "10009d34",
+      "meaning": "parser_entry",
+      "status": "present"
+    },
+    {
+      "address": "0x100099f2",
+      "bytes": "1af173",
+      "meaning": "l32r a10,0x10005fc0: thread control-block argument",
+      "status": "present"
+    },
+    {
+      "address": "0x100099f7",
+      "bytes": "1bf173",
+      "meaning": "l32r a11,0x10005fc4: thread name argument",
+      "status": "present"
+    },
+    {
+      "address": "0x100099fa",
+      "bytes": "1cf173",
+      "meaning": "l32r a12,0x10005fc8: thread entry argument",
+      "status": "present"
+    },
+    {
+      "address": "0x100099fd",
+      "bytes": "1ef173",
+      "meaning": "l32r a14,0x10005fcc: thread stack argument",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a02",
+      "bytes": "2f4a00",
+      "meaning": "movi a15,0x400: thread stack size",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a08",
+      "bytes": "583a1a",
+      "meaning": "call8 0x10018274: thread creation call",
+      "status": "present"
+    },
+    {
+      "address": "0x10009b23",
+      "bytes": "18f12e",
+      "meaning": "l32r a8,0x10005fdc: separate parser-entry literal",
+      "status": "present"
+    },
+    {
+      "address": "0x10009b26",
+      "bytes": "1af12e",
+      "meaning": "l32r a10,0x10005fe0: separate parser magic literal",
+      "status": "present"
+    },
+    {
+      "address": "0x10009b29",
+      "bytes": "9810",
+      "meaning": "s32i.n a8,a1,0: parser entry in registration record word zero",
+      "status": "present"
+    },
+    {
+      "address": "0x10009b3e",
+      "bytes": "da10",
+      "meaning": "mov.n a10,a1: pass parser registration record",
+      "status": "present"
+    },
+    {
+      "address": "0x10009b45",
+      "bytes": "5bf854",
+      "meaning": "call8 0x10007c98: parser registration call",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a1d",
+      "bytes": "1cf16c",
+      "meaning": "l32r a12,0x10005fd0: saved OUT1 NAK destination",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a28",
+      "bytes": "1af112",
+      "meaning": "l32r a10,0x10005e70: OUT1 control address",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a2b",
+      "bytes": "1bf0fe",
+      "meaning": "l32r a11,0x10005e24: OUT0 control address",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a31",
+      "bytes": "88a0",
+      "meaning": "l32i.n a8,a10,0: read OUT1 control",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a33",
+      "bytes": "c4d0",
+      "meaning": "movi.n a13,64: NAK bit mask",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a38",
+      "bytes": "89b0",
+      "meaning": "l32i.n a9,a11,0: read OUT0 control",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a3a",
+      "bytes": "0d8801",
+      "meaning": "and a8,a8,a13: isolate OUT1 NAK",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a3d",
+      "bytes": "98c0",
+      "meaning": "s32i.n a8,a12,0: save OUT1 NAK word",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a4f",
+      "bytes": "1af161",
+      "meaning": "l32r a10,0x10005fd4: saved OUT0 NAK destination",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a57",
+      "bytes": "0d9901",
+      "meaning": "and a9,a9,a13: isolate OUT0 NAK",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a5a",
+      "bytes": "99a0",
+      "meaning": "s32i.n a9,a10,0: save OUT0 NAK word",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a5f",
+      "bytes": "1af15e",
+      "meaning": "l32r a10,0x10005fd8: delay argument",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a6a",
+      "bytes": "581f20",
+      "meaning": "call8 0x100116ec: delay-service call",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a85",
+      "bytes": "12f152",
+      "meaning": "l32r a2,0x10005fd0: saved OUT1 NAK source",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a88",
+      "bytes": "8220",
+      "meaning": "l32i.n a2,a2,0: read saved OUT1 NAK word",
+      "status": "present"
+    },
+    {
+      "address": "0x10009a8a",
+      "bytes": "cd22",
+      "meaning": "bnez.n a2,0x10009aa0: nonzero saved OUT1 word skips CNAK path",
+      "status": "present"
+    },
+    {
+      "address": "0x10009aa0",
+      "bytes": "12f14d",
+      "meaning": "l32r a2,0x10005fd4: saved OUT0 NAK source",
+      "status": "present"
+    },
+    {
+      "address": "0x10009aa3",
+      "bytes": "8220",
+      "meaning": "l32i.n a2,a2,0: read saved OUT0 NAK word",
+      "status": "present"
+    },
+    {
+      "address": "0x10009aa5",
+      "bytes": "cd21",
+      "meaning": "bnez.n a2,0x10009aba: nonzero saved OUT0 word skips CNAK path",
+      "status": "present"
+    },
+    {
+      "address": "0x1000924e",
+      "bytes": "1af32e",
+      "meaning": "l32r a10,0x10005f08: OUT1 max-packet register address",
+      "status": "present"
+    },
+    {
+      "address": "0x10009262",
+      "bytes": "18f2fb",
+      "meaning": "l32r a8,0x10005e50: packet-size global address",
+      "status": "present"
+    },
+    {
+      "address": "0x10009268",
+      "bytes": "8880",
+      "meaning": "l32i.n a8,a8,0: packet-size value",
+      "status": "present"
+    },
+    {
+      "address": "0x1000926f",
+      "bytes": "98a0",
+      "meaning": "s32i.n a8,a10,0: write packet-size value",
+      "status": "present"
+    },
+    {
+      "address": "0x10003530",
+      "bytes": "5553423254687265616400",
+      "meaning": "actual thread-name string",
+      "status": "present"
+    },
+    {
+      "address": "0x10005e70",
+      "bytes": "b3000220",
+      "meaning": "OUT1 control-address literal",
+      "status": "present"
+    },
+    {
+      "address": "0x10005e24",
+      "bytes": "b3000200",
+      "meaning": "OUT0 control-address literal",
+      "status": "present"
+    }
+  ],
   "parser_handoff": {
     "parser_entry": "0x10009d34",
+    "parser_entry_literal": "0x10005fdc",
     "parser_reads_via_param_0x0c_callback": true,
+    "parser_registration_call": "0x10009b45",
+    "parser_registration_callee": "0x10007c98",
+    "parser_registration_function": "0x10009b20",
     "parser_sends_jobmgr_queue": 3,
-    "usb2thread_descriptor": "0x10005fc4",
     "usb2thread_entry": "0x10008ff0",
     "zjs_magic": "0x1001bc78"
   },
   "status": "pass",
+  "stock_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
   "summary": "Static model of stock USB bulk receive registration and parser handoff.",
   "transfer_record": {
     "buffer_allocation": "0x400 bytes",
@@ -146,14 +486,19 @@
     "ring_base": "0x1001ec00",
     "ring_index_word": "0x1001f214"
   },
-  "usb2thread_descriptor_words": [
-    "0x10003530",
-    "0x10008ff0",
-    "0x10022768",
-    "0x10021588",
-    "0x10021384",
-    "0x00030d40",
-    "0x10009d34",
-    "0x1001bc78"
-  ]
+  "usb2thread_creation": {
+    "call_site": "0x10009a08",
+    "callee": "0x10018274",
+    "control_block": "0x10021598",
+    "control_block_literal": "0x10005fc0",
+    "entry": "0x10008ff0",
+    "entry_literal": "0x10005fc8",
+    "interpretation": "Individually loaded creation arguments, not an inline task descriptor or parser registration.",
+    "name": "USB2Thread",
+    "name_literal": "0x10005fc4",
+    "name_pointer": "0x10003530",
+    "stack_bytes": 1024,
+    "stack_start": "0x10022768",
+    "stack_start_literal": "0x10005fcc"
+  }
 }

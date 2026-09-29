@@ -5,14 +5,27 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 GCC_PREFIX="${HP1020_GCC_PREFIX:-/tmp/hp1020-xtensa-gcc14/bin/xtensa-fsf-elf}"
 BIN_PREFIX="${XTENSA_PREFIX:-/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf}"
 OUT="$ROOT_DIR/analysis/usb-path/tinyusb-device/target"
+mode_flags=()
+mode_define=0
+if [[ "${1:-}" == --patched && $# == 1 ]]; then
+  mode_flags=(--patched)
+  mode_define=1
+  OUT="$ROOT_DIR/analysis/usb-path/tinyusb-device/patched-target"
+elif [[ $# != 0 ]]; then
+  echo 'Usage: build-hp1020-tinyusb-target.sh [--patched]' >&2
+  exit 2
+fi
 SOURCE="$ROOT_DIR/open-firmware/tinyusb-device"
 PRINTER="$ROOT_DIR/open-firmware/usb-printer-class"
 RECEIVE="$ROOT_DIR/open-firmware/usb-receive-core"
 IMAGE="$ROOT_DIR/open-firmware/image-core"
 SEMANTIC="$ROOT_DIR/open-firmware/semantic-core"
 JBIG="$ROOT_DIR/vendor/jbigkit-2.1/libjbig"
-TINYUSB="$ROOT_DIR/vendor/tinyusb-0.21.0/src"
+effective_source="$(mktemp -d "${TMPDIR:-/tmp}/hp1020-tinyusb-source.XXXXXX")"
+python3 "$ROOT_DIR/scripts/prepare-hp1020-tinyusb.py" --output "$effective_source" "${mode_flags[@]}"
+TINYUSB="$effective_source/src"
 mkdir -p "$OUT"
+cp "$effective_source/effective-source.json" "$OUT/effective-source.json"
 python3 "$ROOT_DIR/scripts/check-hp1020-c-compiler-profile.py" "${GCC_PREFIX}-gcc"
 objects=()
 for source in "$SOURCE/fixture.c" "$PRINTER/hp1020_usb_printer.c" \
@@ -23,10 +36,18 @@ for source in "$SOURCE/fixture.c" "$PRINTER/hp1020_usb_printer.c" \
     "$JBIG/jbig85.c" "$JBIG/jbig_ar.c" "$TINYUSB/tusb.c" "$TINYUSB/device/usbd.c" \
     "$TINYUSB/common/tusb_fifo.c"; do
   obj="$OUT/$(basename "${source%.c}").o"
+  upstream_warning=()
+  if [[ "$source" == "$TINYUSB/device/usbd.c" ]]; then
+    # Pinned upstream compares uint8_t drvid < BUILTIN_DRIVER_COUNT even when
+    # all built-in classes are disabled and the count is exactly zero. GCC 14
+    # diagnoses that intentionally dead route; retain other warnings as errors.
+    upstream_warning=(-Wno-type-limits)
+  fi
   "$GCC_PREFIX-gcc" -Os -ffreestanding -fno-builtin -fno-common \
     -fno-tree-loop-distribute-patterns -ffunction-sections -fdata-sections \
-    -mtext-section-literals -Wall -Wextra -Werror -fstack-usage -DNDEBUG= \
-    -I"$IMAGE/freestanding" -I"$SOURCE" -I"$PRINTER" -I"$RECEIVE" -I"$IMAGE" \
+    -mtext-section-literals -Wall -Wextra -Werror "${upstream_warning[@]}" -fstack-usage -DNDEBUG= \
+    -DHP1020_TUSB_PATCHED="$mode_define" \
+    -I"$SOURCE/freestanding" -I"$IMAGE/freestanding" -I"$SOURCE" -I"$PRINTER" -I"$RECEIVE" -I"$IMAGE" \
     -I"$SEMANTIC" -I"$JBIG" -I"$TINYUSB" -c "$source" -o "$obj"
   objects+=("$obj")
 done

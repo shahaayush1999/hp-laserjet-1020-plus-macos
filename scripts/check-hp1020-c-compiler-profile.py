@@ -23,7 +23,8 @@ def main():
     read=runpy.run_path(str(ROOT/'scripts/recover-hp1020-division-decode.py'))['elf_range']
     fixtures=[('call0',0x100187b1,'500a5d'),('ret.n',0x1001b1fa,'d00f'),
               ('mull',0x10013f8e,'098828'),('nsau',0x1001b670,'056f04'),
-              ('addx4',0x10013f75,'07a80a')]
+              ('addx4',0x10013f75,'07a80a'),
+              ('src',0x10016f2b,'054418'),('memw',0x10008211,'0c0200')]
     evidence=[]
     for name,address,raw in fixtures:
         assert read(address,len(bytes.fromhex(raw))).hex()==raw

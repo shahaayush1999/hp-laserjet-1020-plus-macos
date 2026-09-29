@@ -5,3 +5,6 @@ analysis/open-firmware-model/image-core/target/*.map -whitespace
 analysis/open-firmware-model/semantic-target/*.map -whitespace
 analysis/usb-path/receive-core/target/*.map -whitespace
 analysis/usb-path/printer-class/target/*.map -whitespace
+analysis/usb-path/tinyusb-device/target/*.map -whitespace
+analysis/usb-path/tinyusb-device/patched-target/*.map -whitespace
+open-firmware/tinyusb-device/patches/*.patch -whitespace

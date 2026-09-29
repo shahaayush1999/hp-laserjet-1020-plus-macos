@@ -3,56 +3,51 @@
 Updated: 2026-09-29. **The open firmware replacement cannot print yet.** Do not
 contact/enumerate USB, upload firmware, execute print-driving hardware paths or
 change the installed printing setup. Work toward normal-use feature parity by
-reusing open components and verifying the hardware boundary. AGENTS.md owns scope.
+reusing open components and verifying hardware contracts. AGENTS.md owns scope.
 
 ## Latest firmware evidence
 
-The new `open-firmware/usb-printer-class/` composes standard ID/status/reset
-requests with the existing receive, parser, JBIG and software output pipeline.
-**73 sanitized host and 73 QEMU cases pass.** Recovery preserves accepted page
-output, rejects late events even after a buffer is reused, and produces a fresh
-exact-pixel document. Repeated resets, newer requests, response-buffer lifetime,
-faults and exhausted identities are checked. Three external reset promises and
-separate EP0 quiescence remain supplied; there is no actual USB controller port.
-Status is supplied or explicitly unknown fallback, never inferred from progress.
+The existing printer-class/document composition passes 73 host/73 QEMU cases:
+ID/status/reset, retained responses/output, stale events, exact decoded pixels
+and fresh document recovery. Target state/fixed memory is 128216 bytes, excluding
+code, stack, immutable ID and test captures. Physical quiescence remains supplied.
 
-Target state/fixed memory is 128216 bytes, excluding code, stack, immutable ID
-and test captures. Report: `analysis/usb-path/printer-class/validation.json/.md`;
-log `/tmp/hp1020-usb-printer-target-20260929-2.log`. The first target audit rejected
-a test-only remainder helper. The fixture was corrected without relaxing the
-audit; prior exact sources, host report, target ELF and logs are preserved in
-that report directory's `source-snapshots/`. No report hashes were patched.
+TinyUSB's generic protocol core is now composed with that class. **52 unchanged
+host/52 QEMU scenarios** retain 14 protocol observations and 32 BE status-byte
+mismatches. A separate two-file patch fixes serialization, request routing, failed
+EP0 progression and configuration context; **160 host/160 QEMU scenarios pass**
+with exact wire proposals and recovery. Vendor originals remain pinned and
+unchanged. This is a synthetic DCD/event fixture: no real controller, bulk payload
+or page decoding passes through TinyUSB yet. Reports and byte-preserved earlier
+sources/builds/captures: `analysis/usb-path/tinyusb-device/`. Focused log:
+`/tmp/hp1020-tinyusb-patched-target-20260929.log`.
 
-Original-byte experiments now pass 20 class-reset and 12 output-format cases
-in interpreter/QEMU, stopping before peripheral access. Reset clears registration
-and software lists with supplied frees; that does not prove DMA cancellation.
-Format tables differ between selectors 0 and default 2 despite both using one
-output lane. Pixel polarity/sample meaning and physical acceptance remain open.
-The earlier output address/count experiment retains 30 passing cases. A further
-28 original port-status cases prepare a fixed zero byte before transmission;
-that path is not a source of measured paper/engine status.
+Original pause/restore passes 46 conditional cases in both engines. It requests
+pause/resume and saves NAK state but does not establish DMA quiescence. Separate
+original reset/status and output-format/pointer experiments remain bounded before
+peripheral access. The old receive model's false thread-descriptor/name and
+max-packet labels are corrected against 46 byte checks.
 
-Full sequential validation passed **113 consistency checks and both suites** in
-`/tmp/hp1020-full-printer-class-20260929.log` (child `hp1020-validation.tBubz6`).
-All focused and full runs finished and source hashes match. The previous pushed
-checkpoint is `9eb8ee3` (109 checks); this expanded checkpoint is ready to save.
-New TinyUSB protocol-fixture work and `vendor/tinyusb-0.21.0/` are unexecuted and
-excluded from this run; preserve that separation at the next checkpoint.
+Full sequential validation passed **116 consistency checks and both suites**,
+log `/tmp/hp1020-full-tinyusb-20260929.log` (child `hp1020-validation.qvzwiA`).
+The C path emits SRC/MEMW; exact annotated stock bytes gate these standard
+instructions in the shared auditor. Reports were regenerated and their current
+source hashes match; no report hashes were patched manually. No printer contact.
 
-Next execute the unchanged TinyUSB generic protocol core on host and BE target,
-record compatibility findings, then address the demonstrated gaps. Continue toward
-the unresolved controller/boot and physical output contracts, without rebuilding resolved
-internal scheduling models. Detailed questions, captures and evidence categories:
-`analysis/open-firmware-model/next-evidence.md`; topic map and disposable-tool
-recovery: `analysis/README.md`. GCC, binutils and QEMU currently work.
+Next connect protocol bulk reception to page decoding through a reusable adapter,
+and execute the independent original SETUP-ingress draft sequentially. Explicit
+transport/control identities, configuration admission, cancellation and input
+closure require care. Local adapter/test and SETUP drafts are **unexecuted and
+excluded from this checkpoint's validation**. Detailed questions/evidence:
+`analysis/open-firmware-model/next-evidence.md`; topic map/tool recovery:
+`analysis/README.md`. GCC, binutils and QEMU currently work.
 
 Keep separate: 26 completed empty-document lifecycles, six conditional original
 null reads, 28 retirement cases, 36 native page lifecycles with supplied completion,
-and 42 fragment/bypass cases. New control/receive software and hardware-boundary
-fragments add **zero native page lifecycles and zero USB transfers**. Existing
-receive component retains 75 host/75 QEMU cases, image output 45/45, stream 66/44.
-Copies remain metadata. Boot, actual USB, engine timing/cache, printing and
-power-cycle recovery remain unproved.
+and 42 fragment/bypass cases. New protocol/control fragments add **zero native
+page lifecycles and zero USB transfers**. Receive retains 75 host/75 QEMU cases,
+image output 45/45, stream 66/44. Copies remain metadata. Boot, actual USB, engine
+timing/cache, physical status/printing and power-cycle recovery remain unproved.
 
 ## Installed Mac driver (separate, preserve)
 

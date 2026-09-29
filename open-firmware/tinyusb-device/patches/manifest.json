@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "project": "TinyUSB",
+  "release": "0.21.0",
+  "upstream_commit": "dae3f9a366bfcddbf9dcf1b48d7500286a849539",
+  "repository": "https://github.com/hathach/tinyusb.git",
+  "upstream_provenance": "vendor/tinyusb-0.21.0/PROVENANCE.json",
+  "license": "MIT; preserve the upstream source copyright and permission notices.",
+  "patch": "protocol-compatibility.patch",
+  "patch_sha256": "62edce457c5f3a4d7be7db18a9aea36be0e59477985252df53d23a2d2261a5cb",
+  "apply": "Apply with patch -p1 to a disposable copy of the exact pinned source, then verify every resulting SHA256 below. Keep vendor originals unchanged.",
+  "files": {
+    "src/device/usbd.c": {
+      "original_sha256": "38de54351d81878e6543f2b022d0c39f45d28c8f0888491796398dec45e727be",
+      "result_sha256": "f84d7e85822fa35a85f05ee46bcb926e7f5ce54b77609f9cdfa38afd4408f705",
+      "upstream_blob": "c4c418cb5e03a76deeab566ddac318eb903dba66",
+      "source_url": "https://github.com/hathach/tinyusb/blob/dae3f9a366bfcddbf9dcf1b48d7500286a849539/src/device/usbd.c"
+    },
+    "src/device/usbd_pvt.h": {
+      "original_sha256": "3d3bae6a54ac6d677a2fdae156665c760a7f22f7651b34cfaa4460a585964db9",
+      "result_sha256": "0a0c5e18dd203dad988b931897fca40ec14a21687f288d50440be3d408559cb6",
+      "upstream_blob": "be778f9af916656a235981f1a35c193a859a6206",
+      "source_url": "https://github.com/hathach/tinyusb/blob/dae3f9a366bfcddbf9dcf1b48d7500286a849539/src/device/usbd_pvt.h"
+    }
+  },
+  "rationale": [
+    {
+      "change": "Portable device and endpoint GET_STATUS",
+      "boundaries": [
+        "src/device/usbd.c: usbd_device_t",
+        "process_std_device_request GET_STATUS",
+        "process_setup_received endpoint GET_STATUS"
+      ],
+      "reason": "Device state is logical fields rather than a raw compiler-dependent bitfield byte. Both two-byte status responses explicitly serialize little-endian USB wire values. No adapter-side byte normalization is used."
+    },
+    {
+      "change": "Optional private application CLASS route selector",
+      "boundaries": [
+        "src/device/usbd.c: weak usbd_app_control_route_cb",
+        "process_setup_received before recipient dispatch",
+        "src/device/usbd_pvt.h: private callback declaration"
+      ],
+      "reason": "The reusable application adapter may choose the configured printer interface for GET_DEVICE_ID high-byte interface encoding and legacy 0x23 SOFT_RESET. Core retains the original request, checks configuration/interface mapping, invokes once, and treats claimed rejection as final. This patch itself contains no printer-specific matcher or duplicated request parser."
+    },
+    {
+      "change": "Failed EP0 request latch",
+      "boundaries": [
+        "src/device/usbd.c: usbd_control_xfer_t",
+        "usbd_control_xfer_cb",
+        "tud_control_xfer",
+        "tud_control_status",
+        "process_setup_received"
+      ],
+      "reason": "Any non-success current EP0 completion latches failure before byte accounting, copies, DATA/ACK callbacks or the DCD successful-status hook. Both directions are stalled; later completion/public transfer calls remain blocked until a new SETUP or real stack reset. Neither the latch nor DCD stall proves controller ownership or queued events are settled."
+    },
+    {
+      "change": "Preserve in-flight SET_CONFIGURATION context",
+      "boundaries": [
+        "src/device/usbd.c: process_std_device_request SET_CONFIGURATION"
+      ],
+      "reason": "configuration_reset clears the whole device object. Save and restore the current control context when switching from a nonzero configuration, so the status response retains its actual request and failure state. Bus reset continues to clear the control context."
+    }
+  ],
+  "adapter_obligations": [
+    "Only original request epochs and original packet identities may authorize event delivery or deferred responses; TinyUSB events alone contain no generation ticket.",
+    "Fence receive immediately on admitted reset/current transport failure. Keep receive, output, bulk-IN/toggle/stall-reset and EP0 ownership acknowledgements distinct.",
+    "Capture the document generation when each packet is submitted; reset status submission occurs after document restart and must not reuse the old reset ticket generation.",
+    "Retire class response storage only after its exact transport ownership and queued callbacks are settled. Stalling or a protocol failure is not quiescence.",
+    "A newer SETUP suppresses an older deferred class reply while preserving the document stop fence. Never submit an old response through TinyUSB current-request state."
+  ],
+  "validation_scope": "Patch generation and applicability/byte-identity checks only. No compilation, fixture execution, QEMU, USB transfer, controller port or hardware validation is claimed here."
+}

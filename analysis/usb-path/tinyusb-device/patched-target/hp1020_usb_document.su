@@ -1,0 +1,5 @@
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-receive-core/hp1020_usb_document.c:4:23:hp1020_usb_document_init	48	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-receive-core/hp1020_usb_document.c:13:23:hp1020_usb_document_pump	48	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-receive-core/hp1020_usb_document.c:27:23:hp1020_usb_document_finish	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-receive-core/hp1020_usb_document.c:36:23:hp1020_usb_document_output_quiesced	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-receive-core/hp1020_usb_document.c:41:23:hp1020_usb_document_restart	32	static

@@ -71,7 +71,7 @@ A second concrete shortcut now avoids the compressed-image hardware for offline
 image production. `open-firmware/image-core/` contains a bounded streaming JBIG
 wrapper and a bridge from the existing semantic parser/planner to packed row
 bands. The parser now retains each exact 20-byte BIH. Current focused checks
-pass, and the latest full sequential aggregate passed **105 consistency checks**
+pass, and the full sequential aggregate for that checkpoint passed **105 consistency checks**
 in `/tmp/hp1020-full-image-ring-20260928.log` (child logs `hp1020-validation.WTCBMK`), including
 the bounded complete-stream, raw-contract, original producer, parser/handoff and
 video-buffer initialization, original ring delivery and the direct compiled
@@ -213,7 +213,7 @@ The current open bridge likewise does not emit that unsupported chunk type.
 `analysis/hardware-boundary/raw-buffer-contract.json/.md`: **68 fragments plus
 two boundary controls pass**. The full sequential aggregate passed with 98 checks
 and both suites in `/tmp/hp1020-full-raw-contract.log` (child logs
-`hp1020-validation.eIS7rL`). No research process remains running. A current open-target decode supplies four actual packed
+`hp1020-validation.eIS7rL`). Research processes for that checkpoint finished. A current open-target decode supplies four actual packed
 rows (4800 bytes), compared with the original full host decoder before being
 copied into separate stock RAM fixtures. This is compositional execution, not
 a producer/consumer schedule or physical output.
@@ -593,7 +593,7 @@ refreshed against the shared target in
 cases/66 target checks passed in `/tmp/hp1020-image-core-ring-build-20260928.log`.
 Full sequential validation passed **105 consistency checks and both suites** in
 `/tmp/hp1020-full-image-ring-20260928.log` (child logs `hp1020-validation.WTCBMK`).
-All recorded sources and fixtures match; no validation process remains running.
+Recorded sources and fixtures matched when that checkpoint finished.
 The initial host build stopped on a Darwin common-section alignment warning;
 using the existing host checks'
 `-fno-common` flag resolved it. That was a build diagnostic, not a pixel/ownership
@@ -729,7 +729,7 @@ a same-input retained-mode rejection at page 17. Log:
 passed **106 consistency checks and both suites** in
 `/tmp/hp1020-full-page-reuse-20260929.log` (child logs `hp1020-validation.1RndJc`).
 All 309 source/fixture/sample hash entries in the five current image reports match.
-No validation process remains running.
+Validation processes for that checkpoint finished.
 
 The first page-reuse build passed 45 sanitized host cases but its instruction
 audit rejected `break 1,15` at `0x200004d9` (bytes `0f1400`) before any QEMU
@@ -1042,7 +1042,8 @@ An independent full JBIG decoder supplies expected pixels; every observed state,
 pixel/control byte and retained storage byte agrees across host and QEMU.
 
 Target component state/fixed memory is **128216 bytes**, excluding code, stack,
-immutable ID storage and fixture captures. Sources still match the 49-file closure.
+immutable ID storage and fixture captures. The focused run pins its 49-file closure;
+subsequent shared-auditor edits require regeneration in the current full run.
 Report: `analysis/usb-path/printer-class/validation.json/.md`; focused log:
 `/tmp/hp1020-usb-printer-target-20260929-2.log`; exact captures/sources:
 `/tmp/hp1020-usb-printer-uvb81b5c/`.
@@ -1056,11 +1057,10 @@ and logs are preserved under `analysis/usb-path/printer-class/source-snapshots/`
 as `first-host-target-audit.tar.gz` plus a member-hash manifest. They are not
 silently attributed to the later fixture. No production class change was needed.
 
-The expanded **113-check** consistency gate passes, including the additional
-original GET_PORT_STATUS experiment below. Full sequential validation is running
-in `/tmp/hp1020-full-printer-class-20260929.log` (child `hp1020-validation.tBubz6`).
-Do not edit tested sources or run another validator until it finishes; review,
-commit and push afterward. All control/receive additions remain zero actual USB
+Full sequential validation passed **113 consistency checks and both suites**,
+including the original GET_PORT_STATUS experiment below, in
+`/tmp/hp1020-full-printer-class-20260929.log` (child `hp1020-validation.tBubz6`).
+That checkpoint is committed and pushed as `eff3611`. All control/receive additions remain zero actual USB
 transfers and zero additional native page lifecycles. Copies are metadata; physical
 status, controller cancellation, boot and output hardware remain open.
 
@@ -1097,49 +1097,163 @@ Focused log: `/tmp/hp1020-usb-port-status-20260929.log`; exact sources/captures:
 23-source closure hashes match, and zero control/USB transfers, native page
 lifecycles or peripheral instructions were added.
 
-### Next USB protocol integration experiment (unexecuted, 2026-09-29)
+### Executed reusable USB protocol integration (2026-09-29)
 
-The new printer-class code is portable software; generic enumeration/EP0 has not
-been connected. A focused source review found concrete integration risks worth
-executing instead of assuming TinyUSB is a drop-in. The selected 19-file generic
-device/EP0/FIFO/OS_NONE closure is copied unchanged under `vendor/tinyusb-0.21.0/`.
-`PROVENANCE.json` records the verified release commit
-`dae3f9a366bfcddbf9dcf1b48d7500286a849539`, Git blob IDs and SHA256 for every file;
-the upstream MIT license is retained. The clean disposable checkout is
-`/tmp/hp1020-tinyusb-0.21.0-20260929/`. No hardware DCD or built-in class is imported.
+`open-firmware/tinyusb-device/` composes TinyUSB's generic device/EP0 core with
+our existing class/document component and a synthetic DCD. The 19 upstream
+MIT-licensed files remain byte-identical under `vendor/tinyusb-0.21.0/`, pinned
+to `dae3f9a366bfcddbf9dcf1b48d7500286a849539`. No built-in class or hardware DCD
+is imported. `scripts/prepare-hp1020-tinyusb.py` verifies every input, applies the
+separate local patch without fuzz to disposable copies, then checks the entire
+resulting source set against its manifest. Original bytes are never overwritten.
 
-`open-firmware/tinyusb-device/` is an **unexecuted draft** for a synthetic DCD
-fixture, excluded from the completed 113-check run. Root now owns all integration
-files after the focused agent's handoff. Full sequential validation passed in
-`/tmp/hp1020-full-printer-class-20260929.log` (child `hp1020-validation.tBubz6`),
-with both suites and 113 consistency checks. First test unchanged upstream
-bytes with actual standard requests on both host and BE target, preserving any
-failure before proposing a local patch.
+**Unchanged upstream: 52 host/52 QEMU scenarios.** Fourteen observations retain
+unsupported legacy reset (4), GET_DEVICE_ID high-byte interface routing (2),
+failed EP0 progressing to success (4), and SET_CONFIGURATION clearing its own
+control request before status completion (4). Thirty-two BE wire mismatches
+cover device self-power/remote-wakeup and both endpoint halt statuses. These
+are executed compatibility findings, not successful USB transfers or a working
+unmodified port. All expected packet lengths/bytes are independently specified;
+known BE alternatives are accepted only in the baseline and recorded as findings.
+Report: `analysis/usb-path/tinyusb-device/upstream-baseline.json/.md`;
+log `/tmp/hp1020-tinyusb-upstream-expanded-20260929.log`; initial expanded captures
+and exact source closure: `/tmp/hp1020-tinyusb-qyqzp2cv/`.
 
-Static risks to test: native `uint16_t` GET_STATUS responses are copied directly
-to the wire buffer, and device status has unconditioned internal bitfields;
-nonzero device/endpoint status may therefore expose BE defects. These are not yet
-executed failures. `tud_control_xfer/status` use the latest global SETUP and ignore
-the supplied request pointer, so a deferred reset may only submit with an unchanged
-control epoch. Every newer SETUP, including standard requests not sent to the
-class callback, must invalidate that permission. Input SETUP fields are already
-host-order at the application callback and must be reconstructed explicitly for
-our raw-wire parser. Legacy reset recipient `0x23` and GET_DEVICE_ID's high-byte
-nonzero interface routing are not supported by the generic custom-driver route.
-Keep those as explicit baseline controls; do not silently normalize them.
+**Patched integration: 160 host/160 QEMU scenarios pass** with exact matching
+wire proposals and no retained protocol findings. The narrow two-file patch:
+- represents device status logically and serializes both two-byte replies in USB
+  little-endian order, without normalizing captured bytes;
+- supplies a private class routing hook for exceptional encodings, keeps the
+  original request, requires an opened/configured interface and treats rejection
+  as final instead of falling through to another driver;
+- latches failed EP0 before data/status accounting or successful callbacks, stalls
+  both directions, and rejects further submissions until a fresh SETUP;
+- preserves active control context across configuration-only reset. Actual bus
+  reset still clears that context.
 
-A synthetic adapter must preserve original submission tokens in event envelopes,
-settle/check old EP0 memory before processing a new SETUP, and reject stale/failed
-events before forwarding to the core. Its test DCD owns borrowed buffers until
-explicit completion/cancellation. None of these simulated observations is actual
-controller quiescence, USB enumeration or device evidence.
+The synthetic adapter owns a separate control epoch and original packet tokens.
+Every new SETUP suppresses old deferred replies, including standard requests that
+never reach the class. It settles independent borrowed EP0 storage before entering
+new core state. Reset admission fences receive before a held packet can delay
+dispatch and invalidates old reset promises. A current failure fences the receive
+generation saved when that exact packet was submitted; reset status belongs to
+the post-restart generation. Old/duplicate failures cannot borrow today's identity.
+No stall or cleared C field is treated as physical cancellation acknowledgement.
 
-Independent pre-execution review tightened the draft: reset admission now fences
-data before waiting for old EP0 owners; a queued reset invalidates all old reset
-promises. Packet oracles require the exact number and lengths of DATA packets,
-including a 384-byte response's conditional terminating ZLP. Raw host rows and
-event input are retained before assertions, and every control-only step must
-preserve all document storage bytes. These remain unexecuted draft changes.
+Tests include interfaces 0/3, all four self-power/remote-wakeup combinations,
+IN/OUT halt status, configuration 1→0→1, rejected route claims, address commit,
+400-byte IDs, and 384-byte responses with exactly the required conditional DATA
+ZLP. One hundred cases cover all five non-success results at first/middle IN data,
+OUT status, address IN status and reset IN status, followed by fresh recovery.
+Raw input and observations are saved before assertions. Each step checks owned
+packet/class-response retention, document-memory guards and an unchanged full
+storage hash. There are no bulk payloads or decoded pages in this protocol fixture.
+Report: `analysis/usb-path/tinyusb-device/patched-validation.json/.md`;
+log `/tmp/hp1020-tinyusb-patched-target-20260929.log`; first passing captures/source:
+`/tmp/hp1020-tinyusb-jq4zqq27/`. Each current report pins 68 repository source files.
+
+Three earlier target attempts stopped at build/audit gates: absent freestanding
+`inttypes.h`, GCC's constant-false comparison when built-in class count is zero,
+and SRC/MEMW outside the old auditor's emitted subset. The local include shim
+supports only debug-disabled selected code; warning suppression is scoped to
+upstream usbd.c. Exact original annotated SRC `0x10016f2b:054418` and MEMW
+`0x10008211:0c0200` now guard admission of those standard instructions in both
+compiler-profile and shared target audits. Custom opcodes, MMIO and divide-trap
+allowances are unchanged. Exact failed sources/logs/builds, the earlier 44-case
+baseline, expanded 52-case baseline and first patched 160-case run are retained
+in `analysis/usb-path/tinyusb-device/source-snapshots/`, with member SHA manifests.
+No report hash was patched to claim later source validation.
+
+Full sequential validation passed **116 consistency checks and both suites** in
+`/tmp/hp1020-full-tinyusb-20260929.log` (child `hp1020-validation.qvzwiA`). All
+current source hashes in the new reports match. The previous pushed full baseline
+was 113 checks at `eff3611`. Next connect bulk OUT to the existing bounded
+document/decoder path through reusable C adapter code. Physical DCD cancellation, cache visibility, boot, bulk USB,
+printer status and printing remain unproved. These scenarios add zero USB
+transfers and zero native page lifecycles.
+
+### Next reusable bulk adapter (unexecuted draft)
+
+Local work is being drafted separately under `open-firmware/tinyusb-printer-adapter/`
+and `open-firmware/tinyusb-printer-test/`; it is not yet committed or executed and
+was excluded from the 116-check validation. The agent owns the adapter directory;
+root integrates the fixture and tests. The proposed normalized receive-completion
+patch is not applied to current code. The independent
+`scripts/validate-hp1020-usb-setup-ingress.py` is also an unexecuted local draft.
+Keep first-experiment limits explicit: supplied initial SOFT_RESET recovery,
+one submitted bulk OUT at a time with four bounded receive slots, synchronous
+software output progress, and explicitly supplied close/finish. No physical DCD.
+
+Important integration contracts identified by source review:
+- A regular status/descriptor SETUP must not stale a bulk OUT transfer. Control
+  request epoch and bulk transport/configuration identity must be separate.
+- Deconfiguration/change must fence data when admitted, before old EP0 ownership
+  can defer its core dispatch. A superseding SETUP does not erase that stop fence;
+  admission must not prematurely claim configuration has changed.
+- An expected cancelled OUT must settle TinyUSB BUSY through its checked callback
+  before mappings reset. Dropping it leaves BUSY stuck; treating it as a new fault
+  invalidates the recovery promises being collected. Keep original cookies through
+  queued core delivery, and never infer cancellation from software state alone.
+- Claim readiness before receive reservation; record the ticket before submission.
+  A failed submission after reserve leaves a hole, because no rollback API exists.
+  Fence/recover instead of inventing an empty completion or reserving past it.
+- TinyUSB result/count needs a transport-neutral exact-ticket completion entry.
+  It must not fabricate a successful HP descriptor word. The original descriptor
+  policy should reuse the same internal ownership operation after its own checks.
+- OUT-buffer shadows change only through explicit synthetic DCD writes; immutable
+  IN-buffer checks cannot be applied unchanged to receiving buffers. Retain original
+  cookies and full byte shadows after reuse for stale/duplicate controls.
+- Initial bus reset currently requires an explicit class reset for document
+  recovery. Conventional automatic configuration recovery later needs a non-reply
+  path through the owner, without manufacturing host requests.
+
+Continuous streaming remains a separate step. Short packets/ZLPs are never EOF;
+`parser.documents` counts START_DOC, and polling document_open misses END_DOC plus
+next START_DOC in one buffer. Completion notification must observe validated chunk
+boundaries. A candidate non-finalizing output operation can drain an active ring
+when `page_index < stream.pages`, using the retained plan after validated END_PAGE,
+even if another BIH has started. Existing consume already drains before a new
+page's first band. Verify this independently before replacing explicit close/finish.
+
+### Original controller pause/restore intent (2026-09-29)
+
+`scripts/validate-hp1020-usb-pause-resume.py` passes **46 interpreter/QEMU cases**:
+32 supplied pause/restore pairs, six noncanonical saved-word controls and eight
+repeated-pause scenarios. Original functions `0x10009a10..0x10009a70` and
+`0x10009a70..0x10009abc` run with only three address literals redirected to guarded
+ordinary RAM. The delay call is a supplied boundary recording argument 200000,
+without timer reads or elapsed time. Later register images are explicit inputs;
+RAM command bits do not pretend to self-clear or acknowledge NAK.
+
+Pause clears DEVCTL bit 3 (family TDE), preserves bit 2 (RDE), saves OUT1/OUT0
+NAK bit 6, and requests SNAK bit 7. Restore always enables TDE and requests CNAK
+bit 8 only when the saved word is zero. Noncanonical nonzero words also suppress
+CNAK; repeated pause overwrites old saved state and is not nesting-safe. Exact
+ordered reads/writes and all nonstack mutable memory agree with independent
+oracles. Six removed-redirection controls per engine reject before peripheral
+access; nine delay/caller/IRQ/other-code boundaries reject before execution.
+
+This is command intent, not DMA quiescence. Neither routine disables RDE,
+checks descriptor ownership, clears descriptor pointers, drains pending IRQs,
+polls completion or resets DMA. Supplied descriptors/payloads are only canaries.
+One direct pause call exists in `0x100121e4`; no direct restore call or aligned
+file-backed pointer was found. The paired restore invocation remains a supplied
+experiment condition, not an established stock reset lifecycle. Thirty-four
+instruction anchors, seven literals and both whole function hashes are pinned.
+Report: `analysis/usb-path/pause-resume.json/.md`; log
+`/tmp/hp1020-usb-pause-resume-20260929-run2.log`; source/captures
+`/tmp/hp1020-usb-pause-resume-7xx6l5wk/`. The initial sandbox socket failure
+`/tmp/hp1020-usb-pause-resume-_3s25y3b/` executed no cases; retry used identical
+sources with permission for the private local debugger socket.
+
+The follow-up corrects the existing bulk-receive generator against 46 exact
+byte checks: literals FC0/FC4/FC8/FCC are individual thread creation arguments,
+not a descriptor extending into FD0/FD4/FD8. The latter words point to saved
+OUT1/OUT0 NAK and the delay argument. The true thread name is `0x10003530`;
+`0x10021588` stores OUT1's saved NAK. Parser registration is separate, using FDC
+and the call at `0x10009b45`. `0xb300022c` is OUT1's family-matched max-packet
+register, not an endpoint acknowledgement register. The generator and consistency
+check now retain those separate meanings; no generated conclusions were hand-edited.
 
 ## Preferred raster bypass (2026-09-10)
 
@@ -1447,7 +1561,7 @@ have their actual source hashes. The 64-chunk cases complete in 200,315–201,73
 instructions under 250,000; the six/thirteen-chunk and baseline cases retain the
 200,000 default. The old budget stop remains separate evidence, not a pass.
 `/tmp/hp1020-full-fragments.log` records both suite passes and child log directory.
-No research process remains running after this checkpoint.
+Research processes for that checkpoint finished; CURRENT_STATUS.md owns current execution state.
 
 Native input admission instead of direct per-document parser invocation, and
 active-work cancellation with a bounded software consumer, remain distinct

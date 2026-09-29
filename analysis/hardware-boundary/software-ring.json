@@ -7006,7 +7006,7 @@
     "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
     "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
     "scripts/hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
-    "scripts/validate-hp1020-image-core.py": "710f1de84a4467c03bc7977d56be1138e94e8709f43a5a36475e7090186159ff",
+    "scripts/validate-hp1020-image-core.py": "fdfab43e675b8fbf20ecd49154afa33089a8e78866e294346d625fec21b7c27c",
     "scripts/validate-hp1020-raw-parser.py": "6430a9a53c3c88b587e6553fdbbf39b4fd0b94620c314dbd1bd7a1457a85ec1c",
     "scripts/validate-hp1020-raw-producer.py": "56011425ef7c8832b8090cdacafb4f8694d4ed48db76255a3cd31c6f2cf84154",
     "scripts/validate-hp1020-software-ring.py": "9915226492da49ccc8c216a4265d06b69e4df8d11d12bbeeb9fa81cc63ceb146",

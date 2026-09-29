@@ -1774,7 +1774,7 @@
     "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
     "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
     "scripts/hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
-    "scripts/validate-hp1020-image-core.py": "710f1de84a4467c03bc7977d56be1138e94e8709f43a5a36475e7090186159ff",
+    "scripts/validate-hp1020-image-core.py": "fdfab43e675b8fbf20ecd49154afa33089a8e78866e294346d625fec21b7c27c",
     "scripts/validate-hp1020-raw-buffer-contract.py": "3a24bbd81077280967dfc636847132aa6b998b5a5bde5447c6b19400435eb313",
     "vendor/foo2zjs-source/jbig.c": "835ce9b964a6735187b6e064562695063a65f35fe29924de1d60db660c3e21b3",
     "vendor/foo2zjs-source/jbig.h": "0c016a8c69e349c510630edbf5b96057be952c2ac19c1a9b8488ad8c9864d7a4",

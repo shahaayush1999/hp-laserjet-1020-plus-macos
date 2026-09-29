@@ -7,10 +7,13 @@
 #include "device/usbd_pvt.h"
 #include "hp1020_usb_printer.h"
 #include <string.h>
+#ifndef HP1020_TUSB_PATCHED
+#define HP1020_TUSB_PATCHED 0
+#endif
 
 uint8_t hp1020_tusb_fixture_input[1024];
 uint8_t hp1020_tusb_fixture_capture[32768];
-uint32_t hp1020_tusb_fixture_stats[64];
+uint32_t hp1020_tusb_fixture_stats[72];
 
 enum { F_OK, F_WAIT, F_STALE, F_INVALID, F_LIMIT, F_FAIL };
 enum { P_NONE, P_SETUP, P_BUS_RESET };
@@ -18,7 +21,7 @@ enum { P_NONE, P_SETUP, P_BUS_RESET };
 struct packet_owner {
     uint8_t *buffer;
     uint8_t saved[64];
-    uint32_t token, epoch, length, live;
+    uint32_t token, epoch, generation, length, live;
 };
 static struct packet_owner packets[16];
 static struct hp1020_usb_document document;
@@ -46,6 +49,7 @@ static struct {
     uint32_t deferred_epoch, deferred_pending, suppressed, finished_resets;
     uint32_t address, pending_address, address_epoch, driver_resets, open_mask;
     uint32_t decoded[5], reply_kind, reply_length, completion_result;
+    uint32_t status_request[5], completion_generation, failure_fences, routed_requests;
 } s;
 
 static uint32_t fnv(const uint8_t *p, uint32_t n) {
@@ -178,6 +182,18 @@ static const usbd_class_driver_t drivers[2] = {
      .open=dummy_open,.control_xfer_cb=dummy_control,.xfer_cb=unexpected_bulk}
 };
 const usbd_class_driver_t *usbd_app_driver_get_cb(uint8_t *count) { *count=2;return drivers; }
+#if HP1020_TUSB_PATCHED
+bool usbd_app_control_route_cb(uint8_t rhport,const tusb_control_request_t *request,uint8_t *interface_number) {
+    if(rhport)return false;
+    const bool id=request->bmRequestType==0xa1 && request->bRequest==0 &&
+        (request->wIndex>>8)==s.interface_number;
+    const bool legacy=request->bmRequestType==0x23 && request->bRequest==2 &&
+        request->wIndex==s.interface_number;
+    if(!id && !legacy)return false;
+    *interface_number=(uint8_t)s.interface_number;s.routed_requests++;
+    return true; /* Original fields, including malformed value/length, reach the class. */
+}
+#endif
 const uint8_t *tud_descriptor_device_cb(void) { return device_descriptor; }
 const uint8_t *tud_descriptor_configuration_cb(uint8_t index) { return index?NULL:config_descriptor; }
 const uint16_t *tud_descriptor_string_cb(uint8_t index,uint16_t langid) {
@@ -221,7 +237,8 @@ bool dcd_edpt_xfer(uint8_t rhport,uint8_t ep,uint8_t *buffer,uint16_t length,boo
     if(rhport || i>=2 || length>64 || (length && !buffer) || packets[i].live ||
        !s.active_epoch || s.next_token==UINT32_MAX) { s.violations++;return false; }
     struct packet_owner *p=&packets[i];
-    p->buffer=buffer;p->length=length;p->epoch=s.active_epoch;p->token=++s.next_token;p->live=1;
+    p->buffer=buffer;p->length=length;p->epoch=s.active_epoch;p->generation=document.receive.generation;
+    p->token=++s.next_token;p->live=1;
     if(length)memcpy(p->saved,buffer,length);
     s.submissions++;s.last_ep=ep;s.last_length=length;s.last_token=p->token;s.last_epoch=p->epoch;
     s.last_hash=fnv(buffer,length);
@@ -238,6 +255,8 @@ void dcd_set_address(uint8_t rhport,uint8_t address) {
 }
 void dcd_edpt0_status_complete(uint8_t rhport,const tusb_control_request_t *request) {
     (void)rhport;
+    s.status_request[0]=request->bmRequestType;s.status_request[1]=request->bRequest;
+    s.status_request[2]=request->wValue;s.status_request[3]=request->wIndex;s.status_request[4]=request->wLength;
     if(request->bmRequestType==0 && request->bRequest==5 && s.address_epoch==s.active_epoch)
         s.address=s.pending_address;
 }
@@ -278,7 +297,7 @@ static uint32_t dispatch_pending(void) {
     drain_stack();return F_OK;
 }
 static void snapshot(uint32_t result) {
-    uint32_t *o=hp1020_tusb_fixture_stats;memset(o,0,64*sizeof(*o));check_owned();
+    uint32_t *o=hp1020_tusb_fixture_stats;memset(o,0,72*sizeof(*o));check_owned();
     o[0]=result;o[1]=s.initialized;o[2]=s.epoch;o[3]=s.pending_kind;o[4]=s.active_epoch;
     o[5]=s.submissions;o[6]=s.completions;o[7]=s.cancellations;o[8]=s.stale;
     o[9]=owned_mask();o[10]=s.stall_mask;o[11]=s.violations;o[12]=1;
@@ -300,8 +319,10 @@ static void snapshot(uint32_t result) {
     for(uint32_t i=0;i<5;i++)o[56+i]=s.decoded[i];
     o[61]=fnv((const uint8_t *)&memory.data,sizeof(memory.data));
     o[62]=s.owned_class;o[63]=s.completion_result;
+    for(uint32_t i=0;i<5;i++)o[64+i]=s.status_request[i];
+    o[69]=s.completion_generation;o[70]=s.failure_fences;o[71]=s.routed_requests;
 }
-uint32_t hp1020_tusb_fixture_reset(uint32_t fill,uint32_t interface_number,uint32_t id_length) {
+uint32_t hp1020_tusb_fixture_reset(uint32_t fill,uint32_t interface_number,uint32_t id_length,uint32_t self_powered) {
     /* Destroy the previous synthetic world, not a production recovery API. */
     if(tud_inited())tusb_deinit(0);
     memset(&s,0,sizeof(s));memset(packets,0,sizeof(packets));
@@ -314,14 +335,15 @@ uint32_t hp1020_tusb_fixture_reset(uint32_t fill,uint32_t interface_number,uint3
     memset(&memory,s.fill,sizeof(memory));
     memset(hp1020_tusb_fixture_input,s.fill,sizeof(hp1020_tusb_fixture_input));
     memset(hp1020_tusb_fixture_capture,s.fill,sizeof(hp1020_tusb_fixture_capture));
-    if((id_length!=384 && id_length!=400) || (interface_number!=0 && interface_number!=3)) {
+    if((id_length!=384 && id_length!=400) || (interface_number!=0 && interface_number!=3) || self_powered>1) {
         s.initialized=F_INVALID;snapshot(F_INVALID);return F_INVALID;
     }
     device_id[0]=(uint8_t)(id_length>>8);device_id[1]=(uint8_t)id_length;
     uint8_t letter='A';
     for(uint32_t i=2;i<sizeof(device_id);i++) { device_id[i]=letter;letter=letter=='Z'?'A':(uint8_t)(letter+1); }
     memset(config_descriptor,0,sizeof(config_descriptor));
-    const uint8_t header[9]={9,2,(uint8_t)(32+9*interface_number),0,(uint8_t)(interface_number+1),1,0,0xe0,50};
+    const uint8_t header[9]={9,2,(uint8_t)(32+9*interface_number),0,(uint8_t)(interface_number+1),1,0,
+        (uint8_t)(self_powered?0xe0:0xa0),50};
     memcpy(config_descriptor,header,sizeof(header));
     uint32_t at=9;
     for(uint32_t i=0;i<interface_number;i++) {
@@ -375,15 +397,25 @@ uint32_t hp1020_tusb_fixture_step(uint32_t op,uint32_t a,uint32_t b,uint32_t c,u
         else if(op==1 && c>packets[i].length)result=F_INVALID;
         else {
             const uint32_t epoch=packets[i].epoch;
+            const uint32_t generation=packets[i].generation;
             if(op==1 && !(a&0x80) && c)memcpy(packets[i].buffer,hp1020_tusb_fixture_input,c);
             packets[i].live=0;
             if(op==2) { s.cancellations++;result=F_OK; }
             else {
                 s.completions++;s.completion_result=d;
+                s.completion_generation=generation;
                 if(epoch!=s.epoch) { s.stale++;result=F_STALE; }
                 else {
-                    /* Current non-success results deliberately reach upstream.
-                     * The raw baseline must expose its ignored EP0 result. */
+                    /* The unchanged baseline exposes upstream failure handling.
+                     * The patched adapter fences only the generation that owned
+                     * this exact packet. The protocol core independently rejects
+                     * the failed request; no quiescence is inferred. */
+#if HP1020_TUSB_PATCHED
+                    if(d!=XFER_RESULT_SUCCESS) {
+                        s.class_result=hp1020_usb_printer_fault(&printer,generation,0x40000000u);
+                        s.failure_fences++;suppress_deferred();
+                    }
+#endif
                     dcd_event_xfer_complete(0,(uint8_t)a,c,(uint8_t)d,false);
                     drain_stack();result=F_OK;
                 }
@@ -391,6 +423,11 @@ uint32_t hp1020_tusb_fixture_step(uint32_t op,uint32_t a,uint32_t b,uint32_t c,u
             if(s.pending_kind)(void)dispatch_pending();
         }
     } else if(op==4 && !(a|b|c|d))result=dispatch_pending();
+    else if(op==7 && a<2 && !(b|c|d)) {
+        const bool accepted=a?tud_control_xfer(0,&saved_class_request,hp1020_tusb_fixture_input,1):
+            tud_control_status(0,&saved_class_request);
+        result=accepted?F_OK:F_WAIT;
+    }
     else if(op==5 && !(b|c|d)) {
         s.class_result=hp1020_usb_printer_ack_reset(&printer,reset_ticket,(enum hp1020_printer_reset_part)a);
         result=s.class_result;

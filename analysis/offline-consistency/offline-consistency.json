@@ -1,5 +1,5 @@
 {
-  "check_count": 113,
+  "check_count": 116,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -677,6 +677,24 @@
       "detail": "Original isolated zero definitions and status-response construction must produce the fixed byte before sender entry; unrelated supplied status RAM is not physical calibration or observed USB traffic.",
       "evidence": "analysis/usb-path/port-status.json",
       "name": "original_usb_port_status_constant_before_transmission_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Original command intent uses three private RAM redirects and a supplied delay; saved NAK state and TDE changes do not establish DMA cancellation, real register effects or a recovered reset lifecycle.",
+      "evidence": "analysis/usb-path/pause-resume.json",
+      "name": "original_usb_pause_restore_intent_without_quiescence_claim",
+      "severity": "watch"
+    },
+    {
+      "detail": "Independent USB wire oracles, original event tokens, deferred reset gates and failed-request recovery execute in a synthetic DCD; unchanged upstream findings remain separate. No physical USB, bulk traffic, controller quiescence or printing is proved.",
+      "evidence": "analysis/usb-path/tinyusb-device/upstream-baseline.json",
+      "name": "unchanged_upstream_usb_limitations_preserved",
+      "severity": "watch"
+    },
+    {
+      "detail": "Independent USB wire oracles, original event tokens, deferred reset gates and failed-request recovery execute in a synthetic DCD; unchanged upstream findings remain separate. No physical USB, bulk traffic, controller quiescence or printing is proved.",
+      "evidence": "analysis/usb-path/tinyusb-device/patched-validation.json",
+      "name": "patched_reusable_usb_protocol_verified",
       "severity": "watch"
     }
   ],

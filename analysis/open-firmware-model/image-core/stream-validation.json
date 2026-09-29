@@ -3081,7 +3081,7 @@
     "scripts/hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
     "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
     "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
-    "scripts/validate-hp1020-image-core.py": "710f1de84a4467c03bc7977d56be1138e94e8709f43a5a36475e7090186159ff",
+    "scripts/validate-hp1020-image-core.py": "fdfab43e675b8fbf20ecd49154afa33089a8e78866e294346d625fec21b7c27c",
     "scripts/validate-hp1020-image-pages.py": "71042db4f7ac8657302ce491e647ae0750f1186d9bbd03c14959bf6e6570ca21",
     "scripts/validate-hp1020-image-stream.py": "a80a5b4c5a02a05aa00621cff1fd5df86c670f0a3199626a5b1e97f1dd6cfe13",
     "vendor/foo2zjs-source/jbig.c": "835ce9b964a6735187b6e064562695063a65f35fe29924de1d60db660c3e21b3",

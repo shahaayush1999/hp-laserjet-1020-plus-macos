@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `113`
+- checks: `116`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -127,6 +127,9 @@ It does not contact the printer.
 | `original_class_reset_before_control_transfer_verified` | `watch` | Original request dispatch, registration clearing and list draining stop before transmission; supplied frees and a standalone busy word do not establish actual DMA/reset quiescence. | `analysis/usb-path/class-reset.json` |
 | `bounded_printer_class_document_recovery_verified` | `watch` | Wire parsing, EP0 response lifetime and document reset require independent identities and explicit receive/output/transport promises; passing software composition tests does not prove physical status, USB traffic or printing. | `analysis/usb-path/printer-class/validation.json` |
 | `original_usb_port_status_constant_before_transmission_verified` | `watch` | Original isolated zero definitions and status-response construction must produce the fixed byte before sender entry; unrelated supplied status RAM is not physical calibration or observed USB traffic. | `analysis/usb-path/port-status.json` |
+| `original_usb_pause_restore_intent_without_quiescence_claim` | `watch` | Original command intent uses three private RAM redirects and a supplied delay; saved NAK state and TDE changes do not establish DMA cancellation, real register effects or a recovered reset lifecycle. | `analysis/usb-path/pause-resume.json` |
+| `unchanged_upstream_usb_limitations_preserved` | `watch` | Independent USB wire oracles, original event tokens, deferred reset gates and failed-request recovery execute in a synthetic DCD; unchanged upstream findings remain separate. No physical USB, bulk traffic, controller quiescence or printing is proved. | `analysis/usb-path/tinyusb-device/upstream-baseline.json` |
+| `patched_reusable_usb_protocol_verified` | `watch` | Independent USB wire oracles, original event tokens, deferred reset gates and failed-request recovery execute in a synthetic DCD; unchanged upstream findings remain separate. No physical USB, bulk traffic, controller quiescence or printing is proved. | `analysis/usb-path/tinyusb-device/patched-validation.json` |
 
 ## Practical Meaning
 

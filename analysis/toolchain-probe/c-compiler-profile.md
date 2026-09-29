@@ -35,3 +35,5 @@ Compiler feature and static stock-byte compatibility gate; not a boot/CPU-state 
 | mull | 0x10013f8e | 098828 |
 | nsau | 0x1001b670 | 056f04 |
 | addx4 | 0x10013f75 | 07a80a |
+| src | 0x10016f2b | 054418 |
+| memw | 0x10008211 | 0c0200 |
