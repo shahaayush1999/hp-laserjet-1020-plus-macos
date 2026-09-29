@@ -353,6 +353,9 @@ run_step "Execute original USB pause and conditional restore intent in guarded R
 run_step "Execute original SETUP descriptor admission before request dispatch" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-usb-setup-ingress.py"
 
+run_step "Execute original SETUP retirement and separate OUT0 return intent in guarded RAM" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-usb-setup-retirement.py"
+
 run_step "Execute original background receive-enable intent in guarded RAM" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-usb-idle-receive.py"
 
@@ -364,6 +367,9 @@ run_step "Connect original-cookie OUT descriptors to reusable USB and exact deco
 
 run_step "Connect original-cookie EP0 descriptors through real control packetization" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-udc-ep0.py" --target
+
+run_step "Compose ordered SETUP and exact-cookie packet records into whole documents" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-udc-composed.py" --target
 
 run_step "Regenerate USB parser shim contract" \
   "$ROOT_DIR/scripts/model-hp1020-usb-parser-shim-contract.py"

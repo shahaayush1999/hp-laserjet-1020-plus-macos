@@ -1,0 +1,6 @@
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:16:37:enter	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:51:30:hp1020_udc_setup_init	32	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:67:30:hp1020_udc_setup_offer	32	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:99:30:hp1020_udc_setup_dispatch	48	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:129:30:hp1020_udc_setup_bus_reset	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:159:10:hp1020_udc_setup_progress	0	static

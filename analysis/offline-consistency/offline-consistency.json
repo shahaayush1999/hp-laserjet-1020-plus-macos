@@ -1,5 +1,5 @@
 {
-  "check_count": 124,
+  "check_count": 126,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -743,6 +743,18 @@
       "detail": "Two EP0 records preserve exact cookies, supplied DMA addresses, literal descriptor bytes and real NULL/zero original buffers. Prepared and published storage remains distinct; wire, pixels and document observations agree across both engines. Actual IN count, visibility, mapping and settlement remain supplied, with normalized bulk input and no physical DCD or printing.",
       "evidence": "analysis/usb-path/udc-ep0/validation.json",
       "name": "original_cookie_ep0_descriptors_preserve_publication_fault_and_recovery_boundaries",
+      "severity": "watch"
+    },
+    {
+      "detail": "Raw SETUP captures, exact original EP0/OUT descriptors and deferred reset barriers must preserve immutable identities, supplied-fact gates and separate controller/adapter ownership. Wire (including ZLP), pixels and notifications agree across host/QEMU; reused original-byte evidence adds no stock execution or physical printing.",
+      "evidence": "analysis/usb-path/udc-composed/validation.json",
+      "name": "composed_raw_setup_ep0_and_bulk_records_preserve_admission_and_ownership",
+      "severity": "watch"
+    },
+    {
+      "detail": "50 conditional post-dispatch tails and 32 pre-peripheral guards per engine must preserve independently reconstructed ordered accesses, registers and all mutable RAM, including legitimate writes before a rejected access. The supplied bulk-size word at 0x1001bc50 controls an unsigned <=512 branch. Fifteen excluded PCs, no ENTRY and no actual peripheral access establish neither hardware stall clearing, rearm/quiescence nor a physical USB transfer.",
+      "evidence": "analysis/usb-path/setup-retirement.json",
+      "name": "original_setup_retirement_preserves_partial_effects_and_hardware_exclusions",
       "severity": "watch"
     }
   ],

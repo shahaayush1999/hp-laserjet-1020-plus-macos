@@ -160,6 +160,528 @@ def report_check_items(value: Any) -> list[dict[str, Any]]:
     return []
 
 
+def setup_retirement_consistency_gate(root):
+    import ast
+    import hashlib
+    import json
+    from pathlib import Path
+    import re
+    import struct
+
+    root = Path(root)
+    detail = (
+        "50 conditional post-dispatch tails and 32 pre-peripheral guards per engine "
+        "must preserve independently reconstructed ordered accesses, registers and "
+        "all mutable RAM, including legitimate writes before a rejected access. "
+        "The supplied bulk-size word at 0x1001bc50 controls an unsigned <=512 branch. "
+        "Fifteen excluded PCs, no ENTRY and no actual peripheral access establish "
+        "neither hardware stall clearing, rearm/quiescence nor a physical USB transfer."
+    )
+
+    def need(ok, label):
+        if not ok:
+            raise ValueError(label)
+
+    def digest(raw):
+        return hashlib.sha256(raw).hexdigest()
+
+    try:
+        report = json.loads((root / "analysis/usb-path/setup-retirement.json").read_text())
+        stock = (root / "analysis/sihp1020.elf").read_bytes()
+        stock_sha = "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d"
+        need(report["stock_elf_sha256"] == digest(stock) == stock_sha, "stock ELF hash")
+
+        # Parse only the standard ELF section table here, never its experiment
+        # decoder. Fixed mappings below belong to the immutable stock hash.
+        need(stock[:6] == b"\x7fELF\x01\x02", "ELF32 big-endian identity")
+        shoff = struct.unpack_from(">I", stock, 32)[0]
+        shsize, shnum, shstr = struct.unpack_from(">HHH", stock, 46)
+        need(shsize == 40 and shstr < shnum and shoff + shsize * shnum <= len(stock),
+             "ELF section table bounds")
+        headers = [struct.unpack_from(">10I", stock, shoff + i * 40) for i in range(shnum)]
+        names_header = headers[shstr]
+        names = stock[names_header[4]:names_header[4] + names_header[5]]
+        sections = {names[h[0]:].split(b"\0", 1)[0].decode("ascii"): h for h in headers}
+        need(sections[".text"][3:6] == (0x10005c80, 0x31e0, 0x15f0f), "pinned .text mapping")
+        original_ram = tuple(sorted((h[3], h[3] + h[5]) for h in headers if h[2] & 3 == 3))
+        need(original_ram == ((0x10000370, 0x1000049c),
+                              (0x1001bb90, 0x1001d640),
+                              (0x1001d640, 0x100351e0)), "complete original writable sections")
+
+        def original(address, size):
+            need(0x10005c80 <= address < address + size <= 0x1001bb8f, "original .text read")
+            offset = 0x31e0 + address - 0x10005c80
+            return stock[offset:offset + size]
+
+        # Every instruction of [0x1000985c,0x1000992e), not just selected anchors.
+        # Decimal operands are register numbers/immediates; hex operands are
+        # literal/branch addresses. This is a static table, not a second executor.
+        instruction_rows = """
+1000985c 692124 bnei 2,1,0x10009884
+1000985f 16f171 l32r 6,0x10005e24
+10009862 0c0200 memw -
+10009865 8860 l32i.n 8,6,0
+10009867 19f18a l32r 9,0x10005e90
+1000986a 028802 or 8,8,2
+1000986d 0c0200 memw -
+10009870 9860 s32i.n 8,6,0
+10009872 d990 mov.n 9,9
+10009874 0c0200 memw -
+10009877 8890 l32i.n 8,9,0
+10009879 028802 or 8,8,2
+1000987c 0c0200 memw -
+1000987f 9890 s32i.n 8,9,0
+10009881 220a00 movi 2,0
+10009884 18f199 l32r 8,0x10005ee8
+10009887 288200 l32i 8,8,0
+1000988a 0c0200 memw -
+1000988d 238600 s32i 3,8,0
+10009890 18f19a l32r 8,0x10005ef8
+10009893 0c0200 memw -
+10009896 8b80 l32i.n 11,8,0
+10009898 2ab000 l8ui 10,11,0
+1000989b 29b001 l8ui 9,11,1
+1000989e 08aa10 slli 10,10,24
+100098a1 009911 slli 9,9,16
+100098a4 28b002 l8ui 8,11,2
+100098a7 0a9902 or 9,9,10
+100098aa 088811 slli 8,8,8
+100098ad 2ab003 l8ui 10,11,3
+100098b0 098802 or 8,8,9
+100098b3 08aa02 or 10,10,8
+100098b6 18f15e l32r 8,0x10005e30
+100098b9 19f15e l32r 9,0x10005e34
+100098bc 08a801 and 8,10,8
+100098bf 798936 bne 8,9,0x100098f9
+100098c2 18f18a l32r 8,0x10005eec
+100098c5 8880 l32i.n 8,8,0
+100098c7 0c0200 memw -
+100098ca 298000 l8ui 9,8,0
+100098cd c098 movi.n 9,8
+100098cf 0c0200 memw -
+100098d2 298400 s8i 9,8,0
+100098d5 0c0200 memw -
+100098d8 298001 l8ui 9,8,1
+100098db 0c0200 memw -
+100098de 238401 s8i 3,8,1
+100098e1 0c0200 memw -
+100098e4 298002 l8ui 9,8,2
+100098e7 0c0200 memw -
+100098ea 238402 s8i 3,8,2
+100098ed 0c0200 memw -
+100098f0 298003 l8ui 9,8,3
+100098f3 0c0200 memw -
+100098f6 238403 s8i 3,8,3
+100098f9 16f14a l32r 6,0x10005e24
+100098fc 2a1a00 movi 10,256
+100098ff 19f14e l32r 9,0x10005e38
+10009902 0c0200 memw -
+10009905 8860 l32i.n 8,6,0
+10009907 8990 l32i.n 9,9,0
+10009909 0a8802 or 8,8,10
+1000990c 0c0200 memw -
+1000990f 9860 s32i.n 8,6,0
+10009911 262a00 movi 6,512
+10009914 796310 bltu 6,9,0x10009928
+10009917 19f156 l32r 9,0x10005e70
+1000991a 0c0200 memw -
+1000991d 8890 l32i.n 8,9,0
+1000991f 0a8802 or 8,8,10
+10009922 0c0200 memw -
+10009925 289600 s32i 8,9,0
+10009928 18f14f l32r 8,0x10005e64
+1000992b 238400 s8i 3,8,0
+"""
+        instructions = {}
+        next_pc = 0x1000985c
+        for row in instruction_rows.strip().splitlines():
+            address, encoded, op, operands = row.split()
+            pc, raw = int(address, 16), bytes.fromhex(encoded)
+            args = [] if operands == "-" else [int(v, 0) for v in operands.split(",")]
+            need(pc == next_pc and raw == original(pc, len(raw)), "full instruction byte/operand table")
+            instructions[hex(pc)] = dict(op=op, args=args, bytes=encoded)
+            next_pc += len(raw)
+        need(next_pc == 0x1000992e, "exact 210-byte code range")
+        code = original(0x1000985c, 210)
+        code_sha = "1de51b81705babf558e94f732621f10677f423c86a0a6bac3fe1c84e54eaf1b0"
+        audit = report["original_byte_audit"]
+        need(audit["begin"] == "0x1000985c" and audit["end"] == "0x1000992e"
+             and audit["bytes"] == code.hex() and audit["sha256"] == digest(code) == code_sha
+             and audit["instructions"] == instructions, "reported complete original-byte audit")
+
+        extra_pcs = (
+            0x1000985c, 0x10009865, 0x10009870, 0x10009877, 0x1000987f, 0x10009881,
+            0x1000988d, 0x10009896, 0x10009898, 0x100098bc, 0x100098bf, 0x100098c5,
+            0x100098ca, 0x100098d2, 0x100098de, 0x100098ea, 0x100098f6, 0x10009905,
+            0x1000990f, 0x10009914, 0x1000991d, 0x10009925, 0x1000992b,
+        )
+        extra = {hex(pc): [instructions[hex(pc)][k] for k in ("op", "args", "bytes")] for pc in extra_pcs}
+        extra.update({
+            "0x1000992e": ["j", [0x10009347], "63fa15"],
+            "0x1000912d": ["movi.n", [7, 0], "c070"],
+            "0x10009286": ["mov.n", [3, 7], "d370"],
+        })
+        need(audit["extra_anchors"] == extra and all(
+            original(int(pc, 16), len(bytes.fromhex(row[2]))) == bytes.fromhex(row[2])
+            for pc, row in extra.items()), "audited-only zero definitions and final excluded jump")
+        literals = {
+            0x10005e24: 0xb3000200, 0x10005e30: 0xc0000000, 0x10005e34: 0x80000000,
+            0x10005e38: 0x1001bc50, 0x10005e64: 0x1001bc72, 0x10005e70: 0xb3000220,
+            0x10005e90: 0xb3000000, 0x10005ee8: 0x1001bbc0, 0x10005eec: 0x1001bc60,
+            0x10005ef8: 0xb3000214,
+        }
+        redirects = {0x10005e24: 0x22a00100, 0x10005e90: 0x22a00120,
+                     0x10005ef8: 0x22a00160, 0x10005e70: 0x22a00140}
+        need(audit["literal_originals"] == {hex(a): hex(v) for a, v in literals.items()}
+             and all(original(a, 4) == v.to_bytes(4, "big") for a, v in literals.items())
+             and report["private_literal_redirects"] == {
+                 hex(a): dict(original=hex(literals[a]), ram=hex(v)) for a, v in redirects.items()},
+             "all original literals and four named private RAM redirects")
+
+        reference_dir = "analysis/usb-path/controller-reference/linux-v6.12/"
+        linux_commit = "adc218676eef25575469234709c2d87185ca223a"
+        reference_sha = {
+            "amd5536udc.h": "8dbf2ebffe7de042bdfea1c5e4e0d7e7ca334cb821fbfaa1cf9ccfeeae302648",
+            "snps_udc_core.c": "c1b09e8f69d3340f2afd3a033d77a42775b52716d45b1aceb211dcaab89127bf",
+            "provenance.json": "023d10e246e4852c1b9415cdc3d591006edcedeba467a56b95b22b994d4a08e4",
+        }
+        need(audit["linux_commit"] == linux_commit and audit["linux_source_sha256"] == reference_sha
+             and audit["linux_control_out_isr_url"] ==
+             f"https://github.com/torvalds/linux/blob/{linux_commit}/drivers/usb/gadget/udc/snps_udc_core.c#L2422-L2610"
+             and all(digest((root / reference_dir / n).read_bytes()) == h for n, h in reference_sha.items()),
+             "immutable Linux reference")
+        provenance = json.loads((root / reference_dir / "provenance.json").read_text())
+        need(provenance["repository"] == "https://github.com/torvalds/linux"
+             and provenance["requested_ref"] == "v6.12" and provenance["commit"] == linux_commit,
+             "Linux pin provenance")
+        for name in ("amd5536udc.h", "snps_udc_core.c"):
+            path = "drivers/usb/gadget/udc/" + name
+            rows = [r for r in provenance["files"] if r["path"] == path]
+            need(len(rows) == 1 and rows[0]["sha256"] == reference_sha[name]
+                 and rows[0]["bytes"] == len((root / reference_dir / name).read_bytes())
+                 and rows[0]["url"] == f"https://raw.githubusercontent.com/torvalds/linux/{linux_commit}/{path}",
+                 "Linux per-file provenance: " + name)
+        header = (root / reference_dir / "amd5536udc.h").read_text()
+        for name, value in (("UDC_EPCTL_S", 0), ("UDC_EPCTL_CNAK", 8),
+                            ("UDC_EPCTL_NAK", 6), ("UDC_EPCTL_SNAK", 7),
+                            ("UDC_DMA_STP_STS_BS_HOST_READY", 0), ("UDC_DMA_STP_STS_BS_DMA_DONE", 2)):
+            need(re.search(r"^#define\s+" + name + r"\s+" + str(value) + r"\s*$", header, re.M),
+                 "reference bit/value: " + name)
+
+        sources = {"analysis/sihp1020.elf", "scripts/validate-hp1020-usb-setup-retirement.py",
+                   *(reference_dir + n for n in reference_sha),
+                   *("scripts/" + n + ".py" for n in (
+                       "hp1020_qemu_multitask", "hp1020_qemu_ram", "hp1020_qemu_stock_parser",
+                       "hp1020_stock_parser_harness", "hp1020_stock_stop", "hp1020_xtensa_call0",
+                       "hp1020_xtensa_properties", "hp1020_xtensa_stock"))}
+        need(len(sources) == 13 and set(report["source_sha256"]) == set(report["source_origins"]) == sources,
+             "exact 13-source closure")
+        need(all(digest((root / n).read_bytes()) == h for n, h in report["source_sha256"].items()),
+             "current bytes equal exact tested source hashes")
+        need(all(isinstance(p, str) and Path(p).is_absolute() and Path(p).as_posix().endswith("/" + n)
+                 for n, p in report["source_origins"].items()), "source origin labels")
+        # Source origin strings may name the original checkout. Never load those
+        # arbitrary paths; current repository bytes above are the hash authority.
+        pending, imported = ["scripts/validate-hp1020-usb-setup-retirement.py"], set()
+        while pending:
+            name = pending.pop()
+            if name in imported:
+                continue
+            imported.add(name)
+            for node in ast.walk(ast.parse((root / name).read_text())):
+                modules = ([n.name for n in node.names] if isinstance(node, ast.Import) else
+                           [node.module] if isinstance(node, ast.ImportFrom) and node.module else [])
+                for module in modules:
+                    dependency = "scripts/" + module.split(".", 1)[0] + ".py"
+                    if (root / dependency).is_file() and dependency not in imported:
+                        pending.append(dependency)
+        need(imported == {n for n in sources if n.endswith(".py")}, "local import closure")
+
+        # Explicit independent matrix. ``available`` is retained only because it
+        # is the report's field spelling for the supplied word at 0x1001bc50.
+        def base(name, seed, stall=0, owner=2, bulk_size=512):
+            return dict(name=name, kind="primary_linked_records", seed=seed, stall=stall,
+                        owner=owner, rx=0, low_bits=0x08432105 if seed else 0, available=bulk_size,
+                        separate=False, other_status=0x4b654321,
+                        out0=0x13570220 | (owner & 1) | ((owner & 2) << 5),
+                        in0=0xa55a0210 | ((owner & 2) >> 1) | ((owner & 1) << 6),
+                        out1=0x96a50220 | (owner & 1) | ((owner & 2) << 5))
+
+        direct_guards = (
+            ("out0-stall-read", 0x10009865, 6, 0xb3000200),
+            ("out0-stall-write", 0x10009870, 6, 0xb3000200),
+            ("in0-stall-read", 0x10009877, 9, 0xb3000000),
+            ("in0-stall-write", 0x1000987f, 9, 0xb3000000),
+            ("out0-desptr-read", 0x10009896, 8, 0xb3000214),
+            ("out0-cnak-read", 0x10009905, 6, 0xb3000200),
+            ("out0-cnak-write", 0x1000990f, 6, 0xb3000200),
+            ("out1-cnak-read", 0x1000991d, 9, 0xb3000220),
+            ("out1-cnak-write", 0x10009925, 9, 0xb3000220),
+        )
+        inputs = []
+        for seed in (0, 204):
+            for stall in (0, 1):
+                for owner in range(4):
+                    for bulk_size in (512, 513):
+                        inputs.append(base(f"linked-f{seed}-s{stall}-o{owner}-n{bulk_size}", seed, stall, owner, bulk_size))
+            for rx in range(4):
+                row = base(f"rx-independent-f{seed}-rx{rx}", seed, 0, 2, 513)
+                row.update(kind="owner_only_rx_and_low_bits_control", rx=rx, low_bits=0x0fffffff)
+                inputs.append(row)
+            for bulk_size in (0, 0xffffffff):
+                row = base(f"unsigned-count-f{seed}-n{bulk_size}", seed, 1, 2, bulk_size)
+                row["kind"] = "unsigned_available_boundary"
+                inputs.append(row)
+            row = base(f"noncanonical-stall-f{seed}", seed, 2)
+            row["kind"] = "noncanonical_stall_intent_is_not_one"
+            inputs.append(row)
+            for owner, target_owner in ((2, 1), (1, 2)):
+                row = base(f"mismatched-f{seed}-observed{owner}-target{target_owner}", seed, 1, owner)
+                row.update(kind="conditional_mismatched_observed_and_target_records", separate=True,
+                           other_status=(target_owner << 30) | 0x0b654321)
+                inputs.append(row)
+            for label, literal, pc in (("out0", 0x10005e24, 0x10009865),
+                                       ("in0", 0x10005e90, 0x10009877),
+                                       ("desptr", 0x10005ef8, 0x10009896),
+                                       ("out1", 0x10005e70, 0x1000991d)):
+                row = base(f"unredirected-{label}-f{seed}", seed, 1)
+                row.update(kind="removed_literal_redirect", skip_literal=literal, reject_pc=pc)
+                inputs.append(row)
+            for label, field, pc in (("setup-target", "bad_setup", 0x1000988d),
+                                     ("observed-header", "bad_observed", 0x10009898),
+                                     ("rearm-target", "bad_target", 0x100098ca)):
+                row = base(f"pointer-escape-{label}-f{seed}", seed, 1)
+                row.update(kind="peripheral_pointer_escape", reject_pc=pc, **{field: True})
+                inputs.append(row)
+            for label, pc, register, address in direct_guards:
+                row = base(f"guard-{label}-f{seed}", seed)
+                row.update(kind="standalone_peripheral_instruction", entry=pc, reject_pc=pc,
+                           registers={str(register): address})
+                inputs.append(row)
+        counts = dict(primary_linked=32, rx_low_bits=8, unsigned_count=4, noncanonical_stall=2,
+                      mismatched_records=4, removed_redirect=8, escaped_pointer=6, standalone_mmio=18)
+        need(len(inputs) == 82 and [r["input"] for r in report["cases"]] == inputs
+             and report["counts"] == counts, "exact ordered 50 conditional +32 guard input matrix")
+
+        spans = original_ram + ((0x21000000, 0x21020000), (0x22a00000, 0x22a02000))
+        templates = {(seed, a, b): bytes((seed + (a >> 8) + i * 17 + (i >> 4) * 3) & 255
+                                       for i in range(b - a))
+                     for seed in (0, 204) for a, b in spans}
+
+        def ram_read(memory, address, size):
+            for (a, b), raw in memory.items():
+                if a <= address and address + size <= b:
+                    return bytes(raw[address - a:address - a + size])
+            raise ValueError("oracle read outside independent RAM: " + hex(address))
+
+        def ram_put(memory, address, data):
+            for (a, b), raw in memory.items():
+                if a <= address and address + len(data) <= b:
+                    raw[address - a:address - a + len(data)] = data
+                    return
+            raise ValueError("oracle write outside independent RAM: " + hex(address))
+
+        def manifest(memory):
+            return [dict(begin=hex(a), end=hex(b), bytes=b - a, sha256=digest(raw))
+                    for (a, b), raw in sorted(memory.items())]
+
+        all_pcs = sorted(int(pc, 16) for pc in instructions)
+        excluded = (0x10008ff0, 0x1000912d, 0x10009286, 0x10009347, 0x10009358,
+                    0x1000935b, 0x1000941d, 0x100096a9, 0x10009859, 0x1000992e,
+                    0x10008208, 0x10008f40, 0x10009a10, 0x10009a70, 0x10008c24)
+
+        for case, supplied in zip(report["cases"], inputs):
+            label = supplied["name"]
+            seed, stall, owner = (supplied[k] for k in ("seed", "stall", "owner"))
+            bulk_size = supplied["available"]
+            stop = supplied.get("reject_pc", 0x1000992e)
+            rejected = "reject_pc" in supplied
+            direct = supplied["kind"] == "standalone_peripheral_instruction"
+            setup_pointer = 0xb3000300 if supplied.get("bad_setup") else 0x22a00300
+            observed_pointer = 0xb3000300 if supplied.get("bad_observed") else 0x22a00400
+            target_pointer = (0xb3000300 if supplied.get("bad_target") else
+                              0x22a00500 if supplied["separate"] else 0x22a00400)
+            status_word = (owner << 30) | (supplied["rx"] << 28) | supplied["low_bits"]
+            target_word = supplied["other_status"] if supplied["separate"] else status_word
+            literal_values = dict(literals)
+            before = {(a, b): bytearray(templates[seed, a, b]) for a, b in spans}
+            for address, value in redirects.items():
+                if address != supplied.get("skip_literal"):
+                    before[address, address + 4] = bytearray(value.to_bytes(4, "big"))
+                    literal_values[address] = value
+            for address, value in (
+                (0x22a00100, supplied["out0"]), (0x22a00120, supplied["in0"]),
+                (0x22a00140, supplied["out1"]), (0x22a00160, observed_pointer),
+                (0x1001bbc0, setup_pointer), (0x1001bc60, target_pointer), (0x1001bc50, bulk_size),
+            ):
+                ram_put(before, address, value.to_bytes(4, "big"))
+            ram_put(before, 0x1001bc72, bytes([0xa5 ^ seed]))
+            ram_put(before, 0x22a00300, bytes.fromhex("8e123456d3c2b1a0a100341256789abc"))
+            ram_put(before, 0x22a00400, status_word.to_bytes(4, "big") + bytes.fromhex("1234fedc81726354a5b6c7d8"))
+            ram_put(before, 0x22a00500, supplied["other_status"].to_bytes(4, "big") + bytes.fromhex("6789abcd9283746501b2c3d4"))
+
+            # Build a fixed semantic access list from inputs, not reported reads,
+            # decoded instructions, executor registers or the generator oracle.
+            events = []
+
+            def event(pc, kind, address, value, size=4):
+                events.append(dict(pc=hex(pc), kind=kind, address=hex(address), size=size, value=hex(value)))
+
+            def literal(pc, address):
+                event(pc, "read", address, literal_values[address])
+
+            if not direct:
+                if stall == 1:
+                    literal(0x1000985f, 0x10005e24)
+                    event(0x10009865, "read", literal_values[0x10005e24], supplied["out0"])
+                    literal(0x10009867, 0x10005e90)
+                    event(0x10009870, "write", literal_values[0x10005e24], supplied["out0"] | 1)
+                    event(0x10009877, "read", literal_values[0x10005e90], supplied["in0"])
+                    event(0x1000987f, "write", literal_values[0x10005e90], supplied["in0"] | 1)
+                literal(0x10009884, 0x10005ee8)
+                event(0x10009887, "read", 0x1001bbc0, setup_pointer)
+                event(0x1000988d, "write", setup_pointer, 0)
+                literal(0x10009890, 0x10005ef8)
+                event(0x10009896, "read", literal_values[0x10005ef8], observed_pointer)
+                for offset, pc in enumerate((0x10009898, 0x1000989b, 0x100098a4, 0x100098ad)):
+                    event(pc, "read", observed_pointer + offset, (status_word >> (24 - 8 * offset)) & 255, 1)
+                literal(0x100098b6, 0x10005e30)
+                literal(0x100098b9, 0x10005e34)
+                if owner == 2:
+                    literal(0x100098c2, 0x10005eec)
+                    event(0x100098c5, "read", 0x1001bc60, target_pointer)
+                    for offset, rd, wr, value in (
+                        (0, 0x100098ca, 0x100098d2, 8), (1, 0x100098d8, 0x100098de, 0),
+                        (2, 0x100098e4, 0x100098ea, 0), (3, 0x100098f0, 0x100098f6, 0),
+                    ):
+                        event(rd, "read", target_pointer + offset, (target_word >> (24 - 8 * offset)) & 255, 1)
+                        event(wr, "write", target_pointer + offset, value, 1)
+                literal(0x100098f9, 0x10005e24)
+                literal(0x100098ff, 0x10005e38)
+                out0_after_stall = supplied["out0"] | int(stall == 1)
+                event(0x10009905, "read", literal_values[0x10005e24], out0_after_stall)
+                event(0x10009907, "read", 0x1001bc50, bulk_size)
+                event(0x1000990f, "write", literal_values[0x10005e24], out0_after_stall | 0x100)
+                if bulk_size <= 512:
+                    literal(0x10009917, 0x10005e70)
+                    event(0x1000991d, "read", literal_values[0x10005e70], supplied["out1"])
+                    event(0x10009925, "write", literal_values[0x10005e70], supplied["out1"] | 0x100)
+                literal(0x10009928, 0x10005e64)
+                event(0x1000992b, "write", 0x1001bc72, 0, 1)
+                if rejected:
+                    boundary = next(i for i, e in enumerate(events) if e["pc"] == hex(stop))
+                    need(0xb0000000 <= int(events[boundary]["address"], 16) < 0xc0000000,
+                         label + ": rejection addresses real peripheral space")
+                    events = events[:boundary]
+
+            after = {span: raw.copy() for span, raw in before.items()}
+            for e in events:
+                address, size, value = int(e["address"], 16), e["size"], int(e["value"], 16)
+                need(not (address < 0xc0000000 and address + size > 0xb0000000), label + ": no accepted MMIO event")
+                if e["kind"] == "write":
+                    ram_put(after, address, value.to_bytes(size, "big"))
+                else:
+                    wanted = (literal_values[address] if address in literals and size == 4 else
+                              int.from_bytes(ram_read(after, address, size), "big"))
+                    need(value == wanted, label + ": independent read sees prior writes")
+
+            # Complete retired-PC paths are conditional slices of the static
+            # table. This excludes missing non-memory instructions as well.
+            retired = [] if direct else [pc for pc in all_pcs if
+                not (0x1000985f <= pc < 0x10009884 and stall != 1) and
+                not (0x100098c2 <= pc < 0x100098f9 and owner != 2) and
+                not (0x10009917 <= pc < 0x10009928 and bulk_size > 512) and pc < stop]
+            need(not set(retired).intersection(excluded), label + ": no excluded instruction retired")
+            registers = [(0x13579bdf + i * 0x10203 + seed * 0x01010101) & 0xffffffff for i in range(16)]
+            registers[0:4] = [0xfffffffc, 0x2101fef0, stall, 0]
+            for index, value in supplied.get("registers", {}).items():
+                registers[int(index)] = value
+            if not rejected:
+                updates = {2: 0 if stall == 1 else stall, 6: 512, 8: 0x1001bc72,
+                           9: 0x22a00140 if bulk_size <= 512 else bulk_size, 10: 256, 11: 0x22a00400}
+            elif direct:
+                updates = {}
+                args = instructions[hex(stop)]["args"]
+                need(0xb0000000 <= registers[args[1]] + args[2] < 0xc0000000,
+                     label + ": direct guard supplied address")
+            else:
+                # Independently derived final registers *before* each rejected
+                # instruction. The experiment itself only compared the engines
+                # for these 14 prefixes; this gate also checks literal outcomes.
+                partial = {
+                    0x10009865: {6: 0xb3000200},
+                    0x10009877: {6: 0x22a00100, 8: supplied["out0"] | 1, 9: 0xb3000000},
+                    0x1000988d: {2: 0, 6: 0x22a00100, 8: 0xb3000300, 9: 0x22a00120},
+                    0x10009896: {2: 0, 6: 0x22a00100, 8: 0xb3000214, 9: 0x22a00120},
+                    0x10009898: {2: 0, 6: 0x22a00100, 8: 0x22a00160, 9: 0x22a00120, 11: 0xb3000300},
+                    0x100098ca: {2: 0, 6: 0x22a00100, 8: 0xb3000300, 9: 0x80000000,
+                                 10: status_word, 11: 0x22a00400},
+                    0x1000991d: {2: 0, 6: 512, 8: supplied["out0"] | 0x101,
+                                 9: 0xb3000220, 10: 256, 11: 0x22a00400},
+                }
+                updates = partial[stop]
+            for index, value in updates.items():
+                registers[index] = value
+            registers = [hex(v) for v in registers]
+            before_manifest, after_manifest = manifest(before), manifest(after)
+            need(case["status"] == "pass", label + ": paired result status")
+            for engine in ("interpreter", "qemu"):
+                record = case[engine]
+                where = label + ": " + engine
+                reason = ("MMIO forbidden" if rejected else
+                          ("execution outside selected stock routines: " if engine == "interpreter" else
+                           "native tasks left selected code: ") + hex(stop))
+                need(record["status"] == "pass" and record["engine"] == engine
+                     and record["entry"] == hex(supplied.get("entry", 0x1000985c))
+                     and record["stop_before"] == hex(stop)
+                     and record["failure"] == dict(type="ValueError", reason=reason, pc=hex(stop)), where + ": stop/failure")
+                need(record["registers"] == registers
+                     and record["expected_registers"] == (None if rejected else registers)
+                     and record["independent_final_registers_checked"] is (not rejected), where + ": exact registers")
+                need(record["before_memory"] == before_manifest
+                     and record["expected_memory"] == record["actual_memory"] == after_manifest,
+                     where + ": entire original RAM, stack, redirects and guarded arena")
+                need(record["expected_accesses"] == record["accesses"] == events,
+                     where + ": all ordered reads/writes, including partial effects")
+                need(all(record[field] == ram_read(after, address, 16).hex() for field, address in (
+                    ("setup_record_hex", 0x22a00300), ("observed_record_hex", 0x22a00400),
+                    ("other_record_hex", 0x22a00500))), where + ": record bytes and untouched packet words")
+                need(record["original_instructions_retired"] == [hex(pc) for pc in retired]
+                     and record["engine_steps"] == len(retired) + int(engine == "interpreter" and rejected),
+                     where + ": exact retired instruction path and guard-before-execution")
+                need(record["actual_peripheral_accesses"] == 0 and all(record[k] is True for k in (
+                    "all_mutable_and_guard_ram_equal", "independent_ordered_read_and_write_trace_equal",
+                    "original_code_unchanged")), where + ": capture assertions and zero peripheral access")
+
+        need(report["excluded_code_controls"] == [dict(pc=hex(pc),
+             status="rejected before instruction execution in both engines") for pc in excluded],
+             "all 15 exact excluded-code boundary controls")
+        need(report["status"] == "pass" and isinstance(report["qemu_version"], str)
+             and report["qemu_version"].startswith("QEMU emulator version "), "completed differential report")
+        need(all(report[k] == 0 for k in ("actual_peripheral_accesses", "completed_usb_control_transfers",
+                                         "completed_native_page_lifecycles"))
+             and report["original_entry_executed"] is False
+             and report["omitted_startup_admission_dispatch_and_sender"] is True
+             and report["hardware_stall_clear_established"] is False
+             and report["controller_rearm_or_quiescence_established"] is False
+             and report["supplied_services"] == [], "explicit omitted prefixes and zero hardware/physical claims")
+        need(report["scope"] == (
+            "Original post-dispatch tail, conditional on supplied a2 stall intent, a3 zero, globals and ordinary RAM control images. "
+            "Exact SETUP-status return, separate owner-only OUT0 header reset, CNAK command intent and idle-latch clear; "
+            "all mutable RAM, registers and ordered reads/writes agree in both engines."), "conditional scope statement")
+        need(all(text in report["limits"] for text in (
+            "No ENTRY, request admission/dispatch, sender, IRQ, event wait, timer, cache, controller or physical USB operation executes.",
+            "Stores are plain RAM writes, not W1C or self-clearing hardware commands.",
+            "This tail preserves an existing S bit; CNAK does not prove stall clearing or transfer settlement.",
+            "Owner-only OUT0 rearm does not validate RX/count or establish safe reuse.",
+            "Current SETUP bytes and older EP0 packet ownership remain separate responsibilities.",
+            "Physical mapping, event ordering, rearm, stalls/toggles, cancellation, boot and printing remain unproved.",
+        )), "material limitations retained")
+        return True, detail
+    except (OSError, ValueError, KeyError, TypeError, IndexError, StopIteration, struct.error) as error:
+        return False, "SETUP retirement consistency failure: " + str(error)
+
+
 def build_report() -> dict[str, Any]:
     checks: list[dict[str, str]] = []
 
@@ -3204,6 +3726,325 @@ def build_report() -> dict[str, Any]:
                                 for key in ("source_sha256","fixture_sha256") for n,h in ep0[key].items()),
                         "Two EP0 records preserve exact cookies, supplied DMA addresses, literal descriptor bytes and real NULL/zero original buffers. Prepared and published storage remains distinct; wire, pixels and document observations agree across both engines. Actual IN count, visibility, mapping and settlement remain supplied, with normalized bulk input and no physical DCD or printing.",
                         evidence="analysis/usb-path/udc-ep0/validation.json"))
+
+    EXPECTED_UDC_COMPOSED_SOURCE_COUNT = 117
+    EXPECTED_UDC_SETUP_COMPONENT_BYTES = 88
+    uc = read_json("analysis/usb-path/udc-composed/validation.json")
+    uc_target, uc_ref = uc.get("target") or {}, uc["original_reference"]
+    uc_names = {"snapshot-replay", "capture-wait-newer-retry", "capture-facts", "raw-admission",
+        "held-capture-blocks-reset-ack", "held-capture-blocks-publication", "superseded-control",
+        "soft-reset-held", "bus-reset-retained-capture", "reset-admission-wait",
+        "terminal-drains-admitted-reset", "sequence-limit/capture", "sequence-limit/reset",
+        "descriptor-fault/in", "descriptor-fault/bulk"}
+    uc_profiles = {("protocol", f, 64, i) for f in (0, 204) for i in (0, 3)} | {
+        (n, f, 64, 3) for n in uc_names for f in (0, 204)}
+    uc_sources = set(ep0["source_sha256"]) | set(udc["source_sha256"]) | set(ingress["source_sha256"]) | {
+        "analysis/usb-path/setup-ingress.json", "scripts/validate-hp1020-udc-composed.py",
+        "scripts/build-hp1020-udc-composed-target.sh",
+        *("open-firmware/udc-composed-test/"+n for n in ("fixture.c", "host-check.c", "target-check.ld")),
+        *("open-firmware/udc-setup/"+n for n in ("hp1020_udc_setup.c", "hp1020_udc_setup.h")),
+    }
+    uc_bad: set[str] = set()
+    # Independent intended fixture pixels: 32x8 black and 64x12 edge pattern.
+    uc_small, uc_slim = bytes([255])*32, bytearray(96)
+    for y in range(12):
+        for x in range(64):
+            if ((x//11) ^ (y//3) ^ (x == y) ^ (x == 63-y)) & 1:
+                uc_slim[y*8+x//8] |= 0x80 >> (x & 7)
+
+    def uc_need(ok: bool, reason: str) -> None:
+        if not ok:
+            uc_bad.add(reason)
+
+    def uc_bytes(words: list[int]) -> bytes:
+        return b"".join(v.to_bytes(4, "big") for v in words)
+
+    def uc_forward(row: list[int]) -> list[int]:
+        return row[17:18]+row[24:26]+row[50:59]+row[90:96]
+
+    for c, t in zip(uc["cases"], uc_target.get("cases", [])):
+        rows, erows, brows, srows, events = (c[k] for k in
+            ("steps", "ep0_steps", "bulk_steps", "setup_steps", "events"))
+        lengths = [len(v) for v in (rows, erows, brows, srows, events)]
+        uc_need(lengths[0] > 0 and len(set(lengths)) == 1, "complete 288-word event transcript")
+        if not lengths[0] or len(set(lengths)) != 1:
+            continue
+        initial, ie, ib, ist = (c[k] for k in ("initial","initial_ep0","initial_bulk","initial_setup"))
+        uc_need(len(initial) == 96 and initial[:2] == [0,0] and initial[15:17] == [0,1]
+                and len(ie) == 104 and ie[1:5] == [1,0,1,1]
+                and len(ib) == 48 and ib[1:3] == [1,0] and ib[7:10] == [0,1,1] and ib[44] == 0
+                and len(ist) == 40 and ist[:15] == [0,1,0,0,0,0,0,0,0,0,0,7,0,1,3],
+                "first-use state before any ingress")
+        uc_need(all(len(r) == 96 and r[15:17] == [0,1] and r[0] == ev["result"]
+                    for r,ev in zip(rows,events))
+                and all(len(e) == 104 and e[2:5] == [0,1,1] for e in erows)
+                and all(len(b) == 48 and b[7:10] == [0,1,1] for b in brows)
+                and all(len(s) == 40 and s[12:15] == [0,1,3] for s in srows),
+                "row shape, result, ownership and guards")
+        # Existing packet/document helper remains unchanged for its old users;
+        # check the two extra captures separately before using its six-key form.
+        captures = c["capture_sha256"]
+        uc_need(set(captures) == {"pixels","wire","receive","output","documents","ep0",
+                                 "bulk_descriptor","setup_record"}
+                and captures == t["capture_sha256"], "all host/target capture hashes")
+        small_c = dict(c, capture_sha256={k:v for k,v in captures.items()
+                                          if k not in ("bulk_descriptor","setup_record")})
+        small_t = dict(t, capture_sha256={k:v for k,v in t["capture_sha256"].items()
+                                          if k not in ("bulk_descriptor","setup_record")})
+        uc_need(usb_packet_capture_equal(small_c,small_t,True)
+                and t["all_pixels_wire_notifications_descriptors_and_storage_equal"] is True
+                and t["adapter_state_and_memory_bytes"] == 128536
+                and t["component_and_allocation_bytes"] == {
+                    "ep0":296, "bulk":80, "setup":EXPECTED_UDC_SETUP_COMPONENT_BYTES},
+                "exact wire, pixels, notifications and measured target sizes")
+        empty_profile = c["scenario"] in {"reset-admission-wait","sequence-limit/capture",
+                                           "sequence-limit/reset","terminal-drains-admitted-reset"}
+        pixels = uc_small+bytes(uc_slim)+uc_small if c["scenario"] == "protocol" else b"" if empty_profile else uc_small
+        documents = ([[2,1,0,1,0],[2,2,1,0,0],[2,3,1,1,0],[3,1,0,1,0]] if c["scenario"] == "protocol"
+                     else [] if empty_profile else [[rows[-1][32],1,0,1,0]])
+        uc_need(c["expected_pixels_sha256"] == hashlib.sha256(pixels).hexdigest()
+                and c["pixels_bytes"] == len(pixels) and c["expected_documents"] == documents,
+                "independent intended page bytes and exactly-once document boundaries")
+        guard = bytes([c["fill"]])*16
+        uc_need(hashlib.sha256(guard+uc_bytes(brows[-1][24:28])+guard).hexdigest() == captures["bulk_descriptor"]
+                and hashlib.sha256(guard+uc_bytes(srows[-1][28:32])+guard).hexdigest() == captures["setup_record"],
+                "complete separately guarded live descriptor/SETUP captures")
+
+        # Literal descriptor bytes, immutable cookies, exactly-once publication.
+        prepared, published = {}, set()
+        for o in c["descriptor_oracles"]:
+            i, slot, n, cookie = o["step"], o["slot"], o["requested"], o["cookie"]
+            if not (0 <= i < len(rows) and slot in (0,1) and len(cookie) == 5):
+                uc_need(False, "EP0 oracle index/identity"); continue
+            r, p = rows[i], erows[i][8+48*slot:56+48*slot]
+            dd, dma = ((0x13579bd0,0x3579bdf0),(0xa468ace0,0xb68ace00))[slot]
+            wanted = uc_bytes([0x08000000|n,0,dma,0])
+            uc_need(0 <= n <= 64 and (slot == 1 or n == 0)
+                    and all(v > 0 for v in cookie[:3]) and cookie[3:] == [0,slot*0x80]
+                    and o["descriptor"] == wanted.hex() and p[11:14] == [dd,dma,64],
+                    "independent EP0 BE descriptor and DMA allocation")
+            if o["kind"] == "prepare":
+                uc_need(cookie[0] not in prepared and cookie == [r[21],r[3],r[32],0,slot*0x80]
+                        and r[22:24] == [slot*0x80,n] and p[5:11] == [n]+cookie
+                        and p[0] in (1,2) and uc_bytes(p[14:18]) == wanted and p[46] == int(n == 0),
+                        "EP0 original bind and true NULL/zero buffer")
+                prepared[cookie[0]] = (cookie,n,slot)
+            else:
+                uc_need(o["kind"] == "publish" and cookie[0] not in published
+                        and prepared.get(cookie[0]) == (cookie,n,slot)
+                        and p[22:31] == cookie+[dd,dma,n,64] and uc_bytes(p[18:22]) == wanted
+                        and p[47] == int(n == 0), "EP0 publication is original and one-shot")
+                published.add(cookie[0])
+        wire_ids = [rows[o["step"]][28] for o in c["packet_oracles"]]
+        uc_need(len(wire_ids) == len(set(wire_ids))
+                and set(wire_ids) == {i for i in published if prepared[i][2] == 1},
+                "every actual IN publication including ZLP has one wire oracle")
+        for slot in (0,1):
+            p = erows[-1][8+48*slot:56+48*slot]
+            uc_need(p[31:33] == [sum(v[2] == slot for v in prepared.values()),
+                                 sum(prepared[i][2] == slot for i in published)],
+                    "complete EP0 preparation/publication ledger")
+        bulk_prepared, bulk_published = {}, set()
+        for o in c["bulk_descriptor_oracles"]:
+            i, cookie, slot = o["step"], o["cookie"], o["slot"]
+            if not (0 <= i < len(rows) and len(cookie) == 5 and 0 <= slot < 4):
+                uc_need(False, "OUT oracle index/identity"); continue
+            r, b = rows[i], brows[i]
+            dma = 0x24681340+0x1000*slot
+            wanted = uc_bytes([0x08000000,0,dma,0])
+            uc_need(all(v > 0 for v in cookie[:4]) and cookie[4] == 1
+                    and slot == (cookie[3]-1)%4 and o["dma"] == dma
+                    and o["descriptor_hex"] == wanted.hex(), "independent OUT BE descriptor and original receive slot")
+            if o["kind"] == "prepare":
+                uc_need(cookie[0] not in bulk_prepared and cookie == [r[21],r[5],r[32],r[33],1]
+                        and b[2] in (1,2) and b[16:24] == cookie+[0x579bdf10,dma,64]
+                        and b[47] == slot and uc_bytes(b[24:28]) == wanted, "OUT exact original submission")
+                bulk_prepared[cookie[0]] = (cookie,slot,dma)
+            else:
+                uc_need(o["kind"] == "publish" and cookie[0] not in bulk_published
+                        and bulk_prepared.get(cookie[0]) == (cookie,slot,dma)
+                        and b[28:33] == cookie and b[37:40] == [0x579bdf10,dma,64]
+                        and uc_bytes(b[33:37]) == wanted, "OUT publication is original and one-shot")
+                bulk_published.add(cookie[0])
+        uc_need(brows[-1][10:12] == [len(bulk_prepared),len(bulk_published)], "complete OUT publication ledger")
+
+        live = bytes([c["fill"]])*16
+        capture, capture_meta = bytes(16), [0,0,0,0]
+        accepted, admitted, pending_external = {}, set(), {}
+        blocked, blocked_indices, pending_at_terminal = set(), [], []
+        admission_controls, reset_retries = set(), 0
+        prev, pe, pb, ps = (c[k] for k in ("initial","initial_ep0","initial_bulk","initial_setup"))
+        for i, (r,e,b,s,ev) in enumerate(zip(rows,erows,brows,srows,events)):
+            op,a,arg_b,arg_c,arg_d = ev["words"]
+            raw = bytes.fromhex(ev["data_hex"])
+            uc_need(op not in (0,2,3,4,5,13,19), "no normalized setup/reset/completion/fault bypass")
+            states = [(b[44] >> (8*j)) & 255 for j in range(3)]
+            uc_need(all(v in (0,1,2) for v in states) and b[44] >> 24 == 0
+                    and [v == 1 for v in states] == [bool(r[j]) for j in (26,28,30)]
+                    and [v != 0 for v in (e[8],e[56],b[2])] == [v == 1 for v in states],
+                    "component controller ownership versus adapter pending notifications")
+            needed = 1 if op == 1 else 2 if op == 6 else 4 if op == 7 else 7 if op in (8,9,12,41,61) else 0
+            if needed and ps[11] & needed != needed:
+                uc_need(r[0] == 1 and r[2:96] == prev[2:96]
+                        and [e[40],e[88],b[11]] == [pe[40],pe[88],pb[11]]
+                        and s[27] == ps[27]+1, "held ingress blocks all forward work, old ACK and publication")
+                blocked.add(op); blocked_indices.append(i)
+            if op == 80:
+                uc_need(len(raw) == 16, "complete raw SETUP source write")
+                live = raw
+            elif op == 81:
+                observation = (live,[a,arg_b,arg_c,arg_d])
+                copied = s[17] == ps[17]+1
+                uc_need(r[2:96] == prev[2:96], "SETUP offer cannot invoke adapter/protocol")
+                if copied:
+                    uc_need(ps[2] == 0 and not ps[10] and a > ps[4] and arg_b == 0x79bdf130
+                            and r[0] == (6 if a == 0xffffffff else 0)
+                            and s[2:5] == [1,a,a], "strict original SETUP sequence and one capture")
+                    if a in pending_external:
+                        uc_need(pending_external[a] == observation, "WAIT retry retains original external bytes/status/sequence")
+                    capture,capture_meta = observation
+                    accepted[a] = observation
+                else:
+                    uc_need(r[0] != 0 and s[17] == ps[17], "rejected SETUP never replaces held capture")
+                    if r[0] == 1:
+                        pending_external.setdefault(a,observation)
+            elif op == 82:
+                status = int.from_bytes(capture[:4],"big")
+                if ps[2:4] == [1,a] and not ps[10]:
+                    facts = [arg_b >> 16, (arg_b >> 8) & 255, arg_b & 255, arg_c]
+                    reset_wait = bool(ps[8] and ps[7] == ps[8] and prev[3] != ps[8])
+                    expected = (3 if any(v > 1 for v in facts) else 1 if not all(facts)
+                                else 4 if capture_meta[2] else 1 if status >> 30 != 2
+                                else 4 if status & 0x30000000 else 1 if reset_wait else 0)
+                    uc_need(r[0] == expected, "independent owner/RX/fault/visibility/stall-clear result")
+                    admission_controls.add((status >> 30,(status >> 28) & 3,capture_meta[2],arg_b,arg_c,r[0]))
+                if r[0] == 0:
+                    uc_need(ps[2:4] == [1,a] and capture_meta[0] == a and a in accepted and a not in admitted
+                            and arg_b == 0x010101 and arg_c == 1 and not capture_meta[2]
+                            and status >> 30 == 2 and status & 0x30000000 == 0 and not ps[10]
+                            and s[2:4] == [0,0] and s[6] == a and s[19] == ps[19]+1
+                            and r[2] == prev[2]+1 and r[3] == prev[3] and uc_forward(r) == uc_forward(prev),
+                            "raw owner/RX/facts admission copies only the retained original request")
+                    admitted.add(a)
+                else:
+                    uc_need(r[2:11]+r[12:96] == prev[2:11]+prev[12:96]
+                            and s[2:9] == ps[2:9] and s[19] == ps[19],
+                            "stale or unproved dispatch retains request and invalidates no newer work")
+            elif op == 83:
+                if r[0] == 0:
+                    uc_need(a > ps[4] and arg_b == 0 and s[2:6] == [0,0,a,a]
+                            and s[7:9] == [r[2],r[2]] and r[2] == prev[2]+1
+                            and uc_forward(r) == uc_forward(prev), "actual reset advances one original ordered barrier")
+                    if ps[2] == 2:
+                        uc_need(a == ps[3], "only original deferred reset identity can retry")
+                        reset_retries += 1
+                elif r[0] == 1:
+                    uc_need(r[2] == prev[2] and s[2:4] == [2,ps[3] if ps[2] == 2 else a],
+                            "reset WAIT retains exact pending reset")
+                elif r[0] == 6 and not ps[10]:
+                    uc_need(a == 0xffffffff and s[2:4] == [2,a] and s[10] == 1 and r[2:96] == prev[2:96],
+                            "terminal reset cannot wrap or fabricate adapter admission")
+            uc_need(uc_bytes(s[28:32]) == live and uc_bytes(s[32:36]) == capture
+                    and s[22:26] == capture_meta, "live-record reuse never mutates immutable captured bytes or identity")
+            if s[10] and b[44] == 0x020200:
+                pending_at_terminal.append(i)
+                uc_need(e[56] == b[2] == 0 and not any(r[j] for j in (26,28,30)),
+                        "terminal settled controller records retain adapter PENDING")
+            prev,pe,pb,ps = r,e,b,s
+
+        # Counterpart report oracles must cover every successful offered/admitted
+        # event. Local MAX is deliberately a retained terminal event, not an OK.
+        capture_oracles = {o["sequence"]:o for o in c["setup_oracles"] if o["kind"] == "capture"}
+        admit_oracles = {o["sequence"]:o for o in c["setup_oracles"] if o["kind"] == "admit"}
+        uc_need(set(capture_oracles) == set(accepted)-{0xffffffff} and set(admit_oracles) == admitted
+                and len(capture_oracles)+len(admit_oracles) == len(c["setup_oracles"]), "complete immutable SETUP/admission oracles")
+        for seq,o in capture_oracles.items():
+            raw,meta = accepted[seq]
+            uc_need(o["record_hex"] == raw.hex() and [seq,o["record_dma"],o["endpoint_fault"],
+                        (o["printer_status"][0]<<8)|o["printer_status"][1]] == meta,
+                    "SETUP oracle anchored to original input bytes/status")
+        for seq,o in admit_oracles.items():
+            uc_need(o["record_hex"] == accepted[seq][0].hex(), "admitted raw wire bytes never host-swapped")
+        name = c["scenario"]
+        if name in ("capture-wait-newer-retry","reset-admission-wait"):
+            uc_need(bool(pending_external) and set(pending_external) <= set(accepted),
+                    "deferred newer SETUP retries its original identity")
+        if name == "reset-admission-wait":
+            uc_need(reset_retries == 1, "busy reset retries original tag exactly once")
+        if name == "capture-facts":
+            uc_need({(2,0,0,f,stall,result) for f,stall,result in (
+                (0,1,1),(0x000101,1,1),(0x010001,1,1),(0x010100,1,1),(0x010101,0,1),
+                (0x020101,1,3),(0x010201,1,3),(0x0101ff,1,3),(0x010101,2,3))} <= admission_controls,
+                "every distinct missing/malformed capture promise remains exercised")
+        if name == "raw-admission":
+            uc_need({(owner,rx,fault,0x010101,1,result) for owner,rx,fault,result in (
+                (0,0,0,1),(1,0,0,1),(3,0,0,1),(2,1,0,4),(2,2,0,4),(2,3,0,4),(2,0,0x80,4))}
+                <= admission_controls, "owner/RX/independent-endpoint-fault refusal controls")
+        if name == "held-capture-blocks-publication":
+            uc_need({41,61} <= blocked, "both prepared lanes refuse delayed publication")
+            for i in blocked_indices:
+                if events[i]["words"][0] == 41:
+                    uc_need(events[i]["words"][1] not in published, "superseded unpublished control never reaches wire")
+                elif events[i]["words"][0] == 61:
+                    uc_need(events[i]["words"][1] in bulk_published, "same original bulk owner can publish after nondestructive admission")
+        if name == "held-capture-blocks-reset-ack":
+            stopped = [i for i in blocked_indices if events[i]["words"][0] == 12]
+            later = [i for i,ev in enumerate(events) if stopped and i > stopped[0] and ev["words"][0] == 12 and rows[i][0] == 0]
+            uc_need(bool(stopped) and len(later) == 1, "deferred reset-ACK refusal and later recovery control")
+            for i in later:
+                uc_need(rows[i][17] == rows[i-1][17] and rows[i][32] == rows[i-1][32]+1
+                        and not rows[i][28] and rows[i-1][45] == 7, "superseded reset recovery emits no old ACK")
+        if name.startswith("sequence-limit/") or name == "terminal-drains-admitted-reset":
+            uc_need(bool(pending_at_terminal) and srows[-1][10:12] == [1,0], "terminal state preserves explicit stop boundary")
+            terminal = next(i for i,s in enumerate(srows) if s[10])
+            uc_need(all(uc_forward(r) == uc_forward(rows[terminal]) for r in rows[terminal:]), "terminal boundary creates no forward work")
+            if name.startswith("sequence-limit/"):
+                uc_need(brows[-1][44] == 0x020200, "terminal local stop is not complete adapter retirement")
+            else:
+                drain = [i for i in range(pending_at_terminal[0]+1,len(rows))
+                         if events[i]["words"][0] == 1 and srows[i-1][11] == 1 and rows[i][0] == 0 and brows[i][44] == 0]
+                uc_need(len(drain) == 1 and brows[-1][44] == 0
+                        and rows[-1][2] == rows[-1][3] == srows[-1][8], "only previously admitted reset drains pending terminal notifications")
+
+    uc_artifacts = uc_target.get("captured_artifact_sha256", {})
+    uc_setup_ref = uc_ref["setup"]
+    checks.append(check("composed_raw_setup_ep0_and_bulk_records_preserve_admission_and_ownership",
+                        uc["status"] == uc_target.get("status") == "pass" and not uc_bad
+                        and len(uc["cases"]) == len(uc_target.get("cases",[])) == 34
+                        and {(c["scenario"],c["fill"],c["capacity"],c["interface"]) for c in uc["cases"]} == uc_profiles
+                        and uc["actual_peripheral_accesses"] == uc["usb_transfers"] == uc["completed_native_page_lifecycles"] == 0
+                        and uc["controller_quiescence_established"] is False
+                        and uc_ref["ep0"] == ep0["original_reference"] and uc_ref["bulk"] == udc["original_reference"]
+                        and uc_setup_ref["report"] == "analysis/usb-path/setup-ingress.json"
+                        and uc_setup_ref["report_sha256"] == hashlib.sha256((ROOT_DIR/uc_setup_ref["report"]).read_bytes()).hexdigest()
+                        and uc_setup_ref["stock_sha256"] == ep0_stock_sha
+                        and [uc_setup_ref[k] for k in ("source_closure_files","conditional_cases_reused","primary_same_record_cases_reused",
+                             "primary_admitted_cases_reused","conditional_separate_pointer_cases_reused","pre_mmio_controls_reused",
+                             "excluded_pc_controls_reused","newly_executed_stock_instructions")] == [15,70,64,4,6,6,14,0]
+                        and uc_setup_ref["adapter_must_pass_original_wire_bytes"] is True
+                        and uc_setup_ref["single_coherent_record_is_supplied_replacement_contract"] is True
+                        and uc_setup_ref["physical_mapping_or_snapshot_stability_proved"] is False
+                        and uc_setup_ref["controller_quiescence_established"] is False
+                        and set(uc_setup_ref["source_paths"]) == set(ingress["source_sha256"]) | {"analysis/usb-path/setup-ingress.json"}
+                        and len(uc["source_sha256"]) == EXPECTED_UDC_COMPOSED_SOURCE_COUNT and set(uc["source_sha256"]) == uc_sources
+                        and uc["fixture_sha256"] == ep0["fixture_sha256"] == udc["fixture_sha256"] and len(uc["fixture_sha256"]) == 6
+                        and uc["effective_source"] == ep0["effective_source"] == read_json("analysis/usb-path/udc-composed/target/effective-source.json")
+                        and {"target-check.elf","target-check.map","disassembly.txt","symbols.txt","effective-source.json","annotated-disassembly.txt"} <= set(uc_artifacts)
+                        and uc_target.get("elf_sha256") == uc_artifacts.get("target-check.elf") == hashlib.sha256(
+                            (ROOT_DIR/"analysis/usb-path/udc-composed/target/target-check.elf").read_bytes()).hexdigest()
+                        and all(Path(n).name == n and len(h) == 64 and (n == "annotated-disassembly.txt" or hashlib.sha256(
+                            (ROOT_DIR/"analysis/usb-path/udc-composed/target"/n).read_bytes()).hexdigest() == h) for n,h in uc_artifacts.items())
+                        and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h
+                            for key in ("source_sha256","fixture_sha256") for n,h in uc[key].items()),
+                        "Raw SETUP captures, exact original EP0/OUT descriptors and deferred reset barriers must preserve immutable identities, supplied-fact gates and separate controller/adapter ownership. Wire (including ZLP), pixels and notifications agree across host/QEMU; reused original-byte evidence adds no stock execution or physical printing."
+                            + (" Failed predicates: "+", ".join(sorted(uc_bad)) if uc_bad else ""),
+                        evidence="analysis/usb-path/udc-composed/validation.json"))
+
+    retirement_ok, retirement_detail = setup_retirement_consistency_gate(ROOT_DIR)
+    checks.append(check(
+        "original_setup_retirement_preserves_partial_effects_and_hardware_exclusions",
+        retirement_ok, retirement_detail,
+        evidence="analysis/usb-path/setup-retirement.json"))
 
     fail_count = severity_count(checks, "fail")
     return {

@@ -1,0 +1,212 @@
+{
+  "retrieved_utc_date": "2026-09-29",
+  "scope": "Official public controller-family references only. No HP revision match or DMA settlement proof. Manuals remain under /tmp only.",
+  "sources": [
+    {
+      "key": "sony",
+      "file": "CXD5602-user-manual-1.1.0.pdf",
+      "url": "https://www.sony-semicon.com/files/62/pdf/p-28_CXD5602_user_manual.pdf",
+      "title": "CXD5602 User Manual",
+      "revision": "1.1.0",
+      "date": "2022-10-24",
+      "pages": 1293,
+      "final_url": "https://www.sony-semicon.com/files/62/pdf/p-28_CXD5602_user_manual.pdf",
+      "last_modified": "Fri, 27 Jan 2023 05:30:09 GMT",
+      "etag": "\"eb4c36717e490f561e9b1541b4e30184-2\"",
+      "bytes": 16312211,
+      "sha256": "c21b1d93018421d7c283ab377a7dabec3339badd4809652885a8a1b76e522802",
+      "downloaded": true,
+      "evidence_locations": [
+        {
+          "section": "Revision History",
+          "printed_page": 1290,
+          "pdf_page_1_based": 1290,
+          "pdf_index_0_based": 1289
+        },
+        {
+          "section": "3.18.8.2; Figure USB-49; Table USB-90",
+          "printed_page": 1183,
+          "pdf_page_1_based": 1183,
+          "pdf_index_0_based": 1182,
+          "topic": "SETUP ownership exception; reserved fields; exact16-byte structure"
+        },
+        {
+          "section": "3.18.8.6 and3.18.8.6.1",
+          "printed_page": 1190,
+          "pdf_page_1_based": 1190,
+          "pdf_index_0_based": 1189,
+          "topic": "OUT interrupt disables RX DMA; PPB+DU per-packet interrupts"
+        },
+        {
+          "section": "3.18.8.6.2",
+          "printed_page": 1196,
+          "pdf_page_1_based": 1196,
+          "pdf_index_0_based": 1195,
+          "topic": "BFILL short-packet interrupt"
+        },
+        {
+          "section": "3.18.11.2 normal interrupt conditions",
+          "printed_page": 1209,
+          "pdf_page_1_based": 1209,
+          "pdf_index_0_based": 1208,
+          "topic": "SETUP copy before rearm/RDE; chain/payload modes"
+        },
+        {
+          "section": "3.18.6.2.4",
+          "printed_page": 1145,
+          "pdf_page_1_based": 1145,
+          "pdf_index_0_based": 1144,
+          "topic": "pending UR does not exclude SETUP"
+        },
+        {
+          "section": "3.18.6.2.3",
+          "printed_page": 1142,
+          "pdf_page_1_based": 1142,
+          "pdf_index_0_based": 1141,
+          "topic": "RXFIFO_EMPTY concerns receive-address FIFO"
+        },
+        {
+          "section": "3.18.12.4.1 conditional enhancement note",
+          "printed_page": 1218,
+          "pdf_page_1_based": 1218,
+          "pdf_index_0_based": 1217,
+          "topic": "CNAK enhancement; back-to-back latest SETUP"
+        },
+        {
+          "section": "3.18.5;3.18.11.1;3.18.11.2.1",
+          "printed_pages": [
+            1128,
+            1205,
+            1206,
+            1207
+          ],
+          "pdf_pages_1_based": [
+            1128,
+            1205,
+            1206,
+            1207
+          ],
+          "topic": "Slave-only/PIO applicability and globalMODE"
+        },
+        {
+          "section": "3.18.6 CSR memory map",
+          "printed_page": 1165,
+          "pdf_page_1_based": 1165,
+          "pdf_index_0_based": 1164,
+          "topic": "RXFIFO mapping from offset0800"
+        },
+        {
+          "section": "3.18.8.6.6",
+          "printed_page": 1199,
+          "pdf_page_1_based": 1199,
+          "pdf_index_0_based": 1198,
+          "topic": "Sony descriptor/CSR endianness limit"
+        }
+      ],
+      "hash_reverified_after_save": true
+    },
+    {
+      "key": "amd",
+      "file": "33238G_cs5536_db.pdf",
+      "url": "https://www.amd.com/content/dam/amd/en/documents/archived-tech-docs/datasheets/33238G_cs5536_db.pdf",
+      "title": "AMD Geode CS5536 Companion Device Data Book",
+      "revision": "33238G",
+      "date": "May 2007",
+      "pages": 612,
+      "final_url": "https://www.amd.com/content/dam/amd/en/documents/archived-tech-docs/datasheets/33238G_cs5536_db.pdf",
+      "last_modified": "Fri, 27 Mar 2026 06:22:26 GMT",
+      "etag": null,
+      "bytes": 5468952,
+      "sha256": "a829ae505ed96a180856c84291ab26e838453ff19a589c9af7624c1e7bfcd929",
+      "downloaded": true,
+      "evidence_locations": [
+        {
+          "section": "6.4.5.1 EPINCTRL;6.4.5.7 EPOUTCTRL",
+          "printed_pages": [
+            313,
+            317
+          ],
+          "pdf_pages_1_based": [
+            313,
+            317
+          ],
+          "topic": "S auto-clear on SETUP; NAK not SETUP exclusion"
+        },
+        {
+          "section": "6.4.5.11 EPOUTSUBP;6.4.5.12 EPOUTDDP",
+          "printed_page": 320,
+          "pdf_page_1_based": 320,
+          "pdf_index_0_based": 319,
+          "topic": "register reset values; not external RAM promise"
+        },
+        {
+          "section": "6.4.5.14 DEVCFG",
+          "printed_page": 321,
+          "pdf_page_1_based": 321,
+          "pdf_index_0_based": 320,
+          "topic": "SOFTRST andDMARST distinct from UR"
+        },
+        {
+          "section": "6.4.5.17 DEVINTR",
+          "printed_page": 325,
+          "pdf_page_1_based": 325,
+          "pdf_index_0_based": 324,
+          "topic": "UR means USB reset detected"
+        },
+        {
+          "section": "6.4.5.22 RXFIFOMEM;6.4.5.23 TXFIFOMEM",
+          "printed_page": 328,
+          "pdf_page_1_based": 328,
+          "pdf_index_0_based": 327,
+          "topic": "CS5536 RX0800-BFC/TX0C00-11FC; not HP mapping proof"
+        }
+      ],
+      "hash_reverified_after_save": true
+    },
+    {
+      "key": "microchip",
+      "file": "ksz9692mpb_xpb_reg_descp_v1.0.pdf",
+      "url": "https://ww1.microchip.com/downloads/en/DeviceDoc/ksz9692mpb_xpb_reg_descp_v1.0.pdf",
+      "title": "KSZ9692MPB/KSZ9692XPB Registration Description",
+      "revision": "M9999-102008-1.0",
+      "date": "October 2008",
+      "pages": 248,
+      "final_url": "https://ww1.microchip.com/downloads/en/DeviceDoc/ksz9692mpb_xpb_reg_descp_v1.0.pdf",
+      "last_modified": "Wed, 14 Oct 2015 18:45:24 GMT",
+      "etag": "\"5fa49222b383fade145a19693167b9b6:1444848324\"",
+      "bytes": 1940799,
+      "sha256": "27948fa8a9da03295a5790fb79acf0deafebbba8186e4ae7e06face287f14afe",
+      "downloaded": true,
+      "evidence_locations": [
+        {
+          "section": "2.17.4 Device Interrupt Register",
+          "printed_page": 137,
+          "pdf_page_1_based": 137,
+          "pdf_index_0_based": 136,
+          "topic": "UR pending accepts SETUP bytes"
+        },
+        {
+          "section": "2.17.9 Endpoint Control Register",
+          "printed_page": 140,
+          "pdf_page_1_based": 140,
+          "pdf_index_0_based": 139,
+          "topic": "STALLclear/NAK/CNAK semantics"
+        },
+        {
+          "section": "2.17.10 Endpoint Status Register",
+          "printed_page": 141,
+          "pdf_page_1_based": 141,
+          "pdf_index_0_based": 140,
+          "topic": "BNA generic descriptor status; not SETUP overwrite prevention"
+        }
+      ],
+      "hash_reverified_after_save": true
+    }
+  ],
+  "limits": [
+    "No hardware contact, original-code execution, build, test, or repository change.",
+    "Official manuals describe different family implementations. HP silicon/revision, cache/interconnect behavior, reset settlement and FIFO geometry remain unproved.",
+    "Family OUT-interrupt RX-DMA disable is not a proof that an arbitrary software RDE clear waits for in-flight writes.",
+    "SETUP buffer ownership bits, NAK, pending UR, IRQ bits and repeated byte reads do not supply a unique event identity or atomic-snapshot proof."
+  ]
+}

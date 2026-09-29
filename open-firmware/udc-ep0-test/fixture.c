@@ -15,6 +15,24 @@
 #undef hp1020_bulk_fixture_reset
 #undef hp1020_bulk_fixture_step
 
+/* Optional names let one composed fixture reuse this ledger exactly once.
+ * Defaults preserve the standalone EP0 ABI and normalized bulk experiment. */
+#ifndef HP1020_EP0_DCD_XFER
+#define HP1020_EP0_DCD_XFER dcd_edpt_xfer
+#endif
+#ifndef HP1020_EP0_SET_ADDRESS
+#define HP1020_EP0_SET_ADDRESS dcd_set_address
+#endif
+#ifndef HP1020_EP0_FIXTURE_RESET
+#define HP1020_EP0_FIXTURE_RESET hp1020_bulk_fixture_reset
+#endif
+#ifndef HP1020_EP0_FIXTURE_STEP
+#define HP1020_EP0_FIXTURE_STEP hp1020_bulk_fixture_step
+#endif
+#ifndef HP1020_EP0_BULK_XFER
+#define HP1020_EP0_BULK_XFER hp1020_ep0_base_dcd_edpt_xfer
+#endif
+
 #define OUT_DESCRIPTOR_DMA UINT32_C(0x13579bd0)
 #define IN_DESCRIPTOR_DMA UINT32_C(0xa468ace0)
 #define OUT_PACKET_DMA UINT32_C(0x3579bdf0)
@@ -184,10 +202,10 @@ static enum hp1020_udc_ep0_result ep0_publish(struct hp1020_tusb_cookie cookie,
     return r;
 }
 
-bool dcd_edpt_xfer(uint8_t rhport, uint8_t endpoint, uint8_t *buffer,
+bool HP1020_EP0_DCD_XFER(uint8_t rhport, uint8_t endpoint, uint8_t *buffer,
     uint16_t length, bool in_isr) {
     const int i = ep0_index(endpoint);
-    if (i < 0) return hp1020_ep0_base_dcd_edpt_xfer(rhport, endpoint, buffer, length, in_isr);
+    if (i < 0) return HP1020_EP0_BULK_XFER(rhport, endpoint, buffer, length, in_isr);
     (void)in_isr; check_owned(); ep0_check();
     ep0_state.last_endpoint = endpoint;
     if (rhport || packets[i].live || length > 64 || (!i && length) ||
@@ -242,11 +260,11 @@ bool dcd_edpt_xfer(uint8_t rhport, uint8_t endpoint, uint8_t *buffer,
     }
     return failure != 2 && injection != 12;
 }
-void dcd_set_address(uint8_t rhport, uint8_t address) {
+void HP1020_EP0_SET_ADDRESS(uint8_t rhport, uint8_t address) {
     state.pending_address = address; state.address_epoch = adapter.active_control_epoch;
     /* The included base implementation would call its renamed internal xfer.
      * Route this direct status through the actual EP0 descriptor wrapper. */
-    if (!dcd_edpt_xfer(rhport, 0x80, NULL, 0, false)) state.violations++;
+    if (!HP1020_EP0_DCD_XFER(rhport, 0x80, NULL, 0, false)) state.violations++;
 }
 
 static enum hp1020_udc_ep0_result ep0_cancel_request(struct hp1020_tusb_cookie cookie, uint32_t mutation) {
@@ -340,7 +358,7 @@ static enum hp1020_udc_ep0_result ep0_probe_init(uint32_t region, uint32_t kind,
     return hp1020_udc_ep0_init(&probe, &adapter, &config);
 }
 
-uint32_t hp1020_bulk_fixture_reset(uint32_t fill, uint32_t capacity,
+uint32_t HP1020_EP0_FIXTURE_RESET(uint32_t fill, uint32_t capacity,
     uint32_t interface_number, uint32_t fail_at) {
     /* Fresh process/ELF required; this is not a runtime reset implementation. */
     memset(&ep0_state, 0, sizeof(ep0_state)); memset(&ep0, 0, sizeof(ep0));
@@ -359,7 +377,7 @@ uint32_t hp1020_bulk_fixture_reset(uint32_t fill, uint32_t capacity,
     ep0_state.result = r; state.initialized = r;
     ep0_check(); snapshot(r); ep0_snapshot(); return r;
 }
-uint32_t hp1020_bulk_fixture_step(uint32_t op, uint32_t a, uint32_t b, uint32_t c, uint32_t d) {
+uint32_t HP1020_EP0_FIXTURE_STEP(uint32_t op, uint32_t a, uint32_t b, uint32_t c, uint32_t d) {
     uint32_t r = HP1020_UDC_EP0_INVALID;
     struct hp1020_tusb_cookie cookie = {0};
     const int have_cookie = ep0_history(a, &cookie);

@@ -1465,8 +1465,9 @@ suite resolved them without changing reported hashes by hand. The bulk report
 generator now writes compact JSON to avoid an unnecessarily large text artifact;
 old report bytes remain preserved in the existing exact snapshots.
 
-Next practical seam: one immutable SETUP capture into existing adapter dispatch,
-then compose it with EP0 and bulk descriptors in one fixture. Existing70-case
+The following checkpoint implements the next practical seam: one immutable SETUP
+capture into existing adapter dispatch, composed with EP0 and bulk descriptors.
+Existing70-case
 SETUP execution already owns the byte/admission evidence; do not repeat it.
 A SETUP capture has no transfer cookie yet. Exactly-once ordered capture identity
 must distinguish a replay from a genuinely identical new request and stale
@@ -1474,19 +1475,209 @@ pre-reset input from retained post-reset retry. Copying a stable CPU-visible
 record does not settle old EP0 storage, clear hardware stalls/toggles or rearm
 SETUP. Keep these caller-supplied facts explicit; no physical DCD exists.
 
-The unexecuted bridge is in `/tmp/hp1020-setup-ingress-next-20260929/`, with one
-retained immutable observation and a shared externally supplied monotonic
-SETUP/reset sequence. The unexecuted composed fixture is in
-`/tmp/hp1020-udc-composed-draft-20260929/`; the lead's34-profile draft validator is
-`/tmp/hp1020-udc-composed-validation.py`. Integrate only after committing this
-124-check checkpoint. No draft code has been compiled or executed. A review
-identified that ordinary service/arm/pump gating alone is insufficient: finishing
+The124-check checkpoint was committed/pushed as `a230fcc` before integration.
+`open-firmware/udc-setup/` now holds one retained immutable observation and a
+shared externally supplied monotonic SETUP/reset sequence. The composed fixture
+is `open-firmware/udc-composed-test/`; generator
+`scripts/validate-hp1020-udc-composed.py`. Its first completed focused run passes
+34 sanitized host/34 QEMU cases, freezing117 source files and six fixtures before
+execution. Report `analysis/usb-path/udc-composed/validation.json/.md`, log
+`/tmp/hp1020-udc-composed-reconnect-helper-20260929.log`, captures
+`/tmp/hp1020-udc-composed-ql5zodos`. Measured target component/allocation overhead
+is EP0296 + bulk80 + SETUP88 beyond the adapter/document128536. All288 row values
+except architecture-dependent base size, entire guarded storage, real TinyUSB
+packet proposals, independent decoded pixels and document events agree.
+
+The SETUP bridge copies raw wire bytes, original optional printer status, DMA
+label, independent fault and sequence before admission. It never assigns packet
+cookies or reinterprets raw wire fields as the original in-place converted bytes.
+Exactly-once identities come from the future controller, not payload equality,
+record addresses or the currently active control epoch. A held capture blocks a
+newer one; rejected input remains caller-owned, with the same original sequence
+retried after the old capture is admitted. Reset admission WAIT likewise retains
+the exact original reset and prevents later requests bypassing it. Post-reset
+captures can wait while an already admitted reset drains old owners.
+
+Review identified that service/arm/pump gating alone is insufficient: finishing
 an older class reset can emit a deferred ACK, and manual descriptor publication
-can expose older prepared work. All require full progress permission while a
-newer capture is held. Exact-cookie settlement remains independently allowed.
-The matrix distinguishes controller descriptor release from adapter notifications
-still PENDING at terminal exhaustion, and tests the narrow service-only exception
-for draining an already admitted reset. No physical quiescence is inferred.
+can expose older prepared work. Both now require full progress permission in the
+integration. Executed cases demonstrate those blocks and subsequent fresh page
+success. Exact-cookie settlement remains independently allowed. At terminal
+sequence exhaustion, component FREE and adapter PENDING states are observed
+separately. The narrow service-only exception drains an already admitted reset
+and then stops; no physical quiescence, implicit recovery or new USB completion
+is inferred. Bulk and EP0 DMA labels are distinct across the combined allocation.
+
+The first run passed12 host cases, then stopped in `bus-reset-retained-capture`
+before target build: the inherited configuration helper required class request
+identity0 and receive issued/count0, appropriate only for a fresh fixture. The
+saved state instead retained prior class identity1 unchanged and one aborted
+receive reservation until explicit recovery; deferred ACK was0 and guards passed.
+Only the new validator's configure helper changed: it now checks unchanged prior
+class identity, refused NEW reservations while fenced, all three recovery
+promises and reclaimed ownership after restart. Failed captures
+`/tmp/hp1020-udc-composed-dqriz2gg`, log
+`/tmp/hp1020-udc-composed-first-20260929.log`. Failed/passed exact sources and raw
+captures are preserved beside the report, never relabelled. Optional EP0 fixture
+naming hooks subsequently passed50 host/50 QEMU standalone cases, log
+`/tmp/hp1020-ep0-composition-hooks-20260929.log`; no old report hashes changed.
+
+The composed independent consistency gate now passes, including event-derived
+capture/sequence checks, literal descriptor/cookie oracles, every published IN
+packet including ZLP, independent intended pixels/documents and terminal owner
+states. Preflight `/tmp/hp1020-composed-preaggregate125-20260929.log` has exactly
+one failure: the standalone EP0 report's prior fixture hash before the naming
+hook rerun. That rerun and the independent retirement gate below now give a
+passing126-check preflight, log
+`/tmp/hp1020-composed-retirement-preaggregate126-20260929.log`. Full sequential
+`scripts/validate.sh` subsequently passed both suites and126 consistency checks,
+with zero failures: `/tmp/hp1020-full-composed-ingress-20260929.log`, child
+`hp1020-validation.MPr6yY`. Research processes stopped at the owner's requested
+checkpoint. Later saved drafts and static reviews below add no executed cases.
+
+### Original post-dispatch SETUP retirement (2026-09-29)
+
+`scripts/validate-hp1020-usb-setup-retirement.py` passed its first execution:
+50 conditional tail cases and32 pre-peripheral guard cases in both engines,
+plus15 excluded-PC controls. It uses the exact210-byte interval
+`0x1000985c..0x1000992e`, SHA256
+`1de51b81705babf558e94f732621f10677f423c86a0a6bac3fe1c84e54eaf1b0`.
+This is a direct supplied-register/RAM cut after omitted request dispatch, with
+`a2` as stall intent and `a3=0`; no original ENTRY, initialization, SETUP admission,
+sender, IRQ, wait or cache path executes. Four peripheral-address literals point
+only to private guarded RAM images. The existing MMIO guard remains active.
+
+Report `analysis/usb-path/setup-retirement.json/.md`, log
+`/tmp/hp1020-setup-retirement-first-20260929.log`, captures
+`/tmp/hp1020-setup-retirement-2a9pf7bb`;13 source files preserved before execution.
+All mutable RAM including stack, original instruction bytes, complete ordered
+reads/writes and final registers agree with independent byte oracles and between
+engines. Guard cases cover all nine direct controller-word instructions, four
+removed redirects and three dynamic pointer escapes under both fills. Partial
+legitimate writes before rejection are checked, not incorrectly assumed absent.
+
+Exactly stall intent1 ORs bit0 into both EP0 control images and clears `a2`.
+The global SETUP record's status word alone becomes0 at `0x1000988d`; its reserved
+word and eight supplied post-dispatch bytes are untouched. The ordinary OUT0
+status pointer is then independently read through DESPTR; owner2 alone permits
+four byte stores of `08000000` through another global target. RX and all low
+status bits are ignored in this original return fragment. Four mismatched-pointer
+controls expose the supplied observed/target assumption and are not a proposed
+replacement policy. Every other descriptor byte stays intact.
+
+The tail then ORs `0x100` (pinned Linux CNAK bit) into the OUT0 control image.
+The supplied bulk-size word at `0x1001bc50` selects the same OUT1 intent only when
+unsigned value<=512; a latch byte at `0x1001bc72` becomes0. Existing S/NAK bits
+are preserved. A register-oracle typo was caught by independent disassembly
+before any execution: final `a9` holds the OUT1 image address, not the stored
+value. The tested source already contains that correction; there was no failed
+execution to relabel.
+
+Pinned Linux copies SETUP words before returning its descriptor HOST_READY and
+before gadget dispatch; the original tail has a different supplied cut/order.
+Neither should be copied as a requirement of the independent replacement. The
+executed tail proves command and RAM ownership-return intent only: CNAK does not
+clear S in these RAM effects, and returning SETUP status does not settle an older
+IN/OUT packet. Hardware automatic stall clearing/toggles, safe IRQ acknowledgement,
+coherent capture, DMA visibility, physical rearm and cancellation remain open.
+This adds zero completed USB transfers or native page lifecycles. Next inspect
+IRQ/event order and overwrite protection; do not repeat SETUP70 or these82 cuts.
+
+The independent aggregate gate reconstructs all82 supplied inputs, complete RAM
+manifests, ordered accesses, every retired PC and all registers from fixed stock
+byte/operand tables. It additionally checks the14 partially executed guard
+prefixes against literal register outcomes, beyond the generator's paired-engine
+comparison. Fifteen excluded PCs, all13 current source hashes and immutable
+Linux provenance remain checked. Both full sequential suites and126 consistency
+checks now pass, including this gate and the composed fixture above.
+
+### Pending original IRQ capture cuts (2026-09-30)
+
+The reviewed, **unexecuted/unimported** draft is saved unchanged as
+`scripts/validate-hp1020-usb-irq-capture.py`, SHA256
+`2923a1be6acd0281d2905d097e1321c6bc1552383e486d2773f12bf09d82ab76`;
+the original temporary name was `hp1020-usb-irq-capture-draft-20260929.py`.
+Proposed reports `analysis/usb-path/irq-capture.json/.md` do not exist. Planned
+counts are44 separate conditional cuts,38 pre-MMIO guards and75 phase-specific
+excluded-PC controls, not measured results. The complete independent gate is
+`analysis/usb-path/irq-capture/consistency-gate-draft.py.txt`, SHA256
+`0334e8ef6f7f6689dac6ace424db292584a942af03fbfbcf02c0d70f0f6d30a7`.
+It is also unexecuted/unimported and not wired into aggregate validation.
+`analysis/usb-path/irq-capture/draft-review.tar.gz` preserves the exact integration
+note and independent original-byte review; its `.json` manifest pins every member.
+The full126 suite has finished; the next session can perform the first focused
+run, preserve its exact captures, then integrate/check the independent gate.
+
+The three cuts remain separate: original sampling ENTRY stops before reset
+configuration or later device processing; a supplied saved-EPINT frame enters
+endpoint selection; a supplied post-helper OUT0 continuation reaches wake intent.
+No omitted helper executes. Static review found suffix-mask selection, rather
+than per-endpoint pending-and-enabled filtering: a masked OUT0 can be selected
+when a higher OUT1 remains enabled. All acknowledgement stores are RAM intent,
+not W1C or physical chronology. The independent original-byte review is archived
+as `hp1020-irq-capture-independent-review-20260929.md`. Before execution the
+draft was narrowed to exclude the unused IN1 prefix at`0x1000841a` and its
+original ENTRY state corrected to WOE1/CALLINC0/WB0/WS1; both corrections are
+already in the draft hash above. No failed execution exists to relabel.
+
+[Official family manuals](../usb-path/controller-reference/manuals/README.md)
+now supply bounded stall-clear, SETUP-overwrite and receive-stop evidence with
+exact download hashes/pages. SETUP ownership does not prevent overwrite; the
+record has no event counter. RX stopping at a documented OUT interrupt still
+requires serialized receive-enable writers and actual CPU-visible completion.
+It cannot establish arbitrary cancellation settlement. A separate global PIO
+backend remains possible, but the bounded stock search found only the better
+supported DMA path. Do not switch from descriptor ownership to an unverified
+FIFO implementation merely to avoid the capture question. No manual identifies
+HP silicon/revision or discharges current external component facts.
+
+### Next implementation seam: hardware-handled standard requests (2026-09-30)
+
+Static manual/source reviews are complete, with exact notes and stock annotation
+cache preserved in `analysis/usb-path/controller-reference/manuals/static-review.tar.gz`
+and its member manifest. The neighboring README summarizes page and code anchors.
+These are family-derived facts and design proposals; no additional target code
+or physical controller ran. Do not treat the IRQ draft as a prerequisite for all
+software work or repeat its already reviewed sampling/selection investigation.
+
+The controller-family references handle SET_ADDRESS internally, and expose
+SET_CONFIGURATION/SET_INTERFACE through SC/SI notifications with4-bit sampled
+CFG/INTF/ALT fields. In dynamic CSR mode, CSR_DONE grants a hardware status ZLP
+after endpoint programming; it is not host ACK. Linux reconstructs canonical
+requests because the raw application SETUP path does not carry these requests.
+Original HP comparisons omit all three standard tuples; inspected startup masks
+SC/SI and programs static endpoint CSRs. This fits static hardware offload, but
+its DEVCFG write preserves the inherited CSR_PRG bit, so the initial mode and HP
+dynamic-CSR capability remain unproved. Do not blindly transplant that mask.
+
+Likewise, TDC/descriptor DMA_DONE describes data moved into TxFIFO. The controller
+can retain that copy for USB retries after source memory is released. Sony's
+PPBDU TXBYTES statement permits a mode-dependent DMA packet count, not a host-ACK
+count; do not claim the field is always input-only or require an unavailable wire
+counter. Newer Sony FIFO-empty bits are absent/reserved in the older references
+and cannot be assumed on HP. TinyUSB's data continuation, status callback and
+controller memory release require separately justified meanings. Keep supplied
+`in_actual` and settlement unchanged until that API choice is explicit.
+
+Next build a small **typed reconstructed offload-event** fixture, separate from
+raw16-byte SETUP provenance but sharing one original external sequence with raw
+SETUP and actual reset. It should test config1, same-config repeat, config0,
+interface0/alt0, unsupported values, failed endpoint programming, delayed grant,
+newer raw SETUP before grant, reset overlap and sequence exhaustion. Assert exact
+TinyUSB config/open/close behavior and one grant for the exact accepted current
+event, with no fabricated raw capture, extra EP0 DMA descriptor or second wire
+ZLP. SC/SI must not impersonate reset or manufacture three recovery promises.
+
+The existing adapter's configuration recovery expects an accepted status owner;
+returning success without one is insufficient. A conservative candidate binds
+a no-buffer auto-status owner, grants hardware status after programming, and
+retains that owner until justified completion or supersession/cancellation.
+Existing recovery permits such a held configuration status while the document
+path restarts. This is a proposal, not proof that a new request/reset settles
+HP hardware. A Linux-like early software giveback would need a distinct audited
+completion contract, not silently weaker evidence. Stale handlers must never
+grant a newer request's status. Four-bit state cannot recover malformed SETUP
+high bits; sampling stability, rejection policy and controller mode stay explicit.
 
 ### Original SETUP ingress and corrected legacy evidence (2026-09-29)
 

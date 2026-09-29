@@ -1,0 +1,21 @@
+{
+  "status": "static-review-only; no experiment executed",
+  "scope": "Exact drafting and independent original-byte review notes. Planned counts are not execution results. Current continuation is in next-evidence.md; temporary paths in these immutable notes are historical.",
+  "archive": "draft-review.tar.gz",
+  "archive_sha256": "0fd9f71d7419142471cb8f94e7ee8aff3417a28baac7d3a868c64e66f0610624",
+  "archive_bytes": 7842,
+  "members": [
+    {
+      "name": "hp1020-usb-irq-capture-integration-20260929.md",
+      "source_path": "/tmp/hp1020-usb-irq-capture-integration-20260929.md",
+      "bytes": 6254,
+      "sha256": "9a1390610dd1b7a70ad51e2c4b57098fca484a17562779b33a985d7ff431141f"
+    },
+    {
+      "name": "hp1020-irq-capture-independent-review-20260929.md",
+      "source_path": "/tmp/hp1020-irq-capture-independent-review-20260929.md",
+      "bytes": 11616,
+      "sha256": "7fe1a0ae90c6a75d0f4713d56ddb7b4165cca4438205768b0246af84abfc1dfa"
+    }
+  ]
+}
