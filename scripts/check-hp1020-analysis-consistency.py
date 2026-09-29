@@ -935,9 +935,11 @@ def build_report() -> dict[str, Any]:
     detailed_target = [c for c in stream_target.get("cases", []) if c["case"].startswith("detailed-legal/")]
     checks.append(check("open_bounded_stream_image_path_verified",
                         image_stream["status"] == stream_target.get("status") == "pass"
-                        and len(image_stream["cases"]) == 65 and len(stream_target.get("cases", [])) == 43
-                        and len(image_stream["retained_mode_controls"]) == 2
-                        and all(c["result"] == 3 and c["retained_rasters"] == 128 for c in image_stream["retained_mode_controls"])
+                        and len(image_stream["cases"]) == 66 and len(stream_target.get("cases", [])) == 44
+                        and len(image_stream["retained_mode_controls"]) == 3
+                        and sum(c.get("retained_rasters") == 128 and c["result"] == 3 for c in image_stream["retained_mode_controls"]) == 2
+                        and sum(c.get("retained_pages") == 16 and c["result"] == 3 for c in image_stream["retained_mode_controls"]) == 1
+                        and any(c["case"] == "page-metadata-reuse/65" and c["stats"][0] == 0 and c["stats"][2] == 65 for c in image_stream["cases"])
                         and stream_target.get("elf_sha256") == image_target.get("elf_sha256")
                         and stream_target.get("state_and_memory_bytes") == 91028
                         and detailed_page.get("raw_bytes") == 10112256
@@ -1337,10 +1339,10 @@ def build_report() -> dict[str, Any]:
     output_cases = image_output.get("cases",[])
     checks.append(check("bounded_documents_to_software_output_verified",
                         image_output["status"] == output_target.get("status") == "pass"
-                        and len(output_cases) == len(output_target.get("cases",[])) == 39
+                        and len(output_cases) == len(output_target.get("cases",[])) == 45
                         and image_output["completed_native_page_lifecycles"] == 0
                         and output_target.get("elf_sha256") == image_target.get("elf_sha256")
-                        and sum(c["expected_result"] == 0 for c in output_cases) == 28
+                        and sum(c["expected_result"] == 0 for c in output_cases) == 31
                         and all(c["status"] == "pass" and c["source_prefix_equal"]
                                 and c["stats"][0] == c["expected_result"]
                                 and c["stats"][10:12] == [0,1] and c["stats"][19] == 1
@@ -1349,6 +1351,9 @@ def build_report() -> dict[str, Any]:
                                      and c["stats"][2] == c["stats"][17] == c["stats"][28])
                                 for c in output_cases)
                         and all(c["consumer_mode"] in (0,1,2,3) for c in output_cases)
+                        and {c["seed_counter"] for c in output_cases if c["case"].startswith("counter-overflow/")} == {1,2,3,4}
+                        and all(c["stats"][0] == 3 and c["stats"][5] == 0 for c in output_cases if c["seed_counter"])
+                        and sum(c["stats"][17] == 65 and c["stats"][23] == 1 for c in output_cases) == 2
                         and {c["consumer_mode"] for c in output_cases if not c["expected_result"]} == {0,1,2}
                         and any(c["case"] == "missing-end-doc" and c["stats"][5] > 0
                                 and c["stats"][18] == 4 for c in output_cases)

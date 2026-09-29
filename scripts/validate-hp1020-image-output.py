@@ -41,10 +41,10 @@ def main():
         core.command(flags+['-I'+str(full),SRC/'reference.c',full/'jbig.c',full/'jbig_ar.c','-o',reference])
         images={}
         for name,w,h,stripe,kind in (('small',32,8,4,'black'),('medium',9600,132,128,'edges'),
-                ('wide',16384,4,128,'edges'),('partial',1024,260,128,'repeat')):
+                ('wide',16384,4,128,'edges'),('partial',1024,260,128,'repeat'),('slim',64,12,4,'edges')):
             path=OUT/'fixtures'/f'{w}x{h}-stripe{stripe}-{kind}.jbg'
             raw=core.pattern(w,h,kind)
-            if name=='partial':
+            if name in ('partial','slim'):
                 path=fixtures/path.name;(temp/'pixels').write_bytes(raw)
                 core.command([reference,'encode',temp/'pixels',path,w,h,stripe])
             info=json.loads(core.command([reference,'decode',path,temp/'oracle']))
@@ -65,10 +65,10 @@ def main():
 
         def doc(parts):return b'JZJZ'+pages.pack([base[0]]+sum(parts,[])+[base[-1]])
 
-        def run(name,data,image_names,fragment=7,packet=4096,fill=204,mode=0,error=0,reject=0xffffffff,copies=None):
+        def run(name,data,image_names,fragment=7,packet=4096,fill=204,mode=0,error=0,reject=0xffffffff,copies=None,seed_counter=0):
             raw_pages=[images[n][1] for n in image_names];expected=b''.join(raw_pages)
             (temp/'input').write_bytes(data)
-            observed=json.loads(core.command([host,temp/'input',fragment,packet,fill,mode,reject,temp/'capture',temp/'storage']))
+            observed=json.loads(core.command([host,temp/'input',fragment,packet,fill,mode,reject,temp/'capture',temp/'storage',seed_counter]))
             stats,writes,plans=observed['stats'],observed['writes'],observed['pages']
             capture=(temp/'capture').read_bytes();storage=(temp/'storage').read_bytes()
             assert stats[0]==error,(name,stats,error)
@@ -99,10 +99,10 @@ def main():
             if name=='consumer/after=1':
                 assert stats[7:9]==[1,0] and stats[18]==4,(name,stats)
             cases.append(dict(case=name,status='pass',expected_result=error,stats=stats,pages=plans,writes=writes,
-                fragment=fragment,packet=packet,fill=fill,consumer_mode=mode,reject_after=reject,
+                fragment=fragment,packet=packet,fill=fill,consumer_mode=mode,reject_after=reject,seed_counter=seed_counter,
                 input_sha256=core.sha(data),input_bytes=len(data),output_sha256=core.sha(capture),
                 storage_sha256=core.sha(storage),full_output_equal=not error,source_prefix_equal=True))
-            targets.append((name,data,fragment,packet,fill,mode,reject,observed,capture,storage))
+            targets.append((name,data,fragment,packet,fill,mode,reject,seed_counter,observed,capture,storage))
 
         order=['medium','wide','small','partial','small']
         mixed=doc([body(images[n][0],splits=13 if n=='medium' else 1) for n in order])
@@ -117,8 +117,13 @@ def main():
         run('empty-document',doc([]),[])
         run('copies-are-forwarded-metadata',doc([body(images['partial'][0],copies=3)]),['partial'],copies=[3])
         run('many-bid-boundaries',doc([body(images['medium'][0],splits=257)]),['medium'],fragment=1)
-        run('page-limit/16',doc([body(images['small'][0])]*16),['small']*16)
-        run('page-limit/17',doc([body(images['small'][0])]*17),['small']*17,error=3)
+        run('page-metadata-reuse/16',doc([body(images['small'][0])]*16),['small']*16)
+        run('page-metadata-reuse/17',doc([body(images['small'][0])]*17),['small']*17)
+        many=['small' if i%2==0 else 'slim' for i in range(65)]
+        run('page-metadata-reuse/65-mixed',doc([body(images[n][0]) for n in many]),many,mode=1)
+        run('page-metadata-reuse/65-documents',b''.join(doc([body(images[n][0])]) for n in many),many,mode=2)
+        for which in (1,2,3,4):
+            run(f'counter-overflow/{which}',doc([body(images['small'][0])]),['small'],error=3,seed_counter=which)
         for mode in (0,1,2):run(f'partial-final-band/consumer={mode}',doc([body(images['partial'][0])]),['partial'],mode=mode)
         run('missing-end-doc',doc([body(images['medium'][0])])[:-16],['medium'],error=5)
         run('nonzero-padding',doc([body(images['medium'][0],tail=bytes(15)+b'\x01')]),['medium'],error=1)
@@ -136,8 +141,9 @@ def main():
             native=[]
             with QemuRAM() as q:
                 q.load(elf);version=q.version
-                for name,data,fragment,packet,fill,mode,reject,observed,capture,storage in targets:
+                for name,data,fragment,packet,fill,mode,reject,seed_counter,observed,capture,storage in targets:
                     assert q.call0(program.symbols['hp1020_output_reset'],[fill,mode,reject])==0
+                    assert q.call0(program.symbols['hp1020_output_seed_counter'],[seed_counter])==0
                     for pos in range(0,len(data),packet):
                         payload=data[pos:pos+packet];q.put(program.symbols['hp1020_output_input'],payload)
                         if q.call0(program.symbols['hp1020_output_feed'],[len(payload),fragment]):break
@@ -161,7 +167,7 @@ def main():
         fixture_sha256={str(p.relative_to(ROOT)):core.sha(p.read_bytes()) for p in fixture_paths},
         sample_sha256={str(base_path.relative_to(ROOT)):core.sha(base_bytes)},completed_native_page_lifecycles=0,
         scope='Compiled bounded ZjStream parser, JBIG decoder and four-slot output ring with synchronous consumer progress. Exact pixels and entire output storage compared, with differing pages/documents and explicit completion ownership.',
-        limits='Explicit software consumer supplies all output acceptance/completion. No device operations, scheduler, interrupt/cache integration, physical packing, printing or native lifecycle proof. Copies are forwarded metadata, not replayed output. Page metadata retains the existing 16-page limit. Late errors may follow already consumed rows and leave outstanding storage owned; caller must quiesce output before reuse.')
+        limits='Explicit software consumer supplies all output acceptance/completion. No device operations, scheduler, interrupt/cache integration, physical packing, printing or native lifecycle proof. Copies are forwarded metadata, not replayed output. Streaming page metadata is reused, with checked 32-bit counts; the retained-file parser keeps its independent 16-page limit. Late errors may follow already consumed rows and leave outstanding storage owned; caller must quiesce output before reuse.')
     name='output-validation' if args.target else 'output-host-validation'
     (OUT/f'{name}.json').write_text(json.dumps(report,indent=2,sort_keys=True)+'\n')
     (OUT/f'{name}.md').write_text('# Bounded document-to-output composition\n\nStatus: pass. '+report['scope']+'\n\n'

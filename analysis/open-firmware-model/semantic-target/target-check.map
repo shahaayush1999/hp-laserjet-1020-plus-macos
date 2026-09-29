@@ -19,55 +19,55 @@ Linker script and memory map
 
                 0x0000000020000000                . = 0x20000000
 
-.text           0x0000000020000000      0xa0c
+.text           0x0000000020000000      0xa2c
  *(.literal .literal.*)
  .literal       0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_semantic.o
  .literal       0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_page_plan.o
  .literal       0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/memory.o
  .literal       0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/target-check.o
  *(.text .text.*)
- .text          0x0000000020000000      0x670 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_semantic.o
-                0x0000000020000390                hp1020_semantic_init
-                0x00000000200003cc                hp1020_semantic_init_streaming
-                0x0000000020000404                hp1020_semantic_feed
-                0x0000000020000644                hp1020_semantic_finish
- .text          0x0000000020000670      0x1a1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_page_plan.o
+ .text          0x0000000020000000      0x690 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_semantic.o
+                0x00000000200003a8                hp1020_semantic_init
+                0x00000000200003e4                hp1020_semantic_init_streaming
+                0x000000002000041c                hp1020_semantic_feed
+                0x0000000020000664                hp1020_semantic_finish
+ .text          0x0000000020000690      0x1a1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_page_plan.o
                                         0x1a9 (size before relaxing)
-                0x0000000020000674                hp1020_plan_page
-                0x0000000020000770                hp1020_plan_next_band
- *fill*         0x0000000020000811        0x3 
- .text          0x0000000020000814      0x17f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/target-check.o
-                0x000000002000082c                hp1020_target_run
- *fill*         0x0000000020000993        0x1 
- .text          0x0000000020000994       0x2a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/memory.o
-                0x0000000020000994                memset
-                0x00000000200009a8                memcpy
- *fill*         0x00000000200009be        0x0 
- *fill*         0x00000000200009be        0x2 
- .text          0x00000000200009c0       0x4c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
-                0x00000000200009c0                __udivsi3
+                0x0000000020000694                hp1020_plan_page
+                0x0000000020000790                hp1020_plan_next_band
+ *fill*         0x0000000020000831        0x3 
+ .text          0x0000000020000834      0x17f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/target-check.o
+                0x000000002000084c                hp1020_target_run
+ *fill*         0x00000000200009b3        0x1 
+ .text          0x00000000200009b4       0x2a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/memory.o
+                0x00000000200009b4                memset
+                0x00000000200009c8                memcpy
+ *fill*         0x00000000200009de        0x0 
+ *fill*         0x00000000200009de        0x2 
+ .text          0x00000000200009e0       0x4c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+                0x00000000200009e0                __udivsi3
 
-.rodata         0x0000000020000a0c       0x58
+.rodata         0x0000000020000a2c       0x58
  *(.rodata .rodata.*)
- .rodata        0x0000000020000a0c       0x58 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_semantic.o
+ .rodata        0x0000000020000a2c       0x58 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_semantic.o
 
-.data           0x0000000020000a64        0x0
+.data           0x0000000020000a84        0x0
  *(.data .data.*)
- .data          0x0000000020000a64        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_semantic.o
- .data          0x0000000020000a64        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_page_plan.o
- .data          0x0000000020000a64        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/memory.o
- .data          0x0000000020000a64        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/target-check.o
- .data          0x0000000020000a64        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+ .data          0x0000000020000a84        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_semantic.o
+ .data          0x0000000020000a84        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_page_plan.o
+ .data          0x0000000020000a84        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/memory.o
+ .data          0x0000000020000a84        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/target-check.o
+ .data          0x0000000020000a84        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
 
-.bss            0x0000000020000a70    0x222dc
+.bss            0x0000000020000a90    0x222dc
  *(.bss .bss.* COMMON)
- .bss           0x0000000020000a70        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_semantic.o
- .bss           0x0000000020000a70        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_page_plan.o
- .bss           0x0000000020000a70        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/memory.o
- .bss           0x0000000020000a70    0x222dc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/target-check.o
-                0x0000000020000a70                hp1020_test_output
-                0x0000000020000af0                hp1020_test_input
- .bss           0x0000000020022d4c        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+ .bss           0x0000000020000a90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_semantic.o
+ .bss           0x0000000020000a90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_page_plan.o
+ .bss           0x0000000020000a90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/memory.o
+ .bss           0x0000000020000a90    0x222dc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/target-check.o
+                0x0000000020000a90                hp1020_test_output
+                0x0000000020000b10                hp1020_test_input
+ .bss           0x0000000020022d6c        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
 
 /DISCARD/
  *(.comment)
@@ -93,14 +93,14 @@ OUTPUT(/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analys
                                          0x10 (size before relaxing)
  .xt.lit        0x0000000000000028        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/target-check.o
 
-.xt.prop        0x0000000000000000      0x99c
- .xt.prop       0x0000000000000000      0x708 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_semantic.o
-                                        0x714 (size before relaxing)
- .xt.prop       0x0000000000000708       0xcc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_page_plan.o
- .xt.prop       0x00000000000007d4       0x6c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/memory.o
- .xt.prop       0x0000000000000840       0xc0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/target-check.o
+.xt.prop        0x0000000000000000      0x9e4
+ .xt.prop       0x0000000000000000      0x750 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_semantic.o
+                                        0x75c (size before relaxing)
+ .xt.prop       0x0000000000000750       0xcc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/hp1020_page_plan.o
+ .xt.prop       0x000000000000081c       0x6c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/memory.o
+ .xt.prop       0x0000000000000888       0xc0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/open-firmware-model/semantic-target/target-check.o
                                          0xf0 (size before relaxing)
- .xt.prop       0x0000000000000900       0x9c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+ .xt.prop       0x0000000000000948       0x9c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
 
 .debug_line     0x0000000000000000       0xfe
  .debug_line    0x0000000000000000       0xfe /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)

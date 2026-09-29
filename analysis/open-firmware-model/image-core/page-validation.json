@@ -2028,7 +2028,7 @@
     "open-firmware/image-core/freestanding/stdlib.h": "39047fd5646fd815176a77090f3dc48ed493390f777f8490bc03c0cd19225149",
     "open-firmware/image-core/freestanding/string.h": "0b5a9c6e01dcced149dd23cef1b6b82532a151b1f14bc9ebc3723c9b69623d98",
     "open-firmware/image-core/host-check.c": "d6ed21f91dfe89c2ffd49f6de471ac71e8f3817f4f607ebea7e1824b2814be73",
-    "open-firmware/image-core/host-output-check.c": "8e786df56169dc4130f6a3d472044361af379406634e097ca30795c2796870f0",
+    "open-firmware/image-core/host-output-check.c": "42d60cb71867ac814f9cf99e61d06b4984f32580388ebc219c80d0ee67286f6c",
     "open-firmware/image-core/host-page-check.c": "82398dff184a2945ac6387a72a32fa650ec8405177d42f1cb77ef371e3385951",
     "open-firmware/image-core/host-ring-check.c": "07de5b7ae9079e7bfcc01e45221af8ac78c373ba11ba2ab5af35abbb24d9f4dc",
     "open-firmware/image-core/host-stream-check.c": "ce8a046353d341e7774a15d0c034613123299310dad10accd56282892d4b4a4d",
@@ -2040,20 +2040,20 @@
     "open-firmware/image-core/hp1020_image_page.h": "770ed16d200cdb7d978621cf4d457ab7270df80b6d33248b0925fb4f1c798df2",
     "open-firmware/image-core/hp1020_image_ring.c": "9ee8f5955e8d6f30a3b12778553477835dc245eb3d928f6e81b467f8562d4e2b",
     "open-firmware/image-core/hp1020_image_ring.h": "b5c1ba9add6710330eaae94ae1f6496b9d51fb46c1de09cdc98b73ec6f9b5a33",
-    "open-firmware/image-core/hp1020_image_stream.c": "25669045cbbda48f55101c1c2deaf158a13f89edd38d0e9711365a65c0291664",
+    "open-firmware/image-core/hp1020_image_stream.c": "53daffa50030a8f4207314be76759fa174dc467c1edf997dc8d8c4b7eaa62bda",
     "open-firmware/image-core/hp1020_image_stream.h": "977186ea8865273483192c01bab501f572378163943940f9df4d7b7671ff1beb",
-    "open-firmware/image-core/output-fixture.c": "04b5b98764efa1a6e54d872f8a29ba952bd58a92e136e06db153025c02518533",
+    "open-firmware/image-core/output-fixture.c": "da6895e07576e9dc38aa764846a03c98387dadc1b49829246aa645f466ce564c",
     "open-firmware/image-core/page-fixture.c": "b0153ce2ba71208dd59ed81442abbfe2586797f4c3d4947014d698da4f099b9e",
     "open-firmware/image-core/reference.c": "4632dd64ca1df51f0a103f2d3acc54ec3dba500ce1803c21233cb13e6265dbac",
     "open-firmware/image-core/ring-fixture.c": "752a5d9d0555e3ba0840e14e37d6d5c5e1c3e3825cc62f7a13dc781275f179ae",
-    "open-firmware/image-core/stream-fixture.c": "37a549b7417e904744b4f6f9163845f958c2bea8b574f5b899dc1f2094fbfb3e",
+    "open-firmware/image-core/stream-fixture.c": "19ddf6a18d39566aa1bce1a6c73c92a1c25b51e779b3d483b5b045cfac4dd521",
     "open-firmware/image-core/target-check.ld": "2dd6d8b7f04ccdd20ee0dd34404221f22f6e29b29ea7798e4738bd2128d4934b",
     "open-firmware/image-core/target-memory.c": "e403177bc94925c479c90defca770fa36535cf5161bdde84b8e57ea6ff6ca2c3",
     "open-firmware/semantic-core/freestanding/memory.c": "9678a7810cf3756484c6bf178f7a206a180ace6cbce3502f247055a462a19bfc",
     "open-firmware/semantic-core/hp1020_page_plan.c": "16f6608918c620f437d09fe1f56c8f1043d9c60a4e6b8b3f2cd5220ff57e0517",
     "open-firmware/semantic-core/hp1020_page_plan.h": "1df6b7a2f4ccf752d3ac127e70b48ac8fb93cd6ce4c02431622d5d0ea1326f23",
-    "open-firmware/semantic-core/hp1020_semantic.c": "72b6c1509fd89fa71fef0227fbc08eda4eb935a1a4531751771072427b11d007",
-    "open-firmware/semantic-core/hp1020_semantic.h": "6e0278b817e85a9bd47eefd6d5169038f3c09c141eaaa5fe347ea976ab1a180a",
+    "open-firmware/semantic-core/hp1020_semantic.c": "183cd8351bc01725e46ec14a93f032830730e7c33d6a26028942f29751420c6a",
+    "open-firmware/semantic-core/hp1020_semantic.h": "141abfb7e22192c860bcfb4de26980ffdbc5f4552517b5ae1c0ec89d7af097fa",
     "scripts/build-hp1020-image-target.sh": "2704d98191ad00dcab72f61170458bb6a9a06591c09fc291e4d8ed8b7c4ce9d7",
     "scripts/hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
     "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
@@ -2073,11 +2073,11 @@
   "target": {
     "audit": {
       "division_by_zero_traps": [
-        "0x20004441"
+        "0x2000453d"
       ],
-      "instruction_bytes": 16769,
-      "instruction_ranges": 189,
-      "instructions": 6605,
+      "instruction_bytes": 17013,
+      "instruction_ranges": 191,
+      "instructions": 6702,
       "opcodes": [
         "add",
         "add.n",
@@ -2151,10 +2151,10 @@
         "subx8",
         "xor"
       ],
-      "rodata_bytes": 986,
+      "rodata_bytes": 1006,
       "scope": "All annotated code uses the conservative standard ISA; unused encoder code remains. Not a device instruction trace.",
-      "test_fixture_bss_bytes": 2022432,
-      "text_bytes": 17484
+      "test_fixture_bss_bytes": 2024224,
+      "text_bytes": 17736
     },
     "cases": [
       {
@@ -3243,7 +3243,7 @@
         "status": "pass"
       }
     ],
-    "elf_sha256": "f14624b8240a4f13d9f3a8a0f7245e0be98d26557ec68cb2df012116287a2daa",
+    "elf_sha256": "cf517c3b60bc16f5ea573c525337f27670d5f8e9326ba49e3182e59118d9ce28",
     "qemu_version": "QEMU emulator version 11.1.1",
     "status": "pass"
   }

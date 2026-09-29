@@ -10,6 +10,7 @@ static enum hp1020_result image_error(struct hp1020_image_stream *s,enum hp1020_
 }
 static enum hp1020_result band_out(struct hp1020_image_stream *s) {
     if(!s->image.pending)return HP1020_OK;
+    if(s->bands==UINT32_MAX || s->image.band_rows>UINT32_MAX-s->rows)return HP1020_LIMIT;
     enum hp1020_result r=s->consume_band(&s->plan,&s->image,s->parser.page_count-1,s->consumer_context);
     if(r) { s->output_error=r; return r; }
     s->bands++;s->rows+=s->image.band_rows;
@@ -24,7 +25,9 @@ static enum hp1020_result chunk_in(const struct hp1020_semantic *parser,
     case 4: {
         /* Planning now precedes END_PAGE. Only a local copy is marked complete
          * for geometry admission; the real parser/page remains unfinished. */
-        struct hp1020_page p=parser->pages[parser->page_count-1];p.complete=1;
+        const struct hp1020_page *current=hp1020_semantic_current_page(parser);
+        if(!current)return HP1020_ORDER;
+        struct hp1020_page p=*current;p.complete=1;
         enum hp1020_plan_result pr=hp1020_plan_page(&p,&s->plan);
         if(pr!=HP1020_PLAN_OK)return pr==HP1020_PLAN_INVALID ? HP1020_FORMAT : HP1020_UNSUPPORTED;
         if(p.bih_xd&31u)return HP1020_UNSUPPORTED;

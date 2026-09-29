@@ -141,8 +141,15 @@ def main():
         run('two-documents', doc(body(medium, 6))+doc(body(small)), mediumraw+smallraw, target=True)
         run('empty-document', doc(), b'', target=True)
         run('empty-before-page', doc()+doc(body(small)), smallraw, packet=19, target=True)
-        run('page-metadata-limit/16', doc(*[body(small) for _ in range(16)]), smallraw*16, target=True)
-        run('page-metadata-limit/17', doc(*[body(small) for _ in range(17)]), smallraw*16, error=3, target=True)
+        run('page-metadata-reuse/16', doc(*[body(small) for _ in range(16)]), smallraw*16, target=True)
+        data17=doc(*[body(small) for _ in range(17)])
+        run('page-metadata-reuse/17', data17, smallraw*17, target=True)
+        run('page-metadata-reuse/65', doc(*[body(small) for _ in range(65)]), smallraw*65, target=True)
+        inputfile.write_bytes(data17)
+        old=json.loads(core.command([legacy,inputfile,7,65552]))
+        assert old['result']==3 and len(old['pages'])==16
+        controls.append(dict(case='retained-mode/pages=17',status='expected limit',result=old['result'],
+            retained_pages=len(old['pages']),input_sha256=core.sha(data17)))
         for name, tail in (('missing', b''), ('short', bytes(15)), ('long', bytes(20)), ('nonzero', bytes(15)+b'\x01')):
             run('padding/'+name, doc(body(small, tail=tail)), error=1, target=True)
         run('missing-final-marker', doc(body(medium[:-2])), error=1, target=True)
@@ -235,7 +242,7 @@ def main():
                       sample_sha256={str(p.relative_to(ROOT)):core.sha(p.read_bytes()) for p in sorted((ROOT/'analysis/samples/generated').glob('*.zjs'))},
                       fixture_sha256={str(p.relative_to(ROOT)):core.sha(p.read_bytes()) for p in sorted((OUT/'fixtures').glob('*.jbg'))},
                       scope='The existing open parser consumes complete ZjStream input through a fixed compressed chunk, a bounded decoder and a synchronous band consumer. No complete compressed or decoded page is kept in component memory.',
-                      limits='16 retained page metadata slots, narrow planner/profile, default padding and a 65552-byte BID limit. Output remains provisional until finish. Consumer errors abort rather than retry. State/memory totals exclude code, stack, caller packets and test captures. No asynchronous scheduler, raw queue, cache, engine, USB, boot or printing.')
+                      limits='Streaming reuses one current-page metadata slot with checked 32-bit totals; retained-file mode still has 16 slots. Narrow planner/profile, default padding and a 65552-byte BID limit. Output remains provisional until finish. Consumer errors abort rather than retry. State/memory totals exclude code, stack, caller packets and test captures. No asynchronous scheduler, raw queue, cache, engine, USB, boot or printing.')
         name = 'stream-validation' if args.target else 'stream-host-validation'
         (OUT/f'{name}.json').write_text(json.dumps(report, indent=2, sort_keys=True)+'\n')
         (OUT/f'{name}.md').write_text('# Open bounded ZjStream image consumption\n\nStatus: pass. '+report['scope']+'\n\n'

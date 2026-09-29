@@ -2578,8 +2578,8 @@
     "host-check.c": "0c42a6fe7c273c677ff1dda9b90b86bba02e000cc9712242b55ff1aecbc6ce40",
     "hp1020_page_plan.c": "16f6608918c620f437d09fe1f56c8f1043d9c60a4e6b8b3f2cd5220ff57e0517",
     "hp1020_page_plan.h": "1df6b7a2f4ccf752d3ac127e70b48ac8fb93cd6ce4c02431622d5d0ea1326f23",
-    "hp1020_semantic.c": "72b6c1509fd89fa71fef0227fbc08eda4eb935a1a4531751771072427b11d007",
-    "hp1020_semantic.h": "6e0278b817e85a9bd47eefd6d5169038f3c09c141eaaa5fe347ea976ab1a180a",
+    "hp1020_semantic.c": "183cd8351bc01725e46ec14a93f032830730e7c33d6a26028942f29751420c6a",
+    "hp1020_semantic.h": "141abfb7e22192c860bcfb4de26980ffdbc5f4552517b5ae1c0ec89d7af097fa",
     "plan-check.c": "05191d900d643cd81092a267b3261e412bc7aec23fef31eedc6b62faefd88cec"
   },
   "status": "pass",

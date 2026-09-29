@@ -3,231 +3,231 @@
     {
       "case": "matrix-a4_2400x600",
       "fragment": 1,
-      "instructions": 748931,
+      "instructions": 748951,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_2400x600",
       "fragment": 7,
-      "instructions": 391343,
+      "instructions": 391363,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_2400x600",
       "fragment": 1024,
-      "instructions": 332132,
+      "instructions": 332152,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_600x600",
       "fragment": 1,
-      "instructions": 498485,
+      "instructions": 498505,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_600x600",
       "fragment": 7,
-      "instructions": 311607,
+      "instructions": 311627,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_600x600",
       "fragment": 1024,
-      "instructions": 280647,
+      "instructions": 280667,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_cardstock_media",
       "fragment": 1,
-      "instructions": 825226,
+      "instructions": 825246,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_cardstock_media",
       "fragment": 7,
-      "instructions": 567742,
+      "instructions": 567762,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_cardstock_media",
       "fragment": 1024,
-      "instructions": 525086,
+      "instructions": 525106,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_default",
       "fragment": 1,
-      "instructions": 825226,
+      "instructions": 825246,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_default",
       "fragment": 7,
-      "instructions": 567742,
+      "instructions": 567762,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_default",
       "fragment": 1024,
-      "instructions": 525086,
+      "instructions": 525106,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_draft",
       "fragment": 1,
-      "instructions": 825169,
+      "instructions": 825189,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_draft",
       "fragment": 7,
-      "instructions": 567685,
+      "instructions": 567705,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_draft",
       "fragment": 1024,
-      "instructions": 525072,
+      "instructions": 525092,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_logical_clip",
       "fragment": 1,
-      "instructions": 546924,
+      "instructions": 546944,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_logical_clip",
       "fragment": 7,
-      "instructions": 288537,
+      "instructions": 288557,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_logical_clip",
       "fragment": 1024,
-      "instructions": 245752,
+      "instructions": 245772,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_manual_feed",
       "fragment": 1,
-      "instructions": 825226,
+      "instructions": 825246,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_manual_feed",
       "fragment": 7,
-      "instructions": 567742,
+      "instructions": 567762,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_manual_feed",
       "fragment": 1024,
-      "instructions": 525086,
+      "instructions": 525106,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_two_copies",
       "fragment": 1,
-      "instructions": 825226,
+      "instructions": 825246,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_two_copies",
       "fragment": 7,
-      "instructions": 567742,
+      "instructions": 567762,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-a4_two_copies",
       "fragment": 1024,
-      "instructions": 525086,
+      "instructions": 525106,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-legal_default",
       "fragment": 1,
-      "instructions": 883770,
+      "instructions": 883790,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-legal_default",
       "fragment": 7,
-      "instructions": 625383,
+      "instructions": 625403,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-legal_default",
       "fragment": 1024,
-      "instructions": 582598,
+      "instructions": 582618,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-letter_default",
       "fragment": 1,
-      "instructions": 809070,
+      "instructions": 809090,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-letter_default",
       "fragment": 7,
-      "instructions": 551113,
+      "instructions": 551133,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "matrix-letter_default",
       "fragment": 1024,
-      "instructions": 508414,
+      "instructions": 508434,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "minimal-page-a4",
       "fragment": 1,
-      "instructions": 825226,
+      "instructions": 825246,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "minimal-page-a4",
       "fragment": 7,
-      "instructions": 567742,
+      "instructions": 567762,
       "result": 0,
       "status": "pass"
     },
     {
       "case": "minimal-page-a4",
       "fragment": 1024,
-      "instructions": 525086,
+      "instructions": 525106,
       "result": 0,
       "status": "pass"
     },
@@ -360,7 +360,7 @@
     {
       "case": "boundary/payload_split_across_four_boundaries",
       "fragment": 7,
-      "instructions": 27425,
+      "instructions": 27424,
       "result": 2,
       "status": "pass"
     },
@@ -374,14 +374,14 @@
     {
       "case": "boundary/stock_types_outside_probe_scope_are_unknown",
       "fragment": 7,
-      "instructions": 28699,
+      "instructions": 28703,
       "result": 4,
       "status": "pass"
     },
     {
       "case": "boundary/valid_zero_payload_chunks",
       "fragment": 7,
-      "instructions": 28022,
+      "instructions": 28021,
       "result": 2,
       "status": "pass"
     },
@@ -416,7 +416,7 @@
     {
       "case": "boundary/unknown_chunk_is_counted_and_skipped",
       "fragment": 7,
-      "instructions": 28007,
+      "instructions": 28008,
       "result": 4,
       "status": "pass"
     },
@@ -430,7 +430,7 @@
     {
       "case": "boundary/payload_crosses_ring_wrap_boundary",
       "fragment": 7,
-      "instructions": 47574,
+      "instructions": 47573,
       "result": 2,
       "status": "pass"
     },
@@ -451,7 +451,7 @@
     {
       "case": "boundary/truncated_chunk_payload_at_eof",
       "fragment": 7,
-      "instructions": 27425,
+      "instructions": 27424,
       "result": 2,
       "status": "pass"
     },
@@ -465,92 +465,92 @@
     {
       "case": "control-payload/1/1",
       "fragment": 7,
-      "instructions": 281545,
+      "instructions": 281562,
       "result": 1,
       "status": "pass"
     },
     {
       "case": "control-payload/1/2",
       "fragment": 7,
-      "instructions": 281545,
+      "instructions": 281562,
       "result": 1,
       "status": "pass"
     },
     {
       "case": "control-payload/1/4",
       "fragment": 7,
-      "instructions": 281545,
+      "instructions": 281562,
       "result": 1,
       "status": "pass"
     },
     {
       "case": "control-payload/1/8",
       "fragment": 7,
-      "instructions": 281545,
+      "instructions": 281562,
       "result": 1,
       "status": "pass"
     },
     {
       "case": "control-payload/3/1",
       "fragment": 7,
-      "instructions": 281025,
+      "instructions": 281039,
       "result": 1,
       "status": "pass"
     },
     {
       "case": "control-payload/3/2",
       "fragment": 7,
-      "instructions": 281025,
+      "instructions": 281039,
       "result": 1,
       "status": "pass"
     },
     {
       "case": "control-payload/3/4",
       "fragment": 7,
-      "instructions": 281025,
+      "instructions": 281039,
       "result": 1,
       "status": "pass"
     },
     {
       "case": "control-payload/3/8",
       "fragment": 7,
-      "instructions": 281025,
+      "instructions": 281039,
       "result": 1,
       "status": "pass"
     },
     {
       "case": "control-payload/6/1",
       "fragment": 7,
-      "instructions": 280508,
+      "instructions": 280519,
       "result": 1,
       "status": "pass"
     },
     {
       "case": "control-payload/6/2",
       "fragment": 7,
-      "instructions": 280508,
+      "instructions": 280519,
       "result": 1,
       "status": "pass"
     },
     {
       "case": "control-payload/6/4",
       "fragment": 7,
-      "instructions": 280508,
+      "instructions": 280519,
       "result": 1,
       "status": "pass"
     },
     {
       "case": "control-payload/6/8",
       "fragment": 7,
-      "instructions": 280508,
+      "instructions": 280519,
       "result": 1,
       "status": "pass"
     }
   ],
-  "distinct_instructions": 899,
-  "elf_sha256": "09f381a302a22732525872104543360de7cd96f72d059a0cc20dea6575d50f18",
+  "distinct_instructions": 907,
+  "elf_sha256": "aa03992bb60390bb253b813817ea3cc19ab78cbe35f8115a8365734727b9e242",
   "emulator_sha256": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
-  "executed_instructions": 23443503,
+  "executed_instructions": 23444332,
   "executed_opcodes": [
     "add",
     "add.n",
@@ -618,8 +618,8 @@
     "open-firmware/semantic-core/host-check.c": "0c42a6fe7c273c677ff1dda9b90b86bba02e000cc9712242b55ff1aecbc6ce40",
     "open-firmware/semantic-core/hp1020_page_plan.c": "16f6608918c620f437d09fe1f56c8f1043d9c60a4e6b8b3f2cd5220ff57e0517",
     "open-firmware/semantic-core/hp1020_page_plan.h": "1df6b7a2f4ccf752d3ac127e70b48ac8fb93cd6ce4c02431622d5d0ea1326f23",
-    "open-firmware/semantic-core/hp1020_semantic.c": "72b6c1509fd89fa71fef0227fbc08eda4eb935a1a4531751771072427b11d007",
-    "open-firmware/semantic-core/hp1020_semantic.h": "6e0278b817e85a9bd47eefd6d5169038f3c09c141eaaa5fe347ea976ab1a180a",
+    "open-firmware/semantic-core/hp1020_semantic.c": "183cd8351bc01725e46ec14a93f032830730e7c33d6a26028942f29751420c6a",
+    "open-firmware/semantic-core/hp1020_semantic.h": "141abfb7e22192c860bcfb4de26980ffdbc5f4552517b5ae1c0ec89d7af097fa",
     "open-firmware/semantic-core/plan-check.c": "05191d900d643cd81092a267b3261e412bc7aec23fef31eedc6b62faefd88cec"
   },
   "status": "pass",

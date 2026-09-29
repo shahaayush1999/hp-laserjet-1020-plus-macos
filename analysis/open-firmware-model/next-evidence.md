@@ -117,12 +117,12 @@ checkpoint. Later drafts are separate from this executed result.
   trap is identified separately. No custom ISA, MMIO, peripheral, USB or engine
   function is part of the open execution path.
 
-First remove whole-page compressed retention by adding an optional chunk
-consumer to the existing parser, keeping its retained mode and grammar intact.
-The goal is a fixed compressed-chunk buffer plus bounded decoder/output storage,
-with detailed images larger than the current test input buffer as evidence.
-The optional synchronous chunk consumer, `hp1020_image_stream.c` and an
-incremental host/target fixture now pass **65 host and 43 QEMU cases**, owned by
+Whole-page compressed retention is removed through an optional chunk consumer
+in the existing parser, keeping retained mode and grammar intact. A fixed
+compressed-chunk buffer plus bounded decoder/output storage handles detailed
+images larger than the test input buffer. The synchronous chunk consumer,
+`hp1020_image_stream.c` and incremental fixture now pass **66 host and 44 QEMU
+cases** after the streaming metadata-reuse change detailed below, owned by
 `validate-hp1020-image-stream.py` and `image-core/stream-validation.json/.md`.
 The initial streaming aggregate passed in `/tmp/hp1020-full-stream.log`
 (child logs `hp1020-validation.0D3y3e`), with 97 consistency checks and both suites passing.
@@ -142,11 +142,12 @@ The later raw-contract aggregate above passes 98 with the same open C sources.
   callback return. The compressed arena is empty after success, and no raster
   records are kept. 129/257 BID partitions pass while default retained-mode
   controls reject at 128. The retained image bridge rejects streaming state.
-- Multiple documents/images, 16 versus 17 pages, exact BIHs, padding errors,
+- Multiple documents/images, 16/17/65 pages, exact BIHs, padding errors,
   truncation and consumer failures are checked. A consumer failure leaves the
   pending band unreleased and errors sticky; it is not a retry mechanism.
-  Output is provisional until finish, and copies stay metadata. Page metadata
-  remains capped at 16. The callback is synchronous, without a scheduler or
+  Output is provisional until finish, and copies stay metadata. Streaming now
+  reuses the current page record; retained inspection still caps metadata at 16.
+  The callback is synchronous, without a scheduler or
   asynchronous stock queue integration. Software image cases remain separate
   from native lifecycle, physical format and printing evidence.
 
@@ -652,8 +653,9 @@ output storage until the old page has drained, and finish requires valid
 document framing and completion of all published rows. Copies remain plan
 metadata; this component does not replay images for multiple copies.
 
-`validate-hp1020-image-output.py --target` passes **39 sanitized host and 39
-QEMU cases** (28 successful software streams and 11 expected rejections), in
+The first `validate-hp1020-image-output.py --target` checkpoint passed **39
+sanitized host and 39 QEMU cases** (28 successful software streams and 11
+expected rejections), preserved at `02a858a`, in
 `/tmp/hp1020-image-output-target-20260929-permitted.log`. The initial host run
 exposed an overly broad test-name prefix matching both rejection numbers 1 and
 15; fixing the assertion selector resolved that harness error. A subsequent
@@ -661,7 +663,7 @@ target invocation passed host checks but could not create QEMU's debugger socket
 inside the sandbox; the same RAM-only test passed with socket permission. No
 printer transport was opened. Full sequential validation passed **106 consistency
 checks and both suites** in `/tmp/hp1020-full-image-output-20260929.log` (child
-logs `hp1020-validation.3BfPNL`). All tested source hashes match; the private
+logs `hp1020-validation.3BfPNL`). That checkpoint's tested source hashes match; the private
 page-metadata-reuse draft was not applied or executed during that run.
 
 - Mixed sequences switch among 9600x132, 16384x4, 32x8 and 1024x260. A new
@@ -681,9 +683,9 @@ page-metadata-reuse draft was not applied or executed during that run.
   failures remain sticky and preserve memory on subsequent calls.
 - Target component state plus fixed storage is **123968 bytes**, excluding code,
   stack, caller packets and captures. Captures belong only to the RAM fixture.
-  The 16-page parser metadata limit remains explicit; streaming metadata reuse
-  is the next practical change. Retained whole-file inspection should keep its
-  own bound. No added native page lifecycle, physical output, asynchronous IRQ,
+  The initial 16-page parser limit is removed for streaming in the next section;
+  retained whole-file inspection keeps its own bound. No added native page
+  lifecycle, physical output, asynchronous IRQ,
   cache, boot or hardware recovery evidence is claimed.
 
 USB reuse review confirms that a portable stack still needs setup/reset,
@@ -698,6 +700,53 @@ with bidirectional endpoints and an IEEE 1284 device-ID response, so reuse can
 cover the printer-class layer as well as generic USB requests. This is upstream
 capability evidence only; no HP controller port or dependency integration was
 executed in this review. Do not run that example's device-access instructions.
+
+### Streaming page metadata reuse (2026-09-29)
+
+The preceding document-output checkpoint was fully validated and saved at
+`02a858a` before applying the next change. Streaming parser mode now reuses
+`pages[0]` for each page; `hp1020_semantic_current_page` supplies the current view
+while `page_count` remains cumulative across documents. Whole-file retained mode
+keeps its previous 16-page/128-raster limits. Image output owns a separate copy
+of its active plan and drains old output before reinitializing the ring, so the
+new parser record cannot change an outstanding page's geometry. Count overflow
+fails before incrementing page/document or image band/row totals.
+
+Focused output validation passes **45 sanitized host and 45 QEMU cases**:
+31 successful software streams and 14 expected rejections. Both a 65-page
+mixed-size document and 65 consecutive mixed-size documents match every source
+pixel and every output-storage byte. Four explicitly seeded uint32-boundary
+controls reject page, document, row or band count overflow before emitting any
+output. Fixture captures are bounded separately from component memory. Unused
+parser page slots stay zero. The component still uses **123968 bytes** of target
+state/fixed storage, with the same exclusions as above. Log:
+`/tmp/hp1020-image-output-page-reuse-fixed-20260929.log`.
+
+The bounded stream regression separately passes **66 host and 44 QEMU cases**,
+including its detailed 10 MB source image, compressed-buffer reuse, 65 pages and
+a same-input retained-mode rejection at page 17. Log:
+`/tmp/hp1020-image-stream-page-reuse-20260929.log`. Full sequential validation
+passed **106 consistency checks and both suites** in
+`/tmp/hp1020-full-page-reuse-20260929.log` (child logs `hp1020-validation.1RndJc`).
+All 309 source/fixture/sample hash entries in the five current image reports match.
+No validation process remains running.
+
+The first page-reuse build passed 45 sanitized host cases but its instruction
+audit rejected `break 1,15` at `0x200004d9` (bytes `0f1400`) before any QEMU
+execution. The annotated code's cold branch copied a null current-page pointer;
+the compiler had inserted a trap after that undefined path. Explicit missing-page
+checks in the image consumer and parser's BID admission remove that path and
+return an ordinary order error. The instruction allowlist was not broadened.
+The rejected ELF/map, exact source snapshot and failure log are retained at
+`/tmp/hp1020-page-reuse-null-trap-20260929/`. This is a compiler-gate finding in
+new code, not one of the six original conditional null reads. The earlier private
+draft directory preserves pre-fix text only; it is not the latest implementation.
+
+The next useful integration question is the consumer/transport boundary: how
+to preserve queued output and quiesce it on cancellation or a USB reset before
+reusing memory. Keep that separate from physical transfer abort/recovery and
+from genuine engine completion. Copies, media/quality breadth, live status,
+startup and physical printing remain open feature-parity work.
 
 ## Preferred raster bypass (2026-09-10)
 

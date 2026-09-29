@@ -73,6 +73,9 @@ uint32_t hp1020_stream_finish(void) {
     uint32_t *o=hp1020_stream_stats;
     o[0]=hp1020_image_stream_finish(&state);o[1]=state.parser.documents;o[2]=state.pages;
     o[7]=state.parser.raster_count;o[8]=state.peak_compressed_chunk;o[9]=state.parser.arena_used;
+    for(uint32_t i=1;i<HP1020_MAX_PAGES;i++)
+        for(uint32_t j=0;j<sizeof(state.parser.pages[i]);j++)
+            if(((const uint8_t *)&state.parser.pages[i])[j])o[10]++;
     o[11]=1;
     for(uint32_t i=0;i<16;i++)if(memory.before[i]!=fill_value || memory.after[i]!=fill_value)o[11]=0;
     o[12]=state.image_result;o[13]=state.output_error;

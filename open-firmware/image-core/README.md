@@ -170,8 +170,11 @@ and late padding errors can follow valid image bands.
 Planning happens when BIH arrives, using a local metadata copy marked complete
 for geometry admission. The actual parser page remains incomplete until
 END_PAGE. The same narrow planner, aligned widths, coding profile and exact
-default padding apply. Up to 16 page metadata records remain in the parser.
-Copies are metadata, without compressed replay or physical output scheduling.
+default padding apply. Streaming reuses one current-page metadata record;
+`page_count` is a cumulative count, not a retained-array index. The adapter keeps
+its own active plan so metadata reuse cannot change an older output page's
+geometry. Page/document/band/row totals fail before uint32 overflow. Copies are
+metadata, without compressed replay or physical output scheduling.
 
 `stream-validation` compares every host image byte against the original full
 decoder and deterministic source pixels. Target calls feed bounded packets into
@@ -180,7 +183,9 @@ The fixture poisons both caller packets and consumed compressed chunks to test
 reuse, checks band order and guards, and verifies the raster-record array stays
 empty. Separate controls show that 129/257 BID partitions still hit the default
 retained parser's 128-record limit while streaming consumes the same bytes.
-These are open software cases, not original stock lifecycles or printer tests.
+The stream validator passes 66 host and 44 QEMU cases, including 65 pages with
+metadata reuse. A separate retained-file control still rejects page 17. These
+are open software cases, not original stock lifecycles or printer tests.
 
 ## Bounded document output
 
@@ -202,18 +207,20 @@ reinitializing after an error, the caller must quiesce any external consumer and
 explicitly abandon or finish old transfers; resetting C state is not cancellation.
 Copies are passed to the consumer as plan metadata and are not replayed here.
 
-`python3 scripts/validate-hp1020-image-output.py --target` passes 39 sanitized
-host and 39 QEMU cases. The explicit consumer uses three acceptance/completion
+`python3 scripts/validate-hp1020-image-output.py --target` passes 45 sanitized
+host and 45 QEMU cases. The explicit consumer uses three acceptance/completion
 orders, including several outstanding slots. Full pixels and all 32768 bytes
 of output storage are compared across changing sizes, consecutive documents,
 257 compressed fragments, final partial slots, late input errors and consumer
 failures. Input packets and consumed compressed chunks are poisoned after use.
-An accepted slot's bytes are checked again at its separate completion.
+An accepted slot's bytes are checked again at its separate completion. Two cases
+complete 65 alternating-size pages, in one document or 65 consecutive documents.
+Four explicit counter-overflow controls fail before output and stay sticky.
 
 The component's target state and fixed memory total **123968 bytes**, excluding
 code, stack, caller packets and fixture captures. There is no full-page buffer.
 Reports are `analysis/open-firmware-model/image-core/output-validation.json/.md`.
-The shared target ELF remains synthetic RAM, never an uploadable image. The
-16-page metadata bound still applies at this checkpoint and is the next useful
-restriction to remove from streaming mode. No physical output, firmware copy
+The shared target ELF remains synthetic RAM, never an uploadable image. Streaming
+metadata is reused without increasing component memory; retained whole-file
+inspection still has its own 16-page bound. No physical output, firmware copy
 handling, cancellation/recovery or native page lifecycle is established.

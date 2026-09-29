@@ -45,11 +45,18 @@ struct hp1020_semantic {
     uint32_t chunk_type, item_count, reserved, phase;
     uint8_t header[16], metadata[HP1020_METADATA_BYTES];
     uint8_t framing, finalized, document_open;
-    /* Streaming mode keeps page metadata but no raster records or compressed
-     * history. raster_count/first_raster are counts, not array indices there. */
+    /* Streaming mode reuses pages[0] for the current page and retains no raster
+     * records or compressed history. page_count/raster_count/first_raster are
+     * cumulative counts, not array indices in this mode. */
     hp1020_chunk_consumer consume_chunk;
     void *consumer_context;
 };
+
+/* The streaming view survives only until the next START_PAGE. Copy anything
+ * needed by asynchronous consumers before returning from the chunk callback. */
+static inline const struct hp1020_page *hp1020_semantic_current_page(const struct hp1020_semantic *s) {
+    return s->page_count ? &s->pages[s->consume_chunk ? 0 : s->page_count-1] : NULL;
+}
 
 void hp1020_semantic_init(struct hp1020_semantic *, uint8_t *arena, uint32_t capacity);
 void hp1020_semantic_init_streaming(struct hp1020_semantic *,uint8_t *arena,

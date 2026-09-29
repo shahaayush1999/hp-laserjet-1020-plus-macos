@@ -8,46 +8,50 @@ implementation target. AGENTS.md owns the scope and authority.
 
 ## Latest firmware evidence
 
-The bounded ZjStream parser and JBIG decoder now feed the independent C output
-ring through `hp1020_image_output`. **39 sanitized host and 39 QEMU cases** pass:
-28 successful software streams and 11 expected rejections. Different page sizes,
-consecutive documents, delayed completion, final partial bands and reused input
-preserve all tested pixels and all output storage bytes. Late syntax errors,
-consumer failures and a consumer returning success without progress cannot
-become successful completion. Failed output retains ownership until explicitly
-quiesced/abandoned by the caller. Copies are forwarded metadata, not replayed.
+The bounded ZjStream parser and JBIG decoder feed the independent C output ring
+through `hp1020_image_output`. Streaming now reuses one page metadata record;
+65 mixed-size pages and 65 consecutive mixed-size documents preserve every tested
+pixel and output-storage byte without increasing component memory. Whole-file
+inspection retains its separate 16-page limit. Page/document/row/band overflow
+fails before emission; old page geometry survives until its output drains.
 
-Focused log: `/tmp/hp1020-image-output-target-20260929-permitted.log`. Target
-state/fixed storage is 123968 bytes, excluding code, stack, input packets and test
-captures. Reports: `analysis/open-firmware-model/image-core/output-validation.json/.md`.
-This is a serialized RAM experiment with supplied output acceptance/completion,
-not a native printer lifecycle or physical output. Its prerequisite decoder/ring
-and bounded original ownership evidence remain separate reports.
+Focused output validation passes **45 sanitized host and 45 QEMU cases**:
+31 successful software streams and 14 expected rejections. Stream regression
+passes **66 host and 44 QEMU cases**, including a detailed 10 MB source image.
+Logs: `/tmp/hp1020-image-output-page-reuse-fixed-20260929.log` and
+`/tmp/hp1020-image-stream-page-reuse-20260929.log`. State/fixed storage stays
+123968 bytes, excluding code, stack, caller packets and test captures. Reports:
+`analysis/open-firmware-model/image-core/output-validation.json/.md` and
+`stream-validation.json/.md`. Copies remain forwarded metadata, not replayed.
 
-Full sequential validation passed **106 consistency checks and both suites**, log
-`/tmp/hp1020-full-image-output-20260929.log`, child logs `hp1020-validation.3BfPNL`.
-All current tested source hashes match. No validation process remains running.
-No reports or source hashes have been patched by hand.
+Full sequential validation passed **106 consistency checks and both suites**
+for the current sources, in `/tmp/hp1020-full-page-reuse-20260929.log`, child logs
+`hp1020-validation.1RndJc`. All 309 image source/fixture/sample hash entries match.
+No validation process remains running. Reports/hashes were regenerated, never
+patched by hand. The earlier 39-case checkpoint is preserved at `02a858a`.
 
-Next remove streaming mode's 16-page metadata limit by reusing the current page
-record, while retaining whole-file inspection's explicit bound. A private,
-**unexecuted** draft is at `/tmp/hp1020-stream-page-reuse-20260929/`; apply/review it
-after this validated source checkpoint is committed and pushed.
-It includes longer mixed-page/document cases and checked counter overflows.
-Do not run validation suites concurrently or modify their tested sources mid-run.
+A compiler audit caught a null-page cold path in the initial metadata-reuse
+build before target execution. Explicit order checks fixed it; the rejected
+source/ELF/log snapshot is `/tmp/hp1020-page-reuse-null-trap-20260929/`.
+This is separate from the six conditional null reads in original HP code.
 
-USB/runtime reuse decisions and detailed evidence live in
-`analysis/open-firmware-model/next-evidence.md`. JBIG-KIT is used already. TinyUSB
-has a printer-class implementation, but a compatible controller port remains
-unestablished; ThreadX also needs a core/toolchain fit assessment. Boot, USB,
-physical pixel packing, output timing/cache, engine control and real recovery
-remain unproven. Do not repeat resolved selector/cancellation investigations.
+Next pursue the promising classic Synopsys USB device-controller family match
+against pinned
+Linux v6.12 source and original instructions. Read-only upstream captures and an
+**unexecuted** comparison/re-arm experiment draft are at
+`/tmp/hp1020-usb-controller-reference-20260929/`; no controller port is established.
+The old page-reuse draft is pre-fix history, not the latest source. Detailed
+questions and evidence remain in `analysis/open-firmware-model/next-evidence.md`.
 
-Preserve existing evidence categories: 26 completed empty-document lifecycles,
-six conditional null reads, 28 retirement cases, 36 native page lifecycles with
-supplied consumption/completion, and 42 fragment/bypass cases. New software
-streams add **zero native page lifecycles**. Disposable compiler/tool recovery
-is in `analysis/README.md`; QEMU's private debugger socket needs sandbox permission.
+These are serialized RAM experiments with supplied output acceptance/completion,
+not native printer lifecycles or physical output. Errors preserve outstanding
+ownership; resetting C state does not cancel transfers. Boot, USB, physical pixel
+packing, timing/cache, engine control and real recovery remain unproven. Preserve
+26 completed empty-document lifecycles, six conditional null reads, 28 retirement
+cases, 36 native page lifecycles with supplied completion, and 42 fragment/bypass
+cases as separate categories. New software streams add **zero native lifecycles**.
+Recovery is in `analysis/README.md`; QEMU's private debugger socket needs sandbox
+permission. Do not repeat resolved selector/cancellation investigations.
 
 ## Installed Mac driver (separate, preserve)
 

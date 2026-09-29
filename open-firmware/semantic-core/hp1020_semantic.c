@@ -63,7 +63,7 @@ static enum hp1020_result items(struct hp1020_semantic *s, struct hp1020_page *p
 }
 
 static enum hp1020_result complete_chunk(struct hp1020_semantic *s) {
-    struct hp1020_page *p=s->page_count ? &s->pages[s->page_count-1] : NULL;
+    struct hp1020_page *p=s->page_count ? &s->pages[s->consume_chunk ? 0 : s->page_count-1] : NULL;
     switch(s->chunk_type) {
     case 0:
         if (items(s,NULL)) return s->error;
@@ -74,8 +74,9 @@ static enum hp1020_result complete_chunk(struct hp1020_semantic *s) {
         s->document_open=0; s->phase=EXPECT_DOC; s->framing=0; s->magic=0;
         break;
     case 2:
-        if (s->page_count==HP1020_MAX_PAGES) return fail(s,HP1020_LIMIT);
-        p=&s->pages[s->page_count];
+        if (s->page_count==UINT32_MAX || (!s->consume_chunk && s->page_count==HP1020_MAX_PAGES))
+            return fail(s,HP1020_LIMIT);
+        p=&s->pages[s->consume_chunk ? 0 : s->page_count];
         memset(p,0,sizeof(*p)); p->copies=1;
         if (items(s,p)) return s->error;
         if (!p->copies || p->copies>UINT16_MAX || p->nbie!=1 ||
@@ -152,7 +153,8 @@ static enum hp1020_result begin_chunk(struct hp1020_semantic *s) {
     if (s->chunk_type==4 && s->payload_size!=20) return fail(s,HP1020_FORMAT);
     if (s->chunk_type==5) {
         if (!s->payload_size) return fail(s,HP1020_FORMAT);
-        const struct hp1020_page *p=&s->pages[s->page_count-1];
+        const struct hp1020_page *p=hp1020_semantic_current_page(s);
+        if (!p) return fail(s,HP1020_ORDER);
         if ((!s->consume_chunk && s->raster_count==HP1020_MAX_RASTERS) ||
             s->raster_count==UINT32_MAX || p->raster_count==UINT32_MAX ||
             s->payload_size>UINT32_MAX-p->compressed_bytes ||

@@ -5,7 +5,7 @@
 
 uint8_t hp1020_output_input[65552],hp1020_output_capture[262144];
 uint32_t hp1020_output_stats[40],hp1020_output_writes[256][5];
-uint32_t hp1020_output_pages[64][7];
+uint32_t hp1020_output_pages[128][7];
 static struct hp1020_image_output state;
 static struct { uint8_t before[16];struct hp1020_image_output_memory data;uint8_t after[16]; } memory;
 static hp1020_band_consumer inner_band;
@@ -25,7 +25,7 @@ static enum hp1020_result pump(const struct hp1020_page_plan *plan,
     if(o[9]++==reject_after)return HP1020_LIMIT;
     if(mode==3)return HP1020_OK; /* Deliberately broken consumer: no progress. */
     uint32_t page=state.page_index;
-    if(page>=64)return HP1020_LIMIT;
+    if(page>=128)return HP1020_LIMIT;
     uint32_t *p=hp1020_output_pages[page];
     if(plan->stride!=ring->stride || plan->rows!=ring->rows)o[10]++;
     p[0]=plan->stride;p[1]=plan->rows;p[2]=plan->copies;p[3]=plan->chunk_rows;
@@ -95,6 +95,15 @@ uint32_t hp1020_output_reset(uint32_t fill,uint32_t ordering,uint32_t fail_at) {
     inner_chunk=state.stream.parser.consume_chunk;state.stream.parser.consume_chunk=chunk_observer;
     return r;
 }
+/* Explicit near-overflow controls, never a device state injection. */
+uint32_t hp1020_output_seed_counter(uint32_t which) {
+    if(which==1)state.stream.rows=UINT32_MAX;
+    else if(which==2)state.stream.bands=UINT32_MAX;
+    else if(which==3)state.stream.parser.page_count=UINT32_MAX;
+    else if(which==4)state.stream.parser.documents=UINT32_MAX;
+    else if(which)return HP1020_LIMIT;
+    return HP1020_OK;
+}
 uint32_t hp1020_output_feed(uint32_t length,uint32_t fragment) {
     if(length>sizeof(hp1020_output_input) || !fragment)return HP1020_LIMIT;
     uint32_t r=state.error;
@@ -125,6 +134,9 @@ uint32_t hp1020_output_finish(void) {
             hp1020_image_output_finish(&state)==HP1020_FINISHED;
     }
     if(calls!=o[9] || before!=hash(2166136261u,(const uint8_t *)&memory,sizeof(memory)))o[10]++;
+    for(uint32_t i=1;i<HP1020_MAX_PAGES;i++)
+        for(uint32_t j=0;j<sizeof(state.stream.parser.pages[i]);j++)
+            if(((const uint8_t *)&state.stream.parser.pages[i])[j])o[10]++;
     o[11]=1;
     for(uint32_t i=0;i<16;i++)if(memory.before[i]!=fill_value || memory.after[i]!=fill_value)o[11]=0;
     return o[0];

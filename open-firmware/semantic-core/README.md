@@ -19,12 +19,15 @@ records into bounded packed-row bands.
 `hp1020_semantic_init_streaming` selects an optional synchronous chunk consumer
 while preserving the same grammar. After a complete chunk has updated metadata,
 the callback receives its bytes; after successful BID consumption the arena is
-reused. This mode retains the 16 page metadata slots but no raster records or
-compressed history. Raster counts and first-raster values are logical counts,
-not indices into the unused record array; the 128-record limit therefore does
-not apply. The per-page compressed-byte and raster counters remain bounded by
-uint32, and each BID must fit the supplied arena. The retained image bridge
-explicitly rejects streaming parser state.
+reused. This mode reuses `pages[0]` for the current page and retains no raster
+records or compressed history. Use `hp1020_semantic_current_page` during the
+callback and copy any metadata needed beyond the next START_PAGE. The remaining
+page slots stay zero. Page/raster counts and first-raster values are cumulative
+counts, not indices into the arrays; the 16-page/128-record retention limits
+therefore do not apply. Page/document/raster counters and per-page compressed
+bytes remain bounded by uint32, and each BID must fit the supplied arena. The
+retained image bridge explicitly rejects streaming parser state; its original
+16-page limit remains intact and is separately checked with the same input.
 
 Callbacks must consume/copy data before returning, may not re-enter or mutate
 the parser, and must not retain the pointer. Any callback error aborts parsing
