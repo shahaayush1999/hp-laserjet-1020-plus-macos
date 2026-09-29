@@ -6,6 +6,52 @@ semantic parser, a page/band planner, and execution of the actual compiled C
 components in synthetic RAM. The remaining live questions concern device behavior or
 core-specific operations absent from the available instruction definitions.
 
+## Functional replacement and reuse (2026-09-29)
+
+The owner explicitly prioritizes a working printer over reproducing HP's
+implementation. The replacement may use a different runtime, buffer layout and
+task structure. Original-code lifecycles and ownership traces remain useful
+evidence about dependencies and hardware-facing behavior, not a specification
+requiring us to clone every internal step or reproduce original bugs.
+
+The intended approach resembles hardware enablement for an existing operating
+system: reuse portable code and implement the device-specific boundary. This
+does not imply installing Linux on the printer. Choose the smallest useful
+runtime after assessing its porting cost; a simple event loop remains an option.
+
+Primary-source review identified these concrete reuse boundaries:
+
+| Component | What it supplies | Status and remaining work |
+|---|---|---|
+| [foo2zjs](https://github.com/OpenPrinting/foo2zjs/blob/main-fixes/INSTALL.in) | Host-side page preparation and ZjStream generation | Already used by the separate Mac driver. Upstream still loads HP firmware for the 1020; it is not a replacement for the code inside the device. Keep the installed setup intact. |
+| [JBIG-KIT](https://www.cl.cam.ac.uk/~mgk25/jbigkit/) | Portable image decompression, including the bounded streaming variant | Already retained and used by `open-firmware/image-core/`, with provenance, a local patch and executed host/target comparisons. Continue using this path instead of recovering the custom compressed-image accelerator unless evidence requires it. |
+| [Eclipse ThreadX](https://github.com/eclipse-threadx/threadx) | An open embedded OS with queues, timers and scheduling | Candidate, not selected or tested here. Its [Xtensa port](https://github.com/eclipse-threadx/threadx/blob/master/ports/xtensa/xcc/readme_threadx.txt) describes Call0 support but requires Xtensa Tools/HAL and suitable exception/timer configuration. Its [support table](https://threadx.io/releases/6.5.1/home/main/hardware-support.html) lists XCC. This does not establish compatibility with our pinned GCC toolchain or the HP core. Assess that gap before importing a runtime. |
+| [TinyUSB](https://docs.tinyusb.org/en/latest/porting.html) | Portable USB protocol handling above a controller driver | Candidate, not selected or tested here. Its documented port interface still requires board startup, endpoint setup and interrupt/transfer handling. Compare those requirements with the recovered USB controller contract; no compatible HP1020 controller port was established in this review. |
+
+The review did not identify a ready-made open firmware replacement for this
+printer. This is a scoped search result, not proof that none exists. Host driver
+frameworks such as [PAPPL](https://openprinting.github.io/documentation/02-designing-printer-drivers)
+can reuse printing services but do not by themselves supply this printer's
+internal engine-control implementation. None of the candidate dependencies was
+downloaded, installed, integrated or executed during this documentation review.
+
+The hardware-specific work remains boot/memory/interrupt setup, USB transfers,
+pixel packing and output transfer/ownership/cache behavior, plus the engine's
+page-start, status, completion, timeout and recovery contract. Determine what the
+existing engine controller handles before assuming our firmware must directly
+regulate individual mechanisms. Generic library APIs do not establish timing,
+physical status meanings or safe command ordering on this hardware.
+
+Continue connecting the bounded ZjStream consumer to the independent C output
+ring, including page/document transitions: that produces directly reusable code.
+Before further stock scheduler/owner reconstruction, identify the unresolved
+hardware-facing or external behavior it would settle. Assess reusable USB/runtime
+code against those contracts before implementing more generic infrastructure;
+do not turn porting an unnecessary OS into a new prerequisite. Preserve existing
+reports and regression coverage. All hardware restrictions remain in force.
+
+## Remaining hardware evidence
+
 | Priority | Exact question | Existing evidence | Evidence that would resolve it |
 |---|---|---|---|
 | 1 | Does the corrected BE probe execute after the ROM loader, and can its own endpoint-0 path return its counter descriptor? | Stock-byte instruction fixtures and offline staging tests pass. The older quiet idle upload used incorrect instruction encoding. | A newly authorized cold-boot inert-probe test that returns the probe-specific descriptor. Stock USB identity alone is insufficient. |

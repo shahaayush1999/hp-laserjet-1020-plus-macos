@@ -1,8 +1,15 @@
 # Current handoff
 
-Updated: 2026-09-28. **The open firmware replacement cannot print yet.** Offline
+Updated: 2026-09-29. **The open firmware replacement cannot print yet.** Offline
 research continues. Do not enumerate/contact the printer, upload firmware,
 execute print-driving hardware paths or change the installed printing setup.
+
+The owner clarified the target: working replacement firmware using reusable
+open components, with no requirement to recreate HP's internal design. JBIG-KIT
+is already used. ThreadX and TinyUSB are candidates requiring actual port-fit
+assessment, not established HP1020 ports. The reuse decision and sources are in
+`analysis/open-firmware-model/next-evidence.md`; this clarification changes no
+execution evidence or tested source hashes.
 
 ## Latest firmware evidence
 
@@ -39,9 +46,12 @@ captures. It is neither a complete firmware RAM budget nor an upload image.
 Next connect the existing bounded ZjStream band consumer to this software ring,
 checking per-page draining and differently sized consecutive pages/documents with
 reused input chunks. Keep late input rejection distinct from emitted rows.
-Original owner integration, native scheduling, live configuration, physical
-packing, engine behavior and power-cycle recovery remain unproven. Do not repeat
-resolved metadata, selector or cancellation investigations.
+Hardware integration, scheduling requirements, live configuration, physical
+packing, engine behavior and power-cycle recovery remain unproven. Stock owner
+and scheduler fidelity are not independent replacement requirements. Assess USB
+and runtime reuse against the recovered hardware contracts before writing more
+generic infrastructure. Do not repeat resolved metadata, selector or cancellation
+investigations.
 
 Preserve earlier categories: 26 completed empty-document lifecycles, six
 conditional null reads, 28 bounded retirement cases, 36 native page lifecycles

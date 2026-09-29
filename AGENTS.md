@@ -30,11 +30,18 @@ Documentation is agent memory, never a deliverable he must review.
 
 ## Objective and authority
 
-The current task is an offline capability evaluation: Aayush wants to see how
-far agents can reverse engineer and independently verify the binary without his
-assistance or a printer. Revisit claimed blockers and pursue useful offline
-experiments. Missing hardware is a limit on live proof, not a reason to end the
-evaluation while meaningful binary analysis or differential execution remains.
+The target is a practical working replacement, with suitable open-source
+components reused wherever they reduce the work. Functional compatibility and
+reliable printing matter; reproducing HP's binary, internal architecture or bugs
+does not. Use the original program to discover necessary hardware/protocol
+contracts and as an independent reference. Do not make matching its internal
+queues, object layouts or scheduling a requirement of an independent replacement.
+
+The current execution scope remains offline development and capability
+evaluation, without the owner's assistance or a printer. Revisit claimed
+blockers and pursue useful offline experiments tied to that working path.
+Missing hardware limits live proof, but does not rule out meaningful offline
+implementation, binary analysis or differential execution.
 
 Build a narrow open replacement for the HP LaserJet 1020 Plus device firmware
 that prints host-generated ZjStream. Keep the working macOS/foo2zjs setup intact.

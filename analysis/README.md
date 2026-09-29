@@ -8,6 +8,7 @@ Paths below are relative to the repository root unless linked explicitly.
 
 | Question | Source or current evidence |
 |---|---|
+| What should be reused instead of reconstructed? | [Functional replacement and reuse](open-firmware-model/next-evidence.md#functional-replacement-and-reuse-2026-09-29): JBIG-KIT already supplies decoding; ThreadX/TinyUSB need port-fit assessment. Original internal fidelity is evidence, not the implementation goal. |
 | What is still unknown, and what would resolve it? | [Next evidence](open-firmware-model/next-evidence.md) |
 | Which components are implemented? | `open-firmware/semantic-core/`, `open-firmware/image-core/`, `open-firmware/usb-bulk-parser-draft/`; each has its own README |
 | Native pipeline and completion evidence? | [Current native handoff](open-firmware-model/next-evidence.md#in-progress-handoff-native-pipeline-2026-09-09), [completed lifecycles and conditional original null reads](open-firmware-model/stock-execution/pipeline.md), [bounded native retirement](open-firmware-model/stock-execution/retirement.md); [native pages with supplied consumption](open-firmware-model/stock-execution/pages.md); [split-raster native pages](open-firmware-model/stock-execution/page-fragments.md); 36 native page cases preserve datastore 32 before/after; see `CURRENT_STATUS.md` for the latest aggregate validation |
