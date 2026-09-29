@@ -233,6 +233,9 @@ run_step "Deliver decoded software pixels through bounded original ring storage"
 run_step "Connect the compiled open decoder to bounded software output ownership" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-image-ring.py" --target
 
+run_step "Consume whole documents through bounded software output ownership" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-image-output.py" --target
+
 run_step "Regenerate video band queue/list model" \
   "$ROOT_DIR/scripts/model-hp1020-video-band-queue.py"
 

@@ -181,3 +181,39 @@ reuse, checks band order and guards, and verifies the raster-record array stays
 empty. Separate controls show that 129/257 BID partitions still hit the default
 retained parser's 128-record limit while streaming consumes the same bytes.
 These are open software cases, not original stock lifecycles or printer tests.
+
+## Bounded document output
+
+`hp1020_image_output` composes the bounded stream parser/decoder and the
+four-slot software ring in ordinary compiled C. Input is copied only into the
+fixed compressed chunk, and each decoded band is copied into an available
+output slot before the decoder can reuse it. The caller supplies a synchronous
+progress callback operating through ring peek/accept/complete. It must wait for
+real progress or return an error; returning success without progress is an
+error. No scheduler, transfer submission or hardware completion is invented.
+
+The previous page drains with its original geometry before the ring is reused
+for a differently sized page, even when the next page's decoder has already
+produced a pending band. Final success requires valid end-of-document framing,
+successful image decoding and completion of all published rows. A late syntax
+error or consumer failure retains outstanding ownership and cannot turn into
+successful completion. Previously consumed pixels cannot be retracted. Before
+reinitializing after an error, the caller must quiesce any external consumer and
+explicitly abandon or finish old transfers; resetting C state is not cancellation.
+Copies are passed to the consumer as plan metadata and are not replayed here.
+
+`python3 scripts/validate-hp1020-image-output.py --target` passes 39 sanitized
+host and 39 QEMU cases. The explicit consumer uses three acceptance/completion
+orders, including several outstanding slots. Full pixels and all 32768 bytes
+of output storage are compared across changing sizes, consecutive documents,
+257 compressed fragments, final partial slots, late input errors and consumer
+failures. Input packets and consumed compressed chunks are poisoned after use.
+An accepted slot's bytes are checked again at its separate completion.
+
+The component's target state and fixed memory total **123968 bytes**, excluding
+code, stack, caller packets and fixture captures. There is no full-page buffer.
+Reports are `analysis/open-firmware-model/image-core/output-validation.json/.md`.
+The shared target ELF remains synthetic RAM, never an uploadable image. The
+16-page metadata bound still applies at this checkpoint and is the next useful
+restriction to remove from streaming mode. No physical output, firmware copy
+handling, cancellation/recovery or native page lifecycle is established.

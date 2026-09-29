@@ -1332,6 +1332,38 @@ def build_report() -> dict[str, Any]:
                                 for name,digest in {**image_ring["source_sha256"],**image_ring["fixture_sha256"]}.items()),
                         "One compiled C decoder/ring fixture must preserve all pixels, whole-buffer guards, backpressure and the original bounded ownership trace; its explicit software consumer does not establish native page cleanup or physical output.",
                         evidence="analysis/open-firmware-model/image-core/ring-validation.json"))
+    image_output = read_json("analysis/open-firmware-model/image-core/output-validation.json")
+    output_target = image_output.get("target") or {}
+    output_cases = image_output.get("cases",[])
+    checks.append(check("bounded_documents_to_software_output_verified",
+                        image_output["status"] == output_target.get("status") == "pass"
+                        and len(output_cases) == len(output_target.get("cases",[])) == 39
+                        and image_output["completed_native_page_lifecycles"] == 0
+                        and output_target.get("elf_sha256") == image_target.get("elf_sha256")
+                        and sum(c["expected_result"] == 0 for c in output_cases) == 28
+                        and all(c["status"] == "pass" and c["source_prefix_equal"]
+                                and c["stats"][0] == c["expected_result"]
+                                and c["stats"][10:12] == [0,1] and c["stats"][19] == 1
+                                and (c["stats"][23] == 0 and c["stats"][26] == 1 if c["expected_result"] else
+                                     c["full_output_equal"] and c["stats"][23] == 1 and c["stats"][18] == 0
+                                     and c["stats"][2] == c["stats"][17] == c["stats"][28])
+                                for c in output_cases)
+                        and all(c["consumer_mode"] in (0,1,2,3) for c in output_cases)
+                        and {c["consumer_mode"] for c in output_cases if not c["expected_result"]} == {0,1,2}
+                        and any(c["case"] == "missing-end-doc" and c["stats"][5] > 0
+                                and c["stats"][18] == 4 for c in output_cases)
+                        and any(c["case"] == "consumer/after=1" and c["stats"][7:9] == [1,0]
+                                and c["stats"][18] == 4 for c in output_cases)
+                        and all(t["status"] == "pass" and t["case"] == c["case"]
+                                and t["all_output_bytes_equal"] and t["all_storage_bytes_equal"]
+                                and t["page_and_write_traces_equal"]
+                                and t["stats"][:14]+t["stats"][15:] == c["stats"][:14]+c["stats"][15:]
+                                for c,t in zip(output_cases,output_target.get("cases",[])))
+                        and all(hashlib.sha256((ROOT_DIR/name).read_bytes()).hexdigest() == digest
+                                for name,digest in {**image_output["source_sha256"],**image_output["fixture_sha256"],
+                                                    **image_output["sample_sha256"]}.items()),
+                        "Whole-document output must preserve exact pixels across geometry changes, completion ordering and reused input; late input/consumer failures retain ownership and cannot be reported as successful printing.",
+                        evidence="analysis/open-firmware-model/image-core/output-validation.json"))
     checks.append(check("raster_callback_argument_and_unknown_isa_boundary",
                         callbacks["status"] == "pass" and callbacks["call_contract"]["argument_count"] == 4
                         and [len(f["unknown_instructions"]) for f in callbacks["functions"]] == [16,40,84],

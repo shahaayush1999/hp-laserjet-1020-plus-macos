@@ -1,5 +1,5 @@
 {
-  "check_count": 105,
+  "check_count": 106,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -353,6 +353,12 @@
       "detail": "One compiled C decoder/ring fixture must preserve all pixels, whole-buffer guards, backpressure and the original bounded ownership trace; its explicit software consumer does not establish native page cleanup or physical output.",
       "evidence": "analysis/open-firmware-model/image-core/ring-validation.json",
       "name": "compiled_decoder_to_software_output_ring_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Whole-document output must preserve exact pixels across geometry changes, completion ordering and reused input; late input/consumer failures retain ownership and cannot be reported as successful printing.",
+      "evidence": "analysis/open-firmware-model/image-core/output-validation.json",
+      "name": "bounded_documents_to_software_output_verified",
       "severity": "watch"
     },
     {

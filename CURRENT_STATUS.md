@@ -1,68 +1,53 @@
 # Current handoff
 
-Updated: 2026-09-29. **The open firmware replacement cannot print yet.** Offline
-research continues. Do not enumerate/contact the printer, upload firmware,
-execute print-driving hardware paths or change the installed printing setup.
-
-The owner clarified the target: working replacement firmware using reusable
-open components, with no requirement to recreate HP's internal design. JBIG-KIT
-is already used. ThreadX and TinyUSB are candidates requiring actual port-fit
-assessment, not established HP1020 ports. The reuse decision and sources are in
-`analysis/open-firmware-model/next-evidence.md`; this clarification changes no
-execution evidence or tested source hashes.
+Updated: 2026-09-29. **The open firmware replacement cannot print yet.** Do not
+contact/enumerate USB, upload firmware, execute print-driving hardware paths or
+change the installed printing setup. Work toward normal-use feature parity in
+verified stages, reusing open components; HP's internal architecture is not the
+implementation target. AGENTS.md owns the scope and authority.
 
 ## Latest firmware evidence
 
-The open C decoder now connects directly to a bounded software output ring.
-**36 sanitized host and 36 QEMU cases**, with 11 API rejection controls per
-engine, pass. Every pixel and every guarded storage byte is compared. Six cases
-per engine match the original bounded ownership trace exactly. Longer images
-exercise repeated full-ring pauses, delayed completion and buffer reuse. There
-is no host pixel-copy bridge between these C components. The simulated consumer
-still supplies acceptance/completion; this is **zero new native page lifecycles**.
+The bounded ZjStream parser and JBIG decoder now feed the independent C output
+ring through `hp1020_image_output`. **39 sanitized host and 39 QEMU cases** pass:
+28 successful software streams and 11 expected rejections. Different page sizes,
+consecutive documents, delayed completion, final partial bands and reused input
+preserve all tested pixels and all output storage bytes. Late syntax errors,
+consumer failures and a consumer returning success without progress cannot
+become successful completion. Failed output retains ownership until explicitly
+quiesced/abandoned by the caller. Copies are forwarded metadata, not replayed.
 
-The preceding original-code experiment passed eight isolated transfers and two
-continuous five-transfer sequences through actual original output allocations.
-It distinguished claiming, filling, selecting and releasing a buffer, including
-continuous wrap and a short final band. Source owners remain live after output
-retirement. The raw IRQ flag stays zero; no source prefix is inserted/subtracted.
-These serialized original stages and the new independent C ring are distinct.
+Focused log: `/tmp/hp1020-image-output-target-20260929-permitted.log`. Target
+state/fixed storage is 123968 bytes, excluding code, stack, input packets and test
+captures. Reports: `analysis/open-firmware-model/image-core/output-validation.json/.md`.
+This is a serialized RAM experiment with supplied output acceptance/completion,
+not a native printer lifecycle or physical output. Its prerequisite decoder/ring
+and bounded original ownership evidence remain separate reports.
 
-Full sequential `scripts/validate.sh` passed **105 consistency checks and both
-suites**, including native pipeline/retirement/page regressions. Log:
-`/tmp/hp1020-full-image-ring-20260928.log`; child logs `hp1020-validation.WTCBMK`.
-Current source hashes match the evidence. No validation process remains running
-at this checkpoint. The previous 104-check checkpoint is committed at `7fe51be`.
-The first host-only report and exact matching sources are preserved outside the
-current evidence in `/tmp/hp1020-image-ring-host-first-20260928/`.
+Full sequential validation passed **106 consistency checks and both suites**, log
+`/tmp/hp1020-full-image-output-20260929.log`, child logs `hp1020-validation.3BfPNL`.
+All current tested source hashes match. No validation process remains running.
+No reports or source hashes have been patched by hand.
 
-Reports: `analysis/hardware-boundary/software-ring.json/.md` and
-`analysis/open-firmware-model/image-core/ring-validation.json/.md`. Existing
-handoff details and the next experiment are in
-`analysis/open-firmware-model/next-evidence.md`. The target component needs 30824
-bytes of state/minimum buffers at A4 width, excluding code, stack, input and test
-captures. It is neither a complete firmware RAM budget nor an upload image.
+Next remove streaming mode's 16-page metadata limit by reusing the current page
+record, while retaining whole-file inspection's explicit bound. A private,
+**unexecuted** draft is at `/tmp/hp1020-stream-page-reuse-20260929/`; apply/review it
+after this validated source checkpoint is committed and pushed.
+It includes longer mixed-page/document cases and checked counter overflows.
+Do not run validation suites concurrently or modify their tested sources mid-run.
 
-Next connect the existing bounded ZjStream band consumer to this software ring,
-checking per-page draining and differently sized consecutive pages/documents with
-reused input chunks. Keep late input rejection distinct from emitted rows.
-Hardware integration, scheduling requirements, live configuration, physical
-packing, engine behavior and power-cycle recovery remain unproven. Stock owner
-and scheduler fidelity are not independent replacement requirements. Assess USB
-and runtime reuse against the recovered hardware contracts before writing more
-generic infrastructure. Do not repeat resolved metadata, selector or cancellation
-investigations.
+USB/runtime reuse decisions and detailed evidence live in
+`analysis/open-firmware-model/next-evidence.md`. JBIG-KIT is used already. TinyUSB
+has a printer-class implementation, but a compatible controller port remains
+unestablished; ThreadX also needs a core/toolchain fit assessment. Boot, USB,
+physical pixel packing, output timing/cache, engine control and real recovery
+remain unproven. Do not repeat resolved selector/cancellation investigations.
 
-Preserve earlier categories: 26 completed empty-document lifecycles, six
-conditional null reads, 28 bounded retirement cases, 36 native page lifecycles
-with supplied FIFO consumption/completion, and 42 fragment/bypass cases. Parser
-admission/preparation, video allocation controls and software-image cases are
-not extra native page lifecycles. Reports retain their actual tested hashes.
-
-GCC 14.3.0, target headers and libgcc were recovered through the pinned build
-script and checksum/encoding/profile gates. Log `/tmp/hp1020-gcc-recovery-20260928.log`;
-sandbox DNS needed permission for that same pinned download. Disposable tool
-recovery is in `analysis/README.md`.
+Preserve existing evidence categories: 26 completed empty-document lifecycles,
+six conditional null reads, 28 retirement cases, 36 native page lifecycles with
+supplied consumption/completion, and 42 fragment/bypass cases. New software
+streams add **zero native page lifecycles**. Disposable compiler/tool recovery
+is in `analysis/README.md`; QEMU's private debugger socket needs sandbox permission.
 
 ## Installed Mac driver (separate, preserve)
 

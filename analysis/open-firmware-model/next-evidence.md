@@ -636,13 +636,68 @@ report remains at the maintained evidence path. No report hashes were patched.
   software ring does not retire stock work/source owners or acknowledge a page.
   Odd-row image cases do not broaden the existing stricter ZjStream planner.
 
-Next use this software ring from the existing bounded ZjStream band's consumer,
-then verify per-page draining and different image sizes across consecutive
-pages/documents with reused input chunks. Keep output readiness/completion
-explicit and check late input rejection separately from already emitted rows.
-Original owner integration, native scheduling, live configuration, physical
-packing, engine behavior and power-cycle recovery remain unproven. Do not repeat
-the resolved metadata, selector or cancellation matrices.
+The next section now connects this ring to complete documents. Original owner
+integration is not a requirement of the independent replacement. Hardware
+scheduling requirements, live configuration, physical packing, engine behavior
+and power-cycle recovery remain unproven. Do not repeat resolved metadata,
+selector or cancellation matrices.
+
+### Compiled bounded document output (2026-09-29)
+
+`hp1020_image_output.c/.h` now composes the existing bounded ZjStream parser,
+streaming JBIG decoder and independent software ring. Its synchronous consumer
+must explicitly advance acceptance or completion, or return an error. A full
+ring retains the decoder's pending band. Different page geometries cannot reuse
+output storage until the old page has drained, and finish requires valid
+document framing and completion of all published rows. Copies remain plan
+metadata; this component does not replay images for multiple copies.
+
+`validate-hp1020-image-output.py --target` passes **39 sanitized host and 39
+QEMU cases** (28 successful software streams and 11 expected rejections), in
+`/tmp/hp1020-image-output-target-20260929-permitted.log`. The initial host run
+exposed an overly broad test-name prefix matching both rejection numbers 1 and
+15; fixing the assertion selector resolved that harness error. A subsequent
+target invocation passed host checks but could not create QEMU's debugger socket
+inside the sandbox; the same RAM-only test passed with socket permission. No
+printer transport was opened. Full sequential validation passed **106 consistency
+checks and both suites** in `/tmp/hp1020-full-image-output-20260929.log` (child
+logs `hp1020-validation.3BfPNL`). All tested source hashes match; the private
+page-metadata-reuse draft was not applied or executed during that run.
+
+- Mixed sequences switch among 9600x132, 16384x4, 32x8 and 1024x260. A new
+  original full-JBIG encode/decode of the last geometry independently verifies
+  its source pattern and final short output slot. Three consumer orderings,
+  two memory fills and three input packet/fragment schedules preserve every
+  output byte, every output storage byte and the exact page/write traces.
+- Input packets and successfully consumed compressed chunks are poisoned after
+  use. Output accepted earlier is hashed again at actual simulated completion,
+  proving it survives in-flight ownership. Several accepted slots can remain
+  outstanding simultaneously. The pending decoder band remains unchanged while
+  the consumer makes space, including when the previous page is draining.
+- Missing END_DOC after a 132-row image reports truncation after emitting an
+  exact source prefix, retaining four owned slots rather than claiming success.
+  An error immediately after acceptance retains that accepted slot. Padding,
+  truncated headers, no-progress consumers, mid-page failures and final-drain
+  failures remain sticky and preserve memory on subsequent calls.
+- Target component state plus fixed storage is **123968 bytes**, excluding code,
+  stack, caller packets and captures. Captures belong only to the RAM fixture.
+  The 16-page parser metadata limit remains explicit; streaming metadata reuse
+  is the next practical change. Retained whole-file inspection should keep its
+  own bound. No added native page lifecycle, physical output, asynchronous IRQ,
+  cache, boot or hardware recovery evidence is claimed.
+
+USB reuse review confirms that a portable stack still needs setup/reset,
+endpoint transfer and completion reporting from our controller-specific layer.
+The existing evidence is in `analysis/usb-path/usb-bulk-probe-contract.md` and
+`usb-parser-shim-contract.md`; TinyUSB's [port interface](https://docs.tinyusb.org/en/latest/porting.html)
+does not supply those missing hardware observations. Retain the existing inert
+probe route while assessing a compatible controller driver. Adding an RTOS or a
+USB stack is not a prerequisite for the bounded software document path.
+TinyUSB also provides a [printer-class example](https://docs.tinyusb.org/en/latest/examples/device/printer_to_cdc.html)
+with bidirectional endpoints and an IEEE 1284 device-ID response, so reuse can
+cover the printer-class layer as well as generic USB requests. This is upstream
+capability evidence only; no HP controller port or dependency integration was
+executed in this review. Do not run that example's device-access instructions.
 
 ## Preferred raster bypass (2026-09-10)
 

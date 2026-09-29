@@ -43,9 +43,13 @@ blockers and pursue useful offline experiments tied to that working path.
 Missing hardware limits live proof, but does not rule out meaningful offline
 implementation, binary analysis or differential execution.
 
-Build a narrow open replacement for the HP LaserJet 1020 Plus device firmware
-that prints host-generated ZjStream. Keep the working macOS/foo2zjs setup intact.
-Other models, networking, scanning and unrelated features are out of scope.
+Work toward feature parity with the closed driver for normal use of the HP
+LaserJet 1020 Plus: reliable pages/documents, copies, supported media/quality
+options, useful status, cancellation and recovery. Build the open firmware
+replacement in narrow, independently verified stages using host-generated
+ZjStream; current restricted profiles are milestones, not the final feature
+target. Keep the working macOS/foo2zjs setup intact. Other models, networking,
+scanning and unrelated features are out of scope.
 
 Completion requires observed, repeatable physical printing with the replacement
 firmware, including recovery after a power cycle. Models, uploads, quiet LEDs

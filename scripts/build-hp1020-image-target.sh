@@ -13,6 +13,7 @@ python3 "$ROOT_DIR/scripts/check-hp1020-c-compiler-profile.py" "${GCC_PREFIX}-gc
 objects=()
 for source in "$SOURCE/hp1020_image.c" "$SOURCE/hp1020_image_page.c" "$SOURCE/hp1020_image_stream.c" \
     "$SOURCE/hp1020_image_ring.c" "$SOURCE/fixture.c" "$SOURCE/stream-fixture.c" "$SOURCE/ring-fixture.c" \
+    "$SOURCE/hp1020_image_output.c" "$SOURCE/output-fixture.c" \
     "$SOURCE/page-fixture.c" "$SEMANTIC/hp1020_semantic.c" "$SEMANTIC/hp1020_page_plan.c" "$SOURCE/target-memory.c" \
     "$ROOT_DIR/open-firmware/semantic-core/freestanding/memory.c" "$JBIG/jbig85.c" "$JBIG/jbig_ar.c"; do
   obj="$OUT/$(basename "${source%.c}").o"
