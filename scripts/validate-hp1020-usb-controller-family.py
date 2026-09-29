@@ -59,6 +59,41 @@ class RearmRAM(StopRAM):
                     flags=[self.read(self.read(at,4),1)
                            for at in (0x10005e28,0x10005e58,0x10005e20,0x10005e64)])
 
+class DrainRAM(StopRAM):
+    """Original software-list drain, with explicitly supplied frees/mask calls.
+
+    This is a call-boundary observation, not a physical cancellation test.
+    QEMU executes the original short list critical helper; the interpreter
+    abstracts its PS save/restore. No peripheral address is redirected here.
+    """
+    HOST={0x100171b0,0x10017184,0x10013408,0x1001b770}
+    def __init__(self,program,fill,length):
+        super().__init__(program,0x10008fb0,
+            [(0x10008fb0,0x10008ff0),(0x10013050,0x1001307c),(0x100130bc,0x100130c4)],
+            [(ARENA,0x1000)])
+        self.events=[]
+        self.put(ARENA,bytes([fill])*0x1000)
+        self.queue=self.read(0x10005e10,4)
+        self.nodes=[ARENA+0x400+i*64 for i in range(length)]
+        self.buffers=[ARENA+0x800+i*64 for i in range(length)]
+        self.write(self.queue,4,self.nodes[0] if length else 0)
+        self.write(self.queue+4,4,self.nodes[-1] if length else 0)
+        for i,node in enumerate(self.nodes):
+            self.write(node,4,self.nodes[i+1] if i+1<length else 0)
+            self.write(node+12,4,node+16)
+            self.write(node+20,4,self.buffers[i])
+        # A separately supplied busy descriptor remains busy: list draining
+        # has no authority to claim/rewrite it in this bounded experiment.
+        self.write(self.read(0x10005e2c,4),4,DESCRIPTOR)
+        self.write(DESCRIPTOR,4,0x48000025)
+
+    def extension(self,op,args,nxt):
+        if op=='call8' and args[0] in self.HOST:
+            if args[0]!=0x1001b770:
+                self.events.append([hex(args[0]),hex(self.registers[10])])
+            self.registers[10]=0;self.branch_taken=True;return nxt
+        return super().extension(op,args,nxt)
+
 def main():
     stock=ROOT/'analysis/sihp1020.elf'; blob=stock.read_bytes()
     assert sha(blob)==STOCK_SHA
@@ -156,7 +191,21 @@ def main():
         at=int(row['literal'],16)
         row['load_sites']=[hex(pc) for pc,(op,args,_) in program.instructions.items() if op=='l32r' and args[1]==at]
         assert row['load_sites'],row['name']
-    cases=[]; excluded=[]; decoded=[]
+    # Byte-check distinct ownership boundaries without importing decompiler
+    # function names as semantic proof. This routine frees list-owned objects;
+    # the supplied free/mask services do not establish controller quiescence.
+    boundary_instructions=[]
+    for at,op,args in ((0x10008fb9,'call8',[0x100171b0]),
+            (0x10008fc4,'call8',[0x100130bc]),(0x10008fc9,'l32i.n',[8,10,12]),
+            (0x10008fcb,'l32i.n',[10,8,4]),(0x10008fd0,'call8',[0x10013408]),
+            (0x10008fd9,'call8',[0x10013050]),(0x10008fdf,'call8',[0x10013408]),
+            (0x10008fea,'call8',[0x10017184]),(0x1000821b,'movi.n',[9,8]),
+            (0x1000821f,'bany',[5,9,0x10008225]),(0x10008232,'movi',[8,16])):
+        actual=program.instruction(at)
+        assert actual[:2]==(op,tuple(args)) and actual[2]==raw(at,len(actual[2]))
+        boundary_instructions.append(dict(address=hex(at),opcode=op,operands=args,bytes=actual[2].hex()))
+    assert word(0x10005dec)==0xb3010004 and definitions['UDC_DEVINT_UR']==3
+    cases=[]; excluded=[]; decoded=[]; drained=[]
     with QemuRAM() as q:
         version=q.version
         for fill in (0,204):
@@ -231,6 +280,24 @@ def main():
             decoded.append(dict(status='pass',descriptor_status=hex(status),owner=owner,last=last,
                 receive_status=receive_status,encoded_count=count,owner_admitted=expected_done,
                 decoded_count=results[0],stop=hex(boundary),guarded_arena_unchanged=True))
+        for fill in (0,204):
+            for length in (0,1,4):
+                results=[]
+                for engine in (None,q):
+                    state=DrainRAM(program,fill,length);before=state.bytes_at(ARENA,0x1000)
+                    expected=[['0x100171b0','0x4']]
+                    for node,buffer in zip(state.nodes,state.buffers):
+                        expected += [['0x10013408',hex(buffer)],['0x10013408',hex(node)]]
+                    expected += [['0x10017184','0x4']]
+                    invoke(state,0x10008fb0,qemu=engine,host=state.HOST)
+                    assert state.events==expected
+                    assert state.bytes_at(ARENA,0x1000)==before
+                    assert state.read(state.queue,4)==state.read(state.queue+4,4)==0
+                    results.append((state.events,sha(before)))
+                assert results[0]==results[1]
+                drained.append(dict(status='pass',fill=fill,nodes=length,
+                    supplied_service_calls=results[0][0],arena_sha256=results[0][1],
+                    queue_empty=True,busy_descriptor_and_entire_arena_unchanged=True))
     sources=[Path(__file__),stock,REF/'provenance.json',*(REF/name for name in REFERENCES)]
     sources += [ROOT/'scripts'/name for name in (
         'hp1020_xtensa_call0.py','hp1020_xtensa_properties.py','hp1020_xtensa_stock.py',
@@ -239,6 +306,8 @@ def main():
     report=dict(status='pass',source_sha256={str(p.relative_to(ROOT)):sha(p.read_bytes()) for p in sources},
         upstream_commit=REV,comparisons=comparisons,instructions=instructions,rearm_sha256=REARM_SHA,
         qemu_version=version,rearm_cases=cases,excluded_controls=excluded,status_decoding_cases=decoded,
+        ownership_boundary_instructions=boundary_instructions,software_drain_cases=drained,
+        software_drain_sha256=sha(raw(0x10008fb0,0x40)),
         inference='Strong register/descriptor-family match to the classic Synopsys device-only UDC used by the Linux snps_udc driver; not the DWC2 high-speed OTG register layout. This does not identify an AMD chip or prove a compatible silicon revision.',
         limits='Original re-arm construction executes with supplied globals and the submission literal redirected to RAM. Status decoding starts after the omitted IRQ/NAK prefix, with a supplied descriptor, and stops before either next path. No USB controller behavior, real DMA/interrupts/cache, setup/reset/cancel correctness, live traffic, boot or printing is established. HP-specific wrapper registers at 0xb3010000/4 remain outside this match. The Linux driver is a reference, not a linked runtime or usable HP port.',
         completed_native_page_lifecycles=0)
@@ -253,10 +322,13 @@ def main():
         'The old re-arm note called the leading byte an opcode/value 8. The full status word is `0x08000000`: the reference identifies bit 27 as the last-descriptor flag, with ownership bits 31:30 zero (host ready). Stock completion separately requires ownership 2 and reads the low 16-bit count. These labels are a cross-source interpretation supported by exact original bytes, not live controller observation.','',
         'Re-arm preserves descriptor bytes 4..7, selects an aligned nonzero next pointer or base plus offset, writes the target at +8, and clears +12. Submission precedes the status-byte stores in the original instruction order; this RAM experiment does not validate the bus ordering. Entire guard regions and completion flags are compared under two initial fills.','',
         f'{len(decoded)} separate original RAM-fragment cases cross all four ownership states, both last-flag values and counts 0/1/64/512/1024/65535. Both engines admit only owner state 2 and reconstruct the low 16-bit count. Three additional receive-status controls show that this fragment does not reject bits 29:28: they must not be promoted to valid-transfer evidence. Zero is only the decoded field value here, not proof of how a real zero-length or 65536-byte transfer is represented. The IRQ/NAK prefix and downstream update/re-arm paths remain excluded.','',
+        f'{len(drained)} original software-list drains (0/1/4 nodes, two fills) execute in both engines, with explicit host substitutes for free and outer mask calls. Original list peek/pop code runs; QEMU also executes its original short critical helper while the interpreter abstracts PS save/restore. The expected buffer/node free calls occur and the list becomes empty. A supplied busy descriptor and the entire guarded arena remain unchanged. This is software ownership bookkeeping, not DMA cancellation or proof that the substituted frees are safe on a device.','',
+        'Eleven additional instruction anchors retain that drain call sequence and the original IRQ mask-8 test. The corresponding upstream UR bit is 3, but HP also consults wrapper status 0xb3010004 bit 4 in this branch. Neither that observation nor the Linux reset routine supplies an HP quiescence condition.','',
+        'The pinned upstream OUT ISR checks endpoint BNA/HE before descriptor completion (snps_udc_core.c:2071-2092). It never interprets the declared RX status field. Thus the new software adapter treats nonzero RX as unsupported and reports endpoint-wide faults independently; RX zero is a conservative policy, not documented HP success. Upstream dequeue temporarily clears global RDE and gives back a request without an explicit quiescence poll (1250-1300). Its dummy-descriptor comments say HOST_BUSY while the code writes DMA_DONE (606-618). These are reasons to keep explicit external quiescence gates instead of copying this platform-specific cancellation path.','',
         'A separately byte-checked startup branch ORs `0x320` into device control, matching the reference BE/burst/mode bit positions. The branch and its peripheral stores are inspected only. This supports investigating the controller byte-order setting; it does not prove live configuration or portable DMA/cache behavior.','',
         'Use the existing Linux controller code to guide a small freestanding adapter, then assess a generic USB/printer class layer. Retain HP-specific startup, byte order, cache/alias and reset/abort questions. Do not add peripheral writes to the current software image pipeline or bypass the existing inert hardware-test ladder.','',report['limits'],'']
     OUT.with_suffix('.md').write_text('\n'.join(lines))
-    print(f'USB controller family: {len(comparisons)} byte-derived matches, {len(cases)} dual-engine re-arm cases, {len(decoded)} status fragments, {len(excluded)} pre-MMIO rejections')
+    print(f'USB controller family: {len(comparisons)} byte-derived matches, {len(cases)} dual-engine re-arm cases, {len(decoded)} status fragments, {len(drained)} software drains, {len(excluded)} pre-MMIO rejections')
 
 if __name__=='__main__':
     main()

@@ -1,0 +1,7 @@
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-receive-core/fixture.c:18:17:hash	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-receive-core/fixture.c:44:13:snapshot	64	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-receive-core/fixture.c:21:27:progress	64	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-receive-core/fixture.c:68:10:hp1020_rx_fixture_reset	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-receive-core/fixture.c:80:10:hp1020_rx_fixture_step	80	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-receive-core/fixture.c:138:10:hp1020_rx_fixture_storage	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-receive-core/fixture.c:139:10:hp1020_rx_fixture_output	0	static

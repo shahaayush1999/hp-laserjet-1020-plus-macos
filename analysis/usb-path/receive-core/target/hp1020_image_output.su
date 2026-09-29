@@ -1,0 +1,6 @@
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_output.c:5:27:progress	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_output.c:14:27:drain	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_output.c:24:27:consume	48	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_output.c:46:20:hp1020_image_output_init	48	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_output.c:54:20:hp1020_image_output_feed	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_output.c:60:20:hp1020_image_output_finish	16	static

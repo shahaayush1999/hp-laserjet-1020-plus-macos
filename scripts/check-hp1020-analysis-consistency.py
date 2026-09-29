@@ -1369,6 +1369,39 @@ def build_report() -> dict[str, Any]:
                                                     **image_output["sample_sha256"]}.items()),
                         "Whole-document output must preserve exact pixels across geometry changes, completion ordering and reused input; late input/consumer failures retain ownership and cannot be reported as successful printing.",
                         evidence="analysis/open-firmware-model/image-core/output-validation.json"))
+    receive = read_json("analysis/usb-path/receive-core/validation.json")
+    receive_cases = receive.get("cases", [])
+    receive_target = receive.get("target") or {}
+    checks.append(check("bounded_receive_document_ownership_and_restart_verified",
+                        receive["status"] == receive_target.get("status") == "pass"
+                        and receive["usb_transfers"] == receive["completed_native_page_lifecycles"] == 0
+                        and len(receive_cases) == len(receive_target.get("cases", [])) == 75
+                        and receive_target.get("state_and_memory_bytes") == 128168
+                        and receive_target.get("elf_sha256") == hashlib.sha256(
+                            (ROOT_DIR/"analysis/usb-path/receive-core/target/target-check.elf").read_bytes()).hexdigest()
+                        and all(c["status"] == "pass" and c["event_count"] == len(c["steps"])
+                                and all(s[23:25] == [0,1] for s in c["steps"])
+                                and c["steps"][-1][11] == c["output_bytes"] for c in receive_cases)
+                        and all(t["status"] == "pass" and t["case"] == c["case"]
+                                and t["all_steps_equal"] and t["all_pixels_and_storage_equal"]
+                                and t["state_and_memory_bytes"] == 128168
+                                for c,t in zip(receive_cases,receive_target.get("cases",[])))
+                        and sum(c["case"].startswith("status/") for c in receive_cases) == 32
+                        and sum(c["case"].startswith("endpoint-wide-fault/") for c in receive_cases) == 4
+                        and sum(c["case"].startswith("cancel/") for c in receive_cases) == 6
+                        and sum(c["case"].startswith("document/mixed/") and c["steps"][-1][10] == 1
+                                for c in receive_cases) == 6
+                        and sum(c["case"].startswith("document/output-failure-recovery/")
+                                and c["steps"][-1][1] == 2 and c["steps"][-1][10] == 1
+                                and any(s[0] == 8 and s[13:16] == [1,0,1] for s in c["steps"])
+                                for c in receive_cases) == 2
+                        and any(c["case"] == "document/65-changing-pages" and c["steps"][-1][18:20] == [65,65]
+                                for c in receive_cases)
+                        and all(hashlib.sha256((ROOT_DIR/name).read_bytes()).hexdigest() == digest
+                                for name,digest in {**receive["source_sha256"],**receive["fixture_sha256"],
+                                                    **receive["sample_sha256"]}.items()),
+                        "Bounded receive ownership must preserve FIFO data, exact pixels and stopped storage, reject stale events, and require both external quiescence acknowledgements before restart. Software transfer observations do not establish hardware USB/reset/printing.",
+                        evidence="analysis/usb-path/receive-core/validation.json"))
     checks.append(check("raster_callback_argument_and_unknown_isa_boundary",
                         callbacks["status"] == "pass" and callbacks["call_contract"]["argument_count"] == 4
                         and [len(f["unknown_instructions"]) for f in callbacks["functions"]] == [16,40,84],
@@ -2272,6 +2305,14 @@ def build_report() -> dict[str, Any]:
                         and all(c["status"] == "match" and c["stock_value"] == c["expected_value"]
                                 and c["load_sites"] for c in usb_family["comparisons"])
                         and len(usb_family["instructions"]) == 18
+                        and len(usb_family["ownership_boundary_instructions"]) == 11
+                        and len(usb_family["software_drain_cases"]) == 6
+                        and {(c["fill"],c["nodes"]) for c in usb_family["software_drain_cases"]} ==
+                            {(f,n) for f in (0,204) for n in (0,1,4)}
+                        and all(c["status"] == "pass" and c["queue_empty"]
+                                and c["busy_descriptor_and_entire_arena_unchanged"]
+                                and len(c["supplied_service_calls"]) == 2+2*c["nodes"]
+                                for c in usb_family["software_drain_cases"])
                         and len(usb_rearm_cases) == 12
                         and {(c["fill"],c["offset"],c["next_pointer"]) for c in usb_rearm_cases} ==
                             {(f,o,p) for f in (0,204) for o in (0,37) for p in ("0x0","0x22340567","0x22340560")}

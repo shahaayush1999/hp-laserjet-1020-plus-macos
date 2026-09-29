@@ -3,56 +3,57 @@
 Updated: 2026-09-29. **The open firmware replacement cannot print yet.** Do not
 contact/enumerate USB, upload firmware, execute print-driving hardware paths or
 change the installed printing setup. Work toward normal-use feature parity in
-verified stages, reusing open components; HP's internal architecture is not the
-implementation target. AGENTS.md owns the scope and authority.
+verified stages, reusing open components. AGENTS.md owns the scope and authority.
 
 ## Latest firmware evidence
 
-A strong **classic Synopsys USB device-controller family match** now has a
-concrete open-source reference: pinned Linux v6.12 controller code, preserved
-with license and provenance. The audit checks 24 literal/layout correspondences
-and 18 original instruction anchors. Twelve original descriptor-construction
-cases and 51 ownership/count fragments agree between independent QEMU and the
-bounded interpreter. The only submission address is redirected to RAM; two
-unredirected controls stop before MMIO. No USB controller behavior is emulated.
+The new `open-firmware/usb-receive-core/` composes a bounded receive queue with
+ZjStream parsing, JBIG decoding and software output. **75 sanitized host and
+75 independent QEMU cases pass**: delayed/out-of-order completions, full queues,
+all owner/status combinations, stale notifications, count/identity overflow,
+changing page sizes, 65 pages, framing failure and cancellation/restart.
+Input and output storage remain protected until separate external quiescence
+acknowledgements; both acknowledgement orders recover from accepted output and
+produce a fresh exact-pixel document. These acknowledgements are supplied by
+fixtures, not proof of real DMA/engine shutdown. No actual USB port exists yet.
 
-This is a family inference, not an AMD chip identification, working port or
-live USB proof. The status fragment admits ownership completion even with other
-status bits set; do not treat that alone as a valid transfer. The reference can
-now guide a small controller adapter beneath a generic USB/printer-class layer.
-Wrapper/PHY setup, byte order, cache/aliases and real reset/abort remain open.
-Evidence: `analysis/usb-path/controller-family.json/.md`. Focused log:
-`/tmp/hp1020-usb-controller-family-status-20260929.log`. Detailed handoff and the
-initial mask-oracle correction/snapshots are in `next-evidence.md` below.
+The component uses 128168 bytes of target state/fixed buffers, excluding code,
+stack and test captures. Focused log:
+`/tmp/hp1020-usb-receive-target-20260929.log`. Report:
+`analysis/usb-path/receive-core/validation.json/.md`. The previous image-output
+component remains validated at 45 host/45 QEMU cases, stream at 66/44; copies
+remain metadata. Retained-file parsing keeps its independent 16-page bound.
 
-Full sequential validation passed **107 consistency checks and both suites**,
-in `/tmp/hp1020-full-usb-family-20260929.log`, child logs
-`hp1020-validation.atqz2B`. No research process remains running. Tested source
-hashes match; the stock ELF and pinned upstream bytes are unchanged. Reports
-were regenerated, never patched. The preceding document checkpoint is `35e3f07`
-(106 checks and both suites, `/tmp/hp1020-full-page-reuse-20260929.log`).
+The pinned classic Synopsys reference does not interpret RX status values, and
+its cancellation return is not an HP quiescence condition. A generation-scoped
+endpoint-fault API now fences even empty/already-ready queues. Six original
+software-list drains agree in both engines with explicit free/mask substitutes:
+the list empties while a supplied busy descriptor remains unchanged. They add
+no hardware cancellation proof. Controller-family evidence retains 24 literal
+matches, 18 original anchors, 12 re-arms, 51 status fragments, two pre-MMIO
+rejections, plus 11 new ownership/reset anchors. Wrapper/PHY, byte order,
+cache/aliases and real reset/abort remain unresolved.
 
-That document checkpoint removed streaming's 16-page limit without increasing
-component memory. **45 host/45 QEMU output cases** (31 successes, 14 expected
-rejections) and **66 host/44 QEMU stream cases** cover 65 mixed-size pages,
-65 consecutive documents, delayed output, final bands and checked count overflow.
-Whole-file inspection keeps its separate 16-page bound. State/fixed memory is
-123968 bytes, excluding code, stack, caller packets and captures. Copies remain
-metadata; no copy replay, physical output or real cancellation is implemented.
+Full sequential validation passed **108 consistency checks and both suites**,
+in `/tmp/hp1020-full-usb-receive-20260929.log` (child `hp1020-validation.SAqbeg`).
+No validation process remains running. Tested source hashes match; reports were
+regenerated, never patched. `scripts/validate-hp1020-output-submission.py` is a
+saved, **unexecuted** next-experiment draft, excluded from that validation.
+The detailed handoff preserves the preamble-fixture correction and earlier
+74-case host result with exact sources. The preceding full baseline is `89863e9`.
 
-Next use the pinned controller source and original bytes to resolve receive-error
-and reset/abort ownership before a bounded software receive adapter. Preserve
-queued output until its external consumer is quiescent; clearing C state is not
-cancellation. Detailed questions: `analysis/open-firmware-model/next-evidence.md`.
-Tool recovery and the source map: `analysis/README.md`.
+Next close controller receive/reset ownership and the physical output contract
+using original bytes and narrow offline execution. Keep software quiescence
+promises distinct from actual hardware state. Detailed questions and run paths:
+`analysis/open-firmware-model/next-evidence.md`; source map/tool recovery:
+`analysis/README.md`. Do not repeat resolved selector/cancellation investigations.
 
 Preserve separate evidence categories: 26 completed empty-document lifecycles,
 six conditional original null reads, 28 retirement cases, 36 native page
-lifecycles with supplied completion, and 42 fragment/bypass cases. The new
-software streams and USB fragments add **zero native page lifecycles**. The
-replacement still lacks demonstrated boot, USB, pixel packing, engine control,
-timing/cache, physical printing and power-cycle recovery. Do not repeat resolved
-selector/cancellation investigations or modify the working Mac setup.
+lifecycles with supplied completion, and 42 fragment/bypass cases. New receive
+software and USB fragments add **zero native page lifecycles and zero USB
+transfers**. Boot, actual USB, physical packing, engine control, timing/cache,
+printing and power-cycle recovery remain unproved.
 
 ## Installed Mac driver (separate, preserve)
 

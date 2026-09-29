@@ -804,9 +804,8 @@ Tested source hashes match and all validation processes have finished. The
 preceding complete 106-check document checkpoint is saved at `35e3f07`.
 
 Use this family-specific driver as the controller reference, rather than
-starting with a generic DWC2 port. Next derive the receive ownership/error and
-reset/abort contract from its source and the corresponding stock instruction
-boundaries, then connect a bounded software adapter to the existing parser.
+starting with a generic DWC2 port. The first bounded receive/document adapter
+is now implemented below; real controller reset/abort remains unresolved.
 Physical quiescence is not supplied by clearing C state or by this RAM sink.
 TinyUSB remains useful above that adapter for standard USB/printer-class work;
 no RTOS or Linux port is required merely to reuse these contracts. Retain the
@@ -820,8 +819,93 @@ control is shared across OUT endpoints, so queue/cancellation handling must keep
 control traffic and bulk ownership consistent. `udc_dequeue` also distinguishes
 a host-ready descriptor from one already touched by DMA. These are upstream
 design observations, not tested HP reset/abort semantics. The existing stock
-bulk callback and drain names are only candidates; consult their original
-instructions before treating a queue drain as DMA quiescence.
+bulk callback names are only candidates. The software drain has now been
+checked against original instructions and executed as described below.
+
+### Receive ownership and restart composition (2026-09-29)
+
+The independent pinned-source review exposed two constraints that family layout
+agreement alone did not provide. `snps_udc_core.c:2071-2092` handles endpoint
+BNA/HE separately before normal completion; endpoint errors cannot be tied only
+to an outstanding descriptor ticket. The header declares RX bits 29:28 but the
+driver never interprets their values. RX zero is therefore a conservative policy,
+not established HP success semantics. `udc_dequeue` (1250-1300) temporarily stops
+global RDE, inspects descriptor ownership, restores RDE and gives the request
+back without a separate quiescence poll. The dummy helper's HOST_BUSY comments
+conflict with its actual DMA_DONE expression (606-618). Neither behavior is a
+portable HP memory-reuse contract.
+
+The controller-family generator now adds 11 exact instruction anchors and six
+dual-engine software-list drain cases at `0x10008fb0`: lengths 0/1/4, fills 0/204.
+Original list peek/pop execute; free and outer mask calls are explicit supplied
+services. QEMU executes the original short list critical helper, while the
+interpreter abstracts PS save/restore. Buffer/node free calls match the separate
+oracle, the list becomes empty, and a supplied busy descriptor plus the entire
+guarded arena remain unchanged. This is conditional software bookkeeping, not
+proof that those frees would be safe during device DMA. No peripheral literal
+is redirected for these drain cases. The original IRQ checks mask 8, consistent
+with the reference's UR bit 3, but also consults HP wrapper status
+`0xb3010004` bit 4. The complete reset path and physical quiescence remain open.
+Focused log: `/tmp/hp1020-usb-family-ownership-20260929.log`.
+
+`open-firmware/usb-receive-core/` implements a fixed four-slot receive queue and
+composes it with the existing image-output pipeline. Reservation sequence and
+generation reject old or duplicate callbacks; later completions wait behind
+the head. A full queue returns backpressure. Owner 2, RX zero, last set and a
+bounded count are the conservative single-descriptor profile. Count zero is
+an empty transfer, never EOF. A separate generation-scoped endpoint-fault API
+fences pending, ready, consumed and empty queue states. A review caught the
+initial design's ticket-only fault path before execution and prompted that API.
+
+Stop or error preserves input and output ownership. Restart requires separate
+current-generation receive and output quiescence acknowledgements, fences all
+production before either acknowledgement and increments generation before reuse.
+These are explicit external promises, not an implemented DMA/engine abort. The
+composition must not reinitialize or restart its embedded receive queue alone.
+All APIs are serialized and nonreentrant; the eventual port owns interrupts,
+stable completion observations, barriers/cache and actual controller state.
+
+Focused validation passes **75 sanitized host and 75 QEMU cases**, including
+all owner/RX/last combinations, count bounds, endpoint-wide faults, a late head,
+full queues, slot wrap, stale generations, sequence/generation exhaustion,
+mixed-size documents, 65 pages, zero transfers between real bytes and explicit
+EOF. Independently decoded patterns verify exact source pixels. A malformed
+chunk preserves later ready input. Failure after output acceptance retains that
+slot; both acknowledgement orders then permit a fresh exact-pixel document.
+Exact pre-operation snapshots compare memory and ownership across stop/fault,
+each acknowledgement and rejected restart. Accepted output is rechecked at
+every observation, not only on normal completion. This stronger retention check
+was added after independent review of the first 74-case host-only run.
+
+Target component state/fixed memory is **128168 bytes**, excluding code, stack
+and test captures. Conservative target instruction audit passes unchanged.
+Report: `analysis/usb-path/receive-core/validation.json/.md`; log
+`/tmp/hp1020-usb-receive-target-20260929.log`; exact run sources/captures:
+`/tmp/hp1020-usb-receive-y0ycbwlh/`. These are **zero real USB transfers and zero
+additional native page lifecycles**. Input/output callbacks are supplied.
+
+The first host assertion incorrectly expected an arbitrary `BAD!` preamble to
+fail, but the existing parser intentionally searches for `JZJZ`. Original source
+inspection confirmed that behavior; the fixture now uses an invalid chunk after
+valid magic. Failed run/source: `/tmp/hp1020-usb-receive-0_c8nray/`, log
+`/tmp/hp1020-usb-receive-host-20260929.log`. The successful earlier 74-case host
+report and exact sources remain at `/tmp/hp1020-usb-receive-asdrun5m/`; neither
+that report nor its hashes were patched after strengthening the tests. Both
+captures are byte-preserved under `analysis/usb-path/receive-core/source-snapshots/`
+as `preamble-oracle.tar.gz` and `first-host-retention-review.tar.gz`, with
+member-hash manifests. The current report contains both host and target results.
+
+Full sequential validation passed **108 consistency checks and both suites**,
+in `/tmp/hp1020-full-usb-receive-20260929.log` (child `hp1020-validation.SAqbeg`).
+All validation processes finished; tested sources still match. The preceding
+107-check checkpoint is `89863e9`. No installed printing files or probe allowlists
+were changed. The prepared `scripts/validate-hp1020-output-submission.py` draft
+is **unexecuted** and excluded from this validation. It proposes separately cut
+original pointer/count fragments, always stopping before video stores/readiness;
+no pixel-packing conclusion may be drawn from that arithmetic. Next evidence
+must establish real controller ownership/reset and
+physical output contracts; this queue deliberately cannot infer either from
+its own success.
 
 ## Preferred raster bypass (2026-09-10)
 

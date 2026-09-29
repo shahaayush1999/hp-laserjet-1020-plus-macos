@@ -664,6 +664,104 @@
     }
   ],
   "limits": "Original re-arm construction executes with supplied globals and the submission literal redirected to RAM. Status decoding starts after the omitted IRQ/NAK prefix, with a supplied descriptor, and stops before either next path. No USB controller behavior, real DMA/interrupts/cache, setup/reset/cancel correctness, live traffic, boot or printing is established. HP-specific wrapper registers at 0xb3010000/4 remain outside this match. The Linux driver is a reference, not a linked runtime or usable HP port.",
+  "ownership_boundary_instructions": [
+    {
+      "address": "0x10008fb9",
+      "bytes": "58387d",
+      "opcode": "call8",
+      "operands": [
+        268530096
+      ]
+    },
+    {
+      "address": "0x10008fc4",
+      "bytes": "58283d",
+      "opcode": "call8",
+      "operands": [
+        268513468
+      ]
+    },
+    {
+      "address": "0x10008fc9",
+      "bytes": "88a3",
+      "opcode": "l32i.n",
+      "operands": [
+        8,
+        10,
+        12
+      ]
+    },
+    {
+      "address": "0x10008fcb",
+      "bytes": "8a81",
+      "opcode": "l32i.n",
+      "operands": [
+        10,
+        8,
+        4
+      ]
+    },
+    {
+      "address": "0x10008fd0",
+      "bytes": "58290d",
+      "opcode": "call8",
+      "operands": [
+        268514312
+      ]
+    },
+    {
+      "address": "0x10008fd9",
+      "bytes": "58281d",
+      "opcode": "call8",
+      "operands": [
+        268513360
+      ]
+    },
+    {
+      "address": "0x10008fdf",
+      "bytes": "58290a",
+      "opcode": "call8",
+      "operands": [
+        268514312
+      ]
+    },
+    {
+      "address": "0x10008fea",
+      "bytes": "583866",
+      "opcode": "call8",
+      "operands": [
+        268530052
+      ]
+    },
+    {
+      "address": "0x1000821b",
+      "bytes": "c098",
+      "opcode": "movi.n",
+      "operands": [
+        9,
+        8
+      ]
+    },
+    {
+      "address": "0x1000821f",
+      "bytes": "795802",
+      "opcode": "bany",
+      "operands": [
+        5,
+        9,
+        268468773
+      ]
+    },
+    {
+      "address": "0x10008232",
+      "bytes": "280a10",
+      "opcode": "movi",
+      "operands": [
+        8,
+        16
+      ]
+    }
+  ],
   "qemu_version": "QEMU emulator version 11.1.1",
   "rearm_cases": [
     {
@@ -884,6 +982,197 @@
     }
   ],
   "rearm_sha256": "44aeebdd192f1f632caae561daba16438239e3cc12e8594af7ed6a8aeb7d9b84",
+  "software_drain_cases": [
+    {
+      "arena_sha256": "a3cade18dc00b6458b0bd9f222304292cceff590220fe7ec4f5e88b358610beb",
+      "busy_descriptor_and_entire_arena_unchanged": true,
+      "fill": 0,
+      "nodes": 0,
+      "queue_empty": true,
+      "status": "pass",
+      "supplied_service_calls": [
+        [
+          "0x100171b0",
+          "0x4"
+        ],
+        [
+          "0x10017184",
+          "0x4"
+        ]
+      ]
+    },
+    {
+      "arena_sha256": "1448cffe6740a106fa9967b1c1f86db3645f830eb1a1ddfadc87871ca787e5f5",
+      "busy_descriptor_and_entire_arena_unchanged": true,
+      "fill": 0,
+      "nodes": 1,
+      "queue_empty": true,
+      "status": "pass",
+      "supplied_service_calls": [
+        [
+          "0x100171b0",
+          "0x4"
+        ],
+        [
+          "0x10013408",
+          "0x22000800"
+        ],
+        [
+          "0x10013408",
+          "0x22000400"
+        ],
+        [
+          "0x10017184",
+          "0x4"
+        ]
+      ]
+    },
+    {
+      "arena_sha256": "b0c5de776d0f89f4c06ab9157b398b60d881ce6d1523ea0a2ba2e2bb58f4184b",
+      "busy_descriptor_and_entire_arena_unchanged": true,
+      "fill": 0,
+      "nodes": 4,
+      "queue_empty": true,
+      "status": "pass",
+      "supplied_service_calls": [
+        [
+          "0x100171b0",
+          "0x4"
+        ],
+        [
+          "0x10013408",
+          "0x22000800"
+        ],
+        [
+          "0x10013408",
+          "0x22000400"
+        ],
+        [
+          "0x10013408",
+          "0x22000840"
+        ],
+        [
+          "0x10013408",
+          "0x22000440"
+        ],
+        [
+          "0x10013408",
+          "0x22000880"
+        ],
+        [
+          "0x10013408",
+          "0x22000480"
+        ],
+        [
+          "0x10013408",
+          "0x220008c0"
+        ],
+        [
+          "0x10013408",
+          "0x220004c0"
+        ],
+        [
+          "0x10017184",
+          "0x4"
+        ]
+      ]
+    },
+    {
+      "arena_sha256": "30011fc929d3c0dacd25aa2ba576ac976fb88812ac8f71ee1e283f09af0fa7a1",
+      "busy_descriptor_and_entire_arena_unchanged": true,
+      "fill": 204,
+      "nodes": 0,
+      "queue_empty": true,
+      "status": "pass",
+      "supplied_service_calls": [
+        [
+          "0x100171b0",
+          "0x4"
+        ],
+        [
+          "0x10017184",
+          "0x4"
+        ]
+      ]
+    },
+    {
+      "arena_sha256": "5da201a09d8aaf57d0ecf66d430525886a8eaf791796b3b806c32ba30574f749",
+      "busy_descriptor_and_entire_arena_unchanged": true,
+      "fill": 204,
+      "nodes": 1,
+      "queue_empty": true,
+      "status": "pass",
+      "supplied_service_calls": [
+        [
+          "0x100171b0",
+          "0x4"
+        ],
+        [
+          "0x10013408",
+          "0x22000800"
+        ],
+        [
+          "0x10013408",
+          "0x22000400"
+        ],
+        [
+          "0x10017184",
+          "0x4"
+        ]
+      ]
+    },
+    {
+      "arena_sha256": "b9b322dbc9d3418315457bd1db9277a0cc0bdc6a87860171b44005422615d112",
+      "busy_descriptor_and_entire_arena_unchanged": true,
+      "fill": 204,
+      "nodes": 4,
+      "queue_empty": true,
+      "status": "pass",
+      "supplied_service_calls": [
+        [
+          "0x100171b0",
+          "0x4"
+        ],
+        [
+          "0x10013408",
+          "0x22000800"
+        ],
+        [
+          "0x10013408",
+          "0x22000400"
+        ],
+        [
+          "0x10013408",
+          "0x22000840"
+        ],
+        [
+          "0x10013408",
+          "0x22000440"
+        ],
+        [
+          "0x10013408",
+          "0x22000880"
+        ],
+        [
+          "0x10013408",
+          "0x22000480"
+        ],
+        [
+          "0x10013408",
+          "0x220008c0"
+        ],
+        [
+          "0x10013408",
+          "0x220004c0"
+        ],
+        [
+          "0x10017184",
+          "0x4"
+        ]
+      ]
+    }
+  ],
+  "software_drain_sha256": "53471cdf86a22ebef7367054869410aaad17876ac640e780545f55aa0e594146",
   "source_sha256": {
     "analysis/sihp1020.elf": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
     "analysis/usb-path/controller-reference/linux-v6.12/GPL-2.0": "f6b78c087c3ebdf0f3c13415070dd480a3f35d8fc76f3d02180a407c1c812f79",
@@ -899,7 +1188,7 @@
     "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
     "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
     "scripts/hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
-    "scripts/validate-hp1020-usb-controller-family.py": "325d4a41e58ce8ee1d0993c9332d8e60f16b366c1354c409979c81a47aafb7a9"
+    "scripts/validate-hp1020-usb-controller-family.py": "21e3e0cdc02e65552b1003e7f8d03a5023af07ad050420b6c16c307ce759a21a"
   },
   "status": "pass",
   "status_decoding_cases": [

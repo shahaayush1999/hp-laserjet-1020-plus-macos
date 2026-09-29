@@ -1,5 +1,5 @@
 {
-  "check_count": 107,
+  "check_count": 108,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -359,6 +359,12 @@
       "detail": "Whole-document output must preserve exact pixels across geometry changes, completion ordering and reused input; late input/consumer failures retain ownership and cannot be reported as successful printing.",
       "evidence": "analysis/open-firmware-model/image-core/output-validation.json",
       "name": "bounded_documents_to_software_output_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Bounded receive ownership must preserve FIFO data, exact pixels and stopped storage, reject stale events, and require both external quiescence acknowledgements before restart. Software transfer observations do not establish hardware USB/reset/printing.",
+      "evidence": "analysis/usb-path/receive-core/validation.json",
+      "name": "bounded_receive_document_ownership_and_restart_verified",
       "severity": "watch"
     },
     {

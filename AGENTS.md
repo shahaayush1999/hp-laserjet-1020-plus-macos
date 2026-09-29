@@ -18,6 +18,9 @@ Documentation is agent memory, never a deliverable he must review.
 - Do not invent percentage-complete estimates or promise a completion date.
 - Make routine technical/maintenance choices autonomously. Ask only for missing
   physical actions, consequential decisions or authorization actually needed.
+- Use focused parallel agents when investigations or reviews are independently
+  useful. Keep one lead responsible for shared context, integration and claims;
+  avoid duplicate work and coordinate all validation sequentially.
 - Keep these preferences across new tasks. Do not ask him to maintain context.
 
 ## Startup
