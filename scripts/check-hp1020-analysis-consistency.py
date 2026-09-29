@@ -2382,6 +2382,155 @@ def build_report() -> dict[str, Any]:
                         "Pinned open-controller definitions and original RAM-only descriptor behavior must agree; family compatibility remains an inference, with no live USB transfer or printer lifecycle claim.",
                         evidence="analysis/usb-path/controller-family.json"))
 
+    output_format = read_json("analysis/hardware-boundary/output-format.json")
+    format_cases = output_format["cases"]
+    format_tables = {"bpp1-selector0": [0,0xffffffff], "bpp1-selector1": [0,0xffffffff],
+                     "bpp1-selector2": [0,31], "bpp2-selector0": [0,31,511,8191],
+                     "bpp2-selector1": [0,32640,524280,4194303], "bpp2-selector2": [0,7,31,127]}
+    checks.append(check("original_output_format_fragments_before_mmio_verified",
+                        output_format["status"] == "pass" and len(format_cases) == 12
+                        and output_format["independent_table_oracle"] == format_tables
+                        and output_format["completed_native_page_lifecycles"] == output_format["usb_transfers"]
+                            == output_format["peripheral_instructions_executed"] == 0
+                        and len(output_format["instruction_anchors"]) == 37
+                        and len(output_format["original_byte_ranges"]) == 4 and len(output_format["literals"]) == 15
+                        and output_format["stock_elf_sha256"] == hashlib.sha256(
+                            (ROOT_DIR/"analysis/sihp1020.elf").read_bytes()).hexdigest()
+                        and {(c["case"]["bpp"],c["case"]["selector"],c["case"]["old_word"]) for c in format_cases}
+                            == {(b,s,w) for b in (1,2) for s in (0,1,2) for w in (0,0xffffffff)}
+                        and all(c["interpreter"]["observed"] == c["qemu"]["observed"]
+                                and c["interpreter"]["memory_regions"] == c["qemu"]["memory_regions"]
+                                and [w["word"] for w in c["interpreter"]["observed"]["table_words"]]
+                                    == format_tables[f'bpp{c["case"]["bpp"]}-selector{c["case"]["selector"]}']
+                                and c["interpreter"]["observed"]["control_mask_value"]["value"]
+                                    == ((c["case"]["old_word"] & 0xfcffffff) | (0x1000000 if c["case"]["bpp"] == 2 else 0))
+                                and c["interpreter"]["observed"]["stride_mask_value"]["value"]
+                                    == ((c["case"]["old_word"] & 0xffff0000) | 1200)
+                                for c in format_cases)
+                        and all(c[e]["status"] == "pass" and c[e]["exact_nonstack_memory_match"]
+                                and c[e]["peripheral_instructions_executed"] == 0
+                                and len(c[e]["rejected_before_execution"]) == 29
+                                and len(c[e]["phases"]) == (4 if c["case"]["bpp"] == 1 else 8)
+                                and all(p["original_entry"] == "0x10014910"
+                                        and p["original_entry"] in p["visited"] and p["resume"] in p["visited"]
+                                        and p["stop_before"] not in p["visited"] and p["exact_nonstack_memory_match"]
+                                        and not (set(p["visited"]) & set(c[e]["rejected_before_execution"]))
+                                        for p in c[e]["phases"])
+                                for c in format_cases for e in ("interpreter","qemu"))
+                        and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h
+                                for n,h in output_format["source_sha256"].items()),
+                        "Original format tables and masks must agree at explicit pre-MMIO cuts; no peripheral configuration, physical pixel meaning, polarity or output acceptance is established.",
+                        evidence="analysis/hardware-boundary/output-format.json"))
+
+    class_reset = read_json("analysis/usb-path/class-reset.json")
+    reset_cases = class_reset["cases"]
+    checks.append(check("original_class_reset_before_control_transfer_verified",
+                        class_reset["status"] == "pass" and len(reset_cases) == 20
+                        and len(class_reset["instruction_anchors"]) == 18
+                        and len(class_reset["original_byte_ranges"]) == 9
+                        and class_reset["completed_native_page_lifecycles"] == class_reset["usb_transfers"]
+                            == class_reset["completed_usb_control_transfers"] == class_reset["peripheral_instructions_executed"] == 0
+                        and class_reset["stock_elf_sha256"] == hashlib.sha256(
+                            (ROOT_DIR/"analysis/sihp1020.elf").read_bytes()).hexdigest()
+                        and sum(c["case"]["reset"] for c in reset_cases) == 16
+                        and sum(c["case"]["noncanonical_fields"] for c in reset_cases) == 4
+                        and {c["case"]["handle"] for c in reset_cases} == {1,2}
+                        and {c["case"]["nodes"] for c in reset_cases} == {0,1,4}
+                        and all(all(c["interpreter"][f] == c["qemu"][f] for f in
+                                ("supplied_service_calls","stop_before","stall_intent","packet_after",
+                                 "control_count","queue_empty","nonstack_memory")) for c in reset_cases)
+                        and all(c[e]["status"] == "pass" and c[e]["exact_nonstack_ram_equal"]
+                                and c[e]["supplied_busy_status_word_unchanged"]
+                                and c[e]["original_registry_and_drain_executed"] == c["case"]["reset"]
+                                and c[e]["stall_intent"] != c["case"]["reset"]
+                                and c[e]["stop_before"] == ("0x100096a9" if c["case"]["reset"] else "0x1000985c")
+                                and (c[e]["queue_empty"] and c[e]["control_count"] == 0
+                                     and len(c[e]["supplied_service_calls"]) == 2+2*c["case"]["nodes"]
+                                     if c["case"]["reset"] else not c[e]["supplied_service_calls"])
+                                and class_reset["original_entry"] in c[e]["visited"]
+                                and class_reset["resume"] in c[e]["visited"]
+                                and c[e]["stop_before"] not in c[e]["visited"]
+                                and len(c[e]["rejected_before_execution"]) == 10
+                                and not (set(c[e]["visited"]) & set(c[e]["rejected_before_execution"]))
+                                for c in reset_cases for e in ("interpreter","qemu"))
+                        and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h
+                                for n,h in class_reset["source_sha256"].items()),
+                        "Original request dispatch, registration clearing and list draining stop before transmission; supplied frees and a standalone busy word do not establish actual DMA/reset quiescence.",
+                        evidence="analysis/usb-path/class-reset.json"))
+
+    printer_class = read_json("analysis/usb-path/printer-class/validation.json")
+    printer_cases, printer_target = printer_class["cases"], printer_class.get("target") or {}
+    checks.append(check("bounded_printer_class_document_recovery_verified",
+                        printer_class["status"] == printer_target.get("status") == "pass"
+                        and len(printer_cases) == len(printer_target.get("cases",[])) == 73
+                        and printer_class["completed_native_page_lifecycles"] == printer_class["usb_transfers"]
+                            == printer_class["completed_usb_control_transfers"] == 0
+                        and printer_target.get("state_and_memory_bytes") == 128216
+                        and printer_target.get("elf_sha256") == hashlib.sha256(
+                            (ROOT_DIR/"analysis/usb-path/printer-class/target/target-check.elf").read_bytes()).hexdigest()
+                        and all(c["status"] == "pass" and c["event_count"] == len(c["steps"])
+                                and all(len(s) == 64 and s[34:36] == [0,1] for s in c["steps"])
+                                and c["steps"][-1][26] == c["output_bytes"]
+                                and c["steps"][-1][42] == c["control_reply_bytes"] for c in printer_cases)
+                        and all(t["status"] == "pass" and t["case"] == c["case"] and t["all_steps_equal"]
+                                and t["all_pixels_storage_and_control_replies_equal"]
+                                and t["state_and_memory_bytes"] == 128216
+                                for c,t in zip(printer_cases,printer_target.get("cases",[])))
+                        and sum(c["case"].startswith("reset/type=") for c in printer_cases) == 24
+                        and sum(c["case"].startswith("repeated-reset/") for c in printer_cases) == 6
+                        and sum(c["case"].startswith("superseded-reset/") for c in printer_cases) == 6
+                        and sum(c["case"].startswith("accepted-output-reset-fresh-document/")
+                                and c["interrupted_source_prefix_bytes"] == 148800 and c["output_bytes"] == 148832
+                                and c["steps"][-1][16] == 2 and c["steps"][-1][25] == 1 for c in printer_cases) == 12
+                        and any(c["case"] == "generation-exhaustion-retains-accepted-output"
+                                and c["output_bytes"] == 148800 and c["steps"][-1][7] == 1
+                                and c["steps"][-1][16] == 0xffffffff for c in printer_cases)
+                        and any(c["case"] == "request-identity-exhaustion-retains-ep0"
+                                and c["steps"][-1][7] == 1 and c["control_reply_bytes"] == 1 for c in printer_cases)
+                        and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h
+                                for n,h in {**printer_class["source_sha256"],**printer_class["fixture_sha256"],
+                                            **printer_class["sample_sha256"]}.items()),
+                        "Wire parsing, EP0 response lifetime and document reset require independent identities and explicit receive/output/transport promises; passing software composition tests does not prove physical status, USB traffic or printing.",
+                        evidence="analysis/usb-path/printer-class/validation.json"))
+
+    port_status = read_json("analysis/usb-path/port-status.json")
+    port_cases = port_status["cases"]
+    checks.append(check("original_usb_port_status_constant_before_transmission_verified",
+                        port_status["status"] == "pass" and len(port_cases) == 28
+                        and len(port_status["instruction_anchors"]) == 21
+                        and len(port_status["literal_anchors"]) == 5 and len(port_status["original_byte_ranges"]) == 6
+                        and port_status["completed_native_page_lifecycles"] == port_status["usb_transfers"]
+                            == port_status["completed_usb_control_transfers"] == port_status["peripheral_instructions_executed"] == 0
+                        and port_status["stock_elf_sha256"] == hashlib.sha256(
+                            (ROOT_DIR/"analysis/sihp1020.elf").read_bytes()).hexdigest()
+                        and sum(c["case"]["port_status"] for c in port_cases) == 24
+                        and sum(c["case"]["noncanonical_fields"] for c in port_cases) == 18
+                        and {c["case"]["status_seed"] for c in port_cases} == {0,0xffffffff,0xe6101100}
+                        and all(all(c["interpreter"][f] == c["qemu"][f] for f in
+                                ("stop_before","explicit_cuts","stack_pointer","constant_a3","constant_a7",
+                                 "stall_intent","control_pointer","control_count","prepared_byte",
+                                 "response_frame","packet_after","nonstack_memory","selected_visited"))
+                                for c in port_cases)
+                        and all(c[e]["status"] == "pass" and c[e]["exact_nonstack_ram_equal"]
+                                and c[e]["response_frame_matches_independent_oracle"]
+                                and c[e]["constant_a3"] == c[e]["constant_a7"] == 0
+                                and [p["resume"] for p in c[e]["explicit_cuts"]]
+                                    == ["0x1000912d","0x10009286","0x10009399"]
+                                and c[e]["peripheral_instructions_executed"] == 0
+                                and not c[e]["supplied_service_calls"]
+                                and (c[e]["prepared_byte"] == 0 and c[e]["control_count"] == 1
+                                     and c[e]["stop_before"] == "0x100096a9"
+                                     if c["case"]["port_status"] else c[e]["stall_intent"]
+                                     and c[e]["stop_before"] == "0x1000985c")
+                                and len(c[e]["rejected_before_execution"]) == 16
+                                and not (set(c[e]["selected_visited"]) & set(c[e]["rejected_before_execution"]))
+                                and c[e]["stop_before"] not in c[e]["selected_visited"]
+                                for c in port_cases for e in ("interpreter","qemu"))
+                        and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h
+                                for n,h in port_status["source_sha256"].items()),
+                        "Original isolated zero definitions and status-response construction must produce the fixed byte before sender entry; unrelated supplied status RAM is not physical calibration or observed USB traffic.",
+                        evidence="analysis/usb-path/port-status.json"))
+
     fail_count = severity_count(checks, "fail")
     return {
         "summary": "Cross-report consistency gate for the current offline reverse-engineering state.",

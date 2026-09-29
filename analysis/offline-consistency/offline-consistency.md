@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `109`
+- checks: `113`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -123,6 +123,10 @@ It does not contact the printer.
 | `control_in_open_marker_descriptor_shape` | `watch` | A 38-byte open marker response should model as one flagged control-IN descriptor. | `analysis/usb-path/control-in-data-stage.json` |
 | `control_in_large_response_batches` | `watch` | Large control-IN responses should preserve the modeled five-descriptor batch limit before another kick. | `analysis/usb-path/control-in-data-stage.json` |
 | `stock_usb_descriptor_software_and_family_reference_verified` | `watch` | Pinned open-controller definitions and original RAM-only descriptor behavior must agree; family compatibility remains an inference, with no live USB transfer or printer lifecycle claim. | `analysis/usb-path/controller-family.json` |
+| `original_output_format_fragments_before_mmio_verified` | `watch` | Original format tables and masks must agree at explicit pre-MMIO cuts; no peripheral configuration, physical pixel meaning, polarity or output acceptance is established. | `analysis/hardware-boundary/output-format.json` |
+| `original_class_reset_before_control_transfer_verified` | `watch` | Original request dispatch, registration clearing and list draining stop before transmission; supplied frees and a standalone busy word do not establish actual DMA/reset quiescence. | `analysis/usb-path/class-reset.json` |
+| `bounded_printer_class_document_recovery_verified` | `watch` | Wire parsing, EP0 response lifetime and document reset require independent identities and explicit receive/output/transport promises; passing software composition tests does not prove physical status, USB traffic or printing. | `analysis/usb-path/printer-class/validation.json` |
+| `original_usb_port_status_constant_before_transmission_verified` | `watch` | Original isolated zero definitions and status-response construction must produce the fixed byte before sender entry; unrelated supplied status RAM is not physical calibration or observed USB traffic. | `analysis/usb-path/port-status.json` |
 
 ## Practical Meaning
 

@@ -233,6 +233,9 @@ run_step "Deliver decoded software pixels through bounded original ring storage"
 run_step "Execute original output pointer/count fragments before peripheral access" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-output-submission.py"
 
+run_step "Execute original output format table/mask fragments before peripheral access" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-output-format.py"
+
 run_step "Connect the compiled open decoder to bounded software output ownership" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-image-ring.py" --target
 
@@ -241,6 +244,9 @@ run_step "Consume whole documents through bounded software output ownership" \
 
 run_step "Receive bounded input and recover software documents after explicit quiescence" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-usb-receive.py" --target
+
+run_step "Compose printer-class requests with bounded document recovery" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-usb-printer.py" --target
 
 run_step "Regenerate video band queue/list model" \
   "$ROOT_DIR/scripts/model-hp1020-video-band-queue.py"
@@ -319,6 +325,12 @@ run_step "Regenerate USB bulk re-arm model" \
 
 run_step "Compare USB controller family and execute original descriptor RAM fragments" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-usb-controller-family.py"
+
+run_step "Execute original printer-class reset bookkeeping before control transmission" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-usb-class-reset.py"
+
+run_step "Execute original port-status construction before control transmission" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-usb-port-status.py"
 
 run_step "Regenerate USB parser shim contract" \
   "$ROOT_DIR/scripts/model-hp1020-usb-parser-shim-contract.py"

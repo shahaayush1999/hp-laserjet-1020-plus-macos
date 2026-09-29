@@ -1,5 +1,5 @@
 {
-  "check_count": 109,
+  "check_count": 113,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -653,6 +653,30 @@
       "detail": "Pinned open-controller definitions and original RAM-only descriptor behavior must agree; family compatibility remains an inference, with no live USB transfer or printer lifecycle claim.",
       "evidence": "analysis/usb-path/controller-family.json",
       "name": "stock_usb_descriptor_software_and_family_reference_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Original format tables and masks must agree at explicit pre-MMIO cuts; no peripheral configuration, physical pixel meaning, polarity or output acceptance is established.",
+      "evidence": "analysis/hardware-boundary/output-format.json",
+      "name": "original_output_format_fragments_before_mmio_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Original request dispatch, registration clearing and list draining stop before transmission; supplied frees and a standalone busy word do not establish actual DMA/reset quiescence.",
+      "evidence": "analysis/usb-path/class-reset.json",
+      "name": "original_class_reset_before_control_transfer_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Wire parsing, EP0 response lifetime and document reset require independent identities and explicit receive/output/transport promises; passing software composition tests does not prove physical status, USB traffic or printing.",
+      "evidence": "analysis/usb-path/printer-class/validation.json",
+      "name": "bounded_printer_class_document_recovery_verified",
+      "severity": "watch"
+    },
+    {
+      "detail": "Original isolated zero definitions and status-response construction must produce the fixed byte before sender entry; unrelated supplied status RAM is not physical calibration or observed USB traffic.",
+      "evidence": "analysis/usb-path/port-status.json",
+      "name": "original_usb_port_status_constant_before_transmission_verified",
       "severity": "watch"
     }
   ],

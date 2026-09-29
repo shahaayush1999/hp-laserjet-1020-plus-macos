@@ -1,0 +1,8 @@
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-printer-class/fixture.c:22:17:hash	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-printer-class/fixture.c:47:13:check_owned	48	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-printer-class/fixture.c:55:13:snapshot	32	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-printer-class/fixture.c:25:27:progress	64	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-printer-class/fixture.c:79:10:hp1020_pc_fixture_reset	48	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-printer-class/fixture.c:105:10:hp1020_pc_fixture_step	80	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-printer-class/fixture.c:161:10:hp1020_pc_fixture_storage	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/usb-printer-class/fixture.c:162:10:hp1020_pc_fixture_output	0	static
