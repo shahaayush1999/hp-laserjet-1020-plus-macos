@@ -1,0 +1,24 @@
+{
+  "archive_sha256": "5771713440cc77c1256626eeff1ac85be31833686f9cb737687e9bd71d4f0bf1",
+  "members_sha256": {
+    "analysis/sihp1020.elf": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+    "analysis/usb-path/controller-reference/linux-v6.12/GPL-2.0": "f6b78c087c3ebdf0f3c13415070dd480a3f35d8fc76f3d02180a407c1c812f79",
+    "analysis/usb-path/controller-reference/linux-v6.12/amd5536udc.h": "8dbf2ebffe7de042bdfea1c5e4e0d7e7ca334cb821fbfaa1cf9ccfeeae302648",
+    "analysis/usb-path/controller-reference/linux-v6.12/provenance.json": "023d10e246e4852c1b9415cdc3d591006edcedeba467a56b95b22b994d4a08e4",
+    "analysis/usb-path/controller-reference/linux-v6.12/snps_udc_core.c": "c1b09e8f69d3340f2afd3a033d77a42775b52716d45b1aceb211dcaab89127bf",
+    "analysis/usb-path/controller-reference/linux-v6.12/snps_udc_plat.c": "25728c88031b8e19613d0b47708cef643635dd937d8a4bb3ab118500fbf2843d",
+    "controller-family.json": "8603285119448437087e199ce0a96c640814a160fe14ce28a3a83ad1e33bd05d",
+    "controller-family.md": "fba2b2934f607d42c2ca6308832d27c95696abd312de149982ab6afa3aa5fc07",
+    "scripts/hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
+    "scripts/hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
+    "scripts/hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
+    "scripts/hp1020_stock_notifications.py": "d0acd7130585cc38a48368d2d10e26f2bef6534c9f124dfbae8b91991c98e9ca",
+    "scripts/hp1020_stock_stop.py": "1f716972e7d044b070eff24b05e9ac7fcf532a54131f5c69e42276c6db987de0",
+    "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
+    "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
+    "scripts/hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
+    "scripts/validate-hp1020-usb-controller-family.py": "b4a72040339bd5a6e794a58cccf911a4d2f124a292c4ba97dbb2bed1897c89e0"
+  },
+  "original_capture": "/tmp/hp1020-usb-family-rearm-first-20260929",
+  "purpose": "Byte-preserving historical source/capture archive, not a new validation result."
+}

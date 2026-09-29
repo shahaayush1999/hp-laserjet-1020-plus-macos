@@ -1,5 +1,5 @@
 {
-  "check_count": 106,
+  "check_count": 107,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -635,6 +635,12 @@
       "detail": "Large control-IN responses should preserve the modeled five-descriptor batch limit before another kick.",
       "evidence": "analysis/usb-path/control-in-data-stage.json",
       "name": "control_in_large_response_batches",
+      "severity": "watch"
+    },
+    {
+      "detail": "Pinned open-controller definitions and original RAM-only descriptor behavior must agree; family compatibility remains an inference, with no live USB transfer or printer lifecycle claim.",
+      "evidence": "analysis/usb-path/controller-family.json",
+      "name": "stock_usb_descriptor_software_and_family_reference_verified",
       "severity": "watch"
     }
   ],

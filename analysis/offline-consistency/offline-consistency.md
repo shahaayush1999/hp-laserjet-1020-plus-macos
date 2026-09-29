@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `106`
+- checks: `107`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -120,6 +120,7 @@ It does not contact the printer.
 | `usb_interrupt_event_model_resolved` | `watch` | The USB interrupt event model must keep the completion event object, per-lane stride, 0x400 completion status bit, and bank-1/lane-1 bulk receive event. | `analysis/usb-path/usb-interrupt-events.json` |
 | `control_in_open_marker_descriptor_shape` | `watch` | A 38-byte open marker response should model as one flagged control-IN descriptor. | `analysis/usb-path/control-in-data-stage.json` |
 | `control_in_large_response_batches` | `watch` | Large control-IN responses should preserve the modeled five-descriptor batch limit before another kick. | `analysis/usb-path/control-in-data-stage.json` |
+| `stock_usb_descriptor_software_and_family_reference_verified` | `watch` | Pinned open-controller definitions and original RAM-only descriptor behavior must agree; family compatibility remains an inference, with no live USB transfer or printer lifecycle claim. | `analysis/usb-path/controller-family.json` |
 
 ## Practical Meaning
 

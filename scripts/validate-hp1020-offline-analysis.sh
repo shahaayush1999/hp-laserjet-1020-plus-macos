@@ -311,6 +311,9 @@ run_step "Regenerate USB bulk callback model" \
 run_step "Regenerate USB bulk re-arm model" \
   "$ROOT_DIR/scripts/model-hp1020-usb-bulk-rearm.py"
 
+run_step "Compare USB controller family and execute original descriptor RAM fragments" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-usb-controller-family.py"
+
 run_step "Regenerate USB parser shim contract" \
   "$ROOT_DIR/scripts/model-hp1020-usb-parser-shim-contract.py"
 

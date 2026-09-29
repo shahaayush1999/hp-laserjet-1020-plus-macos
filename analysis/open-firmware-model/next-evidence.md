@@ -738,15 +738,90 @@ the compiler had inserted a trap after that undefined path. Explicit missing-pag
 checks in the image consumer and parser's BID admission remove that path and
 return an ordinary order error. The instruction allowlist was not broadened.
 The rejected ELF/map, exact source snapshot and failure log are retained at
-`/tmp/hp1020-page-reuse-null-trap-20260929/`. This is a compiler-gate finding in
+`/tmp/hp1020-page-reuse-null-trap-20260929/` and durably archived in
+`image-core/source-snapshots/page-reuse-null-trap.tar.gz` with a sibling member-hash
+manifest. This is a compiler-gate finding in
 new code, not one of the six original conditional null reads. The earlier private
 draft directory preserves pre-fix text only; it is not the latest implementation.
 
 The next useful integration question is the consumer/transport boundary: how
 to preserve queued output and quiesce it on cancellation or a USB reset before
-reusing memory. Keep that separate from physical transfer abort/recovery and
-from genuine engine completion. Copies, media/quality breadth, live status,
-startup and physical printing remain open feature-parity work.
+reusing memory. The controller-family finding below now gives a concrete open
+reference for the USB side. Keep that separate from physical transfer
+abort/recovery and genuine engine completion. Copies, media/quality breadth,
+live status, startup and physical printing remain open feature-parity work.
+
+### Classic Synopsys USB controller family (2026-09-29)
+
+`scripts/validate-hp1020-usb-controller-family.py` compares the original ELF
+with unmodified Linux v6.12 `amd5536udc.h`, `snps_udc_core.c` and platform glue,
+pinned to `adc218676eef25575469234709c2d87185ca223a`. The source, hashes, origin
+and GPL license are retained under `analysis/usb-path/controller-reference/`;
+they are research inputs, not compiled or installed driver dependencies.
+Reports: `analysis/usb-path/controller-family.json/.md`.
+
+- **24 literal/layout matches and 18 instruction anchors** establish a strong
+  match to the classic Synopsys device-only UDC family. Global registers,
+  both endpoint banks, 32-byte register stride, 16-byte descriptors, ownership,
+  packet counts and endpoint masks agree. The Linux filename does not identify
+  an AMD chip in this printer. This is not the DWC2 high-speed OTG layout or
+  proof that an existing platform port can run unchanged.
+- **12 original re-arm cases** agree between the bounded interpreter,
+  independent QEMU and a separate byte oracle. Supplied globals point to RAM;
+  the submission-address literal alone is redirected to a guarded RAM sink.
+  Zero, unaligned and aligned next pointers, offsets 0/37 and fills 0/204
+  preserve the entire arena except expected descriptor/sink writes. The helper
+  leaves descriptor bytes 4..7 untouched, writes +8 and clears +12. Its leading
+  bytes `08 00 00 00` match last-descriptor bit 27 with host-ready ownership;
+  the old re-arm report's opcode wording is corrected in its generator.
+- **51 separately entered status fragments** verify all four owner states,
+  both last-flag values and six low-16-bit counts. Only owner 2 reaches count
+  admission. Three nonzero receive-status controls also reach admission: this
+  small original fragment does not itself validate those bits. It is not an
+  oracle for successful transfer, nor does encoded zero prove a real zero-length
+  or 65536-byte transfer. The IRQ/NAK prefix and both downstream paths are cut.
+- Both unredirected submission controls reject **before** the peripheral store.
+  Original code bytes remain unchanged; the ELF on disk is never patched.
+  The separately inspected startup branch's `0x320` device-control mask matches
+  BE/burst/mode positions. Its peripheral instructions never execute. Real bus
+  ordering, aliases/cache, reset/cancel, PHY/wrapper registers at `0xb3010000/4`,
+  actual USB traffic and startup remain unproved. These are **zero USB transfers
+  and zero additional native page lifecycles**.
+
+Focused validation passed in `/tmp/hp1020-usb-controller-family-status-20260929.log`.
+The first static expectation omitted OUT endpoint 0 from the mask; original
+`0xfffcfffe` actually unmasks IN0, OUT0 and OUT1. The assertion stopped before
+QEMU. Its exact failed script/log are at
+`/tmp/hp1020-usb-family-mask-audit-20260929/`. The first successful re-arm-only
+report and every hashed source were saved at
+`/tmp/hp1020-usb-family-rearm-first-20260929/` before adding status execution.
+Both captures are also byte-preserved under `analysis/usb-path/source-snapshots/`
+as `controller-family-mask-audit.tar.gz` and `controller-family-rearm-first.tar.gz`,
+with member-hash manifests. Neither report hashes nor raw captures were patched.
+Full sequential validation passed **107 consistency checks and both suites** in
+`/tmp/hp1020-full-usb-family-20260929.log` (child logs `hp1020-validation.atqz2B`).
+Tested source hashes match and all validation processes have finished. The
+preceding complete 106-check document checkpoint is saved at `35e3f07`.
+
+Use this family-specific driver as the controller reference, rather than
+starting with a generic DWC2 port. Next derive the receive ownership/error and
+reset/abort contract from its source and the corresponding stock instruction
+boundaries, then connect a bounded software adapter to the existing parser.
+Physical quiescence is not supplied by clearing C state or by this RAM sink.
+TinyUSB remains useful above that adapter for standard USB/printer-class work;
+no RTOS or Linux port is required merely to reuse these contracts. Retain the
+inert hardware-test ladder and all separate opt-ins; do not add engine/video
+operations or broaden the probe allowlist from this family inference.
+
+The pinned upstream source gives two concrete port limits. Its `udc_soft_reset`
+skips the nominal reset bit for the Broadcom variant because that bit is reserved
+there; family resemblance cannot authorize that write on HP. Its receive-enable
+control is shared across OUT endpoints, so queue/cancellation handling must keep
+control traffic and bulk ownership consistent. `udc_dequeue` also distinguishes
+a host-ready descriptor from one already touched by DMA. These are upstream
+design observations, not tested HP reset/abort semantics. The existing stock
+bulk callback and drain names are only candidates; consult their original
+instructions before treating a queue drain as DMA quiescence.
 
 ## Preferred raster bypass (2026-09-10)
 

@@ -1,0 +1,1520 @@
+{
+  "comparisons": [
+    {
+      "expected_value": "0xb3000400",
+      "literal": "0x10005df4",
+      "load_sites": [
+        "0x1000824f",
+        "0x10008312",
+        "0x1000901f",
+        "0x10009484",
+        "0x100095c2",
+        "0x10009ae6",
+        "0x10009b0b"
+      ],
+      "name": "devcfg",
+      "status": "match",
+      "stock_value": "0xb3000400",
+      "upstream": [
+        "UDC_DEVCFG_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb3000404",
+      "literal": "0x10005ea8",
+      "load_sites": [
+        "0x10008f93",
+        "0x10009031",
+        "0x100092d0",
+        "0x10009a13",
+        "0x10009a73"
+      ],
+      "name": "devctl",
+      "status": "match",
+      "stock_value": "0xb3000404",
+      "upstream": [
+        "UDC_DEVCTL_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb3000408",
+      "literal": "0x10005e68",
+      "load_sites": [
+        "0x1000886c",
+        "0x10008954",
+        "0x10008f4b",
+        "0x10009476",
+        "0x100095b3",
+        "0x1000970e"
+      ],
+      "name": "devsts",
+      "status": "match",
+      "stock_value": "0xb3000408",
+      "upstream": [
+        "UDC_DEVSTS_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb300040c",
+      "literal": "0x10005de4",
+      "load_sites": [
+        "0x1000820b",
+        "0x1000833f",
+        "0x1000834e",
+        "0x1000835b",
+        "0x10008369",
+        "0x10008376"
+      ],
+      "name": "devint",
+      "status": "match",
+      "stock_value": "0xb300040c",
+      "upstream": [
+        "UDC_DEVINT_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb3000410",
+      "literal": "0x10005eb8",
+      "load_sites": [
+        "0x1000909c"
+      ],
+      "name": "devint_msk",
+      "status": "match",
+      "stock_value": "0xb3000410",
+      "upstream": [
+        "UDC_DEVINT_MSK_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb3000414",
+      "literal": "0x10005de8",
+      "load_sites": [
+        "0x1000820e",
+        "0x10008387"
+      ],
+      "name": "epint",
+      "status": "match",
+      "stock_value": "0xb3000414",
+      "upstream": [
+        "UDC_EPINT_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb3000418",
+      "literal": "0x10005e00",
+      "load_sites": [
+        "0x10008384",
+        "0x1000848c",
+        "0x10008b47",
+        "0x10008bfb",
+        "0x100091f3"
+      ],
+      "name": "epint_msk",
+      "status": "match",
+      "stock_value": "0xb3000418",
+      "upstream": [
+        "UDC_EPINT_MSK_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb3000004",
+      "literal": "0x10005e04",
+      "load_sites": [
+        "0x100083c9"
+      ],
+      "name": "in0_status",
+      "status": "match",
+      "stock_value": "0xb3000004",
+      "upstream": [
+        "UDC_EPIN_REGS_ADDR",
+        "endpoint 0 * sizeof(struct udc_ep_regs)",
+        "UDC_EPSTS_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb3000204",
+      "literal": "0x10005e08",
+      "load_sites": [
+        "0x100083e0"
+      ],
+      "name": "out0_status",
+      "status": "match",
+      "stock_value": "0xb3000204",
+      "upstream": [
+        "UDC_EPOUT_REGS_ADDR",
+        "endpoint 0 * sizeof(struct udc_ep_regs)",
+        "UDC_EPSTS_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb3000200",
+      "literal": "0x10005e24",
+      "load_sites": [
+        "0x100084d7",
+        "0x10009085",
+        "0x10009302",
+        "0x1000985f",
+        "0x100098f9",
+        "0x10009a2b",
+        "0x10009aa7",
+        "0x1000ad54"
+      ],
+      "name": "out0_control",
+      "status": "match",
+      "stock_value": "0xb3000200",
+      "upstream": [
+        "UDC_EPOUT_REGS_ADDR",
+        "endpoint 0 * sizeof(struct udc_ep_regs)",
+        "UDC_EPCTL_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb3000220",
+      "literal": "0x10005e70",
+      "load_sites": [
+        "0x1000887a",
+        "0x10008962",
+        "0x10008f62",
+        "0x10009088",
+        "0x100092f7",
+        "0x10009917",
+        "0x10009a28",
+        "0x10009a8c",
+        "0x1000ad49"
+      ],
+      "name": "out1_control",
+      "status": "match",
+      "stock_value": "0xb3000220",
+      "upstream": [
+        "UDC_EPOUT_REGS_ADDR",
+        "endpoint 1 * sizeof(struct udc_ep_regs)",
+        "UDC_EPCTL_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb300022c",
+      "literal": "0x10005f08",
+      "load_sites": [
+        "0x1000924e",
+        "0x100094e2",
+        "0x10009568"
+      ],
+      "name": "out1_max_packet",
+      "status": "match",
+      "stock_value": "0xb300022c",
+      "upstream": [
+        "UDC_EPOUT_REGS_ADDR",
+        "endpoint 1 * sizeof(struct udc_ep_regs)",
+        "UDC_EP_MAX_PKT_SIZE_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb3000234",
+      "literal": "0x10005e60",
+      "load_sites": [
+        "0x10008752",
+        "0x10009249"
+      ],
+      "name": "out1_descriptor",
+      "status": "match",
+      "stock_value": "0xb3000234",
+      "upstream": [
+        "UDC_EPOUT_REGS_ADDR",
+        "endpoint 1 * sizeof(struct udc_ep_regs)",
+        "UDC_EP_DESPTR_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb3000034",
+      "literal": "0x10005e84",
+      "load_sites": [
+        "0x10008b44"
+      ],
+      "name": "in1_descriptor",
+      "status": "match",
+      "stock_value": "0xb3000034",
+      "upstream": [
+        "UDC_EPIN_REGS_ADDR",
+        "endpoint 1 * sizeof(struct udc_ep_regs)",
+        "UDC_EP_DESPTR_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb300000c",
+      "literal": "0x10005e9c",
+      "load_sites": [
+        "0x10008c71",
+        "0x10008d2d",
+        "0x100091c1",
+        "0x100094f1",
+        "0x10009575"
+      ],
+      "name": "in0_max_packet",
+      "status": "match",
+      "stock_value": "0xb300000c",
+      "upstream": [
+        "UDC_EPIN_REGS_ADDR",
+        "endpoint 0 * sizeof(struct udc_ep_regs)",
+        "UDC_EP_MAX_PKT_SIZE_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb3000014",
+      "literal": "0x10005ea0",
+      "load_sites": [
+        "0x10008d04",
+        "0x10008f11",
+        "0x100092af"
+      ],
+      "name": "in0_descriptor",
+      "status": "match",
+      "stock_value": "0xb3000014",
+      "upstream": [
+        "UDC_EPIN_REGS_ADDR",
+        "endpoint 0 * sizeof(struct udc_ep_regs)",
+        "UDC_EP_DESPTR_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb3000210",
+      "literal": "0x10005ef4",
+      "load_sites": [
+        "0x100091a5",
+        "0x1000935b"
+      ],
+      "name": "out0_setup",
+      "status": "match",
+      "stock_value": "0xb3000210",
+      "upstream": [
+        "UDC_EPOUT_REGS_ADDR",
+        "endpoint 0 * sizeof(struct udc_ep_regs)",
+        "UDC_EP_SUBPTR_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb3000214",
+      "literal": "0x10005ef8",
+      "load_sites": [
+        "0x100091bc",
+        "0x10009890"
+      ],
+      "name": "out0_descriptor",
+      "status": "match",
+      "stock_value": "0xb3000214",
+      "upstream": [
+        "UDC_EPOUT_REGS_ADDR",
+        "endpoint 0 * sizeof(struct udc_ep_regs)",
+        "UDC_EP_DESPTR_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xb300020c",
+      "literal": "0x10005ee4",
+      "load_sites": [
+        "0x1000911e",
+        "0x100094ee",
+        "0x10009572"
+      ],
+      "name": "out0_max_packet",
+      "status": "match",
+      "stock_value": "0xb300020c",
+      "upstream": [
+        "UDC_EPOUT_REGS_ADDR",
+        "endpoint 0 * sizeof(struct udc_ep_regs)",
+        "UDC_EP_MAX_PKT_SIZE_ADDR"
+      ]
+    },
+    {
+      "expected_value": "0xc0000000",
+      "literal": "0x10005e30",
+      "load_sites": [
+        "0x1000851c",
+        "0x100085f3",
+        "0x10009381",
+        "0x100098b6"
+      ],
+      "name": "descriptor_owner_mask",
+      "status": "match",
+      "stock_value": "0xc0000000",
+      "upstream": [
+        "UDC_DMA_OUT_STS_BS_MASK"
+      ]
+    },
+    {
+      "expected_value": "0x80000000",
+      "literal": "0x10005e34",
+      "load_sites": [
+        "0x1000851f",
+        "0x100085f6",
+        "0x100087c1",
+        "0x100089bc",
+        "0x10008a5f",
+        "0x100092ac",
+        "0x10009384",
+        "0x100098b9",
+        "0x1000a2c8",
+        "0x1000a31c",
+        "0x1000e91f",
+        "0x1000f4f0",
+        "0x10010890",
+        "0x100108d5",
+        "0x1001091b",
+        "0x100132a3",
+        "0x100132c7",
+        "0x10013541",
+        "0x100138cd",
+        "0x1001391a",
+        "0x10013ad2",
+        "0x10013fd2",
+        "0x10014b9a",
+        "0x100152c0",
+        "0x10015323",
+        "0x10015dfd",
+        "0x100161c0",
+        "0x100163c7",
+        "0x10016bb7",
+        "0x10016c32"
+      ],
+      "name": "descriptor_dma_done",
+      "status": "match",
+      "stock_value": "0x80000000",
+      "upstream": [
+        "UDC_DMA_OUT_STS_BS_DMA_DONE",
+        "UDC_DMA_OUT_STS_BS_OFS"
+      ]
+    },
+    {
+      "expected_value": "0x8000000",
+      "literal": "0x10005e80",
+      "load_sites": [
+        "0x10008a95",
+        "0x10008afc",
+        "0x10008cb7",
+        "0x10008e58",
+        "0x10008ec3",
+        "0x1001189e",
+        "0x100118da",
+        "0x10011902",
+        "0x10011978",
+        "0x10011994",
+        "0x10011a15",
+        "0x10011ab1",
+        "0x10011b26",
+        "0x10011bd5",
+        "0x10011c16",
+        "0x10011c1f",
+        "0x10011c7c",
+        "0x10011d01",
+        "0x10011d4b",
+        "0x10011d78",
+        "0x10011df9",
+        "0x10011e24",
+        "0x10015bee"
+      ],
+      "name": "descriptor_last",
+      "status": "match",
+      "stock_value": "0x8000000",
+      "upstream": [
+        "UDC_DMA_OUT_STS_L"
+      ]
+    },
+    {
+      "expected_value": "0x6000",
+      "literal": "0x10005ea4",
+      "load_sites": [
+        "0x10008f7c",
+        "0x1000947e",
+        "0x100095bc",
+        "0x10009716"
+      ],
+      "name": "enumerated_speed_mask",
+      "status": "match",
+      "stock_value": "0x6000",
+      "upstream": [
+        "UDC_DEVSTS_ENUM_SPEED_MASK"
+      ]
+    },
+    {
+      "expected_value": "0xfffcfffe",
+      "literal": "0x10005f04",
+      "load_sites": [
+        "0x100091ee"
+      ],
+      "name": "control_pair_and_out1_unmasked",
+      "status": "match",
+      "stock_value": "0xfffcfffe",
+      "upstream": [
+        "UDC_EPINT_IN_EP0",
+        "UDC_EPINT_OUT_EP0",
+        "UDC_EPINT_OUT_EP1"
+      ]
+    }
+  ],
+  "completed_native_page_lifecycles": 0,
+  "excluded_controls": [
+    {
+      "effective_address": "0xb3000234",
+      "engine": "interpreter",
+      "pc": "0x10008762",
+      "reason": "write outside mutable RAM 0xb3000234",
+      "status": "rejected before execution"
+    },
+    {
+      "effective_address": "0xb3000234",
+      "engine": "QEMU",
+      "pc": "0x10008762",
+      "reason": "MMIO forbidden",
+      "status": "rejected before execution"
+    }
+  ],
+  "inference": "Strong register/descriptor-family match to the classic Synopsys device-only UDC used by the Linux snps_udc driver; not the DWC2 high-speed OTG register layout. This does not identify an AMD chip or prove a compatible silicon revision.",
+  "instructions": [
+    {
+      "address": "0x100083e3",
+      "bytes": "0b5811",
+      "meaning": "Endpoint register stride is 1 << 5 bytes.",
+      "opcode": "slli",
+      "operands": [
+        8,
+        5,
+        5
+      ]
+    },
+    {
+      "address": "0x10008446",
+      "bytes": "284a00",
+      "meaning": "Endpoint status mask 1 << UDC_EPSTS_TDC.",
+      "opcode": "movi",
+      "operands": [
+        8,
+        1024
+      ]
+    },
+    {
+      "address": "0x100084dd",
+      "bytes": "2a0a80",
+      "meaning": "Endpoint control mask 1 << UDC_EPCTL_SNAK.",
+      "opcode": "movi",
+      "operands": [
+        10,
+        128
+      ]
+    },
+    {
+      "address": "0x10009031",
+      "bytes": "1af39d",
+      "meaning": "Device control address for the following initialization branch.",
+      "opcode": "l32r",
+      "operands": [
+        10,
+        268459688
+      ]
+    },
+    {
+      "address": "0x10009064",
+      "bytes": "293a20",
+      "meaning": "Initialization mask includes BE, burst-enable and DMA-mode bits in the reference.",
+      "opcode": "movi",
+      "operands": [
+        9,
+        800
+      ]
+    },
+    {
+      "address": "0x10009067",
+      "bytes": "098802",
+      "meaning": "OR the supplied initialization mask into the device-control value.",
+      "opcode": "or",
+      "operands": [
+        8,
+        8,
+        9
+      ]
+    },
+    {
+      "address": "0x1000906d",
+      "bytes": "98a0",
+      "meaning": "Static write-site audit only; this peripheral store is never executed.",
+      "opcode": "s32i.n",
+      "operands": [
+        8,
+        10,
+        0
+      ]
+    },
+    {
+      "address": "0x10008522",
+      "bytes": "089901",
+      "meaning": "Mask assembled descriptor word with original 0xc0000000 literal.",
+      "opcode": "and",
+      "operands": [
+        9,
+        9,
+        8
+      ]
+    },
+    {
+      "address": "0x10008525",
+      "bytes": "7a9102",
+      "meaning": "Admit only original 0x80000000 owner state.",
+      "opcode": "beq",
+      "operands": [
+        9,
+        10,
+        268469547
+      ]
+    },
+    {
+      "address": "0x10008536",
+      "bytes": "28b002",
+      "meaning": "Completed byte count is descriptor bytes 2/3, big endian.",
+      "opcode": "l8ui",
+      "operands": [
+        8,
+        11,
+        2
+      ]
+    },
+    {
+      "address": "0x10008539",
+      "bytes": "29b003",
+      "meaning": "Completed byte count is descriptor bytes 2/3, big endian.",
+      "opcode": "l8ui",
+      "operands": [
+        9,
+        11,
+        3
+      ]
+    },
+    {
+      "address": "0x1000853c",
+      "bytes": "088811",
+      "meaning": "Completed byte count is descriptor bytes 2/3, big endian.",
+      "opcode": "slli",
+      "operands": [
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "address": "0x1000853f",
+      "bytes": "098702",
+      "meaning": "Completed byte count is descriptor bytes 2/3, big endian.",
+      "opcode": "or",
+      "operands": [
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "address": "0x1000877a",
+      "bytes": "c048",
+      "meaning": "Re-arm writes status bytes 08 00 00 00 after its submission store.",
+      "opcode": "movi.n",
+      "operands": [
+        4,
+        8
+      ]
+    },
+    {
+      "address": "0x1000877f",
+      "bytes": "243400",
+      "meaning": "Re-arm writes status bytes 08 00 00 00 after its submission store.",
+      "opcode": "s8i",
+      "operands": [
+        4,
+        3,
+        0
+      ]
+    },
+    {
+      "address": "0x1000878b",
+      "bytes": "253401",
+      "meaning": "Re-arm writes status bytes 08 00 00 00 after its submission store.",
+      "opcode": "s8i",
+      "operands": [
+        5,
+        3,
+        1
+      ]
+    },
+    {
+      "address": "0x10008797",
+      "bytes": "253402",
+      "meaning": "Re-arm writes status bytes 08 00 00 00 after its submission store.",
+      "opcode": "s8i",
+      "operands": [
+        5,
+        3,
+        2
+      ]
+    },
+    {
+      "address": "0x100087a6",
+      "bytes": "253403",
+      "meaning": "Re-arm writes status bytes 08 00 00 00 after its submission store.",
+      "opcode": "s8i",
+      "operands": [
+        5,
+        3,
+        3
+      ]
+    }
+  ],
+  "limits": "Original re-arm construction executes with supplied globals and the submission literal redirected to RAM. Status decoding starts after the omitted IRQ/NAK prefix, with a supplied descriptor, and stops before either next path. No USB controller behavior, real DMA/interrupts/cache, setup/reset/cancel correctness, live traffic, boot or printing is established. HP-specific wrapper registers at 0xb3010000/4 remain outside this match. The Linux driver is a reference, not a linked runtime or usable HP port.",
+  "qemu_version": "QEMU emulator version 11.1.1",
+  "rearm_cases": [
+    {
+      "arena_sha256": "ab19007b9fb0f845dd8fa448413ce802aba91773bb3fc909f937a9d233b6c355",
+      "buffer_pointer": "0x22300000",
+      "descriptor_hex": "08000000000000002230000000000000",
+      "entire_guarded_arena_equal": true,
+      "fill": 0,
+      "flags": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "interpreter_steps": 56,
+      "next_pointer": "0x0",
+      "offset": 0,
+      "qemu_steps": 57,
+      "status": "pass"
+    },
+    {
+      "arena_sha256": "ab19007b9fb0f845dd8fa448413ce802aba91773bb3fc909f937a9d233b6c355",
+      "buffer_pointer": "0x22300000",
+      "descriptor_hex": "08000000000000002230000000000000",
+      "entire_guarded_arena_equal": true,
+      "fill": 0,
+      "flags": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "interpreter_steps": 58,
+      "next_pointer": "0x22340567",
+      "offset": 0,
+      "qemu_steps": 59,
+      "status": "pass"
+    },
+    {
+      "arena_sha256": "20ea94b8eea0c33ca8f39e4dda5c7c087a8089751d49d6e24d5b78b8cac602e5",
+      "buffer_pointer": "0x22340560",
+      "descriptor_hex": "08000000000000002234056000000000",
+      "entire_guarded_arena_equal": true,
+      "fill": 0,
+      "flags": [
+        1,
+        0,
+        1,
+        0
+      ],
+      "interpreter_steps": 56,
+      "next_pointer": "0x22340560",
+      "offset": 0,
+      "qemu_steps": 57,
+      "status": "pass"
+    },
+    {
+      "arena_sha256": "39a3060790a97338b20bd75df9245997a7639cb5a598ffea4ce56940141b7918",
+      "buffer_pointer": "0x22300025",
+      "descriptor_hex": "08000000000000002230002500000000",
+      "entire_guarded_arena_equal": true,
+      "fill": 0,
+      "flags": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "interpreter_steps": 56,
+      "next_pointer": "0x0",
+      "offset": 37,
+      "qemu_steps": 57,
+      "status": "pass"
+    },
+    {
+      "arena_sha256": "39a3060790a97338b20bd75df9245997a7639cb5a598ffea4ce56940141b7918",
+      "buffer_pointer": "0x22300025",
+      "descriptor_hex": "08000000000000002230002500000000",
+      "entire_guarded_arena_equal": true,
+      "fill": 0,
+      "flags": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "interpreter_steps": 58,
+      "next_pointer": "0x22340567",
+      "offset": 37,
+      "qemu_steps": 59,
+      "status": "pass"
+    },
+    {
+      "arena_sha256": "20ea94b8eea0c33ca8f39e4dda5c7c087a8089751d49d6e24d5b78b8cac602e5",
+      "buffer_pointer": "0x22340560",
+      "descriptor_hex": "08000000000000002234056000000000",
+      "entire_guarded_arena_equal": true,
+      "fill": 0,
+      "flags": [
+        1,
+        0,
+        1,
+        0
+      ],
+      "interpreter_steps": 56,
+      "next_pointer": "0x22340560",
+      "offset": 37,
+      "qemu_steps": 57,
+      "status": "pass"
+    },
+    {
+      "arena_sha256": "169b25f2e307806a3bcd39569d58e8e909e0f9c19d30ff9aba1c651567fa2152",
+      "buffer_pointer": "0x22300000",
+      "descriptor_hex": "08000000cccccccc2230000000000000",
+      "entire_guarded_arena_equal": true,
+      "fill": 204,
+      "flags": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "interpreter_steps": 56,
+      "next_pointer": "0x0",
+      "offset": 0,
+      "qemu_steps": 57,
+      "status": "pass"
+    },
+    {
+      "arena_sha256": "169b25f2e307806a3bcd39569d58e8e909e0f9c19d30ff9aba1c651567fa2152",
+      "buffer_pointer": "0x22300000",
+      "descriptor_hex": "08000000cccccccc2230000000000000",
+      "entire_guarded_arena_equal": true,
+      "fill": 204,
+      "flags": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "interpreter_steps": 58,
+      "next_pointer": "0x22340567",
+      "offset": 0,
+      "qemu_steps": 59,
+      "status": "pass"
+    },
+    {
+      "arena_sha256": "63a8b245473ae9b38c95794d32e42570761e71ef915500eb393915cf10009e14",
+      "buffer_pointer": "0x22340560",
+      "descriptor_hex": "08000000cccccccc2234056000000000",
+      "entire_guarded_arena_equal": true,
+      "fill": 204,
+      "flags": [
+        1,
+        0,
+        1,
+        0
+      ],
+      "interpreter_steps": 56,
+      "next_pointer": "0x22340560",
+      "offset": 0,
+      "qemu_steps": 57,
+      "status": "pass"
+    },
+    {
+      "arena_sha256": "fd485b441a358a2f22ec47707f7afd052c1bc058a4661abf11fd1a12f56e1706",
+      "buffer_pointer": "0x22300025",
+      "descriptor_hex": "08000000cccccccc2230002500000000",
+      "entire_guarded_arena_equal": true,
+      "fill": 204,
+      "flags": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "interpreter_steps": 56,
+      "next_pointer": "0x0",
+      "offset": 37,
+      "qemu_steps": 57,
+      "status": "pass"
+    },
+    {
+      "arena_sha256": "fd485b441a358a2f22ec47707f7afd052c1bc058a4661abf11fd1a12f56e1706",
+      "buffer_pointer": "0x22300025",
+      "descriptor_hex": "08000000cccccccc2230002500000000",
+      "entire_guarded_arena_equal": true,
+      "fill": 204,
+      "flags": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "interpreter_steps": 58,
+      "next_pointer": "0x22340567",
+      "offset": 37,
+      "qemu_steps": 59,
+      "status": "pass"
+    },
+    {
+      "arena_sha256": "63a8b245473ae9b38c95794d32e42570761e71ef915500eb393915cf10009e14",
+      "buffer_pointer": "0x22340560",
+      "descriptor_hex": "08000000cccccccc2234056000000000",
+      "entire_guarded_arena_equal": true,
+      "fill": 204,
+      "flags": [
+        1,
+        0,
+        1,
+        0
+      ],
+      "interpreter_steps": 56,
+      "next_pointer": "0x22340560",
+      "offset": 37,
+      "qemu_steps": 57,
+      "status": "pass"
+    }
+  ],
+  "rearm_sha256": "44aeebdd192f1f632caae561daba16438239e3cc12e8594af7ed6a8aeb7d9b84",
+  "source_sha256": {
+    "analysis/sihp1020.elf": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+    "analysis/usb-path/controller-reference/linux-v6.12/GPL-2.0": "f6b78c087c3ebdf0f3c13415070dd480a3f35d8fc76f3d02180a407c1c812f79",
+    "analysis/usb-path/controller-reference/linux-v6.12/amd5536udc.h": "8dbf2ebffe7de042bdfea1c5e4e0d7e7ca334cb821fbfaa1cf9ccfeeae302648",
+    "analysis/usb-path/controller-reference/linux-v6.12/provenance.json": "023d10e246e4852c1b9415cdc3d591006edcedeba467a56b95b22b994d4a08e4",
+    "analysis/usb-path/controller-reference/linux-v6.12/snps_udc_core.c": "c1b09e8f69d3340f2afd3a033d77a42775b52716d45b1aceb211dcaab89127bf",
+    "analysis/usb-path/controller-reference/linux-v6.12/snps_udc_plat.c": "25728c88031b8e19613d0b47708cef643635dd937d8a4bb3ab118500fbf2843d",
+    "scripts/hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
+    "scripts/hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
+    "scripts/hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
+    "scripts/hp1020_stock_notifications.py": "d0acd7130585cc38a48368d2d10e26f2bef6534c9f124dfbae8b91991c98e9ca",
+    "scripts/hp1020_stock_stop.py": "1f716972e7d044b070eff24b05e9ac7fcf532a54131f5c69e42276c6db987de0",
+    "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
+    "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
+    "scripts/hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
+    "scripts/validate-hp1020-usb-controller-family.py": "325d4a41e58ce8ee1d0993c9332d8e60f16b366c1354c409979c81a47aafb7a9"
+  },
+  "status": "pass",
+  "status_decoding_cases": [
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x0",
+      "encoded_count": 0,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 0,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x1",
+      "encoded_count": 1,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 0,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x40",
+      "encoded_count": 64,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 0,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x200",
+      "encoded_count": 512,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 0,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x400",
+      "encoded_count": 1024,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 0,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0xffff",
+      "encoded_count": 65535,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 0,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x8000000",
+      "encoded_count": 0,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 0,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x8000001",
+      "encoded_count": 1,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 0,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x8000040",
+      "encoded_count": 64,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 0,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x8000200",
+      "encoded_count": 512,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 0,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x8000400",
+      "encoded_count": 1024,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 0,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x800ffff",
+      "encoded_count": 65535,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 0,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x40000000",
+      "encoded_count": 0,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 1,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x40000001",
+      "encoded_count": 1,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 1,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x40000040",
+      "encoded_count": 64,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 1,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x40000200",
+      "encoded_count": 512,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 1,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x40000400",
+      "encoded_count": 1024,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 1,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x4000ffff",
+      "encoded_count": 65535,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 1,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x48000000",
+      "encoded_count": 0,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 1,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x48000001",
+      "encoded_count": 1,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 1,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x48000040",
+      "encoded_count": 64,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 1,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x48000200",
+      "encoded_count": 512,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 1,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x48000400",
+      "encoded_count": 1024,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 1,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0x4800ffff",
+      "encoded_count": 65535,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 1,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": 0,
+      "descriptor_status": "0x80000000",
+      "encoded_count": 0,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 2,
+      "owner_admitted": true,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x10008542"
+    },
+    {
+      "decoded_count": 1,
+      "descriptor_status": "0x80000001",
+      "encoded_count": 1,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 2,
+      "owner_admitted": true,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x10008542"
+    },
+    {
+      "decoded_count": 64,
+      "descriptor_status": "0x80000040",
+      "encoded_count": 64,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 2,
+      "owner_admitted": true,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x10008542"
+    },
+    {
+      "decoded_count": 512,
+      "descriptor_status": "0x80000200",
+      "encoded_count": 512,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 2,
+      "owner_admitted": true,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x10008542"
+    },
+    {
+      "decoded_count": 1024,
+      "descriptor_status": "0x80000400",
+      "encoded_count": 1024,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 2,
+      "owner_admitted": true,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x10008542"
+    },
+    {
+      "decoded_count": 65535,
+      "descriptor_status": "0x8000ffff",
+      "encoded_count": 65535,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 2,
+      "owner_admitted": true,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x10008542"
+    },
+    {
+      "decoded_count": 0,
+      "descriptor_status": "0x88000000",
+      "encoded_count": 0,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 2,
+      "owner_admitted": true,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x10008542"
+    },
+    {
+      "decoded_count": 1,
+      "descriptor_status": "0x88000001",
+      "encoded_count": 1,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 2,
+      "owner_admitted": true,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x10008542"
+    },
+    {
+      "decoded_count": 64,
+      "descriptor_status": "0x88000040",
+      "encoded_count": 64,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 2,
+      "owner_admitted": true,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x10008542"
+    },
+    {
+      "decoded_count": 512,
+      "descriptor_status": "0x88000200",
+      "encoded_count": 512,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 2,
+      "owner_admitted": true,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x10008542"
+    },
+    {
+      "decoded_count": 1024,
+      "descriptor_status": "0x88000400",
+      "encoded_count": 1024,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 2,
+      "owner_admitted": true,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x10008542"
+    },
+    {
+      "decoded_count": 65535,
+      "descriptor_status": "0x8800ffff",
+      "encoded_count": 65535,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 2,
+      "owner_admitted": true,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x10008542"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0xc0000000",
+      "encoded_count": 0,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 3,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0xc0000001",
+      "encoded_count": 1,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 3,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0xc0000040",
+      "encoded_count": 64,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 3,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0xc0000200",
+      "encoded_count": 512,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 3,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0xc0000400",
+      "encoded_count": 1024,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 3,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0xc000ffff",
+      "encoded_count": 65535,
+      "guarded_arena_unchanged": true,
+      "last": 0,
+      "owner": 3,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0xc8000000",
+      "encoded_count": 0,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 3,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0xc8000001",
+      "encoded_count": 1,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 3,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0xc8000040",
+      "encoded_count": 64,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 3,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0xc8000200",
+      "encoded_count": 512,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 3,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0xc8000400",
+      "encoded_count": 1024,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 3,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": null,
+      "descriptor_status": "0xc800ffff",
+      "encoded_count": 65535,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 3,
+      "owner_admitted": false,
+      "receive_status": 0,
+      "status": "pass",
+      "stop": "0x1000867c"
+    },
+    {
+      "decoded_count": 37,
+      "descriptor_status": "0x98000025",
+      "encoded_count": 37,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 2,
+      "owner_admitted": true,
+      "receive_status": 1,
+      "status": "pass",
+      "stop": "0x10008542"
+    },
+    {
+      "decoded_count": 37,
+      "descriptor_status": "0xa8000025",
+      "encoded_count": 37,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 2,
+      "owner_admitted": true,
+      "receive_status": 2,
+      "status": "pass",
+      "stop": "0x10008542"
+    },
+    {
+      "decoded_count": 37,
+      "descriptor_status": "0xb8000025",
+      "encoded_count": 37,
+      "guarded_arena_unchanged": true,
+      "last": 1,
+      "owner": 2,
+      "owner_admitted": true,
+      "receive_status": 3,
+      "status": "pass",
+      "stop": "0x10008542"
+    }
+  ],
+  "upstream_commit": "adc218676eef25575469234709c2d87185ca223a"
+}

@@ -2261,6 +2261,41 @@ def build_report() -> dict[str, Any]:
         )
     )
 
+    usb_family = read_json("analysis/usb-path/controller-family.json")
+    usb_rearm_cases = usb_family["rearm_cases"]
+    usb_status_cases = usb_family["status_decoding_cases"]
+    checks.append(check("stock_usb_descriptor_software_and_family_reference_verified",
+                        usb_family["status"] == "pass"
+                        and usb_family["upstream_commit"] == "adc218676eef25575469234709c2d87185ca223a"
+                        and usb_family["completed_native_page_lifecycles"] == 0
+                        and len(usb_family["comparisons"]) == 24
+                        and all(c["status"] == "match" and c["stock_value"] == c["expected_value"]
+                                and c["load_sites"] for c in usb_family["comparisons"])
+                        and len(usb_family["instructions"]) == 18
+                        and len(usb_rearm_cases) == 12
+                        and {(c["fill"],c["offset"],c["next_pointer"]) for c in usb_rearm_cases} ==
+                            {(f,o,p) for f in (0,204) for o in (0,37) for p in ("0x0","0x22340567","0x22340560")}
+                        and all(c["status"] == "pass" and c["entire_guarded_arena_equal"]
+                                and c["flags"][1:] == [0,1,0] for c in usb_rearm_cases)
+                        and len(usb_status_cases) == 51
+                        and all(c["status"] == "pass" and c["guarded_arena_unchanged"]
+                                and c["owner_admitted"] == (c["owner"] == 2)
+                                and c["decoded_count"] == (c["encoded_count"] if c["owner"] == 2 else None)
+                                and c["stop"] == ("0x10008542" if c["owner"] == 2 else "0x1000867c")
+                                for c in usb_status_cases)
+                        and {(c["owner"],c["last"],c["encoded_count"]) for c in usb_status_cases
+                             if c["receive_status"] == 0} ==
+                            {(o,l,n) for o in range(4) for l in (0,1) for n in (0,1,64,512,1024,65535)}
+                        and {c["receive_status"] for c in usb_status_cases if c["receive_status"]} == {1,2,3}
+                        and len(usb_family["excluded_controls"]) == 2
+                        and {c["engine"] for c in usb_family["excluded_controls"]} == {"interpreter","QEMU"}
+                        and all(c["status"] == "rejected before execution" and c["pc"] == "0x10008762"
+                                and c["effective_address"] == "0xb3000234" for c in usb_family["excluded_controls"])
+                        and all(hashlib.sha256((ROOT_DIR/name).read_bytes()).hexdigest() == digest
+                                for name,digest in usb_family["source_sha256"].items()),
+                        "Pinned open-controller definitions and original RAM-only descriptor behavior must agree; family compatibility remains an inference, with no live USB transfer or printer lifecycle claim.",
+                        evidence="analysis/usb-path/controller-family.json"))
+
     fail_count = severity_count(checks, "fail")
     return {
         "summary": "Cross-report consistency gate for the current offline reverse-engineering state.",

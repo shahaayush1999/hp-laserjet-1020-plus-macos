@@ -56,7 +56,7 @@
     },
     {
       "evidence": "analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c",
-      "name": "writes_sram_descriptor_opcode",
+      "name": "writes_descriptor_first_status_byte",
       "needle": "*puVar4 = 8",
       "status": "present"
     },
@@ -91,16 +91,16 @@
       "offset": "+0x08..+0x0b"
     },
     {
-      "meaning": "zeroed tail/control bytes",
+      "meaning": "zeroed next-descriptor word; family interpretation is audited separately in controller-family.json",
       "offset": "+0x0c..+0x0f"
     },
     {
-      "meaning": "opcode/value 8 written through descriptor SRAM pointer",
-      "offset": "sram[0]"
+      "meaning": "byte 8 is the high byte of status word 0x08000000, not an instruction opcode",
+      "offset": "status[0]"
     },
     {
-      "meaning": "zeroed after submit",
-      "offset": "sram[1..3]"
+      "meaning": "zeroed after submit; the controller-family comparison interprets bit 27 as the last-descriptor flag",
+      "offset": "status[1..3]"
     }
   ],
   "open_firmware_implication": [

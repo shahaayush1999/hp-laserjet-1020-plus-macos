@@ -28,9 +28,9 @@ This is an offline static model. It does not contact the printer.
 | Field | Meaning |
 |---|---|
 | `+0x08..+0x0b` | big-endian receive target pointer |
-| `+0x0c..+0x0f` | zeroed tail/control bytes |
-| `sram[0]` | opcode/value 8 written through descriptor SRAM pointer |
-| `sram[1..3]` | zeroed after submit |
+| `+0x0c..+0x0f` | zeroed next-descriptor word; family interpretation is audited separately in controller-family.json |
+| `status[0]` | byte 8 is the high byte of status word 0x08000000, not an instruction opcode |
+| `status[1..3]` | zeroed after submit; the controller-family comparison interprets bit 27 as the last-descriptor flag |
 
 ## Branch Model
 
@@ -58,7 +58,7 @@ This is an offline static model. It does not contact the printer.
 | `present` | `writes_descriptor_mode_flag` | `analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c` | `*PTR_DAT_10005e28 = uVar5` |
 | `present` | `submits_descriptor_pointer_to_mmio` | `analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c` | `*piVar2 = iVar6` |
 | `present` | `zeros_descriptor_tail_bytes` | `analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c` | `*(undefined1 *)(iVar6 + 0xc) = 0` |
-| `present` | `writes_sram_descriptor_opcode` | `analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c` | `*puVar4 = 8` |
+| `present` | `writes_descriptor_first_status_byte` | `analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c` | `*puVar4 = 8` |
 | `present` | `sets_bulk_done_byte` | `analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c` | `*puVar1 = 1` |
 | `present` | `clears_bulk_rx_done_flag` | `analysis/call-clusters/seed-decompiled/100086f4_FUN_100086f4.c` | `*puVar3 = 0` |
 

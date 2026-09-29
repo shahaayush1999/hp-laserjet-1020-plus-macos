@@ -1,0 +1,32 @@
+{
+  "repository": "https://github.com/torvalds/linux",
+  "requested_ref": "v6.12",
+  "commit": "adc218676eef25575469234709c2d87185ca223a",
+  "files": [
+    {
+      "path": "drivers/usb/gadget/udc/amd5536udc.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/adc218676eef25575469234709c2d87185ca223a/drivers/usb/gadget/udc/amd5536udc.h",
+      "sha256": "8dbf2ebffe7de042bdfea1c5e4e0d7e7ca334cb821fbfaa1cf9ccfeeae302648",
+      "bytes": 18104
+    },
+    {
+      "path": "drivers/usb/gadget/udc/snps_udc_core.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/adc218676eef25575469234709c2d87185ca223a/drivers/usb/gadget/udc/snps_udc_core.c",
+      "sha256": "c1b09e8f69d3340f2afd3a033d77a42775b52716d45b1aceb211dcaab89127bf",
+      "bytes": 81705
+    },
+    {
+      "path": "drivers/usb/gadget/udc/snps_udc_plat.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/adc218676eef25575469234709c2d87185ca223a/drivers/usb/gadget/udc/snps_udc_plat.c",
+      "sha256": "25728c88031b8e19613d0b47708cef643635dd937d8a4bb3ab118500fbf2843d",
+      "bytes": 7106
+    },
+    {
+      "path": "LICENSES/preferred/GPL-2.0",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/adc218676eef25575469234709c2d87185ca223a/LICENSES/preferred/GPL-2.0",
+      "sha256": "f6b78c087c3ebdf0f3c13415070dd480a3f35d8fc76f3d02180a407c1c812f79",
+      "bytes": 18729
+    }
+  ],
+  "purpose": "Read-only controller-family comparison; no hardware use or integration."
+}

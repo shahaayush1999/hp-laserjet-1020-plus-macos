@@ -88,7 +88,7 @@ def build_report(elf_path: Path) -> dict[str, Any]:
         contains(source, "*PTR_DAT_10005e28 = uVar5", "writes_descriptor_mode_flag"),
         contains(source, "*piVar2 = iVar6", "submits_descriptor_pointer_to_mmio"),
         contains(source, "*(undefined1 *)(iVar6 + 0xc) = 0", "zeros_descriptor_tail_bytes"),
-        contains(source, "*puVar4 = 8", "writes_sram_descriptor_opcode"),
+        contains(source, "*puVar4 = 8", "writes_descriptor_first_status_byte"),
         contains(source, "*puVar1 = 1", "sets_bulk_done_byte"),
         contains(source, "*puVar3 = 0", "clears_bulk_rx_done_flag"),
     ]
@@ -104,9 +104,9 @@ def build_report(elf_path: Path) -> dict[str, Any]:
         },
         "descriptor_layout": [
             {"offset": "+0x08..+0x0b", "meaning": "big-endian receive target pointer"},
-            {"offset": "+0x0c..+0x0f", "meaning": "zeroed tail/control bytes"},
-            {"offset": "sram[0]", "meaning": "opcode/value 8 written through descriptor SRAM pointer"},
-            {"offset": "sram[1..3]", "meaning": "zeroed after submit"},
+            {"offset": "+0x0c..+0x0f", "meaning": "zeroed next-descriptor word; family interpretation is audited separately in controller-family.json"},
+            {"offset": "status[0]", "meaning": "byte 8 is the high byte of status word 0x08000000, not an instruction opcode"},
+            {"offset": "status[1..3]", "meaning": "zeroed after submit; the controller-family comparison interprets bit 27 as the last-descriptor flag"},
         ],
         "branch_model": [
             {
