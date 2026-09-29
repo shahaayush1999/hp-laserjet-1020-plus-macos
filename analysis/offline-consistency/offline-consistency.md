@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `108`
+- checks: `109`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -72,6 +72,7 @@ It does not contact the printer.
 | `stock_video_buffer_initialization_and_ownership_verified` | `watch` | Original buffer allocation, idle initialization, release and reuse must remain distinct from page lifecycles; smaller synthetic pools stop before retry scheduling and all constructor hardware remains excluded. | `analysis/hardware-boundary/raw-parser.json` |
 | `decoded_pixels_in_original_ring_storage_verified` | `watch` | Decoded pixels must match every selected-slot byte through explicitly supplied fill/acceptance/completion boundaries; claimed buffers, host-selected wrap indices and released descriptors do not prove native page lifecycles or physical output. | `analysis/hardware-boundary/software-ring.json` |
 | `decoded_pixels_continuous_ring_ownership_verified` | `watch` | Original ring indices must wrap only after actual claims/publications/accounting/releases; a full ring and accepted-but-uncompleted slot retain ownership, while physical readiness and completion remain supplied. | `analysis/hardware-boundary/software-ring.json` |
+| `original_output_submission_arithmetic_before_mmio_verified` | `watch` | Original output address/count construction must stop before every peripheral instruction; explicit register cuts, synthetic geometry, selector overrides and omitted readiness remain separate from native lifecycles, pixel packing and physical acceptance. | `analysis/hardware-boundary/output-submission.json` |
 | `compiled_decoder_to_software_output_ring_verified` | `watch` | One compiled C decoder/ring fixture must preserve all pixels, whole-buffer guards, backpressure and the original bounded ownership trace; its explicit software consumer does not establish native page cleanup or physical output. | `analysis/open-firmware-model/image-core/ring-validation.json` |
 | `bounded_documents_to_software_output_verified` | `watch` | Whole-document output must preserve exact pixels across geometry changes, completion ordering and reused input; late input/consumer failures retain ownership and cannot be reported as successful printing. | `analysis/open-firmware-model/image-core/output-validation.json` |
 | `bounded_receive_document_ownership_and_restart_verified` | `watch` | Bounded receive ownership must preserve FIFO data, exact pixels and stopped storage, reject stale events, and require both external quiescence acknowledgements before restart. Software transfer observations do not establish hardware USB/reset/printing. | `analysis/usb-path/receive-core/validation.json` |

@@ -34,13 +34,20 @@ matches, 18 original anchors, 12 re-arms, 51 status fragments, two pre-MMIO
 rejections, plus 11 new ownership/reset anchors. Wrapper/PHY, byte order,
 cache/aliases and real reset/abort remain unresolved.
 
-Full sequential validation passed **108 consistency checks and both suites**,
-in `/tmp/hp1020-full-usb-receive-20260929.log` (child `hp1020-validation.SAqbeg`).
-No validation process remains running. Tested source hashes match; reports were
-regenerated, never patched. `scripts/validate-hp1020-output-submission.py` is a
-saved, **unexecuted** next-experiment draft, excluded from that validation.
-The detailed handoff preserves the preamble-fixture correction and earlier
-74-case host result with exact sources. The preceding full baseline is `89863e9`.
+The original output pointer/count experiment now passes **30 interpreter/QEMU
+cases**. It verifies the selected address, quotient and terminal-bit OR while
+stopping before every peripheral access. Default single-output and explicitly
+supplied dual-output geometry remain separate; neither proves pixel packing,
+readiness or physical acceptance. Report: `analysis/hardware-boundary/output-submission.json/.md`.
+
+The committed receive baseline `2e0a986` passed **108 consistency checks and both
+suites** (`/tmp/hp1020-full-usb-receive-20260929.log`, child `hp1020-validation.SAqbeg`).
+The new focused output result passed full sequential validation with **109
+consistency checks and both suites** in `/tmp/hp1020-full-output-submission-20260929.log`
+(child `hp1020-validation.2TjALV`). All processes finished; tested sources are unchanged and reports were
+regenerated, never patched. The next USB class-reset and output-format
+experiments are unexecuted drafts, excluded from this validation; run them
+sequentially next. Detailed handoff preserves exact sources and corrections.
 
 Next close controller receive/reset ownership and the physical output contract
 using original bytes and narrow offline execution. Keep software quiescence

@@ -899,13 +899,66 @@ Full sequential validation passed **108 consistency checks and both suites**,
 in `/tmp/hp1020-full-usb-receive-20260929.log` (child `hp1020-validation.SAqbeg`).
 All validation processes finished; tested sources still match. The preceding
 107-check checkpoint is `89863e9`. No installed printing files or probe allowlists
-were changed. The prepared `scripts/validate-hp1020-output-submission.py` draft
-is **unexecuted** and excluded from this validation. It proposes separately cut
-original pointer/count fragments, always stopping before video stores/readiness;
-no pixel-packing conclusion may be drawn from that arithmetic. Next evidence
-must establish real controller ownership/reset and
-physical output contracts; this queue deliberately cannot infer either from
-its own success.
+were changed. This checkpoint is committed as `2e0a986`. The then-unexecuted
+output-submission draft was excluded from that full validation; its later
+focused result is recorded below. Real controller ownership/reset and physical
+output contracts remain open; this queue cannot infer either from its own
+success.
+
+### Original output-submission arithmetic (2026-09-29)
+
+`scripts/validate-hp1020-output-submission.py` now passes **30 cases in both the
+bounded interpreter and independent QEMU**. Report:
+`analysis/hardware-boundary/output-submission.json/.md`; focused log:
+`/tmp/hp1020-output-submission-20260929.log`; exact source snapshots and captures:
+`/tmp/hp1020-output-submission-c3744u4t/`. The report pins the stock ELF, the
+recursive local Python dependency closure, three original byte ranges and
+23 individual instruction anchors. All sources still match. This adds zero
+native page lifecycles, zero USB transfers and zero peripheral instructions.
+
+Each fragment executes original ENTRY at `0x10013f34`, then uses explicit
+register cuts. The already-proven ring selection is not repeated. The
+file-backed selector cell `0x1001cdac = 2` chooses the single-output arm:
+the selected pointer is unchanged, the computed destination is `0xb1000008`,
+and the count for `0xb100000c` is `floor(rows / divisor) OR (final != 0 << 24)`.
+No store to either destination executes. The original unsigned division helper
+executes in both engines. Separate conditional controls override the selector
+to one in private RAM and observe a second pointer at `pointer + video[0xbc]`,
+destination `0xb1000108`, and common count `floor((rows >> 1) / divisor)`.
+That path stops before the readiness read, then a separate fragment executes
+only the terminal-bit OR, without supplying a ready result. Second-lane flags,
+ready branching and all actual submissions stay excluded.
+
+Rows, divisor, terminal value, stride/window and selected pointer are supplied
+arithmetic inputs. Divisor-zero controls record the original helper's zero
+result, not a safe production policy. Large-count controls overlap bit 24 to
+distinguish bitwise OR from addition; they do not claim legal page dimensions
+or accessible pixel spans. These four controls were added, and the independent
+oracle changed from addition to OR, before the draft's first execution.
+Fourteen excluded peripheral/engine instruction boundaries are rejected before
+execution in each engine. All nonstack writable RAM, including the nonuniform
+selected buffer, remains byte-identical. This establishes arithmetic under the
+cut preconditions, not a contiguous native output lifecycle or physical pixels.
+
+The semantic planner's `window` and callback fields describe the callback
+profile, whereas executed bypass preparation uses `video+0xbc = stride`,
+`+0xc4 = 1`, `+0xf4 = 0`. The compiled image ring already uses `stride` and
+does not inherit the callback window. Future submission code must choose the
+bypass geometry explicitly. No physical polarity, bit order, two-bit sample
+meaning or lane interleave is inferred from the pointer/count fragments.
+
+Full sequential validation after this integration passed **109 consistency
+checks and both suites** in
+`/tmp/hp1020-full-output-submission-20260929.log`, child `hp1020-validation.2TjALV`.
+All processes finished and the 23 tested local source hashes still match.
+Next drafts, excluded from this
+suite, trace original class-reset dispatch (`scripts/validate-hp1020-usb-class-reset.py`)
+and output-format table/mask construction (`scripts/validate-hp1020-output-format.py`,
+prepared independently). Both remain **unexecuted** and should run sequentially
+next. The reset draft supplies setup admission and stops before
+control transmission; software frees are not DMA quiescence. The format draft
+will keep all video accesses excluded. Do not add a device-driving adapter from
+arithmetic alone.
 
 ## Preferred raster bypass (2026-09-10)
 

@@ -72,6 +72,14 @@ copy, and only the final band is marked final. A4 gives 1706 four-row bands.
 five million band partitions under ASan/UBSan. Callback transformations, live
 buffer ownership and mechanical sequencing remain outside this component.
 
+The planner's `window` and callback selector describe the callback profile,
+not physical output layout. In particular BPP1 gives `window = 2 * stride`,
+while the executed stock bypass prepares `video+0xbc = stride`, `+0xc4 = 1`
+and `+0xf4 = 0`. The image ring already uses `stride`; an eventual output
+adapter must select its geometry explicitly. Original pointer/count fragments
+are checked in `analysis/hardware-boundary/output-submission.md`, with every
+peripheral access excluded. They do not resolve polarity or pixel packing.
+
 The `freestanding/` test fixture links these same C components at synthetic
 address `0x20000000`, with call0 functions, small memory helpers and software
 unsigned division. It is an emulator test ELF, not a bootable printer image.

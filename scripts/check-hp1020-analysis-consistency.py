@@ -1292,6 +1292,51 @@ def build_report() -> dict[str, Any]:
                                 for c in software_ring["sequences"]),
                         "Original ring indices must wrap only after actual claims/publications/accounting/releases; a full ring and accepted-but-uncompleted slot retain ownership, while physical readiness and completion remain supplied.",
                         evidence="analysis/hardware-boundary/software-ring.json"))
+    submission = read_json("analysis/hardware-boundary/output-submission.json")
+    submission_cases = submission["cases"]
+    submission_excluded = {"0x10013f4c", "0x10013ff9", "0x1001402b", "0x10014037",
+                           "0x10014052", "0x10014063", "0x10014071", "0x10014076",
+                           "0x10014083", "0x1001409c", "0x100140ac", "0x100140c7",
+                           "0x100140eb", "0x10015648"}
+    submission_phases = {False: ["single_pointer", "single_count"],
+                         True: ["dual_pointer_a", "dual_pointer_b", "dual_quotient", "dual_count"]}
+    checks.append(check("original_output_submission_arithmetic_before_mmio_verified",
+                        submission["status"] == "pass" and len(submission_cases) == 30
+                        and submission["completed_native_page_lifecycles"] == submission["usb_transfers"]
+                            == submission["peripheral_instructions_executed"] == 0
+                        and submission["stock_elf_sha256"] == hashlib.sha256(
+                            (ROOT_DIR/"analysis/sihp1020.elf").read_bytes()).hexdigest()
+                        and len(submission["instruction_anchors"]) == 23
+                        and len(submission["original_byte_ranges"]) == 3
+                        and {c["case"]["fill"] for c in submission_cases} == {0,204}
+                        and sum(c["case"]["dual"] for c in submission_cases) == 14
+                        and sum(c["case"]["zero_divisor_control"] for c in submission_cases) == 4
+                        and sum(c["case"]["count_flag_overlap_control"] for c in submission_cases) == 4
+                        and all(c["interpreter"]["observed"] == c["qemu"]["observed"]
+                                and c["interpreter"]["arena_sha256"] == c["qemu"]["arena_sha256"]
+                                and [p["observed"] for p in c["interpreter"]["phases"]]
+                                    == [p["observed"] for p in c["qemu"]["phases"]]
+                                and c["case"]["geometry_source"] == "supplied_arithmetic_controls"
+                                and c["case"]["selector_source"] ==
+                                    ("explicit_RAM_value_1" if c["case"]["dual"] else "file_backed_value_2")
+                                for c in submission_cases)
+                        and all(c[e]["status"] == "pass" and c[e]["observed"] == c[e]["oracle"]
+                                and c[e]["all_nonstack_ram_unchanged"]
+                                and c[e]["peripheral_instructions_executed"] == 0
+                                and set(c[e]["rejected_before_execution"]) == submission_excluded
+                                and [p["phase"] for p in c[e]["phases"]] == submission_phases[c["case"]["dual"]]
+                                and sum(p["divide_executed"] for p in c[e]["phases"]) == 1
+                                and all(p["original_entry"] == "0x10013f34"
+                                        and p["original_entry"] in p["visited"] and p["resume"] in p["visited"]
+                                        and p["stop_before"] not in p["visited"]
+                                        and not (set(p["visited"]) & submission_excluded)
+                                        and p["all_nonstack_ram_unchanged"] and p["other_a2_through_a15_zero"]
+                                        for p in c[e]["phases"])
+                                for c in submission_cases for e in ("interpreter", "qemu"))
+                        and all(hashlib.sha256((ROOT_DIR/name).read_bytes()).hexdigest() == digest
+                                for name,digest in submission["source_sha256"].items()),
+                        "Original output address/count construction must stop before every peripheral instruction; explicit register cuts, synthetic geometry, selector overrides and omitted readiness remain separate from native lifecycles, pixel packing and physical acceptance.",
+                        evidence="analysis/hardware-boundary/output-submission.json"))
     image_ring = read_json("analysis/open-firmware-model/image-core/ring-validation.json")
     ring_target = image_ring.get("target") or {}
     ring_trace_phases = {"prepared":0,"fill_published":1,"nonfinal_withheld":2,

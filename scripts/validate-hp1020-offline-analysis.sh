@@ -230,6 +230,9 @@ run_step "Execute original chunk-12 parser construction and queue admission" \
 run_step "Deliver decoded software pixels through bounded original ring storage" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-software-ring.py"
 
+run_step "Execute original output pointer/count fragments before peripheral access" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-output-submission.py"
+
 run_step "Connect the compiled open decoder to bounded software output ownership" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-image-ring.py" --target
 
