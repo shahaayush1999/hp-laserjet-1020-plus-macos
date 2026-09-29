@@ -10,6 +10,7 @@ uint8_t hp1020_bulk_fixture_input[1024];
 uint8_t hp1020_bulk_fixture_pixels[262144];
 uint8_t hp1020_bulk_fixture_wire[32768];
 uint32_t hp1020_bulk_fixture_stats[96];
+uint32_t hp1020_bulk_fixture_documents[512][5];
 
 struct packet {
     struct hp1020_tusb_cookie cookie;
@@ -42,6 +43,7 @@ static struct {
     uint32_t accepted, completed, inflight, calls, owned_hash[4], fail_at;
     uint32_t fail_submission, address, pending_address, address_epoch;
     uint32_t cancel_requests, dcd_writes;
+    uint32_t document_calls, documents_completed, document_fail_at;
 } state;
 
 static uint32_t fnv(const uint8_t *p,uint32_t n) {
@@ -81,6 +83,16 @@ static void request_cancel(void *context,struct hp1020_tusb_cookie cookie) {
     }
     if(!packets[i].cancel_requested)state.cancel_requests++;
     packets[i].cancel_requested=1; /* A request does not settle ownership. */
+}
+static enum hp1020_result document_complete(const struct hp1020_usb_document_event *event,void *context) {
+    (void)context;
+    if(adapter.stack_active || state.document_calls>=512) { state.violations++;return HP1020_LIMIT; }
+    const enum hp1020_result result=state.document_calls>=state.document_fail_at?HP1020_ORDER:HP1020_OK;
+    uint32_t *record=hp1020_bulk_fixture_documents[state.document_calls++];
+    record[0]=event->generation;record[1]=event->document_id;
+    record[2]=event->first_page;record[3]=event->pages;record[4]=(uint32_t)result;
+    if(!result)state.documents_completed++;
+    return result;
 }
 static enum hp1020_result progress(const struct hp1020_page_plan *plan,
     struct hp1020_image_ring *ring,void *context) {
@@ -222,7 +234,7 @@ static void snapshot(uint32_t result) {
     o[32]=rx->generation;o[33]=rx->issued;o[34]=rx->consumed;o[35]=rx->count;
     o[36]=rx->stopped;o[37]=rx->quiescent;o[38]=rx->error;o[39]=document.payload_error;
     o[40]=document.finished;o[41]=document.output_quiescent;
-    o[42]=printer.reset.request_id;o[43]=printer.reset.generation;o[44]=printer.reset_active;
+    o[42]=printer.reset.recovery_id;o[43]=printer.reset.generation;o[44]=printer.reset_active;
     o[45]=printer.reset_parts;o[46]=printer.ep0_live;o[47]=adapter.deferred;
     o[48]=adapter.last_class_result;o[49]=adapter.last_receive_result;
     o[50]=state.pixel_bytes;o[51]=fnv(hp1020_bulk_fixture_pixels,state.pixel_bytes);
@@ -238,12 +250,15 @@ static void snapshot(uint32_t result) {
     o[81]=usbd_edpt_busy(0,1);o[82]=usbd_edpt_stalled(0,1);
     o[83]=usbd_edpt_busy(0,0x81);o[84]=usbd_edpt_stalled(0,0x81);
     o[85]=adapter.prepared;o[86]=adapter.exhausted;
+    o[90]=state.document_calls;o[91]=state.documents_completed;o[92]=document.output.documents_completed;
+    o[93]=state.document_calls?hp1020_bulk_fixture_documents[state.document_calls-1][0]:0;
+    o[94]=state.document_fail_at;o[95]=state.document_calls?hp1020_bulk_fixture_documents[state.document_calls-1][1]:0;
     if(state.last_id) { o[87]=history[state.last_id].epoch;o[88]=history[state.last_id].generation;o[89]=history[state.last_id].sequence; }
 }
 
 uint32_t hp1020_bulk_fixture_reset(uint32_t fill,uint32_t capacity,uint32_t interface_number,uint32_t fail_at) {
     /* A fresh process/ELF load is required, matching the adapter's first-use contract. */
-    memset(&state,0,sizeof(state));state.fill=fill&255;state.interface_number=interface_number;state.fail_at=fail_at;
+    memset(&state,0,sizeof(state));state.fill=fill&255;state.interface_number=interface_number;state.fail_at=fail_at;state.document_fail_at=UINT32_MAX;
     memset(&memory,state.fill,sizeof(memory));memset(hp1020_bulk_fixture_pixels,state.fill,sizeof(hp1020_bulk_fixture_pixels));
     memset(hp1020_bulk_fixture_wire,state.fill,sizeof(hp1020_bulk_fixture_wire));
     device_id[0]=1;device_id[1]=144;
@@ -261,7 +276,7 @@ uint32_t hp1020_bulk_fixture_reset(uint32_t fill,uint32_t capacity,uint32_t inte
     const uint8_t printer_interface[23]={9,4,(uint8_t)interface_number,0,2,7,1,2,0,
         7,5,1,2,64,0,0,7,5,0x81,2,64,0,0};
     memcpy(configuration+9+9*interface_number,printer_interface,23);
-    uint32_t r=hp1020_usb_document_init(&document,&memory.data,progress,NULL);
+    uint32_t r=hp1020_usb_document_init_documents(&document,&memory.data,progress,NULL,document_complete,NULL);
     const struct hp1020_printer_config pc={device_id,sizeof(device_id),(uint8_t)interface_number,0,0};
     if(!r)r=hp1020_usb_printer_init(&printer,&document,&pc);
     const struct hp1020_tusb_config ac={0,1,0x81,(uint16_t)capacity};
@@ -320,6 +335,12 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op,uint32_t a,uint32_t b,uint32_t c,u
         if(packets[2].live)r=HP1020_TUSB_WAIT;
         else { usbd_edpt_clear_stall(0,1);usbd_edpt_clear_stall(0,0x81);r=HP1020_TUSB_OK; }
     } else if(op==16) { state.fail_at=a;r=HP1020_TUSB_OK; }
+    else if(op==17) { state.document_fail_at=a;r=HP1020_TUSB_OK; }
+    else if(op==18 && !document.receive.issued && !document.output.active && !state.document_calls) {
+        /* Synthetic counter saturation only; no production restart/repair API. */
+        document.output.stream.parser.documents=a;
+        document.output.documents_completed=a;r=HP1020_TUSB_OK;
+    }
     (void)d;
     if(protect && old_generation==document.receive.generation &&
         memcmp(&protected_memory,&memory.data,sizeof(memory.data)))state.violations++;

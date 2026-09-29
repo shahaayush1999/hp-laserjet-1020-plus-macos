@@ -75,6 +75,8 @@ static void terminal(struct hp1020_tusb_adapter *s) {
     s->fenced = 1;
     s->input_closed = 1;
     s->deferred = 0;
+    s->binding_pending_epoch = 0;
+    s->reset_transport_epoch = 0;
     s->pending_kind = PENDING_NONE;
     s->last_class_result = hp1020_usb_printer_fault(s->printer,
         s->printer->document->receive.generation, REASON_LIMIT);
@@ -99,6 +101,8 @@ static enum hp1020_tusb_result fence(struct hp1020_tusb_adapter *s,
     s->fenced = 1;
     s->input_closed = 1;
     s->deferred = 0;
+    s->binding_pending_epoch = 0;
+    s->reset_transport_epoch = 0;
     s->last_class_result = hp1020_usb_printer_fault(s->printer, generation, reason);
     if (!advance(s, &s->transport_epoch)) return HP1020_TUSB_LIMIT;
     request_cancel(s, &s->owners[OWNER_BULK_OUT]);
@@ -167,6 +171,8 @@ static void driver_reset(uint8_t rhport) {
     s->opened = 0;
     s->configuration_value = 0;
     s->deferred = 0;
+    s->binding_pending_epoch = 0;
+    s->reset_transport_epoch = 0;
 }
 
 static bool endpoint_descriptor(const uint8_t *p, uint8_t address) {
@@ -196,7 +202,54 @@ static uint16_t driver_open(uint8_t rhport, const tusb_desc_interface_t *itf,
     }
     s->opened = 1;
     s->active_transport_epoch = s->transport_epoch;
+    /* This is a new endpoint binding, not a poll of mounted/fenced state.
+     * Do not begin recovery inside open: the complete configuration still has
+     * to succeed. A later fault clears this one-shot indication. */
+    s->binding_pending_epoch = s->transport_epoch;
     return 23;
+}
+
+static enum hp1020_tusb_result begin_binding_recovery(struct hp1020_tusb_adapter *s) {
+    const uint32_t epoch = s->binding_pending_epoch;
+    if (!epoch) return HP1020_TUSB_OK;
+    s->binding_pending_epoch = 0;
+    if (s->exhausted) return HP1020_TUSB_LIMIT;
+    if (epoch != s->transport_epoch || !s->opened || !tud_mounted() ||
+        !s->fenced || !s->printer->document->receive.stopped || bulk_owned(s)) {
+        (void)fence(s, s->printer->document->receive.generation, REASON_CONTRACT);
+        return s->exhausted ? HP1020_TUSB_LIMIT : HP1020_TUSB_ERROR;
+    }
+    /* A newly opened configuration must also have had its ordinary status
+     * packet accepted for submission. The pinned core can swallow an initial
+     * standard-request submission failure. Never allocate a recovery identity
+     * for that failed attempt or move its retained cookie past a restart. */
+    const uint8_t ep_status = (le16(s->active_setup + 6) &&
+        (s->active_setup[0] & 0x80)) ? 0 : 0x80;
+    struct hp1020_tusb_owner *status = owner_for(s, ep_status);
+    if ((s->active_setup[0] & 0x7f) ||
+        s->active_setup[1] != TUSB_REQ_SET_CONFIGURATION ||
+        status->state != HP1020_TUSB_OWNER_DCD || status->length ||
+        !status->cookie.id || status->cookie.epoch != s->active_control_epoch ||
+        status->cookie.epoch != s->control_epoch ||
+        status->cookie.generation != s->printer->document->receive.generation ||
+        !usbd_edpt_busy(s->config.rhport, ep_status)) {
+        (void)fence(s, s->printer->document->receive.generation, REASON_TRANSFER);
+        cancel_ep0(s);
+        return s->exhausted ? HP1020_TUSB_LIMIT : HP1020_TUSB_ERROR;
+    }
+    struct hp1020_printer_reset_ticket ticket;
+    s->last_class_result = hp1020_usb_printer_begin_transport_recovery(s->printer, &ticket);
+    if (s->last_class_result != HP1020_PRINTER_OK) {
+        if (s->last_class_result == HP1020_PRINTER_LIMIT) {
+            terminal(s);
+            return HP1020_TUSB_LIMIT;
+        }
+        (void)fence(s, s->printer->document->receive.generation, REASON_CONTRACT);
+        return s->exhausted ? HP1020_TUSB_LIMIT : HP1020_TUSB_ERROR;
+    }
+    s->reset_transport_epoch = epoch;
+    s->deferred = 0; /* Internal recovery has no EP0 reply permission. */
+    return HP1020_TUSB_OK;
 }
 
 static bool request_matches(const struct hp1020_tusb_adapter *s,
@@ -223,8 +276,9 @@ static bool driver_control(uint8_t rhport, uint8_t stage,
             if (s->last_class_result == HP1020_PRINTER_LIMIT) terminal(s);
             return false;
         }
-        if (s->printer->reset_active &&
-            s->printer->reset.request_id == s->class_request_id) {
+        if (s->printer->reset_active && s->printer->reset_request_id &&
+            s->printer->reset_request_id == s->class_request_id) {
+            s->reset_transport_epoch = s->transport_epoch;
             s->deferred = 1;
             s->deferred_epoch = s->active_control_epoch;
             return true;
@@ -271,7 +325,7 @@ static bool driver_xfer(uint8_t rhport, uint8_t endpoint, xfer_result_t result,
     }
     const struct hp1020_rx_ticket ticket = {cookie.generation, cookie.sequence};
     /* Deliberately normalized transport completion, never fabricated stock
-     * descriptor bits. This declaration is supplied by the separate patch. */
+     * descriptor bits. */
     s->last_receive_result = hp1020_usb_receive_complete_data(
         &s->printer->document->receive, ticket, length);
     if (s->last_receive_result != HP1020_RX_OK)
@@ -429,6 +483,8 @@ enum hp1020_tusb_result hp1020_tusb_adapter_bind_submission(
     p->buffer = buffer;
     p->length = length;
     p->state = HP1020_TUSB_OWNER_DCD;
+    if (endpoint != s->config.ep_out)
+        p->core_busy_at_bind = (uint8_t)usbd_edpt_busy(s->config.rhport, endpoint);
     *cookie = next;
     return HP1020_TUSB_OK;
 }
@@ -538,6 +594,27 @@ static bool deliver(struct hp1020_tusb_adapter *s, struct hp1020_tusb_owner *p) 
     return true;
 }
 
+/* Detect a rejected initial EP0 submission even when a standard request
+ * handler swallowed its false return. BUSY was set before bind_submission and
+ * is cleared by this pinned core on rejection. A stalled newly bound packet
+ * likewise cannot remain a healthy owner. Neither a stall nor this observation
+ * settles the DCD's pointer; request cancellation and preserve its cookie.
+ * Direct-DCD SET_ADDRESS status has no core BUSY transition and is excluded. */
+static enum hp1020_tusb_result check_initial_ep0_submission(struct hp1020_tusb_adapter *s) {
+    for (unsigned i = OWNER_EP0_OUT; i <= OWNER_EP0_IN; ++i) {
+        struct hp1020_tusb_owner *p = &s->owners[i];
+        if (p->state != HP1020_TUSB_OWNER_DCD || !p->core_busy_at_bind ||
+            p->cancel_requested) continue;
+        if (!usbd_edpt_busy(s->config.rhport, p->cookie.endpoint) ||
+            usbd_edpt_stalled(s->config.rhport, p->cookie.endpoint)) {
+            (void)fence(s, p->cookie.generation, REASON_TRANSFER);
+            cancel_ep0(s);
+            return s->exhausted ? HP1020_TUSB_LIMIT : HP1020_TUSB_ERROR;
+        }
+    }
+    return HP1020_TUSB_OK;
+}
+
 enum hp1020_tusb_result hp1020_tusb_adapter_service(struct hp1020_tusb_adapter *s) {
     enum hp1020_tusb_result r = enter(s);
     if (r) return r;
@@ -580,7 +657,14 @@ enum hp1020_tusb_result hp1020_tusb_adapter_service(struct hp1020_tusb_adapter *
     if (kind == PENDING_SETUP && (s->active_setup[0] & 0x7f) == 0 &&
         s->active_setup[1] == TUSB_REQ_SET_CONFIGURATION)
         s->configuration_value = tud_mounted() ? s->active_setup[2] : 0;
-    return leave(s, s->exhausted ? HP1020_TUSB_LIMIT : HP1020_TUSB_OK);
+    r = check_initial_ep0_submission(s);
+    if (r != HP1020_TUSB_OK) return leave(s, r);
+    /* driver_open marks only a newly opened binding. Same-value configuration,
+     * a superseded destructive SETUP and ordinary service polls create none.
+     * TinyUSB still owns its normal SET_CONFIGURATION status transfer; internal
+     * recovery creates no SETUP, response or extra packet. */
+    r = begin_binding_recovery(s);
+    return leave(s, s->exhausted ? HP1020_TUSB_LIMIT : r);
 }
 
 enum hp1020_tusb_result hp1020_tusb_adapter_arm_out(struct hp1020_tusb_adapter *s) {
@@ -661,8 +745,10 @@ enum hp1020_printer_result hp1020_tusb_adapter_pending_reset(
 
 static bool same_reset(const struct hp1020_tusb_adapter *s,
     struct hp1020_printer_reset_ticket ticket) {
-    return s->printer->reset_active && ticket.request_id == s->printer->reset.request_id &&
-        ticket.generation == s->printer->reset.generation;
+    return s->printer->reset_active && ticket.recovery_id &&
+        ticket.recovery_id == s->printer->reset.recovery_id &&
+        ticket.generation == s->printer->reset.generation &&
+        s->reset_transport_epoch && s->reset_transport_epoch == s->transport_epoch;
 }
 
 static bool transport_ready(const struct hp1020_tusb_adapter *s) {
@@ -700,12 +786,17 @@ enum hp1020_printer_result hp1020_tusb_adapter_finish_reset(struct hp1020_tusb_a
     else if (bulk_owned(s) || !transport_ready(s) ||
         (s->pending_kind && s->pending_destructive)) result = HP1020_PRINTER_WAIT;
     else {
+        /* Capture genuine request linkage before the class consumes it. The
+         * independent recovery ID must never be interpreted as a host request. */
+        const bool wire_reply = s->printer->reset_request_id &&
+            s->printer->reset_request_id == s->class_request_id;
         result = hp1020_usb_printer_finish_reset(s->printer, ticket);
         if (result == HP1020_PRINTER_OK) {
+            s->reset_transport_epoch = 0;
             s->active_transport_epoch = s->transport_epoch;
             s->fenced = 0;
             s->input_closed = 0;
-            if (s->deferred && s->deferred_epoch == s->control_epoch &&
+            if (wire_reply && s->deferred && s->deferred_epoch == s->control_epoch &&
                 s->deferred_epoch == s->active_control_epoch && !s->pending_kind) {
                 s->deferred = 0;
                 if (!take_reply(s)) result = HP1020_PRINTER_DOCUMENT_ERROR;

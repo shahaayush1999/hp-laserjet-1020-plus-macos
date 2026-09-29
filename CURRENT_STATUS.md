@@ -5,58 +5,60 @@ contact/enumerate USB, upload firmware, execute print-driving hardware paths or
 change the installed printing setup. Work toward normal-use feature parity by
 reusing open components and verifying hardware contracts. AGENTS.md owns scope.
 
-## Latest firmware evidence
+## Current offline work
 
-The reusable TinyUSB adapter now connects synthetic bulk reception to the open
-class/receive/JBIG/output path. **98 sanitized host/98 QEMU cases pass**, checking
-independent exact pixels, USB reply proposals, retained buffers, stale events,
-reset/configuration recovery and malformed controls. Target state/fixed memory
-is 128488 bytes, excluding code, stack, TinyUSB and fixture captures. This is a
-synthetic DCD, not a real controller port. Initial wire SOFT_RESET, three external
-recovery promises, synchronous output and explicit input close remain supplied.
-Reports and earlier failed/passed source snapshots: `analysis/usb-path/tinyusb-printer/`.
+The current checkpoint passes **121 consistency checks and both sequential
+validation suites**, including native pipeline, retirement and page checks. Log:
+`/tmp/hp1020-full-udc-boundary-20260929.log`; child `hp1020-validation.csAmPs`.
+The preceding completed/pushed baseline is `67672b9` (118 checks). GCC, binutils
+and QEMU work; pinned recovery is in `analysis/README.md`.
 
-The normalized receive API preserves the original raw-descriptor wrapper; its
-75 host/75 QEMU regression passes. The separate printer-class composition retains
-73/73. Unchanged pinned TinyUSB retains its 52/52 baseline with 14 protocol
-observations and 32 BE status-byte mismatches; the two-file patched core passes
-160/160. Vendor originals stay unchanged. Every current source hash matches.
+Continuous-document/recovery source passes **132/132 host/QEMU adapter,
+34/34 continuous, 82/82 class, 45/45 output and 75/75 receive** cases. Valid
+page/document boundaries drain software output and notify without closing input;
+configuration starts recovery without a fake host reset. Three settlement
+promises remain external. The initial standard-reply failure was reproduced and
+fixed; exact failed/passed sources and captures are preserved. Protocol baselines
+retain 52/52 and 160/160. A prior aggregate stopped at an obsolete stream-size
+expectation; the checker now matches measured91032 bytes, with no report-hash
+edits. That stopped attempt is archived separately.
 
-Original SETUP ingress passes 70 interpreter/QEMU cases, six pre-MMIO rejection
-controls per engine and 14 excluded-code controls. It distinguishes SUBPTR from
-ordinary OUT0 DESPTR and verifies stock field swaps before dispatch. Six older
-generators and the authored contract now distinguish these representations,
-register roles and task wake hints from successful transfer completion. All
-hardware allowlists and original write permissions remain unchanged.
-Original pause/restore retains 46 conditional cases; it does not prove DMA stop.
+The RAM-only OUT descriptor bridge passes **34 sanitized host/34 QEMU scenarios**
+through actual TinyUSB dispatch to exact pixels/document events. Both directions
+of disagreement between a saved completion and live bytes are checked. Source
+closure97; component/descriptor overhead80 bytes beyond adapter128536.
+`open-firmware/udc-out/` retains the original adapter cookie with no new queue.
+Mode, CPU/DMA mapping, cache ordering, immutable observations and settlement are
+supplied; descriptor bits do not prove them. No physical DCD exists.
 
-Latest **full sequential validation passes 118 consistency checks and both suites**.
-Log: `/tmp/hp1020-full-reusable-printer-20260929.log`; child
-`hp1020-validation.quvweZ`. Reports were regenerated normally; no hashes were
-patched to claim untested source. No printer contact or installed-driver changes.
-GCC, binutils and QEMU currently work; pinned recovery is in `analysis/README.md`.
+Original idle receive retains58 conditional cases/62 invocations per engine,
+six pre-MMIO rejection controls per engine and15 excluded controls. Its supplied
+services show delayed receive-enable intent, not a proven stock race or DMA stop.
+SETUP ingress70 and pause/restore46 remain separate. The legacy control-IN pointer
+model now distinguishes active unchanged pointers from initialization ADD; it
+establishes no physical address alias.
 
-## Next work
+## Next action
 
-Review/commit/push this validated checkpoint, then apply and execute the separate
-unapplied `/tmp/hp1020-continuous-streaming.patch`, automatic-recovery patches and
-independent oracle/test drafts. They add validated END_PAGE/END_DOC observations
-without closing ordinary input and recovery after a new configuration without
-fabricating a host reset. They are **not implemented or tested in the 98 cases**.
-A failed initial configuration acknowledgement must stay fenced and retain any
-bound EP0 owner. Preserve source snapshots before investigating failures.
+Commit/push this validated checkpoint, then integrate and execute the reviewed
+EP0 drafts sequentially: original construction cuts, exact-cookie adapter fault
+handling and separate IN0/OUT0 descriptor/staging boundaries. Drafts are under
+`/tmp/hp1020-ep0-construction-draft-20260929.py`,
+`/tmp/hp1020-ep0-adapter-draft-20260929/`,
+`/tmp/hp1020-udc-ep0-draft-20260929/` and
+`/tmp/hp1020-udc-ep0-validation.py`; none has executed. First close the fixture's
+retirement-time original-buffer check gap and consume the executed original
+report as the new component's byte oracle. EP0 cookie epochs are control epochs,
+not bulk transport epochs. Never run validators concurrently or alter tested
+source closures during execution. Detailed evidence/unresolved questions live in
+`analysis/open-firmware-model/next-evidence.md`.
 
-`scripts/validate-hp1020-usb-idle-receive.py` is a saved **unexecuted draft**.
-Its bounded next experiment checks original background RDE-enable intent with
-three private RAM literal redirects and supplied interrupt/delay services. It
-cannot establish physical quiescence. Run it sequentially, never alongside
-another validator. Detailed evidence/plans: `analysis/open-firmware-model/next-evidence.md`.
-
-Keep separate: 26 completed empty-document lifecycles, six conditional original
-null reads, 28 retirement cases, 36 native page lifecycles with supplied completion,
-and 42 fragment/bypass cases. New USB/control/adapter checks add zero native page
-lifecycles and zero USB transfers. Copies remain metadata. Boot, actual USB,
-engine timing/cache, physical status/printing and power-cycle recovery are unproved.
+Keep separate:26 completed empty-document lifecycles, six conditional original
+null reads,28 retirement cases,36 native page lifecycles with supplied completion,
+and42 fragment/bypass cases. New USB/component checks add zero physical USB or
+native page lifecycles. Copies remain metadata; output is synchronous. Boot,
+actual USB/cache/engine behavior, physical status/printing and power-cycle
+recovery remain unproved. Do not repeat cancellation/END_DOC ordering research.
 
 ## Installed Mac driver (separate, preserve)
 

@@ -22,10 +22,18 @@ queue or already-ready descriptor. Stale-generation faults are rejected.
 
 `hp1020_usb_document` connects this queue to the existing bounded ZjStream,
 JBIG and output-ring implementation. Pump returns WAIT for a delayed head and
-releases only successfully consumed input. Explicit finish checks document
-framing and drains software output; short transfers do not finish documents.
-The caller must first close external admission and consume all reservations.
-Calling `receive_stop` instead prevents both pumping and finishing.
+releases only successfully consumed input. Validated END_PAGE drains software
+output; END_DOC optionally reports original receive generation, one-based document
+ID and encoded-page range. Empty documents have zero pages. These boundaries do
+not close admission, finalize input or advance generation. A callback error is
+sticky and retains the current/later input even when output has already drained.
+Callbacks must copy event values, remain nonreentrant and are preserved on restart.
+
+Explicit finish is shutdown: the caller first closes external admission and
+consumes every reservation. Missing END_DOC stays TRUNCATED even after complete
+page output. Short/ZLP transfers do not finish documents. Calling `receive_stop`
+instead prevents both pumping and finishing. The extended initializer attaches
+an optional document consumer; the original initializer remains a wrapper.
 
 Stop/error fences all new work and retains input/output storage and ownership.
 Restart requires two distinct acknowledgements for the stopped generation:
@@ -57,7 +65,7 @@ pre-fault and pre-acknowledgement snapshots retain all memory and ownership;
 both acknowledgement orders are exercised with accepted output still present.
 Original stock execution remains a distinct category.
 
-The validated target state and fixed buffers use 128168 bytes, excluding code,
+The validated target state and fixed buffers use 128200 bytes, excluding code,
 stack and test captures. This includes receive storage and the document/image
 pipeline, not an operational USB stack. Copies remain metadata. Hardware boot,
 actual USB, cache behavior, physical pixel packing, engine output and recovery

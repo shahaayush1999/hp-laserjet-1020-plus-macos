@@ -1,12 +1,12 @@
 {
   "algorithm": [
     "set 0xb3000000 bit 0x2 before staging the control-IN response",
-    "copy/flush response bytes into the staging buffer at 0x90022bd0",
+    "copy response bytes into the staging buffer at 0x90022bd0; cache visibility is not established here",
     "build one to five 0x10-byte transfer descriptors at 0x900226f0",
     "descriptor word +0x00 is byte_count OR 0x08000000 on the final descriptor of each hardware kick",
     "descriptor word +0x08 is the source pointer into the staging buffer",
     "descriptor word +0x0c is the next descriptor pointer or zero",
-    "write descriptor base through 0xb3000014, then OR 0xb3000000 with 0x108",
+    "write the unchanged active descriptor base through 0xb3000014, then OR 0xb3000000 with 0x108",
     "wait on the USB completion event flag and repeat if bytes remain"
   ],
   "assumed_chunk_size_for_scenarios": "0x00000040",
@@ -16,9 +16,10 @@
     "descriptor_base": "0x900226f0",
     "descriptor_base_ptr_cell": "0x1001bc58",
     "descriptor_flag": "0x08000000",
-    "descriptor_hardware_alias_flag": "0x80000000",
     "descriptor_submit_register": "0xb3000014",
     "descriptor_submit_value": "0x900226f0",
+    "initial_descriptor_pointer_addend": "0x80000000",
+    "initial_descriptor_submit_value": "0x100226f0",
     "staging_buffer": "0x90022bd0",
     "staging_buffer_ptr_cell": "0x1001bc64",
     "transfer_state_base": "0x100212d4",
@@ -29,6 +30,42 @@
     "analysis/usb-path/internal-blocks.md",
     "analysis/usb-path-report.md"
   ],
+  "pointer_dataflow": {
+    "active_operation": "supplied pointer unchanged",
+    "anchors": [
+      {
+        "address": "0x10008d02",
+        "bytes": "88c019f467dcf00c02009890",
+        "meaning": "active zero-length pointer unchanged"
+      },
+      {
+        "address": "0x10008f11",
+        "bytes": "19f3e38870c7ef0c02009890",
+        "meaning": "active nonzero pointer unchanged"
+      },
+      {
+        "address": "0x100092aa",
+        "bytes": "88b019f2e21bf2fca98819f2fe0c020098b0",
+        "meaning": "initial pointer plus literal modulo 2^32"
+      }
+    ],
+    "initial_descriptor_status": "0xc0000000",
+    "initial_operation": "(supplied pointer + 0x80000000) modulo 2^32",
+    "kind": "byte-anchored static dataflow, not original-code execution",
+    "physical_address_translation_established": false,
+    "pointer_controls": [
+      {
+        "active": "0x100226f0",
+        "initial": "0x900226f0",
+        "supplied": "0x100226f0"
+      },
+      {
+        "active": "0x900226f0",
+        "initial": "0x100226f0",
+        "supplied": "0x900226f0"
+      }
+    ]
+  },
   "remaining_live_unknown": [
     "whether the open payload inherits initialized USB transfer-state RAM after ACL upload",
     "whether the control-IN completion event flag can be replaced with a safe polling loop",
@@ -392,5 +429,9 @@
     }
   ],
   "source_function": "0x10008c24 hp1020_usb_control_tx_data_stage_candidate",
+  "source_sha256": {
+    "analysis/sihp1020.elf": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+    "scripts/model-hp1020-control-in-data-stage.py": "6d02777b254aa18868f902df13d266479b97e42add931d5c164bd39ff205eef0"
+  },
   "summary": "Offline model of stock endpoint-0 control-IN transfer descriptor construction."
 }

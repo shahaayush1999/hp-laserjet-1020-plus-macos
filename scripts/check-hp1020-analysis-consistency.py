@@ -951,7 +951,7 @@ def build_report() -> dict[str, Any]:
                         and sum(c.get("retained_pages") == 16 and c["result"] == 3 for c in image_stream["retained_mode_controls"]) == 1
                         and any(c["case"] == "page-metadata-reuse/65" and c["stats"][0] == 0 and c["stats"][2] == 65 for c in image_stream["cases"])
                         and stream_target.get("elf_sha256") == image_target.get("elf_sha256")
-                        and stream_target.get("state_and_memory_bytes") == 91028
+                        and stream_target.get("state_and_memory_bytes") == 91032
                         and detailed_page.get("raw_bytes") == 10112256
                         and detailed_page.get("raw_sha256") == "1bd14b6f517eb823062ce9652aaeaaca887efd11dec7158669419f67daa8c2ce"
                         and detailed_page.get("bie_sha256") == "91accfaa54aff62fa845646818c82ad151665c08de973fa7b8ee843e1fe0f8b8"
@@ -1400,6 +1400,7 @@ def build_report() -> dict[str, Any]:
                         and sum(c["expected_result"] == 0 for c in output_cases) == 31
                         and all(c["status"] == "pass" and c["source_prefix_equal"]
                                 and c["stats"][0] == c["expected_result"]
+                                and c["stats"][32] == c["completed_documents"] == c["expected_completed_documents"]
                                 and c["stats"][10:12] == [0,1] and c["stats"][19] == 1
                                 and (c["stats"][23] == 0 and c["stats"][26] == 1 if c["expected_result"] else
                                      c["full_output_equal"] and c["stats"][23] == 1 and c["stats"][18] == 0
@@ -1410,8 +1411,12 @@ def build_report() -> dict[str, Any]:
                         and all(c["stats"][0] == 3 and c["stats"][5] == 0 for c in output_cases if c["seed_counter"])
                         and sum(c["stats"][17] == 65 and c["stats"][23] == 1 for c in output_cases) == 2
                         and {c["consumer_mode"] for c in output_cases if not c["expected_result"]} == {0,1,2}
-                        and any(c["case"] == "missing-end-doc" and c["stats"][5] > 0
-                                and c["stats"][18] == 4 for c in output_cases)
+                        and any(c["case"] == "missing-end-doc" and c["stats"][5] == 158400
+                                and c["stats"][17] == 1 and c["stats"][7:9] == [33,33]
+                                and c["stats"][18] == c["stats"][22] == c["stats"][32] == 0
+                                and c["expected_result"] == 5 and c["full_output_equal"] for c in output_cases)
+                        and all(c["stats"][13] == 3 and c["stats"][18] == 1 and c["stats"][32] == 0
+                                for c in output_cases if c["case"].startswith("final-drain/"))
                         and any(c["case"] == "consumer/after=1" and c["stats"][7:9] == [1,0]
                                 and c["stats"][18] == 4 for c in output_cases)
                         and all(t["status"] == "pass" and t["case"] == c["case"]
@@ -1431,15 +1436,22 @@ def build_report() -> dict[str, Any]:
                         receive["status"] == receive_target.get("status") == "pass"
                         and receive["usb_transfers"] == receive["completed_native_page_lifecycles"] == 0
                         and len(receive_cases) == len(receive_target.get("cases", [])) == 75
-                        and receive_target.get("state_and_memory_bytes") == 128168
+                        and receive_target.get("state_and_memory_bytes") == 128200
                         and receive_target.get("elf_sha256") == hashlib.sha256(
                             (ROOT_DIR/"analysis/usb-path/receive-core/target/target-check.elf").read_bytes()).hexdigest()
                         and all(c["status"] == "pass" and c["event_count"] == len(c["steps"])
                                 and all(s[23:25] == [0,1] for s in c["steps"])
-                                and c["steps"][-1][11] == c["output_bytes"] for c in receive_cases)
+                                and c["steps"][-1][11] == c["output_bytes"]
+                                and c["completed_documents"] == c["steps"][-1][48]
+                                and all(len(row) == 49 for row in c["steps"]) for c in receive_cases)
+                        and any(c["case"] == "document/truncated" and c["output_bytes"] == 158400
+                                and not c["source_prefix_only"] and c["completed_documents"] == 0
+                                and c["steps"][-1][13:16] == [33,33,0]
+                                and c["steps"][-1][18:20] == [1,1] and c["steps"][-1][25] == 0
+                                for c in receive_cases)
                         and all(t["status"] == "pass" and t["case"] == c["case"]
                                 and t["all_steps_equal"] and t["all_pixels_and_storage_equal"]
-                                and t["state_and_memory_bytes"] == 128168
+                                and t["state_and_memory_bytes"] == 128200
                                 for c,t in zip(receive_cases,receive_target.get("cases",[])))
                         and sum(c["case"].startswith("status/") for c in receive_cases) == 32
                         and sum(c["case"].startswith("endpoint-wide-fault/") for c in receive_cases) == 4
@@ -2296,8 +2308,17 @@ def build_report() -> dict[str, Any]:
             control_constants.get("descriptor_flag") == "0x08000000"
             and control_constants.get("descriptor_base") == "0x900226f0"
             and control_constants.get("staging_buffer") == "0x90022bd0"
-            and control_constants.get("descriptor_submit_register") == "0xb3000014",
-            "Control-IN data-stage constants must preserve descriptor ring, staging buffer, and submit register evidence.",
+            and control_constants.get("descriptor_submit_register") == "0xb3000014"
+            and control_constants.get("descriptor_submit_value") == "0x900226f0"
+            and control_constants.get("initial_descriptor_submit_value") == "0x100226f0"
+            and "descriptor_hardware_alias_flag" not in control_constants
+            and control_in["pointer_dataflow"]["physical_address_translation_established"] is False
+            and control_in["pointer_dataflow"]["pointer_controls"] == [
+                {"supplied": "0x100226f0", "active": "0x100226f0", "initial": "0x900226f0"},
+                {"supplied": "0x900226f0", "active": "0x900226f0", "initial": "0x100226f0"}]
+            and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h
+                    for n,h in control_in["source_sha256"].items()),
+            "Byte-anchored active control-IN submissions preserve their supplied pointer. Separate HOST_BUSY initialization uses modulo-32-bit ADD, not OR; neither establishes physical address translation.",
             evidence="analysis/usb-path/control-in-data-stage.json",
         )
     )
@@ -2485,10 +2506,11 @@ def build_report() -> dict[str, Any]:
     printer_cases, printer_target = printer_class["cases"], printer_class.get("target") or {}
     checks.append(check("bounded_printer_class_document_recovery_verified",
                         printer_class["status"] == printer_target.get("status") == "pass"
-                        and len(printer_cases) == len(printer_target.get("cases",[])) == 73
+                        and len(printer_cases) == len(printer_target.get("cases",[])) == 82
+                        and sum(c["case"].startswith("automatic/") for c in printer_cases) == 9
                         and printer_class["completed_native_page_lifecycles"] == printer_class["usb_transfers"]
                             == printer_class["completed_usb_control_transfers"] == 0
-                        and printer_target.get("state_and_memory_bytes") == 128216
+                        and printer_target.get("state_and_memory_bytes") == 128256
                         and printer_target.get("elf_sha256") == hashlib.sha256(
                             (ROOT_DIR/"analysis/usb-path/printer-class/target/target-check.elf").read_bytes()).hexdigest()
                         and all(c["status"] == "pass" and c["event_count"] == len(c["steps"])
@@ -2497,7 +2519,7 @@ def build_report() -> dict[str, Any]:
                                 and c["steps"][-1][42] == c["control_reply_bytes"] for c in printer_cases)
                         and all(t["status"] == "pass" and t["case"] == c["case"] and t["all_steps_equal"]
                                 and t["all_pixels_storage_and_control_replies_equal"]
-                                and t["state_and_memory_bytes"] == 128216
+                                and t["state_and_memory_bytes"] == 128256
                                 for c,t in zip(printer_cases,printer_target.get("cases",[])))
                         and sum(c["case"].startswith("reset/type=") for c in printer_cases) == 24
                         and sum(c["case"].startswith("repeated-reset/") for c in printer_cases) == 6
@@ -2608,7 +2630,7 @@ def build_report() -> dict[str, Any]:
                       (ROOT_DIR/f"analysis/usb-path/tinyusb-device/{target_path}/target-check.elf").read_bytes()).hexdigest()
                   and source == read_json(f"analysis/usb-path/tinyusb-device/{target_path}/effective-source.json")
                   and all(t["case"] == c["case"] and t["all_nonwire_states_equal"]
-                          and t["component_state_and_memory_bytes"] == 128216
+                          and t["component_state_and_memory_bytes"] == 128256
                           and all(len(s) == 72 and s[11:13] == [0,1]
                                   and s[61] == c["initial"][61] for s in c["steps"])
                           for c,t in zip(rows, target.get("cases", [])))
@@ -2684,7 +2706,9 @@ def build_report() -> dict[str, Any]:
     composed_cases = composition["cases"]
     checks.append(check("reusable_usb_printer_decodes_exact_document_pixels",
                         composition["status"] == composed_target.get("status") == "pass"
-                        and len(composed_cases) == len(composed_target.get("cases", [])) == 98
+                        and len(composed_cases) == len(composed_target.get("cases", [])) == 132
+                        and sum(c["scenario"].startswith("automatic/") for c in composed_cases) == 18
+                        and sum(c["scenario"].startswith("initial-standard/") for c in composed_cases) == 16
                         and len(composition["source_sha256"]) == 76
                         and composition["effective_source"]["patched"] is True
                         and composition["effective_source"] == read_json(
@@ -2695,7 +2719,7 @@ def build_report() -> dict[str, Any]:
                         and sum(c["scenario"] == "halt-owned-out/17" for c in composed_cases) == 2
                         and all(c["status"] == t["status"] == "pass" and c["case"] == t["case"]
                                 and t["all_steps_equal"] and t["all_pixels_wire_and_storage_equal"]
-                                and t["component_state_and_memory_bytes"] == 128488
+                                and t["component_state_and_memory_bytes"] == 128536
                                 and c["capture_sha256"] == t["capture_sha256"]
                                 and c["expected_pixels_sha256"] == c["capture_sha256"]["pixels"]
                                 and all(len(s) == 96 and s[15:17] == [0,1] for s in c["steps"])
@@ -2704,8 +2728,130 @@ def build_report() -> dict[str, Any]:
                             (ROOT_DIR/"analysis/usb-path/tinyusb-printer/target/target-check.elf").read_bytes()).hexdigest()
                         and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h
                                 for key in ("source_sha256", "fixture_sha256") for n,h in composition[key].items()),
-                        "The reusable software adapter preserves original transfer identities, exact USB reply proposals and independent decoded pixels in both engines. Synthetic controller settlement, initial class reset and explicit input closure remain supplied; no physical USB or printing is established.",
+                        "The reusable software adapter preserves original transfer identities, exact USB reply proposals and independent decoded pixels in both engines. Automatic configuration and real reset keep independent identities; synthetic controller settlement remains supplied. Continuous document boundaries are checked separately; no physical USB or printing is established.",
                         evidence="analysis/usb-path/tinyusb-printer/validation.json"))
+
+    idle = read_json("analysis/usb-path/idle-receive.json")
+    idle_cases = idle["cases"]
+    checks.append(check("original_usb_idle_receive_enable_requires_separate_quiescence",
+                        idle["status"] == "pass" and len(idle_cases) == 58
+                        and len(idle["unredirected_controls"]) == 6
+                        and len(idle["excluded_code_controls"]) == 15
+                        and len(idle["source_sha256"]) == 13
+                        and idle["original_entry"] == "0x10008f40"
+                        and idle["original_end_exclusive"] == "0x10008fb0"
+                        and idle["mid_function_pc_cuts"] == [] and idle["omitted_startup_prefix"] is False
+                        and idle["controller_quiescence_established"] is False
+                        and idle["completed_usb_control_transfers"] == idle["completed_native_page_lifecycles"]
+                            == idle["actual_peripheral_accesses"] == 0
+                        and len(idle["private_literal_redirects"]) == len(idle["supplied_services"]) == 3
+                        and idle["direct_call_sites"] == ["0x10009937"]
+                        and sum(len(c["interpreter"]) for c in idle_cases) == 62
+                        and sum(c["kind"] == "supplied_delay_return_replaces_devctl" for c in idle_cases) == 8
+                        and all(len(c["interpreter"]) == len(c["qemu"]) for c in idle_cases)
+                        and all(p["observation"]["status"] == "pass"
+                                and p["observation"]["failure"] is None
+                                and p["observation"]["exact_nonstack_mutable_memory_equal"]
+                                and p["observation"]["original_code_unchanged"]
+                                and p["observation"]["trace"] == p["observation"]["expected_trace"]
+                                and p["observation"]["nonstack_memory"] == p["observation"]["expected_memory"]
+                                for c in idle_cases for engine in ("interpreter", "qemu") for p in c[engine])
+                        and all(a["observation"][key] == b["observation"][key]
+                                for c in idle_cases for a,b in zip(c["interpreter"], c["qemu"])
+                                for key in ("trace", "nonstack_memory", "original_instructions_visited"))
+                        and all(c[e]["failure"] == {"type": "ValueError", "reason": "MMIO forbidden",
+                                    "pc": c["rejected_before_memory_access"]}
+                                and c[e]["status"] == "pass" and c[e]["actual_peripheral_accesses"] == 0
+                                and c[e]["nonstack_memory"] == c[e]["expected_memory"]
+                                for c in idle["unredirected_controls"] for e in ("interpreter", "qemu"))
+                        and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h
+                                for n,h in idle["source_sha256"].items()),
+                        "Original helper intent can re-enable receiving after a supplied delay-return register change. Three RAM redirects and supplied services do not establish a reachable scheduling race, actual DMA behavior, cancellation settlement or quiescence.",
+                        evidence="analysis/usb-path/idle-receive.json"))
+
+    continuous = read_json("analysis/usb-path/continuous-printer/validation.json")
+    continuous_target = continuous.get("target") or {}
+    continuous_cases = continuous["cases"]
+    checks.append(check("continuous_printer_document_boundaries_without_transport_eof",
+                        continuous["status"] == continuous_target.get("status") == "pass"
+                        and len(continuous_cases) == len(continuous_target.get("cases", [])) == 34
+                        and len(continuous["source_sha256"]) == 77
+                        and continuous["effective_source"] == composition["effective_source"]
+                        and continuous["completed_native_page_lifecycles"] == continuous["usb_transfers"] == 0
+                        and {c["scenario"] for c in continuous_cases} >= {
+                            "continuous/page-before-document", "continuous/empty-boundaries",
+                            "failure/truncated-document", "failure/after-first-document",
+                            "failure/document-notification", "failure/page-output/0", "failure/page-output/1",
+                            "failure/completion-counter-limit", "continuous/copies-still-metadata"}
+                        and all(c["status"] == t["status"] == "pass" and c["case"] == t["case"]
+                                and t["all_steps_equal"] and t["all_pixels_wire_notifications_and_storage_equal"]
+                                and t["component_state_and_memory_bytes"] == 128536
+                                and c["capture_sha256"] == t["capture_sha256"]
+                                and c["expected_pixels_sha256"] == c["capture_sha256"]["pixels"]
+                                and hashlib.sha256(b"".join(int(v).to_bytes(4,"big") for event in
+                                    c["expected_documents"] for v in event)).hexdigest() == c["capture_sha256"]["documents"]
+                                and all(len(row) == 96 and row[15:17] == [0,1] for row in c["steps"])
+                                and c["steps"][-1][90] == len(c["expected_documents"])
+                                and c["steps"][-1][91] == sum(event[4] == 0 for event in c["expected_documents"])
+                                for c,t in zip(continuous_cases, continuous_target.get("cases", [])))
+                        and continuous_target.get("elf_sha256") == composed_target.get("elf_sha256")
+                        and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h
+                                for key in ("source_sha256", "fixture_sha256") for n,h in continuous[key].items()),
+                        "Validated END_PAGE drains and exactly-once END_DOC observations retain their original receive generation. Ordinary documents need no EOF or reset; notification/output failures stop input without erasing prior observations. Supplied settlement and synchronous output remain limits, not physical printing proof.",
+                        evidence="analysis/usb-path/continuous-printer/validation.json"))
+
+    udc = read_json("analysis/usb-path/udc-out/validation.json")
+    udc_target = udc.get("target") or {}
+    udc_cases = udc["cases"]
+    reference = udc["original_reference"]
+    checks.append(check("original_cookie_bulk_descriptor_to_document_pipeline",
+                        udc["status"] == udc_target.get("status") == "pass"
+                        and len(udc_cases) == len(udc_target.get("cases", [])) == 34
+                        and len(udc["source_sha256"]) == 97 and len(udc["fixture_sha256"]) == 6
+                        and udc["effective_source"] == composition["effective_source"]
+                        and udc["effective_source"] == read_json("analysis/usb-path/udc-out/target/effective-source.json")
+                        and udc["actual_peripheral_accesses"] == udc["completed_native_page_lifecycles"]
+                            == udc["usb_transfers"] == 0
+                        and udc["controller_quiescence_established"] is False
+                        and reference["completed_rearm_cases_reused"] == 12
+                        and reference["completed_status_cases_reused"] == 51
+                        and reference["newly_executed_stock_instructions"] == 0
+                        and reference["original_reserves_bytes_4_to_7"] is True
+                        and reference["replacement_initializes_reserved_to_zero"] is True
+                        and reference["replacement_rx_last_capacity_body_policy_is_stricter"] is True
+                        and reference["report"] == "analysis/usb-path/controller-family.json"
+                        and reference["report_sha256"] == hashlib.sha256((ROOT_DIR/reference["report"]).read_bytes()).hexdigest()
+                        and reference["stock_sha256"] == hashlib.sha256((ROOT_DIR/"analysis/sihp1020.elf").read_bytes()).hexdigest()
+                        and {c["scenario"] for c in udc_cases} == {
+                            "document/1", "document/64", "status-owner/0", "status-owner/1",
+                            "status-owner/2", "status-owner/3", "completion-facts", "publication-facts",
+                            "cancel/prepared", "cancel/exposed", "cancel/late-success",
+                            "body-and-endpoint-faults", "submission-rejections", "initial-span-probes",
+                            "original-cookie-after-reuse"}
+                        and sum(c["scenario"].startswith("document/") for c in udc_cases) == 8
+                        and sum(c["scenario"].startswith("status-owner/") for c in udc_cases) == 8
+                        and all(c["status"] == t["status"] == "pass" and c["case"] == t["case"]
+                                and t["all_steps_equal"] and t["all_pixels_wire_notifications_descriptors_and_storage_equal"]
+                                and t["adapter_state_and_memory_bytes"] == 128536
+                                and t["descriptor_component_bytes"] == 80
+                                and c["capture_sha256"] == t["capture_sha256"]
+                                and c["expected_pixels_sha256"] == c["capture_sha256"]["pixels"]
+                                and hashlib.sha256(b"".join(int(v).to_bytes(4,"big") for event in
+                                    c["expected_documents"] for v in event)).hexdigest() == c["capture_sha256"]["documents"]
+                                and len(c["steps"]) == len(c["udc_steps"]) == len(c["events"])
+                                and all(len(s) == 96 and s[15:17] == [0,1] for s in c["steps"])
+                                and all(len(s) == 48 and s[7:10] == [0,1,1] for s in c["udc_steps"])
+                                and all(o["cookie"][4] == 1 and 0 <= o["slot"] < 4
+                                        and o["descriptor_hex"] == b"".join(v.to_bytes(4,"big") for v in
+                                            (0x08000000, 0, 0x24681340 + o["slot"] * 0x1000, 0)).hex()
+                                        for o in c["descriptor_oracles"])
+                                for c,t in zip(udc_cases, udc_target.get("cases", [])))
+                        and udc_target.get("elf_sha256") == hashlib.sha256(
+                            (ROOT_DIR/"analysis/usb-path/udc-out/target/target-check.elf").read_bytes()).hexdigest()
+                        and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h
+                                for key in ("source_sha256", "fixture_sha256") for n,h in udc[key].items()),
+                        "A single controller-format OUT record retains the original adapter cookie through exact pages and document notifications. Immutable observations, mode, CPU/DMA mapping, visibility and settlement are supplied; raw descriptor bits never acknowledge global quiescence. No physical DCD or printing is established.",
+                        evidence="analysis/usb-path/udc-out/validation.json"))
 
     fail_count = severity_count(checks, "fail")
     return {

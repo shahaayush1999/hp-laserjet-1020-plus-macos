@@ -310,7 +310,409 @@ def image_documents(temp):
     return document, images, paths+[base_path]
 
 
+def initial_standard_profiles():
+    cases = []
+    for fill in (0, 204):
+        for request in ('descriptor', 'device-status', 'remote-wakeup'):
+            for phase in ('active-input', 'pending-recovery'):
+                cases.append((f'initial-standard/{request}/{phase}', fill, 1024, 3))
+        cases += [('initial-standard/success-and-unsupported', fill, 1024, 3),
+                  ('initial-standard/direct-address-owner', fill, 1024, 3)]
+    return cases
+
+
+def initial_standard_scenario(h, name, document, images):
+    if name == 'initial-standard/direct-address-owner':
+        # SET_ADDRESS delegates its status directly to this synthetic DCD. The
+        # core has not set its EP0 BUSY bit when that valid owner binds. This
+        # must not be confused with a rejected core-submitted status packet.
+        h.step(5)
+        h.service()
+        epoch, generation = h.row[4], h.row[32]
+        h.setup(packet(0, 5, value=37))
+        token = h.row[28]
+        assert token and h.row[29] == 0 and h.row[17] == 1, h.row
+        assert h.row[64] == 0 and h.row[65] == 37 and not h.row[14], h.row
+        for _ in range(3):
+            h.service()
+            assert h.row[28] == token and h.row[4] == epoch and h.row[32] == generation
+            assert h.row[17] == 1 and h.row[66] == 0
+        h.control_status('direct-DCD-address-status')
+        assert h.row[64] == 37 and not h.row[28] and h.row[4] == epoch, h.row
+        h.complete(token, 0, result=STALE, service=False)
+        h.request(packet(0x80, 6, value=0x100, length=18), DEVICE)
+        return
+
+    h.configure()
+    small = document(['small'])
+
+    def fresh():
+        h.send(small, min(64, h.capacity))
+        h.close_finish(1, 1)
+        h.expected_pixels += images['small'][1]
+
+    if name == 'initial-standard/success-and-unsupported':
+        # Successful standard DATA and STATUS while OUT remains borrowed must
+        # keep its identity/bytes. Unsupported requests have no submitted owner;
+        # their normal STALL must not be interpreted as a submission failure.
+        out = h.arm_write(small[:31])
+        saved = tuple(h.row[i] for i in (4, 5, 30, 31, 32, 33, 34, 35))
+        h.request(packet(0x80, 6, value=0x100, length=18), DEVICE)
+        h.request(packet(0x80, 0, length=2), b'\x01\x00')
+        h.request(packet(0, 3, value=1), label='set-remote-wakeup')
+        h.request(packet(0x80, 0, length=2), b'\x03\x00')
+        h.request(packet(0, 1, value=1), label='clear-remote-wakeup')
+        submitted = h.row[17]
+        h.setup(packet(0x80, 0xff, length=2))
+        assert h.row[11] == 3 and h.row[17] == submitted, h.row
+        assert h.row[13] == 4 and not h.row[26] and not h.row[28], h.row
+        for _ in range(3):
+            h.service()
+            assert tuple(h.row[i] for i in (4, 5, 30, 31, 32, 33, 34, 35)) == saved
+            assert h.row[7] == h.row[9] == h.row[14] == h.row[36] == 0, h.row
+        h.request(packet(0x80, 0, length=2), b'\x01\x00')
+        h.complete(out, 31)
+        h.step(7)
+        h.send(small[31:], 64)
+        h.close_finish(1, 1)
+        h.expected_pixels = images['small'][1]
+        return
+
+    _, request, phase = name.split('/')
+    raw, proposal, initial_stall = {
+        # GET_DESCRIPTOR propagates false and TinyUSB issues a DCD STALL. The
+        # other two handlers swallow false. All three must retain their owner.
+        'descriptor': (packet(0x80, 6, value=0x100, length=18), DEVICE, 3),
+        'device-status': (packet(0x80, 0, length=2), b'\x01\x00', 0),
+        'remote-wakeup': (packet(0, 3, value=1), b'', 0),
+    }[request]
+    generation = h.row[32]
+    old_out = 0
+    if phase == 'active-input':
+        h.transfer(small[:11])  # READY bytes must not be pumped after the fault.
+        old_out = h.arm_write(small[11:31])
+        assert h.row[34] == 0 and h.row[35] == 2 and h.row[50] == 0
+    else:
+        assert phase == 'pending-recovery'
+        h.begin_reset(slot=1)
+        for part in (1, 2, 4):
+            if part == 4:
+                h.step(15)
+            h.step(11, 1, part)
+        assert h.row[44:46] == [1, 7], h.row
+
+    class_request = h.row[80]
+    h.step(14, 2)  # Bind the exact cookie, then return false to the core.
+    h.setup(raw, service_result=ERROR)
+    ep0 = h.row[28]
+    assert ep0 and h.row[29] == len(proposal) and not h.row[26], h.row
+    h.wire(proposal, 'retained-initial-standard-proposal')
+    assert h.row[11] == initial_stall and h.row[14] == (6 if old_out else 2), h.row
+    assert h.row[7] == h.row[9] == h.row[36] == 1, h.row
+    assert h.row[32] == generation and h.row[44] == h.row[45] == h.row[47] == 0, h.row
+    assert h.row[80] == class_request, h.row
+    submitted, cancel_requests, epoch = h.row[17], h.row[66], h.row[4]
+    for _ in range(3):
+        h.service()
+        assert h.row[28] == ep0 and h.row[30] == old_out, h.row
+        assert (h.row[17], h.row[66], h.row[4]) == (submitted, cancel_requests, epoch)
+        h.step(6, result=WAIT)
+        h.step(7, result=STOPPED)
+        assert h.row[34] == h.row[50] == 0, h.row
+    if phase == 'pending-recovery':
+        # Before the fix this already-current recovery can finish and restart
+        # input despite the known rejected EP0 owner. No new-generation repair
+        # may be inferred from old promises or absence of a bulk owner.
+        h.step(11, 1, 1, result=STALE)
+        h.step(12, 1, result=STALE)
+        assert h.row[32] == generation and h.row[17] == submitted and h.row[28] == ep0
+
+    # Superseding SETUP still waits for explicit original EP0 settlement. A
+    # hardware/software STALL and a cancellation request never release it.
+    h.setup(packet(0x80, 0, length=2), service_result=WAIT)
+    assert h.row[28] == ep0 and h.row[17] == submitted, h.row
+    h.step(4, ep0)
+    h.service()
+    status = b'\x03\x00' if request == 'remote-wakeup' else b'\x01\x00'
+    h.control_in(status, 'status-after-explicit-old-EP0-settlement')
+    assert h.row[36] == 1 and h.row[32] == generation, h.row
+    h.complete(ep0, 0, result=STALE, service=False)
+    if old_out:
+        h.step(4, old_out)
+        h.service()
+        h.complete(old_out, 0, result=STALE, service=False)
+    h.recover()
+    fresh()
+
+
+AUTOMATIC_RECOVERY_SCENARIOS = (
+    'automatic/first-document',
+    'automatic/idempotent-preserves-owned-out',
+    'automatic/independent-request-identity',
+    'automatic/config-status-completion-fault',
+    'automatic/superseded-deconfiguration',
+    'automatic/wire-and-bus-reset-supersession',
+    'automatic/config-status-rejected/1',
+    'automatic/config-status-rejected/2',
+)
+
+
+def automatic_recovery_profiles():
+    # Interface zero and nonzero both bootstrap; other new contracts need only
+    # the nonzero interface. Existing cases retain the broader transfer matrix.
+    profiles = []
+    for fill in (0, 204):
+        profiles += [(name, fill, 1024, 3) for name in AUTOMATIC_RECOVERY_SCENARIOS]
+        profiles.append(('automatic/first-document', fill, 1024, 0))
+    return profiles
+
+
+def automatic_recovery_scenario(h, name, document, images):
+    small = document(['small'])
+
+    def snapshot(indices):
+        return tuple(h.row[i] for i in indices)
+
+    def no_new_wire_or_owner(before):
+        assert snapshot((17, 24, 25, 26, 28, 46, 47, 77)) == before, h.row
+
+    def pending(recovery, generation, slot):
+        assert h.row[42:46] == [recovery, generation, 1, 0], h.row
+        assert h.row[36] == 1 and h.row[47] == 0, h.row
+        h.step(10, slot)
+
+    def initial_configuration(settle_status=True):
+        h.step(5)
+        h.service()
+        h.step(10, 0, result=WAIT)
+        h.setup(packet(0, 9, 1))
+        # One ordinary SET_CONFIGURATION ZLP; no internal class request/packet.
+        assert h.row[17] == 1 and h.row[24] == 0 and h.row[80] == 0, h.row
+        assert h.row[8] == h.row[10] == h.row[36] == 1, h.row
+        pending(1, 1, 0)
+        if settle_status:
+            h.control_status('initial-set-configuration')
+        else:
+            h.wire(b'', 'initial-set-configuration-will-fail')
+        h.step(6, result=WAIT, expect={33: 0, 35: 0})
+
+    def finish_automatic(recovery, generation, slot=0):
+        assert h.row[42:44] == [recovery, generation], h.row
+        before = snapshot((17, 24, 25, 26, 28, 46, 47, 77))
+        h.step(12, slot, result=WAIT)
+        parts = 0
+        for part in (1, 2, 4):
+            if part == 4:
+                h.step(15)  # Explicit supplied transport reset, not inferred.
+            parts |= part
+            h.step(11, slot, part, expect={45: parts})
+            h.step(11, slot, part, expect={45: parts})
+            if parts != 7:
+                h.step(12, slot, result=WAIT, expect={32: generation, 36: 1})
+            no_new_wire_or_owner(before)
+        h.step(12, slot, expect={32: generation + 1, 35: 0, 36: 0,
+                                7: 0, 9: 0, 44: 0, 45: 0, 47: 0})
+        no_new_wire_or_owner(before)
+        h.step(12, slot, result=STALE)
+        h.step(10, 7, result=WAIT)
+
+    def fresh_document():
+        h.send(small, min(64, h.capacity))
+        h.close_finish(1, 1)
+        h.expected_pixels += images['small'][1]
+
+    def request_probe(expected_request):
+        h.request(packet(0xa1, 1, index=h.interface, length=1), b'\x18')
+        assert h.row[80] == expected_request, ('real request counter', h.row)
+
+    def rebind(recovery, generation, slot):
+        h.request(packet(0, 9, 0), label='real-deconfiguration')
+        assert h.row[8] == h.row[10] == 0, h.row
+        h.step(10, slot, result=WAIT)
+        h.request(packet(0, 9, 1), label='real-reconfiguration')
+        pending(recovery, generation, slot)
+
+    if name.startswith('automatic/config-status-rejected/'):
+        mode = int(name.rsplit('/', 1)[1])
+        h.step(5)
+        h.service()
+        h.step(14, mode)
+        h.setup(packet(0, 9, 1), service_result=ERROR)
+        assert h.row[7] == h.row[36] == 1 and h.row[32] == 1, h.row
+        # This configuration attempt must allocate no recovery identity. The
+        # endpoint binding exists, but status was never accepted for submission.
+        assert h.row[42] == h.row[44] == h.row[80] == 0, h.row
+        h.step(10, 0, result=WAIT)
+        h.step(6, result=WAIT)
+        if mode == 2:
+            retained = h.row[28]
+            assert retained and h.row[14] == 2 and h.row[17] == 1, h.row
+            h.wire(b'', 'rejected-but-retained-config-status')
+            h.service()
+            assert h.row[28] == retained and h.row[44] == 0, h.row
+            h.step(4, retained)
+            h.service()
+            h.complete(retained, 0, result=STALE, service=False)
+        else:
+            assert h.row[28] == h.row[17] == 0, h.row
+        h.request(packet(0, 9, 1), label='idempotent-retry-does-not-recover')
+        h.step(10, 0, result=WAIT)
+        assert h.row[42] == 0 and h.row[36] == 1, h.row
+        for _ in range(3):
+            h.service()
+            h.step(10, 0, result=WAIT)
+        rebind(1, 1, 1)
+        finish_automatic(1, 1, 1)
+        request_probe(1)
+        fresh_document()
+        return
+
+    initial_configuration(settle_status=name != 'automatic/config-status-completion-fault')
+
+    if name == 'automatic/first-document':
+        pending_before = snapshot((17, 24, 25, 32, 42, 43, 44, 45, 80))
+        for _ in range(3):
+            h.service()
+            h.step(10, 0)
+            assert snapshot((17, 24, 25, 32, 42, 43, 44, 45, 80)) == pending_before
+        finish_automatic(1, 1)
+        request_probe(1)  # Any fabricated internal SETUP would shift this ID.
+        fresh_document()
+        # All actual host class requests were the single status probe. Internal
+        # recovery is separately observed through its independent ticket above.
+        class_setups = [bytes.fromhex(e['data_hex']) for e in h.events
+                        if e['words'][0] == 0 and e['data_hex'] and
+                        (bytes.fromhex(e['data_hex'])[0] & 0x60) == 0x20]
+        assert class_setups == [packet(0xa1, 1, index=h.interface, length=1)]
+        return
+
+    if name == 'automatic/config-status-completion-fault':
+        token = h.row[28]
+        assert token
+        for part in (1, 2, 4):
+            if part == 4:
+                h.step(15)
+            h.step(11, 0, part)
+        assert h.row[45] == 7
+        h.complete(token, 0, usb_result=1, service=False)
+        h.step(11, 0, 1, result=STALE)
+        h.step(12, 0, result=STALE)
+        h.service()
+        h.step(10, 0, result=WAIT)
+        for _ in range(3):
+            h.service()
+            assert h.row[42] == 1 and not h.row[44] and h.row[36] == 1
+        h.request(packet(0, 9, 1), label='idempotent-after-fault')
+        h.step(10, 0, result=WAIT)
+        rebind(2, 1, 1)
+        # Same generation, different recovery; all old supplied promises stale.
+        h.step(11, 0, 4, result=STALE)
+        h.step(12, 0, result=STALE)
+        finish_automatic(2, 1, 1)
+        request_probe(1)
+        fresh_document()
+        return
+
+    if name == 'automatic/wire-and-bus-reset-supersession':
+        h.step(11, 0, 1)
+        h.step(11, 0, 2)
+        h.begin_reset(slot=1)
+        assert h.row[42] == 2 and h.row[80] == 1, h.row
+        h.step(11, 0, 4, result=STALE)
+        h.step(12, 0, result=STALE)
+        h.finish_reset(slot=1)
+        h.begin_reset(slot=2)
+        assert h.row[42] == 3 and h.row[80] == 2 and h.row[32] == 2
+        for part in (1, 2, 4):
+            h.step(11, 2, part)
+        submitted = h.row[17]
+        h.step(5)  # Admission itself must invalidate this wire-reset ticket.
+        h.step(11, 2, 1, result=STALE)
+        h.step(12, 2, result=STALE)
+        h.step(10, 7, result=WAIT)
+        assert h.row[17] == submitted
+        h.service()
+        assert not h.row[8] and not h.row[10]
+        h.request(packet(0, 9, 1), label='configuration-after-bus-reset')
+        pending(4, 2, 3)
+        assert h.row[17] == submitted + 1 and h.row[80] == 2
+        h.step(12, 2, result=STALE)
+        finish_automatic(4, 2, 3)
+        request_probe(3)
+        fresh_document()
+        return
+
+    finish_automatic(1, 1)
+
+    if name == 'automatic/idempotent-preserves-owned-out':
+        out = h.arm_write(small[:31])
+        before = snapshot((4, 5, 30, 31, 32, 33, 34, 35, 42, 43))
+        h.request(packet(0, 9, 1), label='idempotent-during-live-out')
+        assert snapshot((4, 5, 30, 31, 32, 33, 34, 35, 42, 43)) == before
+        assert h.row[14] == h.row[44] == 0
+        for _ in range(3):
+            h.service()
+            h.step(10, 7, result=WAIT)
+            assert snapshot((4, 5, 30, 31, 32, 33, 34, 35, 42, 43)) == before
+        h.complete(out, 31)
+        h.step(7)
+        h.send(small[31:], min(64, h.capacity))
+        h.close_finish(1, 1)
+        h.expected_pixels = images['small'][1]
+        return
+
+    if name == 'automatic/independent-request-identity':
+        h.request(packet(0xa1, 0, index=h.interface << 8, length=12), DEVICE_ID[:12])
+        assert h.row[80] == 1
+        request_probe(2)
+        h.begin_reset(slot=1)
+        assert h.row[42] == 2 and h.row[80] == 3, h.row
+        h.step(12, 0, result=STALE)
+        submitted = h.row[17]
+        h.finish_reset(slot=1)
+        assert h.row[17] == submitted + 1 and h.row[80] == 3
+        request_probe(4)
+        fresh_document()
+        return
+
+    if name == 'automatic/superseded-deconfiguration':
+        old_out = h.arm_write(b'old')
+        h.setup(packet(0xa1, 0, index=h.interface << 8, length=400))
+        old_ep0 = h.row[28]
+        h.wire(DEVICE_ID[:64], 'retained-id-before-superseded-deconfiguration')
+        h.setup(packet(0, 9, 0), service_result=WAIT)
+        h.setup(packet(0x80, 0, length=2), service_result=WAIT)
+        assert h.row[10] == 1 and h.row[36] == 1
+        h.step(4, old_ep0)
+        h.service()
+        h.control_in(b'\x01\x00', 'status-after-superseded-deconfiguration')
+        h.step(10, 7, result=WAIT)
+        h.step(4, old_out)
+        h.service()
+        h.request(packet(0, 9, 1), label='idempotent-config-remains-fenced')
+        assert h.row[10] == h.row[36] == h.row[7] == 1 and h.row[42] == 1
+        for _ in range(3):
+            h.service()
+            h.step(10, 7, result=WAIT)
+            h.step(6, result=WAIT)
+        h.step(12, 0, result=STALE)
+        rebind(2, 2, 1)
+        finish_automatic(2, 2, 1)
+        h.complete(old_out, 0, result=STALE, service=False)
+        request_probe(2)
+        fresh_document()
+        return
+
+    raise AssertionError('unknown automatic recovery scenario: ' + name)
+
+
 def scenario(h, name, document, images):
+    if name.startswith("initial-standard/"):
+        initial_standard_scenario(h, name, document, images)
+        return
+    if name.startswith("automatic/"):
+        automatic_recovery_scenario(h, name, document, images)
+        return
     h.configure()
     small = document(['small'])
     def fresh():
@@ -542,6 +944,8 @@ def main():
         profiles.append(('malformed-out-waits-for-old-ep0', fill, 1024, 3))
         profiles += [(f'failed-follow-on/{point}/{mode}', fill, 1024, 3) for point in
             ('middle-in', 'out-status', 'standard-status', 'after-recovery') for mode in (1, 2)]
+    profiles.extend(automatic_recovery_profiles())
+    profiles.extend(initial_standard_profiles())
     cases, replay = [], []
     for index, (name, fill, capacity, interface) in enumerate(profiles):
         directory = temp/f'case-{index:03}'
@@ -606,7 +1010,7 @@ def main():
         fixture_sha256={str(p.relative_to(ROOT)): core.sha(p.read_bytes()) for p in fixtures},
         completed_native_page_lifecycles=0, usb_transfers=0,
         scope='Patched pinned TinyUSB, reusable class/receive adapter and bounded document/JBIG/output composition under synthetic DCD events, with independent USB packet and decoded pixel oracles.',
-        limits='No controller/MMIO/boot/cache implementation, physical status, USB traffic or printing. Initial class reset, cancellation, three recovery promises and end-of-input are supplied. Output progress is synchronous; copies remain metadata. Continuous normal jobs need a later validated document-boundary/completed-page path.')
+        limits='No controller/MMIO/boot/cache implementation, physical status, USB traffic or printing. New configuration recovery requires three supplied promises without a fabricated class request. Legacy explicit reset and close paths remain covered. Cancellation, transfer settlement and output progress are synthetic; copies remain metadata. The separate continuous-printer experiment checks ordinary document boundaries without input closure.')
     name = 'validation' if args.target else 'host-validation'
     text = json.dumps(report, indent=2, sort_keys=True)+'\n'
     (temp/(name+'.json')).write_text(text)

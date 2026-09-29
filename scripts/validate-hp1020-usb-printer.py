@@ -234,6 +234,121 @@ def candidates(doc, body, images, base):
     return cases
 
 
+def automatic_recovery_candidates():
+    cases = []
+
+    def add(name, events, fill=204):
+        cases.append(dict(name='automatic/' + name, events=events, pixels=b'',
+                          fill=fill, config=0, invalid=0, prefix=None))
+
+    def begin(slot, recovery, generation, request_count, **extra):
+        expected = {2: 0, 3: recovery, 4: generation, 5: 1, 6: 0,
+                    16: generation, 20: 1, 55: recovery, 56: 0,
+                    57: request_count}
+        expected.update(extra)
+        return event(13, slot, expect=expected)
+
+    # Existing wire-reset cases already exercise all six acknowledgement orders.
+    # Here each individual external promise must independently remain necessary,
+    # even when no input/output/EP0 owner exists in this first-use document.
+    for omitted in (1, 2, 4):
+        events = [begin(0, 1, 1, 0), event(1, result=WAIT),
+                  event(4, 0, result=WAIT)]
+        parts = 0
+        for part in (1, 2, 4):
+            if part == omitted:
+                continue
+            parts |= part
+            events += [event(3, 0, part, expect={6: parts}),
+                       event(3, 0, part, expect={6: parts}),
+                       event(4, 0, result=WAIT, expect={16: 1, 20: 1})]
+        events += [event(1, result=WAIT, expect={42: 0}),
+                   event(3, 0, omitted, expect={6: 7}),
+                   event(4, 0, expect={2: 0, 5: 0, 6: 0, 16: 2, 20: 0,
+                                       55: 1, 56: 0, 57: 0}),
+                   event(1, result=WAIT, expect={8: 0, 42: 0}),
+                   # A real request still gets request ID 1 after recovery ID 1.
+                   setup(0xa1, 1, length=1, expect={1: 1, 2: 1, 55: 1, 57: 1}),
+                   take(b'\x18', fallback=1, request=1), event(5)]
+        add(f'missing-promise-{omitted}', events, fill=0 if omitted == 1 else 204)
+
+    # Two real requests precede recovery 1; the next wire reset must ACK request
+    # 3, not recovery 2. Keep response storage borrowed through automatic restart.
+    events = [setup(0xa1, 1, length=1), take(b'\x18', fallback=1, request=1), event(5),
+              setup(0xa1, 0, length=2), take(DEVICE_ID[:2], slot=1, request=2),
+              begin(0, 1, 1, 2), event(1, result=WAIT, expect={8: 1, 9: 2})]
+    events += reset_steps(0, generation=1)
+    events += [event(1, result=WAIT, expect={8: 1, 9: 2, 55: 1, 56: 0, 57: 2}),
+               event(5, 1), event(1, result=WAIT),
+               setup(0x21, 2, expect={1: 3, 2: 3, 3: 2, 55: 2, 56: 3, 57: 3})]
+    events += reset_steps(1, generation=2)
+    events += [take(kind=2, slot=2, request=3), event(5, 2),
+               begin(2, 3, 3, 3),
+               setup(0x21, 2, expect={1: 4, 2: 4, 3: 4, 55: 4, 56: 4, 57: 4}),
+               event(3, 2, 1, result=STALE), event(4, 2, result=STALE)]
+    events += reset_steps(3, generation=3)
+    events += [take(kind=2, slot=3, request=4), event(5, 3)]
+    add('separate-identities-and-retained-ep0', events)
+
+    # The next transport boundary replaces a real reset even though generation
+    # is unchanged. Later recovery cannot create that superseded wire ACK.
+    events = [reset(), event(2, 0), event(3, 0, 1), event(3, 0, 2),
+              begin(1, 2, 1, 1), event(3, 0, 4, result=STALE),
+              event(4, 0, result=STALE), event(1, result=WAIT)]
+    events += reset_steps(1, generation=1)
+    events += [event(1, result=WAIT, expect={8: 0, 42: 0, 55: 2, 56: 0, 57: 1}),
+               setup(0x23, 2, expect={1: 2, 3: 3, 55: 3, 56: 2, 57: 2})]
+    events += reset_steps(2, generation=2)
+    events += [take(kind=2, request=2), event(5)]
+    add('transport-supersedes-real-reset', events)
+
+    # Collect all three promises, then invalidate them before restart. The old
+    # quiescence booleans cannot stand in for fresh promises on recovery 2.
+    events = [begin(0, 1, 1, 0), event(3, 0, 1), event(3, 0, 2),
+              event(3, 0, 4, expect={6: 7}), event(6, 1, 0x200, expect={5: 0, 6: 0}),
+              event(2, 1, result=WAIT), event(4, 0, result=STALE),
+              event(3, 0, 1, result=STALE), event(1, result=WAIT),
+              begin(1, 2, 1, 0), event(4, 1, result=WAIT),
+              event(3, 0, 4, result=STALE)]
+    events += reset_steps(1, generation=1)
+    events += [event(1, result=WAIT, expect={8: 0, 42: 0, 55: 2, 57: 0})]
+    add('fault-invalidates-all-promises', events)
+
+    # Seeding is a fixture-only first-use operation. No production initializer
+    # or recovery API can rewind either counter. MAX is usable once; wrap is not.
+    events = [event(15, 0xfffffffe, expect={55: 0xfffffffe, 57: 0}),
+              setup(0xa1, 1, length=1, known=2, status=0x28),
+              take(b'\x28', request=1), begin(0, 0xffffffff, 1, 1),
+              event(13, 1, result=LIMIT,
+                    expect={2: 0, 5: 0, 7: 1, 8: 1, 9: 1, 15: 0x28,
+                            20: 1, 55: 0xffffffff, 56: 0, 57: 1}),
+              event(3, 0, 1, result=LIMIT), event(4, 0, result=LIMIT),
+              event(1, result=LIMIT), event(2, 2, result=LIMIT), event(5),
+              event(13, 2, result=LIMIT), setup(0x21, 2, result=LIMIT)]
+    add('recovery-exhaustion-retains-ep0', events)
+
+    # Existing request-exhaustion tests cover the original APIs; this addition
+    # specifically prevents the new internal API from escaping terminal state.
+    events = [event(11, 0xfffffffe, 1),
+              setup(0xa1, 1, length=1, known=2, status=0x28),
+              take(b'\x28', request=0xffffffff),
+              setup(0xa1, 0, length=2, result=LIMIT),
+              event(13, 0, result=LIMIT,
+                    expect={2: 0, 7: 1, 8: 1, 9: 0xffffffff,
+                            55: 0, 56: 0, 57: 0xffffffff}),
+              event(5), event(13, 1, result=LIMIT), event(1, result=LIMIT)]
+    add('request-exhaustion-cannot-recover-internally', events)
+
+    # A real request still cannot allocate a wrapped recovery identity.
+    events = [event(15, 0xffffffff),
+              setup(0x21, 2, result=LIMIT,
+                    expect={1: 1, 2: 0, 5: 0, 7: 1, 20: 1,
+                            55: 0xffffffff, 56: 0, 57: 1}),
+              event(1, result=LIMIT), event(13, 0, result=LIMIT)]
+    add('real-reset-cannot-wrap-recovery-counter', events)
+    return cases
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--target', action='store_true')
@@ -303,7 +418,7 @@ def main():
         return b'JZJZ' + pages.pack([base[0]] + sum((body(n) for n in names), []) + [base[-1]])
 
     records, target_inputs = [], []
-    for index, candidate in enumerate(candidates(doc, body, images, base)):
+    for index, candidate in enumerate(candidates(doc, body, images, base) + automatic_recovery_candidates()):
         events = candidate['events']
         directory = temp/f'case-{index:03}'
         directory.mkdir()

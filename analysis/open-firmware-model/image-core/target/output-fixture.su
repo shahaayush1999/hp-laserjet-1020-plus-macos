@@ -6,4 +6,4 @@
 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/output-fixture.c:99:10:hp1020_output_seed_counter	0	static
 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/output-fixture.c:107:10:hp1020_output_feed	48	static
 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/output-fixture.c:119:10:hp1020_output_finish	48	static
-/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/output-fixture.c:144:10:hp1020_output_storage	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/output-fixture.c:146:10:hp1020_output_storage	0	static

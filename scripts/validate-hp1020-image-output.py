@@ -65,13 +65,17 @@ def main():
 
         def doc(parts):return b'JZJZ'+pages.pack([base[0]]+sum(parts,[])+[base[-1]])
 
-        def run(name,data,image_names,fragment=7,packet=4096,fill=204,mode=0,error=0,reject=0xffffffff,copies=None,seed_counter=0):
+        def run(name,data,image_names,fragment=7,packet=4096,fill=204,mode=0,error=0,reject=0xffffffff,copies=None,seed_counter=0,documents=None):
             raw_pages=[images[n][1] for n in image_names];expected=b''.join(raw_pages)
+            # Every existing rejection is within its first document. Successful
+            # multi-document constructions supply their known count explicitly.
+            if documents is None:documents=0 if error else 1
             (temp/'input').write_bytes(data)
             observed=json.loads(core.command([host,temp/'input',fragment,packet,fill,mode,reject,temp/'capture',temp/'storage',seed_counter]))
             stats,writes,plans=observed['stats'],observed['writes'],observed['pages']
             capture=(temp/'capture').read_bytes();storage=(temp/'storage').read_bytes()
             assert stats[0]==error,(name,stats,error)
+            assert stats[32]==documents,(name,'completed documents',stats[32],documents)
             assert stats[10:12]==[0,1] and stats[19]==1,(name,'guards/invariants/sticky error',stats)
             assert len(capture)<=262144 and stats[5:7]==[len(capture),core.fnv(capture)]
             assert stats[7]==stats[25] and stats[8]<=stats[7] and stats[20]==len(writes)==stats[4]
@@ -94,14 +98,26 @@ def main():
             else:
                 assert stats[23]==0 and stats[26]==1
                 if reject!=0xffffffff or mode==3:assert stats[18]>0,'consumer failure released owned buffers'
-            if name.startswith('missing-end-doc'):
-                assert stats[18]==4 and stats[17]==0 and stats[5]==(33-4)*4800
+            if name in ('missing-end-doc','truncated-header'):
+                # Valid END_PAGE drains pixels; a missing/incomplete END_DOC
+                # still cannot count a document or make shutdown successful.
+                assert capture==expected and stats[2]==stats[17]==len(image_names),(name,stats)
+                assert stats[18]==stats[22]==stats[32]==0 and stats[23]==0,(name,stats)
+                assert stats[7]==stats[8]==stats[4],(name,'rows remain owned',stats)
+            if name.startswith('final-drain/'):
+                # These failures now occur inside feed at validated END_PAGE,
+                # before END_DOC; the sole small-page slot remains owned.
+                assert reject in (0,1) and error==3
+                assert stats[13]==3 and stats[2]==1 and stats[17]==stats[32]==0,(name,stats)
+                assert stats[18]==stats[22]==1 and stats[7:9]==[reject,0],(name,stats)
+                assert capture==(b'' if reject==0 else expected),(name,'drain prefix')
             if name=='consumer/after=1':
                 assert stats[7:9]==[1,0] and stats[18]==4,(name,stats)
             cases.append(dict(case=name,status='pass',expected_result=error,stats=stats,pages=plans,writes=writes,
                 fragment=fragment,packet=packet,fill=fill,consumer_mode=mode,reject_after=reject,seed_counter=seed_counter,
                 input_sha256=core.sha(data),input_bytes=len(data),output_sha256=core.sha(capture),
-                storage_sha256=core.sha(storage),full_output_equal=not error,source_prefix_equal=True))
+                storage_sha256=core.sha(storage),full_output_equal=capture==expected,source_prefix_equal=True,
+                expected_completed_documents=documents,completed_documents=stats[32]))
             targets.append((name,data,fragment,packet,fill,mode,reject,seed_counter,observed,capture,storage))
 
         order=['medium','wide','small','partial','small']
@@ -113,7 +129,7 @@ def main():
         for mode in (0,1,2):
             order=['partial','small','medium','wide']
             data=doc([body(images[n][0]) for n in order[:2]])+doc([])+doc([body(images[n][0]) for n in order[2:]])
-            run(f'documents/consumer={mode}',data,order,mode=mode)
+            run(f'documents/consumer={mode}',data,order,mode=mode,documents=3)
         run('empty-document',doc([]),[])
         run('copies-are-forwarded-metadata',doc([body(images['partial'][0],copies=3)]),['partial'],copies=[3])
         run('many-bid-boundaries',doc([body(images['medium'][0],splits=257)]),['medium'],fragment=1)
@@ -121,7 +137,7 @@ def main():
         run('page-metadata-reuse/17',doc([body(images['small'][0])]*17),['small']*17)
         many=['small' if i%2==0 else 'slim' for i in range(65)]
         run('page-metadata-reuse/65-mixed',doc([body(images[n][0]) for n in many]),many,mode=1)
-        run('page-metadata-reuse/65-documents',b''.join(doc([body(images[n][0])]) for n in many),many,mode=2)
+        run('page-metadata-reuse/65-documents',b''.join(doc([body(images[n][0])]) for n in many),many,mode=2,documents=65)
         for which in (1,2,3,4):
             run(f'counter-overflow/{which}',doc([body(images['small'][0])]),['small'],error=3,seed_counter=which)
         for mode in (0,1,2):run(f'partial-final-band/consumer={mode}',doc([body(images['partial'][0])]),['partial'],mode=mode)

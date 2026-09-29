@@ -164,8 +164,10 @@ feed packet fragments and finish the stream. The callback consumes/copies each
 band before returning success. Only then is that band released. A consumer
 error aborts without releasing its pending band. There is no scheduler, retry
 or asynchronous queue protocol here. Reinitialization starts a fresh stream.
-All emitted output remains provisional until finish succeeds; missing END_DOC
-and late padding errors can follow valid image bands.
+Band output alone remains provisional: missing END_DOC or late padding errors
+can follow valid pixels. `init_boundaries` optionally observes validated END_PAGE
+and END_DOC before any subsequent input byte. Without those observations, the
+caller still uses successful explicit finish to establish complete framing.
 
 Planning happens when BIH arrives, using a local metadata copy marked complete
 for geometry admission. The actual parser page remains incomplete until
@@ -197,9 +199,13 @@ progress callback operating through ring peek/accept/complete. It must wait for
 real progress or return an error; returning success without progress is an
 error. No scheduler, transfer submission or hardware completion is invented.
 
-The previous page drains with its original geometry before the ring is reused
-for a differently sized page, even when the next page's decoder has already
-produced a pending band. Final success requires valid end-of-document framing,
+A validated END_PAGE immediately drains using retained output geometry, before
+the ring can be reused for a different page. END_DOC checks all its pages drained
+and optionally notifies exactly once with document ID and encoded-page range.
+Only successful notifications advance document completion count; a callback
+error stops before the next document even when it shares the same input buffer.
+Empty documents never expose an old page plan. These boundaries do not finalize
+input; normal successive documents require no artificial EOF. Final success requires valid end-of-document framing,
 successful image decoding and completion of all published rows. A late syntax
 error or consumer failure retains outstanding ownership and cannot turn into
 successful completion. Previously consumed pixels cannot be retracted. Before
@@ -216,8 +222,13 @@ failures. Input packets and consumed compressed chunks are poisoned after use.
 An accepted slot's bytes are checked again at its separate completion. Two cases
 complete 65 alternating-size pages, in one document or 65 consecutive documents.
 Four explicit counter-overflow controls fail before output and stay sticky.
+Missing END_DOC after a valid medium page now drains all 158400 bytes and all
+33 slots, but counts zero documents and still fails explicit shutdown. Final
+page-drain failures occur during feed, keep READY/ACCEPTED slots and cannot report
+document success. Exact pixels and the independent storage-write oracle remain
+required even when shutdown fails.
 
-The component's target state and fixed memory total **123968 bytes**, excluding
+The component's target state and fixed memory total **123988 bytes**, excluding
 code, stack, caller packets and fixture captures. There is no full-page buffer.
 Reports are `analysis/open-firmware-model/image-core/output-validation.json/.md`.
 The shared target ELF remains synthetic RAM, never an uploadable image. Streaming

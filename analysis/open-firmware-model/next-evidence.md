@@ -1216,18 +1216,24 @@ first target audit before execution. A simple alphabet loop removed that
 test-only helper; the auditor was not loosened. Reports never have hashes patched
 to claim that newer source was tested.
 
-Initial wire SOFT_RESET, three external reset promises, synchronous software output
-and explicit input close/finish remain restrictions, not a production workflow.
+At that checkpoint, initial wire SOFT_RESET and explicit input close/finish were
+still required. The continuous/recovery changes below remove those software
+restrictions; three external settlement promises and synchronous output remain.
 Full **118-check sequential integration and both suites pass** in
 `/tmp/hp1020-full-reusable-printer-20260929.log` (child `hp1020-validation.quvweZ`).
 The complete run regenerated all dependent reports and verified current source
-hashes. No source was changed during execution. The next component and oracle
-patches remain unapplied `/tmp` drafts, outside this tested checkpoint.
+hashes. No source was changed during execution. This completed aggregate predates
+the continuous/recovery and descriptor changes below.
 
-### Next continuous-document and automatic-configuration work
+### Continuous-document and automatic-configuration work (2026-09-29)
 
-Read-only interface review identified two concrete next changes. Neither is
-implemented or executed by the 98-case adapter experiment:
+The proposals following the 98-case checkpoint are now applied. Focused execution
+passes **34 continuous host/34 QEMU, 132 adapter host/132 QEMU, 82 class host/82 QEMU,
+45 output host/45 QEMU and 75 receive host/75 QEMU cases**. Unchanged/patched protocol
+baselines also retain 52/52 and 160/160. The following full-suite attempt reran
+all analysis execution with the final initial-standard guard, then stopped on
+a stale memory-size gate described below. The second probe suite did not run.
+Do not relabel the completed 118-check baseline as testing these changes:
 
 - Existing semantic chunk callbacks run before subsequent bytes. Forward only
   validated END_PAGE/END_DOC through an optional image-stream boundary callback.
@@ -1254,26 +1260,116 @@ implemented or executed by the 98-case adapter experiment:
   promises, held EP0/bulk, post-binding faults, partial-open failure and independent
   identity exhaustion. Physical promises remain externally supplied.
 
-### Next controller-facing boundary (unimplemented)
+Validated END_PAGE now drains all pixels even when explicit shutdown later
+finds missing END_DOC. The medium truncation case captures 158400 exact bytes,
+33 acceptances/completions and zero outstanding slots, but zero completed documents
+and TRUNCATED. Output-progress failure at END_PAGE instead retains READY/ACCEPTED
+slots and stops before END_DOC. Notification failure happens after validated
+END_DOC but does not increment successful completion or parse following bytes.
+Earlier successful notifications persist. New independent event tuples preserve
+original receive generation through reset; coherent MAX-1 counter seeding permits
+one MAX document then fails before wrap. Two-buffer failures retain both ready
+receive slots, and explicit split-boundary ZLPs do not create completion.
 
-`scripts/validate-hp1020-usb-idle-receive.py` is an unexecuted bounded experiment:
-original helper `0x10008f40..0x10008fb0`, three privately redirected register
-literals, supplied interrupt-mask/unmask and delay services. The draft intends
-58 conditional cases / 62 fresh helper invocations per engine, six unredirected
-MMIO rejections and 15 excluded-code controls. Exact bytes show skip conditions
-RXFIFO_EMPTY/latch, SNAK intent, delay 5/50, and a fresh DEVCTL read followed by
-RDE set. Delay-return RAM changes are explicit inputs, not a proven stock race.
-Do not promote any draft result before execution. This can establish a pending
-re-enable hazard contract, never a physical stop acknowledgement.
+The first continuous34 run and strengthened34 run retain exact reports/sources
+and raw data under `analysis/usb-path/continuous-printer/source-snapshots/`.
+The strengthened run adds actual split-END_DOC ZLP transfers, retained-slot
+invariance and independently expected recovery generation. Automatic116 evidence
+is under `analysis/usb-path/tinyusb-printer/source-snapshots/`. No source hash was
+patched. Logs: `/tmp/hp1020-continuous-regression-{image-output,usb-receive,usb-printer,continuous-printer}-20260929.log`,
+`/tmp/hp1020-automatic-printer-20260929-run1.log`, and
+`/tmp/hp1020-continuous-protocol-{unchanged,patched}-20260929.log`.
 
-After the continuous/recovery checkpoint, the smallest new transport seam is a
-single stationary 16-byte-aligned OUT descriptor plus its immutable original
-adapter cookie, CPU pointer and explicit 32-bit DMA addresses. Use capacity 64
-under a supplied full-speed single-packet profile. Keep the existing receive
-queue; do not invent another queue or infer generations from a reused address.
-Encode/decode descriptor bytes explicitly; compare publication with original
-construction evidence and feed snapshots through real TinyUSB dispatch to exact
-pixels. Cancellation retains the descriptor and record until supplied settlement.
+A new configuration's first status proposal must be accepted before internal
+recovery is allocated. Before-binding rejection creates no owner; after-binding
+rejection retains/cancels the original owner. Polling or same-value configuration
+cannot turn that failed attempt into recovery. A real rebind creates a new attempt.
+The completed focused tests measure target state/fixed memory 128536 (adapter),
+128256 (class), 128200 (receive/document) and 123988 (output); these exclude code,
+stack and fixture capture overhead.
+
+The initial standard EP0 submission gap is now reproduced and fixed. Adding the
+16 regression profiles before the fix passed the preceding 116 host cases, then
+failed at `initial-standard/descriptor/active-input`: service returned OK rather
+than ERROR, retaining the failed original EP0 owner without fencing input. Log
+`/tmp/hp1020-standard-submit-reproduction-20260929.log`, exact failed sources/events
+`/tmp/hp1020-tinyusb-printer-4bdfwxef`. No target cases ran in that attempt.
+The adapter now captures core BUSY at EP0 bind; a subsequent clear or software
+STALL invalidates recovery promises and requests cancellation without releasing
+the owner. Direct-DCD SET_ADDRESS has no BUSY transition and remains explicitly
+outside that observation; normal direct-address ownership is tested. No-owner
+rejection is not classified as a failed retained submission. The completed fixed
+run passes **132 host/132 QEMU**, including all 16 new controls for active input,
+promised recovery, successful/unsupported requests and direct SET_ADDRESS. Log
+`/tmp/hp1020-standard-submit-fixed-20260929.log`, exact run
+`/tmp/hp1020-tinyusb-printer-3m6u4fne`. Measured adapter state remains 128536 bytes.
+Failed and fixed snapshots are preserved under the adapter's existing evidence
+directory. This adds no USB transfers or physical recovery proof.
+
+The full analysis attempt reached 120 consistency checks with one failure: the
+stream gate retained an old 91028-byte expectation. The new boundary callback
+adds four target bytes; the executed fixture measures state13192 + fixed
+memory77840 = **91032**. All 66 host/44 target stream cases and exact hashes
+passed. Updating the checker (not any report hash) gives 120/120 consistency,
+but the stopped aggregate is not a completed 120-check run. Its exact old
+checker/report/log evidence is preserved in
+`analysis/offline-consistency/source-snapshots/stream-footprint-gate-20260929.*`.
+Log: `/tmp/hp1020-full-continuous-recovery-20260929.log`, child
+`hp1020-validation.5SQr6N`. The subsequent combined aggregate passes **121
+consistency checks and both suites**, including the descriptor boundary and
+pointer-model correction below. Log `/tmp/hp1020-full-udc-boundary-20260929.log`,
+child `hp1020-validation.csAmPs`. This supersedes the118-check completed baseline
+without changing the stopped120-check attempt into a success.
+
+### Controller-facing RAM boundaries (2026-09-29)
+
+`scripts/validate-hp1020-usb-idle-receive.py` now passes **58 conditional cases /
+62 fresh helper invocations per engine**, six unredirected-MMIO controls per
+engine and 15 excluded-code controls. Original helper `0x10008f40..0x10008fb0`
+runs from real ENTRY to return; three register literals are privately redirected,
+and interrupt-mask/unmask/delay services are supplied. Independent traces and
+all nonstack mutable bytes agree. Original instructions/13-file closure remain
+unchanged. It skips on RXFIFO_EMPTY or nonzero latch, otherwise requests SNAK,
+sets the latch, supplies delay 5/50, then rereads DEVCTL and sets RDE. A supplied
+RDE-clear at the delay boundary is followed by that fresh read/set; this is not
+a proven reachable stock race or physical quiescence.
+
+Report: `analysis/usb-path/idle-receive.json/.md`; exact passed and initial
+pre-case socket-failure captures/source archives are in
+`analysis/usb-path/idle-receive/source-snapshots/`. Passing log:
+`/tmp/hp1020-usb-idle-receive-20260929-run2.log`; captures
+`/tmp/hp1020-usb-idle-receive-57er5ibi`. No instruction-audit/guard expansion,
+peripheral access or new hardware permission was required. A future controller
+port must settle delayed receive-enable work before promising quiescence.
+
+`open-firmware/udc-out/` and `scripts/validate-hp1020-udc-out.py` now connect one
+stationary 16-byte OUT descriptor to the existing adapter and receive queue.
+The first focused run passes **34 sanitized host/34 QEMU scenarios**, with
+97 exact source files, six fixture inputs, independent BE descriptor/USB wire/
+JBIG pixel/document event oracles and full retained-storage captures. Target
+component plus descriptor uses **80 bytes** beyond adapter128536. Exact first
+sources/report/captures remain under
+`analysis/usb-path/udc-out/source-snapshots/first-34-cases.*`;
+log `/tmp/hp1020-udc-out-first-20260929.log`, captures
+`/tmp/hp1020-udc-out-kp273xzi`.
+
+The boundary retains the original adapter cookie by value, never allocates a
+new queue or transfer identity, and uses separately supplied CPU/DMA spans.
+It supports one 64-byte OUT1 packet. Successful completion retires only the
+descriptor record; actual TinyUSB dispatch and queue parsing remain separate.
+Normal END_PAGE/END_DOC produces exact pages and consecutive document events
+without EOF. The 384 owner/RX/L/count combinations, unknown/nonboolean facts,
+span rejection, publication/submit failure, cancellation and original-cookie
+replay after descriptor/receive-slot reuse all execute in both engines.
+
+A review then strengthened the existing completion-facts profile in both
+directions: replay a current busy snapshot after live bytes become complete,
+then replay a saved complete snapshot after live bytes become busy. These require
+the immutable observation to govern admission. The first34 archive remains the
+unmodified earlier evidence; the stronger validator also passes all34/34
+cases (log `/tmp/hp1020-udc-out-snapshot-authority-20260929.log`, captures
+`/tmp/hp1020-udc-out-lrkw40ly`).
+Neither run establishes the externally asserted mapping or settlement facts.
 
 Original rearm writes buffer address big-endian (`0x10008708..0x1000871a`), clears
 next (`0x10008766..0x1000876f`) and writes status `0x08000000`
@@ -1285,8 +1381,29 @@ not establish initial BF/DU state; mode selection (`:1890..1899`), DMA translati
 cache visibility/publication order, stable original-cookie snapshots, transfer
 settlement, IRQ acknowledgement and queued-event retirement must remain supplied.
 BNA/HE faults, owner/RX/L/count controls, rejected publication, stale snapshots
-after descriptor reuse and cancellation without settlement are required controls.
-No MMIO/controller implementation or real USB operation is proposed by this seam.
+after descriptor reuse and cancellation without settlement are exercised, with
+zero new original page lifecycles, physical USB transfers or peripheral accesses.
+The component initializes reserved bytes to zero, whereas stock preserves them;
+its acceptance policy is intentionally stricter than the original owner/count
+fragment. It reuses the completed 12 rearm/51 status reference cases without
+claiming new original execution.
+
+The next bounded seam is EP0: separate16-byte IN0/OUT0 normal descriptors with
+64-byte staging/status buffers, existing TinyUSB packetization and exact adapter
+cookies. SETUP's embedded-wire layout remains separate. Active IN0 submissions
+load/store the unchanged supplied pointer; the corrected legacy control-IN model
+now checks contiguous original instruction slices and distinguishes the initial
+HOST_BUSY pointer ADD modulo32 bits. The former OR/physical-alias label was not
+supported. Low/high pointer controls expose the distinction; generated evidence
+is `analysis/usb-path/control-in-data-stage.{json,md}`.
+
+The original sender constructs and waits but does not establish postcompletion
+TX-count or settlement semantics. A future IN bridge must require an independent
+actual-length observation and settlement. EP0 cookie epochs are control epochs;
+never pass one as a bulk transport epoch. Exact-cookie retained-fault ingress and
+the small EP0 component are still unexecuted drafts under `/tmp`, outside this
+checkpoint. No new queue, fake completion, MMIO or hardware operation is needed
+for that next RAM experiment.
 
 ### Original SETUP ingress and corrected legacy evidence (2026-09-29)
 

@@ -138,7 +138,7 @@ cannot silently erase that reset or claim a general interrupt-queue implementati
 | 20–25 | active EP0 OUT token/length/epoch, then EP0 IN token/length/epoch (zeros when unowned) |
 | 26–31 | printer class SETUP/DATA/ACK callbacks, dummy callbacks, last class result, last class request ID |
 | 32–39 | class EP0 live/id, reset active/parts, receive generation/stopped/quiescent, output quiescent |
-| 40–45 | deferred epoch/pending, suppressed deferred submissions, finished resets, cached reset request/generation |
+| 40–45 | deferred epoch/pending, suppressed deferred submissions, finished resets, cached recovery identity/generation |
 | 46–51 | mounted, synthetic address, pending address, driver reset callbacks, open endpoint mask, stack events pending |
 | 52–55 | active raw wLength, last class reply kind/length, component state plus fixed-buffer sizeof |
 | 56–60 | last printer class SETUP callback's decoded type, request, value, index, length |

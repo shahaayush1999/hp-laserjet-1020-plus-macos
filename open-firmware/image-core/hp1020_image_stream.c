@@ -17,6 +17,14 @@ static enum hp1020_result band_out(struct hp1020_image_stream *s) {
     enum hp1020_image_result ir=hp1020_image_release(&s->image);
     return ir>=HP1020_IMAGE_FORMAT ? image_error(s,ir) : HP1020_OK;
 }
+static enum hp1020_result boundary_out(struct hp1020_image_stream *s,
+    enum hp1020_stream_boundary boundary) {
+    if(!s->consume_boundary)return HP1020_OK;
+    enum hp1020_result r=s->consume_boundary(boundary,s->parser.documents,
+        s->pages,s->consumer_context);
+    if(r)s->output_error=r;
+    return r;
+}
 static enum hp1020_result chunk_in(const struct hp1020_semantic *parser,
     const uint8_t *data,uint32_t size,void *context) {
     struct hp1020_image_stream *s=context;
@@ -69,17 +77,30 @@ static enum hp1020_result chunk_in(const struct hp1020_semantic *parser,
         break;
     case 3:
         if(!s->active || !s->jbig_ended)return HP1020_ORDER;
+        if(s->pages==UINT32_MAX)return HP1020_LIMIT;
+        if(parser->page_count!=s->pages+1)return HP1020_ORDER;
         s->active=0;s->pages++;
-        break;
+        return boundary_out(s,HP1020_STREAM_PAGE_END);
+    case 1:
+        /* The semantic parser already validated END_DOC and closed its
+         * framing. Observe it now, before the next START_DOC shares this feed. */
+        if(s->active || s->pages!=parser->page_count)return HP1020_ORDER;
+        return boundary_out(s,HP1020_STREAM_DOCUMENT_END);
     default: break;
     }
     return HP1020_OK;
 }
 enum hp1020_result hp1020_image_stream_init(struct hp1020_image_stream *s,
     struct hp1020_image_stream_memory *memory,hp1020_band_consumer consume,void *context) {
+    return hp1020_image_stream_init_boundaries(s,memory,consume,NULL,context);
+}
+enum hp1020_result hp1020_image_stream_init_boundaries(struct hp1020_image_stream *s,
+    struct hp1020_image_stream_memory *memory,hp1020_band_consumer consume,
+    hp1020_stream_boundary_consumer boundary,void *context) {
     memset(s,0,sizeof(*s));
     if(!memory || !consume)return s->parser.error=HP1020_LIMIT;
     s->memory=memory;s->consume_band=consume;s->consumer_context=context;
+    s->consume_boundary=boundary;
     hp1020_semantic_init_streaming(&s->parser,memory->compressed,sizeof(memory->compressed),chunk_in,s);
     return s->parser.error;
 }

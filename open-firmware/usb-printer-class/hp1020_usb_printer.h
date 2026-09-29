@@ -47,7 +47,8 @@ struct hp1020_printer_status {
 };
 
 struct hp1020_printer_reset_ticket {
-    uint32_t request_id;
+    /* Independent nonzero identity for a recovery attempt, not a host request. */
+    uint32_t recovery_id;
     uint32_t generation;
 };
 
@@ -66,6 +67,8 @@ struct hp1020_usb_printer {
     uint32_t last_request_id;
     uint32_t current_request_id;
     uint32_t ep0_request_id;
+    uint32_t last_recovery_id;
+    uint32_t reset_request_id; /* Real SOFT_RESET reply linkage; zero for automatic recovery. */
     uint16_t requested_length;
     uint8_t initialized;
     uint8_t exhausted;
@@ -97,13 +100,25 @@ enum hp1020_printer_result hp1020_usb_printer_setup(
     struct hp1020_usb_printer *, const uint8_t *setup, uint32_t length,
     const struct hp1020_printer_status *status, uint32_t *request_id);
 
+/* Begin recovery for a real transport boundary such as a new configuration.
+ * This allocates an independent recovery identity and stops the document. It
+ * invalidates old reset promises and reply permission without fabricating a
+ * host request, advancing last_request_id or releasing owned EP0 storage.
+ * All three external promises are still required. Completion never creates a
+ * class ACK. The adapter is the exclusive caller while attached; merely being
+ * fenced/mounted is not permission to begin or repeatedly retry recovery.
+ * ticket is required and receives zero on failure. Identity exhaustion is
+ * terminal for both explicit and automatic recovery; initialization is no reset. */
+enum hp1020_printer_result hp1020_usb_printer_begin_transport_recovery(
+    struct hp1020_usb_printer *, struct hp1020_printer_reset_ticket *ticket);
+
 /* An unrelated later SETUP does not cancel the ongoing document stop. Repeated
- * valid resets replace this ticket and invalidate every prior reset promise,
- * even when the receive generation has not changed. */
+ * wire resets and transport recovery attempts allocate independent recovery IDs
+ * and invalidate every prior promise, even when generation has not changed. */
 enum hp1020_printer_result hp1020_usb_printer_pending_reset(
     const struct hp1020_usb_printer *, struct hp1020_printer_reset_ticket *);
 
-/* Supply exactly one part per call, for this reset identity AND generation.
+/* Supply exactly one part per call, for this recovery identity AND generation.
  * RECEIVE: all old OUT writes and callbacks are permanently settled, including
  * events waiting in an adapter/stack queue. Never attach today's generation to
  * a late event. This forwards the existing receive_quiesced promise.
@@ -119,8 +134,9 @@ enum hp1020_printer_result hp1020_usb_printer_ack_reset(
     enum hp1020_printer_reset_part);
 
 /* Requires all three current promises, then restarts the composed document.
- * No receive-only restart is permitted. ACK becomes available only when this
- * reset is still the current SETUP; otherwise recovery creates no stale reply.
+ * No receive-only restart is permitted. ACK becomes available only for a real
+ * SOFT_RESET that is still the current SETUP. Transport recovery has no reply
+ * linkage and never creates a class response; no current request is fabricated.
  * This does not arm hardware. A failed restart leaves the document stopped and
  * requires a new valid reset attempt (identity/generation exhaustion is terminal). */
 enum hp1020_printer_result hp1020_usb_printer_finish_reset(
@@ -142,7 +158,8 @@ enum hp1020_printer_result hp1020_usb_printer_ep0_quiesced(
 
 /* Endpoint/transport fault scoped to its original receive generation. A current
  * nonzero fault stops the document and invalidates reset promises/reply. It does
- * not release EP0/input/output memory. A new valid reset is needed to recover.
+ * not release EP0/input/output memory. A new wire reset or actual transport
+ * recovery boundary with three fresh promises is needed to recover.
  * Old-generation faults are STALE. Zero is a no-op, never a resume operation. */
 enum hp1020_printer_result hp1020_usb_printer_fault(
     struct hp1020_usb_printer *, uint32_t generation, uint32_t fault);

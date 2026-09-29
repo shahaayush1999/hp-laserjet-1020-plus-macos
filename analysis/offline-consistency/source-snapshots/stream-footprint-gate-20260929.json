@@ -1,0 +1,12 @@
+{
+  "archive_sha256": "a3813c10588c29985ace8baa82b1f4398035abb565ddfbf04175778cd0e9cf1a",
+  "excluded_host_debug_symbols": [],
+  "excluded_host_executables": [],
+  "member_sha256": {
+    "analysis/offline-consistency/offline-consistency.json": "f139709028f99c3238c33a06a6fe8dd831490a88f27bb06fb23894b7e62946a8",
+    "analysis/offline-consistency/offline-consistency.md": "b7719f4de3fd7e547e05363ac442f8ab8be0b3f203a4f2d305518b0e0aa177dc",
+    "analysis/open-firmware-model/image-core/stream-validation.json": "6c69e2c644b8bb7195ea4399bdf22fa835f33bee22c33031cf6bb1ac8a1a8735",
+    "run.log": "4f4f61eca7b46bc24c5740585992512daee3b09ae2e7896c78126c0ba5da9099",
+    "scripts/check-hp1020-analysis-consistency.py": "712ce880e4b33a61092c6d26266385306741ea8241e5774b71078579a7984d95"
+  }
+}

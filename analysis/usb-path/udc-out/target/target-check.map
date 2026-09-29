@@ -1,0 +1,2160 @@
+Archive member included to satisfy reference by file (symbol)
+
+/private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+                              /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o (__udivsi3)
+
+Discarded input sections
+
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_page.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_page_plan.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/target-memory.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/memory.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+                0x0000000020000000                . = 0x20000000
+
+.text           0x0000000020000000     0x92b8
+ *(.literal .literal.*)
+ .literal.fnv   0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.endpoint_bit
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.document_complete
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dummy_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dummy_deinit
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dummy_open
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dummy_control
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dummy_xfer
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.udc_violation
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.udc_canaries
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.udc_mutate
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.check_owned
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.udc_check
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.progress
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.snapshot
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.udc_publish
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.udc_cancelled
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.packet_index
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.request_cancel
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.udc_cancel_request
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dummy_reset
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.udc_current$isra$0
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.udc_observe
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.udc_snapshot
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.usbd_app_driver_get_cb
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.usbd_app_control_route_cb
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.tud_descriptor_device_cb
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.tud_descriptor_configuration_cb
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.tud_descriptor_string_cb
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.tusb_time_millis_api
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dcd_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dcd_deinit
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dcd_int_handler
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dcd_int_enable
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dcd_int_disable
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dcd_connect
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dcd_disconnect
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dcd_remote_wakeup
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dcd_sof_enable
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dcd_edpt_open
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dcd_edpt_close
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dcd_edpt_close_all
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.hp1020_udc_base_dcd_edpt_xfer
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dcd_set_address
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dcd_edpt0_status_complete
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dcd_edpt_stall
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dcd_edpt_clear_stall
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.hp1020_udc_base_reset
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.hp1020_udc_base_step
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.hp1020_bulk_fixture_receive_storage
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.hp1020_bulk_fixture_output_storage
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.dcd_edpt_xfer
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.hp1020_bulk_fixture_reset
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.hp1020_bulk_fixture_step
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.hp1020_udc_fixture_descriptor_storage
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.hp1020_udc_fixture_descriptor_storage_bytes
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.hp1020_udc_fixture_component_bytes
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .literal.be32  0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .literal.cpu_span_valid
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .literal.cpu_overlap
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .literal.retire
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .literal.report_fault
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .literal.enter
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .literal.current$isra$0
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .literal.hp1020_udc_out_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .literal.hp1020_udc_out_prepare
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .literal.hp1020_udc_out_take_submission
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .literal.hp1020_udc_out_observe
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .literal.hp1020_udc_out_request_cancel
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .literal.hp1020_udc_out_cancelled
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .literal.valid
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.enter
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.ep0_owned
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.bulk_owned
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.driver_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.endpoint_descriptor
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.same_reset
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.transport_ready
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.request_cancel
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.cancel_ep0
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.terminal
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.advance
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.fence
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.driver_xfer
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.driver_reset
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.driver_deinit
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.driver_open
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.release_response
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.take_reply
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.driver_control
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.drain_stack
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_driver
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_route
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_setup
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_bus_reset
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_bind_submission
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_complete
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_cancelled
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_fault
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_service
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_arm_out
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_pump
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_close_input
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_finish
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_pending_reset
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_ack_reset
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_finish_reset
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .literal.invalidate_reset
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .literal.check_reset
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .literal.exhaust$isra$0
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .literal.begin_recovery
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .literal.hp1020_usb_printer_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .literal.hp1020_usb_printer_setup
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .literal.hp1020_usb_printer_begin_transport_recovery
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .literal.hp1020_usb_printer_pending_reset
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .literal.hp1020_usb_printer_ack_reset
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .literal.hp1020_usb_printer_finish_reset
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .literal.hp1020_usb_printer_take_response
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .literal.hp1020_usb_printer_ep0_quiesced
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .literal.hp1020_usb_printer_fault
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .literal.slot  0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ .literal.hp1020_usb_receive_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ .literal.hp1020_usb_receive_reserve
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ .literal.hp1020_usb_receive_complete_data
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ .literal.hp1020_usb_receive_complete
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ .literal.hp1020_usb_receive_fault
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ .literal.hp1020_usb_receive_peek
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ .literal.hp1020_usb_receive_release
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ .literal.hp1020_usb_receive_stop
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ .literal.hp1020_usb_receive_quiesced
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ .literal.hp1020_usb_receive_restart
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ .literal.document_out
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+ .literal.hp1020_usb_document_init_documents
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+ .literal.hp1020_usb_document_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+ .literal.hp1020_usb_document_pump
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+ .literal.hp1020_usb_document_finish
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+ .literal.hp1020_usb_document_output_quiesced
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+ .literal.hp1020_usb_document_restart
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+ .literal.be32  0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+ .literal.row_out
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+ .literal.result$part$0
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+ .literal.hp1020_image_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+ .literal.hp1020_image_feed
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+ .literal.hp1020_image_release
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+ .literal.hp1020_image_finish
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+ .literal.hp1020_image_page_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_page.o
+ .literal.hp1020_image_page_next
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_page.o
+ .literal.hp1020_image_page_release
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_page.o
+ .literal.image_error
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ .literal.boundary_out
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ .literal.band_out
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ .literal.chunk_in
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ .literal.hp1020_image_stream_init_boundaries
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ .literal.hp1020_image_stream_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ .literal.hp1020_image_stream_feed
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ .literal.hp1020_image_stream_finish
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ .literal.hp1020_image_ring_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+ .literal.hp1020_image_ring_push
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+ .literal.hp1020_image_ring_peek
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+ .literal.hp1020_image_ring_accept
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+ .literal.hp1020_image_ring_complete
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+ .literal.hp1020_image_ring_drained
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+ .literal.progress
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ .literal.drain
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ .literal.consume
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ .literal.boundary
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ .literal.hp1020_image_output_init_documents
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ .literal.hp1020_image_output_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ .literal.hp1020_image_output_feed
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ .literal.hp1020_image_output_finish
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ .literal.be32  0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ .literal.items
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ .literal.complete_chunk
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ .literal.hp1020_semantic_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ .literal.hp1020_semantic_init_streaming
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ .literal.hp1020_semantic_feed
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ .literal.hp1020_semantic_finish
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ .literal.hp1020_plan_page
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_page_plan.o
+ .literal.hp1020_plan_next_band
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_page_plan.o
+ .literal.memcmp
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/target-memory.o
+ .literal.memset
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/memory.o
+ .literal.memcpy
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/memory.o
+ .literal.enc_byte_out
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .literal.decode_pscd
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .literal.finish_sde
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .literal.output_newlen
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .literal.jbg85_enc_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .literal.jbg85_enc_options
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .literal.jbg85_enc_lineout
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .literal.jbg85_enc_newlen
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .literal.jbg85_enc_abort
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .literal.jbg85_strerror
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .literal.jbg85_dec_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .literal.jbg85_dec_in
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .literal.jbg85_dec_end
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .literal.arith_encode_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+ .literal.arith_encode_flush
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+ .literal.arith_encode
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+ .literal.arith_decode_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+ .literal.arith_decode
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+ .literal.stream_claim
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.stream_xfer
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.stream_release$isra$0
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tusb_time_delay_ms_api
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tusb_app_virt_to_phys
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tusb_app_phys_to_virt
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tusb_rhport_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tusb_inited
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tusb_int_handler
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tusb_deinit
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tu_desc_find
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tu_desc_find2
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tu_desc_find3
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tu_edpt_claim
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tu_edpt_release
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tu_bind_driver_to_ep_itf
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tu_edpt_stream_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tu_edpt_stream_write_zlp_if_needed
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tu_edpt_stream_write_xfer
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tu_edpt_stream_write
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tu_edpt_stream_write_available
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tu_edpt_stream_read_xfer
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tu_edpt_stream_read
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .literal.tud_vendor_control_xfer_cb
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.configuration_reset
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_int_set
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.invoke_class_control$constprop$0$isra$0
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_event_hook_cb
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_sof_cb
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_descriptor_bos_cb
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_descriptor_device_qualifier_cb
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_descriptor_other_speed_configuration_cb
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_mount_cb
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_umount_cb
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_suspend_cb
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_resume_cb
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_app_control_route_cb
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.dcd_deinit
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.dcd_connect
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.dcd_disconnect
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.dcd_dcache_clean
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.dcd_dcache_invalidate
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.dcd_dcache_clean_invalidate
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_app_driver_get_cb
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.dcd_edpt_xfer_fifo
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.dcd_configure
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_speed_get
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_connected
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_mounted
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_suspended
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_remote_wakeup
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_disconnect
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_connect
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_inited
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_configure
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_rhport_init
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_deinit
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_task_event_ready
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.dcd_edpt0_status_complete
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_get_ctrl_buf
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.dcd_event_handler
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_spin_lock
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_spin_unlock
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_defer_func
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_edpt_open
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_open_edpt_pair
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_edpt_claim
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_edpt_release
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_edpt_xfer
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_control_status
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.data_stage_xact
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_control_xfer
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_edpt_xfer_fifo
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_edpt_busy
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_edpt_stall
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_edpt_clear_stall
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_edpt_stalled
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_task_ext
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_edpt_close
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_sof_enable
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.tud_sof_cb_enable
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_edpt_iso_alloc
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.usbd_edpt_iso_activate
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .literal.advance_index
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .literal.ff_peek_local
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .literal.tu_fifo_config
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .literal.tu_fifo_clear
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .literal.tu_fifo_set_overwritable
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .literal.tu_fifo_peek_n_access_mode
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .literal.tu_fifo_peek_n
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .literal.tu_fifo_read_n_access_mode
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .literal.tu_fifo_write_n_access_mode
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .literal.tu_fifo_discard_n
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .literal.tu_fifo_read
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .literal.tu_fifo_peek
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .literal.tu_fifo_write
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .literal.tu_fifo_advance_write_pointer
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .literal.tu_fifo_correct_read_pointer
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .literal.tu_fifo_advance_read_pointer
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .literal.tu_fifo_get_read_info
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .literal.tu_fifo_get_write_info
+                0x0000000020000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ *(.text .text.*)
+ .text.fnv      0x0000000020000000       0x25 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ *fill*         0x0000000020000025        0x3 
+ .text.document_complete
+                0x0000000020000028       0x6a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ *fill*         0x0000000020000092        0x2 
+ .text.dummy_open
+                0x0000000020000094       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                         0x2c (size before relaxing)
+ .text.dummy_xfer
+                0x00000000200000bc        0xd /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                         0x11 (size before relaxing)
+ *fill*         0x00000000200000c9        0x3 
+ .text.udc_violation
+                0x00000000200000cc       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                         0x1c (size before relaxing)
+ .text.udc_canaries
+                0x00000000200000e4       0x2c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                         0x30 (size before relaxing)
+ .text.udc_mutate
+                0x0000000020000110       0x6f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ *fill*         0x000000002000017f        0x1 
+ .text.check_owned
+                0x0000000020000180       0xb9 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                         0xbd (size before relaxing)
+ *fill*         0x0000000020000239        0x3 
+ .text.udc_check
+                0x000000002000023c       0x36 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ *fill*         0x0000000020000272        0x2 
+ .text.progress
+                0x0000000020000274      0x11f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                        0x127 (size before relaxing)
+ *fill*         0x0000000020000393        0x1 
+ .text.snapshot
+                0x0000000020000394      0x38f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                        0x3af (size before relaxing)
+ *fill*         0x0000000020000723        0x1 
+ .text.udc_publish
+                0x0000000020000724      0x114 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                        0x120 (size before relaxing)
+ .text.udc_cancelled
+                0x0000000020000838       0xf6 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                        0x106 (size before relaxing)
+ *fill*         0x000000002000092e        0x2 
+ .text.request_cancel
+                0x0000000020000930       0xb7 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                         0xbf (size before relaxing)
+ *fill*         0x00000000200009e7        0x1 
+ .text.udc_cancel_request
+                0x00000000200009e8       0x4a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                         0x52 (size before relaxing)
+ *fill*         0x0000000020000a32        0x2 
+ .text.udc_current$isra$0
+                0x0000000020000a34       0x58 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                         0x5c (size before relaxing)
+ .text.udc_observe
+                0x0000000020000a8c      0x13b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                        0x14b (size before relaxing)
+ *fill*         0x0000000020000bc7        0x1 
+ .text.udc_snapshot
+                0x0000000020000bc8      0x13d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                        0x159 (size before relaxing)
+ *fill*         0x0000000020000d05        0x3 
+ .text.usbd_app_driver_get_cb
+                0x0000000020000d08       0x6f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x0000000020000d28                usbd_app_driver_get_cb
+ *fill*         0x0000000020000d77        0x1 
+ .text.usbd_app_control_route_cb
+                0x0000000020000d78        0xd /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x0000000020000d7c                usbd_app_control_route_cb
+ *fill*         0x0000000020000d85        0x3 
+ .text.tud_descriptor_device_cb
+                0x0000000020000d88        0x9 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x0000000020000d8c                tud_descriptor_device_cb
+ *fill*         0x0000000020000d91        0x3 
+ .text.tud_descriptor_configuration_cb
+                0x0000000020000d94       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x0000000020000d98                tud_descriptor_configuration_cb
+ .text.tud_descriptor_string_cb
+                0x0000000020000da4       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x0000000020000da8                tud_descriptor_string_cb
+ .text.dcd_init
+                0x0000000020000db4       0x2a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                         0x2e (size before relaxing)
+                0x0000000020000db4                dcd_init
+ *fill*         0x0000000020000dde        0x2 
+ .text.dcd_edpt_open
+                0x0000000020000de0       0x4a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                         0x4e (size before relaxing)
+                0x0000000020000de0                dcd_edpt_open
+ *fill*         0x0000000020000e2a        0x2 
+ .text.dcd_edpt_close
+                0x0000000020000e2c       0x54 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                         0x5c (size before relaxing)
+                0x0000000020000e2c                dcd_edpt_close
+ .text.dcd_edpt_close_all
+                0x0000000020000e80       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                         0x36 (size before relaxing)
+                0x0000000020000e84                dcd_edpt_close_all
+ *fill*         0x0000000020000eb2        0x2 
+ .text.hp1020_udc_base_dcd_edpt_xfer
+                0x0000000020000eb4      0x15f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                        0x173 (size before relaxing)
+                0x0000000020000eb4                hp1020_udc_base_dcd_edpt_xfer
+ *fill*         0x0000000020001013        0x1 
+ .text.dcd_set_address
+                0x0000000020001014       0x39 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                         0x41 (size before relaxing)
+                0x0000000020001014                dcd_set_address
+ *fill*         0x000000002000104d        0x3 
+ .text.dcd_edpt0_status_complete
+                0x0000000020001050       0x22 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                         0x2a (size before relaxing)
+                0x0000000020001050                dcd_edpt0_status_complete
+ *fill*         0x0000000020001072        0x2 
+ .text.dcd_edpt_stall
+                0x0000000020001074       0x1d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                         0x21 (size before relaxing)
+                0x0000000020001074                dcd_edpt_stall
+ *fill*         0x0000000020001091        0x3 
+ .text.dcd_edpt_clear_stall
+                0x0000000020001094       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                         0x24 (size before relaxing)
+                0x0000000020001094                dcd_edpt_clear_stall
+ .text.hp1020_udc_base_reset
+                0x00000000200010b4      0x238 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                        0x25c (size before relaxing)
+                0x00000000200010c8                hp1020_udc_base_reset
+ .text.hp1020_udc_base_step
+                0x00000000200012ec      0x50f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                        0x52b (size before relaxing)
+                0x0000000020001300                hp1020_udc_base_step
+ *fill*         0x00000000200017fb        0x1 
+ .text.hp1020_bulk_fixture_receive_storage
+                0x00000000200017fc        0x5 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                          0x9 (size before relaxing)
+                0x00000000200017fc                hp1020_bulk_fixture_receive_storage
+ *fill*         0x0000000020001801        0x3 
+ .text.hp1020_bulk_fixture_output_storage
+                0x0000000020001804        0x5 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                          0x9 (size before relaxing)
+                0x0000000020001804                hp1020_bulk_fixture_output_storage
+ *fill*         0x0000000020001809        0x3 
+ .text.dcd_edpt_xfer
+                0x000000002000180c      0x24e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                        0x27a (size before relaxing)
+                0x0000000020001834                dcd_edpt_xfer
+ *fill*         0x0000000020001a5a        0x2 
+ .text.hp1020_bulk_fixture_reset
+                0x0000000020001a5c       0xd5 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                         0xf9 (size before relaxing)
+                0x0000000020001a68                hp1020_bulk_fixture_reset
+ *fill*         0x0000000020001b31        0x3 
+ .text.hp1020_bulk_fixture_step
+                0x0000000020001b34      0x588 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                        0x5c0 (size before relaxing)
+                0x0000000020001b48                hp1020_bulk_fixture_step
+ .text.hp1020_udc_fixture_descriptor_storage
+                0x00000000200020bc        0x5 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                          0x9 (size before relaxing)
+                0x00000000200020bc                hp1020_udc_fixture_descriptor_storage
+ *fill*         0x00000000200020c1        0x3 
+ .text.hp1020_udc_out_take_submission
+                0x00000000200020c4       0xe2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+                                         0xe6 (size before relaxing)
+                0x00000000200020c4                hp1020_udc_out_take_submission
+ *fill*         0x00000000200021a6        0x2 
+ .text.hp1020_udc_out_observe
+                0x00000000200021a8      0x151 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+                0x00000000200021b0                hp1020_udc_out_observe
+ *fill*         0x00000000200022f9        0x3 
+ .text.valid    0x00000000200022fc       0x2c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .text.cancel_ep0
+                0x0000000020002328       0x26 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ *fill*         0x000000002000234e        0x2 
+ .text.terminal
+                0x0000000020002350       0x53 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ *fill*         0x00000000200023a3        0x1 
+ .text.driver_xfer
+                0x00000000200023a4       0xc7 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                                         0xcb (size before relaxing)
+ *fill*         0x000000002000246b        0x1 
+ .text.driver_reset
+                0x000000002000246c       0x6f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                                         0x73 (size before relaxing)
+ *fill*         0x00000000200024db        0x1 
+ .text.driver_deinit
+                0x00000000200024dc       0x61 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                                         0x65 (size before relaxing)
+ *fill*         0x000000002000253d        0x3 
+ .text.driver_open
+                0x0000000020002540       0xf2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                                         0xf6 (size before relaxing)
+ *fill*         0x0000000020002632        0x2 
+ .text.release_response
+                0x0000000020002634       0x55 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ *fill*         0x0000000020002689        0x3 
+ .text.driver_control
+                0x000000002000268c      0x1c1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                                        0x1c5 (size before relaxing)
+ *fill*         0x000000002000284d        0x3 
+ .text.hp1020_tusb_adapter_driver
+                0x0000000020002850        0x9 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                0x0000000020002854                hp1020_tusb_adapter_driver
+ *fill*         0x0000000020002859        0x3 
+ .text.hp1020_tusb_adapter_init
+                0x000000002000285c       0xe7 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                                         0xeb (size before relaxing)
+                0x000000002000285c                hp1020_tusb_adapter_init
+ *fill*         0x0000000020002943        0x1 
+ .text.hp1020_tusb_adapter_route
+                0x0000000020002944       0x87 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                                         0x8b (size before relaxing)
+                0x0000000020002944                hp1020_tusb_adapter_route
+ *fill*         0x00000000200029cb        0x1 
+ .text.hp1020_tusb_adapter_pending_reset
+                0x00000000200029cc       0x3d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                0x00000000200029d0                hp1020_tusb_adapter_pending_reset
+ *fill*         0x0000000020002a09        0x3 
+ .text.hp1020_usb_printer_setup
+                0x0000000020002a0c      0x176 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+                0x0000000020002a10                hp1020_usb_printer_setup
+ *fill*         0x0000000020002b82        0x2 
+ .text.hp1020_usb_receive_complete
+                0x0000000020002b84       0x98 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+                0x0000000020002b88                hp1020_usb_receive_complete
+ .text.hp1020_usb_document_init_documents
+                0x0000000020002c1c       0x6b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+                0x0000000020002c20                hp1020_usb_document_init_documents
+ *fill*         0x0000000020002c87        0x1 
+ .text.hp1020_usb_document_init
+                0x0000000020002c88        0xe /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+                0x0000000020002c8c                hp1020_usb_document_init
+ *fill*         0x0000000020002c96        0x2 
+ .text.hp1020_usb_document_restart
+                0x0000000020002c98       0x61 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+                                         0x65 (size before relaxing)
+                0x0000000020002c98                hp1020_usb_document_restart
+ *fill*         0x0000000020002cf9        0x3 
+ .text.hp1020_image_init
+                0x0000000020002cfc      0x18a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+                0x0000000020002d00                hp1020_image_init
+ *fill*         0x0000000020002e86        0x2 
+ .text.hp1020_image_feed
+                0x0000000020002e88       0x83 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+                0x0000000020002e8c                hp1020_image_feed
+ *fill*         0x0000000020002f0b        0x1 
+ .text.band_out
+                0x0000000020002f0c       0x9b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ *fill*         0x0000000020002fa7        0x1 
+ .text.chunk_in
+                0x0000000020002fa8      0x266 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+                                        0x26a (size before relaxing)
+ *fill*         0x000000002000320e        0x2 
+ .text.hp1020_image_stream_init_boundaries
+                0x0000000020003210       0x78 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+                                         0x7c (size before relaxing)
+                0x0000000020003214                hp1020_image_stream_init_boundaries
+ .text.hp1020_image_stream_init
+                0x0000000020003288        0xe /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+                0x000000002000328c                hp1020_image_stream_init
+ *fill*         0x0000000020003296        0x2 
+ .text.hp1020_image_stream_feed
+                0x0000000020003298        0xa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+                0x000000002000329c                hp1020_image_stream_feed
+ *fill*         0x00000000200032a2        0x2 
+ .text.hp1020_image_stream_finish
+                0x00000000200032a4        0xa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+                0x00000000200032a8                hp1020_image_stream_finish
+ *fill*         0x00000000200032ae        0x2 
+ .text.consume  0x00000000200032b0       0xca /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ *fill*         0x000000002000337a        0x2 
+ .text.hp1020_image_output_init_documents
+                0x000000002000337c       0x73 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+                0x0000000020003384                hp1020_image_output_init_documents
+ *fill*         0x00000000200033ef        0x1 
+ .text.hp1020_image_output_init
+                0x00000000200033f0        0xe /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+                0x00000000200033f4                hp1020_image_output_init
+ *fill*         0x00000000200033fe        0x2 
+ .text.items    0x0000000020003400      0x109 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ *fill*         0x0000000020003509        0x3 
+ .text.complete_chunk
+                0x000000002000350c      0x279 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ *fill*         0x0000000020003785        0x3 
+ .text.hp1020_semantic_feed
+                0x0000000020003788      0x247 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+                0x000000002000378c                hp1020_semantic_feed
+ *fill*         0x00000000200039cf        0x1 
+ .text.hp1020_semantic_finish
+                0x00000000200039d0       0x30 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+                0x00000000200039d4                hp1020_semantic_finish
+ .text.hp1020_plan_page
+                0x0000000020003a00       0xfd /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_page_plan.o
+                                        0x101 (size before relaxing)
+                0x0000000020003a04                hp1020_plan_page
+ *fill*         0x0000000020003afd        0x3 
+ .text.hp1020_plan_next_band
+                0x0000000020003b00       0xa1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_page_plan.o
+                                         0xa5 (size before relaxing)
+                0x0000000020003b00                hp1020_plan_next_band
+ *fill*         0x0000000020003ba1        0x3 
+ .text.jbg85_enc_init
+                0x0000000020003ba4       0x5d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+                0x0000000020003ba8                jbg85_enc_init
+ *fill*         0x0000000020003c01        0x3 
+ .text.jbg85_strerror
+                0x0000000020003c04       0x1b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+                0x0000000020003c0c                jbg85_strerror
+ *fill*         0x0000000020003c1f        0x1 
+ .text.jbg85_dec_init
+                0x0000000020003c20       0x4c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+                0x0000000020003c24                jbg85_dec_init
+ .text.jbg85_dec_in
+                0x0000000020003c6c      0x463 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+                0x0000000020003c74                jbg85_dec_in
+ *fill*         0x00000000200040cf        0x1 
+ .text.jbg85_dec_end
+                0x00000000200040d0       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+                0x00000000200040d4                jbg85_dec_end
+ .text.arith_encode
+                0x00000000200040e8      0x15b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+                0x00000000200040f4                arith_encode
+ *fill*         0x0000000020004243        0x1 
+ .text.arith_decode
+                0x0000000020004244      0x139 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+                                        0x145 (size before relaxing)
+                0x0000000020004244                arith_decode
+ *fill*         0x000000002000437d        0x3 
+ .text.stream_claim
+                0x0000000020004380       0x1c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .text.stream_xfer
+                0x000000002000439c       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ *fill*         0x00000000200043ce        0x2 
+ .text.stream_release$isra$0
+                0x00000000200043d0       0x17 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ *fill*         0x00000000200043e7        0x1 
+ .text.tusb_rhport_init
+                0x00000000200043e8       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x00000000200043f0                tusb_rhport_init
+ *fill*         0x0000000020004413        0x1 
+ .text.tusb_inited
+                0x0000000020004414        0xa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x0000000020004418                tusb_inited
+ *fill*         0x000000002000441e        0x2 
+ .text.tusb_int_handler
+                0x0000000020004420       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                                         0x22 (size before relaxing)
+                0x0000000020004424                tusb_int_handler
+ *fill*         0x000000002000443e        0x2 
+ .text.tusb_deinit
+                0x0000000020004440       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                                         0x36 (size before relaxing)
+                0x0000000020004440                tusb_deinit
+ *fill*         0x0000000020004472        0x2 
+ .text.tu_edpt_stream_write_zlp_if_needed
+                0x0000000020004474       0x5a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x0000000020004478                tu_edpt_stream_write_zlp_if_needed
+ *fill*         0x00000000200044ce        0x2 
+ .text.configuration_reset
+                0x00000000200044d0       0x8b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ *fill*         0x000000002000455b        0x1 
+ .text.usbd_int_set
+                0x000000002000455c       0x23 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020004568                usbd_int_set
+ *fill*         0x000000002000457f        0x1 
+ .text.invoke_class_control$constprop$0$isra$0
+                0x0000000020004580        0xc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x10 (size before relaxing)
+ .text.tud_speed_get
+                0x000000002000458c        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                          0xc (size before relaxing)
+                0x000000002000458c                tud_speed_get
+ .text.tud_connected
+                0x0000000020004594       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x17 (size before relaxing)
+                0x0000000020004594                tud_connected
+ *fill*         0x00000000200045a7        0x1 
+ .text.tud_mounted
+                0x00000000200045a8        0xd /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x11 (size before relaxing)
+                0x00000000200045a8                tud_mounted
+ *fill*         0x00000000200045b5        0x3 
+ .text.tud_suspended
+                0x00000000200045b8       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x17 (size before relaxing)
+                0x00000000200045b8                tud_suspended
+ *fill*         0x00000000200045cb        0x1 
+ .text.tud_remote_wakeup
+                0x00000000200045cc       0x2d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x35 (size before relaxing)
+                0x00000000200045cc                tud_remote_wakeup
+ *fill*         0x00000000200045f9        0x3 
+ .text.tud_disconnect
+                0x00000000200045fc       0x17 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x1b (size before relaxing)
+                0x00000000200045fc                tud_disconnect
+ *fill*         0x0000000020004613        0x1 
+ .text.tud_connect
+                0x0000000020004614       0x17 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x1b (size before relaxing)
+                0x0000000020004614                tud_connect
+ *fill*         0x000000002000462b        0x1 
+ .text.tud_inited
+                0x000000002000462c       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x16 (size before relaxing)
+                0x000000002000462c                tud_inited
+ *fill*         0x000000002000463e        0x2 
+ .text.tud_configure
+                0x0000000020004640        0xd /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020004644                tud_configure
+ *fill*         0x000000002000464d        0x3 
+ .text.tud_rhport_init
+                0x0000000020004650       0xb1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0xc1 (size before relaxing)
+                0x0000000020004660                tud_rhport_init
+ *fill*         0x0000000020004701        0x3 
+ .text.tud_deinit
+                0x0000000020004704       0x87 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x9b (size before relaxing)
+                0x0000000020004704                tud_deinit
+ *fill*         0x000000002000478b        0x1 
+ .text.tud_task_event_ready
+                0x000000002000478c       0x2f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x37 (size before relaxing)
+                0x000000002000478c                tud_task_event_ready
+ *fill*         0x00000000200047bb        0x1 
+ .text.usbd_get_ctrl_buf
+                0x00000000200047bc        0x9 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x00000000200047c0                usbd_get_ctrl_buf
+ *fill*         0x00000000200047c5        0x3 
+ .text.dcd_event_handler
+                0x00000000200047c8      0x240 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                        0x254 (size before relaxing)
+                0x00000000200047d0                dcd_event_handler
+ .text.usbd_spin_lock
+                0x0000000020004a08       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020004a0c                usbd_spin_lock
+ *fill*         0x0000000020004a33        0x1 
+ .text.usbd_spin_unlock
+                0x0000000020004a34       0x1c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x20 (size before relaxing)
+                0x0000000020004a34                usbd_spin_unlock
+ .text.usbd_defer_func
+                0x0000000020004a50       0x5a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x5e (size before relaxing)
+                0x0000000020004a50                usbd_defer_func
+ *fill*         0x0000000020004aaa        0x2 
+ .text.usbd_edpt_open
+                0x0000000020004aac       0x34 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x38 (size before relaxing)
+                0x0000000020004ab0                usbd_edpt_open
+ .text.usbd_edpt_claim
+                0x0000000020004ae0       0x1d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x21 (size before relaxing)
+                0x0000000020004ae4                usbd_edpt_claim
+ *fill*         0x0000000020004afd        0x3 
+ .text.usbd_edpt_release
+                0x0000000020004b00       0x1d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x21 (size before relaxing)
+                0x0000000020004b04                usbd_edpt_release
+ *fill*         0x0000000020004b1d        0x3 
+ .text.usbd_edpt_xfer
+                0x0000000020004b20       0x67 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x6f (size before relaxing)
+                0x0000000020004b20                usbd_edpt_xfer
+ *fill*         0x0000000020004b87        0x1 
+ .text.tud_control_status
+                0x0000000020004b88       0x31 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x39 (size before relaxing)
+                0x0000000020004b88                tud_control_status
+ *fill*         0x0000000020004bb9        0x3 
+ .text.data_stage_xact
+                0x0000000020004bbc       0x7f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x8b (size before relaxing)
+ *fill*         0x0000000020004c3b        0x1 
+ .text.tud_control_xfer
+                0x0000000020004c3c       0x45 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x4d (size before relaxing)
+                0x0000000020004c40                tud_control_xfer
+ *fill*         0x0000000020004c81        0x3 
+ .text.usbd_edpt_busy
+                0x0000000020004c84       0x19 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x1d (size before relaxing)
+                0x0000000020004c84                usbd_edpt_busy
+ *fill*         0x0000000020004c9d        0x3 
+ .text.usbd_edpt_stall
+                0x0000000020004ca0       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x48 (size before relaxing)
+                0x0000000020004ca0                usbd_edpt_stall
+ .text.usbd_edpt_clear_stall
+                0x0000000020004ce0       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x48 (size before relaxing)
+                0x0000000020004ce0                usbd_edpt_clear_stall
+ .text.usbd_edpt_stalled
+                0x0000000020004d20       0x19 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x1d (size before relaxing)
+                0x0000000020004d20                usbd_edpt_stalled
+ *fill*         0x0000000020004d39        0x3 
+ .text.tud_task_ext
+                0x0000000020004d3c      0x660 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                        0x684 (size before relaxing)
+                0x0000000020004d4c                tud_task_ext
+ .text.usbd_edpt_close
+                0x000000002000539c       0x34 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x3c (size before relaxing)
+                0x000000002000539c                usbd_edpt_close
+ .text.usbd_sof_enable
+                0x00000000200053d0       0x76 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x7e (size before relaxing)
+                0x00000000200053d4                usbd_sof_enable
+ *fill*         0x0000000020005446        0x2 
+ .text.tud_sof_cb_enable
+                0x0000000020005448       0x15 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                         0x19 (size before relaxing)
+                0x000000002000544c                tud_sof_cb_enable
+ *fill*         0x000000002000545d        0x3 
+ .text.tu_fifo_peek_n
+                0x0000000020005460       0x21 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+                0x0000000020005464                tu_fifo_peek_n
+ *fill*         0x0000000020005481        0x3 
+ .text.tu_fifo_peek
+                0x0000000020005484       0x1c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+                0x0000000020005488                tu_fifo_peek
+ .text          0x00000000200054a0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ *fill*         0x00000000200054a0        0x0 
+ .text.endpoint_bit
+                0x00000000200054a0       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ *fill*         0x00000000200054b3        0x0 
+ *fill*         0x00000000200054b3        0x1 
+ .text.dummy_init
+                0x00000000200054b4        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ *fill*         0x00000000200054b6        0x2 
+ .text.dummy_deinit
+                0x00000000200054b8        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .text.dummy_control
+                0x00000000200054bc        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ *fill*         0x00000000200054c0        0x0 
+ *fill*         0x00000000200054c0        0x0 
+ *fill*         0x00000000200054c0        0x0 
+ *fill*         0x00000000200054c0        0x0 
+ *fill*         0x00000000200054c0        0x0 
+ *fill*         0x00000000200054c0        0x0 
+ *fill*         0x00000000200054c0        0x0 
+ .text.packet_index
+                0x00000000200054c0       0x14 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ *fill*         0x00000000200054d4        0x0 
+ *fill*         0x00000000200054d4        0x0 
+ .text.dummy_reset
+                0x00000000200054d4        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ *fill*         0x00000000200054d6        0x0 
+ *fill*         0x00000000200054d6        0x0 
+ *fill*         0x00000000200054d6        0x0 
+ *fill*         0x00000000200054d6        0x0 
+ *fill*         0x00000000200054d6        0x0 
+ *fill*         0x00000000200054d6        0x2 
+ .text.tusb_time_millis_api
+                0x00000000200054d8        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x00000000200054d8                tusb_time_millis_api
+ *fill*         0x00000000200054dc        0x0 
+ .text.dcd_deinit
+                0x00000000200054dc        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x00000000200054dc                dcd_deinit
+ .text.dcd_int_handler
+                0x00000000200054e0        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x00000000200054e0                dcd_int_handler
+ *fill*         0x00000000200054e2        0x2 
+ .text.dcd_int_enable
+                0x00000000200054e4        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x00000000200054e4                dcd_int_enable
+ *fill*         0x00000000200054e6        0x2 
+ .text.dcd_int_disable
+                0x00000000200054e8        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x00000000200054e8                dcd_int_disable
+ *fill*         0x00000000200054ea        0x2 
+ .text.dcd_connect
+                0x00000000200054ec        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x00000000200054ec                dcd_connect
+ *fill*         0x00000000200054ee        0x2 
+ .text.dcd_disconnect
+                0x00000000200054f0        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x00000000200054f0                dcd_disconnect
+ *fill*         0x00000000200054f2        0x2 
+ .text.dcd_remote_wakeup
+                0x00000000200054f4        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x00000000200054f4                dcd_remote_wakeup
+ *fill*         0x00000000200054f6        0x2 
+ .text.dcd_sof_enable
+                0x00000000200054f8        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x00000000200054f8                dcd_sof_enable
+ *fill*         0x00000000200054fa        0x0 
+ *fill*         0x00000000200054fa        0x0 
+ *fill*         0x00000000200054fa        0x0 
+ *fill*         0x00000000200054fa        0x0 
+ *fill*         0x00000000200054fa        0x0 
+ *fill*         0x00000000200054fa        0x0 
+ *fill*         0x00000000200054fa        0x0 
+ *fill*         0x00000000200054fa        0x0 
+ *fill*         0x00000000200054fa        0x0 
+ *fill*         0x00000000200054fa        0x0 
+ *fill*         0x00000000200054fa        0x0 
+ *fill*         0x00000000200054fa        0x0 
+ *fill*         0x00000000200054fa        0x2 
+ .text.hp1020_udc_fixture_descriptor_storage_bytes
+                0x00000000200054fc        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x00000000200054fc                hp1020_udc_fixture_descriptor_storage_bytes
+ .text.hp1020_udc_fixture_component_bytes
+                0x0000000020005500        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x0000000020005500                hp1020_udc_fixture_component_bytes
+ .text          0x0000000020005504        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .text.be32     0x0000000020005504       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .text.cpu_span_valid
+                0x0000000020005524       0x22 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ *fill*         0x0000000020005546        0x2 
+ .text.cpu_overlap
+                0x0000000020005548       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ *fill*         0x0000000020005566        0x2 
+ .text.retire   0x0000000020005568       0x33 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ *fill*         0x000000002000559b        0x1 
+ .text.report_fault
+                0x000000002000559c       0x3f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ *fill*         0x00000000200055db        0x1 
+ .text.enter    0x00000000200055dc       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ *fill*         0x00000000200055fa        0x2 
+ .text.current$isra$0
+                0x00000000200055fc       0x57 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ *fill*         0x0000000020005653        0x1 
+ .text.hp1020_udc_out_init
+                0x0000000020005654       0xd4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+                0x0000000020005654                hp1020_udc_out_init
+ .text.hp1020_udc_out_prepare
+                0x0000000020005728      0x182 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+                0x0000000020005728                hp1020_udc_out_prepare
+ *fill*         0x00000000200058aa        0x0 
+ *fill*         0x00000000200058aa        0x0 
+ *fill*         0x00000000200058aa        0x2 
+ .text.hp1020_udc_out_request_cancel
+                0x00000000200058ac       0x4b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+                0x00000000200058ac                hp1020_udc_out_request_cancel
+ *fill*         0x00000000200058f7        0x1 
+ .text.hp1020_udc_out_cancelled
+                0x00000000200058f8       0x97 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+                0x00000000200058f8                hp1020_udc_out_cancelled
+ .text          0x000000002000598f        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ *fill*         0x000000002000598f        0x1 
+ .text.enter    0x0000000020005990       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ *fill*         0x00000000200059bb        0x1 
+ .text.ep0_owned
+                0x00000000200059bc       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ *fill*         0x00000000200059ce        0x2 
+ .text.bulk_owned
+                0x00000000200059d0       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .text.driver_init
+                0x00000000200059f8        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ *fill*         0x00000000200059fa        0x2 
+ .text.endpoint_descriptor
+                0x00000000200059fc       0x3a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ *fill*         0x0000000020005a36        0x2 
+ .text.same_reset
+                0x0000000020005a38       0x39 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ *fill*         0x0000000020005a71        0x3 
+ .text.transport_ready
+                0x0000000020005a74       0x60 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .text.request_cancel
+                0x0000000020005ad4       0x23 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ *fill*         0x0000000020005af7        0x0 
+ *fill*         0x0000000020005af7        0x0 
+ *fill*         0x0000000020005af7        0x1 
+ .text.advance  0x0000000020005af8       0x2a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ *fill*         0x0000000020005b22        0x2 
+ .text.fence    0x0000000020005b24       0x5b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ *fill*         0x0000000020005b7f        0x0 
+ *fill*         0x0000000020005b7f        0x0 
+ *fill*         0x0000000020005b7f        0x0 
+ *fill*         0x0000000020005b7f        0x0 
+ *fill*         0x0000000020005b7f        0x0 
+ *fill*         0x0000000020005b7f        0x1 
+ .text.take_reply
+                0x0000000020005b80       0xb6 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ *fill*         0x0000000020005c36        0x0 
+ *fill*         0x0000000020005c36        0x2 
+ .text.drain_stack
+                0x0000000020005c38       0x63 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ *fill*         0x0000000020005c9b        0x0 
+ *fill*         0x0000000020005c9b        0x0 
+ *fill*         0x0000000020005c9b        0x0 
+ *fill*         0x0000000020005c9b        0x1 
+ .text.hp1020_tusb_adapter_setup
+                0x0000000020005c9c      0x1b1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                0x0000000020005c9c                hp1020_tusb_adapter_setup
+ *fill*         0x0000000020005e4d        0x3 
+ .text.hp1020_tusb_adapter_bus_reset
+                0x0000000020005e50       0x85 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                0x0000000020005e50                hp1020_tusb_adapter_bus_reset
+ *fill*         0x0000000020005ed5        0x3 
+ .text.hp1020_tusb_adapter_bind_submission
+                0x0000000020005ed8      0x17f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                0x0000000020005ed8                hp1020_tusb_adapter_bind_submission
+ *fill*         0x0000000020006057        0x1 
+ .text.hp1020_tusb_adapter_complete
+                0x0000000020006058      0x11d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                0x0000000020006058                hp1020_tusb_adapter_complete
+ *fill*         0x0000000020006175        0x3 
+ .text.hp1020_tusb_adapter_cancelled
+                0x0000000020006178       0x17 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                0x0000000020006178                hp1020_tusb_adapter_cancelled
+ *fill*         0x000000002000618f        0x1 
+ .text.hp1020_tusb_adapter_fault
+                0x0000000020006190       0x51 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                0x0000000020006190                hp1020_tusb_adapter_fault
+ *fill*         0x00000000200061e1        0x3 
+ .text.hp1020_tusb_adapter_service
+                0x00000000200061e4      0x44e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                0x00000000200061e4                hp1020_tusb_adapter_service
+ *fill*         0x0000000020006632        0x2 
+ .text.hp1020_tusb_adapter_arm_out
+                0x0000000020006634      0x145 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                0x0000000020006634                hp1020_tusb_adapter_arm_out
+ *fill*         0x0000000020006779        0x3 
+ .text.hp1020_tusb_adapter_pump
+                0x000000002000677c       0x4d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                0x000000002000677c                hp1020_tusb_adapter_pump
+ *fill*         0x00000000200067c9        0x3 
+ .text.hp1020_tusb_adapter_close_input
+                0x00000000200067cc       0x2f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                0x00000000200067cc                hp1020_tusb_adapter_close_input
+ *fill*         0x00000000200067fb        0x1 
+ .text.hp1020_tusb_adapter_finish
+                0x00000000200067fc       0x6f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                0x00000000200067fc                hp1020_tusb_adapter_finish
+ *fill*         0x000000002000686b        0x0 
+ *fill*         0x000000002000686b        0x1 
+ .text.hp1020_tusb_adapter_ack_reset
+                0x000000002000686c       0x95 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                0x000000002000686c                hp1020_tusb_adapter_ack_reset
+ *fill*         0x0000000020006901        0x3 
+ .text.hp1020_tusb_adapter_finish_reset
+                0x0000000020006904       0xd3 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                0x0000000020006904                hp1020_tusb_adapter_finish_reset
+ .text          0x00000000200069d7        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ *fill*         0x00000000200069d7        0x1 
+ .text.invalidate_reset
+                0x00000000200069d8       0x1c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .text.check_reset
+                0x00000000200069f4       0x63 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ *fill*         0x0000000020006a57        0x1 
+ .text.exhaust$isra$0
+                0x0000000020006a58       0x2a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ *fill*         0x0000000020006a82        0x2 
+ .text.begin_recovery
+                0x0000000020006a84       0x69 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ *fill*         0x0000000020006aed        0x3 
+ .text.hp1020_usb_printer_init
+                0x0000000020006af0       0x74 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+                0x0000000020006af0                hp1020_usb_printer_init
+ *fill*         0x0000000020006b64        0x0 
+ .text.hp1020_usb_printer_begin_transport_recovery
+                0x0000000020006b64       0x43 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+                0x0000000020006b64                hp1020_usb_printer_begin_transport_recovery
+ *fill*         0x0000000020006ba7        0x1 
+ .text.hp1020_usb_printer_pending_reset
+                0x0000000020006ba8       0x38 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+                0x0000000020006ba8                hp1020_usb_printer_pending_reset
+ .text.hp1020_usb_printer_ack_reset
+                0x0000000020006be0       0x69 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+                0x0000000020006be0                hp1020_usb_printer_ack_reset
+ *fill*         0x0000000020006c49        0x3 
+ .text.hp1020_usb_printer_finish_reset
+                0x0000000020006c4c       0x73 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+                0x0000000020006c4c                hp1020_usb_printer_finish_reset
+ *fill*         0x0000000020006cbf        0x1 
+ .text.hp1020_usb_printer_take_response
+                0x0000000020006cc0       0xbe /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+                0x0000000020006cc0                hp1020_usb_printer_take_response
+ *fill*         0x0000000020006d7e        0x2 
+ .text.hp1020_usb_printer_ep0_quiesced
+                0x0000000020006d80       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+                0x0000000020006d80                hp1020_usb_printer_ep0_quiesced
+ *fill*         0x0000000020006db2        0x2 
+ .text.hp1020_usb_printer_fault
+                0x0000000020006db4       0x4b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+                0x0000000020006db4                hp1020_usb_printer_fault
+ .text          0x0000000020006dff        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ *fill*         0x0000000020006dff        0x1 
+ .text.slot     0x0000000020006e00       0x49 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ *fill*         0x0000000020006e49        0x3 
+ .text.hp1020_usb_receive_init
+                0x0000000020006e4c       0x3c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+                0x0000000020006e4c                hp1020_usb_receive_init
+ .text.hp1020_usb_receive_reserve
+                0x0000000020006e88       0x78 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+                0x0000000020006e88                hp1020_usb_receive_reserve
+ .text.hp1020_usb_receive_complete_data
+                0x0000000020006f00       0x57 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+                0x0000000020006f00                hp1020_usb_receive_complete_data
+ *fill*         0x0000000020006f57        0x1 
+ .text.hp1020_usb_receive_fault
+                0x0000000020006f58       0x2c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+                0x0000000020006f58                hp1020_usb_receive_fault
+ .text.hp1020_usb_receive_peek
+                0x0000000020006f84       0x3e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+                0x0000000020006f84                hp1020_usb_receive_peek
+ *fill*         0x0000000020006fc2        0x2 
+ .text.hp1020_usb_receive_release
+                0x0000000020006fc4       0x51 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+                0x0000000020006fc4                hp1020_usb_receive_release
+ *fill*         0x0000000020007015        0x3 
+ .text.hp1020_usb_receive_stop
+                0x0000000020007018        0x7 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+                0x0000000020007018                hp1020_usb_receive_stop
+ *fill*         0x000000002000701f        0x1 
+ .text.hp1020_usb_receive_quiesced
+                0x0000000020007020       0x1a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+                0x0000000020007020                hp1020_usb_receive_quiesced
+ *fill*         0x000000002000703a        0x2 
+ .text.hp1020_usb_receive_restart
+                0x000000002000703c       0x64 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+                0x000000002000703c                hp1020_usb_receive_restart
+ .text          0x00000000200070a0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+ .text.document_out
+                0x00000000200070a0       0x45 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+ *fill*         0x00000000200070e5        0x0 
+ *fill*         0x00000000200070e5        0x0 
+ *fill*         0x00000000200070e5        0x3 
+ .text.hp1020_usb_document_pump
+                0x00000000200070e8       0x86 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+                0x00000000200070e8                hp1020_usb_document_pump
+ *fill*         0x000000002000716e        0x2 
+ .text.hp1020_usb_document_finish
+                0x0000000020007170       0x49 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+                0x0000000020007170                hp1020_usb_document_finish
+ *fill*         0x00000000200071b9        0x3 
+ .text.hp1020_usb_document_output_quiesced
+                0x00000000200071bc       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+                0x00000000200071bc                hp1020_usb_document_output_quiesced
+ *fill*         0x00000000200071da        0x0 
+ .text          0x00000000200071da        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+ *fill*         0x00000000200071da        0x2 
+ .text.be32     0x00000000200071dc       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+ .text.row_out  0x00000000200071fc       0x74 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+ .text.result$part$0
+                0x0000000020007270       0x5a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+ *fill*         0x00000000200072ca        0x0 
+ *fill*         0x00000000200072ca        0x0 
+ *fill*         0x00000000200072ca        0x2 
+ .text.hp1020_image_release
+                0x00000000200072cc       0x2a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+                0x00000000200072cc                hp1020_image_release
+ *fill*         0x00000000200072f6        0x2 
+ .text.hp1020_image_finish
+                0x00000000200072f8       0x64 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+                0x00000000200072f8                hp1020_image_finish
+ .text          0x000000002000735c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_page.o
+ .text.hp1020_image_page_init
+                0x000000002000735c      0x17b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_page.o
+                0x000000002000735c                hp1020_image_page_init
+ *fill*         0x00000000200074d7        0x1 
+ .text.hp1020_image_page_next
+                0x00000000200074d8      0x15b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_page.o
+                0x00000000200074d8                hp1020_image_page_next
+ *fill*         0x0000000020007633        0x1 
+ .text.hp1020_image_page_release
+                0x0000000020007634       0x29 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_page.o
+                0x0000000020007634                hp1020_image_page_release
+ .text          0x000000002000765d        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ *fill*         0x000000002000765d        0x3 
+ .text.image_error
+                0x0000000020007660       0x1a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ *fill*         0x000000002000767a        0x2 
+ .text.boundary_out
+                0x000000002000767c       0x37 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ *fill*         0x00000000200076b3        0x0 
+ *fill*         0x00000000200076b3        0x0 
+ *fill*         0x00000000200076b3        0x0 
+ *fill*         0x00000000200076b3        0x0 
+ *fill*         0x00000000200076b3        0x0 
+ .text          0x00000000200076b3        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+ *fill*         0x00000000200076b3        0x1 
+ .text.hp1020_image_ring_init
+                0x00000000200076b4       0x7b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+                0x00000000200076b4                hp1020_image_ring_init
+ *fill*         0x000000002000772f        0x1 
+ .text.hp1020_image_ring_push
+                0x0000000020007730       0xaf /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+                0x0000000020007730                hp1020_image_ring_push
+ *fill*         0x00000000200077df        0x1 
+ .text.hp1020_image_ring_peek
+                0x00000000200077e0       0x4e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+                0x00000000200077e0                hp1020_image_ring_peek
+ *fill*         0x000000002000782e        0x2 
+ .text.hp1020_image_ring_accept
+                0x0000000020007830       0x50 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+                0x0000000020007830                hp1020_image_ring_accept
+ .text.hp1020_image_ring_complete
+                0x0000000020007880       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+                0x0000000020007880                hp1020_image_ring_complete
+ *fill*         0x00000000200078b2        0x2 
+ .text.hp1020_image_ring_drained
+                0x00000000200078b4       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+                0x00000000200078b4                hp1020_image_ring_drained
+ .text          0x00000000200078cc        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ .text.progress
+                0x00000000200078cc       0x59 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ *fill*         0x0000000020007925        0x3 
+ .text.drain    0x0000000020007928       0x63 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ *fill*         0x000000002000798b        0x0 
+ *fill*         0x000000002000798b        0x1 
+ .text.boundary
+                0x000000002000798c       0xaa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ *fill*         0x0000000020007a36        0x0 
+ *fill*         0x0000000020007a36        0x0 
+ *fill*         0x0000000020007a36        0x2 
+ .text.hp1020_image_output_feed
+                0x0000000020007a38       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+                0x0000000020007a38                hp1020_image_output_feed
+ *fill*         0x0000000020007a63        0x1 
+ .text.hp1020_image_output_finish
+                0x0000000020007a64       0x61 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+                0x0000000020007a64                hp1020_image_output_finish
+ .text          0x0000000020007ac5        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ *fill*         0x0000000020007ac5        0x3 
+ .text.be32     0x0000000020007ac8       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ *fill*         0x0000000020007ae8        0x0 
+ *fill*         0x0000000020007ae8        0x0 
+ .text.hp1020_semantic_init
+                0x0000000020007ae8       0x39 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+                0x0000000020007ae8                hp1020_semantic_init
+ *fill*         0x0000000020007b21        0x3 
+ .text.hp1020_semantic_init_streaming
+                0x0000000020007b24       0x33 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+                0x0000000020007b24                hp1020_semantic_init_streaming
+ *fill*         0x0000000020007b57        0x0 
+ *fill*         0x0000000020007b57        0x0 
+ .text          0x0000000020007b57        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_page_plan.o
+ *fill*         0x0000000020007b57        0x0 
+ .text          0x0000000020007b57        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/target-memory.o
+ *fill*         0x0000000020007b57        0x1 
+ .text.memcmp   0x0000000020007b58       0x23 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/target-memory.o
+                0x0000000020007b58                memcmp
+ .text          0x0000000020007b7b        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/memory.o
+ *fill*         0x0000000020007b7b        0x1 
+ .text.memset   0x0000000020007b7c       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/memory.o
+                0x0000000020007b7c                memset
+ *fill*         0x0000000020007b8e        0x2 
+ .text.memcpy   0x0000000020007b90       0x16 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/memory.o
+                0x0000000020007b90                memcpy
+ .text          0x0000000020007ba6        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ *fill*         0x0000000020007ba6        0x2 
+ .text.enc_byte_out
+                0x0000000020007ba8       0x1f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ *fill*         0x0000000020007bc7        0x1 
+ .text.decode_pscd
+                0x0000000020007bc8      0x3ef /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ *fill*         0x0000000020007fb7        0x1 
+ .text.finish_sde
+                0x0000000020007fb8       0x85 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ *fill*         0x000000002000803d        0x3 
+ .text.output_newlen
+                0x0000000020008040       0x67 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ *fill*         0x00000000200080a7        0x0 
+ *fill*         0x00000000200080a7        0x1 
+ .text.jbg85_enc_options
+                0x00000000200080a8       0x17 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+                0x00000000200080a8                jbg85_enc_options
+ *fill*         0x00000000200080bf        0x1 
+ .text.jbg85_enc_lineout
+                0x00000000200080c0      0x568 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+                0x00000000200080c0                jbg85_enc_lineout
+ .text.jbg85_enc_newlen
+                0x0000000020008628       0x72 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+                0x0000000020008628                jbg85_enc_newlen
+ *fill*         0x000000002000869a        0x2 
+ .text.jbg85_enc_abort
+                0x000000002000869c       0x31 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+                0x000000002000869c                jbg85_enc_abort
+ *fill*         0x00000000200086cd        0x0 
+ *fill*         0x00000000200086cd        0x0 
+ *fill*         0x00000000200086cd        0x0 
+ .text          0x00000000200086cd        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+ *fill*         0x00000000200086cd        0x3 
+ .text.arith_encode_init
+                0x00000000200086d0       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+                0x00000000200086d0                arith_encode_init
+ *fill*         0x0000000020008702        0x2 
+ .text.arith_encode_flush
+                0x0000000020008704      0x110 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+                0x0000000020008704                arith_encode_flush
+ *fill*         0x0000000020008814        0x0 
+ .text.arith_decode_init
+                0x0000000020008814       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+                0x0000000020008814                arith_decode_init
+ *fill*         0x000000002000883f        0x0 
+ .text          0x000000002000883f        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ *fill*         0x000000002000883f        0x0 
+ *fill*         0x000000002000883f        0x0 
+ *fill*         0x000000002000883f        0x1 
+ .text.tusb_time_delay_ms_api
+                0x0000000020008840       0x26 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x0000000020008840                tusb_time_delay_ms_api
+ *fill*         0x0000000020008866        0x2 
+ .text.tusb_app_virt_to_phys
+                0x0000000020008868        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x0000000020008868                tusb_app_virt_to_phys
+ *fill*         0x000000002000886a        0x2 
+ .text.tusb_app_phys_to_virt
+                0x000000002000886c        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x000000002000886c                tusb_app_phys_to_virt
+ *fill*         0x000000002000886e        0x0 
+ *fill*         0x000000002000886e        0x0 
+ *fill*         0x000000002000886e        0x0 
+ *fill*         0x000000002000886e        0x0 
+ *fill*         0x000000002000886e        0x2 
+ .text.tu_desc_find
+                0x0000000020008870       0x1c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x0000000020008870                tu_desc_find
+ .text.tu_desc_find2
+                0x000000002000888c       0x23 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x000000002000888c                tu_desc_find2
+ *fill*         0x00000000200088af        0x1 
+ .text.tu_desc_find3
+                0x00000000200088b0       0x2c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x00000000200088b0                tu_desc_find3
+ .text.tu_edpt_claim
+                0x00000000200088dc       0x36 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x00000000200088dc                tu_edpt_claim
+ *fill*         0x0000000020008912        0x2 
+ .text.tu_edpt_release
+                0x0000000020008914       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x0000000020008914                tu_edpt_release
+ *fill*         0x0000000020008946        0x2 
+ .text.tu_bind_driver_to_ep_itf
+                0x0000000020008948       0x56 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x0000000020008948                tu_bind_driver_to_ep_itf
+ *fill*         0x000000002000899e        0x2 
+ .text.tu_edpt_stream_init
+                0x00000000200089a0       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x00000000200089a0                tu_edpt_stream_init
+ *fill*         0x00000000200089e0        0x0 
+ .text.tu_edpt_stream_write_xfer
+                0x00000000200089e0       0xae /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x00000000200089e0                tu_edpt_stream_write_xfer
+ *fill*         0x0000000020008a8e        0x2 
+ .text.tu_edpt_stream_write
+                0x0000000020008a90       0x65 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x0000000020008a90                tu_edpt_stream_write
+ *fill*         0x0000000020008af5        0x3 
+ .text.tu_edpt_stream_write_available
+                0x0000000020008af8       0x33 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x0000000020008af8                tu_edpt_stream_write_available
+ *fill*         0x0000000020008b2b        0x1 
+ .text.tu_edpt_stream_read_xfer
+                0x0000000020008b2c       0xba /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x0000000020008b2c                tu_edpt_stream_read_xfer
+ *fill*         0x0000000020008be6        0x2 
+ .text.tu_edpt_stream_read
+                0x0000000020008be8       0x27 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x0000000020008be8                tu_edpt_stream_read
+ .text          0x0000000020008c0f        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ *fill*         0x0000000020008c0f        0x1 
+ .text.tud_vendor_control_xfer_cb
+                0x0000000020008c10        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008c10                tud_vendor_control_xfer_cb
+ *fill*         0x0000000020008c14        0x0 
+ *fill*         0x0000000020008c14        0x0 
+ .text.tud_event_hook_cb
+                0x0000000020008c14        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008c14                tud_event_hook_cb
+ *fill*         0x0000000020008c16        0x2 
+ .text.tud_sof_cb
+                0x0000000020008c18        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008c18                tud_sof_cb
+ *fill*         0x0000000020008c1a        0x2 
+ .text.tud_descriptor_bos_cb
+                0x0000000020008c1c        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008c1c                tud_descriptor_bos_cb
+ .text.tud_descriptor_device_qualifier_cb
+                0x0000000020008c20        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008c20                tud_descriptor_device_qualifier_cb
+ .text.tud_descriptor_other_speed_configuration_cb
+                0x0000000020008c24        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008c24                tud_descriptor_other_speed_configuration_cb
+ .text.tud_mount_cb
+                0x0000000020008c28        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008c28                tud_mount_cb
+ *fill*         0x0000000020008c2a        0x2 
+ .text.tud_umount_cb
+                0x0000000020008c2c        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008c2c                tud_umount_cb
+ *fill*         0x0000000020008c2e        0x2 
+ .text.tud_suspend_cb
+                0x0000000020008c30        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008c30                tud_suspend_cb
+ *fill*         0x0000000020008c32        0x2 
+ .text.tud_resume_cb
+                0x0000000020008c34        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008c34                tud_resume_cb
+ *fill*         0x0000000020008c36        0x2 
+ .text.usbd_app_control_route_cb
+                0x0000000020008c38        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .text.dcd_deinit
+                0x0000000020008c3c        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .text.dcd_connect
+                0x0000000020008c40        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ *fill*         0x0000000020008c42        0x2 
+ .text.dcd_disconnect
+                0x0000000020008c44        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ *fill*         0x0000000020008c46        0x2 
+ .text.dcd_dcache_clean
+                0x0000000020008c48        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008c48                dcd_dcache_clean
+ .text.dcd_dcache_invalidate
+                0x0000000020008c4c        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008c4c                dcd_dcache_invalidate
+ .text.dcd_dcache_clean_invalidate
+                0x0000000020008c50        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008c50                dcd_dcache_clean_invalidate
+ .text.usbd_app_driver_get_cb
+                0x0000000020008c54        0x9 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ *fill*         0x0000000020008c5d        0x3 
+ .text.dcd_edpt_xfer_fifo
+                0x0000000020008c60        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008c60                dcd_edpt_xfer_fifo
+ .text.dcd_configure
+                0x0000000020008c64        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008c64                dcd_configure
+ *fill*         0x0000000020008c68        0x0 
+ *fill*         0x0000000020008c68        0x0 
+ *fill*         0x0000000020008c68        0x0 
+ *fill*         0x0000000020008c68        0x0 
+ *fill*         0x0000000020008c68        0x0 
+ *fill*         0x0000000020008c68        0x0 
+ *fill*         0x0000000020008c68        0x0 
+ *fill*         0x0000000020008c68        0x0 
+ *fill*         0x0000000020008c68        0x0 
+ *fill*         0x0000000020008c68        0x0 
+ *fill*         0x0000000020008c68        0x0 
+ .text.dcd_edpt0_status_complete
+                0x0000000020008c68        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ *fill*         0x0000000020008c6a        0x0 
+ *fill*         0x0000000020008c6a        0x0 
+ *fill*         0x0000000020008c6a        0x0 
+ *fill*         0x0000000020008c6a        0x2 
+ .text.usbd_open_edpt_pair
+                0x0000000020008c6c       0x76 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008c6c                usbd_open_edpt_pair
+ *fill*         0x0000000020008ce2        0x0 
+ *fill*         0x0000000020008ce2        0x0 
+ *fill*         0x0000000020008ce2        0x0 
+ *fill*         0x0000000020008ce2        0x0 
+ *fill*         0x0000000020008ce2        0x0 
+ *fill*         0x0000000020008ce2        0x0 
+ *fill*         0x0000000020008ce2        0x2 
+ .text.usbd_edpt_xfer_fifo
+                0x0000000020008ce4        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008ce4                usbd_edpt_xfer_fifo
+ *fill*         0x0000000020008ce8        0x0 
+ *fill*         0x0000000020008ce8        0x0 
+ *fill*         0x0000000020008ce8        0x0 
+ *fill*         0x0000000020008ce8        0x0 
+ .text.usbd_edpt_iso_alloc
+                0x0000000020008ce8        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008ce8                usbd_edpt_iso_alloc
+ .text.usbd_edpt_iso_activate
+                0x0000000020008cec        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x0000000020008cec                usbd_edpt_iso_activate
+ .text          0x0000000020008cf0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .text.advance_index
+                0x0000000020008cf0       0x17 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ *fill*         0x0000000020008d07        0x1 
+ .text.ff_peek_local
+                0x0000000020008d08       0x59 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ *fill*         0x0000000020008d61        0x3 
+ .text.tu_fifo_config
+                0x0000000020008d64       0x2a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+                0x0000000020008d64                tu_fifo_config
+ *fill*         0x0000000020008d8e        0x2 
+ .text.tu_fifo_clear
+                0x0000000020008d90       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+                0x0000000020008d90                tu_fifo_clear
+ .text.tu_fifo_set_overwritable
+                0x0000000020008da0        0xe /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+                0x0000000020008da0                tu_fifo_set_overwritable
+ *fill*         0x0000000020008dae        0x2 
+ .text.tu_fifo_peek_n_access_mode
+                0x0000000020008db0       0xa1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+                0x0000000020008db0                tu_fifo_peek_n_access_mode
+ *fill*         0x0000000020008e51        0x0 
+ *fill*         0x0000000020008e51        0x3 
+ .text.tu_fifo_read_n_access_mode
+                0x0000000020008e54       0x4b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+                0x0000000020008e54                tu_fifo_read_n_access_mode
+ *fill*         0x0000000020008e9f        0x1 
+ .text.tu_fifo_write_n_access_mode
+                0x0000000020008ea0      0x10d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+                0x0000000020008ea0                tu_fifo_write_n_access_mode
+ *fill*         0x0000000020008fad        0x3 
+ .text.tu_fifo_discard_n
+                0x0000000020008fb0       0x68 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+                0x0000000020008fb0                tu_fifo_discard_n
+ .text.tu_fifo_read
+                0x0000000020009018       0x48 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+                0x0000000020009018                tu_fifo_read
+ .text.tu_fifo_write
+                0x0000000020009060       0x7f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+                0x0000000020009060                tu_fifo_write
+ *fill*         0x00000000200090df        0x1 
+ .text.tu_fifo_advance_write_pointer
+                0x00000000200090e0       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+                0x00000000200090e0                tu_fifo_advance_write_pointer
+ *fill*         0x000000002000910b        0x1 
+ .text.tu_fifo_correct_read_pointer
+                0x000000002000910c       0x22 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+                0x000000002000910c                tu_fifo_correct_read_pointer
+ *fill*         0x000000002000912e        0x2 
+ .text.tu_fifo_advance_read_pointer
+                0x0000000020009130       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+                0x0000000020009130                tu_fifo_advance_read_pointer
+ *fill*         0x000000002000915b        0x1 
+ .text.tu_fifo_get_read_info
+                0x000000002000915c       0x97 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+                0x000000002000915c                tu_fifo_get_read_info
+ *fill*         0x00000000200091f3        0x1 
+ .text.tu_fifo_get_write_info
+                0x00000000200091f4       0x78 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+                0x00000000200091f4                tu_fifo_get_write_info
+ .text          0x000000002000926c       0x4c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+                0x000000002000926c                __udivsi3
+
+.rodata         0x00000000200092b8      0x5a4
+ *(.rodata .rodata.*)
+ .rodata.udc_mutate
+                0x00000000200092b8       0x14 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .rodata.usbd_app_driver_get_cb.str1.1
+                0x00000000200092cc       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .rodata.hp1020_udc_base_step
+                0x00000000200092dc       0x14 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .rodata.dcd_edpt_xfer
+                0x00000000200092f0       0x44 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .rodata        0x0000000020009334       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .rodata.hp1020_bulk_fixture_step
+                0x0000000020009344       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .rodata.span$1
+                0x000000002000936c        0xc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .rodata.language_descriptor
+                0x0000000020009378        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .rodata.device_descriptor
+                0x000000002000937c       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .rodata.str1.1
+                0x000000002000938e       0x17 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ *fill*         0x00000000200093a5        0x3 
+ .rodata.class_driver
+                0x00000000200093a8       0x24 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .rodata.chunk_in
+                0x00000000200093cc       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ .rodata.items  0x00000000200093e4       0x3c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ .rodata.complete_chunk
+                0x0000000020009420       0x1c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ .rodata.jbg85_strerror.str1.1
+                0x000000002000943c       0x2e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ *fill*         0x000000002000946a        0x2 
+ .rodata.jbg85_dec_in
+                0x000000002000946c       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .rodata.str1.1
+                0x000000002000948c      0x103 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ *fill*         0x000000002000958f        0x1 
+ .rodata.errmsg
+                0x0000000020009590       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .rodata.jbg85_version
+                0x00000000200095b0       0x4a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+                0x00000000200095b0                jbg85_version
+ .rodata.nlpstab
+                0x00000000200095fa       0x71 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+ .rodata.nmpstab
+                0x000000002000966b       0x71 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+ .rodata.lsztab
+                0x00000000200096dc       0xe2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+ *fill*         0x00000000200097be        0x2 
+ .rodata.dcd_event_handler
+                0x00000000200097c0       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .rodata.tud_task_ext
+                0x00000000200097d8       0x84 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+
+.data           0x000000002000985c       0x1d
+ *(.data .data.*)
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_page.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_page_plan.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/target-memory.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/memory.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .data          0x000000002000985c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .data._usbd_qdef
+                0x000000002000985c       0x14 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x000000002000985c                _usbd_qdef
+ .data._usbd_spin
+                0x0000000020009870        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .data._usbd_rhport
+                0x0000000020009878        0x1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .data          0x0000000020009879        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .data          0x0000000020009879        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+
+.bss            0x0000000020009880    0x9b76c
+ *(.bss .bss.* COMMON)
+ .bss           0x0000000020009880        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.drivers$2
+                0x0000000020009880       0x48 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.udc_state
+                0x00000000200098c8       0x48 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.saved_valid
+                0x0000000020009910        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.saved     0x0000000020009918      0x140 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.publication
+                0x0000000020009a58       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.publication_bytes
+                0x0000000020009a80       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.descriptor_shadow
+                0x0000000020009a90       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.descriptor_memory
+                0x0000000020009aa0       0x30 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.boundary  0x0000000020009ad0       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.hp1020_udc_fixture_stats
+                0x0000000020009b10       0xc0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x0000000020009b10                hp1020_udc_fixture_stats
+ .bss.state     0x0000000020009bd0       0x84 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.configuration
+                0x0000000020009c54       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.device_id
+                0x0000000020009c94      0x190 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.reset_tickets
+                0x0000000020009e24       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ *fill*         0x0000000020009e64        0xc 
+ .bss.protected_memory
+                0x0000000020009e70    0x1c010 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.memory    0x0000000020025e80    0x1c030 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.printer   0x0000000020041eb0       0x38 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.document  0x0000000020041ee8     0x34b8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.adapter   0x00000000200453a0      0x118 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.history   0x00000000200454b8    0x14000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.packets   0x00000000200594b8      0xc54 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .bss.hp1020_bulk_fixture_documents
+                0x000000002005a10c     0x2800 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x000000002005a10c                hp1020_bulk_fixture_documents
+ .bss.hp1020_bulk_fixture_stats
+                0x000000002005c90c      0x180 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x000000002005c90c                hp1020_bulk_fixture_stats
+ .bss.hp1020_bulk_fixture_wire
+                0x000000002005ca8c     0x8000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x000000002005ca8c                hp1020_bulk_fixture_wire
+ .bss.hp1020_bulk_fixture_pixels
+                0x0000000020064a8c    0x40000 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x0000000020064a8c                hp1020_bulk_fixture_pixels
+ .bss.hp1020_bulk_fixture_input
+                0x00000000200a4a8c      0x400 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                0x00000000200a4a8c                hp1020_bulk_fixture_input
+ .bss           0x00000000200a4e8c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .bss           0x00000000200a4e8c        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .bss.bound     0x00000000200a4e8c        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .bss           0x00000000200a4e90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .bss           0x00000000200a4e90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ .bss           0x00000000200a4e90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+ .bss           0x00000000200a4e90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+ .bss           0x00000000200a4e90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_page.o
+ .bss           0x00000000200a4e90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ .bss           0x00000000200a4e90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+ .bss           0x00000000200a4e90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ .bss           0x00000000200a4e90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ .bss           0x00000000200a4e90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_page_plan.o
+ .bss           0x00000000200a4e90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/target-memory.o
+ .bss           0x00000000200a4e90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/memory.o
+ .bss           0x00000000200a4e90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .bss           0x00000000200a4e90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+ .bss           0x00000000200a4e90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .bss._tusb_rhport_role
+                0x00000000200a4e90        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                0x00000000200a4e90                _tusb_rhport_role
+ .bss           0x00000000200a4e98        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .bss._usbd_q   0x00000000200a4e98        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .bss._usbd_qdef_buf
+                0x00000000200a4e9c       0xc0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                0x00000000200a4e9c                _usbd_qdef_buf
+ .bss._app_driver_count
+                0x00000000200a4f5c        0x1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ *fill*         0x00000000200a4f5d        0x3 
+ .bss._app_driver
+                0x00000000200a4f60        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .bss._ctrl_epbuf
+                0x00000000200a4f64       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .bss._usbd_queued_setup
+                0x00000000200a4fa4        0x1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ *fill*         0x00000000200a4fa5        0x3 
+ .bss._usbd_dev
+                0x00000000200a4fa8       0x44 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .bss           0x00000000200a4fec        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .bss           0x00000000200a4fec        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+
+/DISCARD/
+ *(.comment)
+ *(.note*)
+ *(.eh_frame*)
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_page.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_page_plan.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/target-memory.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/memory.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+LOAD /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+LOAD /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a
+OUTPUT(/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/target-check.elf elf32-xtensa-be)
+
+.xtensa.info    0x0000000000000000       0x38
+ .xtensa.info   0x0000000000000000       0x38 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_page.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_page_plan.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/target-memory.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/memory.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+ .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .xtensa.info   0x0000000000000038        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+
+.xt.lit         0x0000000000000000      0x278
+ .xt.lit        0x0000000000000000       0xb0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+                                        0x140 (size before relaxing)
+ .xt.lit        0x00000000000000b0        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+                                         0x10 (size before relaxing)
+ .xt.lit        0x00000000000000b8       0x38 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+                                         0x68 (size before relaxing)
+ .xt.lit        0x00000000000000f0        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .xt.lit        0x00000000000000f8        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ .xt.lit        0x0000000000000100       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+                                         0x18 (size before relaxing)
+ .xt.lit        0x0000000000000110       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+ .xt.lit        0x0000000000000120       0x30 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ .xt.lit        0x0000000000000150       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ .xt.lit        0x0000000000000168       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ .xt.lit        0x0000000000000188        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_page_plan.o
+                                         0x10 (size before relaxing)
+ .xt.lit        0x0000000000000190       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .xt.lit        0x00000000000001b8        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+                                         0x10 (size before relaxing)
+ .xt.lit        0x00000000000001c0       0x38 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+                                         0x40 (size before relaxing)
+ .xt.lit        0x00000000000001f8       0x70 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                        0x118 (size before relaxing)
+ .xt.lit        0x0000000000000268       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+
+.xt.prop        0x0000000000000000     0x7ff8
+ .xt.prop       0x0000000000000000     0x1890 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/fixture.o
+ .xt.prop       0x0000000000001890      0x504 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_udc_out.o
+ .xt.prop       0x0000000000001d94     0x1188 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_tusb_adapter.o
+ .xt.prop       0x0000000000002f1c      0x564 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_printer.o
+ .xt.prop       0x0000000000003480      0x390 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_receive.o
+ .xt.prop       0x0000000000003810      0x1bc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_usb_document.o
+ .xt.prop       0x00000000000039cc      0x30c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image.o
+ .xt.prop       0x0000000000003cd8      0x24c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_page.o
+ .xt.prop       0x0000000000003f24      0x3a8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_stream.o
+ .xt.prop       0x00000000000042cc      0x21c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_ring.o
+ .xt.prop       0x00000000000044e8      0x2e8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_image_output.o
+ .xt.prop       0x00000000000047d0      0x7a4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_semantic.o
+ .xt.prop       0x0000000000004f74       0xd8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/hp1020_page_plan.o
+ .xt.prop       0x000000000000504c       0x54 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/target-memory.o
+ .xt.prop       0x00000000000050a0       0x78 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/memory.o
+ .xt.prop       0x0000000000005118      0xb4c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig85.o
+ .xt.prop       0x0000000000005c64      0x360 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/jbig_ar.o
+ .xt.prop       0x0000000000005fc4      0x6cc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb.o
+ .xt.prop       0x0000000000006690     0x132c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/usbd.o
+                                       0x1344 (size before relaxing)
+ .xt.prop       0x00000000000079bc      0x5a0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/usb-path/udc-out/target/tusb_fifo.o
+ .xt.prop       0x0000000000007f5c       0x9c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+
+.debug_line     0x0000000000000000       0xfe
+ .debug_line    0x0000000000000000       0xfe /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+
+.debug_info     0x0000000000000000       0x26
+ .debug_info    0x0000000000000000       0x26 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+
+.debug_abbrev   0x0000000000000000       0x14
+ .debug_abbrev  0x0000000000000000       0x14 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+
+.debug_aranges  0x0000000000000000       0x20
+ .debug_aranges
+                0x0000000000000000       0x20 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+
+.debug_str      0x0000000000000000       0x6d
+ .debug_str     0x0000000000000000       0x6d /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)

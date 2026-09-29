@@ -123,6 +123,7 @@ uint32_t hp1020_output_finish(void) {
     o[13]=state.stream.output_error;o[16]=state.stream.image.pending;
     o[17]=state.pages_drained;o[22]=state.active;o[23]=state.finished;
     o[28]=state.stream.parser.page_count;o[31]=state.stream.peak_compressed_chunk;
+    o[32]=state.documents_completed; /* Previously unused diagnostic word. */
     for(uint32_t i=0;i<4;i++)o[18]+=state.ring.slots[i].state!=0;
     uint32_t before=hash(2166136261u,(const uint8_t *)&memory,sizeof(memory)),calls=o[9];
     if(o[0]) {
@@ -133,7 +134,8 @@ uint32_t hp1020_output_finish(void) {
             hp1020_image_output_feed(&state,NULL,0)==HP1020_FINISHED &&
             hp1020_image_output_finish(&state)==HP1020_FINISHED;
     }
-    if(calls!=o[9] || before!=hash(2166136261u,(const uint8_t *)&memory,sizeof(memory)))o[10]++;
+    if(calls!=o[9] || before!=hash(2166136261u,(const uint8_t *)&memory,sizeof(memory)) ||
+        o[32]!=state.documents_completed)o[10]++;
     for(uint32_t i=1;i<HP1020_MAX_PAGES;i++)
         for(uint32_t j=0;j<sizeof(state.stream.parser.pages[i]);j++)
             if(((const uint8_t *)&state.stream.parser.pages[i])[j])o[10]++;

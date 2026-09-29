@@ -6,6 +6,6 @@ Status: pass. The existing open parser consumes complete ZjStream input through 
 
 The deterministic detailed page contains 10112256 packed source bytes and 10548956 serialized bytes. Host output equals every original-decoder/source byte; larger target output uses a prefix plus full FNV-1a and counts.
 
-The 32-bit component state and fixed memory total 91028 bytes.
+The 32-bit component state and fixed memory total 91032 bytes.
 
 Streaming reuses one current-page metadata slot with checked 32-bit totals; retained-file mode still has 16 slots. Narrow planner/profile, default padding and a 65552-byte BID limit. Output remains provisional until finish. Consumer errors abort rather than retry. State/memory totals exclude code, stack, caller packets and test captures. No asynchronous scheduler, raw queue, cache, engine, USB, boot or printing.

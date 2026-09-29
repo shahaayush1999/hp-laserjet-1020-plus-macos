@@ -257,6 +257,9 @@ run_step "Verify corrected reusable USB protocol and control recovery" \
 run_step "Decode documents through the reusable USB printer adapter" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-tinyusb-printer.py" --target
 
+run_step "Observe continuous document boundaries without transport EOF" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-continuous-printer.py" --target
+
 run_step "Regenerate video band queue/list model" \
   "$ROOT_DIR/scripts/model-hp1020-video-band-queue.py"
 
@@ -346,6 +349,12 @@ run_step "Execute original USB pause and conditional restore intent in guarded R
 
 run_step "Execute original SETUP descriptor admission before request dispatch" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-usb-setup-ingress.py"
+
+run_step "Execute original background receive-enable intent in guarded RAM" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-usb-idle-receive.py"
+
+run_step "Connect original-cookie OUT descriptors to reusable USB and exact decoded documents" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-udc-out.py" --target
 
 run_step "Regenerate USB parser shim contract" \
   "$ROOT_DIR/scripts/model-hp1020-usb-parser-shim-contract.py"

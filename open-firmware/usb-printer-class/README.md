@@ -1,7 +1,7 @@
 # Bounded USB printer-class request layer
 
 **Offline software component, 2026-09-29.** The composed implementation passes
-73 sanitized host and 73 independent QEMU cases. It adds no USB controller,
+82 sanitized host and 82 independent QEMU cases. It adds no USB controller,
 enumeration, endpoint submission, MMIO or printer operation. Its external reset
 and response-lifetime acknowledgements are supplied promises, not hardware proof.
 
@@ -47,7 +47,8 @@ Neither that experiment nor this component establishes actual USB wire status.
 
 A valid reset immediately calls `hp1020_usb_receive_stop` on the supplied
 document. Input and output data remain owned. Its reset ticket contains both the
-control request identity and the receive generation. Repeating a valid reset
+independent recovery identity and the receive generation. Real SOFT_RESET also
+retains separate request linkage, used only to authorize its eventual ACK. Repeating a valid reset
 creates a fresh ticket and discards all local acknowledgements, even while the
 document remains in the same generation. Prior document acknowledgement flags
 cannot bypass the new local gates.
@@ -74,16 +75,25 @@ reply but leaves the document's stop fence and reset work intact. Completing
 that older reset can recover the document without issuing a stale EP0 reply.
 
 Current-generation faults invalidate pending reset promises and keep the
-document stopped. A new valid reset is required for recovery. Old-generation
+document stopped. A new real reset or actual transport recovery boundary is required for recovery. Old-generation
 faults and old reset tickets cannot alter current work. The adapter must preserve
 the original submission identity; assigning today's generation to a late event
 would defeat these checks. It must route current transport faults through this
 layer before allowing more bulk input or output.
 
-Request identities and receive generations never wrap. Exhaustion leaves the
+Request identities, recovery identities and receive generations never wrap. Exhaustion leaves the
 document stopped and allows no new reply or restart. Reinitialization is for
 first use only, not a recovery escape. No caller may independently restart the
 embedded receive component or document while attached to this class.
+
+`hp1020_usb_printer_begin_transport_recovery` is reserved for a real transport
+boundary such as newly configured endpoints. It allocates an independent recovery
+identity, invalidates all earlier promises and old reply permission, and stops
+input. It does not invent a SETUP, advance the request counter or release borrowed
+EP0 bytes. All three promises remain mandatory; completion creates no class ACK.
+An attached adapter owns these calls and must not retry merely because input is
+stopped. Nine additional cases check missing promises, distinct identities,
+retained EP0, real/automatic supersession, faults and independent exhaustion.
 
 ## EP0 response lifetime
 
@@ -128,11 +138,11 @@ device class in June 2026. Exact inspected source paths at that commit:
 - [src/osal/osal_none.h](https://github.com/hathach/tinyusb/blob/dae3f9a366bfcddbf9dcf1b48d7500286a849539/src/osal/osal_none.h): a bare-metal integration is possible without an RTOS.
 - [LICENSE](https://github.com/hathach/tinyusb/blob/dae3f9a366bfcddbf9dcf1b48d7500286a849539/LICENSE): MIT; retain notices if any upstream implementation is later copied.
 
-Its generic enumeration/EP0 code remains a reuse candidate after a controller
-adapter exists. Vendoring the printer class unchanged would bypass the current
+Its generic enumeration/EP0 code is reused separately by
+`open-firmware/tinyusb-printer-adapter/`, with a synthetic DCD for execution checks. Vendoring the printer class unchanged would bypass the current
 ownership contract; a custom class also needs explicit routing for legacy reset
-and, if used, nonzero printer-interface GET_DEVICE_ID requests. This component does
-not imply TinyUSB has been ported, built or integrated.
+and, if used, nonzero printer-interface GET_DEVICE_ID requests. This class alone supplies
+no controller port; the separate composition still does not implement HP hardware.
 
 An independent alternative inspected was Eclipse USBX **v6.5.1.202602_rel**,
 commit **`359977dd98d797fa3c93d0dda71cdbb29820fdc1`**, also MIT:
@@ -153,7 +163,7 @@ under host address/undefined-behavior sanitizers and the pinned BE/call0 compile
 The target ELF uses synthetic RAM, with the unchanged conservative instruction
 audit. Report: `analysis/usb-path/printer-class/validation.json/.md`.
 
-The 73 cases cover ID length clipping across 255/256 bytes, nonzero interface and
+The original 73 cases cover ID length clipping across 255/256 bytes, nonzero interface and
 configuration-index encoding, all defined status-bit combinations, unknown status,
 reserved bits and malformed fields; canonical/legacy reset and all six orders of
 the three promises; repeated resets, newer SETUPs, faults and identity exhaustion.
@@ -168,7 +178,7 @@ reused and cannot complete the new data. Generation exhaustion also retains
 accepted output. Full independent JBIG decoding supplies the pixel oracle; both
 engines compare every observed state, all retained storage and control reply bytes.
 
-Target component state/fixed memory is 128216 bytes, excluding code, stack,
+Target component state/fixed memory is 128256 bytes, excluding code, stack,
 immutable device-ID storage and test captures. The first target attempt stopped
 at the instruction audit: the test ID's modulo-26 generator pulled in an extra
 libgcc remainder helper. Replacing only that fixture expression with an explicit

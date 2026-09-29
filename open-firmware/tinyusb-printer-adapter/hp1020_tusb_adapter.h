@@ -46,6 +46,9 @@ struct hp1020_tusb_owner {
     uint32_t actual;
     uint16_t length;
     uint8_t state, result, cancel_requested, expected_cancel;
+    /* Captured before the DCD returns. Direct-DCD SET_ADDRESS status does
+     * not pass through usbd_edpt_xfer and has no core BUSY transition. */
+    uint8_t core_busy_at_bind;
 };
 
 /* Public for allocation and read-only diagnostics; fields are adapter-owned.
@@ -65,6 +68,7 @@ struct hp1020_tusb_adapter {
     uint8_t pending_setup[8], active_setup[8];
     uint32_t last_submission_id, control_epoch, active_control_epoch;
     uint32_t transport_epoch, active_transport_epoch, deferred_epoch;
+    uint32_t binding_pending_epoch, reset_transport_epoch;
     uint32_t class_request_id, response_epoch;
     enum hp1020_rx_result last_receive_result;
     enum hp1020_printer_result last_class_result;
@@ -75,7 +79,10 @@ struct hp1020_tusb_adapter {
 };
 
 /* Bind before tusb_init. First-use only, never a recovery mechanism. The
- * document starts fenced and requires an explicit wire SOFT_RESET to recover.
+ * document starts fenced. A newly successful configuration binding begins a
+ * class-owned recovery with three external promises; no wire SOFT_RESET is
+ * required for first input. Real SOFT_RESET also remains supported. Neither
+ * path supplies physical quiescence, clears retained storage or auto-arms OUT.
  * Full-speed interface 7/1/2, alternate zero, two bulk endpoints, MPS 64 only.
  * Application usbd_app_driver_get_cb returns/copies *driver(); application's
  * usbd_app_control_route_cb delegates to route(). Other descriptors stay out. */
@@ -120,9 +127,12 @@ enum hp1020_tusb_result hp1020_tusb_adapter_cancelled(struct hp1020_tusb_adapter
 enum hp1020_tusb_result hp1020_tusb_adapter_fault(struct hp1020_tusb_adapter *,
     uint32_t transport_epoch, uint32_t generation, uint32_t reason);
 
-/* service handles only protocol events and settled ownership. No decoding or
- * automatic rearming occurs. arm_out submits at most one transfer; pumping is
- * separate so four completed slots apply ordinary receive backpressure. */
+/* service handles protocol events and settled ownership. A newly opened,
+ * successfully configured endpoint binding begins exactly one internal class
+ * recovery, without a fabricated SETUP or reply. Idempotent configuration,
+ * generic mounted/fenced polling and superseded deconfiguration do not start
+ * recovery. No decoding or automatic rearming occurs. arm_out submits at most
+ * one transfer; pumping is separate so four completed slots apply backpressure. */
 enum hp1020_tusb_result hp1020_tusb_adapter_service(struct hp1020_tusb_adapter *);
 enum hp1020_tusb_result hp1020_tusb_adapter_arm_out(struct hp1020_tusb_adapter *);
 enum hp1020_rx_result hp1020_tusb_adapter_pump(struct hp1020_tusb_adapter *);
@@ -134,7 +144,10 @@ enum hp1020_rx_result hp1020_tusb_adapter_pump(struct hp1020_tusb_adapter *);
 enum hp1020_tusb_result hp1020_tusb_adapter_close_input(struct hp1020_tusb_adapter *);
 enum hp1020_rx_result hp1020_tusb_adapter_finish(struct hp1020_tusb_adapter *);
 
-/* Three separately supplied current reset promises. RECEIVE requires every
+/* Three separately supplied current recovery promises, checked by independent
+ * recovery ID, receive generation and the adapter's original transport epoch.
+ * pending_reset covers real SOFT_RESET and automatic configuration recovery;
+ * finishing the latter never submits an EP0 packet. RECEIVE requires every
  * old write AND callback settled; empty software ownership is only a necessary
  * check. TRANSPORT additionally covers unimplemented bulk-IN/stalls/toggles and
  * requires TinyUSB bulk busy/stall state to be explicitly cleared. OUTPUT is

@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `118`
+- checks: `121`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -117,7 +117,7 @@ It does not contact the printer.
 | `host_endpoint0_model_has_open_marker_product_string` | `watch` | The pure host endpoint-0 model must include the open marker string response case. | `analysis/usb-path/open-endpoint0-model.json` |
 | `usb_setup_source_narrowed_to_direct_buffer` | `watch` | Original SETUP admission uses SUBPTR, owner 2 and RX zero; stock post-conversion fields differ from raw wire bytes and ordinary OUT0 DESPTR. | `analysis/usb-path/usb-setup-source.json` |
 | `usb_marker_reads_required_setup_fields` | `watch` | The open marker draft must read request type, request, descriptor selector, and host length before responding. | `analysis/usb-path/usb-setup-source.json` |
-| `control_in_data_stage_constants_resolved` | `watch` | Control-IN data-stage constants must preserve descriptor ring, staging buffer, and submit register evidence. | `analysis/usb-path/control-in-data-stage.json` |
+| `control_in_data_stage_constants_resolved` | `watch` | Byte-anchored active control-IN submissions preserve their supplied pointer. Separate HOST_BUSY initialization uses modulo-32-bit ADD, not OR; neither establishes physical address translation. | `analysis/usb-path/control-in-data-stage.json` |
 | `control_completion_event_model_resolved` | `watch` | The control completion path must remain modeled as event flags, with separate control-IN and USB2Thread wake bits. | `analysis/usb-path/control-completion-event.json` |
 | `usb_interrupt_event_model_resolved` | `watch` | USB task wake hints may repeat or occur without TDC; keep status acknowledgements distinct from OUT1 control commands and from successful completions. | `analysis/usb-path/usb-interrupt-events.json` |
 | `control_in_open_marker_descriptor_shape` | `watch` | A 38-byte open marker response should model as one flagged control-IN descriptor. | `analysis/usb-path/control-in-data-stage.json` |
@@ -131,7 +131,10 @@ It does not contact the printer.
 | `unchanged_upstream_usb_limitations_preserved` | `watch` | Independent USB wire oracles, original event tokens, deferred reset gates and failed-request recovery execute in a synthetic DCD; unchanged upstream findings remain separate. No physical USB, bulk traffic, controller quiescence or printing is proved. | `analysis/usb-path/tinyusb-device/upstream-baseline.json` |
 | `patched_reusable_usb_protocol_verified` | `watch` | Independent USB wire oracles, original event tokens, deferred reset gates and failed-request recovery execute in a synthetic DCD; unchanged upstream findings remain separate. No physical USB, bulk traffic, controller quiescence or printing is proved. | `analysis/usb-path/tinyusb-device/patched-validation.json` |
 | `original_usb_setup_admission_and_wire_conversion` | `watch` | Original guarded SETUP prefix uses an explicit cut and supplied stable RAM records; it does not execute request dispatch, IRQs, descriptor return or USB control transfers. TinyUSB needs original wire bytes. | `analysis/usb-path/setup-ingress.json` |
-| `reusable_usb_printer_decodes_exact_document_pixels` | `watch` | The reusable software adapter preserves original transfer identities, exact USB reply proposals and independent decoded pixels in both engines. Synthetic controller settlement, initial class reset and explicit input closure remain supplied; no physical USB or printing is established. | `analysis/usb-path/tinyusb-printer/validation.json` |
+| `reusable_usb_printer_decodes_exact_document_pixels` | `watch` | The reusable software adapter preserves original transfer identities, exact USB reply proposals and independent decoded pixels in both engines. Automatic configuration and real reset keep independent identities; synthetic controller settlement remains supplied. Continuous document boundaries are checked separately; no physical USB or printing is established. | `analysis/usb-path/tinyusb-printer/validation.json` |
+| `original_usb_idle_receive_enable_requires_separate_quiescence` | `watch` | Original helper intent can re-enable receiving after a supplied delay-return register change. Three RAM redirects and supplied services do not establish a reachable scheduling race, actual DMA behavior, cancellation settlement or quiescence. | `analysis/usb-path/idle-receive.json` |
+| `continuous_printer_document_boundaries_without_transport_eof` | `watch` | Validated END_PAGE drains and exactly-once END_DOC observations retain their original receive generation. Ordinary documents need no EOF or reset; notification/output failures stop input without erasing prior observations. Supplied settlement and synchronous output remain limits, not physical printing proof. | `analysis/usb-path/continuous-printer/validation.json` |
+| `original_cookie_bulk_descriptor_to_document_pipeline` | `watch` | A single controller-format OUT record retains the original adapter cookie through exact pages and document notifications. Immutable observations, mode, CPU/DMA mapping, visibility and settlement are supplied; raw descriptor bits never acknowledge global quiescence. No physical DCD or printing is established. | `analysis/usb-path/udc-out/validation.json` |
 
 ## Practical Meaning
 

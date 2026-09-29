@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import struct
 from dataclasses import dataclass
@@ -40,12 +41,15 @@ class ElfImage:
                 load_segments.append((p_offset, p_vaddr, p_filesz))
         return cls(data, load_segments)
 
-    def read_u32(self, addr: int) -> int:
+    def read_bytes(self, addr: int, size: int) -> bytes:
         for p_offset, p_vaddr, p_filesz in self.load_segments:
-            if p_vaddr <= addr <= p_vaddr + p_filesz - 4:
+            if p_vaddr <= addr <= p_vaddr + p_filesz - size:
                 offset = p_offset + (addr - p_vaddr)
-                return struct.unpack(">I", self.data[offset : offset + 4])[0]
+                return self.data[offset : offset + size]
         raise ValueError(f"address 0x{addr:08x} is not file-backed")
+
+    def read_u32(self, addr: int) -> int:
+        return struct.unpack(">I", self.read_bytes(addr, 4))[0]
 
 
 def fmt32(value: int) -> str:
@@ -65,12 +69,43 @@ def resolve_constants(elf_path: Path) -> dict[str, int]:
         "usb_main_control": elf.read_u32(0x10005E90),
         "chunk_size_register": elf.read_u32(0x10005E9C),
         "descriptor_submit_register": elf.read_u32(0x10005EA0),
-        "descriptor_hardware_alias_flag": elf.read_u32(0x10005E34),
+        "initial_descriptor_pointer_addend": elf.read_u32(0x10005E34),
     }
-    constants["descriptor_submit_value"] = (
-        constants["descriptor_base"] | constants["descriptor_hardware_alias_flag"]
-    )
+    constants["descriptor_submit_value"] = constants["descriptor_base"]
+    constants["initial_descriptor_submit_value"] = (
+        constants["descriptor_base"] + constants["initial_descriptor_pointer_addend"]
+    ) & 0xffffffff
     return constants
+
+
+def pointer_evidence(elf_path: Path) -> dict[str, Any]:
+    elf = ElfImage.load(elf_path)
+    # Contiguous slices include each load-to-store dataflow. They distinguish
+    # active submission from the separate HOST_BUSY initialization sequence.
+    anchors = (
+        (0x10008D02, "88c019f467dcf00c02009890", "active zero-length pointer unchanged"),
+        (0x10008F11, "19f3e38870c7ef0c02009890", "active nonzero pointer unchanged"),
+        (0x100092AA, "88b019f2e21bf2fca98819f2fe0c020098b0", "initial pointer plus literal modulo 2^32"),
+    )
+    records = []
+    for address, expected, meaning in anchors:
+        actual = elf.read_bytes(address, len(expected) // 2).hex()
+        if actual != expected:
+            raise ValueError(f"changed pointer dataflow at {address:#x}: {actual}")
+        records.append({"address": fmt32(address), "bytes": actual, "meaning": meaning})
+    return {
+        "kind": "byte-anchored static dataflow, not original-code execution",
+        "anchors": records,
+        "active_operation": "supplied pointer unchanged",
+        "initial_operation": "(supplied pointer + 0x80000000) modulo 2^32",
+        "initial_descriptor_status": "0xc0000000",
+        "physical_address_translation_established": False,
+        "pointer_controls": [
+            {"supplied": fmt32(pointer), "active": fmt32(pointer),
+             "initial": fmt32((pointer + elf.read_u32(0x10005E34)) & 0xffffffff)}
+            for pointer in (0x100226f0, 0x900226f0)
+        ],
+    }
 
 
 def descriptor_word(length: int, *, flagged: bool, flag: int) -> int:
@@ -168,6 +203,11 @@ def build_report(elf_path: Path) -> dict[str, Any]:
         "summary": "Offline model of stock endpoint-0 control-IN transfer descriptor construction.",
         "source_function": "0x10008c24 hp1020_usb_control_tx_data_stage_candidate",
         "constants": {key: fmt32(value) for key, value in constants.items()},
+        "pointer_dataflow": pointer_evidence(elf_path),
+        "source_sha256": {
+            "analysis/sihp1020.elf": hashlib.sha256(elf_path.read_bytes()).hexdigest(),
+            "scripts/model-hp1020-control-in-data-stage.py": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        },
         "assumed_chunk_size_for_scenarios": "0x00000040",
         "evidence": [
             "analysis/usb-path/decompiled-neighbors/10008c24_hp1020_usb_control_tx_data_stage_candidate.c",
@@ -176,12 +216,12 @@ def build_report(elf_path: Path) -> dict[str, Any]:
         ],
         "algorithm": [
             "set 0xb3000000 bit 0x2 before staging the control-IN response",
-            "copy/flush response bytes into the staging buffer at 0x90022bd0",
+            "copy response bytes into the staging buffer at 0x90022bd0; cache visibility is not established here",
             "build one to five 0x10-byte transfer descriptors at 0x900226f0",
             "descriptor word +0x00 is byte_count OR 0x08000000 on the final descriptor of each hardware kick",
             "descriptor word +0x08 is the source pointer into the staging buffer",
             "descriptor word +0x0c is the next descriptor pointer or zero",
-            "write descriptor base through 0xb3000014, then OR 0xb3000000 with 0x108",
+            "write the unchanged active descriptor base through 0xb3000014, then OR 0xb3000000 with 0x108",
             "wait on the USB completion event flag and repeat if bytes remain",
         ],
         "scenarios": scenarios,
@@ -209,9 +249,10 @@ def render_markdown(report: dict[str, Any]) -> str:
         "",
         "## Key Result",
         "",
-        "- Descriptor bytes are no longer the hard part; this report models how stock firmware submits those bytes to the USB controller.",
+        "- This static model covers descriptor construction and submission intent, not controller acceptance or successful transfers.",
         "- The stock path uses a staging buffer, a 0x10-byte descriptor ring, a per-descriptor `0x08000000` flag, `0xb3000014` descriptor submission, and `0xb3000000 |= 0x108` transfer kick.",
-        "- The remaining live unknown is whether we can safely replace the stock ThreadX completion wait with a polling loop in open firmware.",
+        "- Active submissions preserve the supplied descriptor pointer. Separate initialization adds `0x80000000` modulo 32 bits; the former pointer-OR model was incorrect.",
+        "- Cache/DMA behavior, real completion and settlement remain unproved.",
         "",
         "## Resolved Constants",
         "",
@@ -220,6 +261,15 @@ def render_markdown(report: dict[str, Any]) -> str:
     ]
     for key, value in report["constants"].items():
         lines.append(f"| `{key}` | `{value}` |")
+
+    lines.extend(["", "## Pointer dataflow correction", "",
+                  "Each contiguous byte slice is checked against the stock ELF. This is static evidence, not new stock execution.", ""])
+    for anchor in report["pointer_dataflow"]["anchors"]:
+        lines.append(f"- `{anchor['address']}` (`{anchor['bytes']}`): {anchor['meaning']}.")
+    lines.extend(["", "The initialized descriptor has HOST_BUSY status `0xc0000000`. With the file-backed pointer, initialization wraps `0x900226f0` to `0x100226f0`; active submission stays `0x900226f0`. Neither operation establishes a physical alias or address translation rule.", "",
+                  "| Supplied pointer | Active submission | Initialization ADD |", "|---|---|---|"])
+    for row in report["pointer_dataflow"]["pointer_controls"]:
+        lines.append(f"| `{row['supplied']}` | `{row['active']}` | `{row['initial']}` |")
 
     lines.extend(
         [
@@ -276,7 +326,14 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 def run_self_test() -> int:
     constants = resolve_constants(ELF_PATH)
+    pointers = pointer_evidence(ELF_PATH)
     failures = []
+    expected_pointers = [
+        {"supplied": "0x100226f0", "active": "0x100226f0", "initial": "0x900226f0"},
+        {"supplied": "0x900226f0", "active": "0x900226f0", "initial": "0x100226f0"},
+    ]
+    if pointers["pointer_controls"] != expected_pointers:
+        failures.append({"pointer_controls": pointers["pointer_controls"]})
     expected = {
         0: (1, [1], [0x08000000]),
         18: (1, [1], [0x08000012]),
@@ -307,7 +364,7 @@ def run_self_test() -> int:
                     "actual": [len(batches), actual_counts, [fmt32(v) for v in actual_flagged]],
                 }
             )
-    print(f"self_test_cases={len(expected)} failures={len(failures)}")
+    print(f"self_test_cases={len(expected) + len(expected_pointers)} failures={len(failures)}")
     if failures:
         print(json.dumps(failures, indent=2))
         return 1

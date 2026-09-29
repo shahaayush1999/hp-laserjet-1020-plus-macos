@@ -154,21 +154,24 @@ def main():
     mixed=['medium','wide','small','partial'];stream=doc(mixed);pixels=b''.join(images[n][1] for n in mixed)
     for packet,reverse in ((19,False),(512,True),(1024,True)):
         for fill in (0,204):
-            events=transfers(stream,packet,reverse,zlp=True)+[event(3,expect={10:1,17:1,18:4,19:4}),event(3,unchanged=True)]
+            events=transfers(stream,packet,reverse,zlp=True)+[event(3,expect={10:1,17:1,18:4,19:4,48:1}),event(3,unchanged=True)]
             add(f'document/mixed/packet={packet}/reverse={reverse}/fill={fill}',events,pixels,fill=fill)
     many=['small' if i%2==0 else 'slim' for i in range(65)]
-    add('document/65-changing-pages',transfers(doc(many),1024,True)+[event(3,expect={18:65,19:65})],
+    add('document/65-changing-pages',transfers(doc(many),1024,True)+[event(3,expect={18:65,19:65,48:1})],
         b''.join(images[n][1] for n in many))
     add('document/consecutive',transfers(doc(['small'])+doc([])+doc(['slim']),64,True)+[
-        event(3,expect={17:3,18:2,19:2})],images['small'][1]+images['slim'][1])
-    add('document/zero-transfer-is-not-eof',[reserve(b''),complete(0,0),event(2,expect={10:0,17:0})]+
-        transfers(doc(['small']),64,True)+[event(3,expect={17:1,18:1})],images['small'][1])
+        event(3,expect={17:3,18:2,19:2,48:3})],images['small'][1]+images['slim'][1])
+    add('document/zero-transfer-is-not-eof',[reserve(b''),complete(0,0),event(2,expect={10:0,17:0,48:0})]+
+        transfers(doc(['small']),64,True)+[event(3,expect={17:1,18:1,48:1})],images['small'][1])
+    # END_PAGE releases the entire page; absent END_DOC remains a truncated
+    # shutdown with zero document completions, never a successful document.
     add('document/truncated',transfers(doc(['medium'])[:-16],512,True)+[
-        event(3,result=PAYLOAD,expect={9:5,10:0}),event(2,result=STOPPED,unchanged=True)],images['medium'][1],prefix=True)
+        event(3,result=PAYLOAD,expect={9:5,10:0,13:33,14:33,15:0,18:1,19:1,25:0,48:0}),
+        event(2,result=STOPPED,unchanged=True)],images['medium'][1])
     # The parser intentionally searches past arbitrary preamble for JZJZ. An
     # invalid chunk header after that magic is an actual framing error.
     add('document/parser-error-preserves-later-ready',[reserve(b'JZJZ'+bytes(16)),reserve(doc(['small']),1),
-        complete(1,len(doc(['small']))),complete(0,20),event(2,result=PAYLOAD,expect={3:0,4:2,5:1}),
+        complete(1,len(doc(['small']))),complete(0,20),event(2,result=PAYLOAD,expect={3:0,4:2,5:1,48:0}),
         event(2,result=STOPPED,unchanged=True)])
     # Consumer failure after one acceptance must retain both incoming ownership
     # and already accepted image output until separately supplied quiescence.
@@ -179,7 +182,7 @@ def main():
         add(f'document/output-failure-recovery/reverse={reverse}',first,images['medium'][1],fail_at=1,prefix=True)
     add('document/cancel-mid-header-recovery',transfers(doc(['medium'])[:11],7,True)+[event(4)]+restart(1,True)+
         [complete(0,7,result=STALE),event(11,1,0x80,result=STALE,unchanged=True)]+
-        transfers(doc(['small']),64,True)+[event(3,expect={1:2,10:1,17:1,18:1})],images['small'][1])
+        transfers(doc(['small']),64,True)+[event(3,expect={1:2,10:1,17:1,18:1,48:1})],images['small'][1])
 
     cases=[];target_inputs=[]
     def execute(candidate,events):
@@ -193,12 +196,12 @@ def main():
         wire,observed,captures=execute(candidate,events)
         if candidate['name'].startswith('document/output-failure-recovery/'):
             failed=next(i for i,row in enumerate(observed) if row[0]==PAYLOAD)
-            events=events[:failed+1];events[-1]={**events[-1],'result':PAYLOAD,'expect':{5:1,9:3,13:1,14:0,15:1}}
+            events=events[:failed+1];events[-1]={**events[-1],'result':PAYLOAD,'expect':{5:1,9:3,13:1,14:0,15:1,48:0}}
             acknowledgements=[event(5,1),event(6,1)]
             if candidate['name'].endswith('True'):acknowledgements.reverse()
             events += [event(2,result=STOPPED,unchanged=True),event(3,result=STOPPED,unchanged=True),
                 acknowledgements[0],event(7,result=ORDER,unchanged=True),acknowledgements[1],event(7),
-                complete(0,1,result=STALE)]+transfers(doc(['small']),64,True)+[event(3,expect={1:2,10:1,17:1,18:1})]
+                complete(0,1,result=STALE)]+transfers(doc(['small']),64,True)+[event(3,expect={1:2,10:1,17:1,18:1,48:1})]
             wire,observed,captures=execute(candidate,events)
             candidate['expected']=images['medium'][1][:4800]+images['small'][1];candidate['prefix']=False
         assert len(observed)==len(events)
@@ -219,7 +222,7 @@ def main():
             events_sha256=core.sha(wire),steps=observed,output_sha256=core.sha(capture),output_bytes=len(capture),
             receive_storage_sha256=core.sha(receive),output_storage_sha256=core.sha(output),
             raw_received_sha256=core.sha(received),fill=candidate['fill'],consumer_mode=candidate['mode'],
-            fail_at=candidate['fail_at'],source_prefix_only=candidate['prefix'])
+            fail_at=candidate['fail_at'],source_prefix_only=candidate['prefix'],completed_documents=final[48])
         cases.append(record);target_inputs.append((candidate,events,observed,captures))
     print(f'USB receive: {len(cases)} sanitized host cases passed',flush=True)
     target=None
@@ -238,7 +241,7 @@ def main():
                 for i,(e,host_row) in enumerate(zip(events,observed)):
                     if e['data']:q.put(program.symbols['hp1020_rx_fixture_input'],e['data'])
                     r=q.call0(program.symbols['hp1020_rx_fixture_step'],e['words'])
-                    row=list(struct.unpack('>48I',q.read(program.symbols['hp1020_rx_fixture_stats'],192)))
+                    row=list(struct.unpack('>49I',q.read(program.symbols['hp1020_rx_fixture_stats'],196)))
                     assert r==row[0] and row[:30]+row[32:]==host_row[:30]+host_row[32:],(candidate['name'],i,row,host_row)
                     target_steps.append(row)
                 for symbol,capture in (('hp1020_rx_fixture_capture',captures[0]),('hp1020_rx_fixture_received',captures[3])):

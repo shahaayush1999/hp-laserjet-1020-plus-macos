@@ -7,6 +7,7 @@
 extern uint8_t hp1020_bulk_fixture_input[1024],hp1020_bulk_fixture_pixels[262144];
 extern uint8_t hp1020_bulk_fixture_wire[32768];
 extern uint32_t hp1020_bulk_fixture_stats[96];
+extern uint32_t hp1020_bulk_fixture_documents[512][5];
 uint32_t hp1020_bulk_fixture_reset(uint32_t,uint32_t,uint32_t,uint32_t);
 uint32_t hp1020_bulk_fixture_step(uint32_t,uint32_t,uint32_t,uint32_t,uint32_t);
 uint8_t *hp1020_bulk_fixture_receive_storage(void);
@@ -24,7 +25,7 @@ static int save(const char *path,const void *data,size_t length) {
     return fclose(file)==0 && ok;
 }
 int main(int argc,char **argv) {
-    if(argc!=9)return 2;
+    if(argc!=9 && argc!=10)return 2;
     hp1020_bulk_fixture_reset((uint32_t)strtoul(argv[1],NULL,0),(uint32_t)strtoul(argv[2],NULL,0),
         (uint32_t)strtoul(argv[3],NULL,0),(uint32_t)strtoul(argv[4],NULL,0));
     print_stats();
@@ -43,5 +44,15 @@ int main(int argc,char **argv) {
        !save(argv[6],hp1020_bulk_fixture_wire,hp1020_bulk_fixture_stats[24]) ||
        !save(argv[7],hp1020_bulk_fixture_receive_storage(),sizeof(((struct hp1020_rx_memory *)0)->data)) ||
        !save(argv[8],hp1020_bulk_fixture_output_storage(),sizeof(((struct hp1020_image_output_memory *)0)->slots)))return 4;
+    if(argc==10) {
+        FILE *documents=fopen(argv[9],"wb");
+        if(!documents)return 4;
+        for(uint32_t i=0;i<hp1020_bulk_fixture_stats[90];i++)for(uint32_t j=0;j<5;j++) {
+            uint32_t word=hp1020_bulk_fixture_documents[i][j];
+            const uint8_t bytes[4]={(uint8_t)(word>>24),(uint8_t)(word>>16),(uint8_t)(word>>8),(uint8_t)word};
+            if(fwrite(bytes,1,4,documents)!=4) { fclose(documents);return 4; }
+        }
+        if(fclose(documents))return 4;
+    }
     return 0;
 }

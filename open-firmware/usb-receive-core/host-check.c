@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 extern uint8_t hp1020_rx_fixture_input[1024],hp1020_rx_fixture_capture[262144],hp1020_rx_fixture_received[8192];
-extern uint32_t hp1020_rx_fixture_stats[48];
+extern uint32_t hp1020_rx_fixture_stats[49];
 uint32_t hp1020_rx_fixture_reset(uint32_t,uint32_t,uint32_t);
 uint32_t hp1020_rx_fixture_step(uint32_t,uint32_t,uint32_t,uint32_t,uint32_t);
 uint8_t *hp1020_rx_fixture_storage(void);
@@ -25,7 +25,7 @@ int main(int argc,char **argv) {
         if(v[5]>1024 || fread(hp1020_rx_fixture_input,1,v[5],f)!=v[5])return 3;
         hp1020_rx_fixture_step(v[0],v[1],v[2],v[3],v[4]);
         if(index++)putchar(',');putchar('[');
-        for(unsigned i=0;i<48;i++)printf("%s%u",i?",":"",hp1020_rx_fixture_stats[i]);
+        for(unsigned i=0;i<49;i++)printf("%s%u",i?",":"",hp1020_rx_fixture_stats[i]);
         putchar(']');
     }
     if(ferror(f) || fclose(f))return 3;

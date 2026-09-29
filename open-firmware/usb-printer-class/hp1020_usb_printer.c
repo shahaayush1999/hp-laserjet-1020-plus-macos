@@ -19,6 +19,7 @@ static uint16_t get_le16(const uint8_t *p) {
 static void invalidate_reset(struct hp1020_usb_printer *s) {
     s->reset_active = 0;
     s->reset_parts = 0;
+    s->reset_request_id = 0;
     if (s->current_action == ACTION_RESET_WAIT ||
         s->current_action == ACTION_RESET_ACK)
         s->current_action = ACTION_STALL;
@@ -34,13 +35,43 @@ static enum hp1020_printer_result exhaust(struct hp1020_usb_printer *s) {
     return HP1020_PRINTER_LIMIT;
 }
 
+/* Recovery identities are independent of actual host request identities.
+ * Zero reply_request_id denotes an internal transport recovery, never a SETUP.
+ * Starting either kind invalidates every promise from the previous attempt,
+ * including when the receive generation has not changed. */
+static enum hp1020_printer_result begin_recovery(struct hp1020_usb_printer *s,
+    uint32_t reply_request_id) {
+    if (s->exhausted || s->last_recovery_id == UINT32_MAX)
+        return exhaust(s);
+    hp1020_usb_receive_stop(&s->document->receive);
+    invalidate_reset(s);
+    s->reset.recovery_id = ++s->last_recovery_id;
+    s->reset.generation = s->document->receive.generation;
+    s->reset_request_id = reply_request_id;
+    s->reset_active = 1;
+    if (reply_request_id) {
+        s->current_action = ACTION_RESET_WAIT;
+    } else {
+        /* The transport boundary supersedes old reply permission, not borrowed
+         * EP0 storage. ep0_live, ep0_request_id and response_status stay intact. */
+        s->current_request_id = 0;
+        s->current_action = ACTION_NONE;
+        s->current_issued = 0;
+        s->requested_length = 0;
+        s->staged_status = 0;
+        s->staged_fallback = 0;
+    }
+    return HP1020_PRINTER_OK;
+}
+
 static enum hp1020_printer_result check_reset(struct hp1020_usb_printer *s,
     struct hp1020_printer_reset_ticket ticket) {
     if (!s || !s->initialized)
         return HP1020_PRINTER_INVALID;
     if (s->exhausted)
         return HP1020_PRINTER_LIMIT;
-    if (!s->reset_active || ticket.request_id != s->reset.request_id ||
+    if (!s->reset_active || !ticket.recovery_id ||
+        ticket.recovery_id != s->reset.recovery_id ||
         ticket.generation != s->reset.generation)
         return HP1020_PRINTER_STALE;
     if (s->document->receive.generation != ticket.generation ||
@@ -129,16 +160,22 @@ enum hp1020_printer_result hp1020_usb_printer_setup(struct hp1020_usb_printer *s
     if ((setup[0] == 0x21 || setup[0] == 0x23) && setup[1] == 2) {
         if (value || index != s->config.interface_number || requested)
             return HP1020_PRINTER_INVALID;
-        hp1020_usb_receive_stop(&s->document->receive);
-        s->reset.request_id = s->current_request_id;
-        s->reset.generation = s->document->receive.generation;
-        s->reset_parts = 0;
-        s->reset_active = 1;
-        s->current_action = ACTION_RESET_WAIT;
-        return HP1020_PRINTER_OK;
+        return begin_recovery(s, s->current_request_id);
     }
 
     return HP1020_PRINTER_INVALID;
+}
+
+enum hp1020_printer_result hp1020_usb_printer_begin_transport_recovery(
+    struct hp1020_usb_printer *s, struct hp1020_printer_reset_ticket *ticket) {
+    if (ticket)
+        *ticket = (struct hp1020_printer_reset_ticket){0};
+    if (!s || !s->initialized || !ticket)
+        return HP1020_PRINTER_INVALID;
+    const enum hp1020_printer_result r = begin_recovery(s, 0);
+    if (r == HP1020_PRINTER_OK)
+        *ticket = s->reset;
+    return r;
 }
 
 enum hp1020_printer_result hp1020_usb_printer_pending_reset(
@@ -202,9 +239,11 @@ enum hp1020_printer_result hp1020_usb_printer_finish_reset(
             return exhaust(s);
         return HP1020_PRINTER_DOCUMENT_ERROR;
     }
+    const uint32_t reply_request_id = s->reset_request_id;
     s->reset_active = 0;
     s->reset_parts = 0;
-    if (s->current_request_id == ticket.request_id &&
+    s->reset_request_id = 0;
+    if (reply_request_id && s->current_request_id == reply_request_id &&
         s->current_action == ACTION_RESET_WAIT)
         s->current_action = ACTION_RESET_ACK;
     return HP1020_PRINTER_OK;

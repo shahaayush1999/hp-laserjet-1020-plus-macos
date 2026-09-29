@@ -4,9 +4,10 @@ This is an offline model of the stock USB endpoint-0 data sender. It does not co
 
 ## Key Result
 
-- Descriptor bytes are no longer the hard part; this report models how stock firmware submits those bytes to the USB controller.
+- This static model covers descriptor construction and submission intent, not controller acceptance or successful transfers.
 - The stock path uses a staging buffer, a 0x10-byte descriptor ring, a per-descriptor `0x08000000` flag, `0xb3000014` descriptor submission, and `0xb3000000 |= 0x108` transfer kick.
-- The remaining live unknown is whether we can safely replace the stock ThreadX completion wait with a polling loop in open firmware.
+- Active submissions preserve the supplied descriptor pointer. Separate initialization adds `0x80000000` modulo 32 bits; the former pointer-OR model was incorrect.
+- Cache/DMA behavior, real completion and settlement remain unproved.
 
 ## Resolved Constants
 
@@ -22,18 +23,34 @@ This is an offline model of the stock USB endpoint-0 data sender. It does not co
 | `usb_main_control` | `0xb3000000` |
 | `chunk_size_register` | `0xb300000c` |
 | `descriptor_submit_register` | `0xb3000014` |
-| `descriptor_hardware_alias_flag` | `0x80000000` |
+| `initial_descriptor_pointer_addend` | `0x80000000` |
 | `descriptor_submit_value` | `0x900226f0` |
+| `initial_descriptor_submit_value` | `0x100226f0` |
+
+## Pointer dataflow correction
+
+Each contiguous byte slice is checked against the stock ELF. This is static evidence, not new stock execution.
+
+- `0x10008d02` (`88c019f467dcf00c02009890`): active zero-length pointer unchanged.
+- `0x10008f11` (`19f3e38870c7ef0c02009890`): active nonzero pointer unchanged.
+- `0x100092aa` (`88b019f2e21bf2fca98819f2fe0c020098b0`): initial pointer plus literal modulo 2^32.
+
+The initialized descriptor has HOST_BUSY status `0xc0000000`. With the file-backed pointer, initialization wraps `0x900226f0` to `0x100226f0`; active submission stays `0x900226f0`. Neither operation establishes a physical alias or address translation rule.
+
+| Supplied pointer | Active submission | Initialization ADD |
+|---|---|---|
+| `0x100226f0` | `0x100226f0` | `0x900226f0` |
+| `0x900226f0` | `0x900226f0` | `0x100226f0` |
 
 ## Algorithm
 
 - set 0xb3000000 bit 0x2 before staging the control-IN response
-- copy/flush response bytes into the staging buffer at 0x90022bd0
+- copy response bytes into the staging buffer at 0x90022bd0; cache visibility is not established here
 - build one to five 0x10-byte transfer descriptors at 0x900226f0
 - descriptor word +0x00 is byte_count OR 0x08000000 on the final descriptor of each hardware kick
 - descriptor word +0x08 is the source pointer into the staging buffer
 - descriptor word +0x0c is the next descriptor pointer or zero
-- write descriptor base through 0xb3000014, then OR 0xb3000000 with 0x108
+- write the unchanged active descriptor base through 0xb3000014, then OR 0xb3000000 with 0x108
 - wait on the USB completion event flag and repeat if bytes remain
 
 ## Scenario Matrix

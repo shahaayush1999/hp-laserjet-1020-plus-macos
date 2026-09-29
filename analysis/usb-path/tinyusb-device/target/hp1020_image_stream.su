@@ -1,6 +1,8 @@
 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_stream.c:4:27:image_error	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_stream.c:20:27:boundary_out	16	static
 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_stream.c:11:27:band_out	16	static
-/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_stream.c:20:27:chunk_in	256	static
-/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_stream.c:78:20:hp1020_image_stream_init	48	static
-/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_stream.c:86:20:hp1020_image_stream_feed	0	static
-/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_stream.c:89:20:hp1020_image_stream_finish	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_stream.c:28:27:chunk_in	256	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_stream.c:97:20:hp1020_image_stream_init_boundaries	48	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_stream.c:93:20:hp1020_image_stream_init	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_stream.c:107:20:hp1020_image_stream_feed	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/image-core/hp1020_image_stream.c:110:20:hp1020_image_stream_finish	0	static

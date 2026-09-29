@@ -56,7 +56,7 @@ static void snapshot(uint32_t result) {
     uint32_t *o=hp1020_pc_fixture_stats;memset(o,0,64*sizeof(*o));
     const struct hp1020_usb_receive *rx=&document.receive;check_owned();
     o[0]=result;o[1]=last_request;o[2]=printer.current_request_id;
-    o[3]=printer.reset.request_id;o[4]=printer.reset.generation;o[5]=printer.reset_active;
+    o[3]=printer.reset.recovery_id;o[4]=printer.reset.generation;o[5]=printer.reset_active;
     o[6]=printer.reset_parts;o[7]=printer.exhausted;o[8]=printer.ep0_live;o[9]=printer.ep0_request_id;
     o[10]=last_reply.kind;o[11]=last_reply.length;o[12]=last_reply.request_id;o[13]=last_reply.status_fallback;
     o[14]=hash(last_reply.data,last_reply.length);o[15]=printer.response_status;
@@ -75,6 +75,7 @@ static void snapshot(uint32_t result) {
     o[47]=printer.staged_status;o[48]=printer.staged_fallback;o[49]=initialization;
     o[50]=hash(device_id,sizeof(device_id));
     for(uint32_t i=0;i<4;i++)o[51+i]=document.output.ring.slots[i].state;
+    o[55]=printer.last_recovery_id;o[56]=printer.reset_request_id;o[57]=printer.last_request_id;
 }
 uint32_t hp1020_pc_fixture_reset(uint32_t initial_fill,uint32_t config_fields,uint32_t invalid) {
     fill=initial_fill&255;last_request=0;image_bytes=0;reply_bytes=0;accepted=0;completed=0;inflight=0;
@@ -105,7 +106,7 @@ uint32_t hp1020_pc_fixture_reset(uint32_t initial_fill,uint32_t config_fields,ui
 uint32_t hp1020_pc_fixture_step(uint32_t op,uint32_t a,uint32_t b,uint32_t c,uint32_t d) {
     struct hp1020_usb_receive *rx=&document.receive;uint32_t r=HP1020_PRINTER_INVALID;
     uint32_t old_generation=rx->generation,old_issued=rx->issued,old_consumed=rx->consumed,old_count=rx->count;
-    int protect=op<=6 || op==12 || op==14;
+    int protect=op<=6 || op==12 || op==13 || op==14 || op==15;
     check_owned();
     if(protect) {
         memcpy(&retained_memory,&memory.data,sizeof(memory.data));
@@ -145,8 +146,16 @@ uint32_t hp1020_pc_fixture_step(uint32_t op,uint32_t a,uint32_t b,uint32_t c,uin
         /* Synthetic exhaustion controls, never production API behavior. */
         printer.last_request_id=a;rx->generation=b;r=HP1020_PRINTER_OK;
     } else if(op==12 && a<8) {
-        resets[a].request_id=b;resets[a].generation=c;r=HP1020_PRINTER_OK;
+        resets[a].recovery_id=b;resets[a].generation=c;r=HP1020_PRINTER_OK;
+    } else if(op==13 && a<8) {
+        /* Synthetic actual-transport-boundary observation, never a host SETUP. */
+        r=hp1020_usb_printer_begin_transport_recovery(&printer,&resets[a]);
     } else if(op==14)r=hp1020_usb_printer_ep0_quiesced(&printer,a);
+    else if(op==15 && printer.initialized && !printer.last_request_id &&
+        !printer.last_recovery_id && !rx->issued && !printer.ep0_live && !printer.reset_active) {
+        /* First-use synthetic counter exhaustion only; not a production reset. */
+        printer.last_recovery_id=a;r=HP1020_PRINTER_OK;
+    }
     if(!r && owned_ep0_live && ((op==5 && a<8 && replies[a].request_id==owned_ep0.request_id) ||
        (op==14 && a==owned_ep0.request_id)))owned_ep0_live=0;
     (void)d;

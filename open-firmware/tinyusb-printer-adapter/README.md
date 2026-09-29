@@ -1,12 +1,12 @@
 # TinyUSB printer/document adapter
 
-Focused execution passes **98 sanitized host and 98 big-endian QEMU scenarios**.
+Focused execution passes **132 sanitized host and 132 big-endian QEMU scenarios**.
 The independent fixture compares exact pixels, USB reply proposals and final
 receive/output storage while checking borrowed buffers after every operation.
 Reports: `analysis/usb-path/tinyusb-printer/validation.{json,md}`. This is a
 synthetic DCD experiment; no physical controller or USB operation is implemented.
 Full integration is being validated separately. Target component state/fixed
-memory is 128488 bytes, excluding stack, code, TinyUSB core, ID and test captures.
+memory is 128536 bytes, excluding stack, code, TinyUSB core, ID and test captures.
 
 `hp1020_tusb_adapter.c/.h` compose the pinned, separately patched TinyUSB device
 core with the existing printer class, four-slot receive queue and page decoder.
@@ -28,10 +28,14 @@ This profile accepts a full-speed printer interface 7/1/2, alternate zero, one
 64-byte bulk OUT endpoint followed by one 64-byte bulk IN endpoint. Bulk OUT
 reservations are a caller-selected multiple of 64, at most 1024 bytes. Bulk IN is
 opened for the bidirectional profile but has no payload producer in this profile.
-The document starts stopped; configuration alone does not resume it. A valid
-wire SOFT_RESET and three explicit promises are required before the first input
-and after faults/configuration changes. This initial recovery restriction is not
-a claim of a production host workflow.
+The document starts stopped. A newly established configuration starts one
+internal recovery after its ordinary status packet is accepted for submission.
+Three explicit promises are required before input can resume; no wire SOFT_RESET
+or fabricated class request is needed. Same-value configuration and generic
+polling cannot invent another recovery. Real SOFT_RESET remains supported.
+The synthetic 1024-byte reservation profile does not prove that one HP descriptor
+can receive that amount; the physical port must separately establish controller
+mode, transfer capacity and DMA/cache behavior.
 
 Call `service()` for protocol events, `arm_out()` to submit at most one OUT,
 and `pump()` separately to consume completed slots. Four READY slots therefore
@@ -39,13 +43,14 @@ produce backpressure without requiring an artificial decoder wait. The adapter
 does not rearm from TinyUSB callbacks. Existing output progress remains a
 synchronous consumer contract; an asynchronous output scheduler is not supplied.
 
-The first experiment must explicitly call `close_input()`, settle any submitted
-OUT, pump every reserved slot and then `finish()`. Neither a short transfer nor
-ZLP closes a document. This limitation is deliberate: the current output path
-may retain the last completed page until later data/finish, and polling parser
-state after a buffer can miss an END_DOC followed by another document. Continuous
-jobs need a later completed-page drain and parser boundary notification. They
-are outside this profile.
+Normal document input remains open across validated END_PAGE/END_DOC boundaries.
+END_PAGE drains the page with its retained geometry. END_DOC can produce one
+optional notification containing original receive generation, document ID and
+encoded-page range. This does not stop receiving or advance generation.
+`close_input()`/`finish()` are explicit shutdown operations; a missing END_DOC
+still fails even if all page pixels have drained. Neither short transfers nor
+ZLPs close a document. `continuous-printer/validation` separately checks exact
+notification traces and pixels, failures, retained slots and fresh recovery.
 
 ## Identity and ownership contract
 
@@ -106,7 +111,9 @@ or BUSY state. Replacing a deferred destructive SETUP preserves the stop fence.
 An idempotent SET_CONFIGURATION does not fence. A pending bus reset cannot be
 replaced by a SETUP; the caller retains and retries that later event.
 
-`pending_reset()` returns the exact class ticket. Supply its three parts
+`pending_reset()` returns the exact class ticket: independent recovery identity
+and original receive generation. Automatic and real-reset attempts supersede
+each other; only real reset retains a host request identity for its ACK. Supply its three parts
 independently through `ack_reset()`:
 
 - RECEIVE: every old OUT write and callback has permanently settled, including
@@ -120,7 +127,8 @@ independently through `ack_reset()`:
 
 `finish_reset()` rechecks settled ownership and core endpoint state, then asks
 the class to restart the whole document. It submits an ACK only when that reset
-still owns the current control epoch. A superseding standard SETUP suppresses
+still owns the current control epoch and real request identity. Automatic recovery
+creates no class reply. A superseding standard SETUP suppresses
 the reply but may allow the still-current reset recovery to complete. No output
 or input storage is reset sooner, and no packet is automatically armed.
 
@@ -148,6 +156,16 @@ from retaining the core's stack-local reply pointers as receive destinations.
 Normal OUT bulk transfers remain supported. Endpoint halt admission normalizes
 reserved endpoint-address bits exactly as the pinned core does, so an alias
 cannot change endpoint state while an old buffer is held.
+
+A core-managed initial EP0 submission records BUSY at binding. If the core then
+clears BUSY on rejection or marks the endpoint stalled, the adapter fences the
+original generation, invalidates old recovery promises and requests cancellation.
+It retains the exact owner until explicit settlement. The unfixed source returned
+OK with that owner unfenced; a separate preserved capture reproduces the failure.
+Sixteen new profiles cover active input, promised recovery, normal/unsupported
+requests and direct-DCD SET_ADDRESS. That direct-DCD operation has no core BUSY
+transition and remains the DCD's responsibility. Rejection before binding has no
+retained owner and cannot be distinguished here from an unsupported request.
 
 After a successful current EP0 DATA packet, another DATA/STATUS submission is
 required. Missing follow-on ownership, or bound ownership with cleared TinyUSB
@@ -182,8 +200,9 @@ control requests with live OUT, retained EP0/bulk across reset, deferred
 configuration changes and replacement, halt aliases, submission/completion
 failures, malformed control OUT and payload errors. Every accepted completion
 is synthetic. Output failure/identity saturation have component-level evidence;
-not every combination is repeated through this adapter. Current restricted
-startup/EOF behavior and absence of a DCD port remain material limitations.
+not every combination is repeated through this adapter. Continuous documents
+have a separate 34-case host/target experiment. Synchronous output, supplied
+quiescence and absence of a DCD port remain material limitations.
 
 Earlier sources and raw captures are under
 `analysis/usb-path/tinyusb-printer/source-snapshots/`. One expanded host attempt

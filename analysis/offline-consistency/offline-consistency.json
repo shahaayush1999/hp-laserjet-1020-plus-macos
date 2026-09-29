@@ -1,5 +1,5 @@
 {
-  "check_count": 118,
+  "check_count": 121,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -620,7 +620,7 @@
       "severity": "watch"
     },
     {
-      "detail": "Control-IN data-stage constants must preserve descriptor ring, staging buffer, and submit register evidence.",
+      "detail": "Byte-anchored active control-IN submissions preserve their supplied pointer. Separate HOST_BUSY initialization uses modulo-32-bit ADD, not OR; neither establishes physical address translation.",
       "evidence": "analysis/usb-path/control-in-data-stage.json",
       "name": "control_in_data_stage_constants_resolved",
       "severity": "watch"
@@ -704,9 +704,27 @@
       "severity": "watch"
     },
     {
-      "detail": "The reusable software adapter preserves original transfer identities, exact USB reply proposals and independent decoded pixels in both engines. Synthetic controller settlement, initial class reset and explicit input closure remain supplied; no physical USB or printing is established.",
+      "detail": "The reusable software adapter preserves original transfer identities, exact USB reply proposals and independent decoded pixels in both engines. Automatic configuration and real reset keep independent identities; synthetic controller settlement remains supplied. Continuous document boundaries are checked separately; no physical USB or printing is established.",
       "evidence": "analysis/usb-path/tinyusb-printer/validation.json",
       "name": "reusable_usb_printer_decodes_exact_document_pixels",
+      "severity": "watch"
+    },
+    {
+      "detail": "Original helper intent can re-enable receiving after a supplied delay-return register change. Three RAM redirects and supplied services do not establish a reachable scheduling race, actual DMA behavior, cancellation settlement or quiescence.",
+      "evidence": "analysis/usb-path/idle-receive.json",
+      "name": "original_usb_idle_receive_enable_requires_separate_quiescence",
+      "severity": "watch"
+    },
+    {
+      "detail": "Validated END_PAGE drains and exactly-once END_DOC observations retain their original receive generation. Ordinary documents need no EOF or reset; notification/output failures stop input without erasing prior observations. Supplied settlement and synchronous output remain limits, not physical printing proof.",
+      "evidence": "analysis/usb-path/continuous-printer/validation.json",
+      "name": "continuous_printer_document_boundaries_without_transport_eof",
+      "severity": "watch"
+    },
+    {
+      "detail": "A single controller-format OUT record retains the original adapter cookie through exact pages and document notifications. Immutable observations, mode, CPU/DMA mapping, visibility and settlement are supplied; raw descriptor bits never acknowledge global quiescence. No physical DCD or printing is established.",
+      "evidence": "analysis/usb-path/udc-out/validation.json",
+      "name": "original_cookie_bulk_descriptor_to_document_pipeline",
       "severity": "watch"
     }
   ],

@@ -5,7 +5,7 @@
 
 uint8_t hp1020_rx_fixture_input[1024],hp1020_rx_fixture_capture[262144];
 uint8_t hp1020_rx_fixture_received[8192];
-uint32_t hp1020_rx_fixture_stats[48];
+uint32_t hp1020_rx_fixture_stats[49];
 static struct hp1020_usb_document state;
 static struct { uint8_t before[16];struct hp1020_usb_document_memory data;uint8_t after[16]; } memory;
 static struct hp1020_rx_ticket tickets[8];
@@ -60,6 +60,7 @@ static void snapshot(uint32_t result) {
     o[25]=0;for(uint32_t i=0;i<4;i++)o[25]+=state.output.ring.slots[i].state!=0;
     o[26]=state.output.stream.image.pending;o[27]=received;o[28]=received_hash;o[29]=last_length;
     o[30]=sizeof(state);o[31]=sizeof(memory.data);
+    o[48]=state.output.documents_completed; /* Append; existing words keep their meaning. */
     for(uint32_t i=0;i<4;i++) {
         o[32+4*i]=s->slots[i].sequence;o[33+4*i]=s->slots[i].capacity;
         o[34+4*i]=s->slots[i].length;o[35+4*i]=s->slots[i].ready;

@@ -150,7 +150,7 @@ static bool printer_control(uint8_t rhport,uint8_t stage,const tusb_control_requ
          * fields have already been converted to host order; never memcpy them. */
         s.class_result=hp1020_usb_printer_setup(&printer,active_setup,8,&active_status,&s.class_request);
         if(s.class_result!=HP1020_PRINTER_OK)return false;
-        if(printer.reset_active && printer.reset.request_id==s.class_request) {
+        if(printer.reset_active && printer.reset_request_id && printer.reset_request_id==s.class_request) {
             s.class_result=hp1020_usb_printer_pending_reset(&printer,&reset_ticket);
             if(s.class_result!=HP1020_PRINTER_OK)return false;
             s.deferred_epoch=s.active_epoch;s.deferred_pending=1;
@@ -312,7 +312,7 @@ static void snapshot(uint32_t result) {
     o[34]=printer.reset_active;o[35]=printer.reset_parts;o[36]=document.receive.generation;
     o[37]=document.receive.stopped;o[38]=document.receive.quiescent;o[39]=document.output_quiescent;
     o[40]=s.deferred_epoch;o[41]=s.deferred_pending;o[42]=s.suppressed;o[43]=s.finished_resets;
-    o[44]=reset_ticket.request_id;o[45]=reset_ticket.generation;o[46]=tud_mounted();
+    o[44]=reset_ticket.recovery_id;o[45]=reset_ticket.generation;o[46]=tud_mounted();
     o[47]=s.address;o[48]=s.pending_address;o[49]=s.driver_resets;o[50]=s.open_mask;
     o[51]=tud_task_event_ready();o[52]=le16(active_setup+6);o[53]=s.reply_kind;o[54]=s.reply_length;
     o[55]=sizeof(printer)+sizeof(document)+sizeof(memory.data);
