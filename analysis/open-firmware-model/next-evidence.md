@@ -1738,28 +1738,46 @@ completion contract, not silently weaker evidence. Stale handlers must never
 grant a newer request's status. Four-bit state cannot recover malformed SETUP
 high bits; sampling stability, rejection policy and controller mode stay explicit.
 
-After this checkpoint, address ordinary raw SET_INTERFACE separately. Static
-review of the current adapter and pinned core shows raw SI0 is fenced and given
-ordinary status, but never establishes binding recovery; it stays stopped until
-a later SOFT_RESET or nonzero configuration. The core fallback also ignores
-alternate/high-index aliases. This is source-derived, not yet a focused executed
-finding. USB2 §9.4.10 permits STALL for a sole-default interface. Prefer explicit
-handled rejection through the normal request-state path, without destructive
-bulk fencing, while preserving typed SI's separately conditional acceptance.
+Ordinary raw SET_INTERFACE is now separately reproduced against the128-check
+checkpoint: four sanitized host/four QEMU conditional observations and404 paired
+288-word rows show raw SI0 fenced and given ordinary status without binding
+recovery. Input stays stopped; a separately requested SOFT_RESET then establishes
+new recovery and a fresh exact document. The observer reused the exact validated
+composed ELF and117-source closure without rewriting its shared report/target.
+Complete sources, captures and later-recovery distinction are preserved in
+`analysis/usb-path/udc-composed/source-snapshots/raw-si-before-policy.*`.
+The old core fallback ignoring alternate/high-index aliases remains source-derived.
+USB2 §9.4.10 permits STALL for a sole-default interface. The corrected adapter
+handles rejection through the normal request-state path without destructive
+bulk fencing, preserving typed SI's separately conditional acceptance.
 Returning false from the class callback alone causes TinyUSB's success fallback.
 Preserve any old fault/recovery and settle original EP0 ownership; rejection
 must not claim completion or clear bulk halt/default state. Direction is ignored
 when wLength0, so its alias is not itself a malformed-direction finding.
-First reproduce the acknowledged-but-stopped behavior, then test uninterrupted
-exact document input across corrected rejection, old EP0 settlement, aliases,
-fresh control recovery and existing pending reset. Current source review and a
+The reviewed V2 policy and28 new composed cases passed focused62 host/62 QEMU
+execution, followed by58/58 typed-offload regressions. They test uninterrupted exact document input across
+corrected rejection, old EP0 settlement, aliases, fresh control recovery and
+existing pending reset. Pre-integration source reviews and untouched
 unexecuted C/scenario/observer proposals are archived under
 `analysis/usb-path/udc-composed/source-snapshots/raw-si-unexecuted-proposals.*`.
 V2 is a full patch against the current source, not an incremental V1 patch.
-Static review found no blocking expectation or ordering error. The initial28-case
+The first corrected matrix stopped after46 host cases: a scenario expected
+SOFT_RESET service WAIT, although class reset can begin deferred recovery before
+bulk settlement. Raw rows and existing control flow confirmed retained original
+ownership, no status and an active recovery; only the scenario changed, adding
+finish-WAIT before settlement. Production V2 stayed unchanged. The failed and
+successful full-source captures are in `raw-si-first-oracle-failure.*` and
+`raw-si-first-62-cases.*`; the unchanged independent gate passed and eight
+negative controls were rejected (`raw-si-independent-gate.*`). The initial28-case
 plan does not separately cover retained raw-SI STATUS/late SUCCESS or supersession
 of an already pending destructive request; retain those coverage limits.
-Root owns execution and integration after the current validated checkpoint is saved.
+Root owns all execution. The raw-SI full sequential rerun passed128 consistency
+checks and both suites in `/tmp/hp1020-full-raw-si-20261002.log`, child
+`hp1020-validation.Kd7EIu`. Its62/62 composed and58/58 typed-offload sources,
+raw captures and full-suite logs are preserved in their existing
+`source-snapshots/raw-si-full-suite-62-cases.*` and
+`source-snapshots/raw-si-full-suite-58-cases.*` archives. Preserve the generated linker
+map fill-line whitespace as exact build evidence; source/prose checks are separate.
 
 ### Original SETUP ingress and corrected legacy evidence (2026-09-29)
 

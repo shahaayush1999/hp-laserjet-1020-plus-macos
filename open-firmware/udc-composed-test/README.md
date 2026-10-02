@@ -1,6 +1,6 @@
 # Composed USB descriptor fixture
 
-The first completed integrated run passes 34 sanitized host and 34 QEMU cases.
+The current focused run passes62 sanitized host and62 QEMU cases.
 It joins original-format SETUP captures, separate EP0 packet allocations and one
 bulk OUT descriptor to actual TinyUSB, printer-class recovery and exact decoded
 document output. This is a synthetic RAM experiment, not a physical DCD or
@@ -14,14 +14,15 @@ before execution, builds a sanitized host fixture, audits target instructions,
 and replays every event on the captured ELF. It compares all 288 row values
 except the architecture-dependent base size field, plus complete guarded storage,
 wire proposals, independently decoded pixels and document notifications.
-Current shared component sizes, measured by the typed-offload fixture, are EP0
-296, bulk OUT80 and SETUP96 bytes beyond adapter/document128588. The original
+Measured shared component sizes are EP0296, bulk OUT80 and SETUP96 bytes
+beyond adapter/document128588. The original
 composed run used SETUP88 and adapter/document128536. Fixture guards/shadows are
 separate test overhead. No new original firmware instructions are executed;
 completed SETUP70, EP0 construction66 and OUT reference evidence is reused and
 checked against its source hashes and original bytes.
 
-Four protocol cases cover two fills and interfaces 0/3. Fifteen additional
+The original34 profiles comprise four protocol cases at both fills and interfaces
+0/3, plus fifteen additional
 scenarios run at both fills: immutable capture/replay, deferred newer-capture
 retry, unknown/malformed acquisition facts, raw owner/RX/fault admission, held
 capture blocking an old reset ACK or delayed descriptor publication, superseded
@@ -29,6 +30,8 @@ control beside retained bulk, soft reset, bus reset with retained post-reset
 capture, exact reset-admission retry, terminal reset draining, both local
 sequence-limit paths, and IN/bulk descriptor faults. Controller-free records and
 adapter notifications still PENDING are asserted separately at terminal limits.
+The28 raw-SI profiles described below extend this baseline without new fixture
+entry points or normalized-operation shortcuts.
 
 The first run passed 12 host profiles and stopped in the reconnect case before
 target build. The inherited configuration helper assumed a fresh class identity
@@ -225,3 +228,34 @@ The matrix compares raw wire packet order, exact pixels and document events
 across host/QEMU, independent literal descriptors, unchanged old identities,
 full retention at each refused promise and recovery only after exact settlement. Existing SETUP70, EP0 construction66 and OUT stock
 references are reused; this composition adds no stock instruction lifecycles.
+
+## Ordinary SET_INTERFACE rejection
+
+This sole-default-interface profile explicitly rejects ordinary raw SET_INTERFACE
+with EP0 STALL, as permitted by USB2 §9.4.10. It first supersedes old EP0 reply
+permission and waits for original ownership settlement, then rejects without
+stopping healthy bulk input, resetting endpoint defaults or replacing an existing
+fault/recovery ticket. Wrong interface indices cannot fall into another driver's
+TinyUSB success fallback. Typed controller-handled SI remains a separate path.
+
+Four preserved pre-fix host/QEMU observations show ordinary SI status followed by
+stopped input without SI recovery; their later successful class reset is separate.
+The corrected matrix passes62 host/62 QEMU cases, adding28 profiles at fills0/204
+and interfaces0/3. They cover a live partial document, retained old EP0 data, seven
+field controls, existing bulk fault, pending reset, retained bulk HALTs and an
+unconfigured device. Literal wire bytes, original cookies, all guarded captures,
+exact black pixels and fixed document generations agree. Physical USB behavior
+and host interoperability remain unproved.
+
+The first run's class-reset timing assertion failed after46 host cases. Class
+reset legitimately starts deferred recovery before old bulk settles; final restart
+still waits. The scenario was corrected and given an explicit pre-settlement
+finish-WAIT check; production code did not change. Failed/passed captures, exact
+sources, untouched proposals and the independent gate's eight negative controls
+are preserved in `analysis/usb-path/udc-composed/source-snapshots/raw-si-*`.
+The full sequential regression passed128 consistency checks and both suites
+(`/tmp/hp1020-full-raw-si-20261002.log`, child `hp1020-validation.Kd7EIu`);
+full62-case sources/captures are in `raw-si-full-suite-62-cases.*` beside the
+focused archive. Raw-SI retained STATUS/late SUCCESS
+and supersession of an already pending destructive request are not separately
+exercised by these28 additions.

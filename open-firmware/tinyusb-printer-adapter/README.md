@@ -248,3 +248,10 @@ Later requests/reset cannot erase the ticket or start another open. Raw sequence
 is explicit provenance, alongside the original control/transport epochs. Only
 an exact externally completed cleanup with no retained owners clears dirty state;
 it neither restarts a document nor supplies a recovery promise.
+
+Ordinary raw SET_INTERFACE uses the USB-permitted sole-default-interface STALL
+policy. Rejection preserves healthy bulk input and any pre-existing fault/reset,
+while waiting for old EP0 ownership to settle and suppressing its reply. The
+separate typed SI path still requires the controller facts and original status
+ownership above. See the composed fixture's62-case execution and preserved
+pre-policy observations; no physical USB compatibility is established.

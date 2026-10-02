@@ -478,7 +478,236 @@ class Host(ep0.Host):
         return captures
 
 
+def _raw_si_transport(h):
+    """Bulk/document facts a rejected control request has no right to change."""
+    r = h.row
+    return (tuple(r[4:6]), tuple(r[7:11]), r[12], r[13] & 4, r[14] & 4,
+            tuple(r[30:46]), tuple(r[50:62]), tuple(r[69:77]),
+            tuple(r[81:85]), r[11] & 12,
+            tuple(h.udc[2:7]), tuple(h.udc[10:40]))
+
+
+def _raw_si_reply_activity(h):
+    # Cancellations are deliberately separate from completed status/data.
+    return (h.row[17], h.row[18], tuple(h.row[24:26]),
+            tuple(h.slot(0)[31:34]), tuple(h.slot(1)[31:34]))
+
+
+def _raw_si_partial(h, document):
+    data = document(['small'])
+    assert len(data) > 62 and h.capacity == 64
+    h.send(data[:31], 31, zlp=False)
+    token = h.arm_write(data[31:62])
+    cookie = h.bulk[token]['cookie'].copy()
+    assert h.udc[16:21] == cookie and h.row[30] == token
+    assert h.row[50] == 0 and h.row[90:92] == [0, 0]
+    return data, token, cookie
+
+
+def _raw_si_finish_partial(h, data, token, cookie, generation, images):
+    assert h.row[30] == token and h.udc[16:21] == cookie
+    assert h.bulk[token]['cookie'] == cookie and h.row[32] == generation
+    h.complete(token, 31)
+    h.step(7)
+    h.send(data[62:], 64)
+    h.expected_pixels += images['small'][1]
+    h.notification(generation, 1, 0, 1)
+    assert h.row[32] == generation and h.row[36] == 0
+    h.repeat_pump()
+
+
+def _raw_si_reject(h, raw, *, old_ep0=None):
+    """Admit a real raw request; no invented callback or DCD settlement."""
+    transport, activity = _raw_si_transport(h), _raw_si_reply_activity(h)
+    control_epoch, class_id = h.row[2], h.row[80]
+    sequence = h.capture(raw)
+    h.dispatch(sequence)
+    assert h.row[2] == control_epoch + 1 and h.row[80] == class_id
+    assert _raw_si_transport(h) == transport
+    assert h.row[47] == 0, 'new control identity suppresses an older deferred reply'
+    if old_ep0 is not None:
+        original = h.controls[old_ep0]['cookie'].copy()
+        owned = h.slot(1)[14:18].copy(), h.slot(1)[42]
+        h.service(base.WAIT)
+        assert h.row[28] == old_ep0 and h.slot(1)[6:11] == original
+        assert h.slot(1)[1] == 1 and h.row[11] & 3 == 0
+        assert _raw_si_reply_activity(h) == activity
+        h.step(43, old_ep0, 0, result=WAIT)
+        assert (h.slot(1)[14:18], h.slot(1)[42]) == owned
+        assert h.row[28] == old_ep0 and _raw_si_transport(h) == transport
+        h.step(43, old_ep0, 1)  # Explicit original EP0 settlement supplied once.
+        assert h.row[28] == 0 and h.slot(1)[0] == 0
+        assert _raw_si_transport(h) == transport
+    h.service()
+    assert h.row[2] == h.row[3] and h.row[11] & 3 == 3
+    assert not h.row[26] and not h.row[28] and h.row[77] == 0
+    assert h.slot(0)[0] == h.slot(1)[0] == 0
+    assert h.row[80] == class_id and h.row[47] == 0
+    assert _raw_si_transport(h) == transport
+    assert _raw_si_reply_activity(h) == activity, 'STALL is neither a status packet nor an ACK'
+    for _ in range(2):
+        h.service()
+        assert _raw_si_transport(h) == transport
+        assert _raw_si_reply_activity(h) == activity
+    return dict(sequence=sequence, raw_hex=raw.hex(), control_epoch=h.row[2],
+                transport_epoch=h.row[4], receive_generation=h.row[32],
+                fixture_ep0_stall_mask=h.row[11] & 3, new_reply_packets=0)
+
+
+def _raw_si_control_recovery(h):
+    transport = _raw_si_transport(h)
+    h.request(base.packet(0x81, 10, index=h.interface, length=1), b'\x00',
+              label='fresh-GET_INTERFACE-after-raw-SI-rejection')
+    assert h.row[11] & 3 == 0 and _raw_si_transport(h) == transport
+    h.request(base.packet(0xa1, 1, index=h.interface, length=1), b'\x18',
+              label='fresh-unknown-printer-status-after-raw-SI-rejection')
+    assert _raw_si_transport(h) == transport
+
+
+def raw_si_scenario(h, name, document, images):
+    assert h.interface in (0, 3) and h.capacity == 64
+    records = []
+    if name == 'raw-si/unconfigured':
+        h.step(5)
+        h.service()
+        generation = h.row[32]
+        assert h.row[8] == h.row[10] == h.row[44] == 0
+        records.append(_raw_si_reject(h, base.packet(1, 11, index=h.interface)))
+        h.step(10, result=base.WAIT)
+        h.step(6, result=base.WAIT)
+        assert h.row[32] == generation
+        h.request(base.packet(0x80, 8, length=1), b'\x00', label='still-unconfigured-after-rejected-SI')
+        h.request(base.packet(0x80, 6, value=0x100, length=18), base.DEVICE,
+                  label='fresh-device-request-after-unconfigured-SI')
+        h.configure()
+        _raw_si_control_recovery(h)
+        h.fresh_page(document, images)
+        return records
+
+    h.configure()
+    generation = h.row[32]
+    if name in ('raw-si/live-partial', 'raw-si/retained-ep0', 'raw-si/field-controls'):
+        data, bulk, cookie = _raw_si_partial(h, document)
+        old_ep0 = None
+        if name == 'raw-si/retained-ep0':
+            h.setup(base.packet(0xa1, 0, index=h.interface << 8, length=400))
+            old_ep0 = h.row[28]
+            h.wire(base.DEVICE_ID[:64], 'old-ID-data-before-raw-SI-cancellation')
+            assert h.row[77] == 1 and h.slot(1)[0] != 0
+        if name == 'raw-si/field-controls':
+            # The zero-length direction alias is allowed by 9.3.1; it uses
+            # the same permitted sole-default rejection. Nonzero length is
+            # conservatively rejected, not called specified Request Error.
+            requests = (
+                ('unsupported-alt1', base.packet(1, 11, value=1, index=h.interface)),
+                ('unsupported-high-alt', base.packet(1, 11, value=0x100, index=h.interface)),
+                ('wrong-low-interface', base.packet(1, 11, index=0 if h.interface else 1)),
+                ('wrong-high-interface', base.packet(1, 11, index=0x100 | h.interface)),
+                ('zero-length-direction-alias', base.packet(0x81, 11, index=h.interface)),
+                ('nonzero-OUT-length', base.packet(1, 11, index=h.interface, length=1)),
+                ('nonzero-IN-length', base.packet(0x81, 11, index=h.interface, length=1)),
+            )
+        else:
+            requests = (('sole-default-alt0', base.packet(1, 11, index=h.interface)),)
+        for reason, raw in requests:
+            record = _raw_si_reject(h, raw, old_ep0=old_ep0)
+            record['policy_case'] = reason
+            records.append(record)
+            old_ep0 = None
+            _raw_si_control_recovery(h)
+            assert h.row[30] == bulk and h.udc[16:21] == cookie
+            assert h.row[32] == generation and h.row[7] == h.row[36] == 0
+        _raw_si_finish_partial(h, data, bulk, cookie, generation, images)
+        return records
+
+    if name == 'raw-si/existing-fault':
+        data, bulk, cookie = _raw_si_partial(h, document)
+        h.observe_bulk(bulk, 0x48000000, facts=0, fault=0x80, result=FAULT)
+        assert h.row[7] == h.row[36] == h.udc[3] == 1
+        h.step(10, result=base.WAIT)
+        records.append(_raw_si_reject(h, base.packet(1, 11, index=h.interface)))
+        _raw_si_control_recovery(h)
+        assert h.row[30] == bulk and h.udc[16:21] == cookie
+        assert h.row[32] == generation and h.row[44] == 0
+        h.step(6, result=base.WAIT)
+        # Only a separately requested real reset may replace the old fault.
+        h.setup(base.packet(0x21, 2, index=h.interface))
+        # Class reset begins a deferred recovery before bulk settlement; it
+        # does not alter endpoints like standard reconfiguration. Completion
+        # must still wait on the retained original owner and all promises.
+        assert h.row[30] == bulk and h.udc[16:21] == cookie
+        assert h.row[44] == h.row[47] == 1 and not h.row[26] and not h.row[28]
+        h.step(10)
+        h.step(12, 0, result=base.WAIT)
+        h.step(64, bulk, 0, result=WAIT)
+        h.step(64, bulk, 1)
+        h.service()
+        h.step(10)
+        h.finish_reset()
+        assert h.row[32] == generation + 1
+        h.fresh_page(document, images)
+        return records
+
+    if name == 'raw-si/pending-reset':
+        h.begin_reset()
+        h.step(11, 0, 1)
+        h.step(11, 0, 2)
+        h.step(15)
+        h.step(11, 0, 4)
+        assert h.row[44:48] == [1, 7, 0, 1]
+        transport, activity = _raw_si_transport(h), _raw_si_reply_activity(h)
+        sequence = h.capture(base.packet(1, 11, index=h.interface))
+        before = h.row[2:96].copy()
+        h.step(12, 0, result=base.WAIT)
+        assert h.row[2:96] == before, 'held SI cannot release the old deferred reset ACK'
+        h.dispatch(sequence, service=True)
+        assert h.row[11] & 3 == 3 and h.row[47] == 0
+        assert _raw_si_transport(h) == transport and _raw_si_reply_activity(h) == activity
+        assert not h.row[26] and not h.row[28] and h.row[44:46] == [1, 7]
+        # Finish the exact original recovery before any other new request;
+        # this isolates raw SI's suppression of the older deferred ACK.
+        h.step(12, 0, expect={32:generation+1, 7:0, 9:0, 36:0, 44:0, 45:0})
+        assert _raw_si_reply_activity(h) == activity
+        assert not h.row[26] and not h.row[28]
+        records.append(dict(sequence=sequence, original_promises_preserved=7,
+                            old_deferred_status_suppressed=True, original_recovery_finished=True,
+                            receive_generation_before=generation, receive_generation_after=generation+1))
+        _raw_si_control_recovery(h)
+        h.fresh_page(document, images)
+        return records
+
+    if name == 'raw-si/bulk-halt':
+        h.send(document(['small'])[:31], 31, zlp=False)
+        h.request(base.packet(2, 3, index=1), label='supplied-OUT-Halt-before-raw-SI')
+        h.request(base.packet(2, 3, index=0x81), label='supplied-IN-Halt-before-raw-SI')
+        assert h.row[81:85] == [1, 1, 1, 1] and h.row[7] == h.row[36] == 1
+        records.append(_raw_si_reject(h, base.packet(1, 11, index=h.interface)))
+        _raw_si_control_recovery(h)
+        h.request(base.packet(0x82, 0, index=1, length=2), b'\x01\x00', label='OUT-Halt-preserved-across-rejected-SI')
+        h.request(base.packet(0x82, 0, index=0x81, length=2), b'\x01\x00', label='IN-Halt-preserved-across-rejected-SI')
+        assert h.row[81:85] == [1, 1, 1, 1] and h.row[32] == generation
+        h.step(10, result=base.WAIT)
+        h.step(6, result=base.WAIT)
+        h.begin_reset()
+        h.finish_reset()  # Includes a new explicit op15 defaults promise.
+        assert h.row[81:85] == [0, 0, 0, 0] and h.row[32] == generation + 1
+        h.fresh_page(document, images)
+        return records
+
+    raise AssertionError('unknown raw SET_INTERFACE profile: ' + name)
+
+
+def raw_si_profiles():
+    names = ('raw-si/live-partial', 'raw-si/retained-ep0', 'raw-si/field-controls',
+             'raw-si/existing-fault', 'raw-si/pending-reset', 'raw-si/bulk-halt',
+             'raw-si/unconfigured')
+    return [(name, fill, interface) for name in names for fill in (0, 204) for interface in (0, 3)]
+
+
+
 def scenario(h,name,document,images):
+    if name.startswith('raw-si/'):
+        return raw_si_scenario(h,name,document,images)
     if name == 'reset-admission-wait':
         seq = h.next_sequence()
         before = h.row[2]
@@ -750,7 +979,7 @@ def profiles():
              'terminal-drains-admitted-reset',
              'sequence-limit/capture','sequence-limit/reset','descriptor-fault/in','descriptor-fault/bulk')
     return [('protocol',fill,interface) for fill in (0,204) for interface in (0,3)]+[
-        (name,fill,3) for fill in (0,204) for name in names]
+        (name,fill,3) for fill in (0,204) for name in names]+raw_si_profiles()
 
 
 def compile_host(temp, effective):
@@ -838,7 +1067,7 @@ def main():
         (directory/'case-name').write_text(title+'\n')
         h = Host(temp/'host', directory, fill, 64, interface)
         try:
-            scenario(h,name,document,images)
+            raw_si_oracles = scenario(h,name,document,images) or []
             captures = h.finish()
         finally:
             h.abort()
@@ -848,7 +1077,7 @@ def main():
             initial_bulk=h.out_initial, initial_setup=h.setup_initial,
             steps=h.rows, ep0_steps=h.ep0_rows, bulk_steps=h.out_rows, setup_steps=h.setup_rows,
             events=h.events, packet_oracles=h.packets, descriptor_oracles=h.descriptor_oracles,
-            bulk_descriptor_oracles=h.bulk_oracles, setup_oracles=h.ingress_oracles,
+            bulk_descriptor_oracles=h.bulk_oracles, setup_oracles=h.ingress_oracles, raw_si_oracles=raw_si_oracles,
             expected_documents=h.expected_documents, expected_pixels_sha256=core.sha(h.expected_pixels),
             pixels_bytes=len(h.expected_pixels), capture_sha256={n:core.sha(raw) for n,raw in captures.items()}))
         replay.append((h,captures,directory))

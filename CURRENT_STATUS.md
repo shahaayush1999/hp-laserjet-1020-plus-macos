@@ -7,11 +7,14 @@ AGENTS.md owns scope; `analysis/README.md` is the evidence/tool-recovery map.
 
 ## Current checkpoint
 
-The full sequential `scripts/validate.sh` run passed **128 consistency checks
-and both suites**. It includes **58 host/58 QEMU offload**, **34/34 composed**,
-**132/132 raw adapter**, and **52 unchanged/160 patched protocol** cases. Log:
-`/tmp/hp1020-full-offload-20261002.log`, child `hp1020-validation.LBojdq`.
-All test processes are stopped. This supersedes the127-check baseline.
+The latest full sequential `scripts/validate.sh` run passed **128 consistency
+checks and both suites**, including **62 host/62 QEMU composed**, **58/58 typed
+offload**, **132/132 raw adapter**, and **52 unchanged/160 patched protocol**
+cases. Log: `/tmp/hp1020-full-raw-si-20261002.log`, child
+`hp1020-validation.Kd7EIu`. All execution is stopped at this checkpoint.
+Focused raw-SI validation and eight independent gate-negative controls also
+passed. Do not run validators concurrently or change captured sources during a
+run; regenerate reports through their validators, never relabel old hashes.
 
 The new typed configuration/interface path preserves original status ownership
 and separately supplied hardware permission, endpoint defaults and cleanup. It
@@ -31,23 +34,35 @@ Details and current supplied-fact limits: `analysis/open-firmware-model/next-evi
 
 ## Next action
 
-Commit and push the validated checkpoint, verify sync, then continue. The next bounded task
-is ordinary raw SET_INTERFACE: source review shows status can succeed while
-input stays stopped with no recovery. First execute four conditional pre-fix
-observations against the validated composed ELF, preserving exact sources/raw
-captures. Then integrate the independently reviewed sole-default STALL policy
-and28 cases that require healthy document input and old fault/reset identities
-to survive rejection. Typed SI retains its separate conditional support.
+Ordinary raw SET_INTERFACE was reproduced in **four host/four QEMU conditional
+observations,404 paired rows**, reusing the validated composed ELF. SI status
+completed but input stayed stopped and no SI recovery was created; a separately
+requested class reset then recovered a fresh exact document. Full sources/raw
+captures are archived in composed `source-snapshots/raw-si-before-policy.*`.
 
-Unexecuted drafts/reviews are preserved in the composed `source-snapshots/`
-`raw-si-unexecuted-proposals` archive (working copies under `/tmp`); the V2
-adapter patch is the full patch against the current source, not a delta on V1.
-The observer reuses the validated target in private storage and must not run
-until this checkpoint is saved. It records later class reset as a separate action.
-Root owns all execution and integration;
-parallel agents are doing only static review/independent gate preparation.
-After raw SI, assess a real endpoint-register programming backend over a recording
-RAM bus. Preserve the explicit HP slot map; Linux bank arithmetic is not interchangeable.
+The reviewed sole-default STALL policy is integrated and focused-validated.
+First execution stopped after46 host cases because a scenario wrongly expected
+class SOFT_RESET admission to wait for bulk settlement. Its exact failed sources
+and captures are preserved; only that expectation changed, adding a pre-settlement
+finish-WAIT check. Production V2 code was unchanged before62/62 passed. Failed,
+passed and gate-control archives are beside `raw-si-before-policy.*`.
+
+Rejected raw SI preserves healthy bulk input and old fault/reset tickets. Typed
+SI retains its separately conditional acceptance. Root's independent gate passed
+unchanged, including fixed pixels/generations, exact status packets and original
+ownership. Full-run source/raw-capture archives are
+`udc-composed/source-snapshots/raw-si-full-suite-62-cases.*` and
+`udc-offload/source-snapshots/raw-si-full-suite-58-cases.*` under `analysis/usb-path/`.
+
+Save this checkpoint, then continue. Root owns execution and integration; agents
+prepared an unexecuted endpoint-register backend over recording RAM I/O.
+The latter must use the explicit HP slot map, not Linux bank arithmetic; mode,
+geometry, endpoint defaults and settlement remain separate supplied facts. Its
+review/draft is under `/tmp/hp1020-next-controller-backend-20261002.md` and the
+frozen `/tmp/hp1020-udc-program-draft-20261002/` directory. Independently review
+and archive untouched proposals before integration. Register reads are explicit
+inputs, not simulated effects of writes; defaults, settlement and physical gate
+currentness remain external. Partial failures must retain their original ticket.
 
 Tools currently work; recover disposable tools only through pinned scripts in
 the analysis map if needed. No physical DCD exists. Actual event chronology,

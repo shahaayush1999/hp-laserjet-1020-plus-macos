@@ -131,6 +131,11 @@ bool hp1020_tusb_adapter_route(uint8_t rhport,
  * invalidates old reply permission immediately; destructive admission also
  * stops bulk/document input BEFORE waiting for retained EP0 packets. Request
  * replacement preserves the stop fence. A pending bus reset is not replaceable.
+ * Ordinary raw standard SET_INTERFACE is rejected with EP0 STALL in this
+ * sole-alternate profile. It still supersedes old EP0 reply permission and
+ * waits for original EP0 settlement, but does not change bulk identity, cancel
+ * healthy bulk ownership or replace an existing document recovery. Typed SI
+ * remains a separate supported reselection through its controller facts.
  * Hardware must have settled old EP0 writes before writing new SETUP storage.
  * Receipt does not itself prove cancellation of any borrowed data buffer. */
 enum hp1020_tusb_result hp1020_tusb_adapter_setup(struct hp1020_tusb_adapter *,

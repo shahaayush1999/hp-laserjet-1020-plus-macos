@@ -268,14 +268,41 @@ static bool request_matches(const struct hp1020_tusb_adapter *s,
         r->wIndex == le16(s->active_setup + 4) && r->wLength == le16(s->active_setup + 6);
 }
 
+static bool standard_set_interface(uint8_t kind, uint8_t request) {
+    /* Direction is ignored for zero-length requests. Nonzero length remains
+     * conservatively rejected too; no unsupported alternate can reach ACK. */
+    return (kind & 0x7f) == TUSB_REQ_RCPT_INTERFACE && request == TUSB_REQ_SET_INTERFACE;
+}
+
 static bool driver_control(uint8_t rhport, uint8_t stage,
     const tusb_control_request_t *request) {
     struct hp1020_tusb_adapter *s = bound;
-    if (!valid(s) || rhport != s->config.rhport || !request || !s->stack_active ||
-        request->bmRequestType_bit.type != TUSB_REQ_TYPE_CLASS) return false;
+    if (!valid(s) || rhport != s->config.rhport || !request || !s->stack_active) return false;
+    const bool reject_interface = !s->active_offload.sequence &&
+        standard_set_interface(request->bmRequestType, request->bRequest);
+    if (!reject_interface && request->bmRequestType_bit.type != TUSB_REQ_TYPE_CLASS) return false;
     if (s->active_control_epoch != s->control_epoch || !request_matches(s, request)) {
         (void)fence(s, s->printer->document->receive.generation, REASON_CONTRACT);
+        if (reject_interface) {
+            cancel_ep0(s);
+            /* SETUP true blocks the generic SI fallback; DATA false prevents
+             * a status submission. ACK/unknown stages grant no permission. */
+            return stage == CONTROL_STAGE_SETUP;
+        }
         return false;
+    }
+    if (reject_interface) {
+        /* This sole-alternate profile uses the permitted raw SI rejection.
+         * service() settled old EP0 ownership before this actual SETUP reached
+         * TinyUSB. A STALL creates no packet, class request or reset promise. */
+        if (stage != CONTROL_STAGE_SETUP || ep0_owned(s)) {
+            (void)fence(s, s->printer->document->receive.generation, REASON_CONTRACT);
+            cancel_ep0(s);
+            return stage == CONTROL_STAGE_SETUP;
+        }
+        usbd_edpt_stall(rhport, 0);
+        usbd_edpt_stall(rhport, 0x80);
+        return true; /* Returning false would make TinyUSB submit status. */
     }
     if (stage == CONTROL_STAGE_SETUP) {
         s->class_request = *request;
@@ -420,7 +447,8 @@ static enum hp1020_tusb_result admit_control(struct hp1020_tusb_adapter *s,
     if (s->exhausted) return HP1020_TUSB_LIMIT;
     if (s->pending_kind == PENDING_BUS_RESET) return HP1020_TUSB_WAIT;
     if (!advance(s, &s->control_epoch)) return HP1020_TUSB_LIMIT;
-    const bool destructive = changes_endpoints(s, raw);
+    const bool reject_interface = !offload && standard_set_interface(raw[0], raw[1]);
+    const bool destructive = !reject_interface && changes_endpoints(s, raw);
     const bool reset = valid_soft_reset(s, raw);
     s->deferred = 0; /* Also applies to standard requests not routed to the class. */
     if (destructive || reset) {
@@ -806,6 +834,16 @@ enum hp1020_tusb_result hp1020_tusb_adapter_service(struct hp1020_tusb_adapter *
         s->active_status = s->pending_status;
         s->active_offload = s->pending_offload;
         s->offload_transport_epoch = s->active_offload.sequence ? s->transport_epoch : 0;
+        /* An invalid raw interface/index must not route through another
+         * driver's generic SI fallback. Preserve the new control identity and
+         * any existing transport fence, with original EP0 ownership settled. */
+        if (!s->active_offload.sequence &&
+            standard_set_interface(s->active_setup[0], s->active_setup[1]) &&
+            le16(s->active_setup + 4) != s->printer->config.interface_number) {
+            usbd_edpt_stall(s->config.rhport, 0);
+            usbd_edpt_stall(s->config.rhport, 0x80);
+            return leave(s, HP1020_TUSB_OK);
+        }
         /* This printer profile has no control OUT data requests. In particular,
          * malformed OUT GET_STATUS/GET_CONFIGURATION would make the pinned
          * core retain a stack-local reply pointer as a later receive target.

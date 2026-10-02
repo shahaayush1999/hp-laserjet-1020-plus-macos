@@ -5238,6 +5238,7 @@ def build_report() -> dict[str, Any]:
         "descriptor-fault/in", "descriptor-fault/bulk"}
     uc_profiles = {("protocol", f, 64, i) for f in (0, 204) for i in (0, 3)} | {
         (n, f, 64, 3) for n in uc_names for f in (0, 204)}
+    uc_profiles |= raw_si_composed_profiles()
     uc_sources = set(ep0["source_sha256"]) | set(udc["source_sha256"]) | set(ingress["source_sha256"]) | {
         "analysis/usb-path/setup-ingress.json", "scripts/validate-hp1020-udc-composed.py",
         "scripts/build-hp1020-udc-composed-target.sh",
@@ -5255,6 +5256,9 @@ def build_report() -> dict[str, Any]:
     def uc_need(ok: bool, reason: str) -> None:
         if not ok:
             uc_bad.add(reason)
+
+    uc_raw_si_ok, uc_raw_si_detail = raw_si_composed_consistency(uc)
+    uc_need(uc_raw_si_ok, "raw-SI rejection contracts: " + uc_raw_si_detail)
 
     def uc_bytes(words: list[int]) -> bytes:
         return b"".join(v.to_bytes(4, "big") for v in words)
@@ -5510,7 +5514,7 @@ def build_report() -> dict[str, Any]:
     uc_setup_ref = uc_ref["setup"]
     checks.append(check("composed_raw_setup_ep0_and_bulk_records_preserve_admission_and_ownership",
                         uc["status"] == uc_target.get("status") == "pass" and not uc_bad
-                        and len(uc["cases"]) == len(uc_target.get("cases",[])) == 34
+                        and len(uc["cases"]) == len(uc_target.get("cases",[])) == 62
                         and {(c["scenario"],c["fill"],c["capacity"],c["interface"]) for c in uc["cases"]} == uc_profiles
                         and uc["actual_peripheral_accesses"] == uc["usb_transfers"] == uc["completed_native_page_lifecycles"] == 0
                         and uc["controller_quiescence_established"] is False
@@ -5604,6 +5608,463 @@ def render_markdown(report: dict[str, Any]) -> str:
         ]
     )
     return "\n".join(lines)
+
+
+def raw_si_composed_profiles():
+    names = {
+        'raw-si/live-partial', 'raw-si/retained-ep0', 'raw-si/field-controls',
+        'raw-si/existing-fault', 'raw-si/pending-reset', 'raw-si/bulk-halt',
+        'raw-si/unconfigured',
+    }
+    return {(name, fill, 64, interface)
+            for name in names for fill in (0, 204) for interface in (0, 3)}
+
+
+def raw_si_composed_consistency(report):
+    """Supplement, never replace, the composed capture/closure/identity gate.
+
+    The expected requests, packets, decoded black pixels and notification
+    generation are literal test intentions. Event inputs and immutable original
+    cookies locate transitions; producer labels and returned scenario summaries
+    are not oracles. All controller facts are supplied synthetic observations.
+    """
+    failures = set()
+
+    def need(ok, reason):
+        if not ok:
+            failures.add(reason)
+
+    def wire_request(kind, request, value=0, index=0, length=0):
+        return (bytes((kind, request)) + value.to_bytes(2, 'little') +
+                index.to_bytes(2, 'little') + length.to_bytes(2, 'little'))
+
+    def be_words(words):
+        return b''.join(value.to_bytes(4, 'big') for value in words)
+
+    def slot(ep0, number):
+        return ep0[8 + 48*number:56 + 48*number]
+
+    def unaffected_bulk(row, bulk):
+        # Separate semantic groups, deliberately excluding control identity,
+        # borrowed EP0 reply storage, EP0 BUSY/STALL and diagnostic result words.
+        # In particular dispatch(stalls_cleared=1) may clear fixture EP0 STALL
+        # before adapter admission; its low two mask bits are not a bulk effect.
+        return (row[4:6], row[7:11], row[12], row[13] & 4, row[14] & 4,
+                row[11] & 12, row[30:46], row[50:62], row[69:77], row[81:85],
+                row[90:96], bulk[2:7], bulk[10:40])
+
+    def reply_progress(row, ep0):
+        # Cancellation is separate from transfer completion or a new proposal.
+        return (row[17:19], row[24:26], slot(ep0, 0)[31:34],
+                slot(ep0, 1)[31:34])
+
+    selected = [case for case in report['cases']
+                if case['scenario'].startswith('raw-si/')]
+    matrix = [(case['scenario'], case['fill'], case['capacity'], case['interface'])
+              for case in selected]
+    need(len(matrix) == 28 and len(set(matrix)) == 28 and
+         set(matrix) == raw_si_composed_profiles(), 'raw-SI exact 28-profile matrix')
+
+    for case in selected:
+        name, interface = case['scenario'], case['interface']
+        tag = f"{name}/fill={case['fill']}/interface={interface}: "
+
+        def check(ok, reason):
+            need(ok, tag + reason)
+
+        rows, ep0, bulk, setup, events = (case[key] for key in
+            ('steps', 'ep0_steps', 'bulk_steps', 'setup_steps', 'events'))
+        shapes = (len(rows), len(ep0), len(bulk), len(setup), len(events))
+        if not shapes[0] or len(set(shapes)) != 1 or not all(
+                len(r) == 96 and len(e) == 104 and len(b) == 48 and len(s) == 40
+                and len(event['words']) == 5
+                for r, e, b, s, event in zip(rows, ep0, bulk, setup, events)):
+            check(False, 'complete existing 288-word event schema')
+            continue
+
+        def before(index):
+            if index:
+                return rows[index-1], ep0[index-1], bulk[index-1], setup[index-1]
+            return (case['initial'], case['initial_ep0'], case['initial_bulk'],
+                    case['initial_setup'])
+
+        def op(index):
+            return events[index]['words'][0]
+
+        def data(index):
+            return bytes.fromhex(events[index]['data_hex'])
+
+        # All seven scopes use existing normalized adapter operations only
+        # through the real composed bridges. No direct completion/setup/reset,
+        # seeded counters, close/EOF, offload grant or injected submit shortcut.
+        allowed = {1, 6, 7, 10, 11, 12, 15, 43, 44, 46, 62, 64, 65, 80, 81, 82, 83}
+        check(all(op(i) in allowed for i in range(len(events))),
+              'no alternate ingress, EOF, seed or offload bypass')
+
+        set_config = wire_request(0, 9, 1)
+        si = wire_request(1, 11, index=interface)
+        get_interface = wire_request(0x81, 10, index=interface, length=1)
+        port_status = wire_request(0xa1, 1, index=interface, length=1)
+        soft_reset = wire_request(0x21, 2, index=interface)
+        get_id = wire_request(0xa1, 0, index=interface << 8, length=400)
+        halt_out, halt_in = (wire_request(2, 3, index=endpoint) for endpoint in (1, 0x81))
+        status_out, status_in = (wire_request(0x82, 0, index=endpoint, length=2)
+                                for endpoint in (1, 0x81))
+        get_config = wire_request(0x80, 8, length=1)
+        get_device = wire_request(0x80, 6, value=0x100, length=18)
+        fields = [wire_request(1, 11, value=1, index=interface),
+                  wire_request(1, 11, value=0x100, index=interface),
+                  wire_request(1, 11, index=0 if interface else 1),
+                  wire_request(1, 11, index=0x100 | interface),
+                  wire_request(0x81, 11, index=interface),
+                  wire_request(1, 11, index=interface, length=1),
+                  wire_request(0x81, 11, index=interface, length=1)]
+        wanted_requests = {
+            'raw-si/live-partial': [set_config, si, get_interface, port_status],
+            'raw-si/retained-ep0': [set_config, get_id, si, get_interface, port_status],
+            'raw-si/field-controls': [set_config] +
+                [raw for request in fields for raw in (request, get_interface, port_status)],
+            'raw-si/existing-fault': [set_config, si, get_interface, port_status, soft_reset],
+            'raw-si/pending-reset': [set_config, soft_reset, si, get_interface, port_status],
+            'raw-si/bulk-halt': [set_config, halt_out, halt_in, si, get_interface,
+                                 port_status, status_out, status_in, soft_reset],
+            'raw-si/unconfigured': [si, get_config, get_device, set_config,
+                                    get_interface, port_status],
+        }
+        if name not in wanted_requests:
+            check(False, 'known raw-SI profile')
+            continue
+
+        # Locate actual admitted bytes from the immutable saved record BEFORE
+        # dispatch, not setup_oracles or the mutable live source record.
+        admitted = []
+        for i, event in enumerate(events):
+            if op(i) == 82 and event['result'] == 0:
+                prev, _, _, held = before(i)
+                raw_record = be_words(held[32:36])
+                check(held[2:4] == [1, event['words'][1]] and
+                      raw_record[:8] == bytes.fromhex('87ff7fffa5c33ca5') and
+                      held[22:26] == [event['words'][1], 0x79bdf130, 0, 0] and
+                      event['words'][2:] == [0x010101, 1, 0] and
+                      rows[i][2] == prev[2] + 1,
+                      'literal coherent raw record and supplied admission facts')
+                admitted.append((i, rows[i][2], raw_record[8:]))
+        check([raw for _, _, raw in admitted] == wanted_requests[name],
+              'exact standard/class raw request sequence and complete field controls')
+        epochs = {epoch: (i, raw) for i, epoch, raw in admitted}
+        check(len(epochs) == len(admitted), 'distinct checked control identities')
+
+        # Literal replies and full EP0 packet shapes, including every zero-size
+        # IN status proposal and OUT status owner. The cancelled ID has only its
+        # first 64-byte packet; the superseded class reset has no status owner.
+        first_id = b'\x01\x90' + b'ABCDEFGHIJKLMNOPQRSTUVWXYZ' * 2 + b'ABCDEFGHIJ'
+        device = bytes.fromhex('1201000200000040feca0040000100000001')
+        wanted_packets, wanted_shapes = [], {}
+        for _, epoch, raw in admitted:
+            if (raw[0] & 0x7f) == 1 and raw[1] == 11:
+                packets, shapes_for_epoch = [], []
+            elif raw == get_id:
+                packets, shapes_for_epoch = [first_id], [(1, 64)]
+            elif raw in (get_interface, port_status, get_config, get_device,
+                         status_out, status_in):
+                payload = (b'\x18' if raw == port_status else device if raw == get_device
+                           else b'\x01\x00' if raw in (status_out, status_in) else b'\x00')
+                packets, shapes_for_epoch = [payload], [(1, len(payload)), (0, 0)]
+            elif raw == soft_reset and name == 'raw-si/pending-reset':
+                packets, shapes_for_epoch = [], []
+            else:
+                check(raw in (set_config, soft_reset, halt_out, halt_in),
+                      'every reply has a named independent request contract')
+                packets, shapes_for_epoch = [b''], [(1, 0)]
+            wanted_packets.extend((epoch, packet) for packet in packets)
+            wanted_shapes[epoch] = shapes_for_epoch
+
+        prepared = {}
+        actual_shapes = {epoch: [] for epoch in epochs}
+        for oracle in case['descriptor_oracles']:
+            if oracle['kind'] != 'prepare':
+                continue
+            cookie = oracle['cookie']
+            token, epoch = cookie[0], cookie[1]
+            check(token not in prepared and epoch in epochs,
+                  'EP0 owners belong to one actual admitted raw request')
+            prepared[token] = oracle
+            actual_shapes.setdefault(epoch, []).append((oracle['slot'], oracle['requested']))
+        check(actual_shapes == wanted_shapes, 'literal complete EP0 data/status shapes; rejected SI has none')
+
+        actual_packets, wire, last_packet_step = [], bytearray(), -1
+        for oracle in case['packet_oracles']:
+            i = oracle['step']
+            if not 0 <= i < len(rows):
+                check(False, 'packet event index')
+                continue
+            token, payload = rows[i][28], bytes.fromhex(oracle['expected_hex'])
+            check(token in prepared and i >= last_packet_step and
+                  oracle['offset'] == len(wire) and rows[i][29] == len(payload) and
+                  rows[i][24] == len(wire) + len(payload),
+                  'ordered literal packet offsets, lengths and original IN owner')
+            if token in prepared:
+                actual_packets.append((prepared[token]['cookie'][1], payload))
+            wire.extend(payload)
+            last_packet_step = i
+        check(actual_packets == wanted_packets and
+              bytes(wire) == b''.join(packet for _, packet in wanted_packets) and
+              len(wire) == rows[-1][24] and
+              hashlib.sha256(wire).hexdigest() == case['capture_sha256']['wire'],
+              'literal complete wire bytes including separately counted ZLP packets')
+
+        # Every noncancelled EP0 packet is settled by its original identity and
+        # explicit all-facts observation, not an invented status/ACK callback.
+        old_id_tokens = {token for token, oracle in prepared.items()
+                         if epochs.get(oracle['cookie'][1], (None, None))[1] == get_id}
+        ep0_completions = {}
+        for i, event in enumerate(events):
+            if op(i) != 44:
+                continue
+            token = event['words'][1]
+            check(token in prepared and token not in old_id_tokens,
+                  'no completion or ACK for cancelled old ID/SI without an owner')
+            if token not in prepared:
+                continue
+            oracle = prepared[token]
+            number, length = oracle['slot'], oracle['requested']
+            dma = (0x3579bdf0, 0xb68ace00)[number]
+            wanted = be_words([0x8800ffff if number else 0x88000000, 0, dma, 0, length])
+            prev, pe, _, _ = before(i)
+            check(event['words'][2:] == [0x01010101, 0, 0] and data(i) == wanted and
+                  event['result'] == 0 and slot(pe, number)[6:11] == oracle['cookie'] and
+                  rows[i][18] == prev[18] + 1,
+                  'exact EP0 success snapshot, actual length and original cookie')
+            ep0_completions[token] = ep0_completions.get(token, 0) + 1
+        check(ep0_completions == {token: 1 for token in prepared if token not in old_id_tokens},
+              'exactly one supplied completion per noncancelled EP0 owner')
+
+        # All intended image data is one 32-by-8 black page. Generation is an
+        # independent policy expectation, never copied from the final row.
+        recovered = name in {'raw-si/existing-fault', 'raw-si/pending-reset', 'raw-si/bulk-halt'}
+        final_generation = 3 if recovered else 2
+        pixels, documents = b'\xff' * 32, [[final_generation, 1, 0, 1, 0]]
+        check(case['expected_documents'] == documents and
+              case['capture_sha256']['documents'] == hashlib.sha256(be_words(documents[0])).hexdigest() and
+              case['pixels_bytes'] == rows[-1][50] == 32 and
+              case['expected_pixels_sha256'] == case['capture_sha256']['pixels'] ==
+                  hashlib.sha256(pixels).hexdigest() and
+              rows[-1][32] == final_generation and rows[-1][90:94] == [1, 1, 1, final_generation] and
+              rows[-1][95] == 1 and rows[-1][7] == rows[-1][36] == rows[-1][40] == 0,
+              'literal pixels and exactly-once original-generation END_DOC without EOF')
+
+        si_windows = []
+        for i, epoch, raw in admitted:
+            if not ((raw[0] & 0x7f) == 1 and raw[1] == 11):
+                continue
+            prev, pe, pb, _ = before(i)
+            stop = next((j for j in range(i+1, len(rows)) if op(j) == 1 and
+                         rows[j][0] == 0 and rows[j][2:4] == [epoch, epoch] and
+                         rows[j][11] & 3 == 3), None)
+            check(stop is not None, 'actual service reaches explicit EP0 STALL')
+            if stop is None:
+                continue
+            check(not any(op(j) in (80, 81, 82, 83) for j in range(i+1, stop+1)),
+                  'rejection belongs to this original SI before any newer request')
+            end = stop
+            while end+1 < len(events) and op(end+1) == 1:
+                end += 1
+            for j in range(i, end+1):
+                check(unaffected_bulk(rows[j], bulk[j]) == unaffected_bulk(prev, pb),
+                      'SI preserves bulk identity, storage, fault/fence and exact reset ticket/promises')
+                check(reply_progress(rows[j], ep0[j]) == reply_progress(prev, pe) and
+                      rows[j][80] == prev[80] and rows[j][47] == 0,
+                      'SI neither creates a class request/status/completion nor revives deferred ACK')
+            check(rows[stop][26] == rows[stop][28] == rows[stop][77] == 0 and
+                  slot(ep0[stop], 0)[0] == slot(ep0[stop], 1)[0] == 0,
+                  'rejection retains no EP0 owner or borrowed reply')
+            si_windows.append((i, stop, end, prev, pe, pb, epoch))
+        check(len(si_windows) == (7 if name == 'raw-si/field-controls' else 1),
+              'every intended SI has a verified rejection window')
+        if not si_windows:
+            continue
+
+        # Recovery uses one saved current ticket and all THREE separate
+        # acknowledgements. A raw SI cannot advance generation; callbacks from
+        # decoded END_DOC continue to carry that original receive generation.
+        tickets, ticket_steps, finished = {}, {}, []
+        for i, event in enumerate(events):
+            operation, index, part, _, _ = event['words']
+            prev, _, _, held = before(i)
+            row = rows[i]
+            if operation == 10 and event['result'] == 0:
+                check(prev[44] == 1 and prev[43] == prev[32] and prev[42] != 0,
+                      'saved recovery ticket is active and from current receive generation')
+                tickets[index], ticket_steps[index] = prev[42:44], i
+            if operation == 11:
+                check(event['result'] == 0 and tickets.get(index) == prev[42:44] and
+                      prev[44] == 1 and prev[43] == prev[32] and part in (1, 2, 4) and
+                      prev[45] & part == 0 and row[45] == prev[45] | part and
+                      row[32] == prev[32] and row[42:45] == prev[42:45],
+                      'independent promise uses original active ticket without retagging')
+                if part == 4:
+                    check(any(op(j) == 15 and events[j]['result'] == 0
+                              for j in range(ticket_steps.get(index, i), i)),
+                          'transport promise follows separately supplied bulk defaults/settlement')
+            if operation == 12 and event['result'] == 0:
+                check(tickets.get(index) == prev[42:44] and prev[44:46] == [1, 7] and
+                      prev[32] == prev[43] and row[32] == prev[32]+1 and
+                      row[35] == row[36] == row[7] == row[44] == row[45] == 0,
+                      'restart requires all promises for the original ticket exactly once')
+                finished.append(i)
+            elif row[32] != prev[32]:
+                check(False, 'generation changes only on explicitly completed real recovery')
+        check(bool(finished) and len(finished) == (2 if recovered else 1) and
+              rows[finished[0]][32] == 2,
+              'configuration recovery and any separate real recovery are counted independently')
+
+        si_first, si_last = si_windows[0][0], si_windows[-1][2]
+        successful_resets = [i for i, event in enumerate(events)
+                             if op(i) == 83 and event['result'] == 0]
+        check(len(successful_resets) == (2 if name == 'raw-si/unconfigured' else 1) and
+              successful_resets[0] < si_first,
+              'actual bus reset observations are distinct from raw SI')
+
+        healthy = name in {'raw-si/live-partial', 'raw-si/retained-ep0', 'raw-si/field-controls'}
+        if healthy:
+            original = si_windows[0][5][16:21]
+            token = original[0]
+            check(token != 0 and original[2:] == [2, 2, 1],
+                  'partially received page owns original second receive reservation')
+            for _, _, _, prev, _, pb, _ in si_windows:
+                check(prev[7] == prev[36] == prev[44] == 0 and prev[32] == 2 and
+                      prev[30] == token and pb[2] == 2 and pb[3] == 0 and
+                      pb[16:21] == original and original[1] == prev[5],
+                      'healthy live OUT is neither stopped, cancelled nor retagged by any SI')
+            settlements = [i for i, event in enumerate(events)
+                           if op(i) == 62 and event['words'][1] == token]
+            check(len(settlements) == 1 and settlements[0] > si_last and
+                  not any(op(i) == 64 and events[i]['words'][1] == token for i in range(len(events))),
+                  'same original OUT completes normally after all rejection/control requests')
+            if len(settlements) == 1:
+                j = settlements[0]
+                prev, _, pb, _ = before(j)
+                check(all(rows[k][7] == rows[k][36] == rows[k][44] == 0 and
+                          rows[k][32] == 2 and rows[k][30] == token and
+                          bulk[k][16:21] == original and rows[k][5] == original[1]
+                          for k in range(si_first, j)),
+                      'same healthy receive owner remains live through intervening control recovery')
+                check(events[j]['words'][2:] == [0x010101, 0, 0] and events[j]['result'] == 0 and
+                      data(j) == be_words([0x8800001f, 0, pb[22], 0]) and
+                      prev[30] == token and pb[16:21] == original and
+                      rows[j][32] == 2 and rows[j][30] == 0 and bulk[j][44] >> 16 == 2,
+                      'original 31-byte partial buffer settles before adapter notification')
+
+        ep0_cancel = [i for i in range(len(events)) if op(i) == 43]
+        bulk_cancel = [i for i in range(len(events)) if op(i) == 64]
+        check(len(ep0_cancel) == (2 if name == 'raw-si/retained-ep0' else 0) and
+              len(bulk_cancel) == (2 if name == 'raw-si/existing-fault' else 0),
+              'only specifically retained original owners require cancellation settlement')
+
+        if name == 'raw-si/retained-ep0':
+            _, stop, _, prev, pe, _, epoch = si_windows[0]
+            old = slot(pe, 1)
+            token = prev[28]
+            check(old_id_tokens == {token} and old[0] == 2 and old[5] == 64 and
+                  old[6:11] == prepared[token]['cookie'] and old[7] < epoch and prev[77] == 1,
+                  'cancelled ID retains its older original epoch and borrowed 64-byte source')
+            if len(ep0_cancel) == 2:
+                wait, settle = ep0_cancel
+                check(si_first < wait < settle < stop and
+                      events[wait]['words'] == [43, token, 0, 0, 0] and events[wait]['result'] == 1 and
+                      events[settle]['words'] == [43, token, 1, 0, 0] and events[settle]['result'] == 0,
+                      'explicit missing-then-present original EP0 settlement')
+                for j in range(si_first, settle):
+                    p = slot(ep0[j], 1)
+                    check(rows[j][3] == prev[3] and rows[j][28] == token and rows[j][77] == 1 and
+                          p[0] == 2 and p[1] == 1 and p[6:11] == old[6:11] and
+                          p[14:18] == old[14:18] and p[42] == old[42] and rows[j][11] & 3 == 0,
+                          'protocol dispatch waits while original descriptor/source/staging remain owned')
+                check(any(op(j) == 1 and events[j]['result'] == 1 for j in range(si_first+1, settle)) and
+                      rows[settle][28] == 0 and slot(ep0[settle], 1)[0] == 0 and
+                      rows[settle][77] == 1 and
+                      (bulk[settle][44] >> 8) & 255 == 2 and rows[settle][3] == prev[3] and
+                      (bulk[stop][44] >> 8) & 255 == 0,
+                      'controller settlement leaves PENDING until later service, never fictitious retirement')
+
+        if name == 'raw-si/existing-fault':
+            _, _, _, prev, _, pb, _ = si_windows[0]
+            token, original = prev[30], pb[16:21]
+            faults = [i for i, event in enumerate(events) if op(i) == 62 and
+                      event['words'][1:] == [token, 0, 0x80, 0]]
+            check(len(faults) == 1 and faults[0] < si_first and events[faults[0]]['result'] == 4 and
+                  data(faults[0]) == be_words([0x48000000, 0, pb[22], 0]) and
+                  prev[7] == prev[36] == pb[3] == 1 and prev[44] == 0 and original[2] == 2,
+                  'independent endpoint fault is retained; rejection is not recovery')
+            recovery_step = next((i for i, _, raw in admitted if raw == soft_reset), None)
+            check(recovery_step is not None and recovery_step > si_last and
+                  any(op(j) == 6 and events[j]['result'] == 1
+                      for j in range(si_last+1, recovery_step if recovery_step is not None else si_last+1)),
+                  'input remains blocked until separately admitted class SOFT_RESET')
+            if recovery_step is not None:
+                check(all(unaffected_bulk(rows[j], bulk[j]) == unaffected_bulk(prev, pb)
+                          for j in range(si_first, recovery_step)),
+                      'ordinary control recovery cannot clear the existing bulk fault or stop fence')
+            if len(bulk_cancel) == 2 and recovery_step is not None:
+                wait, settle = bulk_cancel
+                check(recovery_step < wait < settle and
+                      events[wait]['words'] == [64, token, 0, 0, 0] and events[wait]['result'] == 1 and
+                      events[settle]['words'] == [64, token, 1, 0, 0] and events[settle]['result'] == 0 and
+                      bulk[wait][16:21] == original and rows[wait][30] == token and
+                      rows[settle][30] == 0 and bulk[settle][2] == 0 and bulk[settle][44] >> 16 == 2 and
+                      bool(finished) and finished[-1] > settle,
+                      'separate recovery settles exact old bulk before restarting with new generation')
+
+        if name == 'raw-si/pending-reset':
+            _, stop, _, prev, pe, pb, _ = si_windows[0]
+            check(prev[44:48] == [1, 7, 0, 1] and prev[32] == 2,
+                  'pre-existing reset has all promises and an older deferred status')
+            held_finishes = [i for i in range(si_first) if op(i) == 12 and
+                             events[i]['result'] == 1 and before(i)[3][2] == 1 and
+                             before(i)[0][44:46] == [1, 7]]
+            check(len(held_finishes) == 1 and
+                  rows[held_finishes[0]][2:96] == before(held_finishes[0])[0][2:96],
+                  'captured but unadmitted SI already blocks the old status/restart')
+            after = [i for i in finished if i > stop]
+            check(len(after) == 1, 'exact original recovery finishes once after rejection')
+            if len(after) == 1:
+                j = after[0]
+                prior = before(j)[0]
+                check(prior[42:46] == prev[42:46] and prior[47] == 0 and
+                      not any(op(k) in (80, 81, 82, 83) for k in range(stop+1, j)) and
+                      reply_progress(rows[j], ep0[j]) == reply_progress(prev, pe) and
+                      rows[j][26] == rows[j][28] == 0,
+                      'SI alone suppresses old deferred ACK while original ticket later restarts input')
+
+        if name == 'raw-si/bulk-halt':
+            _, _, _, prev, _, _, _ = si_windows[0]
+            recovery_step = next((i for i, _, raw in admitted if raw == soft_reset), None)
+            check(prev[81:85] == [1, 1, 1, 1] and prev[7] == prev[36] == 1 and prev[44] == 0,
+                  'raw SI arrives with independently established bulk HALTs and no recovery')
+            if recovery_step is not None:
+                check(all(rows[j][81:85] == [1, 1, 1, 1] and rows[j][32] == 2
+                          for j in range(si_first, recovery_step)) and
+                      not any(op(j) == 15 for j in range(si_first, recovery_step)) and
+                      bool(finished) and finished[-1] > recovery_step,
+                      'both endpoint HALTs survive SI and control queries until separately requested reset')
+            else:
+                check(False, 'separately admitted real recovery after retained HALTs')
+
+        if name == 'raw-si/unconfigured':
+            _, stop, _, prev, _, _, _ = si_windows[0]
+            configuration_step = next((i for i, _, raw in admitted if raw == set_config), None)
+            check(prev[32] == 1 and prev[8] == prev[10] == prev[44] == 0 and
+                  configuration_step is not None and configuration_step > stop,
+                  'unconfigured SI cannot create configuration or a document recovery')
+            if configuration_step is not None:
+                check(all(row[32] == 1 and row[8] == row[10] == row[44] == 0
+                          for row in rows[stop:configuration_step]) and
+                      any(op(j) == 10 and events[j]['result'] == 1 for j in range(stop, configuration_step)) and
+                      any(op(j) == 6 and events[j]['result'] == 1 for j in range(stop, configuration_step)) and
+                      bool(finished) and finished[0] > configuration_step,
+                      'configuration query/device reply do not unlock input; real configuration does')
+
+    return not failures, '; '.join(sorted(failures))
 
 
 def main() -> int:
