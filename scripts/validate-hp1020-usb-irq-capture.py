@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""UNEXECUTED draft: three separate original USB IRQ decision cuts in RAM.
+"""Three separate original USB IRQ decision cuts in guarded RAM.
 
 This is not an uninterrupted IRQ, USB lifecycle, physical event ordering test,
 or controller model. Only the sampling prefix runs the original ENTRY. Later

@@ -156,7 +156,29 @@ Original-byte applicability is bounded:
   not proved when the inspected startup masks them.
 
 These anchors fit a static-offload design but do not establish HP's initial
-CSR_PRG value or dynamic-mode capability. TinyUSB requires configuration/interface
+CSR_PRG value or dynamic-mode capability. A further bounded review on2026-10-02
+resolved the preceding startup call: `0x1001214c` invokes an event barrier with
+argument3; its helper waits on event`0x1002c6f8`, mask4, mode0, infinite timeout.
+It does not configure the USB registers. The inspected thread creator supplies
+entry argument0. All seven direct DEVCFG literal references are accounted for:
+five stores preserve bit17 (OR8 or low-two-bit speed changes), and two only read
+speed. All seven direct DEVCTL stores preserve bit13; under the documented
+read-zero CSR_DONE rule they issue no permission. DEVCTL's OR`0x30000` is a
+different register's burst-length field, not DEVCFG.CSR_PRG.
+
+Startup also pulses bit1 of the undocumented wrapper`0xb3010000` before DEVCFG.
+Those bytes do not prove reset semantics or transfer family reset defaults to
+HP. The negative search covers annotation-bounded direct L32R references and
+aligned PT_LOAD words, not synthesized addresses, indirect pointers, aliases,
+earlier resident firmware or hardware side effects. Exact review,13 raw regions,
+245 instruction rows and seven literal words are preserved in
+`offload-mode-review.tar.gz` with a member manifest. The lead rechecked every
+retained byte against the original ELF. No additional instruction ran, and a
+RAM test of these preserving masks would not resolve the hardware question.
+The new software fixture must require a separately supplied dynamic-status-gate
+capability; neither stock startup nor an observed configuration proves it.
+
+TinyUSB requires configuration/interface
 notification to open classes (`usbd.c:983–1019,1154–1180`). A future adapter needs
 explicit typed offload provenance, sampled fields and original external sequence;
 do not disguise reconstructed requests as raw16-byte captures. Its status action

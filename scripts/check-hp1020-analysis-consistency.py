@@ -682,6 +682,785 @@ def setup_retirement_consistency_gate(root):
         return False, "SETUP retirement consistency failure: " + str(error)
 
 
+def usb_irq_capture_consistency_gate(root):
+    import ast
+    import hashlib
+    import json
+    from pathlib import Path
+    import re
+    import struct
+
+    root = Path(root)
+    detail = (
+        "44 conditional cuts and 38 pre-peripheral guards per engine must preserve "
+        "separate sample/scan/wake boundaries, original suffix-mask selection, all "
+        "ordered accesses, complete guarded RAM, registers/SAR and supplied native "
+        "CPU state. All 75 excluded-PC controls remain pre-execution rejections. "
+        "Saved pending bits, RAM acknowledgement intent and a proposed wake carry "
+        "no physical event chronology, SETUP acquisition/overwrite protection, "
+        "controller settlement or completed USB transfer."
+    )
+
+    def need(condition, label):
+        if not condition:
+            raise ValueError(label)
+
+    def sha(raw):
+        return hashlib.sha256(raw).hexdigest()
+
+    try:
+        report = json.loads((root / "analysis/usb-path/irq-capture.json").read_text())
+        stock = (root / "analysis/sihp1020.elf").read_bytes()
+        stock_sha = "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d"
+        need(report["stock_elf_sha256"] == sha(stock) == stock_sha, "pinned stock ELF")
+        need(stock[:6] == b"\x7fELF\x01\x02", "ELF32 big-endian identity")
+        shoff = struct.unpack_from(">I", stock, 32)[0]
+        shsize, shnum, shstr = struct.unpack_from(">HHH", stock, 46)
+        need(shsize == 40 and shstr < shnum and shoff + shsize * shnum <= len(stock), "ELF section bounds")
+        headers = [struct.unpack_from(">10I", stock, shoff + i * 40) for i in range(shnum)]
+        string_header = headers[shstr]
+        names = stock[string_header[4]:string_header[4] + string_header[5]]
+        sections = {names[h[0]:].split(b"\0", 1)[0].decode("ascii"): h for h in headers}
+        need(sections[".text"][3:6] == (0x10005c80, 0x31e0, 0x15f0f), "pinned .text mapping")
+        original_ram = tuple(sorted((h[3], h[3] + h[5]) for h in headers if h[2] & 3 == 3))
+        need(original_ram == ((0x10000370, 0x1000049c), (0x1001bb90, 0x1001d640),
+                              (0x1001d640, 0x100351e0)), "all original writable ELF sections")
+
+        def original(address, size):
+            need(0x10005c80 <= address < address + size <= 0x1001bb8f, "original byte address")
+            offset = 0x31e0 + address - 0x10005c80
+            return stock[offset:offset + size]
+
+        phases = {
+            "samples": dict(entry=0x10008208, code=[[0x10008208, 0x10008240]],
+                            stops=[0x1000833c, 0x10008240], original_entry=True),
+            "lanes": dict(entry=0x1000837e,
+                code=[[0x1000837e, 0x100083cf], [0x100083e0, 0x1000841a],
+                      [0x10008439, 0x1000845c], [0x100084a9, 0x100084b4],
+                      [0x100084b7, 0x100084c5], [0x100086c3, 0x100086ed]],
+                stops=[0x100084b4, 0x100084c5, 0x100086ed], original_entry=False),
+            "out0_common_wake": dict(entry=0x100084c8,
+                code=[[0x100084c8, 0x100084ce], [0x100086b0, 0x100086c0]],
+                stops=[0x100086c0], original_entry=False),
+        }
+        need(report["phase_definitions"] == phases, "exact independent phase entries/ranges/stops")
+        ranges = sorted(tuple(span) for p in phases.values() for span in p["code"])
+        # Transcribed from pinned original disassembly, independently of the
+        # experiment. Used for byte/operand metadata and fixed path blocks only.
+        rows = """
+10008208 6c1006 entry 1,48
+1000820b 1af6f6 l32r 10,0x10005de4
+1000820e 18f6f6 l32r 8,0x10005de8
+10008211 0c0200 memw -
+10008214 85a0 l32i.n 5,10,0
+10008216 0c0200 memw -
+10008219 8880 l32i.n 8,8,0
+1000821b c098 movi.n 9,8
+1000821d 9810 s32i.n 8,1,0
+1000821f 795802 bany 5,9,0x10008225
+10008222 600116 j 0x1000833c
+10008225 18f6f1 l32r 8,0x10005dec
+10008228 0c0200 memw -
+1000822b 99a0 s32i.n 9,10,0
+1000822d 0c0200 memw -
+10008230 8980 l32i.n 9,8,0
+10008232 280a10 movi 8,16
+10008235 089701 and 7,9,8
+10008238 ce78 bnez.n 7,0x10008264
+1000823a 2a0a15 movi 10,21
+1000823d 011102 or 1,1,1
+1000837e c030 movi.n 3,0
+10008380 c021 movi.n 2,1
+10008382 d430 mov.n 4,3
+10008384 18f69f l32r 8,0x10005e00
+10008387 19f698 l32r 9,0x10005de8
+1000838a 0c0200 memw -
+1000838d 8a80 l32i.n 10,8,0
+1000838f 8e10 l32i.n 14,1,0
+10008391 c78f movi.n 8,-1
+10008393 08aa03 xor 10,10,8
+10008396 9a11 s32i.n 10,1,4
+10008398 0c0200 memw -
+1000839b 9e90 s32i.n 14,9,0
+1000839d 8e11 l32i.n 14,1,4
+1000839f c050 movi.n 5,0
+100083a1 004004 ssr 4
+100083a4 0e0819 srl 8,14
+100083a7 08084f extui 8,8,0,16
+100083aa 8e10 l32i.n 14,1,0
+100083ac 9812 s32i.n 8,1,8
+100083ae 004004 ssr 4
+100083b1 0e0819 srl 8,14
+100083b4 08084f extui 8,8,0,16
+100083b7 9813 s32i.n 8,1,12
+100083b9 8e12 l32i.n 14,1,8
+100083bb 64e31c beqz 14,0x100086db
+100083be 2e1203 l32i 14,1,12
+100083c1 7fef02 bbsi 14,31,0x100083c7
+100083c4 6002fb j 0x100086c3
+100083c7 cd35 bnez.n 3,0x100083e0
+100083c9 19f68e l32r 9,0x10005e04
+100083cc 600013 j 0x100083e3
+100083e0 19f68a l32r 9,0x10005e08
+100083e3 0b5811 slli 8,5,5
+100083e6 a987 add.n 7,8,9
+100083e8 0c0200 memw -
+100083eb 8670 l32i.n 6,7,0
+100083ed 282a00 movi 8,512
+100083f0 786004 bnone 6,8,0x100083f8
+100083f3 0c0200 memw -
+100083f6 9870 s32i.n 8,7,0
+100083f8 280a80 movi 8,128
+100083fb 786005 bnone 6,8,0x10008404
+100083fe 0c0200 memw -
+10008401 287600 s32i 8,7,0
+10008404 c480 movi.n 8,64
+10008406 78602f bnone 6,8,0x10008439
+10008409 0c0200 memw -
+1000840c 9870 s32i.n 8,7,0
+1000840e 054808 add 8,4,5
+10008411 008104 ssl 8
+10008414 00281a sll 8,2
+10008417 69821e bnei 8,2,0x10008439
+10008439 c380 movi.n 8,48
+1000843b 086801 and 8,6,8
+1000843e c884 beqz.n 8,0x10008446
+10008440 0c0200 memw -
+10008443 287600 s32i 8,7,0
+10008446 284a00 movi 8,1024
+10008449 78606a bnone 6,8,0x100084b7
+1000844c 0c0200 memw -
+1000844f 9870 s32i.n 8,7,0
+10008451 a548 add.n 8,4,5
+10008453 008104 ssl 8
+10008456 00271a sll 7,2
+10008459 69724c bnei 7,2,0x100084a9
+100084a9 1af65b l32r 10,0x10005e18
+100084ac db70 mov.n 11,7
+100084ae 2c0a00 movi 12,0
+100084b1 011102 or 1,1,1
+100084b7 683102 beqi 3,1,0x100084bd
+100084ba 600205 j 0x100086c3
+100084bd 18f657 l32r 8,0x10005e1c
+100084c0 8a80 l32i.n 10,8,0
+100084c2 011102 or 1,1,1
+100084c8 685102 beqi 5,1,0x100084ce
+100084cb 6001e1 j 0x100086b0
+100086b0 1af5da l32r 10,0x10005e18
+100086b3 a54b add.n 11,4,5
+100086b5 00b104 ssl 11
+100086b8 002b1a sll 11,2
+100086bb c0c0 movi.n 12,0
+100086bd 011102 or 1,1,1
+100086c3 8e12 l32i.n 14,1,8
+100086c5 b155 addi.n 5,5,1
+100086c7 0e1e14 srli 14,14,1
+100086ca 9e12 s32i.n 14,1,8
+100086cc 8e13 l32i.n 14,1,12
+100086ce c08f movi.n 8,15
+100086d0 0e1e14 srli 14,14,1
+100086d3 9e13 s32i.n 14,1,12
+100086d5 758302 bltu 8,5,0x100086db
+100086d8 63fcdd j 0x100083b9
+100086db 244c10 addi 4,4,16
+100086de 233c01 addi 3,3,1
+100086e1 6f3202 bgeui 3,2,0x100086e7
+100086e4 63fcb5 j 0x1000839d
+100086e7 2a0a04 movi 10,4
+100086ea 011102 or 1,1,1
+"""
+        instructions = {}
+        for row in rows.strip().splitlines():
+            at, encoded, op, operands = row.split()
+            pc = int(at, 16)
+            need(pc not in instructions, "unique independent instruction PC")
+            instructions[pc] = dict(op=op, args=[] if operands == "-" else
+                                    [int(x, 0) for x in operands.split(",")], bytes=encoded)
+            need(original(pc, len(bytes.fromhex(encoded))).hex() == encoded, "independent instruction bytes")
+        wanted_chunks, covered = [], set()
+        for a, b in ranges:
+            pc, table = a, {}
+            while pc < b:
+                instruction = instructions[pc]
+                size = len(bytes.fromhex(instruction["bytes"]))
+                need(size in (2, 3) and pc + size <= b, "complete selected instruction boundaries")
+                table[hex(pc)] = instruction
+                covered.add(pc)
+                pc += size
+            need(pc == b, "selected range closes exactly")
+            raw = original(a, b - a)
+            wanted_chunks.append(dict(begin=hex(a), end=hex(b), bytes=raw.hex(), sha256=sha(raw), instructions=table))
+        need(covered == set(instructions), "no added or omitted instruction-table range")
+        audit = report["original_byte_audit"]
+        need(audit["chunks"] == wanted_chunks, "all original selected bytes/operands and range hashes")
+        anchor_pcs = (0x10008208, 0x10008214, 0x10008219, 0x1000821d, 0x1000822b, 0x10008230,
+                      0x1000838d, 0x1000839b, 0x100083bb, 0x100083c1, 0x100083eb, 0x100083f6,
+                      0x10008401, 0x1000840c, 0x10008443, 0x1000844f, 0x100084c8, 0x100084cb,
+                      0x100086b0, 0x100086db, 0x100086de)
+        anchors = {hex(pc): [instructions[pc][k] for k in ("op", "args", "bytes")] for pc in anchor_pcs}
+        anchors.update({
+            "0x10008240": ["call8", [0x10011178], "5823cd"],
+            "0x100084b4": ["call8", [0x10017dac], "583e3d"],
+            "0x100084c5": ["call8", [0x10007c5c], "5bfde5"],
+            "0x100086c0": ["call8", [0x10017dac], "583dba"],
+            "0x100086ed": ["call8", [0x100171e0], "583abc"],
+            "0x10007c69": ["call8", [0x10017dac], "584050"],
+        })
+        need(audit["anchors"] == anchors and all(original(int(a, 16), len(bytes.fromhex(v[2]))).hex() == v[2]
+             for a, v in anchors.items()), "exact static call and branch anchors")
+        literals = {0x10005de4: 0xb300040c, 0x10005de8: 0xb3000414, 0x10005dec: 0xb3010004,
+                    0x10005e00: 0xb3000418, 0x10005e04: 0xb3000004, 0x10005e08: 0xb3000204,
+                    0x10005e18: 0x10021318, 0x10005e1c: 0x100212d4}
+        need(audit["literal_originals"] == {hex(a): hex(v) for a, v in literals.items()}
+             and all(original(a, 4) == v.to_bytes(4, "big") for a, v in literals.items()), "all original literal words")
+        redirect_by_phase = {
+            "samples": {0x10005de4: 0x22b00100, 0x10005de8: 0x22b00120, 0x10005dec: 0x22b00140},
+            "lanes": {0x10005de8: 0x22b00120, 0x10005e00: 0x22b00160,
+                      0x10005e04: 0x22b00400, 0x10005e08: 0x22b00800},
+            "out0_common_wake": {},
+        }
+        reference_dir = "analysis/usb-path/controller-reference/linux-v6.12/"
+        commit = "adc218676eef25575469234709c2d87185ca223a"
+        reference_sha = {
+            "amd5536udc.h": "8dbf2ebffe7de042bdfea1c5e4e0d7e7ca334cb821fbfaa1cf9ccfeeae302648",
+            "snps_udc_core.c": "c1b09e8f69d3340f2afd3a033d77a42775b52716d45b1aceb211dcaab89127bf",
+            "provenance.json": "023d10e246e4852c1b9415cdc3d591006edcedeba467a56b95b22b994d4a08e4",
+        }
+        need(audit["linux_commit"] == commit and audit["linux_source_sha256"] == reference_sha
+             and all(sha((root / reference_dir / n).read_bytes()) == h for n, h in reference_sha.items()),
+             "immutable Linux reference bytes")
+        provenance = json.loads((root / reference_dir / "provenance.json").read_text())
+        need(provenance["repository"] == "https://github.com/torvalds/linux"
+             and provenance["requested_ref"] == "v6.12" and provenance["commit"] == commit, "Linux provenance pin")
+        for name in ("amd5536udc.h", "snps_udc_core.c"):
+            path = "drivers/usb/gadget/udc/" + name
+            records = [r for r in provenance["files"] if r["path"] == path]
+            need(len(records) == 1 and records[0]["sha256"] == reference_sha[name]
+                 and records[0]["bytes"] == len((root / reference_dir / name).read_bytes())
+                 and records[0]["url"] == f"https://raw.githubusercontent.com/torvalds/linux/{commit}/{path}",
+                 "reference path/length/hash/URL: " + name)
+        header = (root / reference_dir / "amd5536udc.h").read_text()
+        for name, value in (("UDC_DEVINT_UR", "3"), ("UDC_DEVINT_ADDR", "0x40c"),
+                            ("UDC_EPINT_ADDR", "0x414"), ("UDC_EPINT_MSK_ADDR", "0x418"),
+                            ("UDC_EPSTS_TDC", "10"), ("UDC_EPSTS_OUT_SETUP_CLEAR", "0x20")):
+            need(re.search(r"^#define\s+" + name + r"\s+" + value + r"\s*$", header, re.M), "reference definition: " + name)
+
+        generator = "scripts/validate-hp1020-usb-irq-capture.py"
+        sources = {generator, "analysis/sihp1020.elf", *(reference_dir + n for n in reference_sha),
+                   *("scripts/" + n + ".py" for n in (
+                       "hp1020_qemu_multitask", "hp1020_qemu_ram", "hp1020_qemu_stock_parser",
+                       "hp1020_stock_parser_harness", "hp1020_stock_stop", "hp1020_xtensa_call0",
+                       "hp1020_xtensa_properties", "hp1020_xtensa_stock"))}
+        need(len(sources) == 13 and set(report["source_sha256"]) == set(report["source_origins"]) == sources,
+             "exact 13-source closure")
+        need(all(sha((root / name).read_bytes()) == digest for name, digest in report["source_sha256"].items()),
+             "current source bytes equal tested closure")
+        need(all(isinstance(origin, str) and Path(origin).is_absolute() and Path(origin).as_posix().endswith("/" + name)
+                 for name, origin in report["source_origins"].items()), "source origin labels")
+        pending, imported = [generator], set()
+        while pending:
+            name = pending.pop()
+            if name in imported:
+                continue
+            imported.add(name)
+            for node in ast.walk(ast.parse((root / name).read_text())):
+                modules = ([n.name for n in node.names] if isinstance(node, ast.Import) else
+                           [node.module] if isinstance(node, ast.ImportFrom) and node.module else [])
+                for module in modules:
+                    dependency = "scripts/" + module.split(".", 1)[0] + ".py"
+                    if (root / dependency).is_file() and dependency not in imported:
+                        pending.append(dependency)
+        need(imported == {n for n in sources if n.endswith(".py")}, "closed local import set without executing it")
+
+        # Scope/schema comes from the proposed fixture; the literal visit plans
+        # and effects below were derived separately from the original bytes.
+        def base(phase, name, fill):
+            return dict(phase=phase, name=name, kind="conditional_phase", fill=fill,
+                        devint=8, epint=0x30001, live_epint=0xa5c31234 ^ (fill * 0x01010101),
+                        wrapper=0x96a50020, endpoint_mask=0xfffcfffe,
+                        in0_status=0x400, out0_status=0x20, out1_status=0x10,
+                        transfer_handle=0x5a000008 ^ (fill << 16))
+
+        profiles = (
+            ("no-pending", dict(epint=0)),
+            ("in0-tdc", dict(epint=1)),
+            ("in0-no-tdc", dict(epint=1, in0_status=0)),
+            ("out0-setup", dict(epint=0x10000)),
+            ("out0-data", dict(epint=0x10000, out0_status=0x10)),
+            ("out0-setup-tdc", dict(epint=0x10000, out0_status=0x420)),
+            ("out1-data", dict(epint=0x20000)),
+            ("in0-out0-co-pending", dict(epint=0x10001)),
+            ("in0-no-tdc-then-out0", dict(epint=0x10001, in0_status=0x40)),
+            ("out0-out1-co-pending", dict(epint=0x30000)),
+            ("out0-all-flags", dict(epint=0x10000, out0_status=0x6f0)),
+            ("out0-errors-without-tdc", dict(epint=0x10000, out0_status=0x2f0)),
+            ("out0-zero-status", dict(epint=0x10000, out0_status=0)),
+            ("conditional-out0-masked-out1-enabled", dict(epint=0x10000, endpoint_mask=0xfffdffff)),
+            ("conditional-out0-masked-with-tdc", dict(epint=0x10000, endpoint_mask=0xfffdffff, out0_status=0x420)),
+            ("conditional-out1-above-last-enabled", dict(epint=0x20000, endpoint_mask=0xfffeffff)),
+            ("conditional-all-out-masked", dict(epint=0x10000, endpoint_mask=0xfffffffe)),
+        )
+        removed = (
+            ("samples", 0x10005de4, 0x10008214, 0x30001),
+            ("samples", 0x10005de8, 0x10008219, 0x30001),
+            ("samples", 0x10005dec, 0x10008230, 0x30001),
+            ("lanes", 0x10005e00, 0x1000838d, 1),
+            ("lanes", 0x10005de8, 0x1000839b, 1),
+            ("lanes", 0x10005e04, 0x100083eb, 1),
+            ("lanes", 0x10005e08, 0x100083eb, 0x10000),
+        )
+        direct_guards = (
+            ("samples", "devint-read", 0x10008214, 10, 0xb300040c),
+            ("samples", "epint-read", 0x10008219, 8, 0xb3000414),
+            ("samples", "reset-ack-write", 0x1000822b, 10, 0xb300040c),
+            ("samples", "wrapper-read", 0x10008230, 8, 0xb3010004),
+            ("lanes", "endpoint-mask-read", 0x1000838d, 8, 0xb3000418),
+            ("lanes", "saved-epint-ack-write", 0x1000839b, 9, 0xb3000414),
+            ("lanes", "lane-status-read", 0x100083eb, 7, 0xb3000204),
+            ("lanes", "he-ack-write", 0x100083f6, 7, 0xb3000204),
+            ("lanes", "bna-ack-write", 0x10008401, 7, 0xb3000204),
+            ("lanes", "in-ack-write", 0x1000840c, 7, 0xb3000204),
+            ("lanes", "out-type-ack-write", 0x10008443, 7, 0xb3000204),
+            ("lanes", "tdc-ack-write", 0x1000844f, 7, 0xb3000204),
+        )
+        inputs = []
+        for fill in (0, 204):
+            for reset in (0, 8):
+                for saved in (0, 0x30001):
+                    case = base("samples", f"samples-f{fill}-reset{reset}-ep{saved:x}", fill)
+                    case.update(devint=reset, epint=saved)
+                    inputs.append(case)
+            for name, fields in profiles:
+                case = base("lanes", f"lanes-f{fill}-{name}", fill)
+                case.update(fields, profile=name)
+                inputs.append(case)
+            inputs.append(base("out0_common_wake", f"out0-common-wake-f{fill}", fill))
+            for phase, literal, pc, saved in removed:
+                case = base(phase, f"unredirected-{literal:x}-{phase}-f{fill}", fill)
+                case.update(kind="removed_literal_redirect", skip_literal=literal, reject_pc=pc, epint=saved)
+                inputs.append(case)
+            for phase, name, pc, register, address in direct_guards:
+                case = base(phase, f"guard-{name}-f{fill}", fill)
+                case.update(kind="standalone_peripheral_instruction", entry=pc, reject_pc=pc,
+                            registers={str(register): address})
+                inputs.append(case)
+        need(len(inputs) == 82 and len({c["name"] for c in inputs}) == 82
+             and [c["input"] for c in report["cases"]] == inputs
+             and report["counts"] == dict(samples=8, lanes=34, out0_common_wake=2,
+                                           removed_redirect=14, standalone_mmio=24), "exact ordered 82-case matrix")
+
+        excluded_common = {0x10008240, 0x10008264, 0x1000829f, 0x100082c6, 0x100082f0,
+            0x100083d4, 0x1000841a, 0x10008428, 0x10008470, 0x100084b4, 0x100084c5,
+            0x100084ce, 0x100086ad, 0x100086c0, 0x100086ed, 0x10007c5c, 0x10017dac,
+            0x10011178, 0x1001bb5c, 0x100171e0, 0x100086f4, 0x1000935b, 0x10009884}
+        excluded = {name: sorted(excluded_common | {other["entry"] for n, other in phases.items() if n != name})
+                    for name in phases}
+        excluded_rows = [dict(phase=name, pc=hex(pc), status="rejected before instruction execution in both engines")
+                         for name in phases for pc in excluded[name]]
+        need(len(excluded_rows) == 75 and report["excluded_code_controls"] == excluded_rows
+             and all(not any(a <= pc < b for a, b in phases[name]["code"])
+                     for name in phases for pc in excluded[name]), "all 75 exact pre-execution phase exclusions")
+
+        # Literal endpoint visits: each direction supplies (E-half, P-half,
+        # visits), each visit is (index, remaining E, remaining P, action).
+        # 'zero' never reads P; 'skip' advances; 'in' reads IN0 then advances;
+        # 'event'/'out' stop before the corresponding original call.
+        in_empty = (1, 0, ((0, 1, 0, "skip"), (1, 0, 0, "zero")))
+        in_masked = (0, 0, ((0, 0, 0, "zero"),))
+        in_event = (1, 1, ((0, 1, 1, "event"),))
+        in_continue = (1, 1, ((0, 1, 1, "in"), (1, 0, 0, "zero")))
+        out_empty = (3, 0, ((0, 3, 0, "skip"), (1, 1, 0, "skip"), (2, 0, 0, "zero")))
+        plans = {
+            "no-pending": (in_empty, out_empty),
+            "in0-tdc": (in_event,),
+            "in0-no-tdc": (in_continue, out_empty),
+            "out0-setup": (in_empty, (3, 1, ((0, 3, 1, "out"),))),
+            "out0-data": (in_empty, (3, 1, ((0, 3, 1, "out"),))),
+            "out0-setup-tdc": (in_empty, (3, 1, ((0, 3, 1, "event"),))),
+            "out1-data": (in_empty, (3, 2, ((0, 3, 2, "skip"), (1, 1, 1, "out")))),
+            "in0-out0-co-pending": (in_event,),
+            "in0-no-tdc-then-out0": (in_continue, (3, 1, ((0, 3, 1, "out"),))),
+            "out0-out1-co-pending": (in_empty, (3, 3, ((0, 3, 3, "out"),))),
+            "out0-all-flags": (in_empty, (3, 1, ((0, 3, 1, "event"),))),
+            "out0-errors-without-tdc": (in_empty, (3, 1, ((0, 3, 1, "out"),))),
+            "out0-zero-status": (in_empty, (3, 1, ((0, 3, 1, "out"),))),
+            "conditional-out0-masked-out1-enabled": (in_masked, (2, 1, ((0, 2, 1, "out"),))),
+            "conditional-out0-masked-with-tdc": (in_masked, (2, 1, ((0, 2, 1, "event"),))),
+            "conditional-out1-above-last-enabled": (in_masked, (1, 2, ((0, 1, 2, "skip"), (1, 0, 1, "zero")))),
+            "conditional-all-out-masked": (in_empty, (0, 1, ((0, 0, 1, "zero"),))),
+        }
+        selection = {
+            "no-pending": (0x100086ed, (), None),
+            "in0-tdc": (0x100084b4, (0x22b00400,), 1),
+            "in0-no-tdc": (0x100086ed, (0x22b00400,), None),
+            "out0-setup": (0x100084c5, (0x22b00800,), None),
+            "out0-data": (0x100084c5, (0x22b00800,), None),
+            "out0-setup-tdc": (0x100084b4, (0x22b00800,), 0x10000),
+            "out1-data": (0x100084c5, (0x22b00820,), None),
+            "in0-out0-co-pending": (0x100084b4, (0x22b00400,), 1),
+            "in0-no-tdc-then-out0": (0x100084c5, (0x22b00400, 0x22b00800), None),
+            "out0-out1-co-pending": (0x100084c5, (0x22b00800,), None),
+            "out0-all-flags": (0x100084b4, (0x22b00800,), 0x10000),
+            "out0-errors-without-tdc": (0x100084c5, (0x22b00800,), None),
+            "out0-zero-status": (0x100084c5, (0x22b00800,), None),
+            "conditional-out0-masked-out1-enabled": (0x100084c5, (0x22b00800,), None),
+            "conditional-out0-masked-with-tdc": (0x100084b4, (0x22b00800,), 0x10000),
+            "conditional-out1-above-last-enabled": (0x100086ed, (), None),
+            "conditional-all-out-masked": (0x100086ed, (), None),
+        }
+
+        spans = original_ram + ((0x21000000, 0x21020000), (0x22b00000, 0x22b02000))
+        templates = {(fill, a, b): bytes((fill + (a >> 8) + i * 17 + (i >> 4) * 3) & 255
+                                       for i in range(b - a))
+                     for fill in (0, 204) for a, b in spans}
+        all_pcs = sorted(instructions)
+        sp = 0x2101fef0
+
+        def read_ram(memory, address, size):
+            for (a, b), raw in memory.items():
+                if a <= address and address + size <= b:
+                    return bytes(raw[address - a:address - a + size])
+            raise ValueError("independent oracle read outside RAM: " + hex(address))
+
+        def put_ram(memory, address, data):
+            for (a, b), raw in memory.items():
+                if a <= address and address + len(data) <= b:
+                    raw[address - a:address - a + len(data)] = data
+                    return
+            raise ValueError("independent oracle write outside RAM: " + hex(address))
+
+        def manifest(memory):
+            return [dict(begin=hex(a), end=hex(b), bytes=b - a, sha256=sha(raw))
+                    for (a, b), raw in sorted(memory.items())]
+
+        for paired, case in zip(report["cases"], inputs):
+            label, phase, fill = case["name"], case["phase"], case["fill"]
+            direct = case["kind"] == "standalone_peripheral_instruction"
+            rejected = "reject_pc" in case
+            original_entry = phase == "samples" and not direct
+            literal_values = dict(literals)
+            before = {(a, b): bytearray(templates[fill, a, b]) for a, b in spans}
+            if not direct:
+                for address, value in redirect_by_phase[phase].items():
+                    if address != case.get("skip_literal"):
+                        before[address, address + 4] = bytearray(value.to_bytes(4, "big"))
+                        literal_values[address] = value
+            for address, value in (
+                (0x22b00100, case["devint"]),
+                (0x22b00120, case["epint"] if phase == "samples" else case["live_epint"]),
+                (0x22b00140, case["wrapper"]), (0x22b00160, case["endpoint_mask"]),
+                (0x22b00400, case["in0_status"]), (0x22b00800, case["out0_status"]),
+                (0x22b00820, case["out1_status"]), (0x100212d4, case["transfer_handle"]),
+                (0x1001bbc0, 0x22b00d00), (0x1001bc48, 0x22b00e00),
+            ):
+                put_ram(before, address, value.to_bytes(4, "big"))
+            put_ram(before, 0x22b00d00, bytes.fromhex("8e123456d3c2b1a0a100341256789abc"))
+            put_ram(before, 0x22b00e00, bytes.fromhex("800000400123456789abcdef76543210"))
+            if phase == "lanes":
+                put_ram(before, sp, case["epint"].to_bytes(4, "big"))
+
+            initial_registers = [(0x13579bdf + i * 0x10203 + fill * 0x01010101) & 0xffffffff for i in range(16)]
+            initial_registers[0:2] = [0xfffffffc, sp]
+            if phase == "out0_common_wake":
+                initial_registers[2:6] = [1, 1, 16, 0]
+            for index, value in case.get("registers", {}).items():
+                initial_registers[int(index)] = value
+            events, path, updates = [], [], {}
+            sar, proposed, stop = 0, None, None
+
+            def event(pc, kind, address, value):
+                events.append(dict(pc=hex(pc), kind=kind, address=hex(address), size=4, value=hex(value)))
+
+            def literal(pc, address):
+                event(pc, "read", address, literal_values[address])
+
+            def block(a, b):
+                # Append independently transcribed PCs, including repeated loop
+                # blocks. No instruction is interpreted and no report PC is used.
+                pcs = [pc for pc in all_pcs if a <= pc < b]
+                need(pcs and pcs[0] == a and pcs[-1] + len(bytes.fromhex(instructions[pcs[-1]]["bytes"])) == b,
+                     label + ": fixed path block bounds")
+                path.extend(pcs)
+
+            if direct:
+                stop = case["reject_pc"]
+                args = instructions[stop]["args"]
+                address = initial_registers[args[1]] + args[2]
+                need(0xb0000000 <= address < 0xc0000000, label + ": standalone guard pointer")
+            elif phase == "samples":
+                d, p, w = case["devint"], case["epint"], case["wrapper"]
+                block(0x10008208, 0x10008222)
+                literal(0x1000820b, 0x10005de4)
+                literal(0x1000820e, 0x10005de8)
+                event(0x10008214, "read", literal_values[0x10005de4], d)
+                event(0x10008219, "read", literal_values[0x10005de8], p)
+                event(0x1000821d, "write", sp - 48, p)
+                updates = {1: sp - 48, 5: d, 8: p, 9: 8, 10: literal_values[0x10005de4]}
+                if d & 8:
+                    need(w & 0x10 == 0, label + ": supplied wrapper condition")
+                    block(0x10008225, 0x10008240)
+                    literal(0x10008225, 0x10005dec)
+                    event(0x1000822b, "write", literal_values[0x10005de4], 8)
+                    event(0x10008230, "read", literal_values[0x10005dec], w)
+                    updates.update({7: 0, 8: 16, 9: w, 10: 21})
+                    stop, proposed = 0x10008240, dict(target="0x10011178", a10=21)
+                else:
+                    block(0x10008222, 0x10008225)
+                    stop = 0x1000833c
+            elif phase == "out0_common_wake":
+                block(0x100084c8, 0x100084ce)
+                block(0x100086b0, 0x100086c0)
+                literal(0x100086b0, 0x10005e18)
+                updates, sar = {10: 0x10021318, 11: 0x10000, 12: 0}, 16
+                stop, proposed = 0x100086c0, dict(target="0x10017dac", a10=0x10021318, a11=0x10000, a12=0)
+            else:
+                # Removed-redirect profiles use exactly these underlying visits;
+                # the trace is truncated before their first forbidden access.
+                profile = case.get("profile", "in0-tdc" if case["epint"] == 1 else "out0-setup")
+                plan = plans[profile]
+                p, e = case["epint"], case["endpoint_mask"] ^ 0xffffffff
+                block(0x1000837e, 0x1000839d)
+                literal(0x10008384, 0x10005e00)
+                literal(0x10008387, 0x10005de8)
+                event(0x1000838d, "read", literal_values[0x10005e00], case["endpoint_mask"])
+                event(0x1000838f, "read", sp, p)
+                event(0x10008396, "write", sp + 4, e)
+                event(0x1000839b, "write", literal_values[0x10005de8], p)
+                last_status = None
+                for direction, (enabled_half, pending_half, visits) in enumerate(plan):
+                    need(enabled_half == ((e >> (16 * direction)) & 0xffff)
+                         and pending_half == ((p >> (16 * direction)) & 0xffff), label + ": literal direction plan")
+                    block(0x1000839d, 0x100083b9)
+                    event(0x1000839d, "read", sp + 4, e)
+                    event(0x100083aa, "read", sp, p)
+                    event(0x100083ac, "write", sp + 8, enabled_half)
+                    event(0x100083b7, "write", sp + 12, pending_half)
+                    for index, enabled_tail, pending_tail, action in visits:
+                        need(enabled_tail == enabled_half >> index and pending_tail == pending_half >> index,
+                             label + ": fixed shifted visit words")
+                        block(0x100083b9, 0x100083be)
+                        event(0x100083b9, "read", sp + 8, enabled_tail)
+                        if action == "zero":
+                            need(enabled_tail == 0, label + ": literal zero-mask exit")
+                            block(0x100086db, 0x100086e4)
+                            if direction == 0:
+                                block(0x100086e4, 0x100086e7)
+                            else:
+                                block(0x100086e7, 0x100086ed)
+                                stop, proposed, sar = 0x100086ed, dict(target="0x100171e0", a10=4), 16
+                                updates = {2: 1, 3: 2, 4: 32, 5: index,
+                                           8: 15 if index else pending_half, 9: literal_values[0x10005de8],
+                                           10: 4, 14: 0}
+                                if last_status is not None:
+                                    need(last_status[0:2] == (0, 0), label + ": only IN0 can continue past status")
+                                    updates.update({6: last_status[2], 7: literal_values[0x10005e04],
+                                                    9: literal_values[0x10005e04]})
+                            continue
+                        need(enabled_tail != 0, label + ": nonzero remaining enabled word")
+                        block(0x100083be, 0x100083c4)
+                        event(0x100083be, "read", sp + 12, pending_tail)
+                        if action == "skip":
+                            need(pending_tail & 1 == 0, label + ": literal absent pending bit")
+                            block(0x100083c4, 0x100083c7)
+                        else:
+                            need(action in ("in", "out", "event") and pending_tail & 1,
+                                 label + ": literal selected endpoint")
+                            block(0x100083c7, 0x100083c9)
+                            if direction == 0:
+                                block(0x100083c9, 0x100083cf)
+                                literal(0x100083c9, 0x10005e04)
+                                status_base = literal_values[0x10005e04]
+                                t = case["in0_status"]
+                                need(index == 0, label + ": IN0-only profile")
+                            else:
+                                block(0x100083e0, 0x100083e3)
+                                literal(0x100083e0, 0x10005e08)
+                                status_base = literal_values[0x10005e08]
+                                need(index in (0, 1), label + ": bounded OUT profile")
+                                t = case["out0_status"] if index == 0 else case["out1_status"]
+                            status_address = status_base + index * 32
+                            last_status = (direction, index, t)
+                            block(0x100083e3, 0x100083f3)
+                            event(0x100083eb, "read", status_address, t)
+                            if t & 0x200:
+                                block(0x100083f3, 0x100083f8)
+                                event(0x100083f6, "write", status_address, 0x200)
+                            block(0x100083f8, 0x100083fe)
+                            if t & 0x80:
+                                block(0x100083fe, 0x10008404)
+                                event(0x10008401, "write", status_address, 0x80)
+                            block(0x10008404, 0x10008409)
+                            if t & 0x40:
+                                block(0x10008409, 0x1000841a)
+                                event(0x1000840c, "write", status_address, 0x40)
+                            block(0x10008439, 0x10008440)
+                            if t & 0x30:
+                                block(0x10008440, 0x10008446)
+                                event(0x10008443, "write", status_address, t & 0x30)
+                            block(0x10008446, 0x1000844c)
+                            if action == "event":
+                                need(t & 0x400, label + ": independently selected TDC boundary")
+                                block(0x1000844c, 0x1000845c)
+                                event(0x1000844f, "write", status_address, 0x400)
+                                block(0x100084a9, 0x100084b4)
+                                literal(0x100084a9, 0x10005e18)
+                                bit = 1 << (16 * direction + index)
+                                updates = {2: 1, 3: direction, 4: 16 * direction, 5: index,
+                                           6: t, 7: bit, 8: 16 * direction + index, 9: status_base,
+                                           10: 0x10021318, 11: bit, 12: 0, 14: pending_tail}
+                                sar = 32 - ((16 * direction + index) & 31)
+                                stop, proposed = 0x100084b4, dict(target="0x10017dac", a10=0x10021318, a11=bit, a12=0)
+                                continue
+                            need(t & 0x400 == 0, label + ": no hidden TDC branch")
+                            block(0x100084b7, 0x100084ba)
+                            if action == "out":
+                                need(direction == 1, label + ": OUT-helper direction")
+                                block(0x100084bd, 0x100084c5)
+                                literal(0x100084bd, 0x10005e1c)
+                                event(0x100084c0, "read", 0x100212d4, case["transfer_handle"])
+                                updates = {2: 1, 3: 1, 4: 16, 5: index, 6: t, 7: status_address,
+                                           8: 0x100212d4, 9: status_base, 10: case["transfer_handle"], 14: pending_tail}
+                                sar = 32 - ((16 + index) & 31) if t & 0x40 else 16
+                                stop, proposed = 0x100084c5, dict(target="0x10007c5c", a10=case["transfer_handle"])
+                                continue
+                            need(action == "in" and direction == 0, label + ": continuing IN0 path")
+                            block(0x100084ba, 0x100084bd)
+                        # A literal skip or non-TDC IN0 advances exactly once.
+                        block(0x100086c3, 0x100086db)
+                        event(0x100086c3, "read", sp + 8, enabled_tail)
+                        event(0x100086ca, "write", sp + 8, enabled_tail >> 1)
+                        event(0x100086cc, "read", sp + 12, pending_tail)
+                        event(0x100086d3, "write", sp + 12, pending_tail >> 1)
+                expected_stop, status_reads, expected_event = selection[profile]
+                need(stop == expected_stop and tuple(int(e["address"], 16) for e in events if e["pc"] == "0x100083eb") ==
+                     tuple((literal_values[0x10005e04] if a == 0x22b00400 else
+                            literal_values[0x10005e08] + a - 0x22b00800) for a in status_reads),
+                     label + ": separate literal lane selection")
+                if expected_event is not None:
+                    need(proposed == dict(target="0x10017dac", a10=0x10021318, a11=expected_event, a12=0),
+                         label + ": separate literal event mask")
+
+            if rejected and not direct:
+                stop = case["reject_pc"]
+                event_boundary = next(i for i, e in enumerate(events) if e["pc"] == hex(stop))
+                need(0xb0000000 <= int(events[event_boundary]["address"], 16) < 0xc0000000,
+                     label + ": removed redirect reaches peripheral guard")
+                events = events[:event_boundary]
+                path = path[:path.index(stop)]
+                proposed, sar = None, 0
+                if phase == "samples":
+                    partial = {
+                        0x10008214: {1: sp - 48, 8: 0x22b00120, 10: 0xb300040c},
+                        0x10008219: {1: sp - 48, 5: 8, 8: 0xb3000414, 10: 0x22b00100},
+                        0x10008230: {1: sp - 48, 5: 8, 8: 0xb3010004, 9: 8, 10: 0x22b00100},
+                    }
+                    updates = partial[stop]
+                elif stop == 0x1000838d:
+                    updates = {2: 1, 3: 0, 4: 0, 8: 0xb3000418, 9: 0x22b00120}
+                elif stop == 0x1000839b:
+                    updates = {2: 1, 3: 0, 4: 0, 8: 0xffffffff, 9: 0xb3000414,
+                               10: 0x30001, 14: 1}
+                else:
+                    need(stop == 0x100083eb, label + ": known partial lane boundary")
+                    direction = int(case["skip_literal"] == 0x10005e08)
+                    address = 0xb3000204 if direction else 0xb3000004
+                    updates = {2: 1, 3: direction, 4: direction * 16, 5: 0, 7: address,
+                               8: 0, 9: address, 10: 0x30001, 14: 1}
+                    sar = direction * 16
+
+            need(stop is not None and stop not in path and all(
+                 pc not in excluded[phase] and any(a <= pc < b for a, b in phases[phase]["code"]) for pc in path),
+                 label + ": exact phase-contained path stops before excluded code")
+            after = {span: raw.copy() for span, raw in before.items()}
+            for e in events:
+                address, value = int(e["address"], 16), int(e["value"], 16)
+                need(not (address < 0xc0000000 and address + 4 > 0xb0000000), label + ": no accepted peripheral access")
+                need(all(address + 4 <= lo or address >= hi for lo, hi in (
+                    (0x22b00d00, 0x22b00d10), (0x22b00e00, 0x22b00e10),
+                    (0x1001bbc0, 0x1001bbc4), (0x1001bc48, 0x1001bc4c),
+                    (0x90021340, 0x90021350))), label + ": no acquisition or ownership return")
+                if e["kind"] == "write":
+                    put_ram(after, address, value.to_bytes(4, "big"))
+                else:
+                    wanted = literal_values[address] if address in literals else int.from_bytes(read_ram(after, address, 4), "big")
+                    need(value == wanted, label + ": ordered read sees independent prior RAM writes")
+            registers = initial_registers.copy()
+            for index, value in updates.items():
+                registers[index] = value
+            register_hex = [hex(value) for value in registers]
+            before_manifest, after_manifest = manifest(before), manifest(after)
+            cpu = dict(processor_status=0x40000 if original_entry else 0,
+                       windowbase=0, windowstart=1, sar=sar, lbeg=0, lend=0, lcount=0)
+            need(paired["status"] == "pass", label + ": paired status")
+            for engine in ("interpreter", "qemu"):
+                result = paired[engine]
+                where = label + ": " + engine
+                reason = ("MMIO forbidden" if rejected else
+                          ("execution outside selected stock routines: " if engine == "interpreter" else
+                           "native tasks left selected code: ") + hex(stop))
+                need(result["status"] == "pass" and result["engine"] == engine and result["phase"] == phase
+                     and result["entry"] == hex(case.get("entry", phases[phase]["entry"]))
+                     and result["stop_before"] == hex(stop)
+                     and result["failure"] == dict(type="ValueError", reason=reason, pc=hex(stop)), where + ": exact stop/failure")
+                need(result["registers"] == result["expected_registers"] == register_hex
+                     and result["sar"] == result["expected_sar"] == sar
+                     and result["proposed_call"] == proposed, where + ": independent registers/SAR/pre-call proposal")
+                need(result["expected_native_cpu_state"] == cpu
+                     and result["native_cpu_state"] == (cpu if engine == "qemu" else None)
+                     and result["interpreter_models_physical_window_registers"] is False,
+                     where + ": distinct native special-register evidence")
+                need(result["before_memory"] == before_manifest
+                     and result["expected_memory"] == result["actual_memory"] == after_manifest
+                     and result["accesses"] == result["expected_accesses"] == events,
+                     where + ": entire RAM/stack/redirect guards and exact ordered accesses")
+                need(result["setup_record_hex"] == "8e123456d3c2b1a0a100341256789abc"
+                     and result["bulk_record_hex"] == "800000400123456789abcdef76543210",
+                     where + ": byte-exact untouched acquisition canaries")
+                need(result["original_instructions_retired"] == [hex(pc) for pc in sorted(set(path))]
+                     and result["engine_steps"] == len(path) + int(engine == "interpreter" and rejected)
+                     and result["original_entry_executed"] is original_entry
+                     and (0x10008208 in path) is original_entry,
+                     where + ": full path coverage, repeated step count and ENTRY separation")
+                need(all(result[k] is True for k in (
+                    "independent_full_registers_equal", "independent_ordered_accesses_equal", "all_mutable_ram_equal",
+                    "no_setup_record_or_pointer_access", "no_record_ownership_return", "original_code_unchanged"))
+                     and result["omitted_helpers_executed"] is False
+                     and result["actual_peripheral_accesses"] == result["completed_usb_transfers"] == 0,
+                     where + ": bounded evidence and zero hardware/helper execution")
+
+        need(report["status"] == "pass" and isinstance(report["qemu_version"], str)
+             and report["qemu_version"].startswith("QEMU emulator version "), "completed paired report")
+        need(report["original_entry_executed_only_in_samples"] is True and report["independent_phases"] is True
+             and report["original_entry_supplied_cpu"] == dict(ps_woe=1, ps_callinc=0, windowbase=0,
+                 windowstart=1, initial_sar=0, stack_adjustment=48, synthetic_caller_executed=False,
+                 actual_interrupt_entry_established=False), "conditional CPU setup and unconnected phases")
+        need(report["omitted_helpers_executed"] is False and report["supplied_services"] == []
+             and all(report[k] == 0 for k in ("actual_peripheral_accesses", "completed_usb_control_transfers",
+                                              "completed_native_page_lifecycles"))
+             and all(report[k] is False for k in ("physical_event_order_established", "coherent_setup_capture_established",
+                                                   "overwrite_prevention_established", "controller_settlement_established")),
+             "explicit physical, acquisition and lifecycle exclusions")
+        need(report["scope"] == (
+            "Three independent original-instruction RAM cuts: ordered DEVINT/EPINT sampling and reset-ack intent; "
+            "literal endpoint acknowledgements and pre-call lane selection; a separately seeded OUT0 common-wake proposal. "
+            "Complete RAM, ordered accesses and all logical registers/SAR are checked against supplied-state oracles."),
+             "independent-cut scope statement")
+        need(all(s in report["limits"] for s in (
+            "No uninterrupted IRQ lifecycle is executed.",
+            "Only the prefix runs original ENTRY, from supplied WOE1/CALLINC0/WB0/WS1 with no artificial caller; this is not actual interrupt entry.",
+            "Later phases begin with explicit registers/stack and no ENTRY.",
+            "No configuration, timer, kernel, wakeup, bulk service/rearm, request dispatch or descriptor return helper executes.",
+            "Peripheral literals point to private RAM; stores do not model W1C, timing, DMA, masks, cache visibility or physical interrupts.",
+            "A mask/pending mismatch is a conditional software predicate, not a demonstrated reachable hardware bug or lost event.",
+            "Co-pending bits and scan order provide no chronology or reset generation for SETUP.",
+            "No selected cut acquires/copies/returns the SETUP record;",
+            "No real USB completion, physical cancellation, hardware stall clearing, boot or printing is established.",
+        )), "material evidence limits retained")
+        return True, detail
+    except (OSError, ValueError, KeyError, TypeError, IndexError, StopIteration, struct.error) as error:
+        return False, "IRQ capture consistency failure: " + str(error)
+
+
 def build_report() -> dict[str, Any]:
     checks: list[dict[str, str]] = []
 
@@ -4045,6 +4824,11 @@ def build_report() -> dict[str, Any]:
         "original_setup_retirement_preserves_partial_effects_and_hardware_exclusions",
         retirement_ok, retirement_detail,
         evidence="analysis/usb-path/setup-retirement.json"))
+
+    irq_ok, irq_detail = usb_irq_capture_consistency_gate(ROOT_DIR)
+    checks.append(check(
+        "original_irq_cuts_preserve_snapshot_selection_and_phase_exclusions",
+        irq_ok, irq_detail, evidence="analysis/usb-path/irq-capture.json"))
 
     fail_count = severity_count(checks, "fail")
     return {

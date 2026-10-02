@@ -1,5 +1,5 @@
 {
-  "check_count": 126,
+  "check_count": 127,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -755,6 +755,12 @@
       "detail": "50 conditional post-dispatch tails and 32 pre-peripheral guards per engine must preserve independently reconstructed ordered accesses, registers and all mutable RAM, including legitimate writes before a rejected access. The supplied bulk-size word at 0x1001bc50 controls an unsigned <=512 branch. Fifteen excluded PCs, no ENTRY and no actual peripheral access establish neither hardware stall clearing, rearm/quiescence nor a physical USB transfer.",
       "evidence": "analysis/usb-path/setup-retirement.json",
       "name": "original_setup_retirement_preserves_partial_effects_and_hardware_exclusions",
+      "severity": "watch"
+    },
+    {
+      "detail": "44 conditional cuts and 38 pre-peripheral guards per engine must preserve separate sample/scan/wake boundaries, original suffix-mask selection, all ordered accesses, complete guarded RAM, registers/SAR and supplied native CPU state. All 75 excluded-PC controls remain pre-execution rejections. Saved pending bits, RAM acknowledgement intent and a proposed wake carry no physical event chronology, SETUP acquisition/overwrite protection, controller settlement or completed USB transfer.",
+      "evidence": "analysis/usb-path/irq-capture.json",
+      "name": "original_irq_cuts_preserve_snapshot_selection_and_phase_exclusions",
       "severity": "watch"
     }
   ],

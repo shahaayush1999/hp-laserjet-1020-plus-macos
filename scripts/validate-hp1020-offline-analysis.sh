@@ -356,6 +356,9 @@ run_step "Execute original SETUP descriptor admission before request dispatch" \
 run_step "Execute original SETUP retirement and separate OUT0 return intent in guarded RAM" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-usb-setup-retirement.py"
 
+run_step "Execute separate original IRQ sampling, endpoint selection and wake-intent cuts" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-usb-irq-capture.py"
+
 run_step "Execute original background receive-enable intent in guarded RAM" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-usb-idle-receive.py"
 

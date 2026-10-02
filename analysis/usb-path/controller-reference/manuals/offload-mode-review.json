@@ -1,0 +1,14 @@
+{
+  "status": "static review only; no instruction execution",
+  "stock_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "archive_sha256": "67f48da08fd2b29b62b90e5f744dc5ef7dddce976183995279153b429830315e",
+  "member_sha256": {
+    "hp1020-offload-mode-anchors-20261002.json": "c876d65de3ddbba8ae62276effc11e29320a99b45be7d3cbf6502727ec7bf2e9",
+    "hp1020-offload-mode-disassembly-20261002.txt": "05faf4124342251400844ebbda2849031750c5691272fe8dd246320306b5e376",
+    "hp1020-offload-mode-review-20261002.md": "14e3e5765fc60b2bacffeb629b30ec87ca7f405608c98dca8c7af6a473cafb2d"
+  },
+  "verified_regions": 13,
+  "verified_instruction_rows": 245,
+  "verified_literals": 7,
+  "limits": "Static bytes and disassembly only; no target execution, no MMIO. Not whole-program pointer analysis."
+}

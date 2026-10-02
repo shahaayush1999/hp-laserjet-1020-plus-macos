@@ -1,17 +1,17 @@
 # Current handoff
 
-Updated: 2026-09-30. **The open firmware replacement cannot print yet.** Do not
+Updated: 2026-10-02. **The open firmware replacement cannot print yet.** Do not
 contact/enumerate USB, upload firmware, execute print-driving hardware paths or
 change the installed printing setup. Work toward normal-use feature parity by
 reusing open components and verifying hardware contracts. AGENTS.md owns scope.
 
 ## Current offline work
 
-The latest full `scripts/validate.sh` run passed **126 consistency checks and
-both sequential suites**. Log `/tmp/hp1020-full-composed-ingress-20260929.log`;
-child `hp1020-validation.MPr6yY`. Research processes are stopped at the owner's
-requested checkpoint. Tools work; pinned recovery is in `analysis/README.md`.
-This supersedes the124-check baseline `a230fcc` and includes:
+The latest full `scripts/validate.sh` run passed **127 consistency checks and
+both sequential suites**. Log `/tmp/hp1020-full-irq-capture-20261002.log`; child
+`hp1020-validation.Q3TpQv`. Research continues at the owner's request. Tools work;
+pinned recovery is in `analysis/README.md`. This supersedes the126-check baseline
+`c5d59b9` and includes:
 
 - Composed SETUP/EP0/bulk:34 host/34 QEMU,117 sources/six fixtures. Raw requests,
   exact wire/pixels/documents and guarded allocations match. Held requests block
@@ -35,11 +35,15 @@ helper changed before34/34; production code was unchanged. Latest focused logs:
 
 ## Next action
 
-On continuation, run the reviewed **unexecuted** IRQ-cut draft
-`scripts/validate-hp1020-usb-irq-capture.py` sequentially; its independent gate
-and static reviews are preserved under `analysis/usb-path/irq-capture/`. Planned
-counts are not results, and neither draft is included in the126-check baseline.
-Keep exact sources/captures if it fails; integrate its gate only after execution.
+The IRQ experiment passed focused and full-suite execution:44 conditional cuts +38 guard
+cases per engine and75 excluded-PC controls. Complete RAM/access/register and
+CPU-state checks pass; the independent gate passed unchanged and is integrated.
+Exact13-source snapshots, all raw captures and the gate are archived under
+`analysis/usb-path/irq-capture/source-snapshots/`. Log
+`/tmp/hp1020-usb-irq-capture-first-20261002.log`. These new results add zero
+USB/native lifecycles. Parallel offload implementation and independent validator
+drafts remain under `/tmp/hp1020-offload-*20261002*` and unexecuted; finish their
+static review, integrate them, then run the focused host/QEMU fixture sequentially.
 
 The next implementation seam is typed hardware-offload configuration/interface
 notifications into TinyUSB. Official family manuals distinguish DMA-to-FIFO

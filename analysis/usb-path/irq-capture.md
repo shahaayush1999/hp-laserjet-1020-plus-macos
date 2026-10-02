@@ -1,0 +1,7 @@
+# Original USB IRQ sampling and capture boundary
+
+Three independent original-instruction RAM cuts: ordered DEVINT/EPINT sampling and reset-ack intent; literal endpoint acknowledgements and pre-call lane selection; a separately seeded OUT0 common-wake proposal. Complete RAM, ordered accesses and all logical registers/SAR are checked against supplied-state oracles.
+
+44 conditional cut profiles and38 pre-peripheral guard profiles per engine. These are separate supplied-state cuts, with zero completed physical transfers.
+
+No uninterrupted IRQ lifecycle is executed. Only the prefix runs original ENTRY, from supplied WOE1/CALLINC0/WB0/WS1 with no artificial caller; this is not actual interrupt entry. Later phases begin with explicit registers/stack and no ENTRY. No configuration, timer, kernel, wakeup, bulk service/rearm, request dispatch or descriptor return helper executes. Peripheral literals point to private RAM; stores do not model W1C, timing, DMA, masks, cache visibility or physical interrupts. A mask/pending mismatch is a conditional software predicate, not a demonstrated reachable hardware bug or lost event. Co-pending bits and scan order provide no chronology or reset generation for SETUP. No selected cut acquires/copies/returns the SETUP record; the future ingress barrier still needs stable CPU-visible ownership plus a justified relation to reset. No real USB completion, physical cancellation, hardware stall clearing, boot or printing is established.

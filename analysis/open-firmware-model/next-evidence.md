@@ -1591,22 +1591,27 @@ comparison. Fifteen excluded PCs, all13 current source hashes and immutable
 Linux provenance remain checked. Both full sequential suites and126 consistency
 checks now pass, including this gate and the composed fixture above.
 
-### Pending original IRQ capture cuts (2026-09-30)
+### Original IRQ capture cuts (2026-10-02)
 
-The reviewed, **unexecuted/unimported** draft is saved unchanged as
-`scripts/validate-hp1020-usb-irq-capture.py`, SHA256
-`2923a1be6acd0281d2905d097e1321c6bc1552383e486d2773f12bf09d82ab76`;
-the original temporary name was `hp1020-usb-irq-capture-draft-20260929.py`.
-Proposed reports `analysis/usb-path/irq-capture.json/.md` do not exist. Planned
-counts are44 separate conditional cuts,38 pre-MMIO guards and75 phase-specific
-excluded-PC controls, not measured results. The complete independent gate is
-`analysis/usb-path/irq-capture/consistency-gate-draft.py.txt`, SHA256
-`0334e8ef6f7f6689dac6ace424db292584a942af03fbfbcf02c0d70f0f6d30a7`.
-It is also unexecuted/unimported and not wired into aggregate validation.
-`analysis/usb-path/irq-capture/draft-review.tar.gz` preserves the exact integration
-note and independent original-byte review; its `.json` manifest pins every member.
-The full126 suite has finished; the next session can perform the first focused
-run, preserve its exact captures, then integrate/check the independent gate.
+`scripts/validate-hp1020-usb-irq-capture.py` passed its first execution:44 separate
+conditional cuts and38 pre-MMIO guards in each engine, plus75 phase-specific
+excluded-PC controls. Before execution only its obsolete UNEXECUTED docstring
+label changed from the committed draft. Reports are
+`analysis/usb-path/irq-capture.json/.md`; log
+`/tmp/hp1020-usb-irq-capture-first-20261002.log`, capture
+`/tmp/hp1020-usb-irq-capture-jsuu8up_`. All13 source files were frozen and checked.
+The independent gate passed unchanged, then its function was integrated into
+`scripts/check-hp1020-analysis-consistency.py`; the redundant draft file was
+removed. Its exact original bytes and SHA256
+`0334e8ef6f7f6689dac6ace424db292584a942af03fbfbcf02c0d70f0f6d30a7`
+remain in `analysis/usb-path/irq-capture/source-snapshots/first-82-cases.tar.gz`.
+That archive preserves every839 capture file, the log and gate, with all3636
+reported memory-region digests checked against492 raw RAM files and all841
+archive members rehashed. The prior `draft-review.tar.gz` preserves the exact
+static integration note and original-byte review; each archive has its own
+member manifest. Full sequential validation passed both suites and127 consistency
+checks: `/tmp/hp1020-full-irq-capture-20261002.log`, child
+`hp1020-validation.Q3TpQv`. The generator/report source hashes remain exact.
 
 The three cuts remain separate: original sampling ENTRY stops before reset
 configuration or later device processing; a supplied saved-EPINT frame enters
@@ -1618,7 +1623,13 @@ not W1C or physical chronology. The independent original-byte review is archived
 as `hp1020-irq-capture-independent-review-20260929.md`. Before execution the
 draft was narrowed to exclude the unused IN1 prefix at`0x1000841a` and its
 original ENTRY state corrected to WOE1/CALLINC0/WB0/WS1; both corrections are
-already in the draft hash above. No failed execution exists to relabel.
+in the exact tested source snapshot. No failed execution exists to relabel.
+Complete mutable RAM, ordered accesses, all logical registers/SAR and native
+PS/window/loop state match the oracles. Error and TDC acknowledgement values
+derive from one saved status word; their RAM writes do not change that snapshot.
+The separately supplied wake continuation reads no SETUP record/pointer and
+returns no descriptor ownership. Do not stitch these cuts into a reset or IRQ
+lifecycle, assign reset generation from scan order, or count them as native pages.
 
 [Official family manuals](../usb-path/controller-reference/manuals/README.md)
 now supply bounded stall-clear, SETUP-overwrite and receive-stop evidence with
@@ -1636,9 +1647,9 @@ HP silicon/revision or discharges current external component facts.
 Static manual/source reviews are complete, with exact notes and stock annotation
 cache preserved in `analysis/usb-path/controller-reference/manuals/static-review.tar.gz`
 and its member manifest. The neighboring README summarizes page and code anchors.
-These are family-derived facts and design proposals; no additional target code
-or physical controller ran. Do not treat the IRQ draft as a prerequisite for all
-software work or repeat its already reviewed sampling/selection investigation.
+These are family-derived facts and design proposals; the static reviews add no
+target execution or physical controller evidence. The separate IRQ experiment
+above is now complete; do not repeat its sampling/selection investigation.
 
 The controller-family references handle SET_ADDRESS internally, and expose
 SET_CONFIGURATION/SET_INTERFACE through SC/SI notifications with4-bit sampled
@@ -1649,6 +1660,16 @@ Original HP comparisons omit all three standard tuples; inspected startup masks
 SC/SI and programs static endpoint CSRs. This fits static hardware offload, but
 its DEVCFG write preserves the inherited CSR_PRG bit, so the initial mode and HP
 dynamic-CSR capability remain unproved. Do not blindly transplant that mask.
+The2026-10-02 startup review narrows this uncertainty: the omitted ready helper
+only waits on an event, the creator passes argument0, all identified direct
+DEVCFG stores preserve CSR_PRG and all identified direct DEVCTL stores preserve
+CSR_DONE. Under the family read-zero rule they never grant status permission.
+The undocumented wrapper pulse still does not prove a reset/default mode.
+`manuals/offload-mode-review.tar.gz` (relative to the controller-reference
+directory) preserves exact review/disassembly/anchor bytes. A dynamic-gate
+fixture must require supplied capability/mode independently from the fact that
+hardware decoded a request. Repeating these arithmetic operations in RAM would
+not resolve the initial-state question.
 
 Likewise, TDC/descriptor DMA_DONE describes data moved into TxFIFO. The controller
 can retain that copy for USB retries after source memory is released. Sony's

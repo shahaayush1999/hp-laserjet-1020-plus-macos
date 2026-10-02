@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `126`
+- checks: `127`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -140,6 +140,7 @@ It does not contact the printer.
 | `original_cookie_ep0_descriptors_preserve_publication_fault_and_recovery_boundaries` | `watch` | Two EP0 records preserve exact cookies, supplied DMA addresses, literal descriptor bytes and real NULL/zero original buffers. Prepared and published storage remains distinct; wire, pixels and document observations agree across both engines. Actual IN count, visibility, mapping and settlement remain supplied, with normalized bulk input and no physical DCD or printing. | `analysis/usb-path/udc-ep0/validation.json` |
 | `composed_raw_setup_ep0_and_bulk_records_preserve_admission_and_ownership` | `watch` | Raw SETUP captures, exact original EP0/OUT descriptors and deferred reset barriers must preserve immutable identities, supplied-fact gates and separate controller/adapter ownership. Wire (including ZLP), pixels and notifications agree across host/QEMU; reused original-byte evidence adds no stock execution or physical printing. | `analysis/usb-path/udc-composed/validation.json` |
 | `original_setup_retirement_preserves_partial_effects_and_hardware_exclusions` | `watch` | 50 conditional post-dispatch tails and 32 pre-peripheral guards per engine must preserve independently reconstructed ordered accesses, registers and all mutable RAM, including legitimate writes before a rejected access. The supplied bulk-size word at 0x1001bc50 controls an unsigned <=512 branch. Fifteen excluded PCs, no ENTRY and no actual peripheral access establish neither hardware stall clearing, rearm/quiescence nor a physical USB transfer. | `analysis/usb-path/setup-retirement.json` |
+| `original_irq_cuts_preserve_snapshot_selection_and_phase_exclusions` | `watch` | 44 conditional cuts and 38 pre-peripheral guards per engine must preserve separate sample/scan/wake boundaries, original suffix-mask selection, all ordered accesses, complete guarded RAM, registers/SAR and supplied native CPU state. All 75 excluded-PC controls remain pre-execution rejections. Saved pending bits, RAM acknowledgement intent and a proposed wake carry no physical event chronology, SETUP acquisition/overwrite protection, controller settlement or completed USB transfer. | `analysis/usb-path/irq-capture.json` |
 
 ## Practical Meaning
 
