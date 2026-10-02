@@ -6,7 +6,7 @@ receive/output storage while checking borrowed buffers after every operation.
 Reports: `analysis/usb-path/tinyusb-printer/validation.{json,md}`. This is a
 synthetic DCD experiment; no physical controller or USB operation is implemented.
 Full integration is being validated separately. Target component state/fixed
-memory is 128536 bytes, excluding stack, code, TinyUSB core, ID and test captures.
+memory is 128588 bytes, excluding stack, code, TinyUSB core, ID and test captures.
 
 `hp1020_tusb_adapter.c/.h` compose the pinned, separately patched TinyUSB device
 core with the existing printer class, four-slot receive queue and page decoder.
@@ -31,8 +31,10 @@ opened for the bidirectional profile but has no payload producer in this profile
 The document starts stopped. A newly established configuration starts one
 internal recovery after its ordinary status packet is accepted for submission.
 Three explicit promises are required before input can resume; no wire SOFT_RESET
-or fabricated class request is needed. Same-value configuration and generic
-polling cannot invent another recovery. Real SOFT_RESET remains supported.
+or fabricated class request is needed. Every nonzero configuration selection,
+including the current value, drains and reinitializes the binding as required by
+USB2.0. Repeated configuration0 and generic polling create no recovery.
+Real SOFT_RESET remains supported.
 The synthetic 1024-byte reservation profile does not prove that one HP descriptor
 can receive that amount; the physical port must separately establish controller
 mode, transfer capacity and DMA/cache behavior.
@@ -108,7 +110,7 @@ pinned core's actual dispatch fields, including fields it ignores, so malformed
 requests cannot bypass ownership checks. Configuration dispatch and endpoint
 state changes wait for settled old bulk callbacks before TinyUSB erases mapping
 or BUSY state. Replacing a deferred destructive SETUP preserves the stop fence.
-An idempotent SET_CONFIGURATION does not fence. A pending bus reset cannot be
+Repeated configuration0 while already unconfigured does not fence. A pending bus reset cannot be
 replaced by a SETUP; the caller retains and retries that later event.
 
 `pending_reset()` returns the exact class ticket: independent recovery identity
@@ -223,9 +225,26 @@ follow-on packet or ACK. Superseded or older-generation faults cannot affect new
 work. Bulk settlement still clears the real core BUSY state while input is fenced.
 
 Separate `packet-fault-validation.{json,md}` evidence under the existing adapter
-evidence directory passes20 host/20 QEMU cases and measures unchanged128536-byte
-target state. The first run reached all40 case executions but failed its final
+evidence directory contains20 host/20 QEMU cases. The original target allocation
+was128536 bytes; the typed-offload revision measures128588 bytes. The first run
+reached all40 case executions but failed its final
 artifact gate because audit generation replaced a previously copied listing.
 Exact failed evidence is retained; the generator now snapshots build artifacts
 before audit and the derived listing afterward, then checks both through replay.
 These tests supply settlement; faults and cancellation requests never prove it.
+
+## Typed standard-request notifications
+
+The ordered SETUP bridge also accepts typed controller configuration/interface
+notifications, with original sequence identity separate from reconstructed
+TinyUSB input bytes. No-buffer automatic-status ownership is retained through
+an explicit one-shot grant and later settled cancellation; granting never calls
+the stack's completion callback or asserts host ACK. Physical mode, request
+validation, currentness and programming are separate supplied facts. The
+`udc-offload-test/README.md` fixture documents the58 paired-case boundary.
+
+A failed raw or typed endpoint-open attempt retains a programming-cleanup ticket.
+Later requests/reset cannot erase the ticket or start another open. Raw sequence0
+is explicit provenance, alongside the original control/transport epochs. Only
+an exact externally completed cleanup with no retained owners clears dirty state;
+it neither restarts a document nor supplies a recovery promise.

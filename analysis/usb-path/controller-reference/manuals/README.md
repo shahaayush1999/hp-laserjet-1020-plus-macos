@@ -194,3 +194,22 @@ mode/order/rejection questions are owned by
 [next-evidence](../../../open-firmware-model/next-evidence.md#next-implementation-seam-hardware-handled-standard-requests-2026-09-30).
 The archived reviews retain exact source hashes, instruction anchors and detailed
 manual locators; the original ELF and official PDFs remain the primary evidence.
+
+## Repeated configuration correction (2026-10-02)
+
+The official USB2.0 specification requires affected endpoint defaults, including
+DATA0, when selecting a configuration or alternate setting (§9.1.1.5, printed
+p243/PDF271). Endpoint halt must clear even when SET_CONFIGURATION or
+SET_INTERFACE repeats the current value (§9.4.5, printed p256/PDF284).
+A sole default interface may instead reject SET_INTERFACE (§9.4.10, printed
+p259/PDF287). Download/member hashes and official URLs are recorded in
+`usb2-spec-provenance.json`; the PDFs remain disposable local references.
+
+The earlier model and unexecuted first offload draft followed pinned TinyUSB's
+same-configuration shortcut. Their idempotence checks do not establish this
+USB requirement. The revised local patch reinitializes repeated nonzero
+configuration through its ordinary close/reset/open path. Adapter admission
+must drain original owners first. Preserve the control request, connection and
+address flags across configuration-only reset; actual bus reset remains distinct.
+Typed interface reselection separately needs its affected endpoint defaults
+restored before status permission. All physical programming remains supplied.

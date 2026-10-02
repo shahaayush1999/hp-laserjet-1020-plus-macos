@@ -1,0 +1,21 @@
+{
+  "status": "V4 passes preserved first58 paired cases, complete raw captures and eight negative report controls",
+  "archive_sha256": "757750fe3be72e3d79dae55fbf9bdba3d2ba920437ba0069f3f18effc2e7bd65",
+  "archive_bytes": 37048,
+  "member_sha256": {
+    "hp1020-offload-gate-v3-20261002.py": "c06cc2d33ac716cc4ab584ffbf2eb269e4caafae9ad4fce4fdaf7fdfb45be83e",
+    "hp1020-offload-gate-v3-debug-20261002.py": "55f8d73bb25c68913dd70f0fd99dce8aacd353078847095c82c755f5bdc07f4a",
+    "hp1020-offload-gate-v3-first-20261002.log": "bc8351b76ed7b75358c24717d44f6c8ad9760f48833c196fcfede3d76528f77f",
+    "hp1020-offload-gate-v4-20261002.py": "7910be7141c607af9ccf6ed5bb943b533ccd2899e1e4793c9025be2bbd6aad99",
+    "hp1020-offload-gate-v4-20261002.log": "3d6da80c4c8a2aca729e3a8d1501ad23d5c4ded19e636f37d578f1d4532566c4",
+    "hp1020-offload-gate-mutations-20261002.py": "bd7e3268b381d42234e2b8bbbbcd4763fbf4c9521af21f88b7b04b15e67879de",
+    "hp1020-offload-gate-mutations-20261002.json": "06deaca9fd2f7bcf66d7c73623160397c96dda66d7c986a1bd2adae934c6f369"
+  },
+  "v3_findings": [
+    "Event input codec omitted the sixth payload-length word",
+    "Supplied external EP0 stall-clear can change fixture mask even on WAIT; adapter state is unchanged",
+    "Destructive admission invalidates old complete promises before later service allocates new recovery",
+    "Unsolicited current-owner cancellation faults recovery while settling transport ownership"
+  ],
+  "limits": "These were independent gate assumptions, not new firmware-execution failures. Exact V3 source and diagnostic retained. No production/report hashes changed to pass; V4 rechecks the original frozen source/capture mirror. Live PDF locator-only correction is recorded separately."
+}

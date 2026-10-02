@@ -7,12 +7,12 @@
   "upstream_provenance": "vendor/tinyusb-0.21.0/PROVENANCE.json",
   "license": "MIT; preserve the upstream source copyright and permission notices.",
   "patch": "protocol-compatibility.patch",
-  "patch_sha256": "62edce457c5f3a4d7be7db18a9aea36be0e59477985252df53d23a2d2261a5cb",
+  "patch_sha256": "9f334e5cff0086e4d87de7cc9393cf2e204ae601112efefa9a6fd3c96293919d",
   "apply": "Apply with patch -p1 to a disposable copy of the exact pinned source, then verify every resulting SHA256 below. Keep vendor originals unchanged.",
   "files": {
     "src/device/usbd.c": {
       "original_sha256": "38de54351d81878e6543f2b022d0c39f45d28c8f0888491796398dec45e727be",
-      "result_sha256": "f84d7e85822fa35a85f05ee46bcb926e7f5ce54b77609f9cdfa38afd4408f705",
+      "result_sha256": "8bf699c1522d65301a4c63e2bfa529d302d3955b8cd18dd1602d7ace441a62dc",
       "upstream_blob": "c4c418cb5e03a76deeab566ddac318eb903dba66",
       "source_url": "https://github.com/hathach/tinyusb/blob/dae3f9a366bfcddbf9dcf1b48d7500286a849539/src/device/usbd.c"
     },
@@ -54,11 +54,30 @@
       "reason": "Any non-success current EP0 completion latches failure before byte accounting, copies, DATA/ACK callbacks or the DCD successful-status hook. Both directions are stalled; later completion/public transfer calls remain blocked until a new SETUP or real stack reset. Neither the latch nor DCD stall proves controller ownership or queued events are settled."
     },
     {
-      "change": "Preserve in-flight SET_CONFIGURATION context",
+      "change": "Preserve bus and in-flight SET_CONFIGURATION context",
       "boundaries": [
         "src/device/usbd.c: process_std_device_request SET_CONFIGURATION"
       ],
-      "reason": "configuration_reset clears the whole device object. Save and restore the current control context when switching from a nonzero configuration, so the status response retains its actual request and failure state. Bus reset continues to clear the control context."
+      "reason": "configuration_reset clears the whole device object. Save and restore connected/addressed, speed and the current control context when reinitializing a nonzero configuration, so bus connection/address and the actual request/failure state survive. Actual bus reset continues to clear this state through its unchanged path."
+    },
+    {
+      "change": "Reinitialize every nonzero SET_CONFIGURATION selection",
+      "boundaries": [
+        "src/device/usbd.c: process_std_device_request SET_CONFIGURATION"
+      ],
+      "reason": "USB 2.0 sections 9.1.1.5 and 9.4.5 require affected endpoint defaults, DATA0 toggle and halt reset even when selecting the current configuration. Reenter the existing close/reset/open path for every nonzero selection; repeated zero remains unchanged. DCD endpoint operations must truthfully supply physical programming/defaults and settlement; this core patch does not establish controller quiescence or wire acknowledgment.",
+      "source": {
+        "title": "Universal Serial Bus Specification Revision 2.0",
+        "revision_date": "2000-04-27",
+        "sections": [
+          "9.1.1.5",
+          "9.4.5"
+        ],
+        "printed_pages": [
+          243,
+          256
+        ]
+      }
     }
   ],
   "adapter_obligations": [
@@ -66,7 +85,8 @@
     "Fence receive immediately on admitted reset/current transport failure. Keep receive, output, bulk-IN/toggle/stall-reset and EP0 ownership acknowledgements distinct.",
     "Capture the document generation when each packet is submitted; reset status submission occurs after document restart and must not reuse the old reset ticket generation.",
     "Retire class response storage only after its exact transport ownership and queued callbacks are settled. Stalling or a protocol failure is not quiescence.",
-    "A newer SETUP suppresses an older deferred class reply while preserving the document stop fence. Never submit an old response through TinyUSB current-request state."
+    "A newer SETUP suppresses an older deferred class reply while preserving the document stop fence. Never submit an old response through TinyUSB current-request state.",
+    "Every nonzero configuration selection, including the current value, must fence and settle original endpoint owners before core close/reset/open. Automatic status permission requires supplied affected-endpoint defaults, toggle and halt reset; a retained software halt is not success."
   ],
-  "validation_scope": "Patch generation and applicability/byte-identity checks only. No compilation, fixture execution, QEMU, USB transfer, controller port or hardware validation is claimed here."
+  "validation_scope": "Proposed source bytes and patch/result hashes regenerated from preserved upstream and disposable edited bytes. Existing prepare-script provenance, fuzz-zero application and full effective-source gates are unchanged. No compilation, fixture execution, QEMU, USB transfer, controller port or hardware validation is claimed for this revision."
 }

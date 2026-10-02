@@ -1680,25 +1680,86 @@ and cannot be assumed on HP. TinyUSB's data continuation, status callback and
 controller memory release require separately justified meanings. Keep supplied
 `in_actual` and settlement unchanged until that API choice is explicit.
 
-Next build a small **typed reconstructed offload-event** fixture, separate from
+The revised typed fixture passed58 sanitized host/58 QEMU profiles (2026-10-02),
+with126 frozen sources, six document fixtures and5422 paired368-word event rows.
+Complete wire, pixels, document notifications and all guarded captures agree.
+Target sizes are adapter/document128588, EP0296, bulk80 and SETUP96 bytes.
+First captures, exact tested sources and the first independent gate are under
+`analysis/usb-path/udc-offload/source-snapshots/first-58-cases.*`.
+The neighboring `unexecuted-proposals` archive preserves the untouched V1/V2
+proposals and source-derived reviews. These are zero physical/native lifecycles.
+V1 incorrectly followed pinned TinyUSB's repeated-configuration shortcut. USB2.0
+§9.1.1.5/§9.4.5 require affected endpoint defaults/toggle/halt reset even for the
+same nonzero selection. Official provenance is in
+`controller-reference/manuals/usb2-spec-provenance.json` relative to `usb-path/`.
+The revised local protocol patch reinitializes that binding after admission
+drains original owners, preserving control context and bus connection/address.
+The raw adapter expectations and the unchanged/patched protocol comparison are
+updated accordingly; old reports retain their exact historical source hashes.
+Raw and typed partial-open failures now retain the original programming-cleanup
+ticket through later requests/reset. Sequence0 denotes raw provenance, with its
+nonzero original control/transport identity retained. No reset supplies cleanup.
+
+The small **typed reconstructed offload-event** fixture is separate from
 raw16-byte SETUP provenance but sharing one original external sequence with raw
-SETUP and actual reset. It should test config1, same-config repeat, config0,
+SETUP and actual reset. It tests config1, same-config repeat, config0,
 interface0/alt0, unsupported values, failed endpoint programming, delayed grant,
-newer raw SETUP before grant, reset overlap and sequence exhaustion. Assert exact
+newer raw SETUP before grant, reset overlap and sequence exhaustion. It checks exact
 TinyUSB config/open/close behavior and one grant for the exact accepted current
 event, with no fabricated raw capture, extra EP0 DMA descriptor or second wire
 ZLP. SC/SI must not impersonate reset or manufacture three recovery promises.
+The58 profiles execute these controls at fills0/204 and interface0, including
+raw IN-open failure, typed OUT/IN failure, cleanup replay after reset/new failure,
+halt-sensitive SI grant, retained owner through generation restart and repeated
+nonzero configuration close/reopen with exact fresh-document recovery. Only
+external sequence and transport-epoch saturation are exercised in this fixture.
+Unsupported notifications remain held until actual reset; no generic rejection
+policy, auto-owner success completion, real CSR write or physical ACK is supplied.
+Focused raw adapter132 and protocol52 unchanged/160 patched also pass. The
+unchanged core now independently exposes18 protocol findings and40 BE status
+mismatches; patched has zero. Exact regression sources/captures are archived
+under the existing TinyUSB evidence directories. The full sequential suite passed
+128 consistency checks and both suites on2026-10-02; log
+`/tmp/hp1020-full-offload-20261002.log`, child `hp1020-validation.LBojdq`.
+The full58/58 rerun and corrected PDF-locator source closure are preserved under
+`udc-offload/source-snapshots/full-suite-58-cases.*` (relative to `usb-path/`).
+The stronger independent gate passed; eight deliberately corrupted copies were
+rejected for their intended reasons. The unchanged first captures and gate-review
+archive retain the initial oracle corrections and exact historical bytes.
 
 The existing adapter's configuration recovery expects an accepted status owner;
-returning success without one is insufficient. A conservative candidate binds
-a no-buffer auto-status owner, grants hardware status after programming, and
-retains that owner until justified completion or supersession/cancellation.
+returning success without one is insufficient. The tested conditional path binds
+a no-buffer auto-status owner, proposes status permission after supplied programming
+facts, and retains that owner until explicit settled cancellation.
 Existing recovery permits such a held configuration status while the document
-path restarts. This is a proposal, not proof that a new request/reset settles
-HP hardware. A Linux-like early software giveback would need a distinct audited
+path restarts. These are software observations, not proof that a new request/reset
+settles HP hardware. A Linux-like early software giveback would need a distinct audited
 completion contract, not silently weaker evidence. Stale handlers must never
 grant a newer request's status. Four-bit state cannot recover malformed SETUP
 high bits; sampling stability, rejection policy and controller mode stay explicit.
+
+After this checkpoint, address ordinary raw SET_INTERFACE separately. Static
+review of the current adapter and pinned core shows raw SI0 is fenced and given
+ordinary status, but never establishes binding recovery; it stays stopped until
+a later SOFT_RESET or nonzero configuration. The core fallback also ignores
+alternate/high-index aliases. This is source-derived, not yet a focused executed
+finding. USB2 §9.4.10 permits STALL for a sole-default interface. Prefer explicit
+handled rejection through the normal request-state path, without destructive
+bulk fencing, while preserving typed SI's separately conditional acceptance.
+Returning false from the class callback alone causes TinyUSB's success fallback.
+Preserve any old fault/recovery and settle original EP0 ownership; rejection
+must not claim completion or clear bulk halt/default state. Direction is ignored
+when wLength0, so its alias is not itself a malformed-direction finding.
+First reproduce the acknowledged-but-stopped behavior, then test uninterrupted
+exact document input across corrected rejection, old EP0 settlement, aliases,
+fresh control recovery and existing pending reset. Current source review and a
+unexecuted C/scenario/observer proposals are archived under
+`analysis/usb-path/udc-composed/source-snapshots/raw-si-unexecuted-proposals.*`.
+V2 is a full patch against the current source, not an incremental V1 patch.
+Static review found no blocking expectation or ordering error. The initial28-case
+plan does not separately cover retained raw-SI STATUS/late SUCCESS or supersession
+of an already pending destructive request; retain those coverage limits.
+Root owns execution and integration after the current validated checkpoint is saved.
 
 ### Original SETUP ingress and corrected legacy evidence (2026-09-29)
 

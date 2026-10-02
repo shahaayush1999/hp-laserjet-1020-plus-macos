@@ -1,7 +1,7 @@
 # Synthetic TinyUSB device integration
 
 **52 unchanged-upstream and 160 patched scenarios pass on host and QEMU.** The
-unchanged baseline intentionally retains 14 protocol observations and 32 BE
+unchanged baseline intentionally retains 18 protocol observations and 40 BE
 status-byte mismatches. The patched build matches every independent wire oracle.
 This fixture composes the TinyUSB generic device/EP0 core with the existing
 printer-class/document component. It supplies
@@ -79,7 +79,12 @@ a claimed rejection is final. Failed EP0 completion latches failure before
 status/DATA/ACK progression; further submissions wait for a new SETUP. The adapter
 also fences the document generation saved at that exact packet's submission,
 including reset status sent after restart. A configuration-only reset preserves
-the active SET_CONFIGURATION request; bus reset still clears it.
+the active SET_CONFIGURATION request and bus connection/address flags; bus reset
+still clears its normal state. Repeated nonzero configuration now follows the
+ordinary close/reset/open path. Independent GET_STATUS queries after halting
+both endpoints expose the unchanged core's retained halts and verify the patch's
+default-state reset. The official USB reference/provenance is in the analysis
+controller-reference manuals directory; physical toggle programming is not tested.
 Submitting an IN packet is only a captured proposal: cancelled packet bytes also
 appear in the transcript and do not represent bytes received by a real host.
 
@@ -92,8 +97,8 @@ reset IN status, with fresh recovery. Late failures cannot stop a newer request.
 These control-only cases check document-storage hashes and guards; no actual
 bulk payload or decoded page passes through TinyUSB yet.
 
-Focused logs are `/tmp/hp1020-tinyusb-upstream-expanded-20260929.log` and
-`/tmp/hp1020-tinyusb-patched-target-20260929.log`. Current reports are
+Latest focused logs are `/tmp/hp1020-protocol-repeat-upstream-20261002.log` and
+`/tmp/hp1020-protocol-repeat-patched-20261002.log`. Current reports are
 `analysis/usb-path/tinyusb-device/upstream-baseline.json` and
 `patched-validation.json`. Their `source-snapshots/` archives retain earlier
 exact sources, captures and failed builds. The first failures exposed the

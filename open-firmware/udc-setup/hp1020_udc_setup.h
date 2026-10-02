@@ -10,7 +10,8 @@
 /* RAM-only ingress, one stationary instance and one serialized context. No
  * DCD/IRQ entry point, live-DMA read, rearm, acknowledgement or ownership
  * settlement is implemented. The adapter remains the protocol identity owner.
- * All SETUP and bus-reset admissions for this adapter must use this bridge. */
+ * All raw SETUP, reconstructed SC/SI and bus-reset admissions for this adapter
+ * must use this bridge. Reconstructed notifications never replace raw capture. */
 enum hp1020_udc_setup_result {
     HP1020_UDC_SETUP_OK = 0, HP1020_UDC_SETUP_WAIT, HP1020_UDC_SETUP_STALE,
     HP1020_UDC_SETUP_INVALID, HP1020_UDC_SETUP_FAULT,
@@ -19,7 +20,7 @@ enum hp1020_udc_setup_result {
 
 enum hp1020_udc_setup_pending {
     HP1020_UDC_SETUP_PENDING_NONE = 0, HP1020_UDC_SETUP_PENDING_CAPTURE,
-    HP1020_UDC_SETUP_PENDING_RESET
+    HP1020_UDC_SETUP_PENDING_RESET, HP1020_UDC_SETUP_PENDING_OFFLOAD
 };
 enum hp1020_udc_setup_terminal {
     HP1020_UDC_SETUP_LIMIT_NONE = 0, HP1020_UDC_SETUP_LIMIT_SEQUENCE,
@@ -66,6 +67,27 @@ struct hp1020_udc_setup_capture_facts {
     uint8_t format_be_wire, cpu_visible, stable;
 };
 
+/* External promises about the originally retained SC/SI observation. All are
+ * exact 0/1. dynamic_csr means hardware owns standard status but is holding it
+ * for the software CSR_DONE grant. coherent_current includes the sample's
+ * association with this original event, no lost request/reset, and stable
+ * CFG/INTF/ALT acquisition; the bridge cannot infer these from pending bits.
+ * request_validated covers original fields that four-bit DEVSTS cannot retain.
+ * Unknown facts retain the event and block ordinary progress. Unsupported
+ * values in this initial bounded profile also stay held, without a fabricated
+ * STALL or status grant, until an actual reset supersedes them. */
+struct hp1020_udc_offload_facts {
+    uint8_t dynamic_csr, coherent_current, request_validated, ep0_stalls_cleared;
+};
+/* csr_programmed includes completed affected-endpoint default, DATA0 toggle
+ * and halt reset for every nonzero configuration selection (even the same
+ * value) or interface reselection. It is not proved by opening software
+ * endpoints. A retained core bulk halt makes the grant wait; a newly armed
+ * packet after recovery need not be cancelled merely because it is BUSY. */
+struct hp1020_udc_auto_status_facts {
+    uint8_t csr_programmed, status_gate_current;
+};
+
 /* Public only for allocation/read-only diagnostics. Exactly one retained
  * capture; no queue or transfer-cookie allocator. Captured bytes are left
  * unchanged after admission or a reset barrier. The adapter's existing pending
@@ -73,6 +95,7 @@ struct hp1020_udc_setup_capture_facts {
 struct hp1020_udc_setup {
     struct hp1020_tusb_adapter *adapter;
     struct hp1020_udc_setup_observation capture;
+    struct hp1020_tusb_offload offload;
     uint32_t record_dma, last_sequence, last_reset_sequence, pending_sequence;
     uint32_t adapter_control_epoch, reset_control_epoch, last_admitted_sequence;
     enum hp1020_tusb_result last_adapter_result;
@@ -118,6 +141,39 @@ enum hp1020_udc_setup_result hp1020_udc_setup_offer(struct hp1020_udc_setup *,
 enum hp1020_udc_setup_result hp1020_udc_setup_dispatch(struct hp1020_udc_setup *,
     uint32_t sequence, struct hp1020_udc_setup_capture_facts,
     uint8_t ep0_stalls_cleared);
+
+/* Separate immutable typed ingress in the same single pending-event slot and
+ * external sequence order. No raw record bytes/DMA label are invented or
+ * changed. offer_offload freezes the sample before validation; dispatch alone
+ * may construct a canonical notification through the adapter. Values outside
+ * config0/1, interface0/alt0 remain held/FAULT; a later actual reset is required
+ * by this bounded profile. This is not a general controller rejection policy. */
+enum hp1020_udc_setup_result hp1020_udc_setup_offer_offload(struct hp1020_udc_setup *,
+    const struct hp1020_tusb_offload *);
+enum hp1020_udc_setup_result hp1020_udc_setup_dispatch_offload(struct hp1020_udc_setup *,
+    uint32_t original_sequence, struct hp1020_udc_offload_facts);
+
+/* One CSR_DONE permission proposal for this exact no-buffer status owner.
+ * Requires full progress permission and the latest original admitted ingress;
+ * even a newer offered-but-unadmitted event blocks an old grant. Neither facts
+ * nor success supply DMA/USB completion or any reset promise. status_gate_current
+ * independently asserts the physical status gate still belongs to this event.
+ * The serialized caller must consume the returned permission immediately,
+ * before any newer ingress; it may not queue/reuse it after an intervening
+ * request/reset. Explicit original-cookie settled cancellation is independent.
+ * grant is caller-owned valid nonaliasing output and stays unchanged on error. */
+enum hp1020_udc_setup_result hp1020_udc_setup_take_auto_status(struct hp1020_udc_setup *,
+    uint32_t original_sequence, struct hp1020_tusb_cookie,
+    struct hp1020_udc_auto_status_facts, struct hp1020_tusb_auto_status_grant *);
+
+/* Independently supplied completed cleanup of one failed programming attempt.
+ * This is allowed while a newer observation is held: it emits no reply and
+ * creates no forward-progress permission. Exact original ticket, zero retained
+ * owners and the adapter's stop fence remain necessary. Never infer the fact
+ * from a new SETUP, reset interrupt, empty software queue or elapsed time. */
+enum hp1020_udc_setup_result hp1020_udc_setup_ack_programming_cleanup(
+    struct hp1020_udc_setup *, struct hp1020_tusb_programming_ticket,
+    uint8_t controller_programming_clean);
 
 /* Ordered admission of an actual supplied bus-reset observation. Same external
  * ingress sequence space as SETUP; the bridge never creates a reset event.

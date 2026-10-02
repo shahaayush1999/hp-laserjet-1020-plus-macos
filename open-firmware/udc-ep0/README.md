@@ -164,4 +164,5 @@ Execution evidence is `analysis/usb-path/udc-ep0/validation.{json,md}`;
 `analysis/usb-path/udc-ep0/source-snapshots/`. The failure was an unadapted draft
 build path, before target compilation/execution. The component C/H did not change.
 Target descriptor component plus four allocations measures296 bytes beyond the
-existing adapter's128536 bytes. These counts establish no physical transfers.
+adapter/document allocation (now128588 bytes after the typed-offload extension).
+These counts establish no physical transfers.

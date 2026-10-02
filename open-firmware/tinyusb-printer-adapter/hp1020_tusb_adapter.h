@@ -25,6 +25,28 @@ struct hp1020_tusb_cookie {
     uint8_t endpoint;
 };
 
+/* Reconstructed standard-request notification, not a raw SETUP record. The
+ * external sequence shares the bridge's original SETUP/reset ingress order.
+ * Only configuration 0/1 and interface 0/alternate 0 are in this draft profile.
+ * No address event, original high request bits, or wire ACK is fabricated. */
+enum hp1020_tusb_offload_kind {
+    HP1020_TUSB_OFFLOAD_NONE = 0, HP1020_TUSB_OFFLOAD_CONFIGURATION,
+    HP1020_TUSB_OFFLOAD_INTERFACE
+};
+struct hp1020_tusb_offload {
+    uint32_t sequence;
+    uint8_t kind, configuration, interface_number, alternate;
+};
+struct hp1020_tusb_auto_status_grant {
+    struct hp1020_tusb_cookie cookie;
+    struct hp1020_tusb_offload original;
+};
+struct hp1020_tusb_programming_ticket {
+    /* sequence0 denotes raw SETUP provenance; control_epoch is always nonzero.
+     * A typed failure retains its original external sequence as well. */
+    uint32_t sequence, control_epoch, transport_epoch;
+};
+
 struct hp1020_tusb_config {
     uint8_t rhport, ep_out, ep_in;
     uint16_t out_capacity; /* 64-byte multiple, 64..HP1020_RX_CAPACITY. */
@@ -52,6 +74,10 @@ struct hp1020_tusb_owner {
     /* An admitted packet fault keeps DCD ownership until real settlement and
      * permanently suppresses protocol progress from this EP0 packet. */
     uint8_t packet_fault;
+    /* A hardware auto-status owner has no DMA descriptor/buffer. Granting its
+     * status permission is not completion. It retires only by explicit settled
+     * cancellation, and never emits a TinyUSB completion or ACK callback. */
+    uint8_t auto_status, auto_granted;
 };
 
 /* Public for allocation and read-only diagnostics; fields are adapter-owned.
@@ -69,16 +95,20 @@ struct hp1020_tusb_adapter {
     struct hp1020_printer_status pending_status, active_status;
     tusb_control_request_t class_request;
     uint8_t pending_setup[8], active_setup[8];
+    struct hp1020_tusb_offload pending_offload, active_offload;
+    struct hp1020_tusb_programming_ticket programming_failure;
     uint32_t last_submission_id, control_epoch, active_control_epoch;
     uint32_t transport_epoch, active_transport_epoch, deferred_epoch;
     uint32_t binding_pending_epoch, reset_transport_epoch;
     uint32_t class_request_id, response_epoch;
+    uint32_t offload_transport_epoch;
     enum hp1020_rx_result last_receive_result;
     enum hp1020_printer_result last_class_result;
     uint8_t initialized, exhausted, busy, stack_active;
     uint8_t opened, fenced, input_closed, prepared, configuration_value;
     uint8_t pending_kind, pending_speed, pending_destructive;
     uint8_t deferred, response_owned, delivering_live, delivered;
+    uint8_t programming_dirty;
 };
 
 /* Bind before tusb_init. First-use only, never a recovery mechanism. The
@@ -108,6 +138,16 @@ enum hp1020_tusb_result hp1020_tusb_adapter_setup(struct hp1020_tusb_adapter *,
 enum hp1020_tusb_result hp1020_tusb_adapter_bus_reset(struct hp1020_tusb_adapter *,
     tusb_speed_t speed);
 
+/* Typed offload admission, exclusively through the shared ingress bridge.
+ * Internally constructs canonical TinyUSB request fields, with explicit
+ * offload provenance retained. It neither claims captured wire bytes nor
+ * submits/grants status. Every nonzero configuration selection, even the same
+ * value, fences and drains old transport before the patched core closes/reopens
+ * endpoints. SI reselection also fences and begins one new three-promise
+ * recovery after accepted status binding. */
+enum hp1020_tusb_result hp1020_tusb_adapter_offload(struct hp1020_tusb_adapter *,
+    const struct hp1020_tusb_offload *);
+
 /* Sole permitted synchronous reentry: dcd_edpt_xfer calls bind_submission
  * BEFORE accepting any buffer. Retain returned cookie by value. false/error
  * means do not start a transfer. A DCD that accepted the cookie but returns
@@ -116,6 +156,37 @@ enum hp1020_tusb_result hp1020_tusb_adapter_bus_reset(struct hp1020_tusb_adapter
 enum hp1020_tusb_result hp1020_tusb_adapter_bind_submission(
     struct hp1020_tusb_adapter *, uint8_t endpoint, uint8_t *buffer,
     uint16_t length, struct hp1020_tusb_cookie *);
+
+/* Alternative synchronous DCD bind for a current typed SC/SI: IN0, NULL, zero
+ * only. Generic bind_submission rejects offload EP0; this path supplies no
+ * descriptor or wire packet. Keep the original cookie beside controller state.
+ * The shared bridge alone may call take_auto_status after checking its latest
+ * ingress permission and independently supplied mode/programming/gate facts,
+ * including affected endpoint defaults/toggle/halt reset. Retained core bulk
+ * STALL makes configuration1 grants wait; a valid new bulk owner does not.
+ * A grant is a one-shot permission proposal, not a performed register write.
+ * Do not yield/interleave a new ingress between taking it and performing the
+ * supplied controller action; discard it if that serialized contract fails.
+ * Output pointers must be valid, stationary and nonaliasing adapter storage. */
+enum hp1020_tusb_result hp1020_tusb_adapter_bind_auto_status(
+    struct hp1020_tusb_adapter *, uint8_t endpoint, uint8_t *buffer,
+    uint16_t length, struct hp1020_tusb_cookie *);
+enum hp1020_tusb_result hp1020_tusb_adapter_take_auto_status(
+    struct hp1020_tusb_adapter *, struct hp1020_tusb_cookie,
+    uint32_t original_sequence, struct hp1020_tusb_auto_status_grant *);
+
+/* A failed raw or typed endpoint-open attempt can leave partial controller CSR state.
+ * No retry may open/grant against that state until the original failed attempt
+ * has this separate completed-programming-cleanup promise. Request/reset
+ * notifications do not clear it. Cleanup does not restart the document, grant
+ * status or satisfy any of the three class recovery promises. No retained owner
+ * may remain. Ticket identity survives superseding control/reset observations;
+ * only the exact still-dirty original attempt can be acknowledged. */
+enum hp1020_tusb_result hp1020_tusb_adapter_pending_programming_cleanup(
+    const struct hp1020_tusb_adapter *, struct hp1020_tusb_programming_ticket *);
+enum hp1020_tusb_result hp1020_tusb_adapter_ack_programming_cleanup(
+    struct hp1020_tusb_adapter *, struct hp1020_tusb_programming_ticket,
+    uint8_t controller_programming_clean);
 
 /* Serialized ingress AFTER the initiating TinyUSB call returns. Completion
  * promises that this transfer's writes/reads ended and data is CPU-visible;
@@ -127,6 +198,10 @@ enum hp1020_tusb_result hp1020_tusb_adapter_complete(struct hp1020_tusb_adapter 
     struct hp1020_tusb_cookie, xfer_result_t result, uint32_t length);
 enum hp1020_tusb_result hp1020_tusb_adapter_cancelled(struct hp1020_tusb_adapter *,
     struct hp1020_tusb_cookie);
+/* For an auto-status owner only explicit ABORTED/0 settlement is admitted.
+ * SUCCESS is rejected/retained, never interpreted as a controller or host ACK.
+ * A fresh control admission will clear TinyUSB's old BUSY state after the
+ * owner is retired; current cancellation leaves the request fenced. */
 /* Unsettled packet fault, after the initiating TinyUSB call returns. Requires
  * the exact original DCD-owned cookie and its current identity domain/receive
  * generation. EP0 epochs are control identities; bulk epochs are transport
@@ -145,7 +220,7 @@ enum hp1020_tusb_result hp1020_tusb_adapter_fault(struct hp1020_tusb_adapter *,
 
 /* service handles protocol events and settled ownership. A newly opened,
  * successfully configured endpoint binding begins exactly one internal class
- * recovery, without a fabricated SETUP or reply. Idempotent configuration,
+ * recovery, without a fabricated SETUP or reply. Repeated configuration0,
  * generic mounted/fenced polling and superseded deconfiguration do not start
  * recovery. No decoding or automatic rearming occurs. arm_out submits at most
  * one transfer; pumping is separate so four completed slots apply backpressure. */

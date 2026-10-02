@@ -1461,6 +1461,726 @@ def usb_irq_capture_consistency_gate(root):
         return False, "IRQ capture consistency failure: " + str(error)
 
 
+def usb_offload_consistency_gate(root, capture_root=None):
+    """Check saved evidence; optional capture_root also seals raw saved files."""
+    import hashlib
+    import json
+    import re
+    from pathlib import Path
+
+    root = Path(root)
+    path = root / 'analysis/usb-path/udc-offload/validation.json'
+    bad = set()
+
+    def need(value, reason):
+        if not value:
+            bad.add(reason)
+
+    def packed(words):
+        return b''.join(v.to_bytes(4, 'big') for v in words)
+
+    def digest(raw):
+        return hashlib.sha256(raw).hexdigest()
+
+    def fnv(raw):
+        value = 2166136261
+        for byte in raw:
+            value = ((value ^ byte) * 16777619) & 0xffffffff
+        return value
+
+    def safe_path(name):
+        p = Path(name)
+        return not p.is_absolute() and '..' not in p.parts and p.as_posix() == name
+
+    # Independent test images: 32x8 black, and the specified 64x12 edge pattern.
+    # This is the uncompressed input definition, not the replacement's decoder.
+    small = bytes([255]) * 32
+    slim = bytes(sum((((x // 11) ^ (y // 3) ^ (x == y) ^ (x == 63-y)) & 1)
+                     << (7 - x % 8) for x in range(byte*8, byte*8+8))
+                 for y in range(12) for byte in range(8))
+    terminals = {'sequence-exhaustion', 'transport-identity-exhaustion'}
+    second_generation = {
+        'grant-cookie-identity', 'deconfigure-repeat-reconfigure',
+        'reset-retry-held-offload', 'reset-after-grant',
+        'held-offload-blocks-deferred-reset', 'unsupported/config2',
+        'unsupported/alt1', 'unsupported/interface1', 'unsupported/out-of-domain',
+        'current-owner-fault', 'current-owner-success-rejected',
+        'same-config-recovers-fault'}
+    interfaces = {'interface-reselection', 'interface-halt-reselection'}
+
+    def output_contract(name):
+        # Generations are from the scripted input/recovery schedule. The initial
+        # generation is fixed at 1; it is not inferred from an observed success.
+        if name in terminals:
+            return b'', [], 2
+        if name == 'repeat-configuration-recovery':
+            return small + slim + small, [[3,1,0,1,0], [3,2,1,0,0],
+                                         [3,3,1,1,0], [4,1,0,1,0]], 4
+        if name in interfaces:
+            return small + small, [[2,1,0,1,0], [3,1,0,1,0]], 3
+        generation = 3 if name in second_generation else 2
+        return small, [[generation,1,0,1,0]], generation
+
+    def packet_contract(name):
+        # Preserve individual zero-length packets: joining bytes alone erases
+        # a missing or duplicate status packet. No typed event adds a packet.
+        return {
+            'repeat-configuration-recovery': [('', 'raw-repeat-configuration-status')],
+            'interface-halt-reselection': [('', 'halt-OUT-before-interface-reselection'),
+                                          ('', 'halt-IN-before-interface-reselection')],
+            'new-raw-held-blocks-grant': [('01', 'configuration-after-automatic-owner')],
+            'raw-programming-failure-IN': [('', 'raw-config-after-explicit-programming-cleanup')],
+        }.get(name, [])
+
+    try:
+        report = json.loads(path.read_bytes())
+        target = report['target']
+        need(report['status'] == target['status'] == 'pass', 'paired status')
+        sources = report['source_sha256']
+        required = {
+            'scripts/validate-hp1020-udc-offload.py',
+            'scripts/build-hp1020-udc-offload-target.sh',
+            'open-firmware/udc-offload-test/fixture.c',
+            'open-firmware/udc-offload-test/host-check.c',
+            'open-firmware/udc-offload-test/target-check.ld',
+            'open-firmware/udc-composed-test/fixture.c',
+            'open-firmware/udc-setup/hp1020_udc_setup.c',
+            'open-firmware/udc-setup/hp1020_udc_setup.h',
+            'open-firmware/tinyusb-printer-adapter/hp1020_tusb_adapter.c',
+            'open-firmware/tinyusb-printer-adapter/hp1020_tusb_adapter.h',
+            'open-firmware/tinyusb-device/patches/protocol-compatibility.patch',
+            'vendor/tinyusb-0.21.0/src/device/usbd.c',
+        }
+        need(required <= sources.keys(), 'implementation and reusable stack source closure')
+        components = {
+            'image-core': ('image', 'image_page', 'image_stream', 'image_ring', 'image_output'),
+            'semantic-core': ('semantic', 'page_plan'),
+            'usb-receive-core': ('usb_receive', 'usb_document'),
+            'usb-printer-class': ('usb_printer',),
+            'udc-ep0': ('udc_ep0',), 'udc-out': ('udc_out',),
+        }
+        need(all('open-firmware/'+directory+'/hp1020_'+stem+'.'+suffix in sources
+                 for directory, stems in components.items() for stem in stems
+                 for suffix in ('c', 'h')), 'complete receive, decoder, document and descriptor sources')
+        need(all(name in sources for name in (
+            'scripts/prepare-hp1020-tinyusb.py', 'scripts/validate-hp1020-udc-composed.py',
+            'scripts/validate-hp1020-udc-ep0.py', 'scripts/validate-hp1020-udc-out.py',
+            'scripts/validate-hp1020-tinyusb-printer.py', 'scripts/validate-hp1020-continuous-printer.py',
+            'scripts/hp1020_qemu_ram.py', 'scripts/check-hp1020-c-compiler-profile.py',
+            'open-firmware/tinyusb-device/patches/manifest.json',
+            'open-firmware/tinyusb-printer-test/fixture.c',
+            'open-firmware/udc-ep0-test/fixture.c', 'open-firmware/udc-out-test/fixture.c')),
+             'actual fixture, imported oracle and tool closure')
+        for name, expected_digest in {**sources, **report['fixture_sha256']}.items():
+            relative = Path(name)
+            need(not relative.is_absolute() and '..' not in relative.parts and
+                 relative.as_posix() == name and re.fullmatch('[0-9a-f]{64}', expected_digest),
+                 'safe exact source paths')
+            need(hashlib.sha256((root / relative).read_bytes()).hexdigest() == expected_digest,
+                 'current exact tested sources and fixtures')
+        need(len(report['fixture_sha256']) == 6, 'six independent document fixtures')
+        expected_fixtures = {
+            'analysis/open-firmware-model/image-core/fixtures/32x8-stripe4-black.jbg',
+            'analysis/open-firmware-model/image-core/fixtures/9600x132-stripe128-edges.jbg',
+            'analysis/open-firmware-model/image-core/fixtures/16384x4-stripe128-edges.jbg',
+            'analysis/open-firmware-model/image-core/output-fixtures/1024x260-stripe128-repeat.jbg',
+            'analysis/open-firmware-model/image-core/output-fixtures/64x12-stripe4-edges.jbg',
+            'analysis/samples/generated/matrix-a4_default.zjs'}
+        need(set(report['fixture_sha256']) == expected_fixtures, 'exact independent fixture set')
+
+        effective = report['effective_source']
+        patch_path = 'open-firmware/tinyusb-device/patches/'
+        manifest = json.loads((root / (patch_path+'manifest.json')).read_bytes())
+        need(effective['patched'] is True and effective['upstream_commit'] ==
+             manifest['upstream_commit'] == 'dae3f9a366bfcddbf9dcf1b48d7500286a849539' and
+             effective['patch_manifest'] == manifest and manifest['patch_sha256'] ==
+             sources[patch_path+'protocol-compatibility.patch'], 'pinned exact effective patch')
+        vendor_prefix = 'vendor/tinyusb-0.21.0/'
+        originals = {n[len(vendor_prefix):]: d for n,d in sources.items()
+                     if n.startswith(vendor_prefix) and not n.endswith('/PROVENANCE.json')}
+        wanted_effective = originals.copy()
+        need(len(originals) == 19 and set(manifest['files']) ==
+             {'src/device/usbd.c', 'src/device/usbd_pvt.h'}, 'exact upstream and patched file sets')
+        for name, entry in manifest['files'].items():
+            need(originals[name] == entry['original_sha256'], 'patch input matches captured upstream')
+            wanted_effective[name] = entry['result_sha256']
+        need(effective['effective_sha256'] == wanted_effective, 'all effective-source result bytes bound')
+        built = root / 'analysis/usb-path/udc-offload/target'
+        need(json.loads((built/'effective-source.json').read_bytes()) == effective,
+             'host and target use identical effective source')
+        artifacts = target['captured_artifact_sha256']
+        need({'target-check.elf', 'target-check.map', 'effective-source.json', 'disassembly.txt',
+              'symbols.txt', 'annotated-disassembly.txt'} <= artifacts.keys(), 'target artifact closure')
+        for name, claimed in artifacts.items():
+            need(safe_path(name) and Path(name).name == name and
+                 bool(re.fullmatch('[0-9a-f]{64}', claimed)), 'safe target artifact identity')
+            # This listing is generated by the audit of the captured ELF, only
+            # inside the saved run. Do not claim a nonexistent shared listing.
+            if name != 'annotated-disassembly.txt':
+                need(digest((built/name).read_bytes()) == claimed, 'exact current target artifacts')
+        need(target['elf_sha256'] == artifacts['target-check.elf'], 'executed ELF hash binding')
+        for reference in report['original_reference'].values():
+            need(reference['newly_executed_stock_instructions'] == 0 and
+                 reference['stock_sha256'] == sources['analysis/sihp1020.elf'] and
+                 reference['report_sha256'] == sources[reference['report']],
+                 'reused original evidence and zero new original execution')
+        snapshot = Path(capture_root) if capture_root is not None else None
+        if snapshot is not None:
+            need(json.loads((snapshot/'validation.json').read_bytes()) == report,
+                 'saved report is current report')
+            need(json.loads((snapshot/'source-sha256.json').read_bytes()) == sources and
+                 json.loads((snapshot/'fixture-sha256.json').read_bytes()) == report['fixture_sha256'] and
+                 json.loads((snapshot/'target-sha256.json').read_bytes()) == artifacts,
+                 'saved source, fixture and target manifests')
+            for name, claimed in sources.items():
+                need(digest((snapshot/'source'/name).read_bytes()) == claimed, 'exact saved source bytes')
+            for name, claimed in report['fixture_sha256'].items():
+                need(digest((snapshot/'tested-fixtures'/name).read_bytes()) == claimed,
+                     'exact saved independent fixture bytes')
+            for name, claimed in artifacts.items():
+                need(digest((snapshot/'target'/name).read_bytes()) == claimed,
+                     'exact saved target and audit-derived listing')
+            for name, claimed in wanted_effective.items():
+                need(digest((snapshot/'effective-source'/name).read_bytes()) == claimed,
+                     'exact saved effective source bytes')
+        mode = report['offload_mode_evidence']
+        need(set(mode) == {
+            'analysis/usb-path/controller-reference/manuals/README.md',
+            'analysis/usb-path/controller-reference/manuals/offload-mode-review.json',
+            'analysis/usb-path/controller-reference/manuals/offload-mode-review.tar.gz',
+            'analysis/usb-path/controller-reference/manuals/usb2-spec-provenance.json'},
+             'bounded original mode evidence')
+        need(all(sources[n] == digest for n,digest in mode.items()), 'mode evidence captured')
+        need(report['hp_dynamic_csr_capability_established'] is False and
+             report['automatic_grants_are_acknowledgments'] is False and
+             report['controller_quiescence_established'] is False and
+             report['actual_peripheral_accesses'] == report['usb_transfers'] ==
+             report['completed_native_page_lifecycles'] == 0, 'explicit supplied hardware scope')
+
+        cases = report['cases']
+        need(len(cases) == len(target['cases']) and bool(cases), 'complete paired matrix')
+        expected_names = {
+            'capture-facts', 'configuration-delayed-grant', 'grant-before-recovery',
+            'grant-cookie-identity', 'repeat-configuration-recovery',
+            'deconfigure-repeat-reconfigure', 'interface-reselection',
+            'interface-halt-reselection', 'new-raw-held-blocks-grant',
+            'reset-retry-held-offload', 'reset-after-grant',
+            'held-offload-blocks-deferred-reset', 'unsupported/config2',
+            'unsupported/alt1', 'unsupported/interface1', 'unsupported/unconfigured-SI',
+            'unsupported/out-of-domain', 'programming-failure/OUT',
+            'programming-failure/IN', 'cleanup-replay-new-failure',
+            'raw-programming-failure-IN', 'status-submission-failure/before-bind',
+            'status-submission-failure/after-bind', 'current-owner-fault',
+            'current-owner-success-rejected', 'same-config-recovers-fault',
+            'old-generation-fault-and-success', 'sequence-exhaustion',
+            'transport-identity-exhaustion'}
+        need(len(sources) == 126 and len(cases) == 58, 'frozen source and profile closure')
+        seen = set()
+        totals = dict(captures=0, binds=0, grants=0, cancellations=0)
+        for case_index, (case, native) in enumerate(zip(cases, target['cases'])):
+            need(native['adapter_state_and_memory_bytes'] == 128588 and
+                 native['component_and_allocation_bytes'] == {'ep0':296, 'bulk':80, 'setup':96},
+                 'measured target component sizes')
+            key = (case['scenario'], case['fill'], case['interface'])
+            need(key not in seen and case['fill'] in (0,204) and case['interface'] == 0
+                 and case['capacity'] == 64, 'bounded unique profiles')
+            seen.add(key)
+            name = case['scenario']
+            need(case['case'] == f'{name}/fill={case["fill"]}/capacity=64/interface=0',
+                 'case identity describes its actual profile')
+            need(case['case'] == native['case'] and case['status'] == native['status'] == 'pass'
+                 and native['all_steps_equal'] is True
+                 and native['typed_captures_original_cookies_and_grants_equal'] is True
+                 and native['all_pixels_wire_notifications_descriptors_and_storage_equal'] is True,
+                 'paired execution and exact captures')
+            need(case['capture_sha256'] == native['capture_sha256'] and
+                 set(case['capture_sha256']) == {'pixels','wire','receive','output','documents',
+                                               'ep0','bulk_descriptor','setup_record'},
+                 'complete guarded storage and output captures')
+            rows, erows, brows, srows, orows, events = (case[n] for n in
+                ('steps','ep0_steps','bulk_steps','setup_steps','offload_steps','events'))
+            need(bool(rows) and len({len(a) for a in (rows,erows,brows,srows,orows,events)}) == 1,
+                 'complete 368-word transcript')
+            prev, pe, pb, ps, po = (case[n] for n in
+                ('initial','initial_ep0','initial_bulk','initial_setup','initial_offload'))
+            need(prev[32] == 1 and prev[42:48] == [0]*6 and prev[90:94] == [0]*4,
+                 'fresh document and recovery generation')
+            wanted_pixels, wanted_documents, wanted_generation = output_contract(name)
+            wanted_packets = packet_contract(name)
+            need(case['pixels_bytes'] == len(wanted_pixels) and
+                 case['expected_pixels_sha256'] == digest(wanted_pixels) == case['capture_sha256']['pixels'],
+                 'independent full image bytes and length')
+            need(case['expected_documents'] == wanted_documents and
+                 digest(b''.join(packed(record) for record in case['expected_documents'])) ==
+                 case['capture_sha256']['documents'], 'independent original-generation document bytes')
+            wire = b''.join(bytes.fromhex(raw) for raw, label in wanted_packets)
+            need(digest(wire) == case['capture_sha256']['wire'], 'literal complete wire bytes')
+            packets = case['packet_oracles']
+            need(len(packets) == len(wanted_packets), 'individual literal packets including ZLPs')
+            offset, packet_steps = 0, []
+            for packet, (raw, label) in zip(packets, wanted_packets):
+                step = packet['step']
+                need(packet['expected_hex'] == raw and packet['label'] == label and
+                     packet['offset'] == offset and 0 <= step < len(rows),
+                     'packet payload, role, offset and step')
+                offset += len(bytes.fromhex(raw))
+                packet_steps.append(step)
+                r, e = rows[step], erows[step]
+                need(r[28] != 0 and r[29] == len(bytes.fromhex(raw)) and r[24] == offset and
+                     e[78] == r[28] and e[61] == len(bytes.fromhex(raw)),
+                     'literal packet has an actual IN descriptor owner')
+            need(packet_steps == sorted(set(packet_steps)), 'ordered unique packets, even empty ones')
+            typed, owners, granted = {}, {}, set()
+            bind_steps, grant_steps, capture_steps = set(), set(), set()
+            raw_captures, admissions, tickets = {}, {}, {}
+            last_record, injected_open, injected_submit = None, 0, 0
+            failures, cleanups, bindings, restarts = [], [], [], []
+            witness, controls = set(), set()
+            ep0_prepares, ep0_publications, ep0_owners = [], [], {}
+            known_ingress = 0
+            for i,(r,e,b,s,o,event) in enumerate(zip(rows,erows,brows,srows,orows,events)):
+                need([len(a) for a in (r,e,b,s,o)] == [96,104,48,40,80] and
+                     r[15:17] == [0,1] and e[2:5] == [0,1,1] and b[7:10] == [0,1,1]
+                     and s[12:15] == [0,1,3] and o[11:13] == [0,1] and o[76:80] == [0]*4,
+                     'row shapes, ownership and guards')
+                op,a,arg_b,arg_c,arg_d = event['words']
+                result = event['result']
+                controls.add((op,a,arg_b,arg_c,arg_d,result))
+                need(r[0] == result and op not in (0,2,3,4,5,13,19), 'ordered typed/component ingress')
+                if op in (81,83,100) and 0 < a <= 0xffffffff:
+                    known_ingress = max(known_ingress, a)
+                if op == 80 and result == 0:
+                    last_record = bytes.fromhex(event['data_hex'])
+                    need(len(last_record) == 16, 'literal immutable raw SETUP record')
+                if op == 81 and result == 0:
+                    need(last_record is not None and packed(s[32:36]) == last_record,
+                         'raw capture equals caller-supplied bytes')
+                    raw_captures[a] = last_record[8:]
+                if op in (82,101) and result == 0:
+                    need(r[2] == prev[2]+1 and r[2] <= 0xffffffff and s[6:8] == [a,r[2]],
+                         'admission has a fresh nonwrapping original control epoch')
+                    if op == 82:
+                        request = raw_captures[a]
+                        original_sequence = 0
+                    else:
+                        original = typed[a]
+                        request = bytes.fromhex('0009010000000000' if original[1:3] == [1,1]
+                                  else '0009000000000000' if original[1:3] == [1,0]
+                                  else '010b000000000000')
+                        original_sequence = a
+                    admissions[r[2]] = (original_sequence, request)
+                    if prev[44:46] == [1,7] and request in (
+                            bytes.fromhex('0009010000000000'), bytes.fromhex('010b000000000000')):
+                        need(r[44:46] == [0,0] and r[32] == prev[32],
+                             'destructive admission invalidates complete old promises before new binding')
+                        witness.add('superseded-complete-promises')
+                    if request == bytes.fromhex('0009010000000000') and prev[10]:
+                        need(r[7] == r[36] == 1 and r[32] == prev[32],
+                             'same configuration fences before dispatch')
+                        if prev[30] and prev[50] == 0:
+                            witness.add('repeat-with-unfinished-input')
+                    if request == bytes.fromhex('0009000000000000') and prev[10]:
+                        need(r[7] == r[36] == 1, 'deconfiguration fences admission')
+                if op == 83 and result == 0:
+                    admissions[r[2]] = (0, None)
+                    need(r[32] == prev[32], 'actual reset notification is not document restart')
+                    if po[59]:
+                        witness.add('reset-retains-dirty-ticket')
+                    if po[13] and po[15]:
+                        witness.add('reset-after-grant')
+                if op == 83 and result == 1 and arg_c == 1:
+                    need(s[2:4] == [2,a] and r[2] == prev[2], 'reset WAIT retains exact original retry')
+                    witness.add('reset-busy-retry')
+                if op in (82,101) and result in (1,3,4):
+                    clear_supplied = (arg_c == 1) if op == 82 else ((arg_b & 255) == 1)
+                    need(r[2:11]+r[12:] == prev[2:11]+prev[12:] and
+                         r[11] == (prev[11] & ~3 if clear_supplied else prev[11]),
+                         'unadmitted requests preserve adapter; supplied clear only changes DCD EP0 mask')
+                if op == 101 and result == 4:
+                    need(s[2:4] == [3,a], 'unsupported typed request remains held')
+                    witness.add('unsupported-held')
+                if op == 100 and result == 1 and a > ps[4]:
+                    witness.add('newer-offer-wait')
+
+                # The three original-ticket promises are separate events. No
+                # status grant, cleanup, SETUP or reset may invent a restart.
+                if r[42] != prev[42]:
+                    need(r[42] == prev[42]+1 and r[42] <= 0xffffffff and
+                         r[43] == prev[32] and r[44:46] == [1,0] and r[36] == 1,
+                         'new recovery ticket clears every prior promise')
+                if op == 10 and result == 0:
+                    need(r[44] == 1 and r[42] != 0 and r[43] == r[32],
+                         'saved original recovery ticket')
+                    tickets[a] = tuple(r[42:44])
+                if op == 11 and result == 0:
+                    need(arg_b in (1,2,4) and tickets.get(a) == tuple(prev[42:44]) and
+                         prev[44] == 1 and prev[43] == prev[32] and
+                         r[42:45] == prev[42:45] and r[45] == (prev[45] | arg_b),
+                         'one explicitly supplied current-ticket promise')
+                if op == 11 and result == 2:
+                    need((tickets.get(a) != tuple(prev[42:44]) or not prev[44] or
+                          prev[43] != prev[32] or prev[2] != prev[3] or prev[4] != prev[5]) and
+                         r[32:48] == prev[32:48],
+                         'old recovery promise cannot authorize a new generation')
+                    witness.add('stale-recovery-promise')
+                if op == 15:
+                    need(r[32:48] == prev[32:48], 'endpoint defaults are not a document promise')
+                    if prev[82] and prev[84]:
+                        need(r[81:85] == [0]*4, 'explicit supplied defaults clear both core halts')
+                        witness.add('bulk-defaults-after-halt')
+                if r[32] != prev[32]:
+                    need(op == 12 and result == 0 and tickets.get(a) == tuple(prev[42:44]) and
+                         prev[44:46] == [1,7] and prev[43] == prev[32] and
+                         ps[11] == 7 and prev[2] == prev[3] and
+                         r[32] == prev[32]+1 and r[32] <= 0xffffffff and
+                         r[36] == r[44] == r[45] == 0,
+                         'restart requires all three original-ticket promises and current ingress')
+                    restarts.append((i,prev[32],r[32]))
+                elif op == 12 and result == 0:
+                    need(False, 'successful restart must advance exactly once')
+                if op == 12 and result == 2:
+                    need((tickets.get(a) != tuple(prev[42:44]) or not prev[44] or
+                          prev[43] != prev[32] or prev[2] != prev[3] or prev[4] != prev[5]) and
+                         r[32:48] == prev[32:48],
+                         'old finish identity is rejected without state change')
+                    witness.add('stale-recovery-finish')
+                if op == 12 and result == 1 and prev[45] == 7 and ps[11] == 0:
+                    witness.add('held-ingress-blocks-finish')
+                if op in (1,6,7,8,9,12) and ps[11] == 0:
+                    need(result == 1 and r[2:] == prev[2:], 'held ingress blocks forward service')
+
+                # A controller-owned packet must settle before endpoint reopens.
+                if any(prev[j] for j in (26,28,30)):
+                    need(o[49:56] == po[49:56], 'no endpoint reprogramming with retained DCD owner')
+                if op == 106 and result == 0:
+                    need(a in (1,2), 'named OUT/IN programming-failure injection')
+                    injected_open = a
+                if op == 14 and result == 0:
+                    injected_submit = a
+                if op == 1 and prev[2] != prev[3] and r[2] == r[3]:
+                    original_sequence, request = admissions[r[2]]
+                    if request is None:
+                        need(r[68] == r[8] == r[10] == 0, 'actual stack reset clears connection')
+                    elif request in (bytes.fromhex('0009010000000000'), bytes.fromhex('010b000000000000')):
+                        # Successful binding is recognized by an actually
+                        # retained status owner and fresh recovery, not result
+                        # alone: raw failed open legitimately returns core OK.
+                        if r[28] and r[44] and r[42] == prev[42]+1:
+                            need(r[68] == 1 and r[8] == r[10] == 1 and r[45] == 0,
+                                 'successful selection preserves connection and begins recovery')
+                            if request[1] == 9:
+                                repeated = po[66] == 1
+                                need(o[49:53] == [v+1 for v in po[49:53]] and
+                                     o[55] == po[55]+int(repeated) and o[67] == 15 and
+                                     o[72] == po[75]+1+int(repeated) and o[73] == o[72]+1 and
+                                     o[75] == o[73] and
+                                     (not repeated or o[74] == po[75]+1),
+                                     'selection opens OUT then IN after required close-all')
+                                if repeated:
+                                    witness.add('typed-repeat' if original_sequence else 'raw-repeat')
+                            else:
+                                need(o[49:56] == po[49:56] and o[67:76] == po[67:76],
+                                     'SI reselection does not masquerade as endpoint open callbacks')
+                                witness.add('interface-recovery')
+                            bindings.append((i, original_sequence, request.hex()))
+                    elif request == bytes.fromhex('0009000000000000') and r[28]:
+                        need(r[68] == 1 and r[8] == r[10] == r[44] == 0 and
+                             r[42] == prev[42] and o[49:53] == po[49:53] and
+                             o[55] == po[55]+int(po[66] != 0) and o[67] == 3,
+                             'SC0 preserves connection, closes only an existing binding and creates no recovery')
+                        if po[66] == 0:
+                            witness.add('repeat-zero')
+
+                # Ordinary EP0 packet proposals are checked independently of
+                # the auto-owner ledger. Even zero-byte proposals need owners.
+                for slot in (0,1):
+                    p, old_p = e[8+48*slot:56+48*slot], pe[8+48*slot:56+48*slot]
+                    if p[31] != old_p[31]:
+                        cookie = [r[21],r[3],r[32],0,slot*128]
+                        length = p[5]
+                        dma = (0x3579bdf0,0xb68ace00)[slot]
+                        literal = packed([0x08000000 | length,0,dma,0])
+                        need(p[31] == old_p[31]+1 and p[6:11] == cookie and
+                             p[14:18] == [0x08000000 | length,0,dma,0] and p[46] == int(length == 0),
+                             'ordinary packet exact descriptor, original cookie and ZLP')
+                        ep0_owners[cookie[0]] = (cookie,slot,length,literal.hex())
+                        ep0_prepares.append((i,cookie[0]))
+                    if p[32] != old_p[32]:
+                        cookie, owner_slot, length, literal = ep0_owners[p[22]]
+                        need(p[32] == old_p[32]+1 and owner_slot == slot and
+                             p[22:27] == cookie and packed(p[18:22]).hex() == literal and
+                             p[47] == int(length == 0), 'ordinary packet publication uses original descriptor')
+                        ep0_publications.append((i,slot,cookie[0],length))
+                if 100 <= op <= 107:
+                    need(event['data_hex'] == '', 'typed commands have no raw payload')
+                if op == 100 and (result == 0 or (result == 6 and a == 0xffffffff)):
+                    original = [a,arg_b,(arg_c >> 16)&255,(arg_c >> 8)&255,arg_c&255]
+                    need(a not in typed and o[21:26] == original and r[2:] == prev[2:]
+                         and s[32:36] == ps[32:36], 'typed copy is not raw capture or dispatch')
+                    typed[a] = original
+                    capture_steps.add(i)
+                if o[6] != po[6]:
+                    token = o[16]
+                    original = typed[o[26]]
+                    cookie = [r[21],r[3],r[32],0,128]
+                    canonical = bytes.fromhex('0009010000000000' if original[1:3] == [1,1]
+                                else '0009000000000000' if original[1:3] == [1,0]
+                                else '010b000000000000')
+                    need(o[6] == po[6]+1 and token not in owners and token > 0 and
+                         o[16:21] == cookie and o[26:31] == original and
+                         original[1] in (1,2) and original[2] in (0,1) and original[3:] == [0,0]
+                         and (original[1] != 2 or original[2] == 1) and
+                         packed(o[64:66]) == canonical and r[28:30] == [token,0]
+                         and o[13] == 1 and o[32:35] == [1,0,1] and r[77] == 0 and r[68] == 1,
+                         'original no-buffer owner and literal canonical request')
+                    need(e[56] == 0 and e[39:41] == pe[39:41] and e[87:89] == pe[87:89]
+                         and r[24:26] == prev[24:26] and o[57] == po[57],
+                         'auto bind creates no descriptor, wire or status callback')
+                    owners[token] = (cookie,original)
+                    bind_steps.add(i)
+                if op == 1 and result == 5 and injected_submit:
+                    need(injected_submit in (1,2) and o[59] == 0 and r[44] == 0 and
+                         r[7] == r[36] == 1 and o[35] == 0,
+                         'failed automatic status submission does not begin recovery')
+                    if injected_submit == 1:
+                        need(o[6] == po[6] and o[13] == r[28] == 0,
+                             'pre-bind failure creates no owner')
+                    else:
+                        need(o[6] == po[6]+1 and o[13:15] == [1,1] and
+                             o[32:36] == [1,0,1,0] and r[28] == o[16],
+                             'post-bind failure retains original owner despite cleared core BUSY')
+                    witness.add('submit-failure-'+str(injected_submit))
+                    injected_submit = 0
+                if o[13]:
+                    need(owners[o[16]][0] == o[16:21], 'held owner never retagged')
+                if op == 102:
+                    need(r[2:] == prev[2:] and e == pe and b == pb and o[57] == po[57],
+                         'grant never completes, publishes or restarts anything')
+                    if result == 0:
+                        cookie,original = owners[arg_b]
+                        need(arg_d == 0 and arg_c == 0x0101 and a == original[0] and
+                             arg_b not in granted and o[7] == po[7]+1 and
+                             o[37:42] == original and o[42:47] == cookie and
+                             o[13] == o[15] == o[33] == 1 and
+                             o[14] == 0 and o[34] == 1 and s[11] == 7 and
+                             a == s[6] == s[4] == known_ingress and
+                             cookie[1] == r[2] == r[3] and o[31] == r[4] and not r[86] and
+                             (original[2] == 0 or (r[82] == r[84] == 0)),
+                             'one current exact-original status proposal')
+                        granted.add(arg_b)
+                        grant_steps.add(i)
+                        if r[44] and r[32] == cookie[2]:
+                            witness.add('grant-before-recovery')
+                        if r[32] == cookie[2]+1:
+                            witness.add('grant-after-recovery')
+                    else:
+                        need(o[7] == po[7] and o[37:47] == po[37:47], 'rejected grant retains output')
+                        if result == 1 and prev[82] and prev[84] and po[27] == 2:
+                            witness.add('halt-blocks-interface-grant')
+                        if result == 1 and ps[11] == 0 and ps[2] == 1:
+                            witness.add('held-raw-blocks-old-grant')
+                if op in (103,104,105):
+                    need(o[57] == po[57] and r[24:26] == prev[24:26] and e == pe,
+                         'auto settlement/fault never emits a protocol ACK')
+                    if arg_d or result == 2:
+                        need(result == 2 and r[2:] == prev[2:] and o[13:37] == po[13:37],
+                             'stale/mutated original cookie has no ownership or generation effect')
+                if op == 103 and result == 0:
+                    need(arg_b == 1 and arg_d == 0 and po[13] == 1 and a == po[16] and
+                         o[13] == r[28] == 0 and o[34] == 2 and
+                         r[32] == prev[32] and o[8] == po[8]+1,
+                         'supplied exact cancellation retires original owner without a restart')
+                    if not po[14] and po[17] == prev[2] and po[18] == prev[32]:
+                        # A current unsolicited ABORTED event is a fault, even
+                        # when the external ingress sequence is terminal. It
+                        # invalidates recovery; it never completes a lifecycle.
+                        need(r[7] == r[36] == 1 and r[4] == prev[4]+1 and r[44:46] == [0,0],
+                             'unsolicited current cancellation fences and invalidates recovery')
+                    else:
+                        need(r[32:48] == prev[32:48] and r[4] == prev[4],
+                             'requested or superseded cancellation preserves document recovery')
+                if op == 104 and po[13] and a == po[16] and not arg_d:
+                    if po[18] < prev[32]:
+                        need(result == 2 and r[2:] == prev[2:], 'old generation fault cannot stop current document')
+                        witness.add('old-generation-fault')
+                    elif po[18] == prev[32] and po[17] == prev[2] and result == 0:
+                        need(o[13:15] == [1,1] and r[7] == r[36] == 1,
+                             'current fault fences without fictitious cancellation')
+                        witness.add('current-owner-fault')
+                if op == 105:
+                    need(result != 0 and o[13] == po[13] and r[28:30] == prev[28:30],
+                         'generic auto success cannot retire ownership')
+                    if result == 3 and po[13] and a == po[16] and not arg_d:
+                        witness.add('auto-success-rejected')
+                if o[59] and not po[59]:
+                    sequence, request = admissions[prev[2]]
+                    original_ticket = [sequence,prev[2],prev[4]]
+                    need(op == 1 and injected_open in (1,2) and request == bytes.fromhex('0009010000000000') and
+                         o[60:63] == o[69:72] == original_ticket and o[68] == 1 and o[61] > 0 and
+                         o[67] == (7 if injected_open == 2 else 3) and
+                         r[8] == r[10] == r[44] == 0 and r[4] > original_ticket[2] and
+                         o[49:53] == [po[49]+1,po[50]+int(injected_open == 2),
+                                      po[51]+int(injected_open == 2),po[52]] and
+                         o[72] == po[75]+1 and o[75] == po[75]+injected_open and
+                         (injected_open == 1 or o[73] == po[75]+2),
+                         'independent original partial-programming failure')
+                    failures.append((i, injected_open, original_ticket))
+                    injected_open = 0
+                if po[59] and not o[59]:
+                    need(op == 107 and result == 0 and arg_d == 1 and
+                         [a,arg_b,arg_c] == po[60:63] and o[67] == 3 and o[68] == 0
+                         and r[8] == r[10] == r[13] == r[77] == r[85] == 0 and
+                         prev[13] == prev[77] == prev[85] == 0 and
+                         r[7] == r[36] == 1 and r[32:48] == prev[32:48] and
+                         o[58] == po[58]+1 and o[60:63] == po[60:63] and o[69:72] == po[69:72],
+                         'only exact explicit cleanup clears retained programming')
+                    cleanups.append((i,[a,arg_b,arg_c]))
+                if po[59] and o[59]:
+                    need(o[60:63] == po[60:63] and o[49:53] == po[49:53],
+                         'dirty programming retains identity and prevents new opens')
+                if op == 107 and result != 0:
+                    need(r[2:] == prev[2:] and o[58:63] == po[58:63] and
+                         o[67:72] == po[67:72], 'rejected cleanup preserves partial programming and promises')
+                    if result == 2 and failures and [a,arg_b,arg_c] == failures[0][2] and len(failures) > 1:
+                        witness.add('old-cleanup-replay')
+                prev,pe,pb,ps,po = r,e,b,s,o
+            need(po[2] == len(capture_steps) and po[6] == len(owners) and po[7] == len(granted),
+                 'complete capture, bind and grant ledgers')
+            for kind, indices in (('typed_capture',capture_steps),('auto_bind',bind_steps),('auto_grant',grant_steps)):
+                need({item['step'] for item in case['offload_oracles'] if item['kind'] == kind} == indices,
+                     'independent oracle coverage')
+            need(prev[32] == wanted_generation and len(restarts) == wanted_generation-1 and
+                 prev[50:52] == [len(wanted_pixels),fnv(wanted_pixels)] and
+                 prev[24:26] == [len(wire),fnv(wire)] and
+                 prev[90:92] == [len(wanted_documents)]*2 and po[57] == len(wanted_packets),
+                 'final generation, full byte counts, hashes and notification/ordinary ACK counts')
+            need([(step,length) for step,slot,token,length in ep0_publications if slot == 1] ==
+                 [(packet['step'],len(bytes.fromhex(raw))) for packet,(raw,label) in zip(packets,wanted_packets)],
+                 'every ordinary IN publication has one literal packet oracle including ZLP')
+            outs = [(step,token,length) for step,slot,token,length in ep0_publications if slot == 0]
+            need(len(outs) == int(name == 'new-raw-held-blocks-grant') and
+                 all(length == 0 and step > packet_steps[0] for step,token,length in outs),
+                 'exact ordinary OUT status after GET_CONFIGURATION data')
+            wanted_descriptors = []
+            for kind, records in (('prepare',ep0_prepares),
+                                  ('publish',[(step,token) for step,slot,token,length in ep0_publications])):
+                for step, token in records:
+                    cookie, slot, length, literal = ep0_owners[token]
+                    wanted_descriptors.append((step,kind,tuple(cookie),slot,length,literal))
+            observed_descriptors = [(item['step'],item['kind'],tuple(item['cookie']),item['slot'],
+                                     item['requested'],item['descriptor']) for item in case['descriptor_oracles']]
+            need(sorted(observed_descriptors) == sorted(wanted_descriptors),
+                 'complete original-cookie literal ordinary descriptor oracle ledger')
+
+            # Require purposeful behavioral witnesses, not just 29 distinct
+            # labels attached to copies of the same happy-path transcript.
+            required_witnesses = {
+                'capture-facts': {'newer-offer-wait', 'repeat-zero'},
+                'configuration-delayed-grant': {'grant-after-recovery'},
+                'grant-before-recovery': {'grant-before-recovery'},
+                'repeat-configuration-recovery': {'repeat-with-unfinished-input','typed-repeat','raw-repeat'},
+                'deconfigure-repeat-reconfigure': {'repeat-zero'},
+                'interface-reselection': {'interface-recovery'},
+                'interface-halt-reselection': {'interface-recovery','halt-blocks-interface-grant','bulk-defaults-after-halt'},
+                'new-raw-held-blocks-grant': {'held-raw-blocks-old-grant'},
+                'reset-retry-held-offload': {'reset-busy-retry','newer-offer-wait'},
+                'reset-after-grant': {'reset-after-grant'},
+                'held-offload-blocks-deferred-reset': {'held-ingress-blocks-finish','superseded-complete-promises',
+                                                       'stale-recovery-promise','stale-recovery-finish'},
+                'programming-failure/OUT': {'reset-retains-dirty-ticket'},
+                'programming-failure/IN': {'reset-retains-dirty-ticket'},
+                'cleanup-replay-new-failure': {'old-cleanup-replay'},
+                'status-submission-failure/before-bind': {'submit-failure-1'},
+                'status-submission-failure/after-bind': {'submit-failure-2'},
+                'current-owner-fault': {'current-owner-fault'},
+                'current-owner-success-rejected': {'auto-success-rejected'},
+                'same-config-recovers-fault': {'current-owner-fault','typed-repeat'},
+                'old-generation-fault-and-success': {'old-generation-fault','auto-success-rejected'},
+            }.get(name, set())
+            if name.startswith('unsupported/'):
+                required_witnesses.add('unsupported-held')
+                unsupported = {
+                    'config2':[1,2,0,0], 'alt1':[2,1,0,1], 'interface1':[2,1,1,0],
+                    'unconfigured-SI':[2,1,0,0], 'out-of-domain':[1,255,0,0]}[name.split('/')[1]]
+                need(any(original[1:] == unsupported for original in typed.values()),
+                     'actual unsupported typed input matches profile')
+            need(required_witnesses <= witness, 'scenario witnesses: '+name+' '+','.join(sorted(required_witnesses-witness)))
+            expected_failure_positions = {
+                'programming-failure/OUT':[1], 'programming-failure/IN':[2],
+                'cleanup-replay-new-failure':[2,2], 'raw-programming-failure-IN':[2]}.get(name, [])
+            need([slot for step,slot,ticket in failures] == expected_failure_positions and
+                 [ticket for step,slot,ticket in failures] == [ticket for step,ticket in cleanups],
+                 'required failures each receive one original-attempt cleanup')
+            need(all((ticket[0] == 0) == (name == 'raw-programming-failure-IN')
+                     for step,slot,ticket in failures), 'raw/typed failure provenance stays distinct')
+            if name == 'capture-facts':
+                for shift in (24,16,8,0):
+                    missing = 0x01010101 & ~(255 << shift)
+                    invalid = missing | (2 << shift)
+                    need(any(op == 101 and facts == missing and result == 1
+                             for op,a,facts,busy,d,result in controls) and
+                         any(op == 101 and facts == invalid and result == 3
+                             for op,a,facts,busy,d,result in controls),
+                         'each capture fact has an independent missing and invalid control')
+            if name == 'grant-cookie-identity':
+                for op in (102,103,104,105):
+                    for mutation in range(1,6):
+                        need(any(command == op and mutant == mutation and result == 2
+                                 for command,a,b,c,mutant,result in controls),
+                             'each original cookie field rejects mutation at every ingress')
+            if name in terminals:
+                need(ps[11] == 0 and po[13] == 0 and po[34] == 2 and prev[36] == 1 and
+                     not wanted_documents and not wanted_pixels,
+                     'exhaustion settles controller only, leaving fenced pending adapter ownership')
+                if name == 'sequence-exhaustion':
+                    need(ps[2:5] == [3,0xffffffff,0xffffffff] and ps[10] == 1 and
+                         any(op == 100 and a == 0xffffffff and result == 6 for op,a,b,c,d,result in controls),
+                         'external sequence exhaustion retains original terminal event')
+                else:
+                    need(prev[4] == 0xffffffff and prev[86] == 1 and ps[10] == 2 and
+                         (20,0,0xffffffff,0,0,0) in controls,
+                         'transport exhaustion is the explicitly seeded distinct terminal path')
+
+            if snapshot is not None:
+                directory = snapshot / f'case-{case_index:03}'
+                need((directory/'case-name').read_text().strip() == case['case'], 'saved raw case identity')
+                filenames = {'ep0':'output.ep0-descriptors','bulk_descriptor':'output.udc-descriptor',
+                             'setup_record':'output.setup-record'}
+                for kind, claimed in case['capture_sha256'].items():
+                    need(digest((directory/filenames.get(kind,kind)).read_bytes()) == claimed and
+                         digest((directory/('target-'+kind)).read_bytes()) == native['capture_sha256'][kind],
+                         'exact saved host and target raw captures')
+                need((directory/'pixels').read_bytes() == wanted_pixels and
+                     (directory/'wire').read_bytes() == wire and
+                     (directory/'documents').read_bytes() == b''.join(packed(doc) for doc in wanted_documents),
+                     'saved raw bytes equal independent pixel, packet and document definitions')
+                need((directory/'events.bin').read_bytes() ==
+                     b''.join(packed(ev['words']+[len(bytes.fromhex(ev['data_hex']))])+
+                              bytes.fromhex(ev['data_hex']) for ev in events),
+                     'saved original event stream matches report inputs')
+                host_rows = [json.loads(line) for line in (directory/'host-steps.jsonl').read_text().splitlines()]
+                target_rows = [json.loads(line) for line in (directory/'target-steps.jsonl').read_text().splitlines()]
+                need(host_rows == rows and len(target_rows) == len(rows), 'complete raw host and target row streams')
+                for row, expected in zip(target_rows, (r+e+b+s+o for r,e,b,s,o in zip(rows,erows,brows,srows,orows))):
+                    need(len(row) == 368 and row[59] == 128588 and
+                         row[:59]+row[60:] == expected[:59]+expected[60:],
+                         'all raw native words equal recorded host words except measured native footprint')
+            guard = bytes([case['fill']])*16
+            need(hashlib.sha256(guard+packed(brows[-1][24:28])+guard).hexdigest() ==
+                 case['capture_sha256']['bulk_descriptor'] and
+                 hashlib.sha256(guard+packed(srows[-1][28:32])+guard).hexdigest() ==
+                 case['capture_sha256']['setup_record'], 'complete guarded live records')
+            totals['captures'] += len(capture_steps)
+            totals['binds'] += len(owners)
+            totals['grants'] += len(granted)
+            totals['cancellations'] += po[8]
+        need(seen == {(n,f,0) for n in expected_names for f in (0,204)}, 'complete intended matrix')
+        need(all(value > 0 for value in totals.values()), 'positive typed-path coverage')
+    except (OSError, ValueError, KeyError, TypeError, IndexError, OverflowError) as error:
+        return False, 'offload transcript incomplete: '+str(error)
+    return not bad, '; '.join(sorted(bad)) if bad else 'paired typed offload owners, grants, original identities and guarded captures agree; no physical USB claim'
+
+
 def build_report() -> dict[str, Any]:
     checks: list[dict[str, str]] = []
 
@@ -3953,12 +4673,13 @@ def build_report() -> dict[str, Any]:
                             (ROOT_DIR/"open-firmware/tinyusb-device/patches/protocol-compatibility.patch").read_bytes()).hexdigest())
         else:
             specific = (protocol["status"] == "upstream_compatibility_findings"
-                        and len(protocol["observed_protocol_limitations"]) == 14
-                        and len(protocol["observed_big_endian_mismatches"]) == 32
+                        and len(protocol["observed_protocol_limitations"]) == 18
+                        and len(protocol["observed_big_endian_mismatches"]) == 40
                         and source["patch_manifest"] is None
                         and {f["kind"] for f in protocol["observed_protocol_limitations"]} == {
                             "unsupported_custom_driver_high_byte_interface", "unsupported_legacy_reset_recipient",
-                            "ignored_current_ep0_failure", "configuration_reset_erases_control_request"}
+                            "ignored_current_ep0_failure", "configuration_reset_erases_control_request",
+                            "repeated_nonzero_configuration_preserves_endpoint_halt"}
                         and source["effective_sha256"] == {
                             name: record["sha256"] for name, record in protocol["upstream_provenance"]["upstream_files"].items()})
         checks.append(check("patched_reusable_usb_protocol_verified" if patched else "unchanged_upstream_usb_limitations_preserved",
@@ -4020,7 +4741,7 @@ def build_report() -> dict[str, Any]:
                         and sum(c["scenario"] == "halt-owned-out/17" for c in composed_cases) == 2
                         and all(c["status"] == t["status"] == "pass" and c["case"] == t["case"]
                                 and t["all_steps_equal"] and t["all_pixels_wire_and_storage_equal"]
-                                and t["component_state_and_memory_bytes"] == 128536
+                                and t["component_state_and_memory_bytes"] == 128588
                                 and c["capture_sha256"] == t["capture_sha256"]
                                 and c["expected_pixels_sha256"] == c["capture_sha256"]["pixels"]
                                 and all(len(s) == 96 and s[15:17] == [0,1] for s in c["steps"])
@@ -4086,7 +4807,7 @@ def build_report() -> dict[str, Any]:
                             "failure/completion-counter-limit", "continuous/copies-still-metadata"}
                         and all(c["status"] == t["status"] == "pass" and c["case"] == t["case"]
                                 and t["all_steps_equal"] and t["all_pixels_wire_notifications_and_storage_equal"]
-                                and t["component_state_and_memory_bytes"] == 128536
+                                and t["component_state_and_memory_bytes"] == 128588
                                 and c["capture_sha256"] == t["capture_sha256"]
                                 and c["expected_pixels_sha256"] == c["capture_sha256"]["pixels"]
                                 and hashlib.sha256(b"".join(int(v).to_bytes(4,"big") for event in
@@ -4133,7 +4854,7 @@ def build_report() -> dict[str, Any]:
                         and sum(c["scenario"].startswith("status-owner/") for c in udc_cases) == 8
                         and all(c["status"] == t["status"] == "pass" and c["case"] == t["case"]
                                 and t["all_steps_equal"] and t["all_pixels_wire_notifications_descriptors_and_storage_equal"]
-                                and t["adapter_state_and_memory_bytes"] == 128536
+                                and t["adapter_state_and_memory_bytes"] == 128588
                                 and t["descriptor_component_bytes"] == 80
                                 and c["capture_sha256"] == t["capture_sha256"]
                                 and c["expected_pixels_sha256"] == c["capture_sha256"]["pixels"]
@@ -4430,7 +5151,7 @@ def build_report() -> dict[str, Any]:
                         and packet_fault["fixture_sha256"] == composition["fixture_sha256"] and len(packet_fault["fixture_sha256"]) == 6
                         and packet_fault["effective_source"] == composition["effective_source"] == read_json("analysis/usb-path/tinyusb-printer/target/effective-source.json")
                         and all(usb_packet_capture_equal(c,t) and t["all_pixels_wire_and_storage_equal"] is True
-                                and t["measured_target_state_and_memory_bytes"] == 128536
+                                and t["measured_target_state_and_memory_bytes"] == 128588
                                 for c,t in zip(packet_fault["cases"],packet_fault_target.get("cases",[])))
                         and packet_fault_target.get("elf_sha256") == packet_fault_target["captured_artifact_sha256"]["target-check.elf"]
                             == hashlib.sha256((ROOT_DIR/"analysis/usb-path/tinyusb-printer/target/target-check.elf").read_bytes()).hexdigest()
@@ -4495,7 +5216,7 @@ def build_report() -> dict[str, Any]:
                         and ep0["fixture_sha256"] == packet_fault["fixture_sha256"] and len(ep0["fixture_sha256"]) == 6
                         and ep0["effective_source"] == packet_fault["effective_source"] == read_json("analysis/usb-path/udc-ep0/target/effective-source.json")
                         and all(usb_packet_capture_equal(c,t,True) and t["all_pixels_wire_notifications_descriptors_and_storage_equal"] is True
-                                and t["adapter_state_and_memory_bytes"] == 128536 and t["descriptor_component_bytes"] == 296
+                                and t["adapter_state_and_memory_bytes"] == 128588 and t["descriptor_component_bytes"] == 296
                                 and len(c["ep0_steps"]) == len(c["steps"])
                                 and all(len(row) == 104 and row[2:5] == [0,1,1] for row in c["ep0_steps"])
                                 for c,t in zip(ep0["cases"],ep0_target.get("cases",[])))
@@ -4507,7 +5228,7 @@ def build_report() -> dict[str, Any]:
                         evidence="analysis/usb-path/udc-ep0/validation.json"))
 
     EXPECTED_UDC_COMPOSED_SOURCE_COUNT = 117
-    EXPECTED_UDC_SETUP_COMPONENT_BYTES = 88
+    EXPECTED_UDC_SETUP_COMPONENT_BYTES = 96
     uc = read_json("analysis/usb-path/udc-composed/validation.json")
     uc_target, uc_ref = uc.get("target") or {}, uc["original_reference"]
     uc_names = {"snapshot-replay", "capture-wait-newer-retry", "capture-facts", "raw-admission",
@@ -4572,7 +5293,7 @@ def build_report() -> dict[str, Any]:
                                           if k not in ("bulk_descriptor","setup_record")})
         uc_need(usb_packet_capture_equal(small_c,small_t,True)
                 and t["all_pixels_wire_notifications_descriptors_and_storage_equal"] is True
-                and t["adapter_state_and_memory_bytes"] == 128536
+                and t["adapter_state_and_memory_bytes"] == 128588
                 and t["component_and_allocation_bytes"] == {
                     "ep0":296, "bulk":80, "setup":EXPECTED_UDC_SETUP_COMPONENT_BYTES},
                 "exact wire, pixels, notifications and measured target sizes")
@@ -4829,6 +5550,11 @@ def build_report() -> dict[str, Any]:
     checks.append(check(
         "original_irq_cuts_preserve_snapshot_selection_and_phase_exclusions",
         irq_ok, irq_detail, evidence="analysis/usb-path/irq-capture.json"))
+
+    offload_ok, offload_detail = usb_offload_consistency_gate(ROOT_DIR)
+    checks.append(check(
+        "typed_offload_preserves_original_status_owners_and_explicit_cleanup",
+        offload_ok, offload_detail, evidence="analysis/usb-path/udc-offload/validation.json"))
 
     fail_count = severity_count(checks, "fail")
     return {

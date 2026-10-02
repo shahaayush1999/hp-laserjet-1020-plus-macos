@@ -38,6 +38,7 @@ static enum hp1020_udc_setup_result adapter_result(struct hp1020_udc_setup *s,
         return HP1020_UDC_SETUP_OK;
     }
     if (result == HP1020_TUSB_WAIT) return HP1020_UDC_SETUP_WAIT;
+    if (result == HP1020_TUSB_STALE) return HP1020_UDC_SETUP_STALE;
     if (result == HP1020_TUSB_LIMIT) {
         /* A terminal adapter may have advanced control identity before another
          * identity exhausted. Retain the capture and all actual packet owners. */
@@ -153,6 +154,98 @@ enum hp1020_udc_setup_result hp1020_udc_setup_bus_reset(struct hp1020_udc_setup 
         s->pending_kind = HP1020_UDC_SETUP_PENDING_NONE;
         s->pending_sequence = 0;
     }
+    return leave(s, r);
+}
+
+enum hp1020_udc_setup_result hp1020_udc_setup_offer_offload(struct hp1020_udc_setup *s,
+    const struct hp1020_tusb_offload *o) {
+    enum hp1020_udc_setup_result r = enter(s);
+    if (r) return r;
+    if (!cpu_span_valid(o, sizeof(*o)) ||
+        cpu_overlap(o, sizeof(*o), s, sizeof(*s)) ||
+        cpu_overlap(o, sizeof(*o), s->adapter, sizeof(*s->adapter)) ||
+        !o->sequence) return leave(s, HP1020_UDC_SETUP_INVALID);
+    if (o->sequence <= s->last_sequence) return leave(s, HP1020_UDC_SETUP_STALE);
+    if (s->pending_kind == HP1020_UDC_SETUP_PENDING_RESET) {
+        if (o->sequence <= s->pending_sequence) return leave(s, HP1020_UDC_SETUP_STALE);
+        return leave(s, HP1020_UDC_SETUP_WAIT);
+    }
+    if (s->pending_kind != HP1020_UDC_SETUP_PENDING_NONE)
+        return leave(s, HP1020_UDC_SETUP_WAIT);
+    s->offload = *o;
+    s->last_sequence = o->sequence;
+    s->pending_sequence = o->sequence;
+    s->pending_kind = HP1020_UDC_SETUP_PENDING_OFFLOAD;
+    if (o->sequence == UINT32_MAX) {
+        s->terminal = HP1020_UDC_SETUP_LIMIT_SEQUENCE;
+        return leave(s, HP1020_UDC_SETUP_LIMIT);
+    }
+    return leave(s, HP1020_UDC_SETUP_OK);
+}
+
+enum hp1020_udc_setup_result hp1020_udc_setup_dispatch_offload(struct hp1020_udc_setup *s,
+    uint32_t sequence, struct hp1020_udc_offload_facts f) {
+    enum hp1020_udc_setup_result r = enter(s);
+    if (r) return r;
+    if (s->pending_kind == HP1020_UDC_SETUP_PENDING_RESET)
+        return leave(s, HP1020_UDC_SETUP_WAIT);
+    if (s->pending_kind != HP1020_UDC_SETUP_PENDING_OFFLOAD || !sequence ||
+        sequence != s->pending_sequence || sequence != s->offload.sequence)
+        return leave(s, HP1020_UDC_SETUP_STALE);
+    if (f.dynamic_csr > 1 || f.coherent_current > 1 || f.request_validated > 1 ||
+        f.ep0_stalls_cleared > 1) return leave(s, HP1020_UDC_SETUP_INVALID);
+    if (!f.dynamic_csr || !f.coherent_current || !f.request_validated ||
+        !f.ep0_stalls_cleared) return leave(s, HP1020_UDC_SETUP_WAIT);
+    const struct hp1020_tusb_offload *o = &s->offload;
+    if ((o->kind != HP1020_TUSB_OFFLOAD_CONFIGURATION &&
+         o->kind != HP1020_TUSB_OFFLOAD_INTERFACE) ||
+        o->configuration > 1 || o->interface_number || o->alternate ||
+        s->adapter->printer->config.interface_number ||
+        (o->kind == HP1020_TUSB_OFFLOAD_INTERFACE &&
+         (o->configuration != 1 || s->adapter->configuration_value != 1 ||
+          !s->adapter->opened || !tud_mounted())))
+        return leave(s, HP1020_UDC_SETUP_FAULT);
+    r = adapter_result(s, hp1020_tusb_adapter_offload(s->adapter, o));
+    if (r == HP1020_UDC_SETUP_OK) {
+        s->last_admitted_sequence = sequence;
+        s->pending_kind = HP1020_UDC_SETUP_PENDING_NONE;
+        s->pending_sequence = 0;
+    }
+    return leave(s, r);
+}
+
+enum hp1020_udc_setup_result hp1020_udc_setup_take_auto_status(struct hp1020_udc_setup *s,
+    uint32_t sequence, struct hp1020_tusb_cookie cookie,
+    struct hp1020_udc_auto_status_facts f, struct hp1020_tusb_auto_status_grant *grant) {
+    /* Read before enter marks this serialized bridge busy. No callback or
+     * interleaving is allowed between this predicate and the adapter call. */
+    const uint32_t permission = hp1020_udc_setup_progress(s);
+    enum hp1020_udc_setup_result r = enter(s);
+    if (r) return r;
+    if (!cpu_span_valid(grant, sizeof(*grant)) ||
+        cpu_overlap(grant, sizeof(*grant), s, sizeof(*s)) ||
+        cpu_overlap(grant, sizeof(*grant), s->adapter, sizeof(*s->adapter)) ||
+        !sequence || f.csr_programmed > 1 || f.status_gate_current > 1)
+        return leave(s, HP1020_UDC_SETUP_INVALID);
+    if (permission != (HP1020_UDC_SETUP_ALLOW_SERVICE | HP1020_UDC_SETUP_ALLOW_ARM |
+        HP1020_UDC_SETUP_ALLOW_PUMP)) return leave(s, HP1020_UDC_SETUP_WAIT);
+    if (sequence != s->last_admitted_sequence || sequence != s->last_sequence ||
+        sequence != s->offload.sequence) return leave(s, HP1020_UDC_SETUP_STALE);
+    if (!f.csr_programmed || !f.status_gate_current)
+        return leave(s, HP1020_UDC_SETUP_WAIT);
+    r = adapter_result(s, hp1020_tusb_adapter_take_auto_status(s->adapter,
+        cookie, sequence, grant));
+    return leave(s, r);
+}
+
+enum hp1020_udc_setup_result hp1020_udc_setup_ack_programming_cleanup(
+    struct hp1020_udc_setup *s, struct hp1020_tusb_programming_ticket ticket,
+    uint8_t controller_programming_clean) {
+    enum hp1020_udc_setup_result r = enter(s);
+    if (r) return r;
+    if (controller_programming_clean > 1) return leave(s, HP1020_UDC_SETUP_INVALID);
+    r = adapter_result(s, hp1020_tusb_adapter_ack_programming_cleanup(s->adapter,
+        ticket, controller_programming_clean));
     return leave(s, r);
 }
 

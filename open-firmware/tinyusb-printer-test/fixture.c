@@ -244,7 +244,7 @@ static void snapshot(uint32_t result) {
     o[60]=fnv(memory.data.receive.data[0],sizeof(memory.data.receive.data));
     o[61]=fnv(memory.data.output.slots,sizeof(memory.data.output.slots));
     o[62]=state.fail_submission;o[63]=tud_task_event_ready();o[64]=state.address;o[65]=state.pending_address;
-    o[66]=state.cancel_requests;o[67]=state.dcd_writes;
+    o[66]=state.cancel_requests;o[67]=state.dcd_writes;o[68]=tud_connected();
     for(uint32_t i=0;i<4;i++) { o[69+i]=rx->slots[i].ready;o[73+i]=document.output.ring.slots[i].state; }
     o[77]=adapter.response_owned;o[78]=adapter.response.kind;o[79]=adapter.response.length;o[80]=adapter.class_request_id;
     o[81]=usbd_edpt_busy(0,1);o[82]=usbd_edpt_stalled(0,1);

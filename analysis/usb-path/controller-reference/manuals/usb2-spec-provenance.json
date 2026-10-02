@@ -1,0 +1,43 @@
+{
+  "retrieved": "2026-10-02",
+  "index_url": "https://www.usb.org/document-library/usb-20-specification",
+  "download_url": "https://www.usb.org/sites/default/files/usb_20_20250603.zip",
+  "archive_sha256": "5fe9c53c04033818af396e8852b3acbca5c3a76ba92fab549fd81cd0ea7b3692",
+  "archive_bytes": 14489344,
+  "member_files": {
+    "usb_20_20250603/usb_20_20240927/usb_20_20240927/usb_20.pdf": {
+      "sha256": "d39698a33486c399124af92bd02e4f978fd9a836b5cf4e52e6e4633eb1d89f61",
+      "bytes": 5983789
+    },
+    "usb_20_20250603/usb_20_20240927/usb_20_20240927/2002_05_28_errata.pdf": {
+      "sha256": "0d5d8aa0128ae08c78928765da3ab10d6ec913732e13f5357ed085a5ceabf481",
+      "bytes": 176056
+    },
+    "usb_20_20250603/usb_20_20240927/usb_20_20240927/errata-092800-1207001.pdf": {
+      "sha256": "1b94cd1cf303bdf0aba75a76d6a9333a357fa4ad626a57a76d6f132cb1498f23",
+      "bytes": 138383
+    }
+  },
+  "reference": "Universal Serial Bus Specification Revision 2.0, 27 April 2000",
+  "locators": [
+    {
+      "section": "9.1.1.5",
+      "printed_page": 243,
+      "pdf_page_one_based": 271,
+      "topic": "Affected endpoint defaults and DATA0 on configuration or alternate setting selection"
+    },
+    {
+      "section": "9.4.5",
+      "printed_page": 256,
+      "pdf_page_one_based": 284,
+      "topic": "Halt reset even on repeated current configuration/interface"
+    },
+    {
+      "section": "9.4.10",
+      "printed_page": 259,
+      "pdf_page_one_based": 287,
+      "topic": "Single-default-interface STALL option and unsupported settings"
+    }
+  ],
+  "limits": "Static protocol reference only. The two listed historical errata were searched for these clauses; no exhaustive claim about all later ECNs. No HP controller capability or physical behavior established. PDFs and archive are not vendored."
+}

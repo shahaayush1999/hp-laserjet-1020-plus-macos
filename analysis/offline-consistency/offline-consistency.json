@@ -1,5 +1,5 @@
 {
-  "check_count": 127,
+  "check_count": 128,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -761,6 +761,12 @@
       "detail": "44 conditional cuts and 38 pre-peripheral guards per engine must preserve separate sample/scan/wake boundaries, original suffix-mask selection, all ordered accesses, complete guarded RAM, registers/SAR and supplied native CPU state. All 75 excluded-PC controls remain pre-execution rejections. Saved pending bits, RAM acknowledgement intent and a proposed wake carry no physical event chronology, SETUP acquisition/overwrite protection, controller settlement or completed USB transfer.",
       "evidence": "analysis/usb-path/irq-capture.json",
       "name": "original_irq_cuts_preserve_snapshot_selection_and_phase_exclusions",
+      "severity": "watch"
+    },
+    {
+      "detail": "paired typed offload owners, grants, original identities and guarded captures agree; no physical USB claim",
+      "evidence": "analysis/usb-path/udc-offload/validation.json",
+      "name": "typed_offload_preserves_original_status_owners_and_explicit_cleanup",
       "severity": "watch"
     }
   ],

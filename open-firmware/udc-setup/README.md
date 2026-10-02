@@ -2,8 +2,9 @@
 
 The bridge joins a copied controller-format SETUP record to the existing
 TinyUSB/class/document adapter. It is exercised by the 34 host/34 QEMU composed
-cases in `analysis/usb-path/udc-composed/validation.json/.md`, with its own 88-byte
-target state/source-allocation budget. It reuses the completed 70-case stock
+cases in `analysis/usb-path/udc-composed/validation.json/.md`. The typed-notification
+revision measures96 bytes of target state/source allocation (previously88).
+It reuses the completed 70-case stock
 admission/conversion evidence. It implements no live DCD, interrupt path,
 physical record acquisition, DMA/cache work, rearm or ACK.
 
@@ -25,7 +26,7 @@ observation and keeps the class's existing validation/fallback policy.
 
 An unsolicited SETUP precedes every adapter submission and cannot possess a
 normal EP0 cookie. The caller therefore supplies one nonzero, strictly increasing,
-nonwrapping ingress sequence, shared by SETUP captures AND actual bus-reset
+nonwrapping ingress sequence, shared by SETUP captures, typed offload and actual bus-reset
 notifications. It assigns the sequence once at ingress and retains it across
 copies/deferred callbacks and descriptor reuse. The component compares supplied
 identities but never allocates one. Identical bytes with sequence21 and22 are
@@ -69,6 +70,27 @@ is a recovery operation. Adapter identity exhaustion independently returns
 `LIMIT` and may already have changed control identity/fenced owners, so the bridge
 records the resulting epoch, retains its pending event and fails closed. Read-only
 `terminal` distinguishes local sequence1 from adapter2 exhaustion.
+
+## Typed configuration/interface notifications
+
+`offer_offload()` retains a typed observation in the same single event slot and
+external sequence domain. `dispatch_offload()` separately requires exact dynamic
+CSR capability, current/coherent sampled fields, original request validation and
+cleared EP0 stall facts. It never overwrites the retained raw16-byte capture or
+claims canonical TinyUSB bytes were captured from the controller.
+
+`take_auto_status()` requires full progress permission, the current admitted
+external event, separately completed CSR/default-state programming and a current
+hardware status gate. It delegates the exact original no-buffer status cookie
+to the adapter and returns one immediate-use permission proposal. It creates
+neither an EP0 descriptor nor completion/ACK. Superseding ingress blocks an old
+grant before adapter service. Unsupported typed values remain held until reset.
+`ack_programming_cleanup()` forwards an exact original raw/typed failure ticket
+and a separately completed cleanup fact, without restarting a document.
+
+The58 paired offload profiles, full API/fixture ABI, independent gate and supplied
+hardware limits are documented in `open-firmware/udc-offload-test/README.md`.
+This extension adds no physical controller port or evidence of HP dynamic CSR mode.
 
 ## Ownership, facts and scheduling
 

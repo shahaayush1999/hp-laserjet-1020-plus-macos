@@ -14,8 +14,9 @@ before execution, builds a sanitized host fixture, audits target instructions,
 and replays every event on the captured ELF. It compares all 288 row values
 except the architecture-dependent base size field, plus complete guarded storage,
 wire proposals, independently decoded pixels and document notifications.
-Measured target overhead is EP0 296, bulk OUT 80 and SETUP 88 bytes beyond the
-existing 128536-byte adapter/document allocation. Fixture guards/shadows are
+Current shared component sizes, measured by the typed-offload fixture, are EP0
+296, bulk OUT80 and SETUP96 bytes beyond adapter/document128588. The original
+composed run used SETUP88 and adapter/document128536. Fixture guards/shadows are
 separate test overhead. No new original firmware instructions are executed;
 completed SETUP70, EP0 construction66 and OUT reference evidence is reused and
 checked against its source hashes and original bytes.

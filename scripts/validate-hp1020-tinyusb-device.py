@@ -311,7 +311,36 @@ def scenario(h, name, interface):
                 observed='configuration reset zeroes the current request before status completion'))
         h.request(packet(0, 9, 1), label='reconfigure')
         assert h.row[46] and h.row[37]
+        # A nonzero SET_CONFIGURATION is an endpoint-default reset even when
+        # selecting the current value (USB2 sections9.1.1.5 and9.4.5). Both
+        # endpoint halts are established through ordinary core requests first.
+        h.request(packet(2, 3, index=1), label='halt-out-before-same-configuration')
+        h.request(packet(2, 3, index=0x81), label='halt-in-before-same-configuration')
+        assert h.row[10] == 12 and h.row[50] == 15 and not h.row[9]
+        resets_before = h.row[49]
         h.request(packet(0, 9, 1), label='same-configuration')
+        # printer_reset increments49 and resets openmap50 to literal3. Reaching
+        # map15 again therefore requires actual endpoint open callbacks. No
+        # clear-halt request is injected between the selection and these checks.
+        assert h.row[46] == 1 and h.row[50] == 15 and not h.row[9]
+        if h.patched:
+            assert h.row[49] == resets_before+1 and h.row[10] == 0
+        else:
+            assert h.row[49] == resets_before and h.row[10] == 12
+            h.findings.append(dict(kind='repeated_nonzero_configuration_preserves_endpoint_halt',
+                expected='same nonzero SET_CONFIGURATION resets/reopens endpoints and clears both Halt features',
+                observed='unchanged core skips reset/reopen and retains both bulk Halt features',
+                driver_resets_before=resets_before, driver_resets_after=h.row[49],
+                open_endpoint_mask=h.row[50], halt_mask_after=h.row[10]))
+        # Query the core's own two-byte endpoint status, independently of the
+        # synthetic DCD mask. Preserve the explicit unchanged-core BE defect;
+        # the patched target must return the exact little-endian USB bytes.
+        status = bytes(2) if h.patched else b'\x01\x00'
+        upstream_be = None if h.patched else b'\x00\x01'
+        h.request(packet(0x82, 0, index=1, length=2), status,
+            'out-status-after-same-configuration', upstream_be)
+        h.request(packet(0x82, 0, index=0x81, length=2), status,
+            'in-status-after-same-configuration', upstream_be)
         h.request(packet(0x80, 8, length=1), b'\x01', 'configuration-after-reconfigure')
         return
 

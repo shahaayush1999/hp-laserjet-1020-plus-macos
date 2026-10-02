@@ -447,7 +447,7 @@ def initial_standard_scenario(h, name, document, images):
 
 AUTOMATIC_RECOVERY_SCENARIOS = (
     'automatic/first-document',
-    'automatic/idempotent-preserves-owned-out',
+    'automatic/repeated-config-settles-owned-out',
     'automatic/independent-request-identity',
     'automatic/config-status-completion-fault',
     'automatic/superseded-deconfiguration',
@@ -555,13 +555,13 @@ def automatic_recovery_scenario(h, name, document, images):
             h.complete(retained, 0, result=STALE, service=False)
         else:
             assert h.row[28] == h.row[17] == 0, h.row
-        h.request(packet(0, 9, 1), label='idempotent-retry-does-not-recover')
-        h.step(10, 0, result=WAIT)
-        assert h.row[42] == 0 and h.row[36] == 1, h.row
+        h.request(packet(0, 9, 1), label='repeated-configuration-recovers-rejected-status')
+        pending(1, 1, 1)
+        assert h.row[68] == 1, 'configuration-only reset must preserve connection'
         for _ in range(3):
             h.service()
-            h.step(10, 0, result=WAIT)
-        rebind(1, 1, 1)
+            h.step(10, 1)
+            assert h.row[42:46] == [1,1,1,0]
         finish_automatic(1, 1, 1)
         request_probe(1)
         fresh_document()
@@ -602,9 +602,9 @@ def automatic_recovery_scenario(h, name, document, images):
         for _ in range(3):
             h.service()
             assert h.row[42] == 1 and not h.row[44] and h.row[36] == 1
-        h.request(packet(0, 9, 1), label='idempotent-after-fault')
-        h.step(10, 0, result=WAIT)
-        rebind(2, 1, 1)
+        h.request(packet(0, 9, 1), label='repeated-configuration-after-fault')
+        pending(2, 1, 1)
+        assert h.row[68] == 1
         # Same generation, different recovery; all old supplied promises stale.
         h.step(11, 0, 4, result=STALE)
         h.step(12, 0, result=STALE)
@@ -644,21 +644,29 @@ def automatic_recovery_scenario(h, name, document, images):
 
     finish_automatic(1, 1)
 
-    if name == 'automatic/idempotent-preserves-owned-out':
+    if name == 'automatic/repeated-config-settles-owned-out':
         out = h.arm_write(small[:31])
-        before = snapshot((4, 5, 30, 31, 32, 33, 34, 35, 42, 43))
-        h.request(packet(0, 9, 1), label='idempotent-during-live-out')
-        assert snapshot((4, 5, 30, 31, 32, 33, 34, 35, 42, 43)) == before
-        assert h.row[14] == h.row[44] == 0
+        before = snapshot((17,24,25,30,31,32,33,34,35,42,43))
+        h.setup(packet(0, 9, 1), service_result=WAIT)
+        assert snapshot((17,24,25,30,31,32,33,34,35,42,43)) == before
+        assert h.row[14] == 4 and h.row[44] == 0 and h.row[7] == h.row[36] == 1
         for _ in range(3):
-            h.service()
+            h.service(WAIT)
             h.step(10, 7, result=WAIT)
-            assert snapshot((4, 5, 30, 31, 32, 33, 34, 35, 42, 43)) == before
-        h.complete(out, 31)
-        h.step(7)
-        h.send(small[31:], min(64, h.capacity))
-        h.close_finish(1, 1)
-        h.expected_pixels = images['small'][1]
+            h.step(6, result=WAIT)
+            h.step(7, result=STOPPED)
+            assert snapshot((17,24,25,30,31,32,33,34,35,42,43)) == before
+        # Cancellation request is not settlement. Only the original retained
+        # owner can be explicitly retired before endpoints are reinitialized.
+        h.step(4, out)
+        h.service()
+        h.control_status('repeated-configuration-after-original-settlement')
+        pending(2, 2, 1)
+        assert h.row[68] == 1
+        h.step(12, 0, result=STALE)
+        finish_automatic(2, 2, 1)
+        h.complete(out, 31, result=STALE, service=False)
+        fresh_document()
         return
 
     if name == 'automatic/independent-request-identity':
@@ -689,14 +697,15 @@ def automatic_recovery_scenario(h, name, document, images):
         h.step(10, 7, result=WAIT)
         h.step(4, old_out)
         h.service()
-        h.request(packet(0, 9, 1), label='idempotent-config-remains-fenced')
-        assert h.row[10] == h.row[36] == h.row[7] == 1 and h.row[42] == 1
+        h.request(packet(0, 9, 1), label='repeated-config-replaces-superseded-deconfiguration')
+        pending(2, 2, 1)
+        assert h.row[10] == h.row[36] == h.row[7] == h.row[68] == 1
         for _ in range(3):
             h.service()
-            h.step(10, 7, result=WAIT)
+            h.step(10, 1)
             h.step(6, result=WAIT)
+            assert h.row[42:46] == [2,2,1,0]
         h.step(12, 0, result=STALE)
-        rebind(2, 2, 1)
         finish_automatic(2, 2, 1)
         h.complete(old_out, 0, result=STALE, service=False)
         request_probe(2)
