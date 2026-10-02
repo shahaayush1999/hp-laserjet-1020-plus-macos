@@ -6,6 +6,11 @@
 #include "device/dcd.h"
 #include <string.h>
 
+/* Optional composed programming wrapper; retain the same storage checks. */
+#ifndef HP1020_FIXTURE_ADAPTER_SERVICE
+#define HP1020_FIXTURE_ADAPTER_SERVICE(a) hp1020_tusb_adapter_service(a)
+#endif
+
 uint8_t hp1020_bulk_fixture_input[1024];
 uint8_t hp1020_bulk_fixture_pixels[262144];
 uint8_t hp1020_bulk_fixture_wire[32768];
@@ -296,7 +301,7 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op,uint32_t a,uint32_t b,uint32_t c,u
         const struct hp1020_printer_status status={(uint8_t)c,(uint8_t)b};
         r=hp1020_tusb_adapter_setup(&adapter,hp1020_bulk_fixture_input,a,&status);
         if(!r)state.stall_mask&=~3u; /* Synthetic SETUP clears hardware EP0 stalls. */
-    } else if(op==1)r=hp1020_tusb_adapter_service(&adapter);
+    } else if(op==1)r=HP1020_FIXTURE_ADAPTER_SERVICE(&adapter);
     else if(op==2 && a>0 && a<4096 && history[a].id==a) {
         struct hp1020_tusb_cookie cookie=history[a];int i=packet_index(cookie.endpoint);
         if(i>=0 && packets[i].live && same_cookie(packets[i].cookie,cookie) && b<=XFER_RESULT_ABORTED && c<=packets[i].length) {

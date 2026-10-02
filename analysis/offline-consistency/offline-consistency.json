@@ -1,5 +1,5 @@
 {
-  "check_count": 128,
+  "check_count": 129,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -767,6 +767,12 @@
       "detail": "paired typed offload owners, grants, original identities and guarded captures agree; no physical USB claim",
       "evidence": "analysis/usb-path/udc-offload/validation.json",
       "name": "typed_offload_preserves_original_status_owners_and_explicit_cleanup",
+      "severity": "watch"
+    },
+    {
+      "detail": "28 paired cases; 1876 raw event rows; independent command/pixel/owner/cleanup contracts; report-only capture digests checked",
+      "evidence": "analysis/usb-path/udc-program/validation.json",
+      "name": "controller_programming_preserves_exact_commands_original_failures_and_status_ownership",
       "severity": "watch"
     }
   ],

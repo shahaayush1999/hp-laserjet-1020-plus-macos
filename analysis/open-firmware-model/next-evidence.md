@@ -1779,6 +1779,92 @@ raw captures and full-suite logs are preserved in their existing
 `source-snapshots/raw-si-full-suite-58-cases.*` archives. Preserve the generated linker
 map fill-line whitespace as exact build evidence; source/prose checks are separate.
 
+### Endpoint register-command backend (2026-10-02)
+
+The first integrated `udc-program` run passed **28 sanitized host/28 QEMU cases**,
+1876 paired rows, with134 exact source and six fixture identities. The freestanding
+C backend connects real TinyUSB open/void-close callbacks and explicit typed-SI
+selection to recorded logical register I/O. One-shot CSR_DONE permission is
+consumed immediately before its write; no descriptor, status packet, completion
+or ACK is manufactured. Measured target backend size is88 bytes. Five profiles
+emit exact32-byte pixels and a single independently checked END_DOC record; all
+other profiles emit neither. No new native page or physical USB lifecycle results.
+
+The HP table is explicit: OUT1 +508, IN1 +50c; EP0 +504 and OUT1-alt1 +510 stay
+untouched. Packet64/full-speed NE fields are independently derived. IN1's supplied
+fixed64-word allocation is read and checked, never resized. Close records bounded
+NAK, IRQ-mask and old-DESPTR-clear intent under prior quiescence; it does not prove
+disable. Reads are queued independent observations, not simulated effects of
+writes. No physical base address, register binding or mechanical operation exists.
+The detailed contract and literal sequences live beside `open-firmware/udc-program/`.
+
+Seven exact program facts retain logical I/O, mode, dynamic CSR, non-control
+quiescence, complete table, geometry and safe IN-SNAK assumptions. Five grant
+facts separately retain endpoint defaults, current physical gate and DEVCTL
+stability. Even with them supplied, observed RDE1 waits before consuming
+permission; it is never replayed through read/modify/write. Hardware can change
+DEVCTL independently of a software lock. Cache/interconnect behavior, table and
+FIFO validity, DATA0/halt, safe SNAK, actual status acceptance, enumeration and
+printing remain unproved.
+
+Failure latches the original sequence/control/transport ticket and exact uncertain
+prefix, including sequence0 for raw requests. Actual reset can drain service but
+does not erase failure or old open-command history. Explicit cleanup requires that
+exact ticket, physical-clean promise and stopped/unmounted/owner-free software;
+it supplies no document recovery promises. Stale/late cleanup cannot clear a new
+failure. Consumed status permission is never replayed after a failed write/order.
+
+Static V1 review found two holes before execution: malformed raw configuration
+aliases can reach genuine callbacks, and raw SC0 after actual reset can skip close
+while old programming history remains. Reviewed V2 latches the original failure
+before I/O or status-owner creation. The first raw runner mistakenly wrapped a
+multi-event helper in a single-event trace expectation; this was corrected and
+its bytes preserved before execution. A separate review added cfg0 malformed-SC1
+controls so first-open rejection is covered independently of void-close failure.
+Production/scenario execution then passed on its first integrated run.
+
+Durable archives under `analysis/usb-path/udc-program/source-snapshots/`:
+`unexecuted-proposals.*` retains V1/V2, fixture/runner drafts and source reviews;
+`first-28-cases.*` retains all first-tested sources, target, event streams and
+eleven complete capture pairs per case; `independent-gate.*` retains a separately
+frozen gate, its unchanged successful run and nine rejected corruption controls.
+The first extra-ZLP negative control used the wrong IN-owner slot index; only that
+mutation was corrected. It did not change production, the report or the gate.
+First log: `/tmp/hp1020-udc-program-first-20261002.log`; raw scratch capture:
+`/tmp/hp1020-udc-program-35ql5sej`.
+
+Shared-suite integration and neutral source-comment edits followed the first run;
+the runner now also captures the independent gate (135 sources). The full sequential
+rerun passed **129 consistency checks and both suites**, with all28 paired case
+rows/captures identical to the first run. Its raw-capture independent gate passed
+again. Current report hashes were regenerated; the134-source first archive is
+unchanged. Full log: `/tmp/hp1020-full-program-20261002.log`, child
+`hp1020-validation.xVacWU`; program captures `/tmp/hp1020-udc-program-8hu8tsxd`.
+`full-suite-28-cases.*` preserves all current sources, target, raw captures, logs
+and the later integrated static review (no new actionable finding).
+The existing adapter/OUT/EP0/composed/offload case rows and captures are unchanged
+by optional fixture integration. Composed62/62 and offload58/58 full-run captures
+are in their respective `source-snapshots/program-full-suite-62-cases.*` and
+`program-full-suite-58-cases.*` archives. All archive members were read back.
+
+The next selected implementation is a synchronous OUT1 arm-and-publication
+wrapper. Static reviews and independent stock-byte checks are preserved in this
+stage's `source-snapshots/next-publication-reviews.*`; these are unexecuted design
+evidence. The wrapper must check a stopped/settled global-RX window BEFORE existing
+prepare writes HOST_READY, then reuse actual adapter reservation and original
+cookie, explicit RX64/descriptor16 cache hooks, immediate DESPTR/CNAK/readback/RDE
+commands and sticky prefix failure. No delayed proposal or completion is invented.
+Classic full-speed64/BE DU0/BF0/THE0, complete global receive readiness, register
+stability, mapping and cache-line isolation remain supplied. TinyUSB's weak cache
+hooks are no-op success; stock DHWB/DHWBI helpers and initialization ADD do not
+justify a physical cache implementation or universal address translation.
+Root owns all execution. C/H, fixture and independent literal-oracle drafts are
+being prepared separately under `/tmp/hp1020-udc-publish*-20261002*`. No publication
+candidate has been built or executed. Preserve queued receive accounting during
+exact-cookie failure cleanup; only the later existing three-promise restart can
+reset it. Do not require receive.count0 as a cleanup prerequisite and deadlock
+the retained failed reservation.
+
 ### Original SETUP ingress and corrected legacy evidence (2026-09-29)
 
 `scripts/validate-hp1020-usb-setup-ingress.py` passes **70 interpreter/QEMU cases**,

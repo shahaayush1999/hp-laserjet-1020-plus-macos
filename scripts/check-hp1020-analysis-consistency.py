@@ -6,6 +6,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import runpy
 from pathlib import Path
 from typing import Any
 
@@ -5559,6 +5560,13 @@ def build_report() -> dict[str, Any]:
     checks.append(check(
         "typed_offload_preserves_original_status_owners_and_explicit_cleanup",
         offload_ok, offload_detail, evidence="analysis/usb-path/udc-offload/validation.json"))
+
+    program_gate = runpy.run_path(str(ROOT_DIR / "scripts/check-hp1020-udc-program.py"))["check_program_report"]
+    program_ok, program_detail = program_gate(
+        read_json("analysis/usb-path/udc-program/validation.json"), source_root=ROOT_DIR)
+    checks.append(check(
+        "controller_programming_preserves_exact_commands_original_failures_and_status_ownership",
+        program_ok, program_detail, evidence="analysis/usb-path/udc-program/validation.json"))
 
     fail_count = severity_count(checks, "fail")
     return {

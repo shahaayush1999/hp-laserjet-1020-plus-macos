@@ -4,6 +4,10 @@
 #include "hp1020_udc_out.h"
 #include "hp1020_udc_setup.h"
 
+#ifndef HP1020_COMPOSED_PROGRESS
+#define HP1020_COMPOSED_PROGRESS() hp1020_udc_setup_progress(&composed_setup)
+#endif
+
 static bool composed_bulk_xfer(uint8_t, uint8_t, uint8_t *, uint16_t, bool);
 #define HP1020_EP0_DCD_XFER composed_ep0_xfer
 #define HP1020_EP0_SET_ADDRESS composed_ep0_set_address
@@ -99,6 +103,10 @@ bool dcd_edpt_open(uint8_t rhport, const tusb_desc_endpoint_t *endpoint) {
     if (!slot) offload_state.last_out_open=offload_state.programming_events;
     else offload_state.last_in_open=offload_state.programming_events;
     offload_state.open_attempts[slot]++;
+#ifdef HP1020_COMPOSED_PROGRAM
+    if (!program_fixture_open(rhport, (const uint8_t *)(const void *)endpoint, 7))
+        return false;
+#endif
     if (offload_state.fail_open == slot + 1) {
         offload_state.fail_open = 0;
         /* Independent original failed-attempt identity, before adapter fencing. */
@@ -124,7 +132,11 @@ void dcd_edpt_close(uint8_t rhport, uint8_t endpoint) {
 void dcd_edpt_close_all(uint8_t rhport) {
     offload_state.programming_events++;
     offload_state.last_close_all=offload_state.programming_events;
-    offload_state.close_all++; offload_base_edpt_close_all(rhport);
+    offload_state.close_all++;
+#ifdef HP1020_COMPOSED_PROGRAM
+    if (!program_fixture_close_all(rhport)) return;
+#endif
+    offload_base_edpt_close_all(rhport);
     offload_state.programmed_mask &= 3u;
 }
 void dcd_edpt0_status_complete(uint8_t rhport, const tusb_control_request_t *request) {
@@ -305,6 +317,9 @@ static int composed_capture_same(void) {
 }
 static void composed_check(void) {
     check_owned(); ep0_check();
+#ifdef HP1020_COMPOSED_PROGRAM
+    program_fixture_check();
+#endif
 #ifdef HP1020_COMPOSED_OFFLOAD
     offload_check();
 #endif
@@ -469,6 +484,9 @@ static bool composed_bulk_xfer(uint8_t rhport, uint8_t endpoint, uint8_t *buffer
 /* The only symbols seen by the separately compiled reusable USB stack. */
 bool dcd_edpt_xfer(uint8_t rhport, uint8_t endpoint, uint8_t *buffer,
     uint16_t length, bool in_isr) {
+#ifdef HP1020_COMPOSED_PROGRAM
+    if (!program_fixture_submission_allowed()) return false;
+#endif
 #ifdef HP1020_COMPOSED_OFFLOAD
     if ((endpoint == 0 || endpoint == 0x80) && adapter.active_offload.sequence)
         return offload_xfer(rhport, endpoint, buffer, length);
@@ -476,6 +494,9 @@ bool dcd_edpt_xfer(uint8_t rhport, uint8_t endpoint, uint8_t *buffer,
     return composed_ep0_xfer(rhport, endpoint, buffer, length, in_isr);
 }
 void dcd_set_address(uint8_t rhport, uint8_t address) {
+#ifdef HP1020_COMPOSED_PROGRAM
+    if (!program_fixture_submission_allowed()) return;
+#endif
     composed_ep0_set_address(rhport, address);
 }
 static enum hp1020_udc_out_result composed_cancel_request(struct hp1020_tusb_cookie cookie,
@@ -568,10 +589,16 @@ uint32_t hp1020_bulk_fixture_reset(uint32_t fill, uint32_t capacity,
     }
     composed_out_state.result = r;
     if (!r) r = (uint32_t)hp1020_udc_setup_init(&composed_setup, &adapter, COMPOSED_SETUP_DMA);
+#ifdef HP1020_COMPOSED_PROGRAM
+    if (!r) r = program_fixture_init(fill);
+#endif
     composed_setup_state.result = r; state.initialized = r;
     composed_check(); snapshot(r); ep0_snapshot(); composed_snapshot();
 #ifdef HP1020_COMPOSED_OFFLOAD
     offload_snapshot();
+#endif
+#ifdef HP1020_COMPOSED_PROGRAM
+    program_fixture_snapshot();
 #endif
     return r;
 }
@@ -580,9 +607,12 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op, uint32_t a, uint32_t b, uint32_t 
     uint32_t r = HP1020_TUSB_INVALID;
     struct hp1020_tusb_cookie cookie = {0};
     const int have_cookie = ep0_history(a, &cookie);
+#ifdef HP1020_COMPOSED_PROGRAM
+    program_fixture_begin_event();
+#endif
     composed_check();
     if (op < 60) {
-        const uint32_t permission = hp1020_udc_setup_progress(&composed_setup);
+        const uint32_t permission = HP1020_COMPOSED_PROGRESS();
         const uint32_t needed = op == 1 ? HP1020_UDC_SETUP_ALLOW_SERVICE :
             op == 6 ? HP1020_UDC_SETUP_ALLOW_ARM :
             op == 7 ? HP1020_UDC_SETUP_ALLOW_PUMP :
@@ -606,7 +636,7 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op, uint32_t a, uint32_t b, uint32_t 
                 composed_out_state.publish = (struct hp1020_udc_out_publish_facts){
                     (uint8_t)(b >> 16), (uint8_t)(b >> 8), (uint8_t)b};
                 r = HP1020_UDC_OUT_OK;
-            } else if (op == 61 && hp1020_udc_setup_progress(&composed_setup) != 7u) {
+            } else if (op == 61 && HP1020_COMPOSED_PROGRESS() != 7u) {
                 r = HP1020_UDC_OUT_WAIT; composed_setup_state.blocked++;
             } else if (op == 61 && have_cookie) r = (uint32_t)composed_publish(cookie, b, d);
             else if (op == 62 && have_cookie) {
@@ -644,7 +674,18 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op, uint32_t a, uint32_t b, uint32_t 
             composed_out_state.result = r;
         }
 #ifdef HP1020_COMPOSED_OFFLOAD
-        else if (op >= 100 && op <= 107) r = offload_step(op,a,b,c,d);
+        else if (op >= 100 && op <= 107) {
+#ifdef HP1020_COMPOSED_PROGRAM
+            /* No direct grant, unrelated open fault or adapter-only cleanup. */
+            if (op == 102 || op == 106 || op == 107)
+                offload_state.result = r = HP1020_UDC_PROGRAM_INVALID;
+            else
+#endif
+                r = offload_step(op,a,b,c,d);
+        }
+#endif
+#ifdef HP1020_COMPOSED_PROGRAM
+        else if (op >= 120 && op <= 126) r = program_fixture_step(op,a,b,c,d);
 #endif
         else {
             composed_setup_state.steps++;
@@ -697,6 +738,9 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op, uint32_t a, uint32_t b, uint32_t 
     composed_cancel_work(); composed_check(); snapshot(r); ep0_snapshot(); composed_snapshot();
 #ifdef HP1020_COMPOSED_OFFLOAD
     offload_snapshot();
+#endif
+#ifdef HP1020_COMPOSED_PROGRAM
+    program_fixture_snapshot();
 #endif
     return r;
 }

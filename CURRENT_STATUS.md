@@ -7,71 +7,63 @@ AGENTS.md owns scope; `analysis/README.md` is the evidence/tool-recovery map.
 
 ## Current checkpoint
 
-The latest full sequential `scripts/validate.sh` run passed **128 consistency
-checks and both suites**, including **62 host/62 QEMU composed**, **58/58 typed
-offload**, **132/132 raw adapter**, and **52 unchanged/160 patched protocol**
-cases. Log: `/tmp/hp1020-full-raw-si-20261002.log`, child
-`hp1020-validation.Kd7EIu`. All execution is stopped at this checkpoint.
-Focused raw-SI validation and eight independent gate-negative controls also
-passed. Do not run validators concurrently or change captured sources during a
-run; regenerate reports through their validators, never relabel old hashes.
+The latest full sequential `scripts/validate.sh` run passed **129 consistency
+checks and both suites**, including28 host/28 QEMU recording-program cases,
+62/62 composed,58/58 typed offload,132/132 raw adapter and52 unchanged/160 patched
+protocol cases. Log: `/tmp/hp1020-full-program-20261002.log`, child
+`hp1020-validation.xVacWU`. Execution is stopped; independent drafting continues.
 
-The new typed configuration/interface path preserves original status ownership
-and separately supplied hardware permission, endpoint defaults and cleanup. It
-creates no raw SETUP capture, DMA descriptor, extra status packet or host ACK.
-USB2 requires defaults/halt reset on repeated nonzero configuration; the patched
-core now closes/reopens that binding while preserving connection/address state.
-Raw/typed partial-open failures retain their original cleanup ticket across reset.
-Measured target sizes: adapter/document128588, EP0296, bulk80, SETUP96 bytes.
+The new endpoint register-command backend connects actual TinyUSB callbacks to
+recorded command sequences and immediate one-shot status permission. Fixed FIFO
+allocation is checked; failures retain their original cleanup identity across
+reset. No physical register binding exists. Its first focused28/28 run passed
+without production/scenario execution corrections. The independently frozen gate
+passed unchanged and nine deliberate corruptions were rejected. The full rerun's
+1876 paired rows and captures match the first; its raw-capture gate also passed.
+Target backend88, adapter/document128588, EP0296, bulk80, SETUP96 bytes.
 
-Exact first/full tested sources, all raw captures and untouched proposals are
-archived under `analysis/usb-path/udc-offload/source-snapshots/`; separate protocol/adapter archives
-are in their existing evidence directories. The strengthened independent gate
-passed the first captured report and eight deliberately corrupted controls were
-rejected. Its first oracle corrections are preserved. Official USB2 PDF page
-locators were corrected before the full rerun; first-run metadata stays intact.
-Details and current supplied-fact limits: `analysis/open-firmware-model/next-evidence.md`.
+Exact first134-source and full135-source closures, target, fixtures and eleven
+capture pairs per case are in `analysis/usb-path/udc-program/source-snapshots/`.
+Untouched proposals, first negative-control indexing correction and independent
+reviews remain separately archived. Shared optional fixture seams leave existing
+adapter/OUT/EP0/composed/offload case rows and captures unchanged. Full composed
+and offload archives are `program-full-suite-62-cases.*` and
+`program-full-suite-58-cases.*` in their respective evidence directories.
+Ordinary raw SET_INTERFACE rejection continues to preserve input and old recovery
+identities; typed SI remains separately conditional. Detailed evidence and limits
+live in `analysis/open-firmware-model/next-evidence.md`.
 
 ## Next action
 
-Ordinary raw SET_INTERFACE was reproduced in **four host/four QEMU conditional
-observations,404 paired rows**, reusing the validated composed ELF. SI status
-completed but input stayed stopped and no SI recovery was created; a separately
-requested class reset then recovered a fresh exact document. Full sources/raw
-captures are archived in composed `source-snapshots/raw-si-before-policy.*`.
+Root owns integration and sequential execution. Continue the unexecuted OUT1
+publication component after this checkpoint: C/H in
+`/tmp/hp1020-udc-publish-draft-20261002/`, fixture in
+`/tmp/hp1020-udc-publish-fixture-draft-20261002/`, independent literal oracles in
+`/tmp/hp1020-udc-publish-trace-oracles-20261002.py` (agents drafting).
+Primary/cache reviews and root original-byte checks are already durable in
+program `source-snapshots/next-publication-reviews.*`. No publication candidate
+has been compiled or executed; preserve its distinction from the passed backend.
 
-The reviewed sole-default STALL policy is integrated and focused-validated.
-First execution stopped after46 host cases because a scenario wrongly expected
-class SOFT_RESET admission to wait for bulk settlement. Its exact failed sources
-and captures are preserved; only that expectation changed, adding a pre-settlement
-finish-WAIT check. Production V2 code was unchanged before62/62 passed. Failed,
-passed and gate-control archives are beside `raw-si-before-policy.*`.
+The selected synchronous arm wrapper checks readiness and the stopped/settled
+window BEFORE existing prepare writes HOST_READY. It then reuses the actual
+adapter reserve/bind, original cookie and descriptor, with explicit RX64/descriptor16
+cache hooks and immediate DESPTR/CNAK/readback/RDE command construction. No proposal
+escapes. A failure retains its exact cookie/prefix until external cleanup; reset
+alone cannot clear it. Preserve fenced receive accounting until the later existing
+three-promise restart. Never require receive.count0 for failure cleanup.
 
-Rejected raw SI preserves healthy bulk input and old fault/reset tickets. Typed
-SI retains its separately conditional acceptance. Root's independent gate passed
-unchanged, including fixed pixels/generations, exact status packets and original
-ownership. Full-run source/raw-capture archives are
-`udc-composed/source-snapshots/raw-si-full-suite-62-cases.*` and
-`udc-offload/source-snapshots/raw-si-full-suite-58-cases.*` under `analysis/usb-path/`.
+Mode, safe IN SNAK, FIFO geometry, complete table, endpoint defaults, global RX/
+SETUP readiness, register stability, mapping/cache and physical settlement remain
+supplied. No physical DCD exists. Boot, engine behavior, physical status/printing
+and power-cycle recovery are unproved. Never run validators concurrently, edit
+captured sources during a run or manually relabel report hashes. Tools work;
+recover disposable tools only through the pinned scripts in the analysis map.
 
-Save this checkpoint, then continue. Root owns execution and integration; agents
-prepared an unexecuted endpoint-register backend over recording RAM I/O.
-The latter must use the explicit HP slot map, not Linux bank arithmetic; mode,
-geometry, endpoint defaults and settlement remain separate supplied facts. Its
-review/draft is under `/tmp/hp1020-next-controller-backend-20261002.md` and the
-frozen `/tmp/hp1020-udc-program-draft-20261002/` directory. Independently review
-and archive untouched proposals before integration. Register reads are explicit
-inputs, not simulated effects of writes; defaults, settlement and physical gate
-currentness remain external. Partial failures must retain their original ticket.
-
-Tools currently work; recover disposable tools only through pinned scripts in
-the analysis map if needed. No physical DCD exists. Actual event chronology,
-visibility, mode, stall clearing and settlement remain supplied. Boot, USB/cache,
-engine behavior, physical status/printing and power-cycle recovery are unproved.
 Keep separate:26 completed empty-document lifecycles, six conditional original
 null reads,28 retirement cases,36 native page lifecycles with supplied completion,
 and42 fragment/bypass cases. USB/component tests add zero physical USB or native
 page lifecycles. Do not repeat cancellation/END_DOC or completed IRQ/SETUP research.
+Continue beyond a passing checkpoint while the owner is away.
 
 ## Installed Mac driver (separate, preserve)
 

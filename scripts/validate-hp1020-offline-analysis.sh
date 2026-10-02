@@ -377,6 +377,9 @@ run_step "Compose ordered SETUP and exact-cookie packet records into whole docum
 run_step "Verify typed hardware-offload notifications without inventing wire status completion" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-udc-offload.py" --target
 
+run_step "Verify endpoint programming and failure cleanup through recording RAM I/O" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-udc-program.py" --target
+
 run_step "Regenerate USB parser shim contract" \
   "$ROOT_DIR/scripts/model-hp1020-usb-parser-shim-contract.py"
 

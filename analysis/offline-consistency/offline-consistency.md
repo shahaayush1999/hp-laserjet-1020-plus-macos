@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `128`
+- checks: `129`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -142,6 +142,7 @@ It does not contact the printer.
 | `original_setup_retirement_preserves_partial_effects_and_hardware_exclusions` | `watch` | 50 conditional post-dispatch tails and 32 pre-peripheral guards per engine must preserve independently reconstructed ordered accesses, registers and all mutable RAM, including legitimate writes before a rejected access. The supplied bulk-size word at 0x1001bc50 controls an unsigned <=512 branch. Fifteen excluded PCs, no ENTRY and no actual peripheral access establish neither hardware stall clearing, rearm/quiescence nor a physical USB transfer. | `analysis/usb-path/setup-retirement.json` |
 | `original_irq_cuts_preserve_snapshot_selection_and_phase_exclusions` | `watch` | 44 conditional cuts and 38 pre-peripheral guards per engine must preserve separate sample/scan/wake boundaries, original suffix-mask selection, all ordered accesses, complete guarded RAM, registers/SAR and supplied native CPU state. All 75 excluded-PC controls remain pre-execution rejections. Saved pending bits, RAM acknowledgement intent and a proposed wake carry no physical event chronology, SETUP acquisition/overwrite protection, controller settlement or completed USB transfer. | `analysis/usb-path/irq-capture.json` |
 | `typed_offload_preserves_original_status_owners_and_explicit_cleanup` | `watch` | paired typed offload owners, grants, original identities and guarded captures agree; no physical USB claim | `analysis/usb-path/udc-offload/validation.json` |
+| `controller_programming_preserves_exact_commands_original_failures_and_status_ownership` | `watch` | 28 paired cases; 1876 raw event rows; independent command/pixel/owner/cleanup contracts; report-only capture digests checked | `analysis/usb-path/udc-program/validation.json` |
 
 ## Practical Meaning
 

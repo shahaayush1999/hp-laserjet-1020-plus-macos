@@ -1,0 +1,13 @@
+{
+  "status": "Static-only recommendation and lead design for next OUT1 publication stage; no candidate C execution or physical guarantee",
+  "archive_sha256": "dc1c9b857c95d3e87eac39ef0bfe8b88b9f4e5ac1a25deecbff0866a10734ed0",
+  "archive_bytes": 16611,
+  "member_count": 5,
+  "member_sha256": {
+    "hp1020-dma-visibility-contract-review-20261002.md": "7b68c1a19c5b7a8c1ccc123fa060600f955330dc76a2890509f3c52a0a3cdc2c",
+    "hp1020-dma-visibility-root-byte-check-20261002.json": "900a64c22b1d8137dde93e61f60684289bc4ab0873ff2c21e72974180dc3aa9f",
+    "hp1020-next-dcd-boundary-review-20261002.md": "39a4f942b986e74b48668c1e49449c5fa04312c6833e574c007b1d781ff60ee9",
+    "hp1020-udc-publish-root-byte-check-20261002.json": "c340fcd93bfaf5d561497e265cd4b893f40698c24363c97c285f3cded99ac5b4",
+    "hp1020-udc-publish-root-design-20261002.md": "6ed5a79e94aeef38875245fbf0812d7ab7be12712cdedbfd708399b9f6c93406"
+  }
+}
