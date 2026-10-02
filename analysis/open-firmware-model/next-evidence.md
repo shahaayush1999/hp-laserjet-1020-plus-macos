@@ -1859,11 +1859,44 @@ stability, mapping and cache-line isolation remain supplied. TinyUSB's weak cach
 hooks are no-op success; stock DHWB/DHWBI helpers and initialization ADD do not
 justify a physical cache implementation or universal address translation.
 Root owns all execution. C/H, fixture and independent literal-oracle drafts are
-being prepared separately under `/tmp/hp1020-udc-publish*-20261002*`. No publication
+now frozen; the owner requested a stop before integration. No publication
 candidate has been built or executed. Preserve queued receive accounting during
 exact-cookie failure cleanup; only the later existing three-promise restart can
 reset it. Do not require receive.count0 as a cleanup prerequisite and deadlock
 the retained failed reservation.
+
+The durable `source-snapshots/unexecuted-publication-drafts.*` archive contains
+the unchanged backend and fixture patches, originals, completed independent C/H
+static review, frozen 40-case plan/literal oracles, incomplete root runner
+fragments and an actionable `RESUME.md`. Its outer metadata verifies every member.
+Backend C/H identities are `d294b122...` / `4dad4d4e...`; backend patch `f638aa1d...`,
+fixture patch `69075b35...`, oracle `b677dc57...`, independent review `9d0d435e...`.
+Full hashes are in the archive metadata. Static review found no blocking C/H issue
+within the supplied serialized lease contract; it did not validate the fixture or
+runner. The lead has not yet reviewed their final integration or run any candidate.
+
+Two packaging details are preserved rather than silently repaired: backend
+`SOURCES.sha256` root entries are actually stored at
+`baseline/AGENTS.md/AGENTS.md` and `baseline/CURRENT_STATUS.md/CURRENT_STATUS.md`.
+Their bytes match; the other28 paths and all13 DRAFT members verify directly.
+Six fixture originals match the validated tree; its README template has the
+earlier pending-full-suite prose. The first archival check caught that historical
+README difference and stopped before writing; metadata records both hashes.
+
+On resumption, review both integration notes and the final fixture first. Complete
+the unfinished `header.py`/`compile.py`/`host.py` runner fragments with scenarios,
+reset/cleanup helpers and target replay. They are not a runnable validator.
+The planned20 profiles x two fills cover both CNAK paths, fact/register/read
+refusals, callback authority, progress barriers, original cleanup identity,
+cancellation/reuse, NAK readback refusal and each post-bind hook failure. Expected
+traces were frozen independently before the C review; retain that independence.
+Append64 diagnostics to432, excluding only size words59/425/490 from host/target
+equality. Preserve all11 capture pairs and guarded27712-byte script/trace storage.
+The new bound-owner ledger must survive a non-OK helper result; full-queue WAIT
+must perform no I/O. Selection must retain the program's SERVICE-only readiness
+exception. After source review, capture exact sources and run the focused target
+instruction audit/host/QEMU experiment, independent raw-capture gate and then full
+sequential validation. None of those publication execution steps is complete.
 
 ### Original SETUP ingress and corrected legacy evidence (2026-09-29)
 

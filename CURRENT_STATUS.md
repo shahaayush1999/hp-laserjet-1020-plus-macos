@@ -1,8 +1,9 @@
 # Current handoff
 
-Updated: 2026-10-02. **The open firmware replacement cannot print yet.** Continue
-autonomously until the owner asks to yield. Do not enumerate/contact USB, upload
-firmware, execute print-driving hardware paths or change installed printing.
+Updated: 2026-10-02. **The open firmware replacement cannot print yet.** Stopped
+at the owner's request; all research processes and agents are stopped. Do not
+enumerate/contact USB, upload firmware, execute print-driving hardware paths or
+change installed printing.
 AGENTS.md owns scope; `analysis/README.md` is the evidence/tool-recovery map.
 
 ## Current checkpoint
@@ -11,7 +12,8 @@ The latest full sequential `scripts/validate.sh` run passed **129 consistency
 checks and both suites**, including28 host/28 QEMU recording-program cases,
 62/62 composed,58/58 typed offload,132/132 raw adapter and52 unchanged/160 patched
 protocol cases. Log: `/tmp/hp1020-full-program-20261002.log`, child
-`hp1020-validation.xVacWU`. Execution is stopped; independent drafting continues.
+`hp1020-validation.xVacWU`. This validated code is committed and pushed. The later
+publication drafts below are archived separately and have never been executed.
 
 The new endpoint register-command backend connects actual TinyUSB callbacks to
 recorded command sequences and immediate one-shot status permission. Fixed FIFO
@@ -35,14 +37,19 @@ live in `analysis/open-firmware-model/next-evidence.md`.
 
 ## Next action
 
-Root owns integration and sequential execution. Continue the unexecuted OUT1
-publication component after this checkpoint: C/H in
-`/tmp/hp1020-udc-publish-draft-20261002/`, fixture in
-`/tmp/hp1020-udc-publish-fixture-draft-20261002/`, independent literal oracles in
-`/tmp/hp1020-udc-publish-trace-oracles-20261002.py` (agents drafting).
-Primary/cache reviews and root original-byte checks are already durable in
-program `source-snapshots/next-publication-reviews.*`. No publication candidate
-has been compiled or executed; preserve its distinction from the passed backend.
+When the owner resumes, root owns integration and sequential execution. Recover
+the next OUT1 publication component from
+`analysis/usb-path/udc-program/source-snapshots/unexecuted-publication-drafts.*`.
+Its `RESUME.md` identifies
+frozen C/H, fixture/codec/builder, independent literal oracles and the incomplete
+runner fragments. Independent C/H static review found no blocking issue within
+the supplied contract; fixture/runner execution is unreviewed. No candidate has
+been integrated, compiled or executed. Review the final fixture, finish the
+40-case runner, then capture sources and run focused validation before shared-suite
+integration.
+The archive preserves two nested baseline paths and one earlier README template
+with explicit hash metadata; do not silently repair the frozen package. Earlier
+primary/cache reviews and original-byte checks remain in `next-publication-reviews.*`.
 
 The selected synchronous arm wrapper checks readiness and the stopped/settled
 window BEFORE existing prepare writes HOST_READY. It then reuses the actual
@@ -63,7 +70,7 @@ Keep separate:26 completed empty-document lifecycles, six conditional original
 null reads,28 retirement cases,36 native page lifecycles with supplied completion,
 and42 fragment/bypass cases. USB/component tests add zero physical USB or native
 page lifecycles. Do not repeat cancellation/END_DOC or completed IRQ/SETUP research.
-Continue beyond a passing checkpoint while the owner is away.
+Resume only when requested by the owner.
 
 ## Installed Mac driver (separate, preserve)
 
