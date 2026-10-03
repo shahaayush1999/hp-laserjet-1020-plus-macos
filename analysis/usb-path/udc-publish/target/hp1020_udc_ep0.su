@@ -1,0 +1,12 @@
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-ep0/hp1020_udc_ep0.c:9:17:be32	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-ep0/hp1020_udc_ep0.c:21:13:cpu_span_valid	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-ep0/hp1020_udc_ep0.c:24:13:cpu_overlap	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-ep0/hp1020_udc_ep0.c:65:35:report_fault	32	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-ep0/hp1020_udc_ep0.c:37:35:enter	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-ep0/hp1020_udc_ep0.c:51:36:current.isra	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-ep0/hp1020_udc_ep0.c:81:28:hp1020_udc_ep0_init	144	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-ep0/hp1020_udc_ep0.c:107:28:hp1020_udc_ep0_prepare	80	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-ep0/hp1020_udc_ep0.c:143:28:hp1020_udc_ep0_take_submission	112	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-ep0/hp1020_udc_ep0.c:165:28:hp1020_udc_ep0_observe	80	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-ep0/hp1020_udc_ep0.c:205:28:hp1020_udc_ep0_request_cancel	48	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-ep0/hp1020_udc_ep0.c:213:28:hp1020_udc_ep0_cancelled	64	static

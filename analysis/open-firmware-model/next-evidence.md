@@ -1847,56 +1847,89 @@ by optional fixture integration. Composed62/62 and offload58/58 full-run capture
 are in their respective `source-snapshots/program-full-suite-62-cases.*` and
 `program-full-suite-58-cases.*` archives. All archive members were read back.
 
-The next selected implementation is a synchronous OUT1 arm-and-publication
-wrapper. Static reviews and independent stock-byte checks are preserved in this
-stage's `source-snapshots/next-publication-reviews.*`; these are unexecuted design
-evidence. The wrapper must check a stopped/settled global-RX window BEFORE existing
-prepare writes HOST_READY, then reuse actual adapter reservation and original
-cookie, explicit RX64/descriptor16 cache hooks, immediate DESPTR/CNAK/readback/RDE
-commands and sticky prefix failure. No delayed proposal or completion is invented.
+### Synchronous OUT1 publication (2026-10-03)
+
+The first complete focused experiment passed **40 sanitized host/40 audited QEMU
+cases**,4784 paired event rows and440 paired raw captures. The independently
+frozen gate passed unchanged in report-only and raw-capture modes. Measured target
+publisher size is140 bytes; the reused backend88, adapter/document128588, EP0296,
+OUT80 and SETUP96 remain separate. The first attempt had passed40 host cases before
+missing disposable GCC headers stopped target compilation; no target image or
+paired report existed for that attempt. Pinned binutils and GCC recovery restored
+the tools, and the exact same144-source/six-fixture closure passed the retry.
+No production/scenario execution correction was needed. Full sequential
+`scripts/validate.sh` passed130 consistency checks and both suites. Full log:
+`/tmp/hp1020-full-publication-20261003.log`, child `hp1020-validation.jisaBm`.
+The full run's raw-capture gate passed again. Case arrays and capture identities
+are unchanged for continuous34, class82, receive75, adapter132, composed62, EP050,
+offload58, OUT34, program28 and publication40. Generated stack-usage path changes
+remain recorded; no report hash was manually changed.
+
+The wrapper checks the stopped/settled global-RX window BEFORE existing prepare
+writes HOST_READY. It reuses actual adapter reservation and the original cookie,
+explicit RX64/descriptor16 cache hooks and immediate DESPTR/CNAK/readback/RDE
+commands. The full queue waits before any I/O. Direct, duplicate and out-of-window
+callbacks cannot prepare or publish. A private duplicate probe runs inside the
+original callback before unwind, after both successful and failed first calls.
+There is no escaping proposal, second queue, replacement descriptor encoder or
+physical register implementation.
+
+Every post-bind failure retains its original cookie and exact successful prefix;
+uncertain writes do not allow automatic reuse. Normal forward operations stay
+blocked while exact-cookie cancellation and admitted actual-reset draining remain
+available. Cleanup preserves nonzero fenced receive accounting and supplies no
+recovery promise; only the later existing three-promise restart resets it.
+Program selection keeps its necessary SERVICE-only readiness exception while
+respecting the local publisher failure/active-call barrier.
+
+The20 profiles x two fills cover both CNAK paths, fact/register/read refusals,
+callback authority, progress barriers, original cleanup identity, cancellation/
+reuse, NAK readback refusal and ten post-bind failures. Only measured size
+words59/425/490 are omitted from496-word host/target equality. The gate rebuilds
+the literal command/cache traces, retained failure/cookie state, complete receive
+and descriptor memory and guarded27712-byte read/trace storage. Every case has one
+independent32-byte FF page and END_DOC in G2/G3. USB/component cases add zero
+native stock or physical page lifecycles.
+
+Durable archives in `analysis/usb-path/udc-publish/source-snapshots/` retain
+`first-host-toolchain-stop.*`, `first-paired-40-cases.*` and
+`full-suite-40-cases.*`. Their sources and raw captures are separate; failed tool
+recovery never relabels a tested source. `reviews-and-independent-gate.*` preserves
+static reviews, both pre-execution gate versions, recovery logs and ten corruption
+controls. Each control reseals an internally paired example; both report-only and
+raw-capture modes reject its intended semantic violation. The archive stores
+changed members plus hash-checked references into the first paired archive for
+unchanged members. These controls are synthetic evidence mutations, not additional
+firmware executions.
+The older `udc-program/source-snapshots/unexecuted-publication-drafts.*` remains
+unchanged and preserves pre-integration C/H, fixture, literal oracles, reviews and
+runner fragments. The recovered nested baseline paths and historical README
+template are described by that archive's metadata. Static fixture/runner review
+preceded execution. Independent gate V1/V2 retain two pre-execution ABI corrections:
+outer blocked-arm WAIT and existing EP0 descriptor-write op46. Neither correction
+changed a publication literal or accommodated an execution result.
+
 Classic full-speed64/BE DU0/BF0/THE0, complete global receive readiness, register
-stability, mapping and cache-line isolation remain supplied. TinyUSB's weak cache
+stability, exact mapping/cache-line isolation and physical settlement remain
+supplied. Static primary/cache reviews and original-byte checks remain in the
+previous stage's `source-snapshots/next-publication-reviews.*`. TinyUSB's weak cache
 hooks are no-op success; stock DHWB/DHWBI helpers and initialization ADD do not
-justify a physical cache implementation or universal address translation.
-Root owns all execution. C/H, fixture and independent literal-oracle drafts are
-now frozen; the owner requested a stop before integration. No publication
-candidate has been built or executed. Preserve queued receive accounting during
-exact-cookie failure cleanup; only the later existing three-promise restart can
-reset it. Do not require receive.count0 as a cleanup prerequisite and deadlock
-the retained failed reservation.
+justify physical cache primitives or universal address translation. No command
+trace establishes USB acceptance, hardware quiescence or printing.
 
-The durable `source-snapshots/unexecuted-publication-drafts.*` archive contains
-the unchanged backend and fixture patches, originals, completed independent C/H
-static review, frozen 40-case plan/literal oracles, incomplete root runner
-fragments and an actionable `RESUME.md`. Its outer metadata verifies every member.
-Backend C/H identities are `d294b122...` / `4dad4d4e...`; backend patch `f638aa1d...`,
-fixture patch `69075b35...`, oracle `b677dc57...`, independent review `9d0d435e...`.
-Full hashes are in the archive metadata. Static review found no blocking C/H issue
-within the supplied serialized lease contract; it did not validate the fixture or
-runner. The lead has not yet reviewed their final integration or run any candidate.
-
-Two packaging details are preserved rather than silently repaired: backend
-`SOURCES.sha256` root entries are actually stored at
-`baseline/AGENTS.md/AGENTS.md` and `baseline/CURRENT_STATUS.md/CURRENT_STATUS.md`.
-Their bytes match; the other28 paths and all13 DRAFT members verify directly.
-Six fixture originals match the validated tree; its README template has the
-earlier pending-full-suite prose. The first archival check caught that historical
-README difference and stopped before writing; metadata records both hashes.
-
-On resumption, review both integration notes and the final fixture first. Complete
-the unfinished `header.py`/`compile.py`/`host.py` runner fragments with scenarios,
-reset/cleanup helpers and target replay. They are not a runnable validator.
-The planned20 profiles x two fills cover both CNAK paths, fact/register/read
-refusals, callback authority, progress barriers, original cleanup identity,
-cancellation/reuse, NAK readback refusal and each post-bind hook failure. Expected
-traces were frozen independently before the C review; retain that independence.
-Append64 diagnostics to432, excluding only size words59/425/490 from host/target
-equality. Preserve all11 capture pairs and guarded27712-byte script/trace storage.
-The new bound-owner ledger must survive a non-OK helper result; full-queue WAIT
-must perform no I/O. Selection must retain the program's SERVICE-only readiness
-exception. After source review, capture exact sources and run the focused target
-instruction audit/host/QEMU experiment, independent raw-capture gate and then full
-sequential validation. None of those publication execution steps is complete.
+The next useful boundary is post-device acquisition: acquire the original retained
+descriptor16 and payload64 through mandatory hooks, order, copy actual CPU memory,
+then reuse the existing OUT observer. Physical settlement remains separately
+supplied. No caller snapshot/visibility flag should stand in for those operations.
+Preserve old-cookie settlement while forward progress is blocked, original fault/
+cancel ownership and historical observer tests. Reviewed C/H V1/V2, the fixture/
+codec/builder, independent32-profile plan and incomplete root runner fragments are
+preserved in `udc-publish/source-snapshots/next-acquisition-proposals.*`. Its
+`RESUME.md` records the remaining scenario/gate integration. V2 narrows init wording
+only: adapter preparation and owners are checked; retained receive accounting is
+never cleared. Acquisition drafts remain unexecuted. Finish scenario/gate review
+before first execution. The fixture-only separate device/poisoned-CPU image checks
+which bytes are used without pretending to emulate a physical cache.
 
 ### Original SETUP ingress and corrected legacy evidence (2026-09-29)
 

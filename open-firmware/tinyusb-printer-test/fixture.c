@@ -10,6 +10,9 @@
 #ifndef HP1020_FIXTURE_ADAPTER_SERVICE
 #define HP1020_FIXTURE_ADAPTER_SERVICE(a) hp1020_tusb_adapter_service(a)
 #endif
+#ifndef HP1020_FIXTURE_ADAPTER_ARM_OUT
+#define HP1020_FIXTURE_ADAPTER_ARM_OUT(a) hp1020_tusb_adapter_arm_out(a)
+#endif
 
 uint8_t hp1020_bulk_fixture_input[1024];
 uint8_t hp1020_bulk_fixture_pixels[262144];
@@ -322,7 +325,7 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op,uint32_t a,uint32_t b,uint32_t c,u
         } else state.stale++;
         r=hp1020_tusb_adapter_cancelled(&adapter,cookie);
     } else if(op==5)r=hp1020_tusb_adapter_bus_reset(&adapter,(tusb_speed_t)a);
-    else if(op==6)r=hp1020_tusb_adapter_arm_out(&adapter);
+    else if(op==6)r=HP1020_FIXTURE_ADAPTER_ARM_OUT(&adapter);
     else if(op==7)r=hp1020_tusb_adapter_pump(&adapter);
     else if(op==8)r=hp1020_tusb_adapter_close_input(&adapter);
     else if(op==9)r=hp1020_tusb_adapter_finish(&adapter);

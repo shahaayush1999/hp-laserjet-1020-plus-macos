@@ -192,17 +192,34 @@ static uint32_t program_fixture_init(uint32_t fill) {
     const struct hp1020_udc_program_init_facts facts = {1,1,1};
     program_state.result = (uint32_t)hp1020_udc_program_init(&program, &composed_setup,
         &io, layout, facts);
+#ifdef HP1020_COMPOSED_PUBLISH
+    if (!program_state.result) program_state.result = publish_fixture_init(fill);
+#endif
     return program_state.result;
 }
 static uint32_t program_fixture_service(void) {
     const struct program_call_entry before = program_call_begin(PROGRAM_ENTRY_SERVICE);
+#ifdef HP1020_COMPOSED_PUBLISH
+    return program_call_end(before, publish_fixture_service());
+#else
     return program_call_end(before, (uint32_t)hp1020_udc_program_service(&program));
+#endif
 }
-static uint32_t program_fixture_progress(void) { return hp1020_udc_program_progress(&program); }
+static uint32_t program_fixture_progress(void) {
+#ifdef HP1020_COMPOSED_PUBLISH
+    return publish_fixture_progress();
+#else
+    return hp1020_udc_program_progress(&program);
+#endif
+}
 static bool program_fixture_submission_allowed(void) {
     const struct program_call_entry before = program_call_begin(PROGRAM_ENTRY_SUBMISSION);
     program_state.submission_checks++;
+#ifdef HP1020_COMPOSED_PUBLISH
+    const bool allowed = publish_fixture_submission_allowed();
+#else
     const bool allowed = hp1020_udc_program_submission_allowed(&program);
+#endif
     program_state.last_submission = allowed ? 1u : 0u;
     (void)program_call_end(before, program.failed ? HP1020_UDC_PROGRAM_FAULT :
         allowed ? HP1020_UDC_PROGRAM_OK : HP1020_UDC_PROGRAM_WAIT);
@@ -235,6 +252,14 @@ static uint32_t program_fixture_step(uint32_t op, uint32_t a, uint32_t b,
     uint32_t c, uint32_t d) {
     uint32_t r = HP1020_UDC_PROGRAM_INVALID;
     program_fixture_check();
+#ifdef HP1020_COMPOSED_PUBLISH
+    /* Selection must remain callable while its existing programming barrier
+     * awaits completion; a publication failure cannot be bypassed that way. */
+    if ((op == 123 || op == 124) && !publish_fixture_program_allowed()) {
+        program_state.result = HP1020_UDC_PROGRAM_WAIT;
+        return HP1020_UDC_PROGRAM_WAIT;
+    }
+#endif
     if (op == 120 && !b && !c && !d && a <= sizeof(hp1020_bulk_fixture_input)/12u &&
         a <= PROGRAM_READ_CAPACITY - program_state.queued) {
         bool valid = true;
@@ -348,6 +373,9 @@ static void program_fixture_snapshot(void) {
     o[59]=program_state.failure_entry.control_epoch; o[60]=program_state.failure_entry.transport_epoch;
     o[61]=program_state.failure_kind; o[62]=program_state.failure_entries;
     o[63]=program_state.submission_checks;
+#ifdef HP1020_COMPOSED_PUBLISH
+    publish_fixture_snapshot();
+#endif
 }
 
 /* The host codec serializes every word explicitly. The target reader can use

@@ -317,6 +317,9 @@ static int composed_capture_same(void) {
 }
 static void composed_check(void) {
     check_owned(); ep0_check();
+#ifdef HP1020_COMPOSED_PUBLISH
+    publish_fixture_check();
+#endif
 #ifdef HP1020_COMPOSED_PROGRAM
     program_fixture_check();
 #endif
@@ -440,6 +443,9 @@ static enum hp1020_udc_out_result composed_publish(struct hp1020_tusb_cookie coo
 }
 static bool composed_bulk_xfer(uint8_t rhport, uint8_t endpoint, uint8_t *buffer,
     uint16_t length, bool in_isr) {
+#ifdef HP1020_COMPOSED_PUBLISH
+    return publish_fixture_bulk_xfer(rhport, endpoint, buffer, length, in_isr);
+#else
     (void)in_isr; composed_check();
     if (rhport || endpoint != 1 || !buffer || length != 64 || packets[2].live ||
         !(state.open_mask & endpoint_bit(endpoint))) { composed_out_violation(); return false; }
@@ -480,6 +486,7 @@ static bool composed_bulk_xfer(uint8_t rhport, uint8_t endpoint, uint8_t *buffer
         if (r != HP1020_UDC_OUT_OK && r != HP1020_UDC_OUT_WAIT) return false;
     }
     return failure != 2;
+#endif
 }
 /* The only symbols seen by the separately compiled reusable USB stack. */
 bool dcd_edpt_xfer(uint8_t rhport, uint8_t endpoint, uint8_t *buffer,
@@ -619,7 +626,11 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op, uint32_t a, uint32_t b, uint32_t 
             (op == 8 || op == 9 || op == 12 || op == 41) ?
                 HP1020_UDC_SETUP_ALLOW_SERVICE | HP1020_UDC_SETUP_ALLOW_ARM |
                     HP1020_UDC_SETUP_ALLOW_PUMP : 0;
-        if (op == 0 || op == 2 || op == 3 || op == 4 || op == 5) {
+        if (op == 0 || op == 2 || op == 3 || op == 4 || op == 5
+#ifdef HP1020_COMPOSED_PUBLISH
+            || op == 14
+#endif
+        ) {
             /* No normalized SETUP/reset or completion/cancellation/data bypass. */
         } else if (needed && (permission & needed) != needed) {
             r = op == 9 ? HP1020_RX_WAIT : HP1020_TUSB_WAIT;
@@ -631,6 +642,10 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op, uint32_t a, uint32_t b, uint32_t 
         memcpy(&protected_memory, &memory.data, sizeof(memory.data));
         if (op < 80) {
             composed_out_state.steps++;
+#ifdef HP1020_COMPOSED_PUBLISH
+            if (op == 60 || op == 61) r = HP1020_UDC_PUBLISH_INVALID;
+            else
+#endif
             if (op == 60 && a <= 1 && b <= UINT32_C(0xffffff)) {
                 composed_out_state.automatic = (uint8_t)a;
                 composed_out_state.publish = (struct hp1020_udc_out_publish_facts){
@@ -686,6 +701,9 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op, uint32_t a, uint32_t b, uint32_t 
 #endif
 #ifdef HP1020_COMPOSED_PROGRAM
         else if (op >= 120 && op <= 126) r = program_fixture_step(op,a,b,c,d);
+#endif
+#ifdef HP1020_COMPOSED_PUBLISH
+        else if (op >= 130 && op <= 134) r = publish_fixture_step(op,a,b,c,d);
 #endif
         else {
             composed_setup_state.steps++;

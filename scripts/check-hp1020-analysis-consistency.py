@@ -5568,6 +5568,13 @@ def build_report() -> dict[str, Any]:
         "controller_programming_preserves_exact_commands_original_failures_and_status_ownership",
         program_ok, program_detail, evidence="analysis/usb-path/udc-program/validation.json"))
 
+    publish_gate = runpy.run_path(str(ROOT_DIR / "scripts/check-hp1020-udc-publish.py"))["check_publish_report"]
+    publish_ok, publish_detail = publish_gate(
+        read_json("analysis/usb-path/udc-publish/validation.json"), source_root=ROOT_DIR)
+    checks.append(check(
+        "bulk_publication_preserves_preflight_exact_ranges_original_owner_and_cleanup",
+        publish_ok, publish_detail, evidence="analysis/usb-path/udc-publish/validation.json"))
+
     fail_count = severity_count(checks, "fail")
     return {
         "summary": "Cross-report consistency gate for the current offline reverse-engineering state.",

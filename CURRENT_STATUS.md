@@ -1,76 +1,65 @@
 # Current handoff
 
-Updated: 2026-10-02. **The open firmware replacement cannot print yet.** Stopped
-at the owner's request; all research processes and agents are stopped. Do not
-enumerate/contact USB, upload firmware, execute print-driving hardware paths or
-change installed printing.
+Updated: 2026-10-03. **The open firmware replacement cannot print yet.** Resumed
+at the owner's request; continue autonomously until asked to yield. No USB
+contact/enumeration, upload, print-driving hardware or installed-printing changes.
 AGENTS.md owns scope; `analysis/README.md` is the evidence/tool-recovery map.
 
 ## Current checkpoint
 
-The latest full sequential `scripts/validate.sh` run passed **129 consistency
-checks and both suites**, including28 host/28 QEMU recording-program cases,
-62/62 composed,58/58 typed offload,132/132 raw adapter and52 unchanged/160 patched
-protocol cases. Log: `/tmp/hp1020-full-program-20261002.log`, child
-`hp1020-validation.xVacWU`. This validated code is committed and pushed. The later
-publication drafts below are archived separately and have never been executed.
+Full sequential `scripts/validate.sh` passed **130 consistency checks and both
+suites**. The new synchronous OUT1 publication component passed40 sanitized host/
+40 audited QEMU cases,4784 paired event rows and440 paired raw captures. Its
+independently frozen gate passed unchanged, and all ten deliberately corrupted,
+internally paired examples were rejected at the intended semantic checks.
+Full log: `/tmp/hp1020-full-publication-20261003.log`; child `hp1020-validation.jisaBm`.
 
-The new endpoint register-command backend connects actual TinyUSB callbacks to
-recorded command sequences and immediate one-shot status permission. Fixed FIFO
-allocation is checked; failures retain their original cleanup identity across
-reset. No physical register binding exists. Its first focused28/28 run passed
-without production/scenario execution corrections. The independently frozen gate
-passed unchanged and nine deliberate corruptions were rejected. The full rerun's
-1876 paired rows and captures match the first; its raw-capture gate also passed.
-Target backend88, adapter/document128588, EP0296, bulk80, SETUP96 bytes.
+The component checks readiness before reserving bytes, uses actual TinyUSB/adapter
+ownership, and records required cache ranges and immediate register commands.
+A partial failure retains its original cleanup cookie and exact attempted prefix.
+Cleanup cannot invent settlement or discard the retained receive accounting.
+These are logical recording hooks; no physical register/cache binding exists.
+Target publisher140 bytes, backend88, adapter/document128588, EP0296, OUT80, SETUP96.
 
-Exact first134-source and full135-source closures, target, fixtures and eleven
-capture pairs per case are in `analysis/usb-path/udc-program/source-snapshots/`.
-Untouched proposals, first negative-control indexing correction and independent
-reviews remain separately archived. Shared optional fixture seams leave existing
-adapter/OUT/EP0/composed/offload case rows and captures unchanged. Full composed
-and offload archives are `program-full-suite-62-cases.*` and
-`program-full-suite-58-cases.*` in their respective evidence directories.
-Ordinary raw SET_INTERFACE rejection continues to preserve input and old recovery
-identities; typed SI remains separately conditional. Detailed evidence and limits
-live in `analysis/open-firmware-model/next-evidence.md`.
+The full run's publication case rows/captures match the first complete experiment;
+its raw-capture gate passed again. All ten compared earlier component case arrays
+and capture identities are unchanged, including34 OUT,50 EP0,62 composed,58 typed
+offload,28 programming and132 adapter cases in both engines. Exact144-source/six-
+fixture closures, targets, captures, reviews, corruption controls and comparisons
+are in `analysis/usb-path/udc-publish/source-snapshots/`. Detailed scope and remaining
+questions live in `analysis/open-firmware-model/next-evidence.md`.
+
+The earlier40-host attempt stopped before target compilation because disposable
+GCC headers were missing; its complete raw evidence remains separately sealed.
+Pinned binutils/GCC recovery passed unchanged source/encoding/profile gates, then
+the identical candidate passed. Binary presence alone does not establish complete
+tools: headers, libgcc, ar/ranlib and scratch Git metadata can disappear. Use only
+the pinned recovery scripts and overrides in the analysis map.
 
 ## Next action
 
-When the owner resumes, root owns integration and sequential execution. Recover
-the next OUT1 publication component from
-`analysis/usb-path/udc-program/source-snapshots/unexecuted-publication-drafts.*`.
-Its `RESUME.md` identifies
-frozen C/H, fixture/codec/builder, independent literal oracles and the incomplete
-runner fragments. Independent C/H static review found no blocking issue within
-the supplied contract; fixture/runner execution is unreviewed. No candidate has
-been integrated, compiled or executed. Review the final fixture, finish the
-40-case runner, then capture sources and run focused validation before shared-suite
-integration.
-The archive preserves two nested baseline paths and one earlier README template
-with explicit hash metadata; do not silently repair the frozen package. Earlier
-primary/cache reviews and original-byte checks remain in `next-publication-reviews.*`.
+Continue with synchronous post-device acquisition of the retained OUT descriptor16
+and payload64: mandatory range hooks, acquire-order, real CPU snapshot, then the
+existing observer. Keep original owner/fault/cancel machinery and allow exact old
+settlement while forward progress is blocked. There is no new queue or identity.
+Physical settlement, mapping/cache-line safety and real ordering stay supplied.
 
-The selected synchronous arm wrapper checks readiness and the stopped/settled
-window BEFORE existing prepare writes HOST_READY. It then reuses the actual
-adapter reserve/bind, original cookie and descriptor, with explicit RX64/descriptor16
-cache hooks and immediate DESPTR/CNAK/readback/RDE command construction. No proposal
-escapes. A failure retains its exact cookie/prefix until external cleanup; reset
-alone cannot clear it. Preserve fenced receive accounting until the later existing
-three-promise restart. Never require receive.count0 for failure cleanup.
+`source-snapshots/next-acquisition-proposals.*` under the publication evidence
+preserves reviewed C/H V1/V2, fixture/codec/builder, independent32-profile plan and
+incomplete root runner fragments. Its `RESUME.md` describes what remains. V2 only
+narrows initialization wording; receive accounting is never cleared by init or
+cleanup. The separate device-image/poisoned-CPU fixture appends80 words (576 total),
+compares twelve captures, and probes reentry through actual busy callbacks.
+Acquisition drafts remain **unexecuted**. Finish independent scenario/gate review
+before integration and first execution. Root owns all sequential validation;
+freeze tested sources and preserve unexpected results before any correction.
 
-Mode, safe IN SNAK, FIFO geometry, complete table, endpoint defaults, global RX/
-SETUP readiness, register stability, mapping/cache and physical settlement remain
-supplied. No physical DCD exists. Boot, engine behavior, physical status/printing
-and power-cycle recovery are unproved. Never run validators concurrently, edit
-captured sources during a run or manually relabel report hashes. Tools work;
-recover disposable tools only through the pinned scripts in the analysis map.
-
-Keep separate:26 completed empty-document lifecycles, six conditional original
-null reads,28 retirement cases,36 native page lifecycles with supplied completion,
-and42 fragment/bypass cases. USB/component tests add zero physical USB or native
-page lifecycles. Do not repeat cancellation/END_DOC or completed IRQ/SETUP research.
-Resume only when requested by the owner.
+Boot, IRQ/event producers, real cache/mapping/settlement, engine behavior, physical
+status/printing and power-cycle recovery remain unproved. Keep separate:26 empty-
+document lifecycles, six conditional original null reads,28 retirement cases,
+36 native page lifecycles with supplied completion and42 fragment/bypass cases.
+Component tests add zero native/physical lifecycles. Do not repeat completed
+cancellation/END_DOC or original IRQ/SETUP investigations.
 
 ## Installed Mac driver (separate, preserve)
 
