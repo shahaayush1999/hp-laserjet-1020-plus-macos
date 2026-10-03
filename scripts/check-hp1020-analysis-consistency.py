@@ -2185,14 +2185,19 @@ def usb_offload_consistency_gate(root, capture_root=None):
     return not bad, '; '.join(sorted(bad)) if bad else 'paired typed offload owners, grants, original identities and guarded captures agree; no physical USB claim'
 
 
-def entry_capture_archive_gate(root):
+def entry_capture_archive_gate(root, experiment="entry-ram"):
     """Check committed raw evidence without relying on disposable run paths."""
     try:
         root = Path(root)
-        folder = root / "analysis/boot-handoff/entry-ram"
+        profiles = {
+            "entry-ram": ("hp1020-entry-capture-v1", "check-hp1020-entry-ram.py"),
+            "entry-usb": ("hp1020-entry-usb-capture-v1", "check-hp1020-entry-usb.py"),
+        }
+        schema, checker_name = profiles[experiment]
+        folder = root / "analysis/boot-handoff" / experiment
         manifest = json.loads((folder / "capture-manifest.json").read_text())
         payload = folder / "capture.tar.gz"
-        if (manifest["schema"] != "hp1020-entry-capture-v1"
+        if (manifest["schema"] != schema
                 or payload.stat().st_size != manifest["archive_bytes"]
                 or payload.stat().st_size > 32 * 1024 * 1024
                 or hashlib.sha256(payload.read_bytes()).hexdigest() != manifest["archive_sha256"]):
@@ -2219,7 +2224,7 @@ def entry_capture_archive_gate(root):
                     destination.write_bytes(raw)
             if (capture / "validation.json").read_bytes() != (folder / "validation.json").read_bytes():
                 raise ValueError("published entry report must be the exact archived report")
-            checker = runpy.run_path(str(root / "scripts/check-hp1020-entry-ram.py"))["check_capture"]
+            checker = runpy.run_path(str(root / "scripts" / checker_name))["check_capture"]
             ok, detail = checker(capture, source_root=root)
             if not ok:
                 return False, detail
@@ -5636,6 +5641,11 @@ def build_report() -> dict[str, Any]:
     checks.append(check(
         "single_entry_establishes_own_cpu_stack_bss_and_continuous_ram_document",
         entry_ok, entry_detail, evidence="analysis/boot-handoff/entry-ram/validation.json"))
+
+    usb_entry_ok, usb_entry_detail = entry_capture_archive_gate(ROOT_DIR, "entry-usb")
+    checks.append(check(
+        "single_entry_runs_usb_two_documents_and_final_original_owner_drain",
+        usb_entry_ok, usb_entry_detail, evidence="analysis/boot-handoff/entry-usb/validation.json"))
 
     fail_count = severity_count(checks, "fail")
     return {

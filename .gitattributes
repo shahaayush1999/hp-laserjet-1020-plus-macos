@@ -12,3 +12,11 @@ analysis/usb-path/tinyusb-printer/target/*.map -whitespace
 analysis/usb-path/udc-out/target/*.map -whitespace
 analysis/usb-path/udc-ep0/target/*.map -whitespace
 analysis/usb-path/udc-composed/target/*.map -whitespace
+analysis/boot-handoff/entry-usb/target/*.map -whitespace
+# Preserve sealed pre-implementation literals/notes, original GCC license and report bytes.
+open-firmware/entry-usb-test/independent-addendum.md -whitespace
+open-firmware/entry-usb-test/independent-literals.py -whitespace
+open-firmware/entry-usb-test/independent-plan.md -whitespace
+open-firmware/entry-usb-test/literal-addendum.py -whitespace
+open-firmware/entry-usb-test/references/gcc-runtime/COPYING.RUNTIME -whitespace
+analysis/boot-handoff/entry-usb/validation.md -whitespace

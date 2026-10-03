@@ -2175,45 +2175,135 @@ baseline comparison (31 members, archive SHA256
 8KiB remains a budget, not an all-input maximum. Actual ROM
 entry, physical RAM attributes, cache/DMA/USB and engine output remain open.
 
-The accepted next experiment is a continuous USB runtime, still unimplemented.
-The static proposal `/tmp/hp1020-next-entry-runtime-proposal-20261003.md`
-(SHA256`cfaac969ba7e8ac3aa5888df8739ddfe9ea75295cbdfb48016d76fe6635aeb08`)
-uses unchanged TinyUSB and current SETUP/EP0/OUT/program/publication/acquisition
-components, with a separate synthetic platform provider rather than nested test
-fixtures. Existing production code/rodata sums45338 bytes and mutable/file-backed
-data129815. Together with stack/mailbox/sentinel this is184625 before new glue,
-constants, alignment and guards, within the205280-byte main declared envelope;
-this is map arithmetic, not a linked-image result. The24KiB current code budget
-must change. Split document memory114704 from smaller state; do not place the
-fixture's combined128588-byte allocation across the retained entry island.
+### Continuous USB entry and original-owner drain (2026-10-03)
 
-New startup must preserve TinyUSB's29 initialized bytes and zero its generic
-BSS/bound pointer as well as application objects once. Frozen new linker/startup
-is`/tmp/hp1020-usb-runtime-layout-draft-20261003/`; independent plan/literals are
-`/tmp/hp1020-entry-usb-independent-plan-20261003.md` and
-`/tmp/hp1020-entry-usb-independent-literals-20261003.py` (plan
-SHA256`7818a09ed83fbfedc1b39b35524e1fc0f11a3b4480d0a5a8e2fe1970e84adac4`,
-literals`13194a8d608de407cf9c513f59cf5b1a80a1c3cdeac4ea08b71ebb9602272b95`).
-`next-runtime-specifications.*` preserves them as unexecuted specifications.
-The exact public provider/header and independent layout review are pending;
-root must approve them and obtain the oracle addendum before runtime C begins.
-No new runtime C has been written or executed. The first bounded schedule uses raw configuration
-as an explicitly supplied software-delivery profile, then two documents without
-per-document finish. Initial binding recovery advances receive toG2; expected
-events are(2,1,0,1) and(2,2,1,1), with64 FF pixels. At the first actual close_input
-entry an eagerly rearmed OUT still ownsG2/sequence13: close does not cancel it.
-Use a separately supplied successful zero-length acquisition to settle/pump that
-reservation before final finish/park. That ZLP is ordinary input, never inferred
-EOF. Mid-document reset/late-cookie replay belongs to a later distinct variant.
+`open-firmware/entry-usb-test/` and the USB-entry scripts now pass six continuous
+interpreter/QEMU cases plus the independently frozen raw gateV5. The unchanged
+production TinyUSB/class/receive/document/image and SETUP/EP0/OUT/program/
+publication/acquisition components share one entry-owned runtime. Platform facts
+come from a separate guarded RAM provider, never nested component fixtures.
+The first accepted capture is`/tmp/hp1020-entry-usb-hjxqsyjw`; the current recoverable
+publication is`analysis/boot-handoff/entry-usb/capture.tar.gz`. Full regression after
+shared integration passed133 consistency checks and both offline suites. The fresh
+full-run capture is`/tmp/hp1020-entry-usb-mxo5ybab`; CURRENT_STATUS owns the current
+work/commit state.
 
-Proposed split layout: code53216 bytes at10003000, generic BSS cap16352 at10010000
-(exact13496-byte document first), stack8192 at10014020, mailbox1024 at10016060,
-actual initialized data under96 bytes at100164a0, sentinel256 at10016500,
-unchanged entry island, full memory at10016800 and witness cap10176 at10032830.
-Zero actual nonempty used spans only; preserve unused budgets/guards and all
-initialized bytes. The old784-byte stack bound does not transfer. Dirty incoming
-loops move to10035080..100350a0 and100350c0..100350e0 so they cannot intercept the
-new normalization prefix. Exact new linked sizes/properties/branches remain open.
+Each case establishes CPU state, its own8192-byte stack and140244 bytes of BSS,
+then runs2431280 instructions with72 selected API entries. All42 paired complete
+checkpoints and12 actual QEMU park steps agree. Measured SP use is880 bytes; the
+separate conservative7472-byte sum covers264 retained C functions in this fixed
+serialized workload, not asynchronous/all-input stack safety. The old entry-RAM
+784-byte ceiling does not transfer. The immutable linked ELF is
+`5d20ef15633de527aaa2d92001c6e910006e3a26eefadd0512a1594884eddf3b`.
+Code/rodata span46320 of53216 bytes, leaving6896. The linked audit covers all27
+ordinary raw inputs, the original libgcc archive/two selected members,15 loads,
+20 allocations,29 mutable objects and16087 admitted instructions. It rejects
+unknown/discarded section families and nonzero NOLOAD initializers; the two
+whole-byte-pinned compiler zero-divisor traps/markers remain excluded. Original
+GCC source, notices and provenance are retained under the experiment's references.
+The neutral earlier entry audit/interpreter/backend remain unchanged.
+
+Durable approved public/manual contracts and the independent pre-C oracle are
+in`source-snapshots/pre-implementation-contracts.*` under the USB-entry evidence.
+Their original header SHA256 is
+`25f5e76cff3633d6e3ab85f4e9adfc2e94edcc02e2cfe0b7d7d2bafea2e82995`;
+independent base/addendum literals are
+`13194a8d608de407cf9c513f59cf5b1a80a1c3cdeac4ea08b71ebb9602272b95` and
+`1bee3ad2136fc8c88ae661a783220705ec9514767a87cb7457ea1dc4664295b6`.
+The457-word compiler witness agrees with16 objects/101 manually derived fields.
+The204-byte provider retains real original cookies; the9216-byte witness records
+240 I/O rows,65 range hooks,14 bindings, guarded device images,64 output bytes and
+two document events. Initialized TinyUSB29-byte data stays intact at startup;
+all four actual BSS spans are scanned before ordinary initialization. All buffer
+capacities, original address budgets, guards and inert islands remain intact.
+
+The executed sequence is initial bus reset1, raw configuration2, genuine EP0
+status settlement, then three separately supplied recovery promises. Generation2
+receives two352-byte documents in64-byte chunks plus their32-byte tails, without
+per-document close/finish. Actual events are(2,1,0,1)/(2,2,1,1), output64 FF bytes.
+Eager sequence13 is still owned at the first real close_input entry. Close only
+closes input; no service intervenes before a separately supplied successful ZLP
+acquisition. OUT becomes FREE while the original adapter owner remains PENDING,
+core BUSY remains set and receive count stays1/consumed12. Actual next service
+clears core ownership; an empty pump consumes13 without parser feed, then the
+sole finish returns to its own park. The ZLP supplies neither EOF nor cancellation.
+Old device-image identity remains distinct from the newly armed cookie until
+an actual acquisition copy. Descriptor addresses/DMA labels are asymmetric;
+nonzero source padding, CPU poison and all receive tails are independently checked.
+
+The first V4 six-pair run completed, but **overall validation failed** before its
+no-shortcut condition: it demanded a linked symbol for a GC-discarded function.
+V5 adds only an exact-five exception, requiring original ET_REL GLOBAL/FUNC
+owner/section/extent and exact discarded-map/LOAD evidence; a retained symbol
+still requires an actual function and is forbidden in the PC trace. Arbitrary
+missing symbols still fail. All runtime expectations stay unchanged. The first
+failed capture is not relabelled; V5 acceptance comes from a fresh sealed run.
+Earlier section-collection KEEP and duplicate-dependency assumptions were also
+corrected from pinned linker source and actual raw inputs, never by editing
+report hashes. The current audit retains raw repeated dependency occurrences and
+seals each distinct input.
+
+Historical source/capture packages remain separate; their adjacent JSON manifests
+seal every member and readback-verified archive. Important labels are:
+
+| Package | Observation retained |
+|---|---|
+| `pre-implementation-contracts` | Approved public layout and independent literals before runtime C |
+| `first-link-budget-stop` | Original code-cap failure, no target execution |
+| `second-gc-retention-stop` | Broad KEEP incorrectly rooted every section; reviewer correction retained |
+| `first-gc-link-only` | First fitting ELF, not yet admitted for execution |
+| `third-dependency-stop` | Incorrect uniqueness assumption for compiler dependency lists |
+| `first-linked-audit-pass` | All original inputs, linked bytes and strict classifications admitted |
+| `pre-execution-admission-controls` | Static7472-byte stack review; six input refusals plus one library seal control |
+| `first-six-paired-gate-stop` | Original six model/QEMU pairs; V4 overall failure remains failed |
+| `gc-shortcut-proof-controls` | Three copied-metadata refusals and separate retained-entry predicate-only test |
+| `first-six-paired-accepted` | First complete V5 acceptance, archive SHA256`3278ff80d2634cc4498a0fff83e54be20b2ac7ead47756b79e5c98ff9c4c4839` |
+| `completed-focused-controls` | Eleven copied-evidence refusals and32 isolated interpreter controls, archive SHA256`710f5e3bff60e8f88483c7ee34f362eb9de46c94ff2876fe679a487fc19e07ba` |
+| `first-full-suite-pass` | Full133-check/two-suite pass, repeated entry captures, exact prior-case/trace comparisons and original comparison-only stop |
+
+All11 older component host/target case arrays and both six-case entry experiments
+match their independently accepted results. Exact source/code/object bytes are
+unchanged; temporary dependency/stack-report prefixes, elapsed times and private
+socket/PID identities are explicitly proved. The first comparison omitted the
+ledger-length consequence of a four-to-five-digit cleanup PID and stopped. Its
+preserved successor checks actual ledger lengths/seals and requires exact raw
+byte equality after replacing only the sole original cleanup PID. Model access/
+instruction traces are byte-identical after decompression. No acceptance gate,
+runtime expectation or report hash was edited to obtain this comparison.
+
+The eleven synthetic corruptions bind an unchanged positive baseline, modify
+paired raw images/CPU-visible evidence and coherent debugger replies, and fail
+for exact semantic obligations rather than a trivial seal mismatch. Each complete
+corrupted tree reconstructs from`first-six-paired-accepted`'s`capture/` members
+plus the saved exact modified members and complete manifests. Plan9's stronger
+natural-order raw-trace construction remains pending. The32 isolated guards have
+23 policy refusals/nine permitted controls; ten unchanged CALL0/CALLX0 instructions
+execute with zero callee instructions. Supplied phase contexts are not runtime
+prefixes. Full state/access/step effects are preserved, including the actual
+prefix of a rejected call. They establish no extra lifecycle or hardware behavior.
+
+Next useful separate profile is the static proposal
+`/tmp/hp1020-entry-usb-reset-plan-20261003/PLAN.md`, SHA256
+`b810f5b58ca52ec96191a09d2ca017b49839348d0fb37f23af41ec1e0b0439ca`.
+After320 parsed bytes, retain packet6 while a decoded old page is READY but has
+never been accepted for output. Admit canonical SOFT_RESET, then allow the real
+old SUCCESS/32 to settle and drain its fenced callback before making three
+truthful recovery promises. Restart toG3, replay inert old metadata at exact
+buffer reuse, then finish one fresh document. Predicted event(3,1,0,1),32 FF bytes
+and704 acquired/672 parser-admitted bytes are frozen by independent source review
+before C. The approved public224-byte provider/9216-byte witness/525-word layout
+and semanticV2 plus20-stop additive oracle are sealed in
+`source-snapshots/reset-pre-implementation-contracts.*`, archive SHA256
+`5b6515feaef642063bee65b8806a7de751c65531692bce6ab184c2a1290abba7`.
+OriginalV1's decimal poison transcription and endpoint wording correction remain
+preserved; V2 restores the previously contracted hexadecimal0x29/0x17 and keeps
+endpoint1 identical. Final source352/count0 implies no input dereference. Two
+ordinary-state paints suffice; no reset matrix, reinitialization,
+manual receive restart or cancellation-as-settlement shortcut. Public schema
+amendments and independent acceptance remain pre-execution contracts. No new reset
+runtime build or execution is accepted. Real DMA/cache,
+IRQ provenance, boot/RAM attributes, engine output and power-cycle recovery remain
+unproved; no USB contact or print-driving operations are introduced.
 
 ### Original SETUP ingress and corrected legacy evidence (2026-09-29)
 

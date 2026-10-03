@@ -1,0 +1,25 @@
+{
+  "files": {
+    "COPYING.RUNTIME": {
+      "bytes": 3324,
+      "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74",
+      "upstream_path": "COPYING.RUNTIME"
+    },
+    "COPYING3": {
+      "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+      "upstream_path": "COPYING3"
+    },
+    "lib1funcs.S": {
+      "bytes": 19561,
+      "sha256": "797133627a7b62390ff2cf3c6dd2b5d2e723c552793f88c84b73450f4127c908",
+      "upstream_path": "libgcc/config/xtensa/lib1funcs.S"
+    }
+  },
+  "local_changes": false,
+  "recovery": "scripts/build-xtensa-gcc-manual.sh",
+  "scope": "Original selected Xtensa runtime helper source and accompanying GPLv3/GCC Runtime Library Exception notices. The captured full libgcc archive is the compiler-selected local build from this pinned complete source archive; build profile and selected object bytes remain separately sealed.",
+  "source_archive_sha256": "e0dc77297625631ac8e50fa92fffefe899a4eb702592da5c32ef04e2293aca3a",
+  "source_archive_url": "https://ftp.gnu.org/gnu/gcc/gcc-14.3.0/gcc-14.3.0.tar.xz",
+  "version": "14.3.0"
+}

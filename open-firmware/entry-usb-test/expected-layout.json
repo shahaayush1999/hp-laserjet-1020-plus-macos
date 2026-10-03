@@ -1,0 +1,1073 @@
+{
+  "schema": 1,
+  "status": "unexecuted independently manually checked header arithmetic",
+  "layout_magic": 1213224268,
+  "version": 1,
+  "word_count": 457,
+  "objects": [
+    {
+      "id": 1,
+      "symbol": "hp1020_usb_runtime_document",
+      "type": "struct hp1020_usb_document",
+      "size": 13496,
+      "alignment": 4
+    },
+    {
+      "id": 2,
+      "symbol": "hp1020_usb_runtime_memory",
+      "type": "struct hp1020_usb_document_memory",
+      "size": 114704,
+      "alignment": 16
+    },
+    {
+      "id": 3,
+      "symbol": "hp1020_usb_runtime_printer",
+      "type": "struct hp1020_usb_printer",
+      "size": 56,
+      "alignment": 4
+    },
+    {
+      "id": 4,
+      "symbol": "hp1020_usb_runtime_adapter",
+      "type": "struct hp1020_tusb_adapter",
+      "size": 332,
+      "alignment": 4
+    },
+    {
+      "id": 5,
+      "symbol": "hp1020_usb_runtime_out",
+      "type": "struct hp1020_udc_out",
+      "size": 64,
+      "alignment": 4
+    },
+    {
+      "id": 6,
+      "symbol": "hp1020_usb_runtime_out_memory",
+      "type": "struct hp1020_udc_out_memory",
+      "size": 16,
+      "alignment": 16
+    },
+    {
+      "id": 7,
+      "symbol": "hp1020_usb_runtime_ep0",
+      "type": "struct hp1020_udc_ep0",
+      "size": 136,
+      "alignment": 4
+    },
+    {
+      "id": 8,
+      "symbol": "hp1020_usb_runtime_ep0_memory",
+      "type": "struct hp1020_udc_ep0_memory",
+      "size": 160,
+      "alignment": 16
+    },
+    {
+      "id": 9,
+      "symbol": "hp1020_usb_runtime_setup",
+      "type": "struct hp1020_udc_setup",
+      "size": 80,
+      "alignment": 4
+    },
+    {
+      "id": 10,
+      "symbol": "hp1020_usb_runtime_program",
+      "type": "struct hp1020_udc_program",
+      "size": 88,
+      "alignment": 4
+    },
+    {
+      "id": 11,
+      "symbol": "hp1020_usb_runtime_publisher",
+      "type": "struct hp1020_udc_publish",
+      "size": 140,
+      "alignment": 4
+    },
+    {
+      "id": 12,
+      "symbol": "hp1020_usb_runtime_acquirer",
+      "type": "struct hp1020_udc_acquire",
+      "size": 152,
+      "alignment": 4
+    },
+    {
+      "id": 13,
+      "symbol": "hp1020_usb_runtime_provider",
+      "type": "struct hp1020_usb_runtime_provider_type",
+      "size": 204,
+      "alignment": 4
+    },
+    {
+      "id": 14,
+      "symbol": "hp1020_usb_runtime_mailbox",
+      "type": "struct hp1020_usb_runtime_mailbox_type",
+      "size": 1024,
+      "alignment": 4
+    },
+    {
+      "id": 15,
+      "symbol": "hp1020_usb_runtime_witness",
+      "type": "struct hp1020_usb_runtime_witness_type",
+      "size": 9216,
+      "alignment": 4
+    },
+    {
+      "id": 16,
+      "symbol": "hp1020_usb_runtime_setup_memory",
+      "type": "uint8_t[16]",
+      "size": 16,
+      "alignment": 1
+    }
+  ],
+  "fields": [
+    {
+      "id": 1,
+      "object": 1,
+      "member": "receive.generation",
+      "offset": 68,
+      "width": 4
+    },
+    {
+      "id": 2,
+      "object": 1,
+      "member": "receive.issued",
+      "offset": 72,
+      "width": 4
+    },
+    {
+      "id": 3,
+      "object": 1,
+      "member": "receive.consumed",
+      "offset": 76,
+      "width": 4
+    },
+    {
+      "id": 4,
+      "object": 1,
+      "member": "receive.count",
+      "offset": 80,
+      "width": 4
+    },
+    {
+      "id": 5,
+      "object": 1,
+      "member": "receive.stopped",
+      "offset": 88,
+      "width": 1
+    },
+    {
+      "id": 6,
+      "object": 1,
+      "member": "receive.quiescent",
+      "offset": 89,
+      "width": 1
+    },
+    {
+      "id": 7,
+      "object": 1,
+      "member": "receive.error",
+      "offset": 84,
+      "width": 4
+    },
+    {
+      "id": 8,
+      "object": 1,
+      "member": "finished",
+      "offset": 13492,
+      "width": 1
+    },
+    {
+      "id": 9,
+      "object": 1,
+      "member": "output.finished",
+      "offset": 13469,
+      "width": 1
+    },
+    {
+      "id": 10,
+      "object": 1,
+      "member": "output.error",
+      "offset": 13464,
+      "width": 4
+    },
+    {
+      "id": 11,
+      "object": 1,
+      "member": "output_quiescent",
+      "offset": 13493,
+      "width": 1
+    },
+    {
+      "id": 12,
+      "object": 1,
+      "member": "payload_error",
+      "offset": 13488,
+      "width": 4
+    },
+    {
+      "id": 13,
+      "object": 1,
+      "member": "feed_generation",
+      "offset": 13484,
+      "width": 4
+    },
+    {
+      "id": 14,
+      "object": 1,
+      "member": "output.stream.parser.documents",
+      "offset": 4720,
+      "width": 4
+    },
+    {
+      "id": 15,
+      "object": 1,
+      "member": "output.stream.pages",
+      "offset": 13248,
+      "width": 4
+    },
+    {
+      "id": 16,
+      "object": 1,
+      "member": "output.pages_drained",
+      "offset": 13452,
+      "width": 4
+    },
+    {
+      "id": 17,
+      "object": 1,
+      "member": "output.documents_completed",
+      "offset": 13456,
+      "width": 4
+    },
+    {
+      "id": 18,
+      "object": 1,
+      "member": "output.document_first_page",
+      "offset": 13460,
+      "width": 4
+    },
+    {
+      "id": 19,
+      "object": 1,
+      "member": "output.ring.copied_rows",
+      "offset": 13316,
+      "width": 4
+    },
+    {
+      "id": 20,
+      "object": 1,
+      "member": "output.ring.accepted_rows",
+      "offset": 13320,
+      "width": 4
+    },
+    {
+      "id": 21,
+      "object": 1,
+      "member": "output.ring.completed_rows",
+      "offset": 13324,
+      "width": 4
+    },
+    {
+      "id": 22,
+      "object": 1,
+      "member": "output.ring.error",
+      "offset": 13328,
+      "width": 4
+    },
+    {
+      "id": 23,
+      "object": 1,
+      "member": "output.ring.slots",
+      "offset": 13332,
+      "width": 64
+    },
+    {
+      "id": 24,
+      "object": 2,
+      "member": "receive.data",
+      "offset": 0,
+      "width": 4096
+    },
+    {
+      "id": 25,
+      "object": 2,
+      "member": "output.stream",
+      "offset": 4096,
+      "width": 77840
+    },
+    {
+      "id": 26,
+      "object": 2,
+      "member": "output.slots",
+      "offset": 81936,
+      "width": 32768
+    },
+    {
+      "id": 27,
+      "object": 4,
+      "member": "control_epoch",
+      "offset": 264,
+      "width": 4
+    },
+    {
+      "id": 28,
+      "object": 4,
+      "member": "active_control_epoch",
+      "offset": 268,
+      "width": 4
+    },
+    {
+      "id": 29,
+      "object": 4,
+      "member": "transport_epoch",
+      "offset": 272,
+      "width": 4
+    },
+    {
+      "id": 30,
+      "object": 4,
+      "member": "active_transport_epoch",
+      "offset": 276,
+      "width": 4
+    },
+    {
+      "id": 31,
+      "object": 4,
+      "member": "last_submission_id",
+      "offset": 260,
+      "width": 4
+    },
+    {
+      "id": 32,
+      "object": 4,
+      "member": "opened",
+      "offset": 316,
+      "width": 1
+    },
+    {
+      "id": 33,
+      "object": 4,
+      "member": "configuration_value",
+      "offset": 320,
+      "width": 1
+    },
+    {
+      "id": 34,
+      "object": 4,
+      "member": "input_closed",
+      "offset": 318,
+      "width": 1
+    },
+    {
+      "id": 35,
+      "object": 4,
+      "member": "fenced",
+      "offset": 317,
+      "width": 1
+    },
+    {
+      "id": 36,
+      "object": 4,
+      "member": "prepared",
+      "offset": 319,
+      "width": 1
+    },
+    {
+      "id": 37,
+      "object": 4,
+      "member": "busy",
+      "offset": 314,
+      "width": 1
+    },
+    {
+      "id": 38,
+      "object": 4,
+      "member": "stack_active",
+      "offset": 315,
+      "width": 1
+    },
+    {
+      "id": 39,
+      "object": 4,
+      "member": "delivering_live",
+      "offset": 326,
+      "width": 1
+    },
+    {
+      "id": 40,
+      "object": 4,
+      "member": "response_owned",
+      "offset": 325,
+      "width": 1
+    },
+    {
+      "id": 41,
+      "object": 4,
+      "member": "owners[0].state",
+      "offset": 50,
+      "width": 1
+    },
+    {
+      "id": 42,
+      "object": 4,
+      "member": "owners[1].state",
+      "offset": 90,
+      "width": 1
+    },
+    {
+      "id": 43,
+      "object": 4,
+      "member": "owners[2].state",
+      "offset": 130,
+      "width": 1
+    },
+    {
+      "id": 44,
+      "object": 4,
+      "member": "owners[2].cookie.id",
+      "offset": 100,
+      "width": 4
+    },
+    {
+      "id": 45,
+      "object": 4,
+      "member": "owners[2].cookie.epoch",
+      "offset": 104,
+      "width": 4
+    },
+    {
+      "id": 46,
+      "object": 4,
+      "member": "owners[2].cookie.generation",
+      "offset": 108,
+      "width": 4
+    },
+    {
+      "id": 47,
+      "object": 4,
+      "member": "owners[2].cookie.sequence",
+      "offset": 112,
+      "width": 4
+    },
+    {
+      "id": 48,
+      "object": 4,
+      "member": "owners[2].cookie.endpoint",
+      "offset": 116,
+      "width": 1
+    },
+    {
+      "id": 49,
+      "object": 4,
+      "member": "owners[2].buffer",
+      "offset": 120,
+      "width": 4
+    },
+    {
+      "id": 50,
+      "object": 4,
+      "member": "owners[2].length",
+      "offset": 128,
+      "width": 2
+    },
+    {
+      "id": 51,
+      "object": 4,
+      "member": "owners[2].actual",
+      "offset": 124,
+      "width": 4
+    },
+    {
+      "id": 52,
+      "object": 3,
+      "member": "reset_active",
+      "offset": 50,
+      "width": 1
+    },
+    {
+      "id": 53,
+      "object": 3,
+      "member": "reset_parts",
+      "offset": 51,
+      "width": 1
+    },
+    {
+      "id": 54,
+      "object": 3,
+      "member": "last_recovery_id",
+      "offset": 36,
+      "width": 4
+    },
+    {
+      "id": 55,
+      "object": 3,
+      "member": "current_request_id",
+      "offset": 28,
+      "width": 4
+    },
+    {
+      "id": 56,
+      "object": 3,
+      "member": "reset_request_id",
+      "offset": 40,
+      "width": 4
+    },
+    {
+      "id": 57,
+      "object": 4,
+      "member": "class_request_id",
+      "offset": 292,
+      "width": 4
+    },
+    {
+      "id": 58,
+      "object": 4,
+      "member": "reset_transport_epoch",
+      "offset": 288,
+      "width": 4
+    },
+    {
+      "id": 59,
+      "object": 5,
+      "member": "phase",
+      "offset": 58,
+      "width": 1
+    },
+    {
+      "id": 60,
+      "object": 5,
+      "member": "buffer.cpu",
+      "offset": 16,
+      "width": 4
+    },
+    {
+      "id": 61,
+      "object": 5,
+      "member": "buffer.dma",
+      "offset": 20,
+      "width": 4
+    },
+    {
+      "id": 62,
+      "object": 5,
+      "member": "descriptor.cpu",
+      "offset": 4,
+      "width": 4
+    },
+    {
+      "id": 63,
+      "object": 5,
+      "member": "descriptor.dma",
+      "offset": 8,
+      "width": 4
+    },
+    {
+      "id": 64,
+      "object": 5,
+      "member": "cookie.id",
+      "offset": 28,
+      "width": 4
+    },
+    {
+      "id": 65,
+      "object": 5,
+      "member": "cookie.epoch",
+      "offset": 32,
+      "width": 4
+    },
+    {
+      "id": 66,
+      "object": 5,
+      "member": "cookie.generation",
+      "offset": 36,
+      "width": 4
+    },
+    {
+      "id": 67,
+      "object": 5,
+      "member": "cookie.sequence",
+      "offset": 40,
+      "width": 4
+    },
+    {
+      "id": 68,
+      "object": 5,
+      "member": "cookie.endpoint",
+      "offset": 44,
+      "width": 1
+    },
+    {
+      "id": 69,
+      "object": 7,
+      "member": "slots[0].phase",
+      "offset": 62,
+      "width": 1
+    },
+    {
+      "id": 70,
+      "object": 7,
+      "member": "slots[1].phase",
+      "offset": 126,
+      "width": 1
+    },
+    {
+      "id": 71,
+      "object": 10,
+      "member": "failed",
+      "offset": 83,
+      "width": 1
+    },
+    {
+      "id": 72,
+      "object": 10,
+      "member": "completed_mask",
+      "offset": 84,
+      "width": 1
+    },
+    {
+      "id": 73,
+      "object": 10,
+      "member": "selection_mask",
+      "offset": 85,
+      "width": 1
+    },
+    {
+      "id": 74,
+      "object": 10,
+      "member": "binding_ready",
+      "offset": 86,
+      "width": 1
+    },
+    {
+      "id": 75,
+      "object": 11,
+      "member": "failed",
+      "offset": 137,
+      "width": 1
+    },
+    {
+      "id": 76,
+      "object": 11,
+      "member": "prefix",
+      "offset": 100,
+      "width": 4
+    },
+    {
+      "id": 77,
+      "object": 12,
+      "member": "failure_valid",
+      "offset": 149,
+      "width": 1
+    },
+    {
+      "id": 78,
+      "object": 12,
+      "member": "last.prefix",
+      "offset": 40,
+      "width": 4
+    },
+    {
+      "id": 79,
+      "object": 9,
+      "member": "last_sequence",
+      "offset": 48,
+      "width": 4
+    },
+    {
+      "id": 80,
+      "object": 9,
+      "member": "last_admitted_sequence",
+      "offset": 68,
+      "width": 4
+    },
+    {
+      "id": 81,
+      "object": 9,
+      "member": "pending_kind",
+      "offset": 78,
+      "width": 1
+    },
+    {
+      "id": 82,
+      "object": 13,
+      "member": "bulk.live",
+      "offset": 60,
+      "width": 1
+    },
+    {
+      "id": 83,
+      "object": 13,
+      "member": "closing",
+      "offset": 114,
+      "width": 1
+    },
+    {
+      "id": 84,
+      "object": 13,
+      "member": "finished",
+      "offset": 115,
+      "width": 1
+    },
+    {
+      "id": 85,
+      "object": 13,
+      "member": "bulk.original",
+      "offset": 52,
+      "width": 4
+    },
+    {
+      "id": 86,
+      "object": 13,
+      "member": "bulk.requested",
+      "offset": 56,
+      "width": 4
+    },
+    {
+      "id": 87,
+      "object": 13,
+      "member": "ep0.live",
+      "offset": 28,
+      "width": 1
+    },
+    {
+      "id": 88,
+      "object": 13,
+      "member": "recovery.recovery_id",
+      "offset": 64,
+      "width": 4
+    },
+    {
+      "id": 89,
+      "object": 13,
+      "member": "recovery.generation",
+      "offset": 68,
+      "width": 4
+    },
+    {
+      "id": 90,
+      "object": 13,
+      "member": "steps",
+      "offset": 100,
+      "width": 4
+    },
+    {
+      "id": 91,
+      "object": 15,
+      "member": "io",
+      "offset": 16,
+      "width": 5760
+    },
+    {
+      "id": 92,
+      "object": 15,
+      "member": "ranges",
+      "offset": 5792,
+      "width": 2340
+    },
+    {
+      "id": 93,
+      "object": 15,
+      "member": "binds",
+      "offset": 8160,
+      "width": 504
+    },
+    {
+      "id": 94,
+      "object": 15,
+      "member": "device",
+      "offset": 8688,
+      "width": 144
+    },
+    {
+      "id": 95,
+      "object": 15,
+      "member": "pixels",
+      "offset": 8832,
+      "width": 64
+    },
+    {
+      "id": 96,
+      "object": 15,
+      "member": "documents",
+      "offset": 8896,
+      "width": 40
+    },
+    {
+      "id": 97,
+      "object": 16,
+      "member": "WHOLE_ARRAY",
+      "offset": 0,
+      "width": 16
+    },
+    {
+      "id": 98,
+      "object": 14,
+      "member": "words",
+      "offset": 0,
+      "width": 1024
+    },
+    {
+      "id": 99,
+      "object": 1,
+      "member": "feeding",
+      "offset": 13494,
+      "width": 1
+    },
+    {
+      "id": 100,
+      "object": 13,
+      "member": "callback_depth",
+      "offset": 88,
+      "width": 4
+    },
+    {
+      "id": 101,
+      "object": 9,
+      "member": "capture.record",
+      "offset": 16,
+      "width": 16
+    }
+  ],
+  "supplemental": {
+    "provider": {
+      "ep0_cookie": [
+        0,
+        20
+      ],
+      "ep0_original": [
+        20,
+        4
+      ],
+      "ep0_requested": [
+        24,
+        4
+      ],
+      "ep0_live": [
+        28,
+        1
+      ],
+      "ep0_cancel": [
+        29,
+        1
+      ],
+      "ep0_slot": [
+        30,
+        1
+      ],
+      "bulk_cookie": [
+        32,
+        20
+      ],
+      "bulk_original": [
+        52,
+        4
+      ],
+      "bulk_requested": [
+        56,
+        4
+      ],
+      "bulk_live": [
+        60,
+        1
+      ],
+      "bulk_cancel": [
+        61,
+        1
+      ],
+      "bulk_slot": [
+        62,
+        1
+      ],
+      "recovery": [
+        64,
+        8
+      ],
+      "scope": [
+        72,
+        4
+      ],
+      "read_cursor": [
+        76,
+        4
+      ],
+      "scope_read_cursor": [
+        80,
+        4
+      ],
+      "packet_sequence": [
+        84,
+        4
+      ],
+      "callback_depth": [
+        88,
+        4
+      ],
+      "open_mask": [
+        92,
+        4
+      ],
+      "stall_mask": [
+        96,
+        4
+      ],
+      "steps": [
+        100,
+        4
+      ],
+      "source_offset": [
+        104,
+        4
+      ],
+      "source_length": [
+        108,
+        4
+      ],
+      "initialized": [
+        112,
+        1
+      ],
+      "device_valid": [
+        113,
+        1
+      ],
+      "closing": [
+        114,
+        1
+      ],
+      "finished": [
+        115,
+        1
+      ],
+      "callback_before": [
+        116,
+        64
+      ],
+      "image_cookie": [
+        180,
+        20
+      ],
+      "image_slot": [
+        200,
+        4
+      ]
+    },
+    "ep0_memory": {
+      "out_descriptor": [
+        0,
+        16
+      ],
+      "in_descriptor": [
+        16,
+        16
+      ],
+      "out_sink": [
+        32,
+        64
+      ],
+      "in_staging": [
+        96,
+        64
+      ]
+    },
+    "acquirer": {
+      "last_cookie": [
+        20,
+        20
+      ],
+      "last_prefix": [
+        40,
+        4
+      ],
+      "last_result": [
+        60,
+        4
+      ],
+      "last_operation": [
+        64,
+        1
+      ],
+      "last_snapshot_valid": [
+        65,
+        1
+      ],
+      "last_snapshot": [
+        66,
+        16
+      ],
+      "first_failure": [
+        84,
+        64
+      ],
+      "initialized": [
+        148,
+        1
+      ],
+      "failure_valid": [
+        149,
+        1
+      ]
+    },
+    "receive_slots": {
+      "offset": 4,
+      "slot_size": 16,
+      "count": 4,
+      "fields": {
+        "sequence": 0,
+        "capacity": 4,
+        "length": 8,
+        "ready": 12
+      }
+    },
+    "supplied_facts": {
+      "size": 40,
+      "alignment": 4,
+      "program_initial": [
+        0,
+        3
+      ],
+      "program": [
+        3,
+        7
+      ],
+      "publish": [
+        10,
+        7
+      ],
+      "acquire": [
+        17,
+        3
+      ],
+      "setup": [
+        20,
+        3
+      ],
+      "ep0_publish": [
+        23,
+        3
+      ],
+      "padding": [
+        26,
+        2
+      ],
+      "ep0_complete": [
+        28,
+        8
+      ],
+      "ep0_stalls_cleared": [
+        36,
+        1
+      ],
+      "receive_quiesced": [
+        37,
+        1
+      ],
+      "output_quiesced": [
+        38,
+        1
+      ],
+      "transport_reset": [
+        39,
+        1
+      ]
+    }
+  }
+}

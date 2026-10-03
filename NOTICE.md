@@ -23,6 +23,13 @@ See `vendor/jbigkit-2.1/COPYING`, its source notices, `PROVENANCE.md` and the
 complete `LOCAL-CHANGES.patch`. The original full foo2zjs decoder remains
 unchanged as an offline comparison tool.
 
+The offline USB-entry evidence includes the compiler-selected GCC14.3.0 runtime
+archive and two linked Xtensa helpers. Their original source, GPLv3 text and GCC
+Runtime Library Exception are retained in
+`open-firmware/entry-usb-test/references/gcc-runtime/`. Its provenance identifies
+the complete pinned upstream source archive; `scripts/build-xtensa-gcc-manual.sh`
+preserves the exact recovery and build profile.
+
 The repository is public at the owner's request. The original HP firmware and
 firmware artifacts are preserved for reproducibility; this project's publication
 does not grant a new license to HP's firmware. See `REDISTRIBUTION.md` for the

@@ -1,0 +1,12 @@
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-publish/hp1020_udc_publish.c:21:13:valid	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-publish/hp1020_udc_publish.c:94:13:order	96	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-publish/hp1020_udc_publish.c:115:39:preflight_read	32	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-publish/hp1020_udc_publish.c:104:13:write32	96	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-publish/hp1020_udc_publish.c:152:32:hp1020_udc_publish_init	64	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-publish/hp1020_udc_publish.c:175:10:hp1020_udc_publish_progress	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-publish/hp1020_udc_publish.c:184:6:hp1020_udc_publish_submission_allowed	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-publish/hp1020_udc_publish.c:188:32:hp1020_udc_publish_service	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-publish/hp1020_udc_publish.c:201:32:hp1020_udc_publish_arm_out	64	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-publish/hp1020_udc_publish.c:241:32:hp1020_udc_publish_prepare_and_publish	176	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-publish/hp1020_udc_publish.c:324:32:hp1020_udc_publish_pending_cleanup	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-publish/hp1020_udc_publish.c:332:32:hp1020_udc_publish_ack_cleanup	48	static
