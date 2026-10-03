@@ -2192,6 +2192,7 @@ def entry_capture_archive_gate(root, experiment="entry-ram"):
         profiles = {
             "entry-ram": ("hp1020-entry-capture-v1", "check-hp1020-entry-ram.py"),
             "entry-usb": ("hp1020-entry-usb-capture-v1", "check-hp1020-entry-usb.py"),
+            "entry-usb-reset": ("hp1020-entry-usb-reset-capture-v1", "check-hp1020-entry-usb-reset.py"),
         }
         schema, checker_name = profiles[experiment]
         folder = root / "analysis/boot-handoff" / experiment
@@ -5646,6 +5647,11 @@ def build_report() -> dict[str, Any]:
     checks.append(check(
         "single_entry_runs_usb_two_documents_and_final_original_owner_drain",
         usb_entry_ok, usb_entry_detail, evidence="analysis/boot-handoff/entry-usb/validation.json"))
+
+    reset_entry_ok, reset_entry_detail = entry_capture_archive_gate(ROOT_DIR, "entry-usb-reset")
+    checks.append(check(
+        "single_entry_discards_late_reset_delivery_and_completes_fresh_document",
+        reset_entry_ok, reset_entry_detail, evidence="analysis/boot-handoff/entry-usb-reset/validation.json"))
 
     fail_count = severity_count(checks, "fail")
     return {

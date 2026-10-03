@@ -77,8 +77,18 @@ interpreter guards. Original failures are never relabelled by newer checks.
 `first-full-suite-pass.*` retains the full133-check/two-suite pass, both repeated
 entry captures and exact comparisons with their first accepted results. A
 comparison-only PID-width/ledger-length stop is preserved alongside its raw-byte
-proof; it did not change runtime expectations. The separate reset profile remains
-a proposal until its own source/layout/independent gate and execution are accepted.
+proof; it did not change runtime expectations.
+
+The separate continuous reset profile lives in`open-firmware/entry-usb-reset-test/`
+and uses`scripts/validate-hp1020-entry-usb-reset.py` with its own independent raw
+gate. Two accepted paint cases retain an old partial page, drain its genuine late
+completion, restart only after separately supplied recovery promises, reject stale
+metadata at buffer reuse and complete a fresh document. Its public evidence and
+historical exact sources are under`boot-handoff/entry-usb-reset/`. The first overall
+failed run is preserved; the initial already-stopped/error0 oracle correction is
+proved separately from later active-reset/error7. See `CURRENT_STATUS.md` for
+focused-control and full-suite status. These are supplied-RAM observations, not
+proof of physical reset, controller behavior or printing.
 
 The one-entry RAM experiment uses `scripts/validate-hp1020-entry-ram.py`
 (`--audit-only` stops before execution) and the separately frozen

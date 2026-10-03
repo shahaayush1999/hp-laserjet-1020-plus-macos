@@ -70,6 +70,11 @@ run_step "Python syntax checks" \
     "$ROOT_DIR/scripts/hp1020_entry_usb_audit.py" \
     "$ROOT_DIR/scripts/hp1020_entry_usb_machine.py" \
     "$ROOT_DIR/scripts/hp1020_entry_usb_qemu.py" \
+    "$ROOT_DIR/scripts/validate-hp1020-entry-usb-reset.py" \
+    "$ROOT_DIR/scripts/check-hp1020-entry-usb-reset.py" \
+    "$ROOT_DIR/scripts/hp1020_entry_usb_reset_audit.py" \
+    "$ROOT_DIR/scripts/hp1020_entry_usb_reset_machine.py" \
+    "$ROOT_DIR/scripts/hp1020_entry_usb_reset_qemu.py" \
     "$ROOT_DIR/scripts/check-hp1020-analysis-consistency.py"
 
 run_step "Generate base ZjStream sample" \
@@ -401,6 +406,9 @@ run_step "Execute one own-stack/BSS entry through a complete RAM document and in
 
 run_step "Execute one USB entry through two RAM documents and final original-owner drain" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-entry-usb.py"
+
+run_step "Execute one USB entry through an interrupted document, late delivery and fresh recovery" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-entry-usb-reset.py"
 
 run_step "Regenerate USB parser shim contract" \
   "$ROOT_DIR/scripts/model-hp1020-usb-parser-shim-contract.py"

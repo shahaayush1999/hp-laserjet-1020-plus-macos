@@ -1,0 +1,349 @@
+#!/usr/bin/env python3
+"""Unexecuted separate continuous RAM SOFT_RESET/fresh-document experiment.
+
+Two initial paint cases; one CPU/image seed each, no host repair,20 natural
+stops plus initial and two actual park steps. ELF only; never printer contact.
+"""
+import argparse,gzip,hashlib,importlib.util,io,json,os,shutil,struct,subprocess,sys,tarfile,tempfile,traceback
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+SOURCE=ROOT/'open-firmware/entry-usb-reset-test'
+OUT=ROOT/'analysis/boot-handoff/entry-usb-reset'
+PREFIX=os.environ.get('XTENSA_PREFIX','/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf')
+GCC=os.environ.get('HP1020_GCC_PREFIX','/tmp/hp1020-xtensa-gcc14/bin/xtensa-fsf-elf')+'-gcc'
+# Actual first linked image covered by the independent fixed-workload7904-byte
+# stack/callback review. Audit-only may investigate a new image; execution may
+# not silently reuse this review when any linked byte changes.
+REVIEWED_TARGET_SHA256='d2daf38cbff95b0a2b990c7fc99b0b5655ebfb1c8e12bc9f108c65bf5ed2fa8f'
+MAIN_START,MAIN_END=0x10003000,0x100351e0
+STACK=(0x10014020,8192)
+CHECKPOINT_SYMBOLS=(
+ ('after-normalization','hp1020_entry_after_normalization'),
+ ('pre-c','hp1020_entry_before_c'),
+ ('pre-initial-status','hp1020_udc_ep0_take_submission'),
+ ('pre-reset-offer','hp1020_udc_setup_offer'),
+ ('pre-cancel-mark','hp1020_udc_out_request_cancel'),
+ ('pre-receive-owned','hp1020_tusb_adapter_ack_reset'),
+ ('pre-late-service','hp1020_udc_publish_service'),
+ ('pre-receive-drained','hp1020_tusb_adapter_ack_reset'),
+ ('pre-restart','hp1020_usb_document_restart'),
+ ('pre-reset-status','hp1020_udc_ep0_take_submission'),
+ ('pre-fresh-arm','hp1020_udc_publish_arm_out'),
+ ('pre-fresh-service','hp1020_udc_publish_service'),
+ ('pre-reuse-arm','hp1020_udc_publish_arm_out'),
+ ('pre-stale-acquire','hp1020_udc_acquire_packet'),
+ ('pre-stale-cancel','hp1020_udc_out_request_cancel'),
+ ('post-stale-pair','hp1020_usb_runtime_ram_install_bulk'),
+ ('pre-close','hp1020_tusb_adapter_close_input'),
+ ('pre-final-service','hp1020_udc_publish_service'),
+ ('pre-finish','hp1020_tusb_adapter_finish'),
+ ('park','hp1020_entry_park'),
+)
+
+def need(ok, message):
+    if not ok: raise ValueError(message)
+
+def sha(raw): return hashlib.sha256(raw).hexdigest()
+
+def save(path, value):
+    path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
+    path.write_text(json.dumps(value,sort_keys=True,indent=2)+'\n')
+
+def module(name,path):
+    spec=importlib.util.spec_from_file_location(name,path)
+    value=importlib.util.module_from_spec(spec);sys.modules[name]=value
+    spec.loader.exec_module(value);return value
+
+BASE_RUNNER_SHA256 = 'ef7cd2ef5c0ee6618002d600efea1a6844ea627a288c3022e766297cda694e1d'
+need(sha((ROOT/'scripts/validate-hp1020-entry-usb.py').read_bytes())==BASE_RUNNER_SHA256,
+     'unchanged neutral runner helpers required')
+base=module('entry_usb_neutral_runner',ROOT/'scripts/validate-hp1020-entry-usb.py')
+# Only schedule-neutral byte/ELF/image/snapshot helpers are reused. SOURCE/OUT,
+# seals, layout, execution loop and publication below belong to this profile.
+command=base.command
+make_input=base.make_input
+elf_loads=base.elf_loads
+file_bytes=base.file_bytes
+initial_regions=base.initial_regions
+save_snapshot=base.save_snapshot
+snapshot_bytes=base.snapshot_bytes
+normalized_registers=base.normalized_registers
+check_snapshot=base.check_snapshot
+
+def source_files(audit_only=False):
+    selected=set()
+    for folder in ('entry-usb-reset-test','entry-usb-test','usb-receive-core','image-core','semantic-core',
+                   'usb-printer-class','tinyusb-printer-adapter','tinyusb-device',
+                   'udc-out','udc-ep0','udc-setup','udc-program','udc-publish'):
+        selected.update(p for p in (ROOT/'open-firmware'/folder).rglob('*')
+                        if p.is_file() and p.suffix in ('.c','.h','.S','.ld','.py','.json','.tsv','.patch'))
+    selected.update((ROOT/'vendor/jbigkit-2.1/libjbig').glob('*.[ch]'))
+    selected.update(SOURCE/name for name in ('CONTRACT.md','AMENDMENT.md','ACCEPTANCE.md','ADDENDUM.md','LIBRARY_SELECTION.md'))
+    selected.update(p for p in (ROOT/'open-firmware/entry-usb-test/references/gcc-runtime').rglob('*') if p.is_file())
+    selected.update(p for p in (ROOT/'vendor/tinyusb-0.21.0').rglob('*') if p.is_file())
+    selected.update(p for p in (ROOT/'open-firmware/entry-ram-test/references/qemu-primary').rglob('*') if p.is_file())
+    selected.add(ROOT/'open-firmware/entry-ram-test/literal-oracle.py')
+    for name in ('validate-hp1020-entry-usb-reset.py','build-hp1020-entry-usb-reset-target.sh',
+                 'hp1020_entry_usb_reset_machine.py','hp1020_entry_usb_reset_qemu.py',
+                 'hp1020_entry_usb_reset_audit.py','check-hp1020-entry-usb-reset.py',
+                 'validate-hp1020-entry-usb.py','build-hp1020-entry-usb-target.sh',
+                 'hp1020_entry_usb_machine.py','hp1020_entry_usb_qemu.py','hp1020_entry_usb_audit.py',
+                 'hp1020_entry_machine.py','hp1020_entry_qemu.py','hp1020_entry_audit.py',
+                 'hp1020_xtensa_call0.py','hp1020_xtensa_properties.py','hp1020_qemu_ram.py',
+                 'check-hp1020-c-compiler-profile.py','prepare-hp1020-tinyusb.py','check-hp1020-entry-usb.py'):
+        if name=='check-hp1020-entry-usb-reset.py' and not (ROOT/'scripts'/name).exists():
+            need(audit_only,'independent capture gate must be frozen before candidate execution')
+            continue
+        selected.add(ROOT/'scripts'/name)
+    return sorted(selected)
+
+def seal_sources(capture,audit_only=False):
+    values={}
+    for path in source_files(audit_only):
+        raw=path.read_bytes();name=str(path.relative_to(ROOT));values[name]=sha(raw)
+        dest=capture/'source'/name;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(raw)
+    save(capture/'source-sha256.json',values);return values
+
+def verify_source_seal(values):
+    need(all(sha((ROOT/name).read_bytes())==value for name,value in values.items()),
+         'source changed during the entry experiment')
+
+def layout_witness(data,loads,program,capture):
+    import csv
+    with (SOURCE/'layout-objects.tsv').open() as f:objects=list(csv.DictReader(f,delimiter='\t'))
+    with (SOURCE/'layout-fields.tsv').open() as f:fields=list(csv.DictReader(f,delimiter='\t'))
+    need(len(objects)==16 and len(fields)==118,'frozen manual table dimensions')
+    wanted=[0x4850554c,2,525,16,118]
+    for r in objects:wanted.extend(int(r[k]) for k in ('id','target32_size','type_alignment'))
+    for r in fields:wanted.extend(int(r[k]) for k in ('id','object_id','target32_offset','width'))
+    need(len(wanted)==525,'complete manual layout word count')
+    raw=file_bytes(data,loads,program.symbols['hp1020_usb_runtime_layout'],525*4)
+    actual=list(struct.unpack('>525I',raw))
+    need(actual==wanted,'actual compiler fields differ from independently frozen public target32 table')
+    result=dict(status='pass',address=program.symbols['hp1020_usb_runtime_layout'],words=actual,
+        sha256=sha(raw),expected_sha256={p.name:sha(p.read_bytes()) for p in
+            (SOURCE/'layout-objects.tsv',SOURCE/'layout-fields.tsv')})
+    save(capture/'layout-witness.json',result);return result
+
+def tool_closure(capture):
+    paths={'compiler':GCC,'assembler':PREFIX+'-as','linker':PREFIX+'-ld',
+           'objdump':PREFIX+'-objdump','nm':PREFIX+'-nm','readelf':PREFIX+'-readelf'}
+    libgcc=subprocess.check_output([GCC,'-print-libgcc-file-name'],text=True).strip();paths['libgcc']=libgcc
+    for name in ('cc1','as','ld','collect2'):
+        value=subprocess.check_output([GCC,'-print-prog-name='+name],text=True).strip()
+        path=Path(value)
+        if not path.is_absolute():
+            found=shutil.which(value);need(found is not None,'GCC subordinate program '+name);path=Path(found)
+        paths['gcc-selected-'+name]=str(path)
+    result={name:dict(path=str(Path(path).resolve()),sha256=sha(Path(path).read_bytes())) for name,path in paths.items()}
+    for name,option in (('configuration','-v'),('specs','-dumpspecs'),('search-directories','-print-search-dirs')):
+        command([GCC,option],capture/('compiler-'+name+'.txt'))
+        result['compiler-'+name]=sha((capture/('compiler-'+name+'.txt')).read_bytes())
+    # Full generated compiler dependency closure, including target standard headers.
+    dependencies=set()
+    for dep in (OUT/'target').glob('*.d'):
+        text=dep.read_text().replace('\\\n',' ')
+        dependencies.update(Path(word) for word in text.split(':',1)[1].split())
+    system={}
+    for path in sorted(dependencies):
+        path=path.resolve();raw=path.read_bytes();name=str(path)
+        if not path.is_relative_to(ROOT):
+            key=sha(name.encode())[:16]+'-'+path.name
+            dest=capture/'compiler-headers'/key;dest.parent.mkdir(exist_ok=True);dest.write_bytes(raw)
+            system[name]=dict(sha256=sha(raw),snapshot=str(dest.relative_to(capture)))
+    need(system,'target standard header dependencies must be preserved')
+    result['compiler_headers']=system;save(capture/'tool-closure.json',result);return result
+
+def execute_case(capture,index,cpu_index,cpu,paints,data,loads,program,layout,oracle,adapter,machine,checkpoints):
+    bss_fill,stack_fill=paints;name=f'{index:02d}-{cpu["name"]}-{bss_fill:02x}'
+    folder=capture/'cases'/name;folder.mkdir(parents=True)
+    initial=initial_regions(data,loads,bss_fill,stack_fill,program.entry_zero_spans)
+    registers={k:v for k,v in cpu.items() if k!='name'}
+    registers.update(pc=program.entry,physical_ar=list(oracle.PHYSICAL_AR32))
+    save(folder/'initial-registers.json',registers)
+    report=dict(case=name,status='fail',cpu_profile=cpu,paints=list(paints),model={},qemu={})
+    model_folder=folder/'model';model_folder.mkdir();snapshots=[];m=None
+    try:
+        def observe(label,regs,regions):
+            # Detached copies only: this callback has no reference to machine,
+            # no mutator, reset or target-call helper. It persists before checks.
+            item=save_snapshot(model_folder,label,regs,regions);snapshots.append(item)
+            save(model_folder/'snapshots.json',snapshots)
+            check_snapshot(initial,model_folder,item,program,checkpoints)
+        m=machine.EntryUSBResetMachine(program,initial,registers,checkpoints,model_folder/'traces',observe)
+        observe('initial',m.registers_at(program.entry),m.regions_at())
+        need({k:v for k,v in snapshots[0]['registers'].items() if k!='logical_ar'}==registers,
+             'model exact initial CPU state')
+        m.run(budget=10000000);report['model']=dict(status='pass',**m.evidence(),snapshots=snapshots)
+        m.close();save(model_folder/'result.json',report['model'])
+        policy=dict(zero_spans=[list(x) for x in program.entry_zero_spans],
+                    owned_stack=list(program.entry_stack),initialized_data_span=list(program.entry_data_span))
+        q=adapter.execute(initial,registers,checkpoints,policy,folder/'qemu');report['qemu']=q
+        need(q['status']=='pass','independent QEMU run failed; see preserved result')
+        need([s['name'] for s in q['snapshots']]==['initial',*(n for n,a in checkpoints),'park-step-1','park-step-2'],
+             'complete ordered QEMU observations')
+        need(len(snapshots)==len(checkpoints)+1,'complete ordered model observations')
+        for model_item,q_item in zip(snapshots,q['snapshots'][:len(checkpoints)+1]):
+            check_snapshot(initial,folder/'qemu',q_item,program,checkpoints)
+            need(normalized_registers(model_item['registers'])==normalized_registers(q_item['registers']),
+                 'paired complete CPU observations differ at '+model_item['name'])
+            need(snapshot_bytes(model_folder,model_item)==snapshot_bytes(folder/'qemu',q_item),
+                 'paired full RAM/stack/islands differ at '+model_item['name'])
+        park=q['snapshots'][len(checkpoints)]
+        for item in q['snapshots'][len(checkpoints)+1:]:
+            need(item['registers']==park['registers'] and snapshot_bytes(folder/'qemu',item)==snapshot_bytes(folder/'qemu',park),
+                 'actual repeated park step changed full captured state')
+        final=snapshot_bytes(model_folder,snapshots[-1])[MAIN_START]
+        stack=final[STACK[0]-MAIN_START:STACK[0]-MAIN_START+STACK[1]]
+        changed=[i for i,v in enumerate(stack) if v!=stack_fill]
+        report['stack_paint']=dict(initial_byte=stack_fill,changed_bytes=len(changed),
+            lowest_changed_address=STACK[0]+min(changed) if changed else None,
+            limitation='Stores equal to paint are invisible here; concrete minimum SP/access are separate witnesses.')
+        report['status']='pass';report['paired_checkpoints']=len(checkpoints)+1
+        print(f'Entry USB reset RAM {name}: model/QEMU pass',flush=True)
+    except BaseException as error:
+        report['error']=dict(type=type(error).__name__,message=str(error),traceback=traceback.format_exc())
+        if m is not None:
+            report['model_partial']=dict(steps=m.steps,pc=m.pc,core_checkpoints=m.seen,observed_checkpoints=[s['name'] for s in snapshots],park_steps=m.park_steps,
+                actual_entry_events=m.entry_events,calls=m.calls,access_count=m.access_count,
+                reset_checkpoints=list(m.reset_seen),
+                reset_observations=list(m.reset_observations),
+                reset_api_events=list(m.reset_api_events))
+            save_snapshot(model_folder,'failure-state',m.registers_at(m.pc),m.regions_at())
+        raise
+    finally:
+        if m is not None:m.close()
+        save(folder/'case.json',report)
+    return report
+
+def publish_evidence(capture, report):
+    """Keep the raw accepted run recoverable when disposable /tmp disappears."""
+    checker=module('entry_capture_checker',ROOT/'scripts/check-hp1020-entry-usb-reset.py')
+    ok,detail=checker.check_capture(capture,ROOT)
+    save(capture/'independent-gate.json',dict(ok=ok,detail=detail))
+    need(ok,'independent capture gate failed: '+str(detail))
+    # Prior build artifacts belong to failure history, not this run's closure.
+    members={str(p.relative_to(capture)):p.read_bytes() for p in sorted(capture.rglob('*'))
+             if p.is_file() and 'target-before-build' not in p.relative_to(capture).parts}
+    need(all(len(raw)<=32*1024*1024 for raw in members.values()) and
+         sum(map(len,members.values()))<=128*1024*1024,'bounded recoverable capture members')
+    buffer=io.BytesIO()
+    with gzip.GzipFile(fileobj=buffer,mode='wb',mtime=0) as compressed:
+        with tarfile.open(fileobj=compressed,mode='w') as archive:
+            for name,raw in members.items():
+                need(not Path(name).is_absolute() and '..' not in Path(name).parts,'relative archive member')
+                item=tarfile.TarInfo(name);item.size=len(raw);item.mode=0o644;item.mtime=0
+                archive.addfile(item,io.BytesIO(raw))
+    payload=buffer.getvalue()
+    need(len(payload)<=32*1024*1024,'bounded recoverable capture archive')
+    with tarfile.open(fileobj=io.BytesIO(payload),mode='r:gz') as archive:
+        need(archive.getnames()==list(members),'complete archive member set')
+        for name,raw in members.items():
+            need(archive.extractfile(name).read()==raw,'archive readback: '+name)
+    manifest=dict(schema='hp1020-entry-usb-reset-capture-v1',archive_sha256=sha(payload),
+                  archive_bytes=len(payload),members=len(members),
+                  member_sha256={n:sha(raw) for n,raw in members.items()})
+    cases=report['cases'];steps=sum(c['model']['instructions'] for c in cases)
+    minimum=min(c['model']['minimum_sp'] for c in cases)
+    lines=['# One entry through an interrupted and fresh RAM document','',
+      'Two continuous interpreter/QEMU cases passed the independent raw-capture gate.',
+      'The original late SUCCESS settles before three separately supplied recovery',
+      'promises. The old partial page is discarded; one fresh document completes.',
+      'All controller/cache/settlement/output facts remain supplied RAM conditions.','',
+      f'- Cases:{len(cases)}; paired full checkpoints:42; actual QEMU park steps:4.',
+      f'- Concrete instructions:{steps}; lowest observed SP:`{minimum:#x}`.',
+      '- Four actual WAIT returns and two inert old-cookie STALE returns are separate',
+      '  conditional observations, not additional lifecycles or physical recovery.',
+      '- One fresh document produces32 FF bytes and original event(3,1,0,1).',
+      '- Exact source/target/tool identities and complete observations are preserved.',
+      '- Earlier stops and source revisions remain distinct in source-snapshots.','',
+      'No hardware boot, USB/DMA/cache/IRQ, printing or power-cycle recovery is proven.','']
+    # Stage every potentially failing computation/write before committing the
+    # public success report. An interruption during replacement leaves a seal
+    # mismatch, never a newly committed report with unfinished publication.
+    artifacts=(('capture.tar.gz',payload),
+               ('capture-manifest.json',(json.dumps(manifest,sort_keys=True,indent=2)+'\n').encode()),
+               ('validation.md',('\n'.join(lines)+'\n').encode()),
+               ('validation.json',(json.dumps(report,sort_keys=True,indent=2)+'\n').encode()))
+    for name,raw in artifacts:(OUT/(name+'.partial')).write_bytes(raw)
+    for name,_ in artifacts:(OUT/(name+'.partial')).replace(OUT/name)
+
+def main():
+    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--audit-only',action='store_true')
+    args=ap.parse_args();capture=Path(tempfile.mkdtemp(prefix='hp1020-entry-usb-reset-',dir='/tmp'))
+    print('Entry captures: '+str(capture),flush=True)
+    report=dict(status='fail',scope='one-entry continuous USB reset/fresh-document supplied-RAM experiment',cases=[],capture=str(capture))
+    sources={}
+    seal_failure=None
+    try:
+        sources=seal_sources(capture,args.audit_only);report['source_sha256']=sources
+        report['independent_capture_gate_present']=(ROOT/'scripts/check-hp1020-entry-usb-reset.py').exists()
+        oracle=module('entry_independent_literals',SOURCE/'independent-literals.py')
+        report['input']=make_input(capture,oracle)
+        target=OUT/'target'
+        if target.exists():
+            shutil.copytree(target,capture/'target-before-build')
+            shutil.rmtree(target)
+        try:
+            command(['bash',ROOT/'scripts/build-hp1020-entry-usb-reset-target.sh'],capture/'build.log')
+        finally:
+            if target.exists():shutil.copytree(target,capture/'target')
+            # Even an assembly/link stop follows real compiler inputs. Keep
+            # available tool/header provenance beside those partial objects.
+            try:report['tool_closure']=tool_closure(capture)
+            except Exception as error:
+                report['partial_tool_closure_error']=str(error)
+        report['target_sha256']={str(p.relative_to(target)):sha(p.read_bytes()) for p in sorted(target.rglob('*')) if p.is_file()}
+        need('tool_closure' in report,'complete tool/header closure required before linked audit')
+        library=json.loads((capture/'target/libgcc/manifest.json').read_text())['archive']
+        need(report['tool_closure']['libgcc']==dict(path=library['original_path'],sha256=library['sha256']),
+             'captured compiler archive differs from actual compiler-selected tool identity')
+        audit_module=module('entry_linked_audit',ROOT/'scripts/hp1020_entry_usb_reset_audit.py')
+        program,audit=audit_module.audit_target(target/'entry-usb.elf',PREFIX,ROOT/'analysis/sihp1020.elf')
+        save(capture/'linked-audit.json',audit);report['linked_audit']=audit
+        (capture/'annotated-disassembly.txt').write_text(program.entry_audit_disassembly)
+        data=(target/'entry-usb.elf').read_bytes();loads=elf_loads(data)
+        need(file_bytes(data,loads,program.symbols['hp1020_usb_runtime_input'],352)==oracle.STREAM,
+             'actual linked const input differs from independently frozen literal stream')
+        layout=layout_witness(data,loads,program,capture)
+        addendum=module('entry_reset_independent_addendum',SOURCE/'literal-addendum.py')
+        need([n for n,_ in CHECKPOINT_SYMBOLS]==[row[0] for row in addendum.STOPS] and len(CHECKPOINT_SYMBOLS)==20,
+             'exact pre-implementation natural-stop labels')
+        checkpoints=[(label,program.symbols[symbol]) for label,symbol in CHECKPOINT_SYMBOLS]
+        save(capture/'checkpoints.json',checkpoints);save(capture/'elf-loads.json',loads)
+        verify_source_seal(sources)
+        if args.audit_only:
+            report['status']='audit-only-pass';report['candidate_execution']=False
+            print('Entry linked audit passed; candidate has not executed.',flush=True);return
+        need(sha(data)==REVIEWED_TARGET_SHA256,
+             'rebuilt target differs from the completed source-bound stack/callback review')
+        adapter=module('entry_qemu_adapter',ROOT/'scripts/hp1020_entry_usb_reset_qemu.py')
+        os.environ['HP1020_ENTRY_QEMU_PRIMARY']=str(ROOT/'open-firmware/entry-ram-test/references/qemu-primary')
+        machine=module('entry_concrete_machine',ROOT/'scripts/hp1020_entry_usb_reset_machine.py')
+        index=0
+        for cpu_index,cpu in enumerate((oracle.CPU,)):
+            for paints in oracle.PAINTS:
+                report['cases'].append(execute_case(capture,index,cpu_index,cpu,paints,data,loads,
+                    program,layout,oracle,adapter,machine,checkpoints));index+=1
+                save(capture/'validation.partial.json',report)
+        need(len(report['cases'])==2,'both supplied paint cases')
+        report['status']='pass';report['candidate_execution']=True
+        print('Entry USB reset RAM: two paired continuous cases captured; independent gate still required.',flush=True)
+    except BaseException as error:
+        report['error']=dict(type=type(error).__name__,message=str(error),traceback=traceback.format_exc());raise
+    finally:
+        try:
+            if sources:verify_source_seal(sources)
+        except Exception as error:
+            report['status']='fail';report['source_seal_error']=str(error)
+            seal_failure=error
+        save(capture/'validation.json',report)
+        if seal_failure is not None:raise seal_failure
+        if report['status']=='pass':
+            try:publish_evidence(capture,report)
+            except BaseException as error:
+                report['status']='fail';report['publication_error']=str(error)
+                save(capture/'validation.json',report)
+                raise
+
+if __name__=='__main__':main()

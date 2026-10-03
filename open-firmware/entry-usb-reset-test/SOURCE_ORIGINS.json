@@ -1,0 +1,125 @@
+{
+  "files": [
+    {
+      "bytes": 20712,
+      "destination": "open-firmware/entry-usb-reset-test/hp1020_usb_runtime.c",
+      "sha256": "93d4ad702137156288ecac13fabea58d8ae9269ba309b14a43ea972cf2daf9d2",
+      "source": "/tmp/hp1020-entry-usb-reset-runtime-draft-20261003/hp1020_usb_runtime.c"
+    },
+    {
+      "bytes": 35324,
+      "destination": "open-firmware/entry-usb-reset-test/hp1020_usb_runtime_ram.c",
+      "sha256": "10895c86ff673dfbeeb48eee2eed0bc0d6327546026ebfa54768c0f47c5bc9d4",
+      "source": "/tmp/hp1020-entry-usb-reset-provider-draft-20261003/draft/open-firmware/entry-usb-reset-test/hp1020_usb_runtime_ram.c"
+    },
+    {
+      "bytes": 5855,
+      "destination": "open-firmware/entry-usb-reset-test/hp1020_usb_runtime_layout.c",
+      "sha256": "63485583d31f26b50e07c7c1ea20b5f10a9cbed7a9b3b05a0ff7a3157732c7a7",
+      "source": "/tmp/hp1020-entry-usb-reset-provider-draft-20261003/draft/open-firmware/entry-usb-reset-test/hp1020_usb_runtime_layout.c"
+    },
+    {
+      "bytes": 26158,
+      "destination": "open-firmware/entry-usb-reset-test/hp1020_usb_runtime_contract.h",
+      "sha256": "a73a3904b094126e811f6d26249ab93d3d71cae7f5e0c00cedd10e77addc4679",
+      "source": "/tmp/hp1020-entry-usb-reset-provider-draft-20261003/draft/open-firmware/entry-usb-reset-test/hp1020_usb_runtime_contract.h"
+    },
+    {
+      "bytes": 1077,
+      "destination": "open-firmware/entry-usb-reset-test/layout-objects.tsv",
+      "sha256": "28cf609c42bd3bf09af85fc9e6b0ac8fe7ea38afe13b4ddd95080fc862dce70f",
+      "source": "/tmp/hp1020-entry-usb-reset-contract-draft-20261003/draft/open-firmware/entry-usb-reset-test/layout-objects.tsv"
+    },
+    {
+      "bytes": 3222,
+      "destination": "open-firmware/entry-usb-reset-test/layout-fields.tsv",
+      "sha256": "97056b6c4cd03feb8d62972b3cace4bf54f12a54763a079aa423a6ec292b8ce3",
+      "source": "/tmp/hp1020-entry-usb-reset-contract-draft-20261003/draft/open-firmware/entry-usb-reset-test/layout-fields.tsv"
+    },
+    {
+      "bytes": 18323,
+      "destination": "open-firmware/entry-usb-reset-test/AMENDMENT.md",
+      "sha256": "500b2e451e8eba1641fc0a1389bd1d44c9c3825de0a4ee61403ce794cec89c35",
+      "source": "/tmp/hp1020-entry-usb-reset-contract-draft-20261003/AMENDMENT.md"
+    },
+    {
+      "bytes": 12111,
+      "destination": "open-firmware/entry-usb-reset-test/independent-literals.py",
+      "sha256": "aab93eba1de9c9123e9344d8bb5fc642b690e7ac4b02c2fc3fd5efa4d501b333",
+      "source": "/tmp/hp1020-entry-usb-reset-independent-v2-20261003/literals.py"
+    },
+    {
+      "bytes": 13209,
+      "destination": "open-firmware/entry-usb-reset-test/ACCEPTANCE.md",
+      "sha256": "26c0fc71d2bfbf027f2298288970a86fb77676c925bc1e51ea76f9a0d2dd96e2",
+      "source": "/tmp/hp1020-entry-usb-reset-independent-v2-20261003/ACCEPTANCE.md"
+    },
+    {
+      "bytes": 9349,
+      "destination": "open-firmware/entry-usb-reset-test/literal-addendum.py",
+      "sha256": "4b9df5dc50186b05879ae7fc71f9922302679d6ffeda2402a218c8686bb5cea0",
+      "source": "/tmp/hp1020-entry-usb-reset-independent-addendum-20261003/literal-addendum.py"
+    },
+    {
+      "bytes": 12550,
+      "destination": "open-firmware/entry-usb-reset-test/ADDENDUM.md",
+      "sha256": "7f317b61e98080b4a42a3f2295367b7d1262d90a39412d2f9fca935a7f5a8439",
+      "source": "/tmp/hp1020-entry-usb-reset-independent-addendum-20261003/ADDENDUM.md"
+    },
+    {
+      "bytes": 19558,
+      "destination": "open-firmware/entry-usb-reset-test/CONTRACT.md",
+      "sha256": "18864eee6bb95581e99429da8d2fac039e635ef365ce02f91a8d1d122c17a123",
+      "source": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-usb-test/CONTRACT.md"
+    },
+    {
+      "bytes": 6205,
+      "destination": "open-firmware/entry-usb-reset-test/startup.S",
+      "sha256": "c8271bbea0fdc7ed4ffb4c18469a15d91170d26c948d41e3706e8ed95922bad6",
+      "source": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-usb-test/startup.S"
+    },
+    {
+      "bytes": 14466,
+      "destination": "open-firmware/entry-usb-reset-test/runtime.ld",
+      "sha256": "235934f043f7b18741a1db960fd8a129d64e5075dad55b8aca87c2988348d74d",
+      "source": "/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-usb-test/runtime.ld"
+    },
+    {
+      "bytes": 2408,
+      "destination": "open-firmware/entry-usb-reset-test/LIBRARY_SELECTION.md",
+      "sha256": "e5d344e4afe2817186960ef3108a7f82baf0089f2e333e012f950994b7be7fdd",
+      "source": "/tmp/hp1020-entry-usb-reset-tooling-v2-draft-20261003/draft/open-firmware/entry-usb-reset-test/LIBRARY_SELECTION.md"
+    },
+    {
+      "bytes": 6122,
+      "destination": "scripts/build-hp1020-entry-usb-reset-target.sh",
+      "sha256": "44e9801116b1e0a05d52e5e832b66bc790c01cce46d4158497f2df53e70279b2",
+      "source": "/tmp/hp1020-entry-usb-reset-tooling-v2-draft-20261003/draft/scripts/build-hp1020-entry-usb-reset-target.sh"
+    },
+    {
+      "bytes": 25688,
+      "destination": "scripts/hp1020_entry_usb_reset_audit.py",
+      "sha256": "422d43890e93b657fc26056cd872a5ecfca379a4b0b72a8ef31cba5fc48c613c",
+      "source": "/tmp/hp1020-entry-usb-reset-tooling-v2-draft-20261003/draft/scripts/hp1020_entry_usb_reset_audit.py"
+    },
+    {
+      "bytes": 22212,
+      "destination": "scripts/validate-hp1020-entry-usb-reset.py",
+      "sha256": "81cde1ff5891a0a72609a6f218a369764055d9430ef0ecc6408578e94368c9cb",
+      "source": "/tmp/hp1020-entry-usb-reset-tooling-v2-draft-20261003/draft/scripts/validate-hp1020-entry-usb-reset.py"
+    },
+    {
+      "bytes": 11378,
+      "destination": "scripts/hp1020_entry_usb_reset_machine.py",
+      "sha256": "9cb61481d9e938a5416d224b99d02f769bac971ca47685184247dac9325e14bb",
+      "source": "/tmp/hp1020-entry-usb-reset-observers-v2-20261003/scripts/hp1020_entry_usb_reset_machine.py"
+    },
+    {
+      "bytes": 12769,
+      "destination": "scripts/hp1020_entry_usb_reset_qemu.py",
+      "sha256": "10784d56e54277919b788f83ef6195628b77667e804b869ac9bf69d99ec7a862",
+      "source": "/tmp/hp1020-entry-usb-reset-observers-v2-20261003/scripts/hp1020_entry_usb_reset_qemu.py"
+    }
+  ],
+  "status": "unexecuted integrated source"
+}

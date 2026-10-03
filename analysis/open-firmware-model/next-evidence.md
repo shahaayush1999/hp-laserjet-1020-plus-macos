@@ -2282,7 +2282,7 @@ execute with zero callee instructions. Supplied phase contexts are not runtime
 prefixes. Full state/access/step effects are preserved, including the actual
 prefix of a rejected call. They establish no extra lifecycle or hardware behavior.
 
-Next useful separate profile is the static proposal
+The separate reset profile began from the frozen proposal
 `/tmp/hp1020-entry-usb-reset-plan-20261003/PLAN.md`, SHA256
 `b810f5b58ca52ec96191a09d2ca017b49839348d0fb37f23af41ec1e0b0439ca`.
 After320 parsed bytes, retain packet6 while a decoded old page is READY but has
@@ -2300,10 +2300,147 @@ preserved; V2 restores the previously contracted hexadecimal0x29/0x17 and keeps
 endpoint1 identical. Final source352/count0 implies no input dereference. Two
 ordinary-state paints suffice; no reset matrix, reinitialization,
 manual receive restart or cancellation-as-settlement shortcut. Public schema
-amendments and independent acceptance remain pre-execution contracts. No new reset
-runtime build or execution is accepted. Real DMA/cache,
-IRQ provenance, boot/RAM attributes, engine output and power-cycle recovery remain
-unproved; no USB contact or print-driving operations are introduced.
+amendments and original independent expectations were frozen before
+implementation; later source-proved corrections are recorded below.
+
+The sibling implementation now lives in`open-firmware/entry-usb-reset-test/`.
+Runtime/provider/layout are separate; production inputs, startup/linker bytes and
+memory capacities remain unchanged. The first linked audit passes with target
+SHA256`d2daf38cbff95b0a2b990c7fc99b0b5655ebfb1c8e12bc9f108c65bf5ed2fa8f`:
+49060 code/rodata bytes within53216,15332 generic BSS and140276 total zero bytes.
+All24 unchanged object inputs match the healthy capture exactly; only three
+sibling units differ. Source review froze an exact udiv-only library selection
+before compilation because the new runtime removed `%6u`. Actual map/helper
+bytes match it; both original extracted member inputs stay sealed, and the old
+healthy two-helper rule stays unchanged. The audit-only capture executed no target
+instruction; subsequent execution is recorded separately below.
+
+`analysis/boot-handoff/entry-usb-reset/source-snapshots/` separately preserves
+`pre-build-implementation.*` (156 members) and`first-linked-audit-pass.*`
+(336 members, archive SHA256
+`a2862592934e818f5cc865d9c405ebcba4d41b2f9b5f384d65cb317b231a99d7`).
+Capture:`/tmp/hp1020-entry-usb-reset-jemqpib2`; first audit log:
+`/tmp/hp1020-entry-usb-reset-first-audit-20261003.log`. Fresh actual linked
+callback/stack review admits a conditional7904/8192-byte static ceiling for this
+serialized workload. ObserverV3 records original JX/CALLX0 operand register/value
+before transfer: cancellation legitimately uses tail calls outside a2..a7 and
+retains its original physical frame. RunnerV3 requires the exact reviewed target
+hash before execution. `pre-execution-admission.*` retains that review, observerV3,
+independent gateV1/V2, runnerV3 and four copied library-rule refusals. GateV2's
+endpoint-selection0→3 correction was proved from unchanged programming source
+before target execution; V1 and all original drafts remain preserved.
+
+The first full run (`/tmp/hp1020-entry-usb-reset-2i2sfkkw`, log
+`/tmp/hp1020-entry-usb-reset-first-execution-20261003.log`) completed both paint
+pairs:21 full interpreter/QEMU checkpoints each, two actual native park steps
+each,4002070 model instructions each, observed stack use816 bytes. **Overall
+validation failed** at gateV2's initial receive-error predicate. The original
+report and sources remain failed in`first-two-paired-gate-stop.*` (1219 members,
+archive SHA256`ea384a1201d2a93540177179cef603c7c74a739368ceeb1d0a0a5c5d38eac0a9`).
+No successful reset publication or accepted lifecycle follows from those pairs.
+
+The independent V3 source trace proves the initial receive state is already
+stopped by adapter initialization. Both initial fence calls return at
+`hp1020_usb_receive_fault`'s stopped guard and preserve error0. After successful
+restart, the active mid-document fence instead records error7. Root's separate
+original ELF/PC/access proof (`/tmp/hp1020-entry-usb-reset-first-fault-paths-20261003.{py,json}`)
+confirms all three calls in both raw runs: the two initial calls read stopped1
+and never touch error; the later stopped0 call writes error7. Diagnostic-only
+snapshot/mailbox checks found only this initial mismatch and did not alter any
+report. V3 changes precisely initial7→0 in standalone/embedded additive literals
+and their matching source pin; target/runtime and later error7 stay unchanged.
+Package:`/tmp/hp1020-entry-usb-reset-gate-v3-20261003/`, checker SHA256
+`eacaf2792eec5916e87e25afa247031c70c86f723171da0c2a6e31a7a4e7ecef`.
+`initial-oracle-v3-correction.*` preserves this correction and original-byte proof
+(25 members, archive SHA256
+`7ce1c6ed6edae5ef43b40fd5144fe577531386d99d8f9805e0f173643fa79290`).
+Do not use V3 to relabel the first failed run.
+
+Fresh V3 execution in`/tmp/hp1020-entry-usb-reset-_ld_tz8b` passes both paint
+cases and the complete independent raw replay/API/QEMU/source/library gate.
+There are42 paired full snapshots and four actual native park steps in total.
+The exact reviewed target, both raw instruction/access traces and every actual
+snapshot are unchanged from the original failed run. Root's exact comparison
+allows only the two corrected oracle source seals, verified temporary compiler
+paths and process/socket/time identities; actual debugger bytes differ only at
+the sole cleanup PID. `first-two-paired-accepted.*` preserves fresh acceptance,
+that comparison and an independent correction review (1251 members, archive
+SHA256`8c6dc5bcdd238ccf5b62a6e78758e53f3627160f1a8b9081e45a2c3bfb370268`).
+Each case observes four real WAIT and two real STALE returns, one actual provider
+cancel callback,13 successful acquisitions plus one stale attempt,12 receive
+completion/releases and11 nonempty parser feeds. The old late32 bytes are never
+parser-admitted; final ZLP is consumed without a feed. One fresh output callback
+delivers32 FF bytes and document event(3,1,0,1), then sole close/finish/park.
+These remain two continuous lifecycles under supplied conditions, not additional
+lifecycles for each return or evidence of physical recovery.
+
+The shared offline runner now invokes this validator sequentially after the two
+prior entry experiments; one additive consistency check recovers its bounded
+archive with the frozen raw gate. Focused copied-evidence controls and the full
+regression were scheduled sequentially. The owner has asked to yield at this
+checkpoint: finish those checks, review/commit/push and stop before a new experiment.
+
+The full sequential run now passes **134 consistency checks and both offline
+suites**, log`/tmp/hp1020-full-entry-usb-reset-20261003.log`, child
+`hp1020-validation.qUqqqn`. Fresh captures are`/tmp/hp1020-entry-ram-dy5yub26`,
+`/tmp/hp1020-entry-usb-tm_iuvrp` and`/tmp/hp1020-entry-usb-reset-r4ifu7f2`.
+`/tmp/hp1020-full-entry-usb-reset-comparison-20261003.json` proves all11 component
+host/target case arrays and all14 entry cases retain their accepted tested source,
+target code/object, original PC/access and complete raw snapshot bytes. Temporary
+compiler dependency/stack prefixes and process/socket/time identities are the
+only differences, including exact debugger-ledger equality after its sole
+cleanup PID replacement and matching byte-length change. No source/report gate
+was changed to obtain this comparison. `first-full-suite-pass.*` preserves full
+evidence (1258 members, archive SHA256
+`47526d6746c96a7c72f6b96309ddb338fdb2f7f1292857c0916c0d24c1038a45`).
+
+All six subsequent copied-evidence controls pass for their exact intended
+semantic/call-metadata refusal, with unchanged complete positive checks before
+and after. They challenge false cancellation of late SUCCESS, a premature receive
+promise, relabelled stale-cookie arguments, mutation across an inert stale pair,
+an incorrect original indirect operand and false callback context. Paired state
+mutations include matching actual-position debugger replies; PC/access streams,
+source/target/tool pins and the second case remain original. These synthetic
+refusals do not execute target bugs or add lifecycles. Original and retained
+baseline bytes are unchanged. Root separately reconstructed all six actual copied
+trees from the first accepted archive and exact saved overlays, matching every
+member's length/hash. `completed-focused-controls.*` retains the result, overlays
+and full reconstruction manifests (144 members, archive SHA256
+`d2a756b0de9a2aa81759b4759a9f142184fab33a3c066c73973d4e21b0219f3f`).
+The frozen drafts/reviews remain separately preserved in
+`focused-control-drafts-and-reviews.*`; their original unexecuted labels are historical.
+
+Final review of older regenerated USB artifacts also proves every changed
+compiler stack path and repeated per-function disassembly header is temporary
+metadata, with exact original bytes otherwise equal and corresponding report
+hashes bound to their actual captures. Early read-only review assumptions about
+the report's capture key and a single disassembly header stopped; the preserved
+successor checks the actual metadata structure and every repeated header. No
+target, source, acceptance gate or published report was modified to obtain that
+comparison. Research execution is stopped at the owner's requested checkpoint.
+Final staging retains the auditor's exact tested final blank line with one
+file-scoped Git whitespace exemption, like the raw map/generated report; no
+tested source or report seal is changed for cosmetic whitespace cleanup.
+
+For the next authorized run, an **unfinished, unapproved proposal** is frozen at
+`/tmp/hp1020-next-real-multipage-plan-20261003/PLAN.md`, SHA256
+`dbc36e88916a554599eb4ec6091f4b43f7a2217a9a091f32757ba11acd0a7d24`.
+It proposes one unchanged foo2zjs job with two distinct nonuniform128x4/256x4
+PBM pages, complete timestamp-bearing PJL framing and192 literal output bytes,
+through one continuous receive generation. Existing component tests already
+cover patterns/multiple pages; this would close a whole-entry content/framing
+gap, not establish first-ever decoder support. No new PBM/ZjStream fixture was
+generated. Actual encoder output length and independent decoded equality are
+prerequisites before approving any runtime or evidence layout. The proposed
+compact four-word I/O rows and<=1088-byte input budget remain unapproved; do not
+trim real host input or shrink production buffers to fit. PJL framing acceptance
+does not implement PJL status responses, copies or physical media/engine behavior.
+`checkpoint-review-and-unfinished-next-plan.*` preserves all37 proposal members
+and the shared integration's separate static review (51 total members, archive
+SHA256`bc2d7ec4390e4f32a9095a8f1a29579bcfe0ed7ab4daa4a78a62a7aecc2537ba`).
+
+Real DMA/cache, IRQ provenance, boot/RAM attributes, engine output and power-cycle
+recovery remain unproved; no USB contact or print-driving operations are introduced.
 
 ### Original SETUP ingress and corrected legacy evidence (2026-09-29)
 

@@ -1,0 +1,14 @@
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-usb-reset-test/hp1020_usb_runtime.c:45:13:scan_zero	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-usb-reset-test/hp1020_usb_runtime.c:16:6:hp1020_usb_runtime_fail	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-usb-reset-test/hp1020_usb_runtime.c:37:13:progress	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-usb-reset-test/hp1020_usb_runtime.c:31:13:result	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-usb-reset-test/hp1020_usb_runtime.c:21:6:hp1020_usb_runtime_step	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-usb-reset-test/hp1020_usb_runtime.c:235:13:wait_receive	80	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-usb-reset-test/hp1020_usb_runtime.c:227:13:wait_finish	80	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-usb-reset-test/hp1020_usb_runtime.c:243:13:acknowledge	32	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-usb-reset-test/hp1020_usb_runtime.c:104:13:arm	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-usb-reset-test/hp1020_usb_runtime.c:113:13:acquire	64	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-usb-reset-test/hp1020_usb_runtime.c:88:13:service	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-usb-reset-test/hp1020_usb_runtime.c:128:13:settle_status	144	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-usb-reset-test/hp1020_usb_runtime.c:95:13:pump	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-usb-reset-test/hp1020_usb_runtime.c:330:6:hp1020_usb_runtime_c	144	static

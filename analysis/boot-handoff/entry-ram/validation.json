@@ -1,6 +1,6 @@
 {
   "candidate_execution": true,
-  "capture": "/tmp/hp1020-entry-ram-seqwmu67",
+  "capture": "/tmp/hp1020-entry-ram-dy5yub26",
   "cases": [
     {
       "case": "00-ordinary-privilege-a5",
@@ -5272,18 +5272,18 @@
         "cleanup": {
           "errors": [],
           "killed": false,
-          "pid": 39508,
+          "pid": 86297,
           "returncode": 0,
           "still_running": false,
           "terminated": true
         },
-        "elapsed_seconds": 0.6113308749627322,
+        "elapsed_seconds": 0.6008325000293553,
         "gdb_commands": 927,
         "host_intervention_ledger": {
           "bytes": 3501504,
           "lines": 1872,
           "path": "host-interventions.jsonl",
-          "sha256": "afc329205bce84c6b0c7adb19da7c1b0f94820c9f42f29c9e2f1f19f24293c10"
+          "sha256": "49f7c6d61dbb0f9f8e70b69a66ec9e5f2635075d67f9ff49311901d0041e2e8c"
         },
         "initial_regions": [
           {
@@ -5353,7 +5353,7 @@
             "none",
             "-S",
             "-gdb",
-            "unix:/tmp/hp1020-qemu-oauu4fsc/gdb.sock,server=on,wait=off"
+            "unix:/tmp/hp1020-qemu-ppzidneu/gdb.sock,server=on,wait=off"
           ],
           "binary": "/opt/homebrew/Cellar/qemu/11.1.1/bin/qemu-system-xtensaeb",
           "binary_sha256": "e5bc0b379239b4dc9dcb5abc6803ac70893ce66a72990cb8594d00d36bbda382",
@@ -11484,18 +11484,18 @@
         "cleanup": {
           "errors": [],
           "killed": false,
-          "pid": 39514,
+          "pid": 86303,
           "returncode": 0,
           "still_running": false,
           "terminated": true
         },
-        "elapsed_seconds": 0.6126567919272929,
+        "elapsed_seconds": 0.5989009998738766,
         "gdb_commands": 927,
         "host_intervention_ledger": {
           "bytes": 3501504,
           "lines": 1872,
           "path": "host-interventions.jsonl",
-          "sha256": "1624d51fa7b5cd662b76ba3d574ebc9bdf50c927fe58833353aebe5893ed4fc7"
+          "sha256": "87c2a76cd7a9a2fad54d190866d5d77a39ac66b5e9e08454487b3e2faa9d7712"
         },
         "initial_regions": [
           {
@@ -11565,7 +11565,7 @@
             "none",
             "-S",
             "-gdb",
-            "unix:/tmp/hp1020-qemu-siyh591l/gdb.sock,server=on,wait=off"
+            "unix:/tmp/hp1020-qemu-py9r2ylw/gdb.sock,server=on,wait=off"
           ],
           "binary": "/opt/homebrew/Cellar/qemu/11.1.1/bin/qemu-system-xtensaeb",
           "binary_sha256": "e5bc0b379239b4dc9dcb5abc6803ac70893ce66a72990cb8594d00d36bbda382",
@@ -17696,18 +17696,18 @@
         "cleanup": {
           "errors": [],
           "killed": false,
-          "pid": 39518,
+          "pid": 86309,
           "returncode": 0,
           "still_running": false,
           "terminated": true
         },
-        "elapsed_seconds": 0.6069547499064356,
+        "elapsed_seconds": 0.592318250099197,
         "gdb_commands": 927,
         "host_intervention_ledger": {
           "bytes": 3501529,
           "lines": 1872,
           "path": "host-interventions.jsonl",
-          "sha256": "fe490fb3eed58eeea7f1ca60d37f8ffb73935e54da972bb49333d30aa6cd6b97"
+          "sha256": "b2fe74dabecf6dc2917dc229df03252d25ed3a2ffff12bec48d36f7db81cfc3f"
         },
         "initial_regions": [
           {
@@ -17777,7 +17777,7 @@
             "none",
             "-S",
             "-gdb",
-            "unix:/tmp/hp1020-qemu-hy0v056h/gdb.sock,server=on,wait=off"
+            "unix:/tmp/hp1020-qemu-j5gru145/gdb.sock,server=on,wait=off"
           ],
           "binary": "/opt/homebrew/Cellar/qemu/11.1.1/bin/qemu-system-xtensaeb",
           "binary_sha256": "e5bc0b379239b4dc9dcb5abc6803ac70893ce66a72990cb8594d00d36bbda382",
@@ -23908,18 +23908,18 @@
         "cleanup": {
           "errors": [],
           "killed": false,
-          "pid": 39526,
+          "pid": 86313,
           "returncode": 0,
           "still_running": false,
           "terminated": true
         },
-        "elapsed_seconds": 0.5965040000155568,
+        "elapsed_seconds": 0.6034000411164016,
         "gdb_commands": 927,
         "host_intervention_ledger": {
           "bytes": 3501529,
           "lines": 1872,
           "path": "host-interventions.jsonl",
-          "sha256": "cce8cd34eb0e6d62e39773a8fd120df3e74010df07def7b8cc9d2bdf8fb97eed"
+          "sha256": "6e0427c9a3e9e86e906364c0f353aa3c8e3e1f83ed5a4c32527540e966c95d4f"
         },
         "initial_regions": [
           {
@@ -23989,7 +23989,7 @@
             "none",
             "-S",
             "-gdb",
-            "unix:/tmp/hp1020-qemu-bbj9j7wj/gdb.sock,server=on,wait=off"
+            "unix:/tmp/hp1020-qemu-m010umpv/gdb.sock,server=on,wait=off"
           ],
           "binary": "/opt/homebrew/Cellar/qemu/11.1.1/bin/qemu-system-xtensaeb",
           "binary_sha256": "e5bc0b379239b4dc9dcb5abc6803ac70893ce66a72990cb8594d00d36bbda382",
@@ -30120,18 +30120,18 @@
         "cleanup": {
           "errors": [],
           "killed": false,
-          "pid": 39546,
+          "pid": 86321,
           "returncode": 0,
           "still_running": false,
           "terminated": true
         },
-        "elapsed_seconds": 0.5913493339903653,
+        "elapsed_seconds": 0.6019182079471648,
         "gdb_commands": 927,
         "host_intervention_ledger": {
           "bytes": 3501532,
           "lines": 1872,
           "path": "host-interventions.jsonl",
-          "sha256": "fea67f8b6b2b29f18218e29e7e4431cd209bb7d6b3e4d32ebb51bc10b6725d16"
+          "sha256": "37b817d692f16dac0dce1c1fde1c1a7c9dbb1d4a1b01ceb4ebaaf118a54c81bd"
         },
         "initial_regions": [
           {
@@ -30201,7 +30201,7 @@
             "none",
             "-S",
             "-gdb",
-            "unix:/tmp/hp1020-qemu-wsnf3fxo/gdb.sock,server=on,wait=off"
+            "unix:/tmp/hp1020-qemu-tc9ddj6j/gdb.sock,server=on,wait=off"
           ],
           "binary": "/opt/homebrew/Cellar/qemu/11.1.1/bin/qemu-system-xtensaeb",
           "binary_sha256": "e5bc0b379239b4dc9dcb5abc6803ac70893ce66a72990cb8594d00d36bbda382",
@@ -36332,18 +36332,18 @@
         "cleanup": {
           "errors": [],
           "killed": false,
-          "pid": 39552,
+          "pid": 86329,
           "returncode": 0,
           "still_running": false,
           "terminated": true
         },
-        "elapsed_seconds": 0.6429310410749167,
+        "elapsed_seconds": 0.6021549999713898,
         "gdb_commands": 927,
         "host_intervention_ledger": {
           "bytes": 3501532,
           "lines": 1872,
           "path": "host-interventions.jsonl",
-          "sha256": "74a6dd25a5f288e76935aa222da9bcef0515fba381510338252e8cb52c498091"
+          "sha256": "90be2e901c7c3b549db608b0f2f91c6592bb670993453f24d963a51fcd9e8a1a"
         },
         "initial_regions": [
           {
@@ -36413,7 +36413,7 @@
             "none",
             "-S",
             "-gdb",
-            "unix:/tmp/hp1020-qemu-1papc1up/gdb.sock,server=on,wait=off"
+            "unix:/tmp/hp1020-qemu-i___2enm/gdb.sock,server=on,wait=off"
           ],
           "binary": "/opt/homebrew/Cellar/qemu/11.1.1/bin/qemu-system-xtensaeb",
           "binary_sha256": "e5bc0b379239b4dc9dcb5abc6803ac70893ce66a72990cb8594d00d36bbda382",

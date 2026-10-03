@@ -1,0 +1,33 @@
+{
+  "status": "six copied-evidence controls statically reviewed but not executed",
+  "scope": "Exact frozen V3 checker/neutral-reader controls; no target execution. Root and independent review precede sequential controls; results will be preserved separately without relabelling this draft.",
+  "archive_bytes": 176080,
+  "archive_sha256": "e666bba7c8b61c4b9616742b901b8ce56d0b573403eafc3974bc49bc081349b2",
+  "members": 24,
+  "member_sha256": {
+    "archive-inputs.json": "dd58b83b362e7d551b8b5fb98ef7b6b4ff2f0e260bac5ffe0e5e7da0808fb944",
+    "archive.py": "7051d0306f47b8af4f8a05f631f5d68922e5db81a97192a78c7d7bd39f74e5b2",
+    "draft/DRAFT.sha256": "4f56cc2a1f572258daa44d5f52d84efb1ef0d991ceda5e5f17de7c8e0676e2f1",
+    "draft/README.md": "60325b59500511b34ec26fb562bc72f3460f40dd98d6b6b20e54aac28bfd8747",
+    "draft/copied-reset-controls.py": "be8175beaf77afebd1b3faf62021acc8226fba55e0ffb413951dc17e89c5870b",
+    "draft/inputs/check-hp1020-entry-usb-reset.py": "eacaf2792eec5916e87e25afa247031c70c86f723171da0c2a6e31a7a4e7ecef",
+    "draft/inputs/check-hp1020-entry-usb.py": "38f520c5d23834532806821d14ce9e5a8c3703d57935bcc923e453b43dece277",
+    "draft/inputs/hp1020_tusb_adapter.h": "0f809b1ac03f5fb96d8524cab2e5cf18d5ad8d9fe6348e50ae4b2d6d2509e5bf",
+    "draft/inputs/hp1020_udc_acquire.h": "e073d84e4f0223e07997a3cce5125a420591317681f80c7b80a5b2adc0bfc653",
+    "draft/inputs/hp1020_usb_printer.h": "ddbd81e7e7375b0ea1f51122a0fd98a8db05cbf39e2565b50c9a9a385f08a17b",
+    "draft/inputs/hp1020_usb_runtime_contract.h": "a73a3904b094126e811f6d26249ab93d3d71cae7f5e0c00cedd10e77addc4679",
+    "draft/inputs/layout-fields.tsv": "97056b6c4cd03feb8d62972b3cace4bf54f12a54763a079aa423a6ec292b8ce3",
+    "draft/inputs/layout-objects.tsv": "28cf609c42bd3bf09af85fc9e6b0ac8fe7ea38afe13b4ddd95080fc862dce70f",
+    "draft/inputs/old-usb-controls.py": "5d07ac605b3bb465c0a731a49a10562d70b4104029dc80db111b984c01024657",
+    "draft/inputs/original-CONTROLS.md": "d67c7894821259806659a3f25e45e95ee3e5d30d34114f9f9ae9267472ce0ca2",
+    "independent-review/INPUTS.sha256": "eee7a0338af40c9ca4844979776a1f11d354702eba5f7d6126a12cb220dd8579",
+    "independent-review/REVIEW.md": "e9697420969527efa42821518e77039bf3f82ffd8b314a9a08d11c7776e37e69",
+    "independent-review/inputs/DRAFT.sha256": "4f56cc2a1f572258daa44d5f52d84efb1ef0d991ceda5e5f17de7c8e0676e2f1",
+    "independent-review/inputs/README.md": "60325b59500511b34ec26fb562bc72f3460f40dd98d6b6b20e54aac28bfd8747",
+    "independent-review/inputs/check-hp1020-entry-usb-reset.py": "eacaf2792eec5916e87e25afa247031c70c86f723171da0c2a6e31a7a4e7ecef",
+    "independent-review/inputs/check-hp1020-entry-usb.py": "38f520c5d23834532806821d14ce9e5a8c3703d57935bcc923e453b43dece277",
+    "independent-review/inputs/copied-reset-controls.py": "be8175beaf77afebd1b3faf62021acc8226fba55e0ffb413951dc17e89c5870b",
+    "independent-review/inputs/hp1020_udc_acquire.h": "e073d84e4f0223e07997a3cce5125a420591317681f80c7b80a5b2adc0bfc653",
+    "root-review.json": "50f69c3b15500b2a49c6bc2db0a1cebe51dbbb484a8ff99371a6e6ea152fd45b"
+  }
+}
