@@ -15,7 +15,7 @@ Paths below are relative to the repository root unless linked explicitly.
 | Original binary as an oracle? | [Parser/libc differential execution](open-firmware-model/stock-execution/validation.md), [status decision execution](hardware-boundary/stock-status-execution.md), [JobMgr execution](open-firmware-model/stock-execution/jobmgr.md), [original memory pool](open-firmware-model/stock-execution/pool.md), [completion/cooperative lifecycle](open-firmware-model/stock-execution/lifecycle.md), [original stream admission](open-firmware-model/stock-execution/admission.md), [PrintMgr execution](open-firmware-model/stock-execution/printmgr.md), [notification ownership](open-firmware-model/stock-execution/notifications.md), [stop boundaries](open-firmware-model/stock-execution/stop.md), [conditional cancellation findings](open-firmware-model/stock-execution/cancellation.md), [status publication and history](open-firmware-model/stock-execution/status-publication.md), [original RTOS queues](open-firmware-model/stock-execution/queue.md), [status task with original queues](open-firmware-model/stock-execution/status-queue.md), [original context switching](open-firmware-model/stock-execution/context.md), [priority scheduling and blocking queues](open-firmware-model/stock-execution/scheduler.md), [original timed waits](open-firmware-model/stock-execution/timers.md), [scheduled original StatusMgr](open-firmware-model/stock-execution/scheduled-status.md); standard ISA only, explicit host substitutes |
 | What proves current offline agreement? | [Consistency gate](offline-consistency/offline-consistency.md), [target C execution](open-firmware-model/semantic-target/validation.md), [independent QEMU](open-firmware-model/semantic-target/qemu.md), [page planning](open-firmware-model/page-plan.md) |
 | Correct toolchain and old encoding failure? | [BE encoding audit](toolchain-probe/big-endian-encoding-audit.md), [C compiler](toolchain-probe/freestanding-c-compiler.md) |
-| Boot wrapper and standalone handoff? | `analysis/upload-wrapper-report.md`, `analysis/boot-handoff/boot-handoff.md`; [one-entry RAM preparation](open-firmware-model/next-evidence.md#one-entry-through-a-ram-document-unexecuted-preparation-2026-10-03) separates the unexecuted own-stack/BSS/document proposal from existing per-call tests. Original-byte/layout reviews and exact drafts are preserved in `usb-path/udc-acquire/source-snapshots/next-entry-proposals.*`. No physical boot claim. |
+| Boot wrapper and standalone handoff? | `analysis/upload-wrapper-report.md`, `analysis/boot-handoff/boot-handoff.md`; [one-entry RAM execution](open-firmware-model/next-evidence.md#one-entry-through-a-ram-document-2026-10-03) distinguishes six continuous own-stack/BSS/document interpreter/QEMU cases,37 corruption controls and30 isolated guards from prior per-call tests. Full132-check regression passed. Exact captures/reviews/stops and the unimplemented next USB-runtime specifications are in `boot-handoff/entry-ram/source-snapshots/`. No physical boot claim. |
 | Direct page fields and raster data? | [START_PAGE construction](hardware-boundary/zjs-direct-work.md), [field semantics](open-firmware-model/raster-field-semantics.md), [metadata bounds](open-firmware-model/metadata-bounds.md) |
 | USB control and bulk contracts? | [Controller family and executed descriptor fragments](usb-path/controller-family.md), [official family manuals and capture limits](usb-path/controller-reference/manuals/README.md), `analysis/usb-path/usb-bulk-probe-contract.md`, `analysis/usb-path/usb-parser-shim-contract.md`; pinned upstream reference/license/provenance in `analysis/usb-path/controller-reference/linux-v6.12/`. Family agreement is not a working port. Supporting control/event/re-arm reports remain in the same directory |
 | Bounded input and cancellation/restart ownership? | `open-firmware/usb-receive-core/README.md`, [receive/document execution](usb-path/receive-core/validation.md): FIFO consumption with out-of-order completion, stale-ticket rejection, endpoint-wide fault fencing, two external quiescence acknowledgements. This is compiled software with supplied observations, not a controller or physical reset implementation. |
@@ -60,6 +60,18 @@ are saved outside the repo and printed on failure. It never opts into USB or
 printing. Do not run suites in parallel: they regenerate shared files.
 For a narrow edit, use its existing generator/check first; for documentation
 alone, verify references and the diff. Do not rerun every check without a reason.
+
+The one-entry RAM experiment uses `scripts/validate-hp1020-entry-ram.py`
+(`--audit-only` stops before execution) and the separately frozen
+`scripts/check-hp1020-entry-ram.py`. Its validated publication writes
+`analysis/boot-handoff/entry-ram/capture.tar.gz` with a member manifest and exact
+report; shared consistency recovers and checks those bytes without old `/tmp`
+paths or compiler binaries. Historical stops, first/full-run captures and
+completed controls stay in `source-snapshots/`. `completed-controls.*` preserves
+all34 altered captures as one baseline plus exact per-case overlays, with full
+reconstruction hashes; it also contains three separate literal controls and30
+isolated guards. An audited ELF at an original address is still an offline
+artifact, not an authorized upload or proof of boot.
 
 The aggregate command requires the existing local research dependencies. It does
 not install anything automatically. Scratch tools may disappear after cleanup:

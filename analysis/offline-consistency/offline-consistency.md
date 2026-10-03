@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `131`
+- checks: `132`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -145,6 +145,7 @@ It does not contact the printer.
 | `controller_programming_preserves_exact_commands_original_failures_and_status_ownership` | `watch` | 28 paired cases; 1876 raw event rows; independent command/pixel/owner/cleanup contracts; report-only capture digests checked | `analysis/usb-path/udc-program/validation.json` |
 | `bulk_publication_preserves_preflight_exact_ranges_original_owner_and_cleanup` | `watch` | 40 paired cases; 4784 raw event rows; independent publication/pixel/original-owner/cleanup contracts; report-only capture digests checked | `analysis/usb-path/udc-publish/validation.json` |
 | `bulk_acquisition_preserves_original_owner_ordered_cpu_visibility_and_recovery` | `watch` | 32 paired cases; 3372 event rows; independent original-owner/acquisition/visibility/recovery contracts; report-only independent capture digests | `analysis/usb-path/udc-acquire/validation.json` |
+| `single_entry_establishes_own_cpu_stack_bss_and_continuous_ram_document` | `watch` | {'cases': 6, 'paired_checkpoints': 30, 'qemu_park_steps': 12, 'model_instructions': 9221778, 'target_sha256': '7e0cc607f02f3b28a6b585c5e689cea6d880621b80f07a06bd1ceff5edbdb11b', 'scope': 'Independent saved bytes, literal results, access replay and debugger transcript; no physical boot/printing claim.'} | `analysis/boot-handoff/entry-ram/validation.json` |
 
 ## Practical Meaning
 

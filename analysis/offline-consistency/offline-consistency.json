@@ -1,5 +1,5 @@
 {
-  "check_count": 131,
+  "check_count": 132,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -785,6 +785,19 @@
       "detail": "32 paired cases; 3372 event rows; independent original-owner/acquisition/visibility/recovery contracts; report-only independent capture digests",
       "evidence": "analysis/usb-path/udc-acquire/validation.json",
       "name": "bulk_acquisition_preserves_original_owner_ordered_cpu_visibility_and_recovery",
+      "severity": "watch"
+    },
+    {
+      "detail": {
+        "cases": 6,
+        "model_instructions": 9221778,
+        "paired_checkpoints": 30,
+        "qemu_park_steps": 12,
+        "scope": "Independent saved bytes, literal results, access replay and debugger transcript; no physical boot/printing claim.",
+        "target_sha256": "7e0cc607f02f3b28a6b585c5e689cea6d880621b80f07a06bd1ceff5edbdb11b"
+      },
+      "evidence": "analysis/boot-handoff/entry-ram/validation.json",
+      "name": "single_entry_establishes_own_cpu_stack_bss_and_continuous_ram_document",
       "severity": "watch"
     }
   ],

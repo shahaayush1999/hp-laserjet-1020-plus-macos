@@ -1,0 +1,30 @@
+{
+  "version": "v11.1.1",
+  "scope": "official QEMU source matching installed reported version; not a printer CPU configuration",
+  "files": [
+    {
+      "path": "target/xtensa/core-test_kc705_be/gdb-config.c.inc",
+      "url": "https://raw.githubusercontent.com/qemu/qemu/v11.1.1/target/xtensa/core-test_kc705_be/gdb-config.c.inc",
+      "bytes": 16579,
+      "sha256": "3bca88cfe97be52026d9e9762328f293a7892407014a775a221d2262abb0e70c"
+    },
+    {
+      "path": "target/xtensa/gdbstub.c",
+      "url": "https://raw.githubusercontent.com/qemu/qemu/v11.1.1/target/xtensa/gdbstub.c",
+      "bytes": 6032,
+      "sha256": "132bb55cd6203ec5ac22f4ce2611447f225306abd6c8c4b06367b08a65ac42c1"
+    },
+    {
+      "path": "target/xtensa/core-test_kc705_be/core-isa.h",
+      "url": "https://raw.githubusercontent.com/qemu/qemu/v11.1.1/target/xtensa/core-test_kc705_be/core-isa.h",
+      "bytes": 26758,
+      "sha256": "449fcb676f9c05ae143749e619c4edcac3e07f590f086a58e1de0cd844f1d2cb"
+    },
+    {
+      "path": "target/xtensa/core-test_kc705_be.c",
+      "url": "https://raw.githubusercontent.com/qemu/qemu/v11.1.1/target/xtensa/core-test_kc705_be.c",
+      "bytes": 2192,
+      "sha256": "9113b65e67095cd0697788530c3c1ed9d64628645828b6ec06e575f43be07a97"
+    }
+  ]
+}

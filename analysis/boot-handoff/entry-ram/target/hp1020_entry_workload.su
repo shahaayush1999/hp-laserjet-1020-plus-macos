@@ -1,0 +1,6 @@
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-ram-test/hp1020_entry_workload.c:35:17:entry_hash	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-ram-test/hp1020_entry_workload.c:62:13:entry_fail	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-ram-test/hp1020_entry_workload.c:69:12:entry_count	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-ram-test/hp1020_entry_workload.c:128:27:entry_document	32	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-ram-test/hp1020_entry_workload.c:75:27:entry_output	80	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/entry-ram-test/hp1020_entry_workload.c:184:6:hp1020_entry_c	80	static

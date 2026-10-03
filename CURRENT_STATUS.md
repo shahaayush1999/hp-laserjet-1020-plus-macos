@@ -5,73 +5,65 @@ autonomously until the owner asks to yield. No USB contact/enumeration, upload,
 print-driving hardware or installed-printing changes. AGENTS.md owns scope;
 `analysis/README.md` is the evidence/tool-recovery map.
 
-## Completed checkpoint
+## Latest completed validation: one entry through a RAM document
 
-Retained-OUT acquisition passed **32 sanitized host/32 audited QEMU cases**,
-3372 paired event rows and384 paired raw captures. The independently frozen V2
-gate passed unchanged in report-only/raw modes; all16 copied-evidence controls
-passed. Full sequential `scripts/validate.sh` retry passed **131 consistency
-checks and both offline suites**. All eleven component host/target case arrays
-and raw capture identities match their pre-run baselines. No production,
-fixture, scenario or acquisition-checker correction followed execution.
+Six continuous interpreter/QEMU cases establish their own CPU state,8KiB stack
+and129224 bytes of BSS from a supplied loaded image. They decode the existing
+small document, deliver32 actual FF pixels and its original event before explicit
+finish, and return to their own park. All30 paired full checkpoints and12 actual
+QEMU park steps agree; the independently frozen raw gate passes unchanged.
+Observed stack use is720 bytes; a separate conservative static bound is784 bytes
+for this fixed workload only. Neither establishes an exception/all-input bound.
 
-The first full run completed execution but stopped at three legacy source counts:
-OUT97→98, composed117→118, offload126→127, solely adding
-`hp1020_udc_acquire.h`. Independent review supported that narrow shared-checker
-correction; semantic/hash gates stayed intact. The stopped run remains separate
-from the successful retry. No report hashes were edited by hand.
+The full sequential `scripts/validate.sh` passed **132 consistency checks and
+both offline suites**. All eleven previous component case arrays remain exact;
+the six entry cases retain their first run's complete model/native state and
+command/reply bytes apart from documented process/time identities. The only
+entry source change after first execution adds reviewed evidence publication.
+All37 copied-evidence controls and30 isolated interpreter guards passed; the
+latter contain28 rejected operations/two permitted reads, not new lifecycles.
+A guard wrapper first stopped before execution because it compared in-memory
+audit types to JSON types; consistent JSON serialization fixes only that wrapper.
+Candidate, audit, interpreter and independent gate remain unchanged.
 
-Acquisition verifies the original retained cookie and actual adapter owner,
-requires descriptor/payload/acquire-order hooks, then copies actual CPU bytes.
-Separate device images and poisoned CPU memory expose wrong sources and partial
-visibility. Failures retain original identity; old settlement remains possible
-while forward work is blocked. Cache/mapping/physical settlement remain supplied.
-Target acquisition152 bytes, OUT80, publisher140, backend88, EP0296, SETUP96,
-adapter/document128588. Publication's prior40/40 cases and ten controls remain
-separate evidence; these component cases add no native or physical lifecycle.
+Durable evidence is `analysis/boot-handoff/entry-ram/`: exact accepted raw archive,
+manifest/report and historical `source-snapshots/`. Earlier assembly/link/audit
+stops remain separate from the first audit pass and six-case execution. Preserve
+their actual source hashes; no report hashes were edited. Full log:
+`/tmp/hp1020-full-entry-20261003.log`, child `hp1020-validation.UTdequ`.
+Publication/acquisition retain their separate40/40 and32/32 host/QEMU cases,
+ten/sixteen controls, and prior full131-check checkpoint committed as`78e9305`.
+Full validation and control processes have finished; exact archives are complete.
 
-Durable evidence: `analysis/usb-path/udc-acquire/source-snapshots/` contains first
-execution, both stopped-run archives,16 controls, successful `full-suite-retry.*`
-and unexecuted `next-entry-proposals.*`, each read back against its manifest.
-Latest capture `/tmp/hp1020-udc-acquire-4q8orm5x`; full log
-`/tmp/hp1020-full-acquisition-retry-20261003.log`, child `hp1020-validation.glwQ3y`.
-The full retry and its validation processes have finished.
+## Next action: continuous USB runtime
 
-## Next action: one entry through a RAM document
+Join unchanged TinyUSB/class/receive/document/image and SETUP/EP0/OUT/program/
+publication/acquisition in one entry-owned runtime. A small separate RAM provider
+supplies platform facts; do not embed the large component fixtures or require HP
+private object layouts. Frozen proposal, independent schedule/literals and new
+split-object linker/startup are under`/tmp` and in
+`analysis/boot-handoff/entry-ram/source-snapshots/next-runtime-specifications.*`.
+The detailed contract and paths are in the one-entry section of
+`analysis/open-firmware-model/next-evidence.md`. **No new runtime C/build/execution
+yet.** Root reviews the public provider/header and independent addendum before
+implementation; agents are doing static contract/layout review only.
 
-Commit/push the acquisition checkpoint, then integrate and freeze the loader-
-entry-to-C experiment. Existing component tests supply CPU/stack per call;
-the next candidate must establish its own CPU state, stack and complete BSS,
-process the existing small page continuously, and return to its own inert park.
-Keep full production capacities; the new layout deliberately reuses HP private
-runtime locations inside original ELF-declared spans. Loader compatibility,
-actual RAM attributes and physical boot are unproved.
-
-Root independently checked original byte/layout evidence. Assembly/linker, C
-workload, compiler-layout witness, independent literal oracle and concrete/linked
-audits are drafted and reviewed. **No startup candidate has been built or run.**
-`next-entry-proposals.*` preserves their exact state, root runner V1/V2, QEMU
-adapter V1 and reviews. A stopped debugger-description probe ran no instructions;
-official QEMU11.1.1 sources establish INTENABLE110 (not the binutils map's83).
-QEMU V2 cleanup/metadata corrections are now separately frozen; the independent
-capture-only gate is still being drafted.
-
-Working paths: `/tmp/hp1020-entry-integration-20261003/`,
-`/tmp/hp1020-entry-{startup,workload,layout-witness}-draft-20261003/`,
-`/tmp/hp1020-entry-audit-v2-20261003/`,
-`/tmp/hp1020-entry-qemu-adapter-v2-20261003/`. The detailed next-evidence section
-owns the contract. First build/audit only; review actual call/callback/libgcc
-frames before execution. Then six paired CPU/paint cases, unchanged independent
-gate and meaningful controls. Preserve first failures before repairs. Final
-PASS/pixels cannot substitute for pre-C zeroing, pre-finish event/state, full
-memory/stack captures or uninterrupted execution/host-command records.
-Root owns sequential execution; agents stay static.
+First schedule: reset, raw configuration with actual EP0 status settlement,
+three supplied recovery promises, two documents without per-document close or
+finish. Generation is2; events are(2,1,0,1)/(2,2,1,1), output64 FF bytes.
+At the first actual close_input entry, eagerly rearmed sequence13 is still owned.
+Close only closes input: supply a successful final zero-length OUT acquisition,
+then service/pump that empty reservation before one finish/park. Never infer EOF
+or cancellation from that ZLP. Separate the114704-byte full memory from smaller
+state, preserve initialized TinyUSB data, and re-audit the larger linked closure
+and stack. The old784-byte bound does not transfer. Mid-document reset/late-cookie
+replay is a later distinct variant. Root owns all sequential builds/validation.
 
 Pinned binutils/GCC were recovered with unchanged gates; disposable headers,
-libgcc and subordinate tools can vanish independently. Use recovery scripts in
-the map. Boot/IRQ producers, real cache/mapping/settlement, engine behavior,
-physical status/printing and power-cycle recovery remain unproved. Retain the
-separate26 empty-document lifecycles, six conditional null reads,28 retirement,
+libgcc and subordinate tools can vanish independently. Use the recovery map.
+Physical boot/RAM attributes, IRQ producers, real cache/mapping/settlement,
+engine/status/printing and power-cycle recovery remain unproved. Keep separate
+26 native empty-document lifecycles, six conditional null reads,28 retirement,
 36 native pages with supplied completion and42 fragment/bypass cases. Do not
 repeat resolved cancellation/END_DOC or original IRQ/SETUP investigations.
 
@@ -81,11 +73,7 @@ Apple's renderer, unchanged foo2zjs and a per-job CUPS backend provide the worki
 HP-based setup. CUPS owns copies/queueing/job lifetime. README owns clone/install/
 uninstall; MANIFEST owns validation/recovery. No app/package, ZIP or Homebrew
 runtime is required. Do not restore the obsolete daemon/runtime.
-
 Support checks passed35 printing,14 setup, three sandbox and five actual macOS
-scheduler cases with simulated transport. Installed signatures/ownership/bytes
-matched and the queue was empty/idle; actual copies/status/recovery and fresh-Mac
-installation remain unverified. `assets/macos-system-validation.json` and
-`/private/tmp/hp1020-system-install-20260928-2/` hold evidence; root-only backup is
-`/private/tmp/hp1020-native-migration-backup-20260928/`. System checks require
-separate authorization. No physical print occurred here.
+scheduler cases with simulated transport. Actual copies/status/recovery and
+fresh-Mac installation remain unverified; `assets/macos-system-validation.json`
+retains evidence. Installed-system checks require separate authorization.

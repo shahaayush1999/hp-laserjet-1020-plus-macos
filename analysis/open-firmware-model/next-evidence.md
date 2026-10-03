@@ -2013,13 +2013,15 @@ durable first-run archive. These controls execute no target firmware. Historical
 UNEXECUTED comments in the frozen tested sources record drafting provenance;
 the reports and exact saved source hashes establish their later tested state.
 
-### One entry through a RAM document: unexecuted preparation (2026-10-03)
+### One entry through a RAM document (2026-10-03)
 
 Current component tests link at synthetic20000000 and receive CPU/stack state
 separately per call. The selected next experiment establishes its own standard
 CPU state, call0 stack and all BSS, then runs the existing production RAM document
 path continuously. No USB/MMIO/cache/TLB/engine operation or upload .dl is added.
-This remains unbuilt/unexecuted; actual ROM entry, mappings and boot are unproved.
+The candidate passes strict instruction-property auditing and six continuous
+interpreter/QEMU cases, with an unchanged independent raw-capture gate. Actual
+ROM entry, mappings and boot are unproved.
 
 Root independently matched five saved original byte blocks,28 anchors,11 PT_LOAD
 records and entry against the exact stock ELF. Original entry starts ENTRY before
@@ -2064,16 +2066,154 @@ Includes `/tmp/hp1020-entry-{startup,workload,layout-witness}-draft-20261003/`,
 original-byte/layout evidence and QEMU V1/reviews. Root runner V1/V2 and all
 pre-execution corrections remain separate. Later QEMU V2 is frozen at
 `/tmp/hp1020-entry-qemu-adapter-v2-20261003/`, correcting only cleanup,
-partial-constructor identity and rejected-command logging; the capture-only
-gate is still being drafted. Neither is claimed by the proposal archive.
+partial-constructor identity and rejected-command logging. The capture-only
+gate is frozen and peer-reviewed. Neither is claimed by the proposal archive.
 
-Next: integrate/freeze the final drafts, first build and strict linked audit
-only, then independently review actual call/callback/libgcc frames before any
-execution.8KiB is a budget, not a proven all-input maximum. Preserve build/audit
-failures and actual tool/header/libgcc closure. Run six profiles sequentially,
-unchanged independent gate and frozen meaningful controls. Runtime must reject
-accesses outside exact spans before effects. Source-only review and paired RAM
-results add zero native HP or physical lifecycles.
+Three audit-only attempts are now preserved in
+`analysis/boot-handoff/entry-ram/source-snapshots/`: `first-assembly-stop.*`,
+`second-link-stop.*`, `third-property-stop.*`. The first capture
+`/tmp/hp1020-entry-ram-uv7ksla8` failed because pinned GAS reserves a possible
+CALL0 relaxation literal before its later no-longcalls decision. A local
+no-transform block around the checkpoint/CALL0/park preserves the intended
+direct call and adjacency. Pinned GAS source and independent recommendation are
+in `/tmp/hp1020-entry-call0-review-20261003/`. Second capture
+`/tmp/hp1020-entry-ram-7x7w9oa3` exposed five known nonallocated libgcc DWARF
+sections, now explicitly retained at0/:NONE with no runtime permissions.
+
+Third capture `/tmp/hp1020-entry-ram-26izpj9h` links exact ELF
+SHA256`7e0cc607f02f3b28a6b585c5e689cea6d880621b80f07a06bd1ceff5edbdb11b`;
+13-load/18-allocation checks pass. The audit stops on actual modern properties:
+kind0/UNREACHABLE zero padding, a six-byte mixed INSN|DATA|NO_TRANSFORM block
+containing the exact direct CALL0/park, linker alignment fill, and libgcc's
+noninstruction DIV0 marker need narrow classifications. Neither arbitrary DATA
+nor padding becomes executable. Primary metadata/GAS/libgcc evidence and the
+independent emitted-byte review precede any audit correction. These are build/
+audit failures, not failed or completed startup executions. Exact partial C
+objects, target files, sources and logs are preserved; third capture includes
+resolved compiler/subordinate tools, libgcc and target header provenance.
+
+The fourth audit-only run `/tmp/hp1020-entry-ram-kne0h7xl` passes with that exact
+unchanged ELF and audit V3 SHA256
+`2f990f9f57731c49d8931138d32ce100fecd1d2fed722354f6c01117e52042eb`.
+`first-linked-audit-pass.*` preserves163 files, archive SHA256
+`053a4745fb511b5a898b02e520c76a41cc25fdbdd9c225ca422f6cdf6dbb2466`.
+All69 source files,36 target files and the original ELF identity were verified.
+No candidate instruction is credited to this audit-only pass.
+
+Independent actual linked call/frame review is frozen in
+`/tmp/hp1020-entry-linked-review-20261003/`: REVIEW.md SHA256
+`07649455bc5b6c32116d4c333fc4c24b143eb780985acceb800cc688fe52fdea`.
+The source-bound graph has61 reachable functions, nine fixed callback sites,
+13 literal tail calls and four bounded intra-function switch tables. Every
+reachable SP write matches a static frame; the sole libgcc divide helper uses
+no stack/calls. Conservatively adding even restored tail frames yields784 bytes
+within the8KiB budget. This excludes asynchronous exceptions and is specific to
+the fixed workload/callback bindings, not an all-input or corruption guarantee.
+
+The integrated runner requires the independent capture gate before real target
+execution; audit-only may explicitly record it absent while that gate is drafted.
+It paints BSS only after file-byte overlay, preserves old/partial targets in each
+fresh capture and fails nonzero if final source sealing changes. Its later
+pre-execution source correction also preserves tool/header closure on build stops.
+
+The first actual six-case capture `/tmp/hp1020-entry-ram-ssc7nafg` passes both
+engines and unchanged checker V2 SHA256
+`a792e16d4040c75953c7fb43466adf6787bf91efd625f1d6683764ac7bcf5dfe`.
+Peer review found only a missing saved-disassembly seal; that narrow check was
+added before any candidate instruction. The frozen literal oracle is unchanged.
+`pre-execution-reviews.*` preserves138 files, archive SHA256
+`e2ea81ee87ba167e664932ff92edee2284d5b46b74a32253c56d6b5953574471`.
+`first-six-continuous-cases.*` preserves970 files, archive SHA256
+`294aa7d35b368cdeb519cf4625a359b9f34d470f1030ecbee809184d28a7cb7d`.
+Every archived member was read back, including the exact70-source snapshot.
+
+Each case runs1536963 concrete instructions,174297 reads and93906 writes.
+Minimum SP is10013d30 (720 bytes below own top); lowest observed stack access
+is10013d34. Both paints show656 changed bytes; paint does not count stores equal
+to the original fill. Each QEMU ledger has927 commands,98 in its only seed.
+All30 paired full checkpoints and12 actual QEMU self-park steps agree; the
+independent checker replays actual access records and reconstructs every native
+host command/reply. Its selected instruction decoding is not a second complete
+arithmetic/branch CPU model. Original event/pixels precede explicit finish.
+These cases add zero native HP or physical lifecycles.
+
+The reviewed durable-publication/shared-suite additions now pass the full
+sequential suite:132 consistency checks and both offline suites. The accepted
+`capture.tar.gz` seals every raw member; shared consistency extracts only bounded
+regular relative members and runs the unchanged capture gate against their bytes
+and current source closure, without old tool/capture paths. Publication stages
+all files first and replaces the exact report last; incomplete publication cannot
+form a newly accepted checkpoint. Capture archive SHA256 is
+`e445efe40c309525e8671bb83f6c99ac41bb003aae4befdaadd2c56b91c0b091`.
+Full log `/tmp/hp1020-full-entry-20261003.log`, child`hp1020-validation.UTdequ`.
+`/tmp/hp1020-entry-full-comparison-20261003.json` checks all eleven prior component
+case arrays unchanged and all six entry model/native states, traces and debugger
+commands/replies identical except explicitly named process/time identities.
+The only changed entry source is its publication runner, SHA256
+`f61fe39ae28a48bd8712e62c2fa4afa7c6688cdfb8fcd66f80a618a6d5f7f216`.
+
+All37 copied-evidence controls pass:34 paired-memory/CPU/ledger/source cases plus
+three input/linked-input/layout-literal cases. They preserve the original positive
+capture and consistently reseal redundant fields to reach the exact intended
+independent assertion; no target is rerun or checker relaxed. All30 isolated
+interpreter guards pass:28 rejections/two permitted reads. Most reject before an
+effect; CALL0/SP tests retain their actual dispatch/return-register prefix, and
+the injected park-write test detects a write after its effect, without rollback.
+These supplied phase contexts are not startup lifecycles or QEMU observations.
+The first root guard wrapper stopped before module execution when its in-memory
+audit types differed from JSON types. Fresh/saved serialized audits are identical;
+the retry consistently serializes both without removing a field. All exact first
+wrapper inputs and stopped log are preserved. Target/audit/interpreter/gate remain
+unchanged. `completed-controls.*` preserves2457 members, archive SHA256
+`0e3d818e209a3b0b03f4d66368c9226a6a490439d7c060a545b6abb3aa84b8ec`.
+The34 full altered captures reconstruct exactly from one unchanged baseline plus
+per-case overlays and complete reconstructed member manifests. Separate literal
+controls, all raw guard evidence and the wrapper stop/retry are included.
+`full-suite-pass.*` preserves the accepted archive, reports, full logs and exact
+baseline comparison (31 members, archive SHA256
+`ba075b07d6a60fbc680b7ce58c99835b6230a27c5631a2e3f5782107f206fb85`).
+8KiB remains a budget, not an all-input maximum. Actual ROM
+entry, physical RAM attributes, cache/DMA/USB and engine output remain open.
+
+The accepted next experiment is a continuous USB runtime, still unimplemented.
+The static proposal `/tmp/hp1020-next-entry-runtime-proposal-20261003.md`
+(SHA256`cfaac969ba7e8ac3aa5888df8739ddfe9ea75295cbdfb48016d76fe6635aeb08`)
+uses unchanged TinyUSB and current SETUP/EP0/OUT/program/publication/acquisition
+components, with a separate synthetic platform provider rather than nested test
+fixtures. Existing production code/rodata sums45338 bytes and mutable/file-backed
+data129815. Together with stack/mailbox/sentinel this is184625 before new glue,
+constants, alignment and guards, within the205280-byte main declared envelope;
+this is map arithmetic, not a linked-image result. The24KiB current code budget
+must change. Split document memory114704 from smaller state; do not place the
+fixture's combined128588-byte allocation across the retained entry island.
+
+New startup must preserve TinyUSB's29 initialized bytes and zero its generic
+BSS/bound pointer as well as application objects once. Frozen new linker/startup
+is`/tmp/hp1020-usb-runtime-layout-draft-20261003/`; independent plan/literals are
+`/tmp/hp1020-entry-usb-independent-plan-20261003.md` and
+`/tmp/hp1020-entry-usb-independent-literals-20261003.py` (plan
+SHA256`7818a09ed83fbfedc1b39b35524e1fc0f11a3b4480d0a5a8e2fe1970e84adac4`,
+literals`13194a8d608de407cf9c513f59cf5b1a80a1c3cdeac4ea08b71ebb9602272b95`).
+`next-runtime-specifications.*` preserves them as unexecuted specifications.
+The exact public provider/header and independent layout review are pending;
+root must approve them and obtain the oracle addendum before runtime C begins.
+No new runtime C has been written or executed. The first bounded schedule uses raw configuration
+as an explicitly supplied software-delivery profile, then two documents without
+per-document finish. Initial binding recovery advances receive toG2; expected
+events are(2,1,0,1) and(2,2,1,1), with64 FF pixels. At the first actual close_input
+entry an eagerly rearmed OUT still ownsG2/sequence13: close does not cancel it.
+Use a separately supplied successful zero-length acquisition to settle/pump that
+reservation before final finish/park. That ZLP is ordinary input, never inferred
+EOF. Mid-document reset/late-cookie replay belongs to a later distinct variant.
+
+Proposed split layout: code53216 bytes at10003000, generic BSS cap16352 at10010000
+(exact13496-byte document first), stack8192 at10014020, mailbox1024 at10016060,
+actual initialized data under96 bytes at100164a0, sentinel256 at10016500,
+unchanged entry island, full memory at10016800 and witness cap10176 at10032830.
+Zero actual nonempty used spans only; preserve unused budgets/guards and all
+initialized bytes. The old784-byte stack bound does not transfer. Dirty incoming
+loops move to10035080..100350a0 and100350c0..100350e0 so they cannot intercept the
+new normalization prefix. Exact new linked sizes/properties/branches remain open.
 
 ### Original SETUP ingress and corrected legacy evidence (2026-09-29)
 

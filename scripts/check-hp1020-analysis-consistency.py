@@ -7,6 +7,8 @@ import csv
 import hashlib
 import json
 import runpy
+import tarfile
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -2181,6 +2183,52 @@ def usb_offload_consistency_gate(root, capture_root=None):
     except (OSError, ValueError, KeyError, TypeError, IndexError, OverflowError) as error:
         return False, 'offload transcript incomplete: '+str(error)
     return not bad, '; '.join(sorted(bad)) if bad else 'paired typed offload owners, grants, original identities and guarded captures agree; no physical USB claim'
+
+
+def entry_capture_archive_gate(root):
+    """Check committed raw evidence without relying on disposable run paths."""
+    try:
+        root = Path(root)
+        folder = root / "analysis/boot-handoff/entry-ram"
+        manifest = json.loads((folder / "capture-manifest.json").read_text())
+        payload = folder / "capture.tar.gz"
+        if (manifest["schema"] != "hp1020-entry-capture-v1"
+                or payload.stat().st_size != manifest["archive_bytes"]
+                or payload.stat().st_size > 32 * 1024 * 1024
+                or hashlib.sha256(payload.read_bytes()).hexdigest() != manifest["archive_sha256"]):
+            raise ValueError("exact bounded entry capture archive seal")
+        with tempfile.TemporaryDirectory(prefix="hp1020-entry-evidence-") as directory:
+            capture = Path(directory)
+            with tarfile.open(payload, "r:gz") as archive:
+                members = archive.getmembers()
+                names = [m.name for m in members]
+                if (len(names) != len(set(names)) or len(names) != manifest["members"]
+                        or set(names) != set(manifest["member_sha256"])
+                        or sum(m.size for m in members) > 128 * 1024 * 1024):
+                    raise ValueError("exact bounded entry archive members")
+                for item in members:
+                    name = Path(item.name)
+                    if (not item.isfile() or name.is_absolute() or ".." in name.parts
+                            or item.size > 32 * 1024 * 1024):
+                        raise ValueError("ordinary relative entry archive member")
+                    raw = archive.extractfile(item).read()
+                    if hashlib.sha256(raw).hexdigest() != manifest["member_sha256"][item.name]:
+                        raise ValueError("entry archive member byte seal: " + item.name)
+                    destination = capture / name
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    destination.write_bytes(raw)
+            if (capture / "validation.json").read_bytes() != (folder / "validation.json").read_bytes():
+                raise ValueError("published entry report must be the exact archived report")
+            checker = runpy.run_path(str(root / "scripts/check-hp1020-entry-ram.py"))["check_capture"]
+            ok, detail = checker(capture, source_root=root)
+            if not ok:
+                return False, detail
+            saved = json.loads((capture / "independent-gate.json").read_text())
+            if saved != dict(ok=ok, detail=detail):
+                raise ValueError("saved independent entry gate differs from recovered raw check")
+            return True, detail
+    except Exception as error:
+        return False, "Entry capture archive consistency failure: " + str(error)
 
 
 def build_report() -> dict[str, Any]:
@@ -5583,6 +5631,11 @@ def build_report() -> dict[str, Any]:
     checks.append(check(
         "bulk_acquisition_preserves_original_owner_ordered_cpu_visibility_and_recovery",
         acquire_ok, acquire_detail, evidence="analysis/usb-path/udc-acquire/validation.json"))
+
+    entry_ok, entry_detail = entry_capture_archive_gate(ROOT_DIR)
+    checks.append(check(
+        "single_entry_establishes_own_cpu_stack_bss_and_continuous_ram_document",
+        entry_ok, entry_detail, evidence="analysis/boot-handoff/entry-ram/validation.json"))
 
     fail_count = severity_count(checks, "fail")
     return {
