@@ -229,6 +229,11 @@ static bool publish_fixture_bulk_xfer(uint8_t rhport,uint8_t endpoint,uint8_t *b
             memcpy(composed_published_bytes,composed_out_shadow,16);
             composed_out_state.publications++;
         }
+#ifdef HP1020_COMPOSED_ACQUIRE
+        /* Actual original binding exists, but the initiating adapter/TinyUSB
+         * callback has not unwound. Acquisition must refuse without hooks. */
+        acquire_fixture_callback_probe(owner.cookie);
+#endif
     } else if (r == HP1020_UDC_PUBLISH_OK || cookie.id ||
         composed_out.phase != HP1020_UDC_OUT_FREE) publish_violation();
     composed_check();

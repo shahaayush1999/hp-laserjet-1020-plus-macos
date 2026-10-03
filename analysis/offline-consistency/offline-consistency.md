@@ -6,7 +6,7 @@ It does not contact the printer.
 ## Result
 
 - status: `pass`
-- checks: `130`
+- checks: `131`
 - failures: `0`
 - meaning: The inert USB bulk receive/framing implementation is internally consistent offline; guarded hardware execution and controller behavior remain unproven, and printing is not implemented.
 
@@ -144,6 +144,7 @@ It does not contact the printer.
 | `typed_offload_preserves_original_status_owners_and_explicit_cleanup` | `watch` | paired typed offload owners, grants, original identities and guarded captures agree; no physical USB claim | `analysis/usb-path/udc-offload/validation.json` |
 | `controller_programming_preserves_exact_commands_original_failures_and_status_ownership` | `watch` | 28 paired cases; 1876 raw event rows; independent command/pixel/owner/cleanup contracts; report-only capture digests checked | `analysis/usb-path/udc-program/validation.json` |
 | `bulk_publication_preserves_preflight_exact_ranges_original_owner_and_cleanup` | `watch` | 40 paired cases; 4784 raw event rows; independent publication/pixel/original-owner/cleanup contracts; report-only capture digests checked | `analysis/usb-path/udc-publish/validation.json` |
+| `bulk_acquisition_preserves_original_owner_ordered_cpu_visibility_and_recovery` | `watch` | 32 paired cases; 3372 event rows; independent original-owner/acquisition/visibility/recovery contracts; report-only independent capture digests | `analysis/usb-path/udc-acquire/validation.json` |
 
 ## Practical Meaning
 

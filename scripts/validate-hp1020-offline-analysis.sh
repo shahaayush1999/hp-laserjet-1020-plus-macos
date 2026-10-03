@@ -383,6 +383,9 @@ run_step "Verify endpoint programming and failure cleanup through recording RAM 
 run_step "Verify synchronous OUT publication and original-cookie cleanup through recording hooks" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-udc-publish.py" --target
 
+run_step "Verify retained OUT acquisition and ordered CPU visibility through recording hooks" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-udc-acquire.py" --target
+
 run_step "Regenerate USB parser shim contract" \
   "$ROOT_DIR/scripts/model-hp1020-usb-parser-shim-contract.py"
 

@@ -1,0 +1,12 @@
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:12:13:cpu_overlap	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:16:37:enter	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:33:37:adapter_result	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:52:30:hp1020_udc_setup_init	32	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:68:30:hp1020_udc_setup_offer	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:100:30:hp1020_udc_setup_dispatch	48	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:130:30:hp1020_udc_setup_bus_reset	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:160:30:hp1020_udc_setup_offer_offload	16	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:186:30:hp1020_udc_setup_dispatch_offload	48	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:241:30:hp1020_udc_setup_ack_programming_cleanup	32	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:252:10:hp1020_udc_setup_progress	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-setup/hp1020_udc_setup.c:217:30:hp1020_udc_setup_take_auto_status	64	static

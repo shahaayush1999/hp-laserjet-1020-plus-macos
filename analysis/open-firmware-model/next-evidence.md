@@ -1922,14 +1922,158 @@ descriptor16 and payload64 through mandatory hooks, order, copy actual CPU memor
 then reuse the existing OUT observer. Physical settlement remains separately
 supplied. No caller snapshot/visibility flag should stand in for those operations.
 Preserve old-cookie settlement while forward progress is blocked, original fault/
-cancel ownership and historical observer tests. Reviewed C/H V1/V2, the fixture/
+cancel ownership and historical observer tests. Earlier reviewed C/H V1/V2, the fixture/
 codec/builder, independent32-profile plan and incomplete root runner fragments are
 preserved in `udc-publish/source-snapshots/next-acquisition-proposals.*`. Its
 `RESUME.md` records the remaining scenario/gate integration. V2 narrows init wording
 only: adapter preparation and owners are checked; retained receive accounting is
-never cleared. Acquisition drafts remain unexecuted. Finish scenario/gate review
-before first execution. The fixture-only separate device/poisoned-CPU image checks
-which bytes are used without pretending to emulate a physical cache.
+never cleared. The completed integration and first execution are recorded below;
+the earlier proposal archive remains an unexecuted historical snapshot.
+
+### Retained OUT1 acquisition (2026-10-03)
+
+The first focused experiment passed **32 sanitized host/32 audited QEMU cases**,
+3372 paired event rows and384 paired raw captures. The independently frozen V2
+gate passed unchanged in report-only and raw-capture modes. No production,
+fixture, scenario or acquisition-checker correction followed execution. Full
+sequential `scripts/validate.sh` retry passed131 consistency checks and both
+offline suites. All eleven component host/target case arrays and raw capture
+identities match their pre-run baselines.
+
+`hp1020_udc_acquire.h` adds a152-byte target configuration/diagnostic object;
+the original OUT object remains80 bytes, publisher140, backend88, EP0296,
+SETUP96 and adapter/document128588. There is no second owner, queue, descriptor
+decoder or cancellation implementation. The historical observer's locked policy
+is shared, so old observer cases must remain separate regression evidence.
+
+Normal acquisition checks the exact retained cookie AND actual adapter DCD owner
+before mandatory descriptor16, payload64 and acquire-order hooks. It then copies
+the real CPU descriptor once and uses the existing observer. The callback must
+have unwound; private probes challenge actual callback/hook busy state without
+writing a fabricated busy flag. Missing facts, malformed facts, PREPARED and
+stale/FREE/PENDING identities leave the promised state/bytes untouched. Physical
+settlement, stable mappings, safe complete cache-line envelopes and real acquire
+primitives are still supplied; no hook return establishes them.
+
+The fixture has separate immutable device images and deliberately poisoned CPU
+storage. Every hook checks the actual original span and reconstructs allowed
+visibility from independent input. NOT_PERFORMED changes no bytes; the chosen
+UNKNOWN effect copies only half of that range. Failures retain the exact first
+cookie/prefix and create no snapshot; retries report the latched fault without
+running a cache tail. Later G3 success preserves the first G2 failure. A fully
+acquired not-DONE descriptor instead returns WAIT and a later call acquires all
+three operations afresh. This is explicit RAM behavior, not a simulated cache.
+
+Exact old-cookie settlement remains possible while SETUP is held, after actual
+reset admission or after an exposed publisher failure. Success ends only OUT
+ownership; the adapter remains PENDING until service. Cancellation, owner
+drainage, publisher cleanup and the three reset promises stay separate. Normal
+acquisition protects all receive/recovery words before service and cannot parse,
+consume, emit wire data, grant recovery or notify a document.
+
+The16 fixed profiles use fills0/204, all four prefixes, zero/short/full packets,
+nine fact refusals, five cookie mutations, real callback/hook reentry, same-
+address reuse, both publication-failure phases and six acquisition-hook failures.
+Each ends with exactly32 FF pixels and one independently reconstructed END_DOC
+in its specified G2/G3. Only the held GET_CONFIGURATION profile emits IN01 and
+OUT0 status. Its initial missing-facts dispatch WAIT retains the original request;
+the later same-sequence full-facts retry admits once. These cases add zero native
+stock or physical lifecycles. Four measured size words59/425/490/555 are excluded
+from576-word equality and separately bound to actual measured target sizes.
+
+`analysis/usb-path/udc-acquire/source-snapshots/pre-execution-integration.*`
+preserves the completed scenario, root runner, independent reviews and gatesV1/V2.
+V2 corrected the pre-execution held-dispatch ABI assumption, strengthened the
+pre-service recovery invariant and seals actual materialized TinyUSB bytes in
+raw mode. The independent literal oracle is unchanged. `first-paired-32-cases.*`
+contains the exact152-source/six-fixture closure, target, inputs, full raw captures
+and both gate logs. First log `/tmp/hp1020-acquisition-first-20261003.log`; captures
+`/tmp/hp1020-udc-acquire-y7t6kkii`. All archive members were read back and checked.
+
+The first full run completed execution but stopped at three stale exact source
+counts among131 gates. The only new key was `hp1020_udc_acquire.h`: OUT97→98,
+composed117→118, offload126→127. Independent static review confirmed that narrow
+correction; OUT/offload gained explicit header membership, while composed's exact
+union and all semantic/source/artifact checks stayed intact. No expected-result
+or report-hash repair occurred. `first-full-consistency-stop.*` seals the first
+acquisition run and aggregate failure; `legacy-count-consistency-stop.*` retains
+all three affected raw captures and all eleven baseline reports. Successful
+`full-suite-retry.*` seals the later capture `/tmp/hp1020-udc-acquire-4q8orm5x`,
+both full logs, exact corrected generator, independent review and eleven-way
+comparison. Full log `/tmp/hp1020-full-acquisition-retry-20261003.log`, child
+`hp1020-validation.glwQ3y`; archive SHA256
+`142c130b684e34d80b78960704ffb828d4fe64d4869759cc3e05a1c493055471`.
+
+`copied-evidence-controls.*` preserves16 independently designed controls using
+the unchanged V2 gate. Fifteen paired semantic corruptions fail both report/raw
+modes; a sixteenth changes actual saved effective TinyUSB bytes and correctly
+passes report-only but fails raw source sealing. Baseline raw checks pass before
+and after. The delta archive verifies every unchanged reference against the
+durable first-run archive. These controls execute no target firmware. Historical
+UNEXECUTED comments in the frozen tested sources record drafting provenance;
+the reports and exact saved source hashes establish their later tested state.
+
+### One entry through a RAM document: unexecuted preparation (2026-10-03)
+
+Current component tests link at synthetic20000000 and receive CPU/stack state
+separately per call. The selected next experiment establishes its own standard
+CPU state, call0 stack and all BSS, then runs the existing production RAM document
+path continuously. No USB/MMIO/cache/TLB/engine operation or upload .dl is added.
+This remains unbuilt/unexecuted; actual ROM entry, mappings and boot are unproved.
+
+Root independently matched five saved original byte blocks,28 anchors,11 PT_LOAD
+records and entry against the exact stock ELF. Original entry starts ENTRY before
+normalization; the new entry instead uses a stack-free jump. Privilege, usable
+owned loaded RAM, PC-relative literals and no asynchronous IRQ/NMI/debug event
+are supplied. Dirty loop endpoints must not intercept the initial prefix before
+LCOUNT is cleared. No original full cache/TLB initializer is admitted.
+
+The proposed layout stays within original-declared main10003000..100351e0:
+code/literals/input10007000..1000d000; initialized sentinel256 at1000d020;
+state13496 at1000e000; owned stack8192 at10012000; mailbox1024 at10014040;
+entry island10016780..100167e0 with entry100167a8; full production memory114704
+at10016800..10032810. It deliberately reuses HP private runtime locations.
+Six additional original-declared vector/interface islands hold new inert bytes.
+Seven backing/capture envelopes do not replace the exact13 PT_LOAD/18 allocated
+section permissions. Paint the whole envelopes, overlay file-backed bytes only,
+then poison all three BSS spans and stack. Never zero NOBITS in the harness.
+
+Independent literals were frozen before candidate review. Three supplied CPU
+profiles and two nonzero BSS/stack paints yield six paired runs. Observe actual
+after-normalization, pre-C, first production document-finish entry and own park;
+full pre-C BSS scan/immutable checks, exact352-byte input, six64/32-byte fragments,
+32 FF pixels and original event(1,1,0,1) are independent expectations. The event
+must already exist before explicit finish. A const65-word compiler layout witness
+must match separate hand-derived target32 offsets before state fields are read.
+Compare all observed CPU fields/32 physical ARs/current aliases and full RAM,
+including stack; two actual park self-jumps must produce no new effect.
+
+The first stopped QEMU register-description probe executed zero instructions;
+this binary does not provide the XML packet. Exact official QEMU11.1.1 source
+pins establish INTENABLE110, logical aliases124..139, and no absolute-literal
+mode. Binutils' optional-register map differs:37 is PREFCTL and83 is DBREAKC0
+here, neither an admitted seed. Seed WB before all physical ARs and read back
+aliases. The separate direct adapter allows one initial seed, then ordered
+read-only captures/breakpoints/continues and two park steps. Preserve every
+command/reply; no reset/call helper or addressed PC repair joins phases.
+
+`udc-acquire/source-snapshots/next-entry-proposals.*` seals257 proposal/review
+members, SHA256`8ebe9c82b7b75302268bbfed1c6c8684d1490b66bdd8a04db8f26a76792a5b26`.
+Includes `/tmp/hp1020-entry-{startup,workload,layout-witness}-draft-20261003/`,
+`/tmp/hp1020-entry-integration-20261003/`, audit V1/V2, literal plan/oracle,
+original-byte/layout evidence and QEMU V1/reviews. Root runner V1/V2 and all
+pre-execution corrections remain separate. Later QEMU V2 is frozen at
+`/tmp/hp1020-entry-qemu-adapter-v2-20261003/`, correcting only cleanup,
+partial-constructor identity and rejected-command logging; the capture-only
+gate is still being drafted. Neither is claimed by the proposal archive.
+
+Next: integrate/freeze the final drafts, first build and strict linked audit
+only, then independently review actual call/callback/libgcc frames before any
+execution.8KiB is a budget, not a proven all-input maximum. Preserve build/audit
+failures and actual tool/header/libgcc closure. Run six profiles sequentially,
+unchanged independent gate and frozen meaningful controls. Runtime must reject
+accesses outside exact spans before effects. Source-only review and paired RAM
+results add zero native HP or physical lifecycles.
 
 ### Original SETUP ingress and corrected legacy evidence (2026-09-29)
 

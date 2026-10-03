@@ -317,6 +317,9 @@ static int composed_capture_same(void) {
 }
 static void composed_check(void) {
     check_owned(); ep0_check();
+#ifdef HP1020_COMPOSED_ACQUIRE
+    acquire_fixture_check();
+#endif
 #ifdef HP1020_COMPOSED_PUBLISH
     publish_fixture_check();
 #endif
@@ -599,6 +602,9 @@ uint32_t hp1020_bulk_fixture_reset(uint32_t fill, uint32_t capacity,
 #ifdef HP1020_COMPOSED_PROGRAM
     if (!r) r = program_fixture_init(fill);
 #endif
+#ifdef HP1020_COMPOSED_ACQUIRE
+    if (!r) r = acquire_fixture_init(fill);
+#endif
     composed_setup_state.result = r; state.initialized = r;
     composed_check(); snapshot(r); ep0_snapshot(); composed_snapshot();
 #ifdef HP1020_COMPOSED_OFFLOAD
@@ -606,6 +612,9 @@ uint32_t hp1020_bulk_fixture_reset(uint32_t fill, uint32_t capacity,
 #endif
 #ifdef HP1020_COMPOSED_PROGRAM
     program_fixture_snapshot();
+#endif
+#ifdef HP1020_COMPOSED_ACQUIRE
+    acquire_fixture_snapshot();
 #endif
     return r;
 }
@@ -642,6 +651,13 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op, uint32_t a, uint32_t b, uint32_t 
         memcpy(&protected_memory, &memory.data, sizeof(memory.data));
         if (op < 80) {
             composed_out_state.steps++;
+#ifdef HP1020_COMPOSED_ACQUIRE
+            /* New normal completions obtain actual retained memory through
+             * mandatory acquisition; no arbitrary observer or CPU-write path. */
+            if (op == 62 || op == 65 || op == 66 || op == 67)
+                r = HP1020_UDC_OUT_INVALID;
+            else
+#endif
 #ifdef HP1020_COMPOSED_PUBLISH
             if (op == 60 || op == 61) r = HP1020_UDC_PUBLISH_INVALID;
             else
@@ -705,6 +721,9 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op, uint32_t a, uint32_t b, uint32_t 
 #ifdef HP1020_COMPOSED_PUBLISH
         else if (op >= 130 && op <= 134) r = publish_fixture_step(op,a,b,c,d);
 #endif
+#ifdef HP1020_COMPOSED_ACQUIRE
+        else if (op >= 140 && op <= 143) r = acquire_fixture_step(op,a,b,c,d);
+#endif
         else {
             composed_setup_state.steps++;
             if (op == 80) {
@@ -759,6 +778,9 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op, uint32_t a, uint32_t b, uint32_t 
 #endif
 #ifdef HP1020_COMPOSED_PROGRAM
     program_fixture_snapshot();
+#endif
+#ifdef HP1020_COMPOSED_ACQUIRE
+    acquire_fixture_snapshot();
 #endif
     return r;
 }

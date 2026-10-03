@@ -1,5 +1,6 @@
 /* SPDX-License-Identifier: GPL-2.0-or-later */
 #include "hp1020_udc_out.h"
+#include "hp1020_udc_acquire.h"
 #include <string.h>
 
 #define REASON_DESCRIPTOR_BODY UINT32_C(0x80000101)
@@ -164,46 +165,52 @@ enum hp1020_udc_out_result hp1020_udc_out_take_submission(struct hp1020_udc_out 
     return leave(s, HP1020_UDC_OUT_OK);
 }
 
-enum hp1020_udc_out_result hp1020_udc_out_observe(struct hp1020_udc_out *s,
+static enum hp1020_udc_out_result observe_locked(struct hp1020_udc_out *s,
     const struct hp1020_udc_out_observation *observation,
     struct hp1020_udc_out_completion_facts facts) {
-    enum hp1020_udc_out_result r = enter(s);
-    if (r) return r;
-    if (!observation) return leave(s, HP1020_UDC_OUT_INVALID);
-    if (!current(s, observation->cookie)) return leave(s, HP1020_UDC_OUT_STALE);
+    if (!observation) return HP1020_UDC_OUT_INVALID;
+    if (!current(s, observation->cookie)) return HP1020_UDC_OUT_STALE;
     if (facts.descriptor_cpu_visible > 1 || facts.transfer_settled > 1 ||
-        facts.payload_cpu_visible > 1) return leave(s, HP1020_UDC_OUT_INVALID);
-    if (s->fault_reason) return leave(s, report_fault(s));
+        facts.payload_cpu_visible > 1) return HP1020_UDC_OUT_INVALID;
+    if (s->fault_reason) return report_fault(s);
     if (observation->endpoint_fault) {
         s->fault_reason = observation->endpoint_fault;
-        return leave(s, report_fault(s));
+        return report_fault(s);
     }
     if (s->phase != HP1020_UDC_OUT_EXPOSED)
-        return leave(s, HP1020_UDC_OUT_INVALID);
-    if (!facts.descriptor_cpu_visible) return leave(s, HP1020_UDC_OUT_WAIT);
+        return HP1020_UDC_OUT_INVALID;
+    if (!facts.descriptor_cpu_visible) return HP1020_UDC_OUT_WAIT;
     const uint8_t *d = observation->descriptor;
     const uint32_t status = be32(d);
-    if ((status >> 30) != 2) return leave(s, HP1020_UDC_OUT_WAIT);
+    if ((status >> 30) != 2) return HP1020_UDC_OUT_WAIT;
     if (be32(d + 4) || be32(d + 8) != s->buffer.dma || be32(d + 12)) {
         s->fault_reason = REASON_DESCRIPTOR_BODY;
-        return leave(s, report_fault(s));
+        return report_fault(s);
     }
     const uint32_t count = status & UINT32_C(0xffff);
     if ((status & UINT32_C(0x30000000)) || !(status & UINT32_C(0x08000000)) ||
         count > HP1020_UDC_OUT_PACKET_BYTES) {
         s->fault_reason = REASON_DESCRIPTOR_STATUS;
-        return leave(s, report_fault(s));
+        return report_fault(s);
     }
     if (!facts.transfer_settled || !facts.payload_cpu_visible)
-        return leave(s, HP1020_UDC_OUT_WAIT);
+        return HP1020_UDC_OUT_WAIT;
     s->last_adapter_result = hp1020_tusb_adapter_complete(s->adapter,
         s->cookie, XFER_RESULT_SUCCESS, count);
     if (s->last_adapter_result == HP1020_TUSB_WAIT)
-        return leave(s, HP1020_UDC_OUT_WAIT);
+        return HP1020_UDC_OUT_WAIT;
     if (s->last_adapter_result != HP1020_TUSB_OK)
-        return leave(s, HP1020_UDC_OUT_ADAPTER_ERROR);
+        return HP1020_UDC_OUT_ADAPTER_ERROR;
     retire(s);
-    return leave(s, HP1020_UDC_OUT_OK);
+    return HP1020_UDC_OUT_OK;
+}
+
+enum hp1020_udc_out_result hp1020_udc_out_observe(struct hp1020_udc_out *s,
+    const struct hp1020_udc_out_observation *observation,
+    struct hp1020_udc_out_completion_facts facts) {
+    enum hp1020_udc_out_result r = enter(s);
+    if (r) return r;
+    return leave(s, observe_locked(s, observation, facts));
 }
 
 enum hp1020_udc_out_result hp1020_udc_out_request_cancel(struct hp1020_udc_out *s,
@@ -230,4 +237,146 @@ enum hp1020_udc_out_result hp1020_udc_out_cancelled(struct hp1020_udc_out *s,
         return leave(s, HP1020_UDC_OUT_ADAPTER_ERROR);
     retire(s);
     return leave(s, HP1020_UDC_OUT_OK);
+}
+
+/* UNEXECUTED acquisition draft. The context below has only configuration and
+ * diagnostic history. The original OUT state remains the sole descriptor
+ * phase/busy/fault authority, and the adapter remains the packet owner. */
+enum hp1020_udc_out_result hp1020_udc_acquire_init(struct hp1020_udc_acquire *c,
+    struct hp1020_udc_out *s, const struct hp1020_udc_acquire_hooks *hooks) {
+    if (!c || !s || !hooks || !cpu_span_valid(c, sizeof(*c)) ||
+        !cpu_span_valid(s, sizeof(*s)) || !cpu_span_valid(hooks, sizeof(*hooks)) ||
+        cpu_overlap(c, sizeof(*c), s, sizeof(*s)) ||
+        cpu_overlap(c, sizeof(*c), hooks, sizeof(*hooks)))
+        return HP1020_UDC_OUT_INVALID;
+    if (c->initialized || c->failure_valid || c->out || !s->initialized ||
+        !s->adapter || !s->adapter->initialized || s->adapter->config.ep_out != 1 ||
+        s->adapter->config.out_capacity != HP1020_UDC_OUT_PACKET_BYTES ||
+        !hooks->descriptor_for_cpu || !hooks->payload_for_cpu || !hooks->acquire_order)
+        return HP1020_UDC_OUT_INVALID;
+    const struct hp1020_tusb_adapter *a = s->adapter;
+    if (s->busy || s->phase != HP1020_UDC_OUT_FREE || s->fault_reason ||
+        s->fault_reported || s->cancel_requested || a->busy || a->stack_active ||
+        a->control_epoch || a->last_submission_id || a->prepared || a->delivering_live ||
+        a->response_owned || a->owners[0].state || a->owners[1].state || a->owners[2].state ||
+        !span_valid(s->descriptor, HP1020_UDC_OUT_DESCRIPTOR_BYTES) ||
+        cpu_overlap(c, sizeof(*c), a, sizeof(*a)) ||
+        cpu_overlap(c, sizeof(*c), s->descriptor.cpu, HP1020_UDC_OUT_DESCRIPTOR_BYTES))
+        return HP1020_UDC_OUT_INVALID;
+    /* Caller supplied zero-initialized first-use storage; no live/history
+     * state is ever accepted by the checks above as a reinitialization path. */
+    memset(c, 0, sizeof(*c));
+    c->out = s;
+    c->hooks = *hooks;
+    c->initialized = 1;
+    return HP1020_UDC_OUT_OK;
+}
+
+static void acquire_begin(struct hp1020_udc_acquire *c, struct hp1020_tusb_cookie cookie) {
+    memset(&c->last, 0, sizeof(c->last));
+    c->last.cookie = cookie;
+    c->last.result = HP1020_UDC_OUT_WAIT;
+}
+
+static enum hp1020_udc_out_result acquire_leave(struct hp1020_udc_acquire *c,
+    enum hp1020_udc_out_result result) {
+    c->last.result = result;
+    c->last.reason = c->out->fault_reason;
+    return leave(c->out, result);
+}
+
+static enum hp1020_udc_out_result acquire_failed(struct hp1020_udc_acquire *c) {
+    struct hp1020_udc_out *s = c->out;
+    /* No cache operation is retried after this latch, including definite
+     * NOT_PERFORMED. The hooks have returned; fault delivery is not reentrant
+     * from the initiating DCD submission or from a visibility callback. */
+    s->fault_reason = HP1020_UDC_ACQUIRE_REASON_IO;
+    c->last.reason = s->fault_reason;
+    c->last.result = report_fault(s);
+    if (!c->failure_valid || !same_cookie(c->first_failure.cookie, c->last.cookie)) {
+        c->first_failure = c->last;
+        c->failure_valid = 1;
+    }
+    return leave(s, c->last.result);
+}
+
+enum hp1020_udc_out_result hp1020_udc_acquire_packet(struct hp1020_udc_acquire *c,
+    struct hp1020_tusb_cookie cookie, uint32_t endpoint_fault,
+    struct hp1020_udc_acquire_facts facts) {
+    if (!c || !c->initialized || !c->out || !c->hooks.descriptor_for_cpu ||
+        !c->hooks.payload_for_cpu || !c->hooks.acquire_order)
+        return HP1020_UDC_OUT_INVALID;
+    struct hp1020_udc_out *s = c->out;
+    enum hp1020_udc_out_result r = enter(s);
+    if (r) return r;
+    if (!current(s, cookie)) return leave(s, HP1020_UDC_OUT_STALE);
+    struct hp1020_tusb_adapter *a = s->adapter;
+    const struct hp1020_tusb_owner *owner = &a->owners[2];
+    if (!a->initialized || a->config.ep_out != 1 ||
+        a->config.out_capacity != HP1020_UDC_OUT_PACKET_BYTES)
+        return leave(s, HP1020_UDC_OUT_INVALID);
+    if (cookie.endpoint != 1 || owner->state != HP1020_TUSB_OWNER_DCD ||
+        !same_cookie(owner->cookie, cookie))
+        return leave(s, HP1020_UDC_OUT_STALE);
+    if (a->busy || a->stack_active || a->prepared || a->delivering_live)
+        return leave(s, HP1020_UDC_OUT_WAIT);
+    if (owner->auto_status || owner->buffer != s->buffer.cpu ||
+        owner->length != HP1020_UDC_OUT_PACKET_BYTES ||
+        !span_valid(s->descriptor, HP1020_UDC_OUT_DESCRIPTOR_BYTES) ||
+        !span_valid(s->buffer, HP1020_UDC_OUT_PACKET_BYTES))
+        return leave(s, HP1020_UDC_OUT_INVALID);
+    if (facts.transfer_settled > 1 || facts.mapping_lease > 1 || facts.cache_range_safe > 1)
+        return leave(s, HP1020_UDC_OUT_INVALID);
+    /* Known faults need cancellation, not physical settlement or a fictional
+     * descriptor capture. Preserve the original observer's first-fault policy. */
+    if (s->fault_reason || endpoint_fault) {
+        acquire_begin(c, cookie);
+        if (!s->fault_reason) s->fault_reason = endpoint_fault;
+        return acquire_leave(c, report_fault(s));
+    }
+    if (s->phase != HP1020_UDC_OUT_EXPOSED)
+        return leave(s, HP1020_UDC_OUT_INVALID);
+    if (!facts.transfer_settled || !facts.mapping_lease || !facts.cache_range_safe)
+        return leave(s, HP1020_UDC_OUT_WAIT);
+
+    acquire_begin(c, cookie);
+    const struct hp1020_udc_out_span descriptor = {
+        s->descriptor.cpu, s->descriptor.dma, HP1020_UDC_OUT_DESCRIPTOR_BYTES
+    };
+    const struct hp1020_udc_out_span payload = {
+        s->buffer.cpu, s->buffer.dma, HP1020_UDC_OUT_PACKET_BYTES
+    };
+    c->last.operation = HP1020_UDC_ACQUIRE_DESCRIPTOR;
+    c->last.dma = descriptor.dma;
+    c->last.bytes = descriptor.bytes;
+    c->last.io_result = (uint32_t)c->hooks.descriptor_for_cpu(c->hooks.context,
+        cookie, descriptor);
+    if (c->last.io_result != HP1020_UDC_ACQUIRE_IO_OK) return acquire_failed(c);
+    c->last.prefix |= HP1020_UDC_ACQUIRE_DESCRIPTOR_READY;
+
+    c->last.operation = HP1020_UDC_ACQUIRE_PAYLOAD;
+    c->last.dma = payload.dma;
+    c->last.bytes = payload.bytes;
+    c->last.io_result = (uint32_t)c->hooks.payload_for_cpu(c->hooks.context,
+        cookie, payload);
+    if (c->last.io_result != HP1020_UDC_ACQUIRE_IO_OK) return acquire_failed(c);
+    c->last.prefix |= HP1020_UDC_ACQUIRE_PAYLOAD_READY;
+
+    c->last.operation = HP1020_UDC_ACQUIRE_ORDER;
+    c->last.dma = c->last.bytes = 0;
+    c->last.io_result = (uint32_t)c->hooks.acquire_order(c->hooks.context, cookie);
+    if (c->last.io_result != HP1020_UDC_ACQUIRE_IO_OK) return acquire_failed(c);
+    c->last.prefix |= HP1020_UDC_ACQUIRE_ORDERED;
+
+    /* First descriptor-byte loads occur only after all required hooks. Copy
+     * once from the retained allocation; never accept a hook-supplied snapshot.
+     * The64-byte payload remains in its original receive allocation. */
+    struct hp1020_udc_out_observation observation = {0};
+    observation.cookie = cookie;
+    memcpy(observation.descriptor, descriptor.cpu, HP1020_UDC_OUT_DESCRIPTOR_BYTES);
+    memcpy(c->last.snapshot, observation.descriptor, HP1020_UDC_OUT_DESCRIPTOR_BYTES);
+    c->last.snapshot_valid = 1;
+    c->last.prefix |= HP1020_UDC_ACQUIRE_SNAPSHOT_COPIED;
+    const struct hp1020_udc_out_completion_facts visible = {1, 1, 1};
+    return acquire_leave(c, observe_locked(s, &observation, visible));
 }

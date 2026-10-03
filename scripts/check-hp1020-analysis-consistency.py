@@ -1547,6 +1547,7 @@ def usb_offload_consistency_gate(root, capture_root=None):
             'open-firmware/udc-composed-test/fixture.c',
             'open-firmware/udc-setup/hp1020_udc_setup.c',
             'open-firmware/udc-setup/hp1020_udc_setup.h',
+            'open-firmware/udc-out/hp1020_udc_acquire.h',
             'open-firmware/tinyusb-printer-adapter/hp1020_tusb_adapter.c',
             'open-firmware/tinyusb-printer-adapter/hp1020_tusb_adapter.h',
             'open-firmware/tinyusb-device/patches/protocol-compatibility.patch',
@@ -1675,7 +1676,7 @@ def usb_offload_consistency_gate(root, capture_root=None):
             'current-owner-success-rejected', 'same-config-recovers-fault',
             'old-generation-fault-and-success', 'sequence-exhaustion',
             'transport-identity-exhaustion'}
-        need(len(sources) == 126 and len(cases) == 58, 'frozen source and profile closure')
+        need(len(sources) == 127 and len(cases) == 58, 'frozen source and profile closure')
         seen = set()
         totals = dict(captures=0, binds=0, grants=0, cancellations=0)
         for case_index, (case, native) in enumerate(zip(cases, target['cases'])):
@@ -4830,7 +4831,8 @@ def build_report() -> dict[str, Any]:
     checks.append(check("original_cookie_bulk_descriptor_to_document_pipeline",
                         udc["status"] == udc_target.get("status") == "pass"
                         and len(udc_cases) == len(udc_target.get("cases", [])) == 34
-                        and len(udc["source_sha256"]) == 97 and len(udc["fixture_sha256"]) == 6
+                        and len(udc["source_sha256"]) == 98 and len(udc["fixture_sha256"]) == 6
+                        and "open-firmware/udc-out/hp1020_udc_acquire.h" in udc["source_sha256"]
                         and udc["effective_source"] == composition["effective_source"]
                         and udc["effective_source"] == read_json("analysis/usb-path/udc-out/target/effective-source.json")
                         and udc["actual_peripheral_accesses"] == udc["completed_native_page_lifecycles"]
@@ -5228,7 +5230,7 @@ def build_report() -> dict[str, Any]:
                         "Two EP0 records preserve exact cookies, supplied DMA addresses, literal descriptor bytes and real NULL/zero original buffers. Prepared and published storage remains distinct; wire, pixels and document observations agree across both engines. Actual IN count, visibility, mapping and settlement remain supplied, with normalized bulk input and no physical DCD or printing.",
                         evidence="analysis/usb-path/udc-ep0/validation.json"))
 
-    EXPECTED_UDC_COMPOSED_SOURCE_COUNT = 117
+    EXPECTED_UDC_COMPOSED_SOURCE_COUNT = 118
     EXPECTED_UDC_SETUP_COMPONENT_BYTES = 96
     uc = read_json("analysis/usb-path/udc-composed/validation.json")
     uc_target, uc_ref = uc.get("target") or {}, uc["original_reference"]
@@ -5574,6 +5576,13 @@ def build_report() -> dict[str, Any]:
     checks.append(check(
         "bulk_publication_preserves_preflight_exact_ranges_original_owner_and_cleanup",
         publish_ok, publish_detail, evidence="analysis/usb-path/udc-publish/validation.json"))
+
+    acquire_gate = runpy.run_path(str(ROOT_DIR / "scripts/check-hp1020-udc-acquire.py"))["check_acquire_report"]
+    acquire_ok, acquire_detail = acquire_gate(
+        read_json("analysis/usb-path/udc-acquire/validation.json"), source_root=ROOT_DIR)
+    checks.append(check(
+        "bulk_acquisition_preserves_original_owner_ordered_cpu_visibility_and_recovery",
+        acquire_ok, acquire_detail, evidence="analysis/usb-path/udc-acquire/validation.json"))
 
     fail_count = severity_count(checks, "fail")
     return {

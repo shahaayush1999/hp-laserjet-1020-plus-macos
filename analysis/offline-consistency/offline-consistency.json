@@ -1,5 +1,5 @@
 {
-  "check_count": 130,
+  "check_count": 131,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -779,6 +779,12 @@
       "detail": "40 paired cases; 4784 raw event rows; independent publication/pixel/original-owner/cleanup contracts; report-only capture digests checked",
       "evidence": "analysis/usb-path/udc-publish/validation.json",
       "name": "bulk_publication_preserves_preflight_exact_ranges_original_owner_and_cleanup",
+      "severity": "watch"
+    },
+    {
+      "detail": "32 paired cases; 3372 event rows; independent original-owner/acquisition/visibility/recovery contracts; report-only independent capture digests",
+      "evidence": "analysis/usb-path/udc-acquire/validation.json",
+      "name": "bulk_acquisition_preserves_original_owner_ordered_cpu_visibility_and_recovery",
       "severity": "watch"
     }
   ],

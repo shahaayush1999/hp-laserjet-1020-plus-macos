@@ -69,6 +69,25 @@ before pumping queued data; it is not permission to ignore that event.
 
 ## Evidence and intentional limits
 
+The integrated `hp1020_udc_acquire.h` path passed its first32 sanitized host/32
+audited QEMU cases and the independent raw-capture gate. Full sequential
+regression validation is pending. It replaces
+supplied CPU-visibility flags with mandatory descriptor16, payload64 and acquire-
+order callbacks, followed by a real copy from the retained descriptor allocation.
+The historical observer and this path share one locked decoder; the original OUT
+layout, adapter owner, cancellation machinery and receive queue remain unchanged.
+An exact retained old cookie may settle while a newer SETUP/reset or publication
+failure blocks forward work. Acquisition never services/pumps or supplies reset
+promises. Hook failures retain the original owner and first failure; later calls
+report that fault without retrying visibility work. Separate exact-cookie
+cancellation remains available. Physical settlement, mappings, exclusive safe
+cache-line envelopes and actual acquire primitives are still supplied.
+
+`open-firmware/udc-acquire-test/README.md` owns the separate device-image/
+poisoned-CPU experiment. Historical observer results below describe their exact
+preserved sources; the shared-source edit still requires sequential regression
+validation before a new checkpoint.
+
 - `analysis/usb-path/controller-family.{json,md}` already records original
   descriptor and status execution. Stock `0x10008708..0x1000871a` writes the
   receive address in BE order; `0x10008766..0x1000876f` clears next;
