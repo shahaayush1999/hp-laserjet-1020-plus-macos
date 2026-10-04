@@ -2575,6 +2575,81 @@ wait. The draft adapter review lists those concrete integration questions.
 Real DMA/cache, IRQ provenance, boot/RAM attributes, engine output and power-cycle
 recovery remain unproved; no USB contact or print-driving operations are introduced.
 
+### Original bulk-IN construction and reply ownership (2026-10-05)
+
+The real-host two-page checkpoint is committed and pushed as`aaa72fb`; local and
+remote main were verified equal. The subsequent first IN1 probe now passes,
+without production firmware edits or printer access. Its original instructions
+enter after ENTRY at`0x1000899f` and stop before the publication tail at`0x10008b41`.
+Full original ELF/range hashes, actual tools, supplied inputs and exact source
+closure are recorded by`scripts/validate-hp1020-usb-in1-construction.py`.
+
+Capture`/tmp/hp1020-in1-construction-q0yenm6n` passes36 construction cases with
+asymmetric pointers/two fills,64-byte boundaries including129, wrapped source
+addition and separate511/512/513 cases at supplied cap512. Four peripheral-shaped
+record/descriptor controls reject before access; ten excluded PCs reject before
+execution. All original mutable RAM, stack and guards match an independent
+oracle in the interpreter and QEMU, as do ordered writes/reads and executed PCs.
+The numeric payload source is never dereferenced. The reserved descriptor word
+and original-source/done fields remain unchanged. A capped descriptor has its
+last flag set even with next=descriptor+16, and no second descriptor is built.
+N=0 proves only arithmetic: stock queue selection skips zero remaining. No queue,
+cache, publication, ISR or peripheral operation executes; no USB transfer completes.
+
+`analysis/usb-path/in1-construction/source-snapshots/first-paired-execution.*`
+preserves454 members, including raw before/expected/after RAM and original-byte
+review (archive SHA256`a84200b5e8d0b28666350ef2e3c80b90e835a0c978bb36bc5a8a60ebba7b56db`).
+The source-only admission predates execution. The earlier unexecuted draft stays
+separately identified; recording tool identities was its only subsequent change.
+
+The bulk-callback generator now identifies`0x10008bac` as an outgoing send queue
+and`0x100081f4` as its wrapper. Thirteen original ELF/region/literal checks anchor
+the registration, retained-source queue, later done-head cleanup and endpoint
+descriptor evidence. The historical Ghidra export names/files remain unchanged.
+The parser-shim generator now calls the registered slot an outgoing queue rather
+than a completion callback. Queue acceptance, DMA/source release, FIFO settlement
+and host receipt remain separate; selecting the runtime PJL transport is unproved.
+
+The shared gate independently reconstructs the exact40 input profiles, original
+bytes/literals, branch schedule, complete RAM manifests and ordered stores. It
+does not import the producer's oracle. A focused consistency run passes136 checks.
+Five copied-report controls change reported and expected fields together in both
+engines: reserved word, capped next pointer, last flag, source advance and a false
+completed-USB count. Each rejects while unchanged positives pass before/after.
+`completed-focused-controls.*` retains19 members (archive SHA256
+`fd3cedc37170861f21c14feed483e3fd4fe970ae01033df1a34f873c33f66d5c`).
+The initial control driver stopped on a nonexistent `status` key; V2 reads the
+shared helper's declared `severity` field. Both are preserved; no production
+oracle/report changed and no extra target case or USB lifecycle is claimed.
+
+The owner returned and requested a stop. Full regression
+`/tmp/hp1020-full-in1-20261005.log`, child`hp1020-validation.GgqQzD`, was interrupted
+during the existing native-pipeline validator before the new IN1 suite step.
+SIGINT let its QEMU context clean up; the private simulator, Python validator and
+both wrappers exited. The resulting KeyboardInterrupt/exit1 is an intentional
+stop, not new target evidence. No other generated report changed. The IN1
+`interrupted-full-regression.*` archive preserves logs, exact current source
+closure, process-stop record, all18 pre-regression reports and unexecuted final
+comparison scripts. Do not mistake this handoff commit for a full136 baseline.
+
+On resume, rerun full validation sequentially. After success compare all11
+component arrays,16 entry cases and three complete new reference reports against
+the archived `/tmp/hp1020-in1-before-full-baseline-20261005` data. Adapt the saved
+comparison/review scripts' run paths to the fresh capture; they must not turn the
+interrupted run into a pass. The latest fully validated baseline remains the
+preceding135-check two-page checkpoint until that completes.
+
+Next implement one bounded original-cookie IN packet through the real TinyUSB
+path, with separate pending-result drainage. The refined adapter plan retained
+in the preceding full-suite archive distinguishes OUT admission/finish from
+combined bulk reset ownership. Normal input close may still permit a final
+reply; destructive epoch change must suppress old reply permission. A settled
+result may survive reset for application consumption without blocking hardware
+owner drainage. New IN completion must never complete an OUT reservation.
+Review all cancellation, fault, service, programming-cleanup and endpoint-reuse
+predicates. No production IN owner, PJL formatter, physical status source or
+responsive engine-wait scheduler has been implemented by this experiment.
+
 ### Original SETUP ingress and corrected legacy evidence (2026-09-29)
 
 `scripts/validate-hp1020-usb-setup-ingress.py` passes **70 interpreter/QEMU cases**,

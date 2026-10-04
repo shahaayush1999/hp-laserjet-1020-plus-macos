@@ -81,6 +81,7 @@ run_step "Python syntax checks" \
     "$ROOT_DIR/scripts/hp1020_entry_usb_pages_audit.py" \
     "$ROOT_DIR/scripts/hp1020_entry_usb_pages_machine.py" \
     "$ROOT_DIR/scripts/hp1020_entry_usb_pages_qemu.py" \
+    "$ROOT_DIR/scripts/validate-hp1020-usb-in1-construction.py" \
     "$ROOT_DIR/scripts/check-hp1020-analysis-consistency.py"
 
 run_step "Generate base ZjStream sample" \
@@ -385,6 +386,9 @@ run_step "Execute original background receive-enable intent in guarded RAM" \
 
 run_step "Execute original EP0 construction and pointer cuts before peripheral access" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-usb-ep0-construction.py"
+
+run_step "Execute original IN1 single-descriptor arithmetic before publication" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-usb-in1-construction.py"
 
 run_step "Connect original-cookie OUT descriptors to reusable USB and exact decoded documents" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-udc-out.py" --target

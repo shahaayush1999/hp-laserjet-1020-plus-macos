@@ -61,7 +61,7 @@ def build_contract() -> dict[str, Any]:
             "ring_index_word": transfer_record.get("ring_index_word"),
             "buffer_allocation": transfer_record.get("buffer_allocation"),
             "registered_low_level_read_callback": receive_constants.get("registered_callback_a"),
-            "registered_completion_callback": receive_constants.get("registered_callback_b"),
+            "registered_outgoing_queue_callback": receive_constants.get("registered_callback_b"),
         },
         "bulk_read_state": {
             "event_flags_object": callback_constants.get("completion_event_flags"),

@@ -1,5 +1,5 @@
 {
-  "check_count": 135,
+  "check_count": 136,
   "checks": [
     {
       "detail": "Engine queue 0 has no 0x17 command case; actual status producers target PrintMgr queue 1.",
@@ -146,7 +146,7 @@
       "severity": "watch"
     },
     {
-      "detail": "The USB bulk callback model must preserve the read/copy callback, completion queue callback, event bit, endpoint ack register, and status-bit clear.",
+      "detail": "The USB bulk callback model must distinguish the original read/copy and outgoing queue callbacks, with pinned original-byte direction checks and receive event/ack facts.",
       "evidence": "analysis/usb-path/usb-bulk-callbacks-model.json",
       "name": "usb_bulk_callback_model_preserves_event_and_rearm_path",
       "severity": "watch"
@@ -731,6 +731,12 @@
       "detail": "Original IN0/OUT0 construction cuts must retain literal BE descriptors, exact ordered writes and complete RAM guards. Active pointers pass through unchanged; initialization uses a separate wrapped ADD. Supplied registers/MPS and pre-MMIO cuts establish no control transfer, mapping, cache visibility or settlement.",
       "evidence": "analysis/usb-path/ep0-construction.json",
       "name": "original_ep0_construction_cuts_preserve_bytes_and_hardware_exclusions",
+      "severity": "watch"
+    },
+    {
+      "detail": "Original bulk-IN1 arithmetic must retain reserved/original/done bytes, exact ordered writes and the independently derived branch path with one last-marked descriptor. Numeric aliases and supplied64/512 caps establish no DMA mapping, cache publication, USB transfer, FIFO settlement or host receipt.",
+      "evidence": "analysis/usb-path/in1-construction.json",
+      "name": "original_in1_construction_preserves_single_descriptor_and_source_lifetime_fields",
       "severity": "watch"
     },
     {

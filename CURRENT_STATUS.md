@@ -1,7 +1,7 @@
 # Current handoff
 
-Updated: 2026-10-05. **The open firmware replacement cannot print yet.** Offline
-work continues at the owner's request; he will ask when ready to stop. The new
+Updated: 2026-10-05. **The open firmware replacement cannot print yet.** Research
+is stopped at the owner's request; no validation or simulator remains running. The
 complete real-host two-page profile passes focused and full regression: **135
 consistency checks and both offline suites**. Original component cases and all
 16 continuous entry cases retain their accepted results and exact raw state.
@@ -45,18 +45,31 @@ All11 prior component case arrays and all16 entry cases agree with saved accepte
 results, including original raw traces and full snapshots. Thirty-seven changed
 older USB artifacts contain only proved temporary source/disassembly paths;
 no target code/object/case changed. Exact logs, comparisons and sources are in
-this profile's `first-full-suite-pass.*`; all research execution has stopped.
+this profile's `first-full-suite-pass.*`. This checkpoint is committed and pushed
+as `aaa72fb`, with local and origin/main verified equal before the next probe.
 
-Continue with bounded bulk-IN reply ownership. First install/review and execute
-`/tmp/hp1020-in1-construction-draft-20261005/validate-hp1020-usb-in1-construction.py`
-sequentially, stopping before original publication/cache/MMIO. Original-byte and
-adapter reviews plus that **unexecuted** draft are preserved in
-`checkpoint-review-and-next-in1-draft.*`. The full-suite archive also retains the
-unexecuted callback-label correction and refined unimplemented adapter plan.
-Correct the old outgoing callback label through its generators, not reports;
-then build a bounded reply owner with reset/late-event discipline. Detailed
-questions and provenance are in the 2026-10-05 section of next-evidence.md.
-Continue useful offline work unless the owner asks to stop.
+Original bulk-IN construction now passes36 conditional arithmetic cases, four
+pre-access rejections and ten excluded-PC controls in both engines. No USB
+transfer completes. The first raw capture is `/tmp/hp1020-in1-construction-q0yenm6n`;
+exact source/byte evidence is in `analysis/usb-path/in1-construction/source-snapshots/`.
+The corrected outgoing-callback model and parser-shim label pass original-byte
+checks. The new independent branch/whole-memory consistency gate passes136 checks;
+five copied-report controls reject their intended false claims, with positives
+before/after. These are focused results, not yet the next full baseline.
+
+The newer full regression was **interrupted at the owner's return**, during the
+existing native-pipeline validator. Its exit 1/KeyboardInterrupt is an intentional
+stop, not a new target failure or a pass. Log: `/tmp/hp1020-full-in1-20261005.log`,
+child `hp1020-validation.GgqQzD`. The active Python validator, private QEMU and both
+wrappers exited; no other generated report changed. Exact logs, source closure,
+stop record and pending comparison scripts are in `interrupted-full-regression.*`
+beside the focused IN1 snapshots. **135 remains the last full baseline; 136 is
+focused only.** This is a saved handoff, not a fully validated new baseline.
+
+Next rerun `scripts/validate.sh` sequentially, then compare all component/entry
+captures using the archived comparison script and its pre-regression reports.
+After that, implement the bounded reply owner described in the next-evidence
+2026-10-05 section. No production IN owner or PJL response is implemented yet.
 
 The separate accepted reset profile still proves two supplied-RAM cases: discard
 an old partial page, drain its genuine late completion, require three separate

@@ -82,8 +82,8 @@
     "transfer_registration": {
       "buffer_allocation": "0x400 bytes",
       "record_stride": "0x58",
-      "registered_completion_callback": "0x10008bac",
       "registered_low_level_read_callback": "0x100087b8",
+      "registered_outgoing_queue_callback": "0x10008bac",
       "ring_base": "0x1001ec00",
       "ring_index_word": "0x1001f214"
     }

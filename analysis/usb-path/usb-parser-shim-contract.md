@@ -20,7 +20,7 @@ The stock firmware keeps the print parser behind a read callback. Its interrupt 
 - `ring_index_word`: `0x1001f214`
 - `buffer_allocation`: `0x400 bytes`
 - `registered_low_level_read_callback`: `0x100087b8`
-- `registered_completion_callback`: `0x10008bac`
+- `registered_outgoing_queue_callback`: `0x10008bac`
 
 ## Bulk Read State
 

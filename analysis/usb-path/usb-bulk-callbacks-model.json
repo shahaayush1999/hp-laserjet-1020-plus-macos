@@ -8,9 +8,9 @@
     },
     {
       "address": "0x10008bac",
-      "meaning": "Allocates a 0x20 byte pending-transfer node, appends it to list 0x10022740, clears bit 1 in USB status register 0xb3000418, and marks completion state 0x100212d0 active when idle.",
-      "name": "bulk_rx_complete",
-      "role": "completion/queue path"
+      "meaning": "On the normal queuing path, calls the cache-writeback helper and retains the caller source pointer and requested length in a 0x20-byte queue node, appends to list 0x10022740 and unmasks IN1 via bit1 of 0xb3000418. Returns accepted length before transmission; later done-head cleanup frees the retained source.",
+      "name": "bulk_tx_queue",
+      "role": "outgoing send/queue acceptance"
     },
     {
       "address": "0x100080f0",
@@ -20,9 +20,9 @@
     },
     {
       "address": "0x100081f4",
-      "meaning": "Calls the param_1+8 slot with a fixed timeout of 200.",
+      "meaning": "Calls the registered outgoing slot at record+8 with source, length and timeout200; its return is queue acceptance, not host receipt.",
       "name": "transfer_callback_b",
-      "role": "secondary read wrapper"
+      "role": "send wrapper"
     }
   ],
   "checks": [
@@ -34,7 +34,7 @@
     },
     {
       "evidence": "analysis/usb-path/usb-bulk-callbacks.md",
-      "name": "ghidra_export_has_completion_callback",
+      "name": "ghidra_export_has_historically_rx_named_send_callback",
       "needle": "10008bac` `hp1020_usb_bulk_rx_callback_b_candidate",
       "status": "present"
     },
@@ -88,33 +88,31 @@
     },
     {
       "evidence": "analysis/usb-path/bulk-callbacks-decompiled/10008bac_hp1020_usb_bulk_rx_callback_b_candidate.c",
-      "name": "completion_allocates_pending_node",
+      "name": "send_allocates_pending_node",
       "needle": "FUN_10013140(0x20,1)",
       "status": "present"
     },
     {
       "evidence": "analysis/usb-path/bulk-callbacks-decompiled/10008bac_hp1020_usb_bulk_rx_callback_b_candidate.c",
-      "name": "completion_appends_pending_transfer",
+      "name": "send_appends_pending_transfer",
       "needle": "FUN_10013000(puVar1)",
       "status": "present"
     },
     {
       "evidence": "analysis/usb-path/bulk-callbacks-decompiled/10008bac_hp1020_usb_bulk_rx_callback_b_candidate.c",
-      "name": "completion_clears_usb_status_bit",
+      "name": "send_unmasks_in1_interrupt",
       "needle": "*DAT_10005e00 = *DAT_10005e00 & 0xfffffffd",
       "status": "present"
     },
     {
       "evidence": "analysis/usb-path/bulk-callbacks-decompiled/10008bac_hp1020_usb_bulk_rx_callback_b_candidate.c",
-      "name": "completion_sets_state_if_idle",
+      "name": "send_sets_queue_state_if_idle",
       "needle": "*(undefined4 *)puVar1 = 1",
       "status": "present"
     }
   ],
   "constants": {
     "bulk_available_size_word": "0x1001bc50",
-    "bulk_completion_lock": "0x1002274c",
-    "bulk_completion_state": "0x100212d0",
     "bulk_destination_alias": "0x80000000",
     "bulk_destination_offset_word": "0x10021594",
     "bulk_done_byte": "0x1001bc70",
@@ -127,6 +125,8 @@
     "bulk_source_offset_word": "0x1001bc4c",
     "bulk_suppress_copy_byte": "0x1001bc6f",
     "bulk_threshold_word": "0x10021590",
+    "bulk_tx_queue_lock": "0x1002274c",
+    "bulk_tx_queue_state": "0x100212d0",
     "completion_event_flags": "0x10021318",
     "pending_transfer_list": "0x10022740",
     "usb_endpoint_ack_register": "0xb3000220",
@@ -134,11 +134,121 @@
     "usb_setup_status_register": "0xb3000408",
     "usb_status_register": "0xb3000418"
   },
+  "direction_correction": {
+    "basis": "Startup registers 0x10008bac at record+8; 0x100081f4 forwards source/length/timeout there. The queue retains source/length and returns length; 0x10008b78 later frees done heads' original sources.",
+    "corrected_role": "bulk_tx_queue",
+    "historical_export_names_preserved": true,
+    "limits": "Static original instructions only. No semaphore/cache/MMIO/queue/completion executed. Current PJL transport pointer selection and host receipt remain unproved.",
+    "old_label": "bulk_rx_complete"
+  },
   "open_firmware_implication": [
     "The parser does not need direct USB MMIO access if an open replacement provides the same read-callback behavior.",
-    "The real USB work is a bulk OUT producer that fills a buffer, sets event bit 0x20000, tracks remaining bytes, and re-arms endpoint receive.",
-    "The next open-code prototype target after endpoint-0 proof is a small bulk-receive ring plus parser callback shim, not the print engine."
+    "Bulk OUT feeds parser input; bulk IN separately carries outgoing replies. The return channel cannot be inferred from receive completion.",
+    "Reuse bounded open ownership and buffers rather than HP heap queues. Keep queue acceptance, source/DMA release, FIFO settlement and host receipt distinct."
+  ],
+  "original_byte_checks": [
+    {
+      "expected_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+      "name": "original_stock_elf",
+      "sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+      "status": "present"
+    },
+    {
+      "begin": "0x10007c00",
+      "end_exclusive": "0x10007c5c",
+      "expected_sha256": "a95211a17b984e0982f03a4c3aa7571201a701918c975e81b08b02b25a46c89b",
+      "name": "registration",
+      "sha256": "a95211a17b984e0982f03a4c3aa7571201a701918c975e81b08b02b25a46c89b",
+      "status": "present"
+    },
+    {
+      "begin": "0x10008034",
+      "end_exclusive": "0x1000807c",
+      "expected_sha256": "a3b5f788bc377c096152b8c9afc9756dad9c697c6b320a380d1e26d1e0cd09e1",
+      "name": "callback-vtable",
+      "sha256": "a3b5f788bc377c096152b8c9afc9756dad9c697c6b320a380d1e26d1e0cd09e1",
+      "status": "present"
+    },
+    {
+      "begin": "0x100081f4",
+      "end_exclusive": "0x10008208",
+      "expected_sha256": "024738ef6ca3890068939fff7a2cbab6347a07679b8d7799469fc1565d7b6b91",
+      "name": "send-wrapper",
+      "sha256": "024738ef6ca3890068939fff7a2cbab6347a07679b8d7799469fc1565d7b6b91",
+      "status": "present"
+    },
+    {
+      "begin": "0x10008b78",
+      "end_exclusive": "0x10008bac",
+      "expected_sha256": "d5edb2ad7c4226debcf09c0d654cf6a8b102a5c857a454a6d9166baac5ca6e89",
+      "name": "in1-completed-list-drain",
+      "sha256": "d5edb2ad7c4226debcf09c0d654cf6a8b102a5c857a454a6d9166baac5ca6e89",
+      "status": "present"
+    },
+    {
+      "begin": "0x10008bac",
+      "end_exclusive": "0x10008c24",
+      "expected_sha256": "0a09bd940f8f77c5d4e0e5e8a9196ea94d5850ab412b65214873c91a20b3dbb8",
+      "name": "in1-submit-queue",
+      "sha256": "0a09bd940f8f77c5d4e0e5e8a9196ea94d5850ab412b65214873c91a20b3dbb8",
+      "status": "present"
+    },
+    {
+      "begin": "0x10008ff0",
+      "end_exclusive": "0x100092f7",
+      "expected_sha256": "541ae837b4b4c2867cafe53d2bc5dfdcdf61a5e944dd94e0d833784400ee7308",
+      "name": "startup-in1",
+      "sha256": "541ae837b4b4c2867cafe53d2bc5dfdcdf61a5e944dd94e0d833784400ee7308",
+      "status": "present"
+    },
+    {
+      "begin": "0x1000cd44",
+      "end_exclusive": "0x1000cd62",
+      "expected_sha256": "892a453a06d26c3d5bb30b08041efe4edae314b6c3ec469f0687832b117e2cfc",
+      "name": "pjl-send",
+      "sha256": "892a453a06d26c3d5bb30b08041efe4edae314b6c3ec469f0687832b117e2cfc",
+      "status": "present"
+    },
+    {
+      "begin": "0x100173c8",
+      "end_exclusive": "0x100173e6",
+      "expected_sha256": "8acdf14c93008e303306a9eb7b53bb1a9d2fecfb2487c08acffb06defcc5a825",
+      "name": "cache-helper-call-boundary-only",
+      "sha256": "8acdf14c93008e303306a9eb7b53bb1a9d2fecfb2487c08acffb06defcc5a825",
+      "status": "present"
+    },
+    {
+      "begin": "0x100034b0",
+      "end_exclusive": "0x100034d0",
+      "expected_sha256": "5936c209497f97eba7032963007abc3b5d23c4e252463a53750d1f6130872ca0",
+      "name": "stock-config-hs",
+      "sha256": "5936c209497f97eba7032963007abc3b5d23c4e252463a53750d1f6130872ca0",
+      "status": "present"
+    },
+    {
+      "begin": "0x100034d0",
+      "end_exclusive": "0x100034f0",
+      "expected_sha256": "b398ac7ccdf9da9b70542c7e47f51ecb0e669a967a584bdfa786c5c2481de5d9",
+      "name": "stock-config-fs",
+      "sha256": "b398ac7ccdf9da9b70542c7e47f51ecb0e669a967a584bdfa786c5c2481de5d9",
+      "status": "present"
+    },
+    {
+      "address": "0x10005f00",
+      "expected_value": "0x10008bac",
+      "name": "registered_send",
+      "status": "present",
+      "value": "0x10008bac"
+    },
+    {
+      "address": "0x10005dd8",
+      "expected_value": "0x100081f4",
+      "name": "send_wrapper",
+      "status": "present",
+      "value": "0x100081f4"
+    }
   ],
   "status": "pass",
-  "summary": "Static model of the stock USB bulk receive callback layer."
+  "stock_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "summary": "Static model of separate stock USB receive and outgoing send/queue callbacks."
 }

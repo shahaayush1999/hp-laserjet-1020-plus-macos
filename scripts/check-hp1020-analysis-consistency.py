@@ -2505,9 +2505,11 @@ def build_report() -> dict[str, Any]:
             and usb_bulk_callbacks.get("constants", {}).get("usb_status_register") == "0xb3000418"
             and usb_bulk_callbacks.get("constants", {}).get("pending_transfer_list") == "0x10022740"
             and any(item.get("address") == "0x100087b8" and item.get("name") == "bulk_rx_read" for item in usb_bulk_callbacks.get("callback_roles", []))
-            and any(item.get("address") == "0x10008bac" and item.get("name") == "bulk_rx_complete" for item in usb_bulk_callbacks.get("callback_roles", []))
+            and any(item.get("address") == "0x10008bac" and item.get("name") == "bulk_tx_queue" for item in usb_bulk_callbacks.get("callback_roles", []))
+            and len(usb_bulk_callbacks.get("original_byte_checks", [])) == 13
+            and all(item.get("status") == "present" for item in usb_bulk_callbacks.get("original_byte_checks", []))
             and all(item.get("status") == "present" for item in usb_bulk_callback_checks),
-            "The USB bulk callback model must preserve the read/copy callback, completion queue callback, event bit, endpoint ack register, and status-bit clear.",
+            "The USB bulk callback model must distinguish the original read/copy and outgoing queue callbacks, with pinned original-byte direction checks and receive event/ack facts.",
             evidence="analysis/usb-path/usb-bulk-callbacks-model.json",
         )
     )
@@ -5159,6 +5161,148 @@ def build_report() -> dict[str, Any]:
                         and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h for n,h in ep0_construction["source_sha256"].items()),
                         "Original IN0/OUT0 construction cuts must retain literal BE descriptors, exact ordered writes and complete RAM guards. Active pointers pass through unchanged; initialization uses a separate wrapped ADD. Supplied registers/MPS and pre-MMIO cuts establish no control transfer, mapping, cache visibility or settlement.",
                         evidence="analysis/usb-path/ep0-construction.json"))
+
+    in1 = read_json("analysis/usb-path/in1-construction.json")
+    in1_begin,in1_end = 0x1000899f,0x10008b41
+    in1_code_sha = "af1c30e9998c5abe000121111bebe7e4efc31d1543d361d5996056e0f47d8a34"
+    in1_sources = ep0_sources - {"scripts/validate-hp1020-usb-ep0-construction.py"} | {
+        "scripts/validate-hp1020-usb-in1-construction.py"}
+    in1_literals = {0x10005e50:0x10021590,0x10005e7c:0x1001bc5c,
+                    0x10005e34:0x80000000,0x10005e80:0x08000000}
+    in1_excluded = {0x1000899c,in1_end,0x10008b54,0x10008b63,0x10008b72,
+                    0x10008b78,0x10008bac,0x10008bcc,0x100173c8,0x10008208}
+    in1_inputs = []
+    for seed in (0x31,0xcc):
+        for pointer in (0x01234567,0xb3000400):
+            for length in (0,1,63,64,65,128,129):
+                in1_inputs.append(dict(name=f"in1-n{length}-q64-p{pointer:08x}-s{seed:02x}",
+                    seed=seed,length=length,pointer=pointer,cap=64,effect="descriptor"))
+        in1_inputs.append(dict(name=f"in1-pointer-wrap-s{seed:02x}",seed=seed,length=65,
+            pointer=0xfffffffc,cap=64,effect="descriptor"))
+        for length in (511,512,513):
+            in1_inputs.append(dict(name=f"in1-n{length}-q512-s{seed:02x}",seed=seed,
+                length=length,pointer=0x91b2c3d0,cap=512,effect="descriptor"))
+        for mode,stop in (("record",0x100089a2),("descriptor",0x10008a6b)):
+            in1_inputs.append(dict(name=f"in1-mmio-{mode}-s{seed:02x}",seed=seed,length=1,
+                pointer=0x01234567,cap=64,effect="none",reject_mmio=mode,stop=stop))
+    in1_audit = in1["original_byte_audit"]
+    in1_original = ep0_original_bytes(in1_begin,in1_end-in1_begin)
+    in1_ok = (in1_audit["ranges"] == [dict(begin=hex(in1_begin),end=hex(in1_end),
+        bytes=in1_original.hex(),sha256=in1_code_sha)]
+        and hashlib.sha256(in1_original).hexdigest() == in1_code_sha
+        and in1_audit["literals"] == {hex(a):hex(v) for a,v in in1_literals.items()}
+        and all(ep0_original_bytes(a,4) == v.to_bytes(4,"big") for a,v in in1_literals.items())
+        and in1_audit["original_descriptor_pointer"] == "0x900216d0"
+        and in1_audit["entry_after_original_ENTRY"] is True)
+    in1_allowed = {"l32i","l8ui","s32i","s8i","l32r","movi","mov","add","addi",
+                   "sub","or","slli","extui","memw","blt","bge","beqz","bnei","j"}
+    in1_pcs,pc = [],in1_begin
+    while pc < in1_end:
+        instruction = in1_audit["instructions"][hex(pc)]
+        raw = bytes.fromhex(instruction["bytes"])
+        in1_ok &= (len(raw) in (2,3) and pc+len(raw) <= in1_end
+            and raw == ep0_original_bytes(pc,len(raw))
+            and instruction["op"].removesuffix(".n") in in1_allowed)
+        in1_pcs.append(pc)
+        if not raw: break
+        pc += len(raw)
+    in1_ok &= pc == in1_end and len(in1_pcs) == 150
+    in1_ok &= set(in1_audit["instructions"]) == {hex(pc) for pc in in1_pcs}
+    in1_range = lambda a,b:[pc for pc in in1_pcs if a<=pc<b]
+    in1_spans = ep0_spans[:-1] + ((0x22a00000,0x22a01000),)
+    in1_templates = {(seed,a,b):bytes((seed+(a>>8)+i*17+(i>>4)*3)&255 for i in range(b-a))
+                     for seed in (0x31,0xcc) for a,b in in1_spans}
+    in1_ok &= [c["input"] for c in in1["cases"]] == in1_inputs
+    for case,given in zip(in1["cases"],in1_inputs):
+        n,q,p = given["length"],given["cap"],given["pointer"]
+        before = {(a,b):bytearray(in1_templates[given["seed"],a,b]) for a,b in in1_spans}
+        desc = 0xb3000034 if given.get("reject_mmio")=="descriptor" else 0x22a00100
+        for address,value in ((0x1001bc5c,desc),(0x10021590,q),(0x22a00300,p),
+                              (0x22a00304,0x5973bda1),(0x22a00308,n),(0x22a0030c,0x2e4c6a89)):
+            ep0_memory_put(before,address,value.to_bytes(4,"big"))
+        after = {span:raw.copy() for span,raw in before.items()}
+        writes = []
+        def in1_word(at,address,value):
+            ep0_memory_put(after,address,value.to_bytes(4,"big"))
+            writes.append(dict(pc=hex(at),kind="write",address=hex(address),size=4,value=hex(value)))
+        def in1_bytes(pcs,offset,value):
+            data=value.to_bytes(4,"big")
+            ep0_memory_put(after,0x22a00100+offset,data)
+            for at,index in zip(pcs,range(4)):
+                writes.append(dict(pc=hex(at),kind="write",address=hex(0x22a00100+offset+index),size=1,value=hex(data[index])))
+        if given["effect"] == "descriptor":
+            if n<=q:
+                in1_bytes((0x10008a6b,0x10008a71,0x10008a77,0x10008a7a),8,(p+0x80000000)&0xffffffff)
+                in1_bytes((0x10008a83,0x10008a86,0x10008a89,0x10008a8c),12,0)
+                in1_bytes((0x10008aa7,0x10008ab6,0x10008ac5,0x10008ad4),0,0x08000000|n)
+                in1_word(0x10008ad7,0x22a00308,0)
+            else:
+                in1_bytes((0x100089c6,0x100089cc,0x100089d2,0x100089d5),8,(p+0x80000000)&0xffffffff)
+                in1_word(0x100089e0,0x22a00300,(p+q)&0xffffffff)
+                in1_bytes((0x100089f0,0x100089ff,0x10008a0e,0x10008a1d),0,q)
+                in1_bytes((0x10008a2b,0x10008a31,0x10008a37,0x10008a3a),12,0x22a00110)
+                in1_word(0x10008a48,0x22a00308,n-q)
+                in1_bytes((0x10008b11,0x10008b20,0x10008b2f,0x10008b3e),0,0x08000000|q)
+        # Explicit independent branch schedule; no model-produced PC path or
+        # descriptor result determines it. N>2Q cannot iterate the backward edge.
+        if n<=q:
+            retired = in1_range(in1_begin,0x100089ae)+[0x10008a51]+in1_range(0x10008a57,0x10008adc)
+        else:
+            retired = (in1_range(in1_begin,0x100089ab)+in1_range(0x100089ae,0x10008a4e)
+                + ([0x10008a4e] if n-q>q else [])+[0x10008a51,0x10008a54]+in1_range(0x10008adc,in1_end))
+        stop = given.get("stop",in1_end)
+        retired = [at for at in retired if at<stop]
+        before_manifest,after_manifest = ep0_manifest(before),ep0_manifest(after)
+        in1_ok &= case["status"] == "pass"
+        for engine in ("interpreter","qemu"):
+            record = case[engine]
+            reason = "MMIO forbidden" if given.get("reject_mmio") else (
+                "execution outside selected stock routines: " if engine=="interpreter" else "native tasks left selected code: ")+hex(stop)
+            in1_ok &= (record["status"] == "pass" and record["engine"] == engine
+                and record["entry"] == hex(in1_begin) and record["stop_before"] == hex(stop)
+                and record["failure"] == dict(type="ValueError",reason=reason,pc=hex(stop))
+                and record["before_memory"] == before_manifest
+                and record["expected_memory"] == record["actual_memory"] == after_manifest
+                and record["descriptor_hex"] == record["expected_descriptor_hex"] == after[0x22a00000,0x22a01000][0x100:0x110].hex()
+                and record["record_hex"] == record["expected_record_hex"] == after[0x22a00000,0x22a01000][0x300:0x310].hex()
+                and record["expected_writes"] == [x for x in record["accesses"] if x["kind"]=="write"] == writes
+                and record["original_instructions_retired"] == [hex(at) for at in retired]
+                and record["engine_steps"] == len(retired)+int(engine=="interpreter" and bool(given.get("reject_mmio")))
+                and record["registers"][:2] == ["0xfffffffc","0x2101fef0"] and len(record["registers"])==16
+                and record["literal_descriptor_checked"] is (given["effect"]=="descriptor")
+                and all(record[k] is True for k in ("all_mutable_and_guard_ram_equal","ordered_write_trace_equal","source_never_dereferenced","original_code_unchanged"))
+                and record["actual_peripheral_accesses"] == 0)
+            memory = {span:raw.copy() for span,raw in before.items()}
+            for event in record["accesses"]:
+                address,size,value = int(event["address"],16),event["size"],int(event["value"],16)
+                in1_ok &= int(event["pc"],16) in retired
+                if event["kind"] == "write":
+                    ep0_memory_put(memory,address,value.to_bytes(size,"big"))
+                else:
+                    if address in in1_literals and size==4:
+                        expected_value = in1_literals[address]
+                    elif ((size==4 and address in (0x1001bc5c,0x10021590,0x22a00300,0x22a00308))
+                          or (size==1 and 0x22a00100<=address<0x22a00110)):
+                        raw=next(v[address-a:address-a+size] for (a,b),v in memory.items() if a<=address and address+size<=b)
+                        expected_value=int.from_bytes(raw,"big")
+                    else:
+                        expected_value=None
+                    in1_ok &= event["kind"] == "read" and value == expected_value
+        in1_ok &= all(case["interpreter"][key] == case["qemu"][key] for key in (
+            "registers","accesses","original_instructions_retired","before_memory","actual_memory","expected_writes"))
+    checks.append(check("original_in1_construction_preserves_single_descriptor_and_source_lifetime_fields",
+        in1_ok and in1["status"]=="pass" and in1["counts"]==dict(construction=36,mmio_rejections=4)
+        and in1["stock_elf_sha256"]==ep0_stock_sha
+        and in1["actual_peripheral_accesses"]==in1["completed_bulk_in_transfers"]==0
+        and in1["controller_quiescence_established"] is False and in1["original_entry_executed"] is False
+        and in1["private_literal_redirects"]==in1["supplied_services"]==[]
+        and len(in1["excluded_code_controls"])==len(in1_excluded)
+        and {int(r["pc"],16) for r in in1["excluded_code_controls"]}==in1_excluded
+        and all(r["status"]=="rejected before instruction execution in both engines" for r in in1["excluded_code_controls"])
+        and set(in1["source_sha256"])==set(in1["source_origins"])==in1_sources
+        and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest()==h for n,h in in1["source_sha256"].items()),
+        "Original bulk-IN1 arithmetic must retain reserved/original/done bytes, exact ordered writes and the independently derived branch path with one last-marked descriptor. Numeric aliases and supplied64/512 caps establish no DMA mapping, cache publication, USB transfer, FIFO settlement or host receipt.",
+        evidence="analysis/usb-path/in1-construction.json"))
 
     def usb_packet_capture_equal(case: dict, target: dict, documents: bool = False) -> bool:
         wire = bytearray()
