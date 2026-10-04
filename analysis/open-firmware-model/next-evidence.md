@@ -2422,7 +2422,7 @@ Final staging retains the auditor's exact tested final blank line with one
 file-scoped Git whitespace exemption, like the raw map/generated report; no
 tested source or report seal is changed for cosmetic whitespace cleanup.
 
-For the next authorized run, an **unfinished, unapproved proposal** is frozen at
+The then-unfinished proposal for the next authorized run was frozen at
 `/tmp/hp1020-next-real-multipage-plan-20261003/PLAN.md`, SHA256
 `dbc36e88916a554599eb4ec6091f4b43f7a2217a9a091f32757ba11acd0a7d24`.
 It proposes one unchanged foo2zjs job with two distinct nonuniform128x4/256x4
@@ -2438,6 +2438,139 @@ does not implement PJL status responses, copies or physical media/engine behavio
 `checkpoint-review-and-unfinished-next-plan.*` preserves all37 proposal members
 and the shared integration's separate static review (51 total members, archive
 SHA256`bc2d7ec4390e4f32a9095a8f1a29579bcfe0ed7ab4daa4a78a62a7aecc2537ba`).
+
+#### Real-host two-page experiment (2026-10-05, accepted offline)
+
+The owner resumed offline work and asked that extra agents only handle substantial
+independent work. Lead owns runtime/tools/validation; one agent owns the new raw
+acceptance gate. The proposal above describes its earlier frozen state. Its input
+prerequisite passed before implementation; the two focused cases pass gateV3.
+The subsequent full regression passes135 consistency checks and both suites.
+
+`scripts/prepare-hp1020-real-multipage.py` built unchanged pinned foo2zjs/full-JBIG
+sources in `/tmp/hp1020-real-multipage-first-20261005`. One invocation produced the
+complete967-byte job, SHA256`8ccf8bc1391e9025e3bd0a196dd155a04b967271bbb2a896bfd185453c0ed669`.
+All268 prefix/27 suffix PJL bytes and actual timestamp remain original. Independent
+full-JBIG decoding recovers exact64+128 literal source pixel bytes. This is a tiny
+format/content probe, not ordinary physical media or PJL response support.
+`analysis/boot-handoff/entry-usb-pages/fixtures/` retains exact raw files;
+`source-snapshots/host-input-first-pass.*` retains46 members with original sources,
+compiler/encoder/reference identities and commands (archive SHA256
+`b5508267c586f9795780733e2533ebd5528b93634ee0f3f2a4ad58d6ec4e835d`).
+
+The new sibling `open-firmware/entry-usb-pages-test/` consumes16 data packets
+(fifteen64, then7) in one generation, then the genuine owned final ZLP. It keeps
+the full production buffers and9216-byte witness:308 four-word I/O rows with
+implicit immutable ordinal,85 original range rows,18 original binds,192 exact
+pixels and one document event. Natural first/second output and document entries
+are observed; first ring-complete entry separates the two identical output PCs.
+The10-stop/2-paint profile now passes independent raw acceptance. No hidden
+debugger skip is used.
+
+First compilation correctly stopped on a copied stale352-byte extern declaration;
+`/tmp/hp1020-pages-first-build-stop-20261005` retains the exact draft and log.
+The successor declaration uses the independently declared967-byte size macro.
+The new whole-linked audit passes at `/tmp/hp1020-pages-first-linked-audit-20261005`:
+ELF`e907a88d58415e2fe7ee97711a738f203420fb162f016a25e9f299d6194aed9b`,
+46860 code/rodata bytes within53216,140244 zero bytes, all24 production/startup
+objects unchanged. Fresh source/ELF callback and stack review at
+`/tmp/hp1020-pages-linked-review-20261005` accounts for all93 indirect sites,
+proves an acyclic fixed callback graph and recomputes7472/8192 conservative
+stack bytes. It applies only to this serialized supplied-RAM workload.
+The runner pins the exact reviewed image. Pre-execution admission and the source-
+only V1/V2 mailbox correction are retained in `pre-execution-admission.*` (archive
+SHA256`057fbac11a9e8959ef68583f4339916fee21db7f76ea8015c9e6359581b99f94`).
+
+The first actual capture, `/tmp/hp1020-entry-usb-pages-1i84bayj`, completed both
+paired runs but failed gateV2's prohibition on any function named request_cancel.
+Two local functions share that name. The unchanged adapter helper reads each
+owner's state and returns immediately unless DCD-owned; the separately bound RAM
+provider callback is the actual cancellation request. Original bus-reset and
+SET_CONFIGURATION paths each inspect bulk/EP0 OUT/EP0 IN, all empty. Exact ELF
+bytes and six four-instruction paths contain only the ordered zero-state read,
+branch and return. No cancellation store or provider/controller call executes.
+V3 binds the real callback through the adapter ops pointer, forbids all of its
+instructions and requires the exact six no-op helper paths before bulk publication.
+No semantic literals, C, observer, target or saved report changed. The first run
+remains an overall failure in `first-two-paired-gate-stop.*` (archive SHA256
+`c5ab8166f53c51714eaa667fc42a7044b49673b6f6dac0a4693fe42bff7fc8f2`).
+`cancellation-guard-v3-correction.*` retains the source-derived correction and
+partial diagnostic trace checks (not capture acceptance; archive SHA256
+`a225140367a597b8fd2cc375424306d578a32da21c544a4c8a565dc8e1623315`).
+
+Fresh capture `/tmp/hp1020-entry-usb-pages-bffsbyps` passes gateV3, whose SHA256 is
+`00a3b35164d116779273b33be60bfefafb490a72758449b7628d79ce3087edf1`.
+Each case executes2,596,157 original compiled instructions, compares11 complete
+CPU/RAM snapshots, and takes two real QEMU park steps. Actual stack peak864 bytes
+is separate from the static7472/8192 bound. All967 input bytes feed in order,
+two original output callbacks preserve the independent64+128 pixels, and event
+(2,1,0,2) follows both completions. Sixteen data packets and the final owned ZLP
+settle; sole close/finish occur only after the complete job. No WAIT, STALE or
+actual cancellation occurs. These are two complete supplied-RAM lifecycles.
+Comparison with the failed first run proves identical target bytes, raw PC/access
+traces and every full snapshot; only gate source and exact temporary build,
+process, socket and elapsed-time metadata differ. `first-two-paired-accepted.*`
+retains861 members and the comparison generator/result (archive SHA256
+`d9377f54234e78fab42d323f8effd40873db07531e1fd905ba549a6f27ae2ffb`).
+
+Five focused copied-evidence controls reject a wrong first-page witness pixel,
+wrong second-page production pixel, premature completion, wrong compact I/O
+address, and a falsely shortened first PJL feed for their exact intended reasons.
+All full paired snapshots, seals and debugger replies are coherently adjusted;
+original PC/access traces, sources, target and tools stay unchanged. Unchanged
+complete positives pass before and after. These are false evidence, not firmware
+bug executions or extra lifecycles. `completed-focused-controls.*` preserves108
+members, exact before/after overlays and reconstruction manifests against the
+first accepted archive (SHA256`4db8b3e4c47e5dfc3ff0a8172ef2ac0a4a9f78234dd615c38dd64bc4a06dcb10`).
+
+Shared validation now includes the separate pages raw-archive gate and sequential
+runner. Full regression passed in `/tmp/hp1020-full-entry-usb-pages-20261005.log`
+(child`hp1020-validation.OpzixW`):135 consistency checks and both offline suites.
+The current capture is`/tmp/hp1020-entry-usb-pages-zctgfl50`. The preserved11 component
+case arrays and all16 entry cases agree exactly with accepted results, including
+actual model access/PC traces, complete paired snapshots and original debugger
+commands/replies. Only explicitly proved build-directory/socket/PID/timing
+metadata differ. A separate readback review checks all37 changed older USB
+artifacts against their captured originals: temporary compiler-source paths and
+per-function disassembly headers only, with binary/object/case values unchanged.
+`source-snapshots/first-full-suite-pass.*` retains that exact capture, logs, source
+and comparisons, plus separately marked unexecuted next-work drafts.
+Its1024-member archive SHA256 is
+`028ddcf5ef31326f59ef9a54796940cbb35574c797fb223f9a6c25841caf8539`.
+Further work should target an unresolved external/hardware-facing behavior;
+existing component tests already cover larger pages and delayed ring completion.
+
+The next selected boundary is bulk IN1, needed for the host return channel. The
+current program opens IN1 but its adapter owns only EP0 OUT/IN and bulk OUT;
+there is no working bulk-IN send path. Independent original-byte review and the
+lead's separate adapter review are preserved in
+`source-snapshots/checkpoint-review-and-next-in1-draft.*` beside this entry profile
+(49 members, archive SHA256
+`27cf096e3bb6c4ed2a64c581625055855ffc5b9e5e119a1305748dfff0a7d78c`).
+This also retains the shared integration review and an **unexecuted** construction
+probe. It contains no accepted implementation or execution result for IN1.
+
+Original callback`0x10008bac` queues outgoing source bytes; its return is accepted
+length, not reception/transmission completion. The older bulk-callback model's
+RX/completion label and parser-shim field must be corrected through their
+generators after the current regression/checkpoint, retaining original decompiler
+filenames as historical evidence. The reviewed original code retains the source,
+builds an IN descriptor and later frees done queue heads; TDC does not prove host
+receipt. The safe next execution enters`0x1000899f` and stops at`0x10008b41`, before
+publication, with guarded RAM and independently supplied positive batching cap.
+Its source pointer is numeric only. Reserved descriptor bytes remain unchanged;
+one capped descriptor can retain a nonzero next pointer while already marked
+last. The proposed36 construction cases, four access guards and ten excluded-PC
+controls remain unexecuted in the archived draft. No cache/queue/MMIO path may be
+admitted to simplify that boundary.
+
+After this narrow reference check, implement bounded reply ownership rather than
+HP's heap queues. A new owner must cover reset, cancellation, late original-cookie
+completion, pending-result drainage and programming cleanup, including both
+directions' existing predicates. Source/DMA release, FIFO settlement and host
+receipt need separate contracts. A one-packet reply does not implement PJL/status
+content, automatic ZLP policy or responsive status during a synchronous engine
+wait. The draft adapter review lists those concrete integration questions.
 
 Real DMA/cache, IRQ provenance, boot/RAM attributes, engine output and power-cycle
 recovery remain unproved; no USB contact or print-driving operations are introduced.

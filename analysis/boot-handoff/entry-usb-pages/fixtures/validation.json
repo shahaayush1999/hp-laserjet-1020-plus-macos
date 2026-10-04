@@ -1,0 +1,277 @@
+{
+  "pages": [
+    {
+      "bie_bytes": 48,
+      "bie_sha256": "de0044604e56d895e9d73b60b0f5b7756c9975d4fe7dce0da489196de4310867",
+      "decode": {
+        "bytes": 64,
+        "consumed": 29,
+        "height": 4,
+        "width": 128
+      },
+      "index": 1,
+      "padding_bytes": 19,
+      "pixels_sha256": "b85f335f2f6a1a3faad23b8e78913ef968ddabb8b86071d1a20f348cf3c61e36"
+    },
+    {
+      "bie_bytes": 80,
+      "bie_sha256": "80e66b0beb5a4c6776df0debbbede2f38bae9c67eeb3d5b34355b5fc9bfdb8fa",
+      "decode": {
+        "bytes": 128,
+        "consumed": 61,
+        "height": 4,
+        "width": 256
+      },
+      "index": 2,
+      "padding_bytes": 19,
+      "pixels_sha256": "6b073bf27579514d717aa1491e65f4a03f55fca174331638cc2e256f5e59e942"
+    }
+  ],
+  "pixel_bytes": 192,
+  "pixel_sha256": "207c26d1f9877bf8144fec9d4216e59263501d5acc0a631b74d83f53c01ca9a7",
+  "scope": "host encoding and independent full-JBIG decoding only",
+  "status": "pass",
+  "stream": {
+    "bytes": 967,
+    "chunks": [
+      {
+        "bytes": 52,
+        "count": 3,
+        "items": [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "kind": 0,
+        "offset": 272,
+        "reserved": 36
+      },
+      {
+        "bytes": 172,
+        "count": 13,
+        "items": [
+          [
+            23,
+            0
+          ],
+          [
+            17,
+            128
+          ],
+          [
+            18,
+            4
+          ],
+          [
+            16,
+            1
+          ],
+          [
+            12,
+            128
+          ],
+          [
+            13,
+            4
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            8,
+            600
+          ],
+          [
+            9,
+            600
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            3,
+            9
+          ],
+          [
+            6,
+            1
+          ]
+        ],
+        "kind": 2,
+        "offset": 324,
+        "reserved": 156
+      },
+      {
+        "bytes": 36,
+        "count": 0,
+        "items": [],
+        "kind": 4,
+        "offset": 496,
+        "reserved": 0
+      },
+      {
+        "bytes": 44,
+        "count": 0,
+        "items": [],
+        "kind": 5,
+        "offset": 532,
+        "reserved": 0
+      },
+      {
+        "bytes": 16,
+        "count": 0,
+        "items": [],
+        "kind": 6,
+        "offset": 576,
+        "reserved": 0
+      },
+      {
+        "bytes": 16,
+        "count": 0,
+        "items": [],
+        "kind": 3,
+        "offset": 592,
+        "reserved": 0
+      },
+      {
+        "bytes": 172,
+        "count": 13,
+        "items": [
+          [
+            23,
+            0
+          ],
+          [
+            17,
+            256
+          ],
+          [
+            18,
+            4
+          ],
+          [
+            16,
+            1
+          ],
+          [
+            12,
+            256
+          ],
+          [
+            13,
+            4
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            8,
+            600
+          ],
+          [
+            9,
+            600
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            3,
+            9
+          ],
+          [
+            6,
+            1
+          ]
+        ],
+        "kind": 2,
+        "offset": 608,
+        "reserved": 156
+      },
+      {
+        "bytes": 36,
+        "count": 0,
+        "items": [],
+        "kind": 4,
+        "offset": 780,
+        "reserved": 0
+      },
+      {
+        "bytes": 76,
+        "count": 0,
+        "items": [],
+        "kind": 5,
+        "offset": 816,
+        "reserved": 0
+      },
+      {
+        "bytes": 16,
+        "count": 0,
+        "items": [],
+        "kind": 6,
+        "offset": 892,
+        "reserved": 0
+      },
+      {
+        "bytes": 16,
+        "count": 0,
+        "items": [],
+        "kind": 3,
+        "offset": 908,
+        "reserved": 0
+      },
+      {
+        "bytes": 16,
+        "count": 0,
+        "items": [],
+        "kind": 1,
+        "offset": 924,
+        "reserved": 0
+      }
+    ],
+    "end_doc_offset": 940,
+    "magic_offset": 268,
+    "packet_lengths": [
+      64,
+      64,
+      64,
+      64,
+      64,
+      64,
+      64,
+      64,
+      64,
+      64,
+      64,
+      64,
+      64,
+      64,
+      64,
+      7
+    ],
+    "prefix_bytes": 268,
+    "sha256": "8ccf8bc1391e9025e3bd0a196dd155a04b967271bbb2a896bfd185453c0ed669",
+    "suffix_bytes": 27
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "archive": {
+    "bytes": 878846,
+    "file": "libgcc.a",
+    "original_path": "/private/tmp/hp1020-xtensa-gcc14/lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a",
+    "sha256": "e57e97f0f5679a83f5a394d94fe024973f05d32be292293b247e647e567c4e32"
+  },
+  "members": {
+    "_udivsi3.o": {
+      "bytes": 2612,
+      "file": "_udivsi3.o",
+      "sha256": "6e2ed6774b25c833f8071872d6f7b699838e22f625bdb215cd21eea34a96814a"
+    },
+    "_umodsi3.o": {
+      "bytes": 2368,
+      "file": "_umodsi3.o",
+      "sha256": "f7cb9b22bf91ae5b5f40f06a9c2ad1d4e16ea5a7e7be8631e7f2595d89c3e5ee"
+    }
+  },
+  "schema": "hp1020-entry-usb-libgcc-v1"
+}

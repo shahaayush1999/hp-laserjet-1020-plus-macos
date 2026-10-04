@@ -14,6 +14,7 @@ analysis/usb-path/udc-ep0/target/*.map -whitespace
 analysis/usb-path/udc-composed/target/*.map -whitespace
 analysis/boot-handoff/entry-usb/target/*.map -whitespace
 analysis/boot-handoff/entry-usb-reset/target/*.map -whitespace
+analysis/boot-handoff/entry-usb-pages/target/*.map -whitespace
 # Preserve sealed pre-implementation literals/notes, original GCC license and report bytes.
 open-firmware/entry-usb-test/independent-addendum.md -whitespace
 open-firmware/entry-usb-test/independent-literals.py -whitespace
@@ -22,5 +23,7 @@ open-firmware/entry-usb-test/literal-addendum.py -whitespace
 open-firmware/entry-usb-test/references/gcc-runtime/COPYING.RUNTIME -whitespace
 analysis/boot-handoff/entry-usb/validation.md -whitespace
 analysis/boot-handoff/entry-usb-reset/validation.md -whitespace
+analysis/boot-handoff/entry-usb-pages/validation.md -whitespace
 # Preserve the exact tested auditor source, including its final blank line.
 scripts/hp1020_entry_usb_reset_audit.py -whitespace
+scripts/hp1020_entry_usb_pages_audit.py -whitespace

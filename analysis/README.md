@@ -102,6 +102,13 @@ reconstruction hashes; it also contains three separate literal controls and30
 isolated guards. An audited ELF at an original address is still an offline
 artifact, not an authorized upload or proof of boot.
 
+The real-host two-page sibling is `open-firmware/entry-usb-pages-test/`, with
+`scripts/validate-hp1020-entry-usb-pages.py` and its separate raw gate. It retains
+one original foo2zjs job and independent source pixels, including the complete
+timestamp-bearing PJL framing. Input/tool provenance and captures live under
+`boot-handoff/entry-usb-pages/`. Check `CURRENT_STATUS.md` for its current draft or
+acceptance state; an input/audit pass alone is not a completed target lifecycle.
+
 The aggregate command requires the existing local research dependencies. It does
 not install anything automatically. Scratch tools may disappear after cleanup:
 

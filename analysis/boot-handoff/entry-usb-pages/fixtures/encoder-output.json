@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "-z1",
+    "-P",
+    "-L0",
+    "-r600x600",
+    "-n1",
+    "-d1",
+    "-u0x0",
+    "-l0x0",
+    "-p9",
+    "-s7",
+    "-m1"
+  ],
+  "bytes": 967,
+  "encoder_sha256": "9da31cf541993c73db7ac01a0ed26bf6aa5585c21a61d56c353ade2cf451ae1f",
+  "input_sha256": "9660f3075f60ad3586b22dec702f16560461c1718c60c5f19d00a89beb26833d",
+  "normalized": false,
+  "sha256": "8ccf8bc1391e9025e3bd0a196dd155a04b967271bbb2a896bfd185453c0ed669"
+}

@@ -1,0 +1,20 @@
+{
+  "status": "source/ELF-derived checker correction with two partial raw-trace diagnostics; fresh execution pending",
+  "scope": "Separate immediate-return adapter guard from unexecuted provider cancellation. First capture remains an overall V2 failure. No target or saved report changes.",
+  "archive_bytes": 40123,
+  "archive_sha256": "a225140367a597b8fd2cc375424306d578a32da21c544a4c8a565dc8e1623315",
+  "members": 11,
+  "member_sha256": {
+    "archive-inputs.json": "68df88f90f86a6ad6398075e27a754d5028f2883407b6baf0eab9f4080f56af8",
+    "archive.py": "9357471484dd37b2ffc0a54ac289ce07461a06565f2bd0ec7411e9574090e29a",
+    "diagnostic.log": "0d4dccb562bb220c8fd7a46d6ed3a0b99f2d0b09899c3e2999ed89c6dd0e474c",
+    "v3/CORRECTION.md": "515acf2b756ffd6aa41d396bfbac4a4d8d3199c3f725bb8cde00eaad91753f7c",
+    "v3/MANIFEST.json": "006fc19fbd24dea176fda7708d50b602e96d04b70257f9e5d82d7b81a6e3b85d",
+    "v3/check-hp1020-entry-usb-pages.py": "00a3b35164d116779273b33be60bfefafb490a72758449b7628d79ce3087edf1",
+    "v3/diagnostic.json": "a1c3455801c95ca3eabd146779023ced11f5890638b0a5dfd77d6e471daa32db",
+    "v3/diagnostic.py": "574e54f15cd47de135d22fe6c9a8b6bc52df09d39a63316a83a9cc6edafe0b9d",
+    "v3/gate-v2-v3.diff": "d4b062162230a7848b00dc43807cfabd77386129f96522c7d33bca1797244f4a",
+    "v3/independent-literals.py": "b4f648a2c8a951a55a5bcd3e9f8aa19c9af695127945020f249d507d906ca545",
+    "v3/literal-addendum.py": "5f3ff4167aff680a1f1b2ee0129039b10fbabd17bbfdff0291b62aa27ac77729"
+  }
+}

@@ -21,6 +21,8 @@ Documentation is agent memory, never a deliverable he must review.
 - Use focused parallel agents when investigations or reviews are independently
   useful. Keep one lead responsible for shared context, integration and claims;
   avoid duplicate work and coordinate all validation sequentially.
+  Extra agents should remove distinct work from the critical path; do not spawn
+  routine reviewers for every small change. The owner prefers efficient usage.
 - Keep these preferences across new tasks. Do not ask him to maintain context.
 
 ## Startup
