@@ -7,7 +7,7 @@ Paths in code notation are relative to the repository root.
 | Work | Source and useful evidence |
 |---|---|
 | Next missing capability and hardware questions | [Next evidence](open-firmware-model/next-evidence.md) |
-| Stream parsing and decoded pages | `open-firmware/semantic-core/`, `open-firmware/image-core/`; [image path](open-firmware-model/image-core/output-validation.md), [metadata](open-firmware-model/raster-field-semantics.md) |
+| Stream parsing and decoded pages | `open-firmware/semantic-core/`, `open-firmware/image-core/`, `open-firmware/image-pump/` (cooperative output waits); [image path](open-firmware-model/image-core/output-validation.md), [metadata](open-firmware-model/raster-field-semantics.md) |
 | USB protocol and document integration | `open-firmware/tinyusb-device/`, `open-firmware/tinyusb-printer-adapter/`, `open-firmware/usb-receive-core/`, `open-firmware/usb-printer-class/`; [adapter results](usb-path/tinyusb-printer/validation.md) |
 | Controller adapter | `open-firmware/udc-{out,ep0,setup,program,publish}/`; [family reference](usb-path/controller-family.md), [manuals](usb-path/controller-reference/manuals/README.md), [OUT acquisition](usb-path/udc-acquire/validation.md) |
 | Commands and outgoing replies | `open-firmware/pjl-command/`, `open-firmware/tinyusb-printer-adapter/`, `open-firmware/udc-in/`, `open-firmware/udc-in-publish/`; `scripts/validate-hp1020-{pjl-command,bulk-in,udc-in,udc-in-publish}.py`; [original IN1 arithmetic](usb-path/in1-construction.md), [corrected callback roles](usb-path/usb-bulk-callbacks-model.md) |

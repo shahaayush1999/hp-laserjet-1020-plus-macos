@@ -164,6 +164,15 @@ reuses page metadata. It does not establish printer throughput or physical pixel
 format. Copies are metadata until an output implementation replays pages.
 Use `open-firmware/image-core/README.md` and its current validators for details.
 
+`open-firmware/image-pump/` now supplies cooperative decoding instead of waiting
+inside an output callback. Its20 host and20 target cases produce independent exact
+pixels and retain compressed/band/ring ownership across waits, stop and errors.
+Input consumption is explicit; page/document events must be acknowledged.
+It is not yet integrated with USB. That integration must retain the original
+receive-generation cursor, yield between decoder steps, and rebuild only after
+the existing receive/output/transport quiescence gates. Do not connect the old
+synchronous command feed directly and claim cooperative behavior.
+
 Prefer software decoding and the stock raw-output route to recovering the custom
 compressed-image ISA. Original datastore32 has file-backed value1, suppressing the
 custom callback in tested prepare paths. That does not prove every live setting.
@@ -188,6 +197,24 @@ The remaining implementation questions are:
    0x1a00/0x3200 select0, otherwise2. Both0/2 are single-output with different
    format tables. The file-backed2 is not a live-mode guarantee. Existing byte
    verification of this branch does not establish polarity or physical bit order.
+   A separate startup dependency is the256-word table at0x10005780. Original
+   `0x10016480..0x100164a5` writes0x04fffe00 to0xb0500000, then zero-extends each
+   16-bit table word into consecutive32-bit cells at0xb0501000 (source step2,
+   destination step4). Caller0x100164a8 later writes0x04fffe01 at0x100164e8.
+   All these peripheral operations remain excluded. The table resembles a
+   small program; repeated e3bd and f800 suggest call/return, but opcodes, register
+   mapping, timers and pin effects are not established. Do not emulate guesses.
+
+   [Agilent-origin programmable-I/O patent US7975094B2](https://patents.google.com/patent/US7975094B2/en)
+   describes loaded code SRAM, run control, simple register/branch operations,
+   one-deep subroutines, timers and shared byte registers. Its printer example
+   handles engine serial communication and vertical synchronization together.
+   This supports an architectural hypothesis, not an HP1020 identification.
+   Its [register-access companion](https://patents.google.com/patent/US20050204102A1/en)
+   describes configurable read/set/clear/write permissions and conflict priority;
+   “read/clear” is permission to clear, not proof that reading clears a register.
+   Neither source supplies this table's ISA or addresses. A bounded search found
+   no authoritative opcode map; resume that search only with a more specific lead.
 4. Connect actual status to paper/jam/cover/error replies. Original port-status
    construction only establishes a fixed byte in the tested cut; don't invent
    physical meanings from event numbers. Long output waits will need cooperative

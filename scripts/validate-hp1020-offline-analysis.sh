@@ -267,6 +267,9 @@ run_step "Connect the compiled open decoder to bounded software output ownership
 run_step "Consume whole documents through bounded software output ownership" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-image-output.py" --target
 
+run_step "Yield page decoding across output waits without losing owned data" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-image-pump.py" --target
+
 run_step "Receive bounded input and recover software documents after explicit quiescence" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-usb-receive.py" --target
 

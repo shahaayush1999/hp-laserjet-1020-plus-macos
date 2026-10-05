@@ -29,6 +29,11 @@ A shared service now joins controller, IN/OUT and command gates. Its18 host and1
 target cases include exact two-page pixels, real software failure paths in both
 directions, programming failure, reset drainage and interface re-selection.
 Reply-result collection can proceed behind closed gates without new input or I/O.
+Cooperative page decoding now yields across output waits, retains owned data and
+requires explicit page/document acknowledgement. Its20 host and20 target cases
+match independent full-decoder pixels, including delayed completion, stop and
+late errors. It is not yet integrated with USB; the old command path remains
+synchronous. Copies remain metadata, and no software event means paper printed.
 
 The original numeric PJL CODE converter is now recovered beyond the truncated
 decompilation. Its normal mappings and reads into following data were verified
@@ -66,10 +71,15 @@ serialized requests and a justified drain/reset boundary after timeout.
 
 ## Next useful work
 
-Inspect the256-word engine-interface table loaded by original0x10016480 and seek
-its controller/ISA reference. This apparent separate program is a missing startup
-contract, not yet decoded. Do not build a speculative emulator or execute its
-peripheral loader. The shared service still needs an entry-owned runtime and real providers.
+Recover the original page-configuration commands before engine start: the media
+lookup at0x100162b0 and helper0x10015d14 remain an actionable software boundary.
+Intercept command submission; do not execute engine/peripheral operations.
+The256-word table loaded by0x10016480 appears to be a separate startup program.
+An Agilent programmable-I/O patent is an architectural lead, not an opcode map
+or chip identification; the concrete loader/reference findings are in next-evidence.
+Do not build a speculative emulator or repeat the broad reference search.
+The shared service and cooperative image pump still need entry-owned integration
+and real providers, preserving original receive generation and all recovery gates.
 Boot memory arithmetic and cache operands are settled; they do not establish
 installed capacity, physical mapping, cache-line leases or completed DMA visibility.
 Numeric conversion and reply formatting are settled. DISPLAY is initially empty

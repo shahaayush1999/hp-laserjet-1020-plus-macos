@@ -1,0 +1,657 @@
+{
+  "cases": [
+    {
+      "case": "two-page-stream",
+      "fill": 0,
+      "host_stats": [
+        158432,
+        2,
+        1,
+        0,
+        87,
+        1,
+        0,
+        124056
+      ],
+      "input_sha256": "1243f9a533df6bab1a206556b1343b945c18816e93bdb738021757fbc6aaef86",
+      "pixels_sha256": "09be6b0dae1995c02448f685a93ba23060c8aaf8a55df7950e60fb080d40b1d5",
+      "target_stats": [
+        158432,
+        2,
+        1,
+        0,
+        87,
+        1,
+        0,
+        123920
+      ]
+    },
+    {
+      "case": "two-page-stream",
+      "fill": 204,
+      "host_stats": [
+        158432,
+        2,
+        1,
+        0,
+        87,
+        1,
+        0,
+        124056
+      ],
+      "input_sha256": "1243f9a533df6bab1a206556b1343b945c18816e93bdb738021757fbc6aaef86",
+      "pixels_sha256": "09be6b0dae1995c02448f685a93ba23060c8aaf8a55df7950e60fb080d40b1d5",
+      "target_stats": [
+        158432,
+        2,
+        1,
+        0,
+        87,
+        1,
+        0,
+        123920
+      ]
+    },
+    {
+      "case": "full-ring-pauses-without-waiting",
+      "fill": 0,
+      "host_stats": [
+        158432,
+        2,
+        1,
+        1,
+        88,
+        1,
+        0,
+        124056
+      ],
+      "input_sha256": "1243f9a533df6bab1a206556b1343b945c18816e93bdb738021757fbc6aaef86",
+      "pixels_sha256": "09be6b0dae1995c02448f685a93ba23060c8aaf8a55df7950e60fb080d40b1d5",
+      "target_stats": [
+        158432,
+        2,
+        1,
+        1,
+        88,
+        1,
+        0,
+        123920
+      ]
+    },
+    {
+      "case": "full-ring-pauses-without-waiting",
+      "fill": 204,
+      "host_stats": [
+        158432,
+        2,
+        1,
+        1,
+        88,
+        1,
+        0,
+        124056
+      ],
+      "input_sha256": "1243f9a533df6bab1a206556b1343b945c18816e93bdb738021757fbc6aaef86",
+      "pixels_sha256": "09be6b0dae1995c02448f685a93ba23060c8aaf8a55df7950e60fb080d40b1d5",
+      "target_stats": [
+        158432,
+        2,
+        1,
+        1,
+        88,
+        1,
+        0,
+        123920
+      ]
+    },
+    {
+      "case": "multiple-outstanding-slots",
+      "fill": 0,
+      "host_stats": [
+        158432,
+        2,
+        1,
+        0,
+        87,
+        2,
+        0,
+        124056
+      ],
+      "input_sha256": "1243f9a533df6bab1a206556b1343b945c18816e93bdb738021757fbc6aaef86",
+      "pixels_sha256": "09be6b0dae1995c02448f685a93ba23060c8aaf8a55df7950e60fb080d40b1d5",
+      "target_stats": [
+        158432,
+        2,
+        1,
+        0,
+        87,
+        2,
+        0,
+        123920
+      ]
+    },
+    {
+      "case": "multiple-outstanding-slots",
+      "fill": 204,
+      "host_stats": [
+        158432,
+        2,
+        1,
+        0,
+        87,
+        2,
+        0,
+        124056
+      ],
+      "input_sha256": "1243f9a533df6bab1a206556b1343b945c18816e93bdb738021757fbc6aaef86",
+      "pixels_sha256": "09be6b0dae1995c02448f685a93ba23060c8aaf8a55df7950e60fb080d40b1d5",
+      "target_stats": [
+        158432,
+        2,
+        1,
+        0,
+        87,
+        2,
+        0,
+        123920
+      ]
+    },
+    {
+      "case": "stop-retains-owned-output",
+      "fill": 0,
+      "host_stats": [
+        4800,
+        0,
+        0,
+        1,
+        31,
+        1,
+        0,
+        0
+      ],
+      "input_sha256": "1243f9a533df6bab1a206556b1343b945c18816e93bdb738021757fbc6aaef86",
+      "pixels_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351",
+      "target_stats": [
+        4800,
+        0,
+        0,
+        1,
+        31,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "case": "stop-retains-owned-output",
+      "fill": 204,
+      "host_stats": [
+        4800,
+        0,
+        0,
+        1,
+        31,
+        1,
+        0,
+        0
+      ],
+      "input_sha256": "1243f9a533df6bab1a206556b1343b945c18816e93bdb738021757fbc6aaef86",
+      "pixels_sha256": "a48ef1518cc7f900888d02f1ee9a4713b0acd580a9516500f82f0566bcca3351",
+      "target_stats": [
+        4800,
+        0,
+        0,
+        1,
+        31,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "case": "late-padding-error",
+      "fill": 0,
+      "host_stats": [
+        158432,
+        1,
+        0,
+        0,
+        80,
+        1,
+        1,
+        124056
+      ],
+      "input_sha256": "6f5df34a109c31b2a0ddd0af8c72f37b78d1398817eb548da0cb2384a323dceb",
+      "pixels_sha256": "09be6b0dae1995c02448f685a93ba23060c8aaf8a55df7950e60fb080d40b1d5",
+      "target_stats": [
+        158432,
+        1,
+        0,
+        0,
+        80,
+        1,
+        1,
+        123920
+      ]
+    },
+    {
+      "case": "late-padding-error",
+      "fill": 204,
+      "host_stats": [
+        158432,
+        1,
+        0,
+        0,
+        80,
+        1,
+        1,
+        124056
+      ],
+      "input_sha256": "6f5df34a109c31b2a0ddd0af8c72f37b78d1398817eb548da0cb2384a323dceb",
+      "pixels_sha256": "09be6b0dae1995c02448f685a93ba23060c8aaf8a55df7950e60fb080d40b1d5",
+      "target_stats": [
+        158432,
+        1,
+        0,
+        0,
+        80,
+        1,
+        1,
+        123920
+      ]
+    },
+    {
+      "case": "missing-end-doc",
+      "fill": 0,
+      "host_stats": [
+        158432,
+        2,
+        0,
+        0,
+        85,
+        1,
+        5,
+        124056
+      ],
+      "input_sha256": "7a6f71c91d2f116fa9d7cdf86035440f662809512e25ef2ac865942101388ab7",
+      "pixels_sha256": "09be6b0dae1995c02448f685a93ba23060c8aaf8a55df7950e60fb080d40b1d5",
+      "target_stats": [
+        158432,
+        2,
+        0,
+        0,
+        85,
+        1,
+        5,
+        123920
+      ]
+    },
+    {
+      "case": "missing-end-doc",
+      "fill": 204,
+      "host_stats": [
+        158432,
+        2,
+        0,
+        0,
+        85,
+        1,
+        5,
+        124056
+      ],
+      "input_sha256": "7a6f71c91d2f116fa9d7cdf86035440f662809512e25ef2ac865942101388ab7",
+      "pixels_sha256": "09be6b0dae1995c02448f685a93ba23060c8aaf8a55df7950e60fb080d40b1d5",
+      "target_stats": [
+        158432,
+        2,
+        0,
+        0,
+        85,
+        1,
+        5,
+        123920
+      ]
+    },
+    {
+      "case": "retained-page-and-document-events",
+      "fill": 0,
+      "host_stats": [
+        158432,
+        2,
+        1,
+        0,
+        87,
+        1,
+        0,
+        124056
+      ],
+      "input_sha256": "1243f9a533df6bab1a206556b1343b945c18816e93bdb738021757fbc6aaef86",
+      "pixels_sha256": "09be6b0dae1995c02448f685a93ba23060c8aaf8a55df7950e60fb080d40b1d5",
+      "target_stats": [
+        158432,
+        2,
+        1,
+        0,
+        87,
+        1,
+        0,
+        123920
+      ]
+    },
+    {
+      "case": "retained-page-and-document-events",
+      "fill": 204,
+      "host_stats": [
+        158432,
+        2,
+        1,
+        0,
+        87,
+        1,
+        0,
+        124056
+      ],
+      "input_sha256": "1243f9a533df6bab1a206556b1343b945c18816e93bdb738021757fbc6aaef86",
+      "pixels_sha256": "09be6b0dae1995c02448f685a93ba23060c8aaf8a55df7950e60fb080d40b1d5",
+      "target_stats": [
+        158432,
+        2,
+        1,
+        0,
+        87,
+        1,
+        0,
+        123920
+      ]
+    },
+    {
+      "case": "one-byte-fragments",
+      "fill": 0,
+      "host_stats": [
+        158432,
+        2,
+        1,
+        0,
+        1598,
+        1,
+        0,
+        124056
+      ],
+      "input_sha256": "1243f9a533df6bab1a206556b1343b945c18816e93bdb738021757fbc6aaef86",
+      "pixels_sha256": "09be6b0dae1995c02448f685a93ba23060c8aaf8a55df7950e60fb080d40b1d5",
+      "target_stats": [
+        158432,
+        2,
+        1,
+        0,
+        1598,
+        1,
+        0,
+        123920
+      ]
+    },
+    {
+      "case": "one-byte-fragments",
+      "fill": 204,
+      "host_stats": [
+        158432,
+        2,
+        1,
+        0,
+        1598,
+        1,
+        0,
+        124056
+      ],
+      "input_sha256": "1243f9a533df6bab1a206556b1343b945c18816e93bdb738021757fbc6aaef86",
+      "pixels_sha256": "09be6b0dae1995c02448f685a93ba23060c8aaf8a55df7950e60fb080d40b1d5",
+      "target_stats": [
+        158432,
+        2,
+        1,
+        0,
+        1598,
+        1,
+        0,
+        123920
+      ]
+    },
+    {
+      "case": "wrong-event-ack",
+      "fill": 0,
+      "host_stats": [
+        158400,
+        0,
+        0,
+        0,
+        66,
+        1,
+        2,
+        0
+      ],
+      "input_sha256": "1243f9a533df6bab1a206556b1343b945c18816e93bdb738021757fbc6aaef86",
+      "pixels_sha256": "125db29aa00d94b6c47f3cbdf5145316980fd4795b53f5caf1e23a3a55df2726",
+      "target_stats": [
+        158400,
+        0,
+        0,
+        0,
+        66,
+        1,
+        2,
+        0
+      ]
+    },
+    {
+      "case": "wrong-event-ack",
+      "fill": 204,
+      "host_stats": [
+        158400,
+        0,
+        0,
+        0,
+        66,
+        1,
+        2,
+        0
+      ],
+      "input_sha256": "1243f9a533df6bab1a206556b1343b945c18816e93bdb738021757fbc6aaef86",
+      "pixels_sha256": "125db29aa00d94b6c47f3cbdf5145316980fd4795b53f5caf1e23a3a55df2726",
+      "target_stats": [
+        158400,
+        0,
+        0,
+        0,
+        66,
+        1,
+        2,
+        0
+      ]
+    },
+    {
+      "case": "empty-and-successive-documents",
+      "fill": 0,
+      "host_stats": [
+        158432,
+        2,
+        4,
+        0,
+        99,
+        1,
+        0,
+        124056
+      ],
+      "input_sha256": "4d8bbae4ad772357dd895054000580ba6a7ec8e20e99926e2c84cd1233c95211",
+      "pixels_sha256": "09be6b0dae1995c02448f685a93ba23060c8aaf8a55df7950e60fb080d40b1d5",
+      "target_stats": [
+        158432,
+        2,
+        4,
+        0,
+        99,
+        1,
+        0,
+        123920
+      ]
+    },
+    {
+      "case": "empty-and-successive-documents",
+      "fill": 204,
+      "host_stats": [
+        158432,
+        2,
+        4,
+        0,
+        99,
+        1,
+        0,
+        124056
+      ],
+      "input_sha256": "4d8bbae4ad772357dd895054000580ba6a7ec8e20e99926e2c84cd1233c95211",
+      "pixels_sha256": "09be6b0dae1995c02448f685a93ba23060c8aaf8a55df7950e60fb080d40b1d5",
+      "target_stats": [
+        158432,
+        2,
+        4,
+        0,
+        99,
+        1,
+        0,
+        123920
+      ]
+    }
+  ],
+  "limits": "One bounded decoder/input step and externally advanced RAM output. Original full JBIG decoder supplies independent pixel oracle. No USB integration, hardware output, physical status/cancellation, copy replay or throughput proof.",
+  "source_sha256": {
+    "analysis/open-firmware-model/image-core/fixtures/32x8-stripe4-black.jbg": "78744d4c1f1f3ac06000192663330834b02b277df26f790aaa340ac322e9cf99",
+    "analysis/open-firmware-model/image-core/fixtures/9600x132-stripe128-edges.jbg": "2bf7a47792e5ae80129e41ec4e5a20bbd675c81c00bda365fa06627ac06c845d",
+    "analysis/samples/generated/matrix-a4_default.zjs": "8c6aa75a8c967897e72673e585c8ae862004e6e1c2b22118943ead4070e96206",
+    "open-firmware/image-core/freestanding/assert.h": "7c7d52be2164bd97b2d2ac21bcb924b57a9463f6886e935de787af41b0762300",
+    "open-firmware/image-core/freestanding/stdlib.h": "39047fd5646fd815176a77090f3dc48ed493390f777f8490bc03c0cd19225149",
+    "open-firmware/image-core/freestanding/string.h": "0b5a9c6e01dcced149dd23cef1b6b82532a151b1f14bc9ebc3723c9b69623d98",
+    "open-firmware/image-core/hp1020_image.c": "537e7085f7ee18871f9090fb7b274164a21e908ca299451be4c8d5e3c6914fc8",
+    "open-firmware/image-core/hp1020_image.h": "d15afe12a0aed6ac71b676d540562cf96e5f165047786101994a1fd53de85808",
+    "open-firmware/image-core/hp1020_image_output.h": "3aa55aa287a8315da4e2575f3fc754848be66a45d0d44c76fb373e4bebaf7d8a",
+    "open-firmware/image-core/hp1020_image_page.h": "770ed16d200cdb7d978621cf4d457ab7270df80b6d33248b0925fb4f1c798df2",
+    "open-firmware/image-core/hp1020_image_ring.c": "9ee8f5955e8d6f30a3b12778553477835dc245eb3d928f6e81b467f8562d4e2b",
+    "open-firmware/image-core/hp1020_image_ring.h": "b5c1ba9add6710330eaae94ae1f6496b9d51fb46c1de09cdc98b73ec6f9b5a33",
+    "open-firmware/image-core/hp1020_image_stream.h": "228da5f6880f67829394b677ee2536a15562158fb890a66faa8de7bd5628ce86",
+    "open-firmware/image-core/reference.c": "4632dd64ca1df51f0a103f2d3acc54ec3dba500ce1803c21233cb13e6265dbac",
+    "open-firmware/image-core/target-memory.c": "e403177bc94925c479c90defca770fa36535cf5161bdde84b8e57ea6ff6ca2c3",
+    "open-firmware/image-pump/hp1020_image_pump.c": "91b13ce743749a0c901f04adc972d1d52faeda693baea0f5c95a912aa48237c6",
+    "open-firmware/image-pump/hp1020_image_pump.h": "03bc1f0dd580caee3a63468c6b10474a7e80bc364030d74268197ad7b0c34db9",
+    "open-firmware/image-pump/target-check.ld": "0924be714d8cf7529a2e479059ab986c1c757e055330cf2ac2d4ee3dc9772341",
+    "open-firmware/image-pump/test-main.c": "ddea45b01bba2d5ff7bd3a77a1f26352a2e33d80214ba7ff1110f346985cfd2b",
+    "open-firmware/image-pump/test.c": "f7a590d1e8df74223a5e972528117e91f5c4f1d9b34f3c2caeb5b514592fb6d9",
+    "open-firmware/semantic-core/freestanding/memory.c": "9678a7810cf3756484c6bf178f7a206a180ace6cbce3502f247055a462a19bfc",
+    "open-firmware/semantic-core/hp1020_page_plan.c": "16f6608918c620f437d09fe1f56c8f1043d9c60a4e6b8b3f2cd5220ff57e0517",
+    "open-firmware/semantic-core/hp1020_page_plan.h": "1df6b7a2f4ccf752d3ac127e70b48ac8fb93cd6ce4c02431622d5d0ea1326f23",
+    "open-firmware/semantic-core/hp1020_semantic.c": "183cd8351bc01725e46ec14a93f032830730e7c33d6a26028942f29751420c6a",
+    "open-firmware/semantic-core/hp1020_semantic.h": "141abfb7e22192c860bcfb4de26980ffdbc5f4552517b5ae1c0ec89d7af097fa",
+    "scripts/check-hp1020-c-compiler-profile.py": "c9d5cce3591a402f1b3f0e4ad343fb1064747a4d9c256b4a61cea60eccdf8aa4",
+    "scripts/hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
+    "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
+    "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
+    "scripts/validate-hp1020-image-core.py": "fdfab43e675b8fbf20ecd49154afa33089a8e78866e294346d625fec21b7c27c",
+    "scripts/validate-hp1020-image-pages.py": "71042db4f7ac8657302ce491e647ae0750f1186d9bbd03c14959bf6e6570ca21",
+    "scripts/validate-hp1020-image-pump.py": "48e84e7d6dc8b145cb158f516e490302a4df8a91742f84e2fbfeb4afe9eb716a",
+    "vendor/foo2zjs-source/jbig.c": "835ce9b964a6735187b6e064562695063a65f35fe29924de1d60db660c3e21b3",
+    "vendor/foo2zjs-source/jbig.h": "0c016a8c69e349c510630edbf5b96057be952c2ac19c1a9b8488ad8c9864d7a4",
+    "vendor/foo2zjs-source/jbig_ar.c": "a51552d2f839ce8b758400660bd423b95b4b25cde11e65cc4e7d6c63c1a19d6f",
+    "vendor/foo2zjs-source/jbig_ar.h": "292c4c43c944e2573b558d89b7004cec6c59c70dbbfd7b9890868a2291d1250a",
+    "vendor/jbigkit-2.1/libjbig/jbig85.c": "5e0782db94a94d199975f74ce493d32099aee5c9ae686c05e65831a1227a5fac",
+    "vendor/jbigkit-2.1/libjbig/jbig85.h": "1c87939e042d7b03a19412dd3f8d0e9614ebbacc1aad5c4f2cfbd9bf11bd514e",
+    "vendor/jbigkit-2.1/libjbig/jbig_ar.c": "ae9fa2575d73a0cd50c6a32621ab2b6c4ca5f1115d27d636f461275c1d1e62f3",
+    "vendor/jbigkit-2.1/libjbig/jbig_ar.h": "c5dcac0af444f6b5b4470775a3b1f020243970692e8d776767e717154f3de7fa"
+  },
+  "status": "pass",
+  "target": {
+    "audit": {
+      "division_by_zero_traps": [
+        "0x20002f95"
+      ],
+      "instruction_bytes": 11776,
+      "instruction_ranges": 146,
+      "instructions": 4635,
+      "opcodes": [
+        "add",
+        "add.n",
+        "addi",
+        "addi.n",
+        "addmi",
+        "addx2",
+        "addx4",
+        "addx8",
+        "and",
+        "bany",
+        "bbci",
+        "bbsi",
+        "beq",
+        "beqi",
+        "beqz",
+        "beqz.n",
+        "bge",
+        "bgei",
+        "bgeu",
+        "bgeui",
+        "bgez",
+        "blt",
+        "blti",
+        "bltu",
+        "bltui",
+        "bltz",
+        "bnall",
+        "bne",
+        "bnei",
+        "bnez",
+        "bnez.n",
+        "bnone",
+        "call0",
+        "callx0",
+        "extui",
+        "ill",
+        "j",
+        "jx",
+        "l16si",
+        "l16ui",
+        "l32i",
+        "l32i.n",
+        "l32r",
+        "l8ui",
+        "mov.n",
+        "moveqz",
+        "movgez",
+        "movi",
+        "movi.n",
+        "movltz",
+        "movnez",
+        "mull",
+        "neg",
+        "nsau",
+        "or",
+        "ret.n",
+        "s16i",
+        "s32i",
+        "s32i.n",
+        "s8i",
+        "sll",
+        "slli",
+        "sra",
+        "srai",
+        "srl",
+        "srli",
+        "ssl",
+        "ssr",
+        "sub",
+        "subx8",
+        "xor"
+      ],
+      "rodata_bytes": 1010,
+      "scope": "All annotated code uses the conservative standard ISA; unused encoder code remains. Not a device instruction trace.",
+      "test_fixture_bss_bytes": 506488,
+      "text_bytes": 12192
+    },
+    "elf_sha256": "c74a468d27149c4c5284454d03b8035540058838986ad3deb1d58024c307097e",
+    "qemu_version": "QEMU emulator version 11.1.1"
+  }
+}
