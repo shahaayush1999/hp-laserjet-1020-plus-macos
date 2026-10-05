@@ -1,0 +1,193 @@
+{
+  "stock_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "qemu": "QEMU emulator version 11.1.1",
+  "paired_cuts": 29,
+  "cases": [
+    {
+      "name": "register-response-handler",
+      "start": "0x100164f0",
+      "stop": "0x100164f8",
+      "instructions": 3
+    },
+    {
+      "name": "irq6-tail-argument",
+      "start": "0x10015c50",
+      "stop": "0x10015c58",
+      "instructions": 3
+    },
+    {
+      "name": "irq6-tail-argument",
+      "start": "0x10015c5b",
+      "stop": "0x10015c61",
+      "instructions": 2
+    },
+    {
+      "name": "reply-present-0",
+      "start": "0x10015be3",
+      "stop": "0x10015c34",
+      "instructions": 2
+    },
+    {
+      "name": "reply-present-1000000",
+      "start": "0x10015be3",
+      "stop": "0x10015be9",
+      "instructions": 2
+    },
+    {
+      "name": "reply-accept-1000000",
+      "start": "0x10015bee",
+      "stop": "0x10015c0c",
+      "instructions": 4
+    },
+    {
+      "name": "capture-low16-and-post-one",
+      "start": "0x10015c11",
+      "stop": "0x10015c19",
+      "instructions": 3
+    },
+    {
+      "name": "reply-present-8000000",
+      "start": "0x10015be3",
+      "stop": "0x10015c34",
+      "instructions": 2
+    },
+    {
+      "name": "reply-present-9000000",
+      "start": "0x10015be3",
+      "stop": "0x10015be9",
+      "instructions": 2
+    },
+    {
+      "name": "reply-accept-9000000",
+      "start": "0x10015bee",
+      "stop": "0x10015bf6",
+      "instructions": 3
+    },
+    {
+      "name": "other-flag-0",
+      "start": "0x10015c39",
+      "stop": "0x10015c50",
+      "instructions": 2
+    },
+    {
+      "name": "other-flag-4000000",
+      "start": "0x10015c39",
+      "stop": "0x10015c3f",
+      "instructions": 2
+    },
+    {
+      "name": "event-or-0",
+      "start": "0x10018972",
+      "stop": "0x10018b79",
+      "instructions": 10
+    },
+    {
+      "name": "event-or-2",
+      "start": "0x10018972",
+      "stop": "0x10018b79",
+      "instructions": 10
+    },
+    {
+      "name": "event-or-a0000002",
+      "start": "0x10018972",
+      "stop": "0x10018b79",
+      "instructions": 10
+    },
+    {
+      "name": "event-and-clear-0",
+      "start": "0x10019410",
+      "stop": "0x10019450",
+      "instructions": 11
+    },
+    {
+      "name": "event-and-clear-1",
+      "start": "0x10019410",
+      "stop": "0x100194cc",
+      "instructions": 20
+    },
+    {
+      "name": "event-and-clear-2",
+      "start": "0x10019410",
+      "stop": "0x10019450",
+      "instructions": 11
+    },
+    {
+      "name": "event-and-clear-3",
+      "start": "0x10019410",
+      "stop": "0x100194cc",
+      "instructions": 20
+    },
+    {
+      "name": "event-and-clear-a0000003",
+      "start": "0x10019410",
+      "stop": "0x100194cc",
+      "instructions": 20
+    },
+    {
+      "name": "stage-command-with-old-event",
+      "start": "0x10015c6b",
+      "stop": "0x10015c85",
+      "instructions": 9
+    },
+    {
+      "name": "wait-one-and-clear-200-ticks",
+      "start": "0x10015cc5",
+      "stop": "0x10015cd4",
+      "instructions": 6
+    },
+    {
+      "name": "consume-old-event",
+      "start": "0x10019410",
+      "stop": "0x100194cc",
+      "instructions": 20
+    },
+    {
+      "name": "success-returns-old-response",
+      "start": "0x10015cd7",
+      "stop": "0x10015d12",
+      "instructions": 6
+    },
+    {
+      "name": "failed-wait-attempts-4",
+      "start": "0x10015cd7",
+      "stop": "0x10015c91",
+      "instructions": 3
+    },
+    {
+      "name": "failed-wait-attempts-3",
+      "start": "0x10015cd7",
+      "stop": "0x10015c91",
+      "instructions": 3
+    },
+    {
+      "name": "failed-wait-attempts-2",
+      "start": "0x10015cd7",
+      "stop": "0x10015c91",
+      "instructions": 3
+    },
+    {
+      "name": "failed-wait-attempts-1",
+      "start": "0x10015cd7",
+      "stop": "0x10015d04",
+      "instructions": 13
+    },
+    {
+      "name": "timeout-sentinel",
+      "start": "0x10015d07",
+      "stop": "0x10015d0a",
+      "instructions": 1
+    }
+  ],
+  "source_sha256": {
+    "scripts/validate-hp1020-engine-handshake.py": "c5d84ab4358ccd61ffd6edfdeecff150c2c468964ad5a4142e797e255d48725a",
+    "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
+    "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
+    "scripts/hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2"
+  },
+  "limits": [
+    "All MMIO, IRQ changes, event scheduling, waiting and command publication are omitted.",
+    "Flag values, individual register reads and pending-event RAM are supplied.",
+    "Old-event acceptance is conditional software behavior, not a demonstrated printer fault.",
+    "No physical response identity, deadlines, sensor meanings or safe recovery are established."
+  ]
+}

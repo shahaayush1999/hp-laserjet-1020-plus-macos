@@ -58,12 +58,18 @@ Original boot capacity/stack/reservation/pool arithmetic also agrees in17 paired
 executions. It selects2/8/16/32MiB from a supplied register value. The computed
 stock pool contains boot-SP/reset/debug addresses, so it is not a layout to copy.
 
+The original engine reply handler and command/event handshake are now recovered;
+29 isolated RAM cuts agree with QEMU, excluding all peripheral and IRQ operations.
+An untagged pending reply can satisfy a later command under supplied stale-event
+conditions. This is not a device fault reproduction. A real status provider needs
+serialized requests and a justified drain/reset boundary after timeout.
+
 ## Next useful work
 
-Recover the original engine reply interrupt and command-wait handshake so a
-future status provider can distinguish a current response from stale memory.
-Use original bytes and isolated RAM execution; omit all engine MMIO and IRQ
-changes. The shared service still needs an entry-owned runtime and real providers.
+Inspect the256-word engine-interface table loaded by original0x10016480 and seek
+its controller/ISA reference. This apparent separate program is a missing startup
+contract, not yet decoded. Do not build a speculative emulator or execute its
+peripheral loader. The shared service still needs an entry-owned runtime and real providers.
 Boot memory arithmetic and cache operands are settled; they do not establish
 installed capacity, physical mapping, cache-line leases or completed DMA visibility.
 Numeric conversion and reply formatting are settled. DISPLAY is initially empty

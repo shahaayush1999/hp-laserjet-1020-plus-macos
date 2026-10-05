@@ -140,8 +140,8 @@
         "clear the status register with 0xfeffffff",
         "wait for status register bit 0x00010000",
         "write the staged command into the command register low 16 bits while preserving upper 16 bits",
-        "set command register bit 0x00010000 and wait for firmware event response",
-        "on timeout, emit queue 1 message 0x17 with event 0xfe001401 and return 0xffff"
+        "set command register bit 0x00010000, enable IRQ6, and wait for event mask0x1 with option3 (AND_CLEAR) and timeout200 ticks",
+        "on success, clear the command latch and return state+0x5c; four failed iterations (not necessarily four submissions) emit queue1 message0x17/event0xfe001401 and return0xffff"
       ]
     },
     {

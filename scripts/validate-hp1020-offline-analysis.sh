@@ -213,6 +213,9 @@ run_step "Regenerate video/engine register semantics" \
 run_step "Regenerate video prepare mode model" \
   "$ROOT_DIR/scripts/model-hp1020-video-prepare-modes.py"
 
+run_step "Recover original engine reply and event handshake without peripherals" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-engine-handshake.py"
+
 run_step "Regenerate engine command/status model" \
   "$ROOT_DIR/scripts/model-hp1020-engine-command-status.py"
 

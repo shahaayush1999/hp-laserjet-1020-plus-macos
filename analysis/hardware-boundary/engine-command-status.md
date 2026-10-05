@@ -122,8 +122,8 @@ This is a generated offline model. It does not contact the printer.
 2. clear the status register with 0xfeffffff
 3. wait for status register bit 0x00010000
 4. write the staged command into the command register low 16 bits while preserving upper 16 bits
-5. set command register bit 0x00010000 and wait for firmware event response
-6. on timeout, emit queue 1 message 0x17 with event 0xfe001401 and return 0xffff
+5. set command register bit 0x00010000, enable IRQ6, and wait for event mask0x1 with option3 (AND_CLEAR) and timeout200 ticks
+6. on success, clear the command latch and return state+0x5c; four failed iterations (not necessarily four submissions) emit queue1 message0x17/event0xfe001401 and return0xffff
 
 ### `preflight_start`
 
@@ -154,6 +154,51 @@ This is a generated offline model. It does not contact the printer.
 2. command 0x5043 is sent when the previous event family was e6100800 and the new event leaves that family
 3. state +0x60 is updated with the selected event and queue 1 message 0x17 is emitted when it changes
 4. primary status low16 is stored at state +0x64 after each successful poll
+
+## Original reply interrupt and freshness boundary
+
+`scripts/validate-hp1020-engine-handshake.py` executes29 original RAM cuts
+in the interpreter and QEMU; its current source-bound result is
+`engine-handshake-execution.json`. All peripheral access, IRQ changes,
+scheduler/wait behavior and command publication are excluded.
+
+Initialization at0x100164f0–f8 registers0x10015bc8 for IRQ6 through
+0x1001716c. The handler reads0xb050000c separately at each decision:
+
+1. It first writes a read-modify-write value clearing bit28.
+2. With bit24 set, a second observation of bit27 decides acceptance.
+   Bit27 set only clears that bit; no response is captured or event posted.
+   Otherwise a third read supplies low16 to state+0x5c at0x10015c11,
+   then0x10017dac receives `(state,1,0)` (event OR). The hidden third
+   argument is zero from the earlier AND, not an omitted unknown value.
+   Both paths then write a value clearing bit24.
+3. Without bit24, bit26 selects another clear-only path.
+4. Every path calls0x100171b0(6) then0x100171e0(6): disable IRQ6 and
+   write its mask to INTCLEAR. Those CPU operations are statically read,
+   never executed by this experiment.
+
+These are values computed by the original code, not established register
+acknowledgement semantics or meanings of the error bits. Successive reads
+are independent observations; the test does not manufacture a snapshot.
+
+The caller stages a16-bit command, checks ready bit16, preserves the command
+register's upper16 bits, writes the command and sets bit16. Not-ready
+iterations sleep1 tick; submitted iterations enable IRQ6 then wait200 ticks.
+Both consume the same four-iteration budget. Tick duration is not established.
+
+The event core0x10019408 tests requested flags and option3 clears mask0x1 on
+success. The command helper does not clear a pending software event before
+a new command, and the IRQ producer does not tag its response with a command
+identity. Supplied old event-mask0x1/response RAM therefore survives a new command
+latch and is accepted by the success tail in the isolated cuts. This is a
+conditional freshness finding, not an observed printer fault: physical
+command submission, interrupt timing and the blocking scheduler are absent.
+
+The replacement need not copy ThreadX or these retries. It needs one serialized
+transaction with a deadline and a justified post-timeout drain/reset boundary
+before another command can accept an untagged response. An IRQ occurrence,
+a changed USB generation or a nonzero cached word alone cannot establish
+engine response freshness. Physical recovery and sensor calibration remain open.
 
 ## Evidence Checks
 

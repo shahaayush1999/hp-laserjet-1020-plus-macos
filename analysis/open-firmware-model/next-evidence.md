@@ -192,10 +192,17 @@ The remaining implementation questions are:
    construction only establishes a fixed byte in the tested cut; don't invent
    physical meanings from event numbers. Long output waits will need cooperative
    progress so cancellation/status remain responsive.
-   Next inspect the response producer and interrupt registration behind
-   `0x10015c68`'s command/wait helper. Existing polling tests supply that helper's
-   result; they do not establish when the captured response is current. Keep
-   any execution cut entirely outside engine MMIO and interrupt changes.
+   The IRQ6 producer and command/event handshake are now recovered in
+   `engine-command-status.md`;29 RAM cuts agree independently in QEMU. A response
+   requires status bit24 and a later bit27-clear observation. A third read supplies
+   low16, followed by event OR1; all paths disable/clear IRQ6. The caller waits
+   AND_CLEAR1 with200 ticks within a four-iteration budget. These are original
+   code semantics, not proof of physical register acknowledgements or timing.
+   A supplied old event/response survives a new command latch and can satisfy its
+   success tail. The producer has no command identity. Do not repeat this finding
+   or build another event model: actual response freshness needs serialized
+   commands and a justified drain/reset after timeout. USB epochs cannot provide
+   that engine guarantee. Physical error-bit meanings remain uncalibrated.
 
 ## Settled work and validation limits
 
