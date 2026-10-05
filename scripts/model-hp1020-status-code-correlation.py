@@ -172,7 +172,7 @@ def render_markdown(report: dict[str, Any]) -> str:
             "",
             "## Practical Meaning",
             "",
-            "Use the recovered ordinary mappings when connecting known engine observations to compatible status replies. Do not copy the adjacent-data aliases, turn a supplied numeric fixture into a sensed condition, or manufacture ready/job completion from input decoding. The current open command path provides ECHO only.",
+            "Use the recovered ordinary mappings when connecting known engine observations to compatible status replies. Do not copy the adjacent-data aliases, turn a supplied numeric fixture into a sensed condition, or manufacture ready/job completion from input decoding. The open command path provides ECHO and INFO STATUS from an explicitly supplied current CODE/ONLINE observation; no physical status provider is implemented.",
             "",
         ]
     )

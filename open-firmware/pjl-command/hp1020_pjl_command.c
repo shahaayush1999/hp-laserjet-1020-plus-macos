@@ -58,9 +58,34 @@ static enum hp1020_rx_result pjl_feed_binary(struct hp1020_pjl_command *s,
     d->feeding=0;
     return d->payload_error?pjl_fault(s,d->payload_error):HP1020_RX_OK;
 }
+static void pjl_status_reply(struct hp1020_pjl_command *s) {
+    struct hp1020_pjl_status status={0};
+    if(!s->read_status || !s->read_status(s->status_context,s->epoch,s->generation,&status) ||
+        status.epoch!=s->epoch || status.generation!=s->generation || status.online>1 ||
+        status.code>99999)return;
+    static const uint8_t prefix[]="@PJL INFO STATUS\r\nCODE=";
+    static const uint8_t fields[]="\r\nDISPLAY=\"\"\r\nONLINE=";
+    memcpy(s->reply,prefix,sizeof(prefix)-1);
+    unsigned at=sizeof(prefix)-1;
+    /* Five bounded decimal digits, without adding a target remainder helper. */
+    static const uint32_t places[]={10000,1000,100,10,1};
+    uint32_t code=status.code;bool started=false;
+    for(unsigned i=0;i<5;i++) {
+        uint8_t digit='0';
+        while(code>=places[i]) { code-=places[i];digit++; }
+        if(digit!='0' || started || i==4) { s->reply[at++]=digit;started=true; }
+    }
+    memcpy(s->reply+at,fields,sizeof(fields)-1);at+=sizeof(fields)-1;
+    const char *online=status.online?"TRUE":"FALSE";
+    unsigned n=status.online?4:5;
+    memcpy(s->reply+at,online,n);at+=n;
+    memcpy(s->reply+at,"\r\n\f",3);at+=3;
+    s->reply_length=(uint8_t)at;s->queued=1;
+}
 static enum hp1020_rx_result pjl_text(struct hp1020_pjl_command *s,uint8_t b) {
     static const uint8_t uel[]={0x1b,'%','-','1','2','3','4','5','X'};
     static const uint8_t echo[]="@PJL ECHO ";
+    static const uint8_t status[]="@PJL INFO STATUS";
     if(b==0x1b) {
         pjl_line_reset(s);s->line_invalid=1;s->uel_match=1;return HP1020_RX_OK;
     }
@@ -80,6 +105,10 @@ static enum hp1020_rx_result pjl_text(struct hp1020_pjl_command *s,uint8_t b) {
             memcpy(s->reply,s->line,s->line_used);
             memcpy(s->reply+s->line_used,"\r\n\f",3);
             s->reply_length=(uint8_t)(s->line_used+3);s->queued=1;
+        } else if(!s->line_invalid && !s->line_overflow && s->line_used==sizeof(status)-1 &&
+            !memcmp(s->line,status,sizeof(status)-1)) {
+            if(s->queued || s->inflight)return HP1020_RX_WAIT;
+            pjl_status_reply(s);
         }
         pjl_line_reset(s);return HP1020_RX_OK;
     }
@@ -95,11 +124,12 @@ static enum hp1020_rx_result pjl_text(struct hp1020_pjl_command *s,uint8_t b) {
     return HP1020_RX_OK;
 }
 enum hp1020_rx_result hp1020_pjl_command_init(struct hp1020_pjl_command *s,
-    struct hp1020_tusb_adapter *a) {
+    struct hp1020_tusb_adapter *a,hp1020_pjl_status_read_fn read_status,void *context) {
     if(!s || s->initialized || !a || !a->initialized || !a->printer ||
         a->busy || a->stack_active || a->owners[3].state || a->in_prepared ||
         a->in_result_pending)return HP1020_RX_ORDER;
-    memset(s,0,sizeof(*s));s->adapter=a;s->initialized=1;
+    memset(s,0,sizeof(*s));s->adapter=a;s->read_status=read_status;
+    s->status_context=context;s->initialized=1;
     pjl_sync(s);return HP1020_RX_OK;
 }
 enum hp1020_rx_result hp1020_pjl_command_pump(struct hp1020_pjl_command *s) {

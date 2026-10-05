@@ -1,8 +1,8 @@
-# Bounded PJL ECHO in the input pipeline
+# Bounded PJL commands in the input pipeline
 
 This component takes over the document input pump and bulk-IN reply ownership.
 It consumes actual completed OUT reservations, retains a ticket/cursor when
-reply storage is busy, and sends ECHO through the real TinyUSB adapter. DCD
+reply storage is busy, and sends ECHO/INFO STATUS through the real TinyUSB adapter. DCD
 staging and recording-I/O publication remain separate, using the checked IN
 components. No physical USB backend or entry-loop integration is supplied.
 
@@ -10,9 +10,14 @@ The first profile recognizes `@PJL ECHO ` followed by at most50 printable ASCII
 bytes, with CR or LF termination. It preserves that line and replies with
 CR/LF/form-feed. The maximum63-byte reply is a short USB packet, so this profile
 does not need an automatic trailing ZLP. An oversized ECHO stops the stream
-explicitly; it is never silently truncated. Other PJL lines are ignored. This
-implements the repository's existing non-printing ECHO query, not job/device
-status. No START, PAGE, END, ready or paper-state notification is invented.
+explicitly; it is never silently truncated. Exact uppercase `@PJL INFO STATUS`
+uses an optional read-only provider for a coherent CODE/ONLINE observation tagged
+with the current transport epoch and document generation. The provider must
+establish freshness and physical meaning; this component cannot acquire sensors.
+Unavailable, stale or invalid observations consume the query without replying,
+so absent status cannot block pages or become a fabricated ready response.
+CODE0..99999 and ONLINE0/1 are admitted; DISPLAY is empty. No START, PAGE, END
+or unsolicited DEVICE notification is generated. Other PJL lines are ignored.
 
 UEL and commands may split across receive packets. At an envelope line's start,
 JZJZ enters the existing binary parser; inside ECHO text it remains text. Binary
@@ -29,7 +34,9 @@ consumer. It calls no controller hook itself and cannot grant a controller
 readiness/reset promise. All calls and callbacks remain serialized; output and
 document callbacks must not re-enter the pipeline or mutate its adapter.
 
-Reset discards partial text and unsent replies. A borrowed reply stays immutable
+Status is sampled only when reply storage becomes available, then copied to the
+owned packet. Later provider changes cannot mutate that snapshot. Reset discards
+partial text and unsent replies. A borrowed reply stays immutable
 until its exact original result is collected, including after a failed DCD bind,
 uncertain publication or late success. A second ECHO holds its receive cursor
 until the first reply's storage is released. This memory release is not host
@@ -43,4 +50,11 @@ Tests include one-byte fragments, text/binary separation, backpressure, reset
 and publication failure recovery. The mixed case decodes two existing JBIG
 fixtures to exact independent128-byte pixels between ECHOs; it is a synthetic
 ZjStream document, not a new stock lifecycle or physical printing test.
-The current source-bound result is `analysis/usb-path/pjl-command-validation.json`.
+Status tests compare actual staged bytes to executed original INFO replies in
+`analysis/status-path/status-reply-execution.json`, including direct CODE0.
+That original check supplies datastore values, locks, decimal formatting,
+allocation and final callbacks; it is a byte-format oracle, not sensed status.
+The open path intentionally accepts only positive bounded arithmetic and a
+Boolean ONLINE. Original `%d` overflow and arbitrary nonzero ONLINE bytes are
+outside this profile. The current result is
+`analysis/usb-path/pjl-command-validation.json`.

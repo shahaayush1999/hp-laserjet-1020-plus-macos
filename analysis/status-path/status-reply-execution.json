@@ -1,0 +1,659 @@
+{
+  "display": {
+    "address": "0x1001cdbc",
+    "initial_hex": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "length": 68
+  },
+  "distinct_instructions": 409,
+  "elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "interpreted_cases": 14,
+  "interpreted_instructions": 24803,
+  "limits": [
+    "Original INFO envelope dispatcher, direct query, common reply builder, DEVICE builder, numeric converter, datastore integer getter, append, strcmp, strcpy, strlen and final language-dispatch wrappers execute.",
+    "Datastore24 ONLINE,25 event and31 numeric metadata are supplied RAM observations. DISPLAY keeps its original empty bytes; its writer and physical interpretation are not proved.",
+    "Datastore lock/unlock are hosted without semaphore contention. Decimal formatting is a shared host boundary asserting original %d literal and signed32 argument; original printf internals do not execute.",
+    "Allocation and final language callbacks are supplied. This checks bytes and callback length, not USB transfer or allocation ownership after callback.",
+    "DEVICE subscription, StatusMgr delivery and priority filtering are outside this check. No command parser stream, sensors, MMIO, printer, boot or physical output executes."
+  ],
+  "native_cases": [
+    {
+      "instructions": 989,
+      "name": "direct_ready_online",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 1,
+        "0x100000c0": 1,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "instructions": 1000,
+      "name": "direct_ready_offline",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 1,
+        "0x100000c0": 1,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "instructions": 1803,
+      "name": "direct_zero",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 1,
+        "0x100000c0": 1,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "instructions": 2546,
+      "name": "info_ready",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 2,
+        "0x100000c0": 2,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "instructions": 3332,
+      "name": "info_zero",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 2,
+        "0x100000c0": 2,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "instructions": 2521,
+      "name": "device_cover_code",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 1,
+        "0x100000c0": 1,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "instructions": 924,
+      "name": "device_zero_suppressed",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 0,
+        "0x100000c0": 0,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    },
+    {
+      "instructions": 2259,
+      "name": "device_allocation_failure",
+      "vector_entries": {
+        "0x10000000": 0,
+        "0x10000040": 0,
+        "0x10000080": 1,
+        "0x100000c0": 1,
+        "0x10000100": 0,
+        "0x10000140": 0
+      }
+    }
+  ],
+  "observations": [
+    {
+      "allocation_sizes": [],
+      "code": 10001,
+      "delivered": 0,
+      "event": 256,
+      "expected_hex": "434f44453d31303030310d0a444953504c41593d22220d0a4f4e4c494e453d545255450d0a",
+      "expected_text": "CODE=10001\r\nDISPLAY=\"\"\r\nONLINE=TRUE\r\n",
+      "format_calls": [
+        {
+          "argument": 10001,
+          "format": "%d",
+          "text": "10001"
+        }
+      ],
+      "kind": "query",
+      "lock_calls": [
+        [
+          "lock",
+          31
+        ],
+        [
+          "unlock",
+          31
+        ],
+        [
+          "lock",
+          26
+        ],
+        [
+          "unlock",
+          26
+        ]
+      ],
+      "name": "direct_ready_online",
+      "online": 1
+    },
+    {
+      "alignment": 1,
+      "allocation_sizes": [],
+      "code": 10001,
+      "delivered": 0,
+      "event": 256,
+      "expected_hex": "434f44453d31303030310d0a444953504c41593d22220d0a4f4e4c494e453d46414c53450d0a",
+      "expected_text": "CODE=10001\r\nDISPLAY=\"\"\r\nONLINE=FALSE\r\n",
+      "format_calls": [
+        {
+          "argument": 10001,
+          "format": "%d",
+          "text": "10001"
+        }
+      ],
+      "kind": "query",
+      "lock_calls": [
+        [
+          "lock",
+          31
+        ],
+        [
+          "unlock",
+          31
+        ],
+        [
+          "lock",
+          26
+        ],
+        [
+          "unlock",
+          26
+        ]
+      ],
+      "name": "direct_ready_offline",
+      "online": 0
+    },
+    {
+      "allocation_sizes": [],
+      "code": 40021,
+      "delivered": 0,
+      "event": 3859810304,
+      "expected_hex": "434f44453d34303032310d0a444953504c41593d22220d0a4f4e4c494e453d46414c53450d0a",
+      "expected_text": "CODE=40021\r\nDISPLAY=\"\"\r\nONLINE=FALSE\r\n",
+      "format_calls": [
+        {
+          "argument": 40021,
+          "format": "%d",
+          "text": "40021"
+        }
+      ],
+      "kind": "query",
+      "lock_calls": [
+        [
+          "lock",
+          31
+        ],
+        [
+          "unlock",
+          31
+        ],
+        [
+          "lock",
+          26
+        ],
+        [
+          "unlock",
+          26
+        ]
+      ],
+      "name": "direct_cover_code",
+      "online": 0
+    },
+    {
+      "allocation_sizes": [],
+      "code": 40600,
+      "delivered": 0,
+      "event": 3859811840,
+      "expected_hex": "434f44453d34303630300d0a444953504c41593d22220d0a4f4e4c494e453d46414c53450d0a",
+      "expected_text": "CODE=40600\r\nDISPLAY=\"\"\r\nONLINE=FALSE\r\n",
+      "format_calls": [
+        {
+          "argument": 40600,
+          "format": "%d",
+          "text": "40600"
+        }
+      ],
+      "kind": "query",
+      "lock_calls": [
+        [
+          "lock",
+          31
+        ],
+        [
+          "unlock",
+          31
+        ],
+        [
+          "lock",
+          26
+        ],
+        [
+          "unlock",
+          26
+        ]
+      ],
+      "name": "direct_cartridge_code",
+      "online": 0
+    },
+    {
+      "allocation_sizes": [],
+      "code": 50021,
+      "delivered": 0,
+      "event": 4261417985,
+      "expected_hex": "434f44453d35303032310d0a444953504c41593d22220d0a4f4e4c494e453d46414c53450d0a",
+      "expected_text": "CODE=50021\r\nDISPLAY=\"\"\r\nONLINE=FALSE\r\n",
+      "format_calls": [
+        {
+          "argument": 50021,
+          "format": "%d",
+          "text": "50021"
+        }
+      ],
+      "kind": "query",
+      "lock_calls": [
+        [
+          "lock",
+          31
+        ],
+        [
+          "unlock",
+          31
+        ],
+        [
+          "lock",
+          26
+        ],
+        [
+          "unlock",
+          26
+        ]
+      ],
+      "name": "direct_timeout",
+      "online": 0
+    },
+    {
+      "allocation_sizes": [],
+      "code": 0,
+      "delivered": 0,
+      "event": 3859810817,
+      "expected_hex": "434f44453d300d0a444953504c41593d22220d0a4f4e4c494e453d46414c53450d0a",
+      "expected_text": "CODE=0\r\nDISPLAY=\"\"\r\nONLINE=FALSE\r\n",
+      "format_calls": [
+        {
+          "argument": 0,
+          "format": "%d",
+          "text": "0"
+        }
+      ],
+      "kind": "query",
+      "lock_calls": [
+        [
+          "lock",
+          31
+        ],
+        [
+          "unlock",
+          31
+        ],
+        [
+          "lock",
+          26
+        ],
+        [
+          "unlock",
+          26
+        ]
+      ],
+      "name": "direct_zero",
+      "online": 0
+    },
+    {
+      "allocation_sizes": [],
+      "code": 41302,
+      "delivered": 0,
+      "event": 2147487745,
+      "expected_hex": "434f44453d34313330320d0a444953504c41593d22220d0a4f4e4c494e453d46414c53450d0a",
+      "expected_text": "CODE=41302\r\nDISPLAY=\"\"\r\nONLINE=FALSE\r\n",
+      "format_calls": [
+        {
+          "argument": 41302,
+          "format": "%d",
+          "text": "41302"
+        }
+      ],
+      "kind": "query",
+      "lock_calls": [
+        [
+          "lock",
+          31
+        ],
+        [
+          "unlock",
+          31
+        ],
+        [
+          "lock",
+          26
+        ],
+        [
+          "unlock",
+          26
+        ]
+      ],
+      "media": 1,
+      "name": "direct_media",
+      "online": 0,
+      "source": 2
+    },
+    {
+      "allocation_sizes": [
+        57
+      ],
+      "code": 10001,
+      "delivered": 1,
+      "event": 256,
+      "expected_hex": "40504a4c20494e464f205354415455530d0a434f44453d31303030310d0a444953504c41593d22220d0a4f4e4c494e453d545255450d0a0c",
+      "expected_text": "@PJL INFO STATUS\r\nCODE=10001\r\nDISPLAY=\"\"\r\nONLINE=TRUE\r\n\f",
+      "format_calls": [
+        {
+          "argument": 10001,
+          "format": "%d",
+          "text": "10001"
+        }
+      ],
+      "kind": "info",
+      "lock_calls": [
+        [
+          "lock",
+          31
+        ],
+        [
+          "unlock",
+          31
+        ],
+        [
+          "lock",
+          26
+        ],
+        [
+          "unlock",
+          26
+        ]
+      ],
+      "name": "info_ready",
+      "online": 255
+    },
+    {
+      "allocation_sizes": [
+        54
+      ],
+      "code": 0,
+      "delivered": 1,
+      "event": 3859810817,
+      "expected_hex": "40504a4c20494e464f205354415455530d0a434f44453d300d0a444953504c41593d22220d0a4f4e4c494e453d46414c53450d0a0c",
+      "expected_text": "@PJL INFO STATUS\r\nCODE=0\r\nDISPLAY=\"\"\r\nONLINE=FALSE\r\n\f",
+      "format_calls": [
+        {
+          "argument": 0,
+          "format": "%d",
+          "text": "0"
+        }
+      ],
+      "kind": "info",
+      "lock_calls": [
+        [
+          "lock",
+          31
+        ],
+        [
+          "unlock",
+          31
+        ],
+        [
+          "lock",
+          26
+        ],
+        [
+          "unlock",
+          26
+        ]
+      ],
+      "name": "info_zero",
+      "online": 0
+    },
+    {
+      "allocation_sizes": [
+        58
+      ],
+      "code": 40021,
+      "delivered": 1,
+      "event": 3859810304,
+      "expected_hex": "40504a4c20494e464f205354415455530d0a434f44453d34303032310d0a444953504c41593d22220d0a4f4e4c494e453d46414c53450d0a0c",
+      "expected_text": "@PJL INFO STATUS\r\nCODE=40021\r\nDISPLAY=\"\"\r\nONLINE=FALSE\r\n\f",
+      "format_calls": [
+        {
+          "argument": 40021,
+          "format": "%d",
+          "text": "40021"
+        }
+      ],
+      "kind": "info",
+      "lock_calls": [
+        [
+          "lock",
+          31
+        ],
+        [
+          "unlock",
+          31
+        ],
+        [
+          "lock",
+          26
+        ],
+        [
+          "unlock",
+          26
+        ]
+      ],
+      "name": "info_cover_code",
+      "online": 0
+    },
+    {
+      "allocation_sizes": [
+        61
+      ],
+      "code": 40021,
+      "delivered": 1,
+      "event": 3859810304,
+      "expected_hex": "40504a4c2055535441545553204445564943450d0a434f44453d34303032310d0a444953504c41593d22220d0a4f4e4c494e453d46414c53450d0a0c",
+      "expected_text": "@PJL USTATUS DEVICE\r\nCODE=40021\r\nDISPLAY=\"\"\r\nONLINE=FALSE\r\n\f",
+      "format_calls": [
+        {
+          "argument": 40021,
+          "format": "%d",
+          "text": "40021"
+        }
+      ],
+      "kind": "device",
+      "lock_calls": [
+        [
+          "lock",
+          31
+        ],
+        [
+          "unlock",
+          31
+        ],
+        [
+          "lock",
+          31
+        ],
+        [
+          "unlock",
+          31
+        ],
+        [
+          "lock",
+          26
+        ],
+        [
+          "unlock",
+          26
+        ]
+      ],
+      "name": "device_cover_code",
+      "online": 0
+    },
+    {
+      "allocation_sizes": [
+        60
+      ],
+      "code": 10001,
+      "delivered": 1,
+      "event": 256,
+      "expected_hex": "40504a4c2055535441545553204445564943450d0a434f44453d31303030310d0a444953504c41593d22220d0a4f4e4c494e453d545255450d0a0c",
+      "expected_text": "@PJL USTATUS DEVICE\r\nCODE=10001\r\nDISPLAY=\"\"\r\nONLINE=TRUE\r\n\f",
+      "format_calls": [
+        {
+          "argument": 10001,
+          "format": "%d",
+          "text": "10001"
+        }
+      ],
+      "kind": "device",
+      "lock_calls": [
+        [
+          "lock",
+          31
+        ],
+        [
+          "unlock",
+          31
+        ],
+        [
+          "lock",
+          31
+        ],
+        [
+          "unlock",
+          31
+        ],
+        [
+          "lock",
+          26
+        ],
+        [
+          "unlock",
+          26
+        ]
+      ],
+      "name": "device_ready",
+      "online": 1
+    },
+    {
+      "allocation_sizes": [],
+      "code": 0,
+      "delivered": 0,
+      "event": 3859810817,
+      "expected_hex": null,
+      "expected_text": null,
+      "format_calls": [],
+      "kind": "device",
+      "lock_calls": [
+        [
+          "lock",
+          31
+        ],
+        [
+          "unlock",
+          31
+        ]
+      ],
+      "name": "device_zero_suppressed",
+      "online": 0
+    },
+    {
+      "allocation_failure": true,
+      "allocation_sizes": [
+        61
+      ],
+      "code": 40021,
+      "delivered": 0,
+      "event": 3859810304,
+      "expected_hex": "40504a4c2055535441545553204445564943450d0a434f44453d34303032310d0a444953504c41593d22220d0a4f4e4c494e453d46414c53450d0a0c",
+      "expected_text": "@PJL USTATUS DEVICE\r\nCODE=40021\r\nDISPLAY=\"\"\r\nONLINE=FALSE\r\n\f",
+      "format_calls": [
+        {
+          "argument": 40021,
+          "format": "%d",
+          "text": "40021"
+        }
+      ],
+      "kind": "device",
+      "lock_calls": [
+        [
+          "lock",
+          31
+        ],
+        [
+          "unlock",
+          31
+        ],
+        [
+          "lock",
+          31
+        ],
+        [
+          "unlock",
+          31
+        ],
+        [
+          "lock",
+          26
+        ],
+        [
+          "unlock",
+          26
+        ]
+      ],
+      "name": "device_allocation_failure",
+      "online": 0
+    }
+  ],
+  "qemu_version": "QEMU emulator version 11.1.1",
+  "source_sha256": {
+    "scripts/hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
+    "scripts/hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
+    "scripts/hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
+    "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
+    "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
+    "scripts/hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
+    "scripts/validate-hp1020-pjl-status-reply.py": "59eafa87f9e4baa32fdee87c7ee9fc946e9cac2681a1e207e0b6b56ddde6f81a"
+  },
+  "status": "pass"
+}

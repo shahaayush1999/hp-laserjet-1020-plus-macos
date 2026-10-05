@@ -53,12 +53,18 @@ START disables its eight-second no-status fallback and makes it wait for physica
 completion. Preserve exact job tokens for eventual truthful status. Its firmware
 recognition also requires the IEEE-1284 ID's `FWVER` field; a future replacement
 must identify itself truthfully so the host does not try to reload stock firmware.
-Physical-status providers and other PJL replies remain unimplemented. The
+Physical-status providers and other PJL replies remain unimplemented. INFO STATUS
+now formats a supplied current CODE/ONLINE snapshot, with an empty DISPLAY and
+no response for unavailable/stale observations. Its actual staged bytes match
+executed original INFO envelopes. Sampling waits for free reply storage; reset
+cannot overwrite an already borrowed reply. This does not enable unsolicited
+DEVICE/JOB/PAGE events. The
 command pump retains an original receive-ticket cursor under backpressure and
 owns one immutable short reply through original-result collection. It routes
 binary spans using the existing parser's framing state; PJL inside binary data
 and JZJZ inside ECHO text cannot switch modes. The first profile accepts uppercase
-ECHO and at most50 printable text bytes; unknown PJL lines are ignored, oversized
+ECHO and at most50 printable text bytes, plus exact uppercase INFO STATUS;
+unknown PJL lines are ignored, oversized
 ECHO is rejected, and a short OUT/ZLP is not EOF. It replaces the ordinary document
 pump and exclusively owns bulk-IN result collection. Do not run both pumps.
 Controller/entry integration remains absent. Numeric status conversion is now
@@ -70,9 +76,28 @@ lookup scans40 pairs at0x1001be40 although following data begins after20. Do not
 copy these adjacent-data aliases into a replacement. E.g. the numeric engine
 event0xe6100800 converts to40021 and timeout0xfe001401 to50021, but those facts
 alone do not prove sensor meaning, event publication or physical calibration.
-Recover DISPLAY/ONLINE provenance and the builder's actual notification gates
-before implementing paper/error/job replies. Existing StatusMgr publication and
-priority tests need not be repeated just to reconnect their documented boundary.
+The original INFO wrapper0x1000c568, query0x1000bfb0 and builder0x1000b624 now
+execute through string assembly and final callback in `status-reply-execution.json`.
+INFO samples datastore25 and emits even CODE0. DEVICE0x1000b6d8 suppresses CODE0
+before allocation; its other replies use `@PJL USTATUS DEVICE` with the same
+CODE/DISPLAY/ONLINE body. Both end CRLF then FF. Decimal formatting, allocation,
+locks and final callbacks are supplied boundaries; sensors are not executed.
+
+DISPLAY entry26 has descriptor0x1001d084, original zeroed68-byte buffer0x1001cdbc.
+No local writer was recovered; OPMSG/RDYMSG/STMSG all call0x1000d2a8, whose inspected
+bytes consume syntax without writing this buffer. Exported datastore service
+slots62–67 leave external clients possible. ONLINE is the separate datastore24
+value, not a consequence of a numeric code or an empty software queue.
+
+The original updater0x10010838 passes the normalized candidate saved at[sp+32]
+through0x10010a37 to0x10010a3c, then as a11 at0x10010a6e to0x1000b6d8. Event
+bit0x20000 suppresses notification; the20-client loop requires client+0x40
+bits30–31 nonzero. A higher-priority pending candidate can notify without updating
+cached datastore25 (stores0x10010909–0b versus publication gate0x100109ae).
+Thus asynchronous events cannot be reconstructed just by rereading cached status.
+Existing StatusMgr publication/priority tests need not be repeated. Next status
+work must connect genuinely current engine observations to a provider; another
+formatter/model would not supply that missing capability.
 
 ## USB hardware questions that remain
 

@@ -288,7 +288,10 @@ run_step "Bulk-IN descriptor staging and settlement" \
 run_step "Bulk-IN publication through recording hooks" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-udc-in-publish.py" --target
 
-run_step "PJL ECHO through incoming commands, decoded pages and bulk IN" \
+run_step "Recover original INFO STATUS and DEVICE reply bytes" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-pjl-status-reply.py"
+
+run_step "PJL ECHO and supplied INFO STATUS through incoming commands and bulk IN" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-pjl-command.py" --target
 
 run_step "Reject retained packet faults without manufacturing completion" \

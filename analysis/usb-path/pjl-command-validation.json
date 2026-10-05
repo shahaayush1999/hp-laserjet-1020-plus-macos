@@ -17,7 +17,21 @@
     "binary-text-is-not-a-command",
     "echo-around-two-decoded-pages",
     "unsent-reply-reset",
-    "uncertain-publication-recovery"
+    "uncertain-publication-recovery",
+    "status-online",
+    "status-offline",
+    "status-zero-direct-query",
+    "status-stale-epoch",
+    "status-stale-generation",
+    "status-unavailable",
+    "status-invalid-online",
+    "status-out-of-profile-code",
+    "status-no-provider",
+    "status-sampled-after-backpressure",
+    "status-reset-retains-original-reply",
+    "status-one-byte-query",
+    "status-exact-command-profile",
+    "status-code-limit"
   ],
   "exact_pixels_sha256": "f99fcbb3b42ff1e5e4517aab38b2589865bec2a90789d43733ff3d33317ad467",
   "fills": [
@@ -25,7 +39,7 @@
     204
   ],
   "job_sha256": "45d929f1c0b5ed500bef7a6453179f469c9800c7b294fe30a5142840bf3ec459",
-  "limits": "Bounded uppercase ECHO, at most50 printable text bytes. Synthetic OUT/DCD, recorded IN publication and supplied physical facts. No host receipt, physical status, entry-loop integration or printing.",
+  "limits": "Bounded uppercase ECHO and INFO STATUS. ECHO text at most50 bytes; status CODE=0..99999, ONLINE supplied, DISPLAY empty. Stale/unavailable/invalid status gives no reply. Synthetic OUT/DCD, recorded IN publication and supplied physical facts. No physical status provider, host receipt, entry-loop integration or printing.",
   "source_sha256": {
     "analysis/open-firmware-model/image-core/fixtures/16384x4-stripe128-edges.jbg": "829f9a3c49da2ca05b5775f51869edec21972125ecfc2092560f0c9cb2001823",
     "analysis/open-firmware-model/image-core/fixtures/32x8-stripe4-black.jbg": "78744d4c1f1f3ac06000192663330834b02b277df26f790aaa340ac322e9cf99",
@@ -33,6 +47,7 @@
     "analysis/open-firmware-model/image-core/output-fixtures/1024x260-stripe128-repeat.jbg": "22141733b11a16ef9ce8effce1b3156896c6074e8cb91431ded26342923117a7",
     "analysis/open-firmware-model/image-core/output-fixtures/64x12-stripe4-edges.jbg": "862bfd5daf1669f87957eb24e375e8413b7a222b75c906fb6740326d3d1c3782",
     "analysis/samples/generated/matrix-a4_default.zjs": "8c6aa75a8c967897e72673e585c8ae862004e6e1c2b22118943ead4070e96206",
+    "analysis/status-path/status-reply-execution.json": "bba56c066d16e5df49be4aac4e909e53405b18470dc532acd665d4c1adec75b1",
     "open-firmware/image-core/freestanding/assert.h": "7c7d52be2164bd97b2d2ac21bcb924b57a9463f6886e935de787af41b0762300",
     "open-firmware/image-core/freestanding/stdlib.h": "39047fd5646fd815176a77090f3dc48ed493390f777f8490bc03c0cd19225149",
     "open-firmware/image-core/freestanding/string.h": "0b5a9c6e01dcced149dd23cef1b6b82532a151b1f14bc9ebc3723c9b69623d98",
@@ -48,10 +63,10 @@
     "open-firmware/image-core/hp1020_image_stream.h": "228da5f6880f67829394b677ee2536a15562158fb890a66faa8de7bd5628ce86",
     "open-firmware/image-core/reference.c": "4632dd64ca1df51f0a103f2d3acc54ec3dba500ce1803c21233cb13e6265dbac",
     "open-firmware/image-core/target-memory.c": "e403177bc94925c479c90defca770fa36535cf5161bdde84b8e57ea6ff6ca2c3",
-    "open-firmware/pjl-command/hp1020_pjl_command.c": "54f521008248b90f8d0453019f22f055e363c3c8e1ea2acdd0d1156c69cae33d",
-    "open-firmware/pjl-command/hp1020_pjl_command.h": "9c9c8b35b61d931b0e94bac498c84f368a72946e73aef191a4e37df7898d1a86",
-    "open-firmware/pjl-command/test-main.c": "4d9482a6a44a4280cd7b2af1749eee6019f8006d2e51a7eec22ec7745416563c",
-    "open-firmware/pjl-command/test.c": "816d931cb4959a1a7a70ccfe78964cef9e0aca6b7bd65b8dfd6dc0b0ddd128db",
+    "open-firmware/pjl-command/hp1020_pjl_command.c": "7a6b58715e512ba3ea761ad6ab7c59f9e582c1f1d03e6b289c20c5ffd86be917",
+    "open-firmware/pjl-command/hp1020_pjl_command.h": "fda34b738a6f855474a5a44c4d534e8f31ef1c0d86d2a3558c7afe04ae726b46",
+    "open-firmware/pjl-command/test-main.c": "6279a63175d9da25ed7ee938f33ec491a1387f1d4460afb4915cf0523dd5cad7",
+    "open-firmware/pjl-command/test.c": "1572616303929da7e1e45d0c1238260f3a894a24598797ece5f5e5b9aaa58296",
     "open-firmware/semantic-core/freestanding/memory.c": "9678a7810cf3756484c6bf178f7a206a180ace6cbce3502f247055a462a19bfc",
     "open-firmware/semantic-core/freestanding/string.h": "02f67a15e7bb981984f512b9d5a262a61326011afad74ccfcf8d80c6faa030a9",
     "open-firmware/semantic-core/freestanding/target-check.c": "d27bef3845f267ec4626140b7dcb9bd1f8864168d0f98b0a2c5f8e1f26a6948b",
@@ -95,7 +110,7 @@
     "scripts/validate-hp1020-bulk-in.py": "c9ef74cbfd2b4bd79f768bca40f732c9464a6bc2d4444eabeae7cd628d08ab2f",
     "scripts/validate-hp1020-image-core.py": "fdfab43e675b8fbf20ecd49154afa33089a8e78866e294346d625fec21b7c27c",
     "scripts/validate-hp1020-image-pages.py": "71042db4f7ac8657302ce491e647ae0750f1186d9bbd03c14959bf6e6570ca21",
-    "scripts/validate-hp1020-pjl-command.py": "543481784cca1aee25f1a4ed93dc0ecb3f063e42d8de7a323df276961acba158",
+    "scripts/validate-hp1020-pjl-command.py": "805733b927d184fb0055a0dc4164a851d66c461e5477c6b526ccbac014b766f5",
     "scripts/validate-hp1020-tinyusb-printer.py": "dfe7235c6e5c3816fc5d602b1f6d957591b62e53e39205919c5ab4149dd29d83",
     "scripts/validate-hp1020-udc-in-publish.py": "9656efc0da5e14e00bf7ad75474136d20e4af613bf96689471c13c4347e8e067",
     "scripts/validate-hp1020-udc-in.py": "9403b0386efc114050d9e94fc5ada80f1ff8e72fd626c5b327ab9d7f89f8915b",
@@ -132,11 +147,11 @@
   "target": {
     "audit": {
       "division_by_zero_traps": [
-        "0x2000c66d"
+        "0x2000ccc1"
       ],
-      "instruction_bytes": 49092,
-      "instruction_ranges": 574,
-      "instructions": 19080,
+      "instruction_bytes": 50580,
+      "instruction_ranges": 602,
+      "instructions": 19654,
       "opcodes": [
         "add",
         "add.n",
@@ -212,12 +227,12 @@
         "subx8",
         "xor"
       ],
-      "rodata_bytes": 2700,
+      "rodata_bytes": 3196,
       "scope": "All annotated code uses the conservative standard ISA; unused encoder code remains. Not a device instruction trace.",
-      "test_fixture_bss_bytes": 641896,
-      "text_bytes": 50808
+      "test_fixture_bss_bytes": 641992,
+      "text_bytes": 52428
     },
-    "elf_sha256": "bfb4c64f5902bb845b082301ea3fe2f2b166e8257aacd6b02539266aaaab74ee",
+    "elf_sha256": "abb764e781b978fe66855f5c166f65ab929799e24630b9b97095e4d1de893bed",
     "qemu_version": "QEMU emulator version 11.1.1",
     "status": "pass"
   }

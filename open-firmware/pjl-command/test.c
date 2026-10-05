@@ -3,8 +3,29 @@
 #include "hp1020_pjl_command.c"
 static struct hp1020_pjl_command commands;
 uint8_t hp1020_command_job[4096];
+uint8_t hp1020_command_last_reply[64];
+uint32_t hp1020_command_last_length;
 static const uint8_t query[]="\x1b%-12345X@PJL ECHO HP1020_STATUS_PROBE\r\n\x1b%-12345X";
 static const uint8_t answer[]="@PJL ECHO HP1020_STATUS_PROBE\r\n\f";
+static const uint8_t status_query[]="@PJL INFO STATUS\r\n";
+static const uint8_t status_online[]="@PJL INFO STATUS\r\nCODE=10001\r\nDISPLAY=\"\"\r\nONLINE=TRUE\r\n\f";
+static const uint8_t status_offline[]="@PJL INFO STATUS\r\nCODE=40021\r\nDISPLAY=\"\"\r\nONLINE=FALSE\r\n\f";
+static struct {
+    struct hp1020_pjl_status value;
+    uint32_t reads,epoch,generation;
+    bool available;
+} status_feed;
+static bool command_status(void *context,uint32_t epoch,uint32_t generation,
+    struct hp1020_pjl_status *out) {
+    if(context!=&status_feed) { state.violations++;return false; }
+    status_feed.reads++;status_feed.epoch=epoch;status_feed.generation=generation;
+    *out=status_feed.value;return status_feed.available;
+}
+static void command_status_set(uint32_t code,uint8_t online) {
+    status_feed.value=(struct hp1020_pjl_status){adapter.transport_epoch,
+        document.receive.generation,code,online};
+    status_feed.available=true;
+}
 
 static uint32_t command_start(uint32_t fill) {
     TRY(start(fill));memset(&in_memory,fill,sizeof(in_memory));
@@ -13,7 +34,7 @@ static uint32_t command_start(uint32_t fill) {
         (struct hp1020_udc_in_span){in_memory.data.packet,0x30400000,64})==HP1020_UDC_IN_OK);
     struct hp1020_udc_in_publish_io io={pub_ready,pub_read,pub_write,pub_order,pub_visible,&io_state};
     CHECK(hp1020_udc_in_publish_init(&publisher,&port,&io)==HP1020_IN_PUBLISH_OK);
-    CHECK(hp1020_pjl_command_init(&commands,&adapter)==HP1020_RX_OK);return 0;
+    CHECK(hp1020_pjl_command_init(&commands,&adapter,command_status,&status_feed)==HP1020_RX_OK);return 0;
 }
 static uint32_t command_input(const uint8_t *data,uint32_t n) {
     CHECK(n<=64 && hp1020_tusb_adapter_arm_out(&adapter)==HP1020_TUSB_OK);
@@ -33,6 +54,7 @@ static uint32_t command_write(const uint8_t *data,uint32_t n,uint32_t fragment) 
 static uint32_t command_publish(const uint8_t *wanted,uint32_t n) {
     CHECK(commands.inflight && commands.queued && commands.reply_length==n && n<64);
     CHECK(!memcmp(commands.reply,wanted,n) && !memcmp(in_memory.data.packet,wanted,n));
+    memcpy(hp1020_command_last_reply,in_memory.data.packet,n);hp1020_command_last_length=n;
     CHECK(packets[3].live && packets[3].buffer==commands.reply && packets[3].length==n);
     const uint8_t descriptor[16]={0x08,0,0,(uint8_t)n,0,0,0,0,0x30,0x40,0,0,0,0,0};
     CHECK(!memcmp(in_memory.data.descriptor,descriptor,16));
@@ -167,6 +189,58 @@ uint32_t hp1020_pjl_command_check(uint32_t scenario,uint32_t fill,uint32_t job_l
         CHECK(hp1020_udc_in_publish_clear(&publisher,old,1)==HP1020_IN_PUBLISH_OK);
         TRY(setup(reset));TRY(recover());TRY(command_write(query,sizeof(query)-1,7));
         TRY(command_reply(answer,sizeof(answer)-1));
+    } else if(scenario==18 || scenario==19 || scenario==20 || scenario==29 || scenario==31) {
+        command_status_set(scenario==19?40021:scenario==20?0:scenario==31?99999:10001,
+            scenario==18 || scenario==29);
+        TRY(command_write(status_query,sizeof(status_query)-1,scenario==29?1:64));
+        CHECK(status_feed.reads==1 && status_feed.epoch==adapter.transport_epoch &&
+            status_feed.generation==document.receive.generation);
+        if(scenario==18 || scenario==29)TRY(command_reply(status_online,sizeof(status_online)-1));
+        else if(scenario==19)TRY(command_reply(status_offline,sizeof(status_offline)-1));
+        else if(scenario==20) {
+            const uint8_t zero[]="@PJL INFO STATUS\r\nCODE=0\r\nDISPLAY=\"\"\r\nONLINE=FALSE\r\n\f";
+            TRY(command_reply(zero,sizeof(zero)-1));
+        } else {
+            const uint8_t limit[]="@PJL INFO STATUS\r\nCODE=99999\r\nDISPLAY=\"\"\r\nONLINE=FALSE\r\n\f";
+            TRY(command_reply(limit,sizeof(limit)-1));
+        }
+        CHECK(!document.finished && !document.output.documents_completed);
+    } else if(scenario>=21 && scenario<=26) {
+        command_status_set(10001,1);
+        if(scenario==21)status_feed.value.epoch++;
+        if(scenario==22)status_feed.value.generation++;
+        if(scenario==23)status_feed.available=false;
+        if(scenario==24)status_feed.value.online=2;
+        if(scenario==25)status_feed.value.code=100000;
+        if(scenario==26)commands.read_status=NULL;
+        TRY(command_write(status_query,sizeof(status_query)-1,7));
+        CHECK(!commands.inflight && !commands.queued && !commands.have_input && !document.receive.count);
+        CHECK(status_feed.reads==(scenario==26?0:1));
+        TRY(command_write(query,sizeof(query)-1,64));TRY(command_reply(answer,sizeof(answer)-1));
+    } else if(scenario==27) {
+        const uint8_t twice[]="@PJL INFO STATUS\r\n@PJL INFO STATUS\r\n";
+        command_status_set(40021,0);TRY(command_write(twice,sizeof(twice)-1,64));
+        CHECK(status_feed.reads==1 && commands.have_input);
+        command_status_set(10001,1);
+        for(unsigned i=0;i<3;i++)CHECK(hp1020_pjl_command_pump(&commands)==HP1020_RX_WAIT);
+        CHECK(status_feed.reads==1 && !memcmp(commands.reply,status_offline,sizeof(status_offline)-1));
+        TRY(command_reply(status_offline,sizeof(status_offline)-1));
+        CHECK(status_feed.reads==2 && commands.inflight);
+        TRY(command_reply(status_online,sizeof(status_online)-1));
+    } else if(scenario==28) {
+        command_status_set(40021,0);TRY(command_write(status_query,sizeof(status_query)-1,64));
+        struct hp1020_tusb_cookie old=commands.in_cookie;
+        TRY(setup(reset));CHECK(hp1020_pjl_command_pump(&commands)==HP1020_RX_STOPPED);
+        CHECK(commands.inflight && !memcmp(commands.reply,status_offline,sizeof(status_offline)-1));
+        TRY(command_cancel(old));TRY(recover());
+        TRY(command_write(status_query,sizeof(status_query)-1,64));
+        CHECK(!commands.inflight && !commands.queued && status_feed.reads==2);
+        command_status_set(10001,1);TRY(command_write(status_query,sizeof(status_query)-1,64));
+        TRY(command_reply(status_online,sizeof(status_online)-1));
+    } else if(scenario==30) {
+        const uint8_t other[]="@PJL INFO STATUSX\r\n@PJL INFO STATUS \r\n@pjl info status\r\n";
+        command_status_set(10001,1);TRY(command_write(other,sizeof(other)-1,7));
+        CHECK(!status_feed.reads && !commands.queued && !commands.inflight);
     } else return __LINE__;
     CHECK(!commands.inflight && !commands.queued && !commands.have_input && !document.receive.count);
     CHECK(!state.violations && !document.receive.stopped);
