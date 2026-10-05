@@ -1,9 +1,8 @@
 # One-descriptor bulk OUT boundary
 
-This RAM-only component passes its first 34 sanitized host/34 QEMU scenarios
-through actual TinyUSB dispatch to exact decoded pages/document notifications.
-The preserved first-run source is in `analysis/usb-path/udc-out/source-snapshots/`;
-the strengthened immutable-snapshot controls also pass all 34 host/34 QEMU cases. It supplies no DCD, MMIO, IRQ, engine,
+This RAM-only component connects original-format descriptors through actual
+TinyUSB dispatch to exact decoded pages/document notifications. Current results
+are in `analysis/usb-path/udc-out/validation.{json,md}`. It supplies no DCD, MMIO, IRQ, engine,
 allocator, new receive queue or identity allocator. The existing adapter and
 four-slot receive queue remain the owners of protocol/document flow.
 

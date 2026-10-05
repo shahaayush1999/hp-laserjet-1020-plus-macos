@@ -155,28 +155,8 @@ Execution and integration belong to the lead. This fixture supplies
 no proof of bus semantics, register revision, defaults, ordering completion,
 cache visibility, physical status handshake, enumeration or printing.
 
-The untouched proposals and their static reviews are preserved in
-`analysis/usb-path/udc-program/source-snapshots/unexecuted-proposals.*`. The first
-runner has14 profiles at both fills (28 cases), including separate malformed
-raw first-open, void-close and skipped-close status barriers. `trace-oracles.py`
-supplies independent literal command sequences.
-
-The first completed run has1876 paired rows,134 source identities, six fixture
-identities and eleven complete capture pairs per case. Exact sources, target,
-event streams, rows and storage are in `first-28-cases.*` beside the proposals.
-Five profiles produce an exact32-byte page and one exact END_DOC notification;
-other profiles produce neither. These component cases add no native page or
-physical USB lifecycles. The measured target backend is88 bytes; adapter/document,
-EP0, bulk and SETUP allocations retain their separate sizes.
-
-The independently frozen gate passed unchanged, then rejected nine deliberately
-corrupted reports. `independent-gate.*` preserves the gate, results and the initial
-negative-control indexing mistake; that mistake was in a mutation script, not
-the production implementation, captured report or gate. The shared suite now
-includes this validator and `scripts/check-hp1020-udc-program.py`. The runner's
-source closure additionally includes the gate (135 sources). The full sequential
-rerun passed129 consistency checks and both suites; all28 paired event cases and
-captures match the first run. Its exact source/target/raw captures and logs are
-preserved in `full-suite-28-cases.*`; the first134-source archive is unchanged.
-The full raw-capture independent gate also passed. Shared optional-fixture seams
-left the existing adapter, OUT, EP0, composed and offload case rows/captures unchanged.
+The fixture covers malformed raw first-open, void-close and skipped-close
+status barriers as well as successful page/document output. `trace-oracles.py`
+supplies independent literal command sequences. Current results are in
+`analysis/usb-path/udc-program/validation.{json,md}` and are checked by
+`scripts/check-hp1020-udc-program.py`. No physical bus semantics are established.

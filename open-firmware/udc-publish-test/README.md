@@ -160,19 +160,8 @@ It adds one separately compiled production unit and includes the existing
 recording fixture. The lead's validator must still audit the target before
 QEMU. This linker image is synthetic RAM test code, never a boot/upload image.
 
-The first focused experiment passed40 sanitized host/40 audited QEMU cases,
-4784 paired event rows and440 paired raw captures. The independently frozen gate
-passed unchanged in both report-only and raw-capture modes. The earlier40-host
-attempt stopped before target compilation because disposable compiler headers
-were missing; that partial run remains separate. No production or scenario
-correction was needed after execution. Full sequential validation passed130
-consistency checks and both suites; case rows and capture identities are unchanged,
-and the raw-capture gate passed again. Ten deliberately corrupted, internally
-paired examples were rejected at the intended semantic checks in both gate modes.
-
-Exact sources, fixtures, target and raw captures are preserved under
-`analysis/usb-path/udc-publish/source-snapshots/`. The fixed20 profiles use fills0
-and204: both CNAK paths, preflight facts/registers/read failures, progress and
-callback authority, original-cookie cleanup, cancellation/reuse, NAK refusal and
-ten post-bind failure positions. Every profile completes one32-byte FF page and
-one document in synthetic RAM. These are not native stock or physical lifecycles.
+Current results are in `analysis/usb-path/udc-publish/validation.{json,md}`.
+The profiles cover both CNAK paths, preflight facts/registers/read failures,
+progress and callback authority, original-cookie cleanup, cancellation/reuse,
+NAK refusal and post-bind failures. Each produces exact pixels and a document
+in supplied RAM; these are not physical transfers or stock native lifecycles.

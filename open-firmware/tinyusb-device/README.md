@@ -97,16 +97,11 @@ reset IN status, with fresh recovery. Late failures cannot stop a newer request.
 These control-only cases check document-storage hashes and guards; no actual
 bulk payload or decoded page passes through TinyUSB yet.
 
-Latest focused logs are `/tmp/hp1020-protocol-repeat-upstream-20261002.log` and
-`/tmp/hp1020-protocol-repeat-patched-20261002.log`. Current reports are
-`analysis/usb-path/tinyusb-device/upstream-baseline.json` and
-`patched-validation.json`. Their `source-snapshots/` archives retain earlier
-exact sources, captures and failed builds. The first failures exposed the
-freestanding inttypes include, GCC's empty built-in-driver comparison and two
-previously unlisted standard instructions. The local header shim is limited to
-debug-disabled code; only upstream usbd.c suppresses that known GCC warning.
-SRC/MEMW are admitted only after checking original annotated bytes. No custom
-opcode, peripheral access or new divide-trap allowance was added.
+Current reports are `analysis/usb-path/tinyusb-device/upstream-baseline.json`
+and `patched-validation.json`. The local inttypes shim is limited to
+debug-disabled code; only upstream usbd.c suppresses its known empty-driver
+comparison warning. Standard instructions are admitted from annotated bytes;
+custom opcodes and peripheral access remain excluded.
 
 ## Event interface
 

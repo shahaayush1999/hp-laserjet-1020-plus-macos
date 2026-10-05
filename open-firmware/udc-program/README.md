@@ -164,24 +164,14 @@ recovery promise; an old cleanup cannot clear a later failure.
 The pinned Linux header supplies the layout and masks; the original HP literal/
 store anchors establish the explicit NE arrangement. The independent field
 formula yields the full-speed words above rather than the stock startup's
-512-byte bulk values. Exact anchors and source identities are in the preserved
-`analysis/usb-path/udc-program/source-snapshots/unexecuted-proposals.*` archive
-(`backend-v2/RECOMMENDATION.md` and `backend-v2/PRIMARY_REVIEW.md`). The recommendation predates
-the fixed-FIFO and safe-SNAK refinements; this implementation and the independent
-review retain those constraints. Sony
-rev1.1.0 pp1153/1155/1160–1161 support the SNAK, HALT and fixed-FIFO constraints;
-pp1134/1138/1211–1212 and AMD33238G pp321/323 support the conditional status gate.
+512-byte bulk values. Sony rev1.1.0 pp1153/1155/1160–1161 support the SNAK,
+HALT and fixed-FIFO constraints; pp1134/1138/1211–1212 and AMD33238G pp321/323
+support the conditional status gate. Sources and provenance remain under
+`analysis/usb-path/controller-reference/`.
 
 HP mode capability, initial state, unused table entries, valid logical register
 access, cache/interconnect behavior, FIFO geometry, physical quiescence, event
 chronology, status acceptance, actual enumeration and printing remain unproved.
-The first RAM-I/O run validated command construction and integration under those
-facts; it neither discharges them nor authorizes a physical backend. Exact sources,
-raw captures and the independent gate are preserved in
-`analysis/usb-path/udc-program/source-snapshots/first-28-cases.*` and
-`independent-gate.*`. The unchanged independently drafted gate passed the report;
-nine deliberate corruptions were rejected. The full sequential rerun after
-shared-suite integration passed129 consistency checks and both suites; the
-28/28 event rows and captures match the first run. `full-suite-28-cases.*` preserves
-the135-source closure, complete raw captures, target, logs and integrated static
-review. Historical report hashes remain those of their actual tested sources.
+Current command-construction and integration results are in
+`analysis/usb-path/udc-program/validation.{json,md}`. Recording-I/O tests do not
+discharge the external conditions above or authorize a physical backend.

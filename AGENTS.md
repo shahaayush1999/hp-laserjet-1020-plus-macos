@@ -1,112 +1,79 @@
 # Agent instructions
 
-## Owner and communication
+## Goal and working style
 
-Aayush delegates repository maintenance and technical decisions to the agents.
-He does not intend to read notes, inspect reports, or learn printer internals.
-Documentation is agent memory, never a deliverable he must review.
+Build a practical open firmware replacement for the HP LaserJet 1020 Plus.
+Reuse open components where useful. Functional printing, copies, normal media/
+quality options, status, cancellation and recovery matter; reproducing HP's
+internal architecture or bugs does not. The existing HP-based Mac driver is a
+separate working product and must remain intact.
 
-- Answer progress questions in plain language: is the replacement working yet,
-  what changed, what matters next, and whether anything is needed from him.
-- Distinguish the already-working HP-based printing setup from the unfinished
-  open firmware replacement. Never call the overall task done because tests pass.
-- Sustain autonomous work across multiple research checkpoints. A passing suite
-  or a commit is not a reason to yield while a concrete productive avenue remains.
-  Keep chat updates short during the longer run; do not ask the owner to restart work.
-- Default to short updates. Omit addresses, instruction counts, commit hashes,
-  document links and jargon unless requested or needed for a decision.
-- Do not invent percentage-complete estimates or promise a completion date.
-- Make routine technical/maintenance choices autonomously. Ask only for missing
-  physical actions, consequential decisions or authorization actually needed.
-- Use focused parallel agents when investigations or reviews are independently
-  useful. Keep one lead responsible for shared context, integration and claims;
-  avoid duplicate work and coordinate all validation sequentially.
-  Extra agents should remove distinct work from the critical path; do not spawn
-  routine reviewers for every small change. The owner prefers efficient usage.
-- Keep these preferences across new tasks. Do not ask him to maintain context.
+Aayush delegates technical decisions and repository maintenance. He will not
+read reports or maintain context. Give brief plain-language updates; distinguish
+offline findings from working physical printing. Do not invent percentages or
+dates. Tests passing does not mean the replacement is complete.
 
-## Startup
+The owner wants waste removed. Every investigation, test or document must serve
+an unresolved implementation decision, verify useful behavior or prevent a known
+regression. Prefer implementing the next missing capability to enlarging models
+of already-understood HP internals. State the question before investigating;
+stop when enough evidence exists to implement or reject that approach.
 
-1. Read `CURRENT_STATUS.md` for the current state, next action and restrictions.
-2. Check `git status --short --branch`; preserve work already present.
-3. Use `analysis/README.md` to find only the evidence relevant to the task.
-   Do not load the entire report collection or repeat completed investigations.
-4. For installed printing support, read `README.md` instead of research plans.
+- Keep working across useful checkpoints when asked to continue; stop when asked.
+- Make routine decisions autonomously. Ask only for missing physical actions or
+  consequential authorization. Use agents only for genuinely independent work
+  that shortens the task; avoid routine duplicate reviews.
+- Read `CURRENT_STATUS.md`, check `git status --short --branch`, then consult only
+  the relevant topic in `analysis/README.md`. Read root `README.md` for driver work.
+- No new audit diaries, per-session archives, duplicate source snapshots, progress
+  matrices or reports about reports. Git preserves history. Keep current code,
+  necessary fixtures/raw evidence, and concise actionable findings.
 
-## Objective and authority
+## Authorization and boundaries
 
-The target is a practical working replacement, with suitable open-source
-components reused wherever they reduce the work. Functional compatibility and
-reliable printing matter; reproducing HP's binary, internal architecture or bugs
-does not. Use the original program to discover necessary hardware/protocol
-contracts and as an independent reference. Do not make matching its internal
-queues, object layouts or scheduling a requirement of an independent replacement.
+Offline research, local tools, reversible pruning, commits and pushes to `main`
+are authorized. Preserve unrelated user changes, original assets, licenses and
+required provenance. The repository is public; do not change its visibility.
 
-The current execution scope remains offline development and capability
-evaluation, without the owner's assistance or a printer. Revisit claimed
-blockers and pursue useful offline experiments tied to that working path.
-Missing hardware limits live proof, but does not rule out meaningful offline
-implementation, binary analysis or differential execution.
+- Do not enumerate/contact USB, query a printer or upload firmware during offline
+  work. Descriptor reads also contact the device.
+- Hardware tests require the owner's explicit request for that specific test,
+  with the printer connected and freshly power-cycled. Use the existing guarded
+  harness and matching opt-ins, following its prerequisite stages.
+- Do not add print-driving video/engine/mechanical MMIO without permission.
+  Unknown custom instructions are not assumed mechanically inert.
+- Do not change installed queues, daemons, firmware or printing files as research
+  cleanup. Installer/uninstaller use requires printing-maintenance authorization.
+- Completion requires repeatable physical output from the replacement, including
+  recovery after a power cycle. Offline execution, uploads or stock identity do
+  not establish this. Record the actual tested scope.
 
-Work toward feature parity with the closed driver for normal use of the HP
-LaserJet 1020 Plus: reliable pages/documents, copies, supported media/quality
-options, useful status, cancellation and recovery. Build the open firmware
-replacement in narrow, independently verified stages using host-generated
-ZjStream; current restricted profiles are milestones, not the final feature
-target. Keep the working macOS/foo2zjs setup intact. Other models, networking,
-scanning and unrelated features are out of scope.
+## Evidence and proportionate validation
 
-Completion requires observed, repeatable physical printing with the replacement
-firmware, including recovery after a power cycle. Models, uploads, quiet LEDs
-and stock USB identity alone do not establish this. Record the tested scope and
-remaining limitations; never substitute a test count for device evidence.
+Verify important hardware/protocol claims against original bytes and control
+flow; decompilation can omit arguments and switch arms. Distinguish observations,
+conditional models, hypotheses and device-tested behavior.
 
-Offline research, local tools, reversible cleanup, coherent commits and pushes
-to this repository's `main` are authorized. Repository maintenance does
-not authorize changing installed printing files or contacting the printer.
+- Edit generators before regenerating reports. Never patch reported source hashes
+  to make changed code look tested. Retain current reproducible fixtures and raw
+  evidence needed by active checks; obsolete runs can remain in Git history.
+- Run checks for the changed behavior and its affected callers. Broaden testing
+  when shared code, new failures or unresolved concerns justify it. A commit or
+  handoff alone is not a reason to rerun every historical experiment.
+- `scripts/validate.sh` remains the complete offline suite for broad integration
+  changes or a release candidate. Do not run it for prose/archive cleanup. Use
+  reference/source checks and `git diff --check` for those changes.
+- Never run validators concurrently: they regenerate shared outputs. Stop after
+  relevant checks pass; do not repeat them to increase test counts.
+- Recover disposable tools through the pinned scripts in `analysis/README.md`.
+  Preserve their source, checksum and instruction-encoding checks.
+- Review the diff, commit coherent work, push `main`, and verify sync.
 
-- Do not enumerate/contact USB, send queries or upload firmware during offline work.
-- Hardware tests require Aayush to explicitly request the specific test with the
-  printer connected and freshly power-cycled. Use the existing guarded harness
-  and its matching opt-ins; do not bypass them with direct backend commands.
-- Follow the selected hardware test plan and its safer prerequisite stages.
-  Descriptor reads also contact the device, even though they do not print.
-- Do not introduce print-driving video/engine/mechanical MMIO without explicit
-  permission. Unknown custom instructions are not assumed mechanically inert.
-- Do not alter the installed queue, daemon, firmware or user runtime as research
-  cleanup. Use the installer/uninstaller only for authorized printing maintenance.
-- The repository is public at Aayush's request. Do not change its visibility
-  without a new owner request. Retain stock assets, licenses and provenance.
+## Minimal memory
 
-## Evidence and validation
-
-Verify important claims against stock bytes and control flow. Saved decompilation
-can omit switch arms or arguments. Generated reports and passing consistency
-checks establish agreement with a model, not correctness on hardware. Distinguish
-observations, instruction-derived facts, hypotheses and device-tested behavior.
-
-- Edit generators before regenerating derived reports; do not patch generated
-  conclusions by hand. Preserve raw captures, source snapshots and byte fixtures.
-- Run focused checks for the change. Run `scripts/validate.sh` before a research
-  checkpoint or changes to shared validation; it is offline-only. For prose-only
-  edits, check references and `git diff --check` instead of rebuilding firmware.
-- Toolchains under `/tmp` are disposable. Recover them using the pinned build
-  scripts referenced in `analysis/README.md`; do not trust old tool inventories.
-- Review diffs, commit coherent checkpoints, push `main`, and verify sync.
-  Do not commit unrelated user changes. Never run validation suites concurrently:
-  they regenerate shared outputs.
-
-## Documentation maintenance
-
-- `CURRENT_STATUS.md` is the single current handoff: state, next action, blockers,
-  latest validation and material corrections. Keep it roughly one page.
-- `analysis/README.md` is a topic map and recovery guide, not a growing changelog.
-- `analysis/open-firmware-model/next-evidence.md` owns the detailed unresolved
-  questions and the observations needed to resolve them.
-- Put durable technical evidence beside its implementation or generator. Add a
-  new note only for a distinct question that existing notes cannot hold clearly.
-- Update existing summaries; remove superseded planning duplicates after checking
-  references. Git retains narrative history. Keep evidence and stable generated
-  paths that validators consume; do not shuffle them for cosmetic organization.
-- Revisit blockers when new evidence arrives. Do not busywork on duplicate models
-  or declare all conceivable offline research impossible.
+`CURRENT_STATUS.md` holds only current capability, validation limits and next
+work. `analysis/README.md` is a short navigation/tool-recovery map.
+`analysis/open-firmware-model/next-evidence.md` holds concrete unresolved contracts
+and implementation decisions. Put durable findings beside their code; replace
+superseded summaries instead of appending dated run histories. Do not require the
+owner to review or maintain any of these files.

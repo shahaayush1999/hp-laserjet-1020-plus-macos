@@ -1,28 +1,18 @@
 # Continuous real-host two-page RAM experiment
 
-This separate profile delivers one complete, unchanged foo2zjs job through the
-entry-owned TinyUSB/document path. Its two distinct four-row pages have different
-strides and produce 192 literal pixel bytes. It preserves the actual PJL framing
-and timestamp. Scanning that framing does not implement PJL command responses.
+This profile delivers one complete, unchanged foo2zjs job through the entry-owned
+TinyUSB/document path. Two distinct four-row pages have different strides and
+produce exact independent pixel bytes in one receive generation. The actual
+PJL prefix, suffix and timestamp are retained. Scanning this framing does not
+implement PJL replies. Final zero-length input settles before the sole finish.
 
-Current status is in `CURRENT_STATUS.md` and the 2026-10-05 handoff in
-`analysis/open-firmware-model/next-evidence.md`. The host input, fresh linked
-audit, two continuous interpreter/QEMU cases and independent raw gateV3 pass.
-Each case compares eleven full CPU/RAM checkpoints and two actual QEMU park
-steps. Both pages finish inside one generation before the sole input close;
-the final owned zero-length packet settles before the sole finish. Initial
-empty-owner cancellation guards execute without a cancellation callback.
-The first overall gateV2 failure and its source/ELF-derived correction are
-preserved separately. Full-regression status belongs to the current handoff.
-Production sources and full buffers are unchanged. `CONTRACT.md` owns this
-profile's exact scope, original-cookie lifetime, witness and natural checkpoints.
+`CONTRACT.md` defines the workload and ownership expectations. Run
+`python3 scripts/validate-hp1020-entry-usb-pages.py`; `--audit-only` stops before
+CPU execution. The independent gate compares complete CPU/RAM checkpoints,
+actual accesses/instructions and terminal park behavior. Initial empty-owner
+cancellation guards execute without a cancellation callback.
 
-The runner is `scripts/validate-hp1020-entry-usb-pages.py`; `--audit-only` stops
-before either CPU engine. The separately authored checker reads saved raw bytes.
-Run validators sequentially. Evidence lives in
-`analysis/boot-handoff/entry-usb-pages/`, with historical failures/sources preserved
-under `source-snapshots/`. Never edit a report hash to match a later source change.
-
-This is an ELF-only offline experiment. Supplied RAM stands in for controller,
-cache and output behavior. It is neither an upload image nor working physical
-printer firmware. Do not contact USB or change the installed printing setup.
+The original host input, source-bound capture and current results are in
+`analysis/boot-handoff/entry-usb-pages/`. Validators run sequentially. Controller,
+cache, mapping, settlement and output consumption are supplied RAM conditions.
+This ELF is not an upload image or proof of physical printing.

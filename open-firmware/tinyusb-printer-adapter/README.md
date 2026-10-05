@@ -206,15 +206,6 @@ not every combination is repeated through this adapter. Continuous documents
 have a separate 34-case host/target experiment. Synchronous output, supplied
 quiescence and absence of a DCD port remain material limitations.
 
-Earlier sources and raw captures are under
-`analysis/usb-path/tinyusb-printer/source-snapshots/`. One expanded host attempt
-stopped at an oracle bookkeeping error: a retained IN packet was incorrectly
-identified by the most recently submitted endpoint, which was bulk OUT. The
-oracle now uses the retained EP0 identity. The first target build stopped before
-execution because fixture alphabet generation pulled in a modulus divide-by-zero
-trap not admitted by the auditor. A simple alphabet loop avoids that test-only
-helper; no instruction-audit allowance was widened.
-
 ## Retained packet faults
 
 `hp1020_tusb_adapter_packet_fault` accepts only the exact original still-owned
@@ -224,14 +215,9 @@ completion. A real late EP0 SUCCESS retires faulted ownership without issuing a
 follow-on packet or ACK. Superseded or older-generation faults cannot affect new
 work. Bulk settlement still clears the real core BUSY state while input is fenced.
 
-Separate `packet-fault-validation.{json,md}` evidence under the existing adapter
-evidence directory contains20 host/20 QEMU cases. The original target allocation
-was128536 bytes; the typed-offload revision measures128588 bytes. The first run
-reached all40 case executions but failed its final
-artifact gate because audit generation replaced a previously copied listing.
-Exact failed evidence is retained; the generator now snapshots build artifacts
-before audit and the derived listing afterward, then checks both through replay.
-These tests supply settlement; faults and cancellation requests never prove it.
+Separate `packet-fault-validation.{json,md}` evidence under the adapter evidence
+directory checks retained ownership and late completion. Settlement is supplied;
+faults and cancellation requests never prove it.
 
 ## Typed standard-request notifications
 

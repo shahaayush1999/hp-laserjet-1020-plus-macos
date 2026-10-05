@@ -193,9 +193,6 @@ all576 rows and all twelve paired capture files. It must independently reconstru
 CPU descriptor/4096 receive bytes/device images from op140 inputs and literal
 hook outcomes; neither diagnostic output nor a digest alone is that oracle.
 
-The exact tested source closure, first paired run, stopped full run, successful
-retry and independent controls are preserved under
-`analysis/usb-path/udc-acquire/source-snapshots/`. Historical UNEXECUTED source
-comments are retained with the tested hashes; this note records their later
-execution without changing those bytes. No physical acquisition or printing is
-established by these recording-hook cases.
+Current source-bound results are in
+`analysis/usb-path/udc-acquire/validation.{json,md}`. These recording-hook cases
+establish no physical acquisition or printing.

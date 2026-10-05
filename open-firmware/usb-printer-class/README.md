@@ -179,11 +179,6 @@ accepted output. Full independent JBIG decoding supplies the pixel oracle; both
 engines compare every observed state, all retained storage and control reply bytes.
 
 Target component state/fixed memory is 128256 bytes, excluding code, stack,
-immutable device-ID storage and test captures. The first target attempt stopped
-at the instruction audit: the test ID's modulo-26 generator pulled in an extra
-libgcc remainder helper. Replacing only that fixture expression with an explicit
-alphabet wrap removed it; no audit was weakened. The earlier 73-case host report,
-exact sources, failed target ELF and logs remain under
-`analysis/usb-path/printer-class/source-snapshots/first-host-target-audit.tar.gz`
-with a member-hash manifest. The successful target run retains its exact sources
-at `/tmp/hp1020-usb-printer-uvb81b5c/`.
+immutable device-ID storage and test captures. Current report source hashes
+identify the tested implementation. Device feedback and physical reset remain
+external to this software fixture.

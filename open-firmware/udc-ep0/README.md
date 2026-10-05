@@ -159,10 +159,6 @@ IRQ error ordering and identity, successful actual count, abort/reset quiescence
 stalls/toggles and address commit timing. No RAM test can establish those facts.
 
 Execution evidence is `analysis/usb-path/udc-ep0/validation.{json,md}`;
-`open-firmware/udc-ep0-test/README.md` owns the fixture contract. Exact first
-50-host build-stop and subsequent50/50 passed sources/captures are preserved in
-`analysis/usb-path/udc-ep0/source-snapshots/`. The failure was an unadapted draft
-build path, before target compilation/execution. The component C/H did not change.
-Target descriptor component plus four allocations measures296 bytes beyond the
-adapter/document allocation (now128588 bytes after the typed-offload extension).
-These counts establish no physical transfers.
+`open-firmware/udc-ep0-test/README.md` owns the fixture contract. The descriptor
+component and four allocations measure296 bytes beyond the adapter/document
+allocation. These RAM checks establish no physical transfers.

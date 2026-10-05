@@ -1,14 +1,9 @@
 # Typed standard-request offload fixture
 
-Focused execution passes **58 sanitized host and 58 big-endian QEMU cases**.
-The runner freezes126 sources and six document fixtures. All5422 event rows,
-eight complete raw captures per case and independent pixels/wire/document
-oracles agree. This is RAM-only software, not a physical DCD; it adds zero
-physical USB or native page lifecycles. Reports are in
-`analysis/usb-path/udc-offload/validation.{json,md}`. Exact first-run sources,
-captures and independent gate are in `source-snapshots/first-58-cases.tar.gz`.
-The neighboring `unexecuted-proposals` archive retains both pre-integration
-drafts and their static reviews; those drafts are not relabeled as executed.
+The fixture compares host and target typed notifications, complete retained
+storage and independent pixel/wire/document expectations. Current results are
+in `analysis/usb-path/udc-offload/validation.{json,md}`. It is RAM-only software,
+with no physical DCD or USB transfer.
 
 ## Implemented boundary
 
@@ -189,11 +184,3 @@ recovery is unfinished. No automatic-owner success/ACK contract is proposed.
 No artificial control/submission/class-recovery MAX seed or impossible internal
 prepared/delivering state is advertised as covered here. Physical mode, event
 currentness, endpoint defaults and settlement still require evidence.
-
-The sequential full suite on2026-10-02 also passed58 host/58 QEMU profiles and
-128 aggregate consistency checks. Its complete raw captures and exact126-source
-closure are preserved in `analysis/usb-path/udc-offload/source-snapshots/full-suite-58-cases.*`.
-This rerun includes corrected one-based USB2 PDF locators; first-run metadata is
-retained unchanged. `independent-gate-review.*` preserves the initial gate-oracle
-corrections and eight rejected negative controls. No physical controller or USB
-behavior is established by these software checks.

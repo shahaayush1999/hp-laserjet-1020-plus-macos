@@ -33,14 +33,6 @@ adapter notifications still PENDING are asserted separately at terminal limits.
 The28 raw-SI profiles described below extend this baseline without new fixture
 entry points or normalized-operation shortcuts.
 
-The first run passed 12 host profiles and stopped in the reconnect case before
-target build. The inherited configuration helper assumed a fresh class identity
-and empty receive reservations. Captures showed the previous class identity
-unchanged and an aborted reservation retained correctly until recovery. The new
-helper checks preservation, refused new reservations and all three existing
-recovery promises. Only the validator changed before the 34/34 run. Both source
-closures and raw captures are preserved under the report's `source-snapshots/`.
-
 The five optional EP0 fixture names preserve its default ABI and behavior.
 The composed fixture includes that fixture exactly once; that in turn includes
 the base packet ledger exactly once. Its real exported DCD calls the renamed
@@ -238,24 +230,9 @@ stopping healthy bulk input, resetting endpoint defaults or replacing an existin
 fault/recovery ticket. Wrong interface indices cannot fall into another driver's
 TinyUSB success fallback. Typed controller-handled SI remains a separate path.
 
-Four preserved pre-fix host/QEMU observations show ordinary SI status followed by
-stopped input without SI recovery; their later successful class reset is separate.
-The corrected matrix passes62 host/62 QEMU cases, adding28 profiles at fills0/204
-and interfaces0/3. They cover a live partial document, retained old EP0 data, seven
-field controls, existing bulk fault, pending reset, retained bulk HALTs and an
-unconfigured device. Literal wire bytes, original cookies, all guarded captures,
-exact black pixels and fixed document generations agree. Physical USB behavior
-and host interoperability remain unproved.
-
-The first run's class-reset timing assertion failed after46 host cases. Class
-reset legitimately starts deferred recovery before old bulk settles; final restart
-still waits. The scenario was corrected and given an explicit pre-settlement
-finish-WAIT check; production code did not change. Failed/passed captures, exact
-sources, untouched proposals and the independent gate's eight negative controls
-are preserved in `analysis/usb-path/udc-composed/source-snapshots/raw-si-*`.
-The full sequential regression passed128 consistency checks and both suites
-(`/tmp/hp1020-full-raw-si-20261002.log`, child `hp1020-validation.Kd7EIu`);
-full62-case sources/captures are in `raw-si-full-suite-62-cases.*` beside the
-focused archive. Raw-SI retained STATUS/late SUCCESS
-and supersession of an already pending destructive request are not separately
-exercised by these28 additions.
+Raw-SI cases cover a live partial document, retained old EP0 data, malformed
+fields, existing bulk fault, pending reset, retained bulk HALTs and an
+unconfigured device. Wire bytes, original cookies, guarded storage and exact
+pixels/document generations are checked. Class reset may begin deferred
+recovery before old bulk settles; final restart still waits. Physical USB
+behavior and host interoperability remain unproved.
