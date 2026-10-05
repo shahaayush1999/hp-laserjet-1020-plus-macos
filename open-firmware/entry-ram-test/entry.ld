@@ -35,8 +35,8 @@ __hp1020_entry_data_guard_hi_start = 0x1000d120;
 __hp1020_entry_data_guard_hi_end = 0x1000d140;
 __hp1020_entry_state_guard_lo_start = 0x1000dfe0;
 __hp1020_entry_state_guard_lo_end = 0x1000e000;
-__hp1020_entry_state_guard_hi_start = 0x100114b8;
-__hp1020_entry_state_guard_hi_end = 0x100114e0;
+__hp1020_entry_state_guard_hi_start = 0x100114c8;
+__hp1020_entry_state_guard_hi_end = 0x100114f0;
 __hp1020_entry_stack_guard_lo_start = 0x10011fe0;
 __hp1020_entry_stack_guard_lo_end = 0x10012000;
 __hp1020_entry_stack_guard_hi_start = 0x10014000;
@@ -199,7 +199,7 @@ ASSERT(SIZEOF(.entry_island) == 0x60, "entry island changed")
 ASSERT(__hp1020_entry_island_end == 0x100167e0, "entry spills into memory guard")
 ASSERT(SIZEOF(.entry_data) == 256 && __hp1020_entry_data_end == 0x1000d120,
        "initialized data object size changed")
-ASSERT(SIZEOF(.entry_state) == 13496 && __hp1020_entry_state_end == 0x100114b8,
+ASSERT(SIZEOF(.entry_state) == 13512 && __hp1020_entry_state_end == 0x100114c8,
        "production document state size changed")
 ASSERT(SIZEOF(.entry_mailbox) == 1024 && __hp1020_entry_mailbox_end == 0x10014440,
        "mailbox size changed")

@@ -51,12 +51,12 @@ static void pjl_submit(struct hp1020_pjl_command *s) {
     if(c.id) { s->in_cookie=c;s->inflight=1; }
 }
 static enum hp1020_rx_result pjl_feed_binary(struct hp1020_pjl_command *s,
-    const uint8_t *data,uint32_t length) {
+    const uint8_t *data,uint32_t length,size_t *used) {
     struct hp1020_usb_document *d=s->adapter->printer->document;
-    d->feed_generation=s->input.generation;d->feeding=1;
-    d->payload_error=hp1020_image_output_feed(&d->output,data,length);
-    d->feeding=0;
-    return d->payload_error?pjl_fault(s,d->payload_error):HP1020_RX_OK;
+    enum hp1020_rx_result r=hp1020_usb_document_feed(d,s->input.generation,data,length,used);
+    if(r==HP1020_RX_PAYLOAD)return pjl_fault(s,d->payload_error);
+    if(r!=HP1020_RX_OK && r!=HP1020_RX_WAIT && r!=HP1020_RX_STOPPED)return pjl_fault(s,HP1020_ORDER);
+    return r;
 }
 static void pjl_status_reply(struct hp1020_pjl_command *s) {
     struct hp1020_pjl_status status={0};
@@ -118,7 +118,9 @@ static enum hp1020_rx_result pjl_text(struct hp1020_pjl_command *s,uint8_t b) {
     /* Raw ZjStream is recognized only at the start of an envelope line. A
      * JZJZ token inside ECHO text cannot enter binary framing. */
     if(s->line_used==4 && !s->line_invalid && !memcmp(s->line,"JZJZ",4)) {
-        enum hp1020_rx_result r=pjl_feed_binary(s,s->line,4);
+        size_t used=0;
+        enum hp1020_rx_result r=pjl_feed_binary(s,s->line,4,&used);
+        if(!r && used!=4)r=pjl_fault(s,HP1020_ORDER);
         pjl_line_reset(s);return r;
     }
     return HP1020_RX_OK;
@@ -151,20 +153,24 @@ enum hp1020_rx_result hp1020_pjl_command_pump(struct hp1020_pjl_command *s) {
                 r=pjl_fault(s,HP1020_ORDER);return pjl_leave(s,r);
             }
         } else { s->input=v.ticket;s->offset=0;s->have_input=1; }
-        while(s->offset<v.length) {
-            struct hp1020_semantic *parser=&d->output.stream.parser;
-            uint32_t n=1;
-            if(parser->framing) {
-                n=parser->framing==1?16-parser->header_used:parser->remaining;
+        while(s->offset<v.length || hp1020_usb_document_buffered(d)) {
+            const struct hp1020_semantic *parser=hp1020_usb_document_parser(d);
+            bool buffered=hp1020_usb_document_buffered(d);
+            bool binary=parser->framing || buffered;
+            uint32_t n=1;size_t used=1;
+            if(binary) {
+                n=buffered?0:parser->framing==1?16-parser->header_used:parser->remaining;
                 if(n>v.length-s->offset)n=v.length-s->offset;
-                if(!n) { r=pjl_fault(s,HP1020_ORDER);return pjl_leave(s,r); }
-                r=pjl_feed_binary(s,v.data+s->offset,n);
+                if(!n && !buffered) { r=pjl_fault(s,HP1020_ORDER);return pjl_leave(s,r); }
+                r=pjl_feed_binary(s,v.data+s->offset,n,&used);
             } else r=pjl_text(s,v.data[s->offset]);
+            if(binary)s->offset+=(uint32_t)used;
+            else if(!r)s->offset++;
             if(r)return pjl_leave(s,r);
-            s->offset+=n;
             pjl_submit(s);
             if(d->receive.stopped)return pjl_leave(s,HP1020_RX_STOPPED);
             if(s->queued && !s->inflight)return pjl_leave(s,HP1020_RX_WAIT);
+            if(d->cooperative && binary)return pjl_leave(s,HP1020_RX_WAIT);
         }
         r=hp1020_usb_receive_release(&d->receive,v.ticket);
         if(r) { (void)pjl_fault(s,HP1020_ORDER);return pjl_leave(s,r); }

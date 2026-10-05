@@ -4,9 +4,9 @@ Manual public target32 layout and source-derived stop contexts. No producer
 imports, files, result data, runtime implementation or entry point.
 """
 SEMANTIC_SHA256 = "b4f648a2c8a951a55a5bcd3e9f8aa19c9af695127945020f249d507d906ca545"
-PUBLIC_HEADER_SHA256 = "f173c03b72cc993382f65a36aabcb3de8ff59e947009a4bc4fd70e66b615a71b"
+PUBLIC_HEADER_SHA256 = "58b0921807073bd9dd1dda5c3f7b3366fd634e2d682c4d20e97b44388c5176eb"
 LAYOUT_HEADER = (0x4850554c,3,457,16,101)
-OBJECTS = ((1,13496,4),(2,114704,16),(3,56,4),(4,408,4),(5,64,4),
+OBJECTS = ((1,13512,4),(2,114704,16),(3,56,4),(4,408,4),(5,64,4),
     (6,16,16),(7,136,4),(8,160,16),(9,80,4),(10,88,4),(11,140,4),
     (12,152,4),(13,204,4),(14,1024,4),(15,9216,4),(16,16,1))
 REPLACED_FIELDS = ((91,15,16,4928),(92,15,4960,3060),

@@ -6,11 +6,11 @@ the approved public schema, exact natural ordering and source-derived contexts.
 """
 
 SEMANTIC_V2_SHA256 = "aab93eba1de9c9123e9344d8bb5fc642b690e7ac4b02c2fc3fd5efa4d501b333"
-PUBLIC_HEADER_SHA256 = "a73a3904b094126e811f6d26249ab93d3d71cae7f5e0c00cedd10e77addc4679"
+PUBLIC_HEADER_SHA256 = "0f7ead8a1af9b70a5acc5009cabc96cf67e0235d2b52a6fe470379d0bf74ae76"
 PUBLIC_MANIFEST_SHA256 = "ac39294692cfdadbc35151facc3911d1fb42521b278e5a9d26f727cb3012f991"
 LAYOUT_HEADER = (0x4850554c, 2, 525, 16, 118)
 OBJECTS = (
-    (1,13496,4),(2,114704,16),(3,56,4),(4,408,4),(5,64,4),
+    (1,13512,4),(2,114704,16),(3,56,4),(4,408,4),(5,64,4),
     (6,16,16),(7,136,4),(8,160,16),(9,80,4),(10,88,4),(11,140,4),
     (12,152,4),(13,224,4),(14,1024,4),(15,9216,4),(16,16,1),
 )

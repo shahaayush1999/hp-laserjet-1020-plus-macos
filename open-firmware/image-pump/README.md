@@ -15,8 +15,9 @@ acknowledged. Explicit `finish` checks true end-of-input, never a USB short pack
 After successful finish, feed/finish return DONE without consuming anything.
 Reinitialization requires separately settling or abandoning all old ownership.
 
-This is a successor to the synchronous output composition, not yet attached to
-the USB command pump or entry loop. Its profile remains aligned, single-plane
+The USB document's optional cooperative initializer now uses this composition;
+the PJL command pump honors its partial input and output waits. Continuous entry
+experiments still use the synchronous mode. Its profile remains aligned, single-plane
 600dpi BPP1/2 pages admitted by the existing planner. Copies are metadata. Software
 PAGE/DOCUMENT events do not mean physical printing or engine completion.
 

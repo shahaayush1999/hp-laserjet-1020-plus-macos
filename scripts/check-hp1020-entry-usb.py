@@ -17,7 +17,7 @@ import struct
 
 MAIN = 0x10003000
 ENTRY = 0x100167a8
-DOCUMENT = (0x10010000, 13496)
+DOCUMENT = (0x10010000, 13512)
 MEMORY = (0x10016800, 114704)
 MAILBOX = (0x10016060, 1024)
 STACK = (0x10014020, 8192)
@@ -44,9 +44,9 @@ SENTINEL = bytes.fromhex('31527394b5d6f718395a7b9cbddeff20') * 16
 BIE = bytes.fromhex('000001000000002000000008000000041000035cfd98ff02ff02')
 BACKEND_HASH = '8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2'
 ORACLE_HASH = '13194a8d608de407cf9c513f59cf5b1a80a1c3cdeac4ea08b71ebb9602272b95'
-ADDENDUM_HASH = '1bee3ad2136fc8c88ae661a783220705ec9514767a87cb7457ea1dc4664295b6'
-LAYOUT_HASH = 'e9b5b73c9be6f5b80101ca4b5f4f0ff44d7b09acaa8085945e2a68d52745858f'
-HEADER_HASH = '25f5e76cff3633d6e3ab85f4e9adfc2e94edcc02e2cfe0b7d7d2bafea2e82995'
+ADDENDUM_HASH = '0e22d0fba0e9e031fb0d55d8e538938f79792a8cd6058ae9fee39c067bde935e'
+LAYOUT_HASH = 'd752b452320d4d040bbd5a061aa72b192097db846372d3634b821a325a7efd1e'
+HEADER_HASH = '7511e5493d89977630eb1493dc4f085f67e72caf38da95df961054bd88f5f55e'
 EFFECTIVE_USBD_HASH = '8bf699c1522d65301a4c63e2bfa529d302d3955b8cd18dd1602d7ace441a62dc'
 LIBGCC_HASH = 'e57e97f0f5679a83f5a394d94fe024973f05d32be292293b247e647e567c4e32'
 LIBGCC_BYTES = 878846
@@ -62,8 +62,10 @@ PRIMARY = {
 # Target32 ABI: owner40 at20/60/100/140, delivering40 at180; all older
 # fields after owners move by40. programming_dirty ends at369, then alignment
 # puts in_result28 at372, pointer at400, length at404 and flags at406/407.
-OBJECTS = ((1, 'hp1020_usb_runtime_document', 13496, 4), (2, 'hp1020_usb_runtime_memory', 114704, 16), (3, 'hp1020_usb_runtime_printer', 56, 4), (4, 'hp1020_usb_runtime_adapter', 408, 4), (5, 'hp1020_usb_runtime_out', 64, 4), (6, 'hp1020_usb_runtime_out_memory', 16, 16), (7, 'hp1020_usb_runtime_ep0', 136, 4), (8, 'hp1020_usb_runtime_ep0_memory', 160, 16), (9, 'hp1020_usb_runtime_setup', 80, 4), (10, 'hp1020_usb_runtime_program', 88, 4), (11, 'hp1020_usb_runtime_publisher', 140, 4), (12, 'hp1020_usb_runtime_acquirer', 152, 4), (13, 'hp1020_usb_runtime_provider', 204, 4), (14, 'hp1020_usb_runtime_mailbox', 1024, 4), (15, 'hp1020_usb_runtime_witness', 9216, 4), (16, 'hp1020_usb_runtime_setup_memory', 16, 1))
-FIELDS = ((1, 1, 'receive.generation', 68, 4), (2, 1, 'receive.issued', 72, 4), (3, 1, 'receive.consumed', 76, 4), (4, 1, 'receive.count', 80, 4), (5, 1, 'receive.stopped', 88, 1), (6, 1, 'receive.quiescent', 89, 1), (7, 1, 'receive.error', 84, 4), (8, 1, 'finished', 13492, 1), (9, 1, 'output.finished', 13469, 1), (10, 1, 'output.error', 13464, 4), (11, 1, 'output_quiescent', 13493, 1), (12, 1, 'payload_error', 13488, 4), (13, 1, 'feed_generation', 13484, 4), (14, 1, 'output.stream.parser.documents', 4720, 4), (15, 1, 'output.stream.pages', 13248, 4), (16, 1, 'output.pages_drained', 13452, 4), (17, 1, 'output.documents_completed', 13456, 4), (18, 1, 'output.document_first_page', 13460, 4), (19, 1, 'output.ring.copied_rows', 13316, 4), (20, 1, 'output.ring.accepted_rows', 13320, 4), (21, 1, 'output.ring.completed_rows', 13324, 4), (22, 1, 'output.ring.error', 13328, 4), (23, 1, 'output.ring.slots', 13332, 64), (24, 2, 'receive.data', 0, 4096), (25, 2, 'output.stream', 4096, 77840), (26, 2, 'output.slots', 81936, 32768), (27, 4, 'control_epoch', 304, 4), (28, 4, 'active_control_epoch', 308, 4), (29, 4, 'transport_epoch', 312, 4), (30, 4, 'active_transport_epoch', 316, 4), (31, 4, 'last_submission_id', 300, 4), (32, 4, 'opened', 356, 1), (33, 4, 'configuration_value', 360, 1), (34, 4, 'input_closed', 358, 1), (35, 4, 'fenced', 357, 1), (36, 4, 'prepared', 359, 1), (37, 4, 'busy', 354, 1), (38, 4, 'stack_active', 355, 1), (39, 4, 'delivering_live', 366, 1), (40, 4, 'response_owned', 365, 1), (41, 4, 'owners[0].state', 50, 1), (42, 4, 'owners[1].state', 90, 1), (43, 4, 'owners[2].state', 130, 1), (44, 4, 'owners[2].cookie.id', 100, 4), (45, 4, 'owners[2].cookie.epoch', 104, 4), (46, 4, 'owners[2].cookie.generation', 108, 4), (47, 4, 'owners[2].cookie.sequence', 112, 4), (48, 4, 'owners[2].cookie.endpoint', 116, 1), (49, 4, 'owners[2].buffer', 120, 4), (50, 4, 'owners[2].length', 128, 2), (51, 4, 'owners[2].actual', 124, 4), (52, 3, 'reset_active', 50, 1), (53, 3, 'reset_parts', 51, 1), (54, 3, 'last_recovery_id', 36, 4), (55, 3, 'current_request_id', 28, 4), (56, 3, 'reset_request_id', 40, 4), (57, 4, 'class_request_id', 332, 4), (58, 4, 'reset_transport_epoch', 328, 4), (59, 5, 'phase', 58, 1), (60, 5, 'buffer.cpu', 16, 4), (61, 5, 'buffer.dma', 20, 4), (62, 5, 'descriptor.cpu', 4, 4), (63, 5, 'descriptor.dma', 8, 4), (64, 5, 'cookie.id', 28, 4), (65, 5, 'cookie.epoch', 32, 4), (66, 5, 'cookie.generation', 36, 4), (67, 5, 'cookie.sequence', 40, 4), (68, 5, 'cookie.endpoint', 44, 1), (69, 7, 'slots[0].phase', 62, 1), (70, 7, 'slots[1].phase', 126, 1), (71, 10, 'failed', 83, 1), (72, 10, 'completed_mask', 84, 1), (73, 10, 'selection_mask', 85, 1), (74, 10, 'binding_ready', 86, 1), (75, 11, 'failed', 137, 1), (76, 11, 'prefix', 100, 4), (77, 12, 'failure_valid', 149, 1), (78, 12, 'last.prefix', 40, 4), (79, 9, 'last_sequence', 48, 4), (80, 9, 'last_admitted_sequence', 68, 4), (81, 9, 'pending_kind', 78, 1), (82, 13, 'bulk.live', 60, 1), (83, 13, 'closing', 114, 1), (84, 13, 'finished', 115, 1), (85, 13, 'bulk.original', 52, 4), (86, 13, 'bulk.requested', 56, 4), (87, 13, 'ep0.live', 28, 1), (88, 13, 'recovery.recovery_id', 64, 4), (89, 13, 'recovery.generation', 68, 4), (90, 13, 'steps', 100, 4), (91, 15, 'io', 16, 5760), (92, 15, 'ranges', 5792, 2340), (93, 15, 'binds', 8160, 504), (94, 15, 'device', 8688, 144), (95, 15, 'pixels', 8832, 64), (96, 15, 'documents', 8896, 40), (97, 16, 'WHOLE_ARRAY', 0, 16), (98, 14, 'words', 0, 1024), (99, 1, 'feeding', 13494, 1), (100, 13, 'callback_depth', 88, 4), (101, 9, 'capture.record', 16, 16))
+# Document union is max(output13380,pump13312), after receive92. Its added
+# ticket8/offset4 move payload_error to13500, flags to13504 and size to13512.
+OBJECTS = ((1, 'hp1020_usb_runtime_document', 13512, 4), (2, 'hp1020_usb_runtime_memory', 114704, 16), (3, 'hp1020_usb_runtime_printer', 56, 4), (4, 'hp1020_usb_runtime_adapter', 408, 4), (5, 'hp1020_usb_runtime_out', 64, 4), (6, 'hp1020_usb_runtime_out_memory', 16, 16), (7, 'hp1020_usb_runtime_ep0', 136, 4), (8, 'hp1020_usb_runtime_ep0_memory', 160, 16), (9, 'hp1020_usb_runtime_setup', 80, 4), (10, 'hp1020_usb_runtime_program', 88, 4), (11, 'hp1020_usb_runtime_publisher', 140, 4), (12, 'hp1020_usb_runtime_acquirer', 152, 4), (13, 'hp1020_usb_runtime_provider', 204, 4), (14, 'hp1020_usb_runtime_mailbox', 1024, 4), (15, 'hp1020_usb_runtime_witness', 9216, 4), (16, 'hp1020_usb_runtime_setup_memory', 16, 1))
+FIELDS = ((1, 1, 'receive.generation', 68, 4), (2, 1, 'receive.issued', 72, 4), (3, 1, 'receive.consumed', 76, 4), (4, 1, 'receive.count', 80, 4), (5, 1, 'receive.stopped', 88, 1), (6, 1, 'receive.quiescent', 89, 1), (7, 1, 'receive.error', 84, 4), (8, 1, 'finished', 13504, 1), (9, 1, 'output.finished', 13469, 1), (10, 1, 'output.error', 13464, 4), (11, 1, 'output_quiescent', 13505, 1), (12, 1, 'payload_error', 13500, 4), (13, 1, 'feed_generation', 13484, 4), (14, 1, 'output.stream.parser.documents', 4720, 4), (15, 1, 'output.stream.pages', 13248, 4), (16, 1, 'output.pages_drained', 13452, 4), (17, 1, 'output.documents_completed', 13456, 4), (18, 1, 'output.document_first_page', 13460, 4), (19, 1, 'output.ring.copied_rows', 13316, 4), (20, 1, 'output.ring.accepted_rows', 13320, 4), (21, 1, 'output.ring.completed_rows', 13324, 4), (22, 1, 'output.ring.error', 13328, 4), (23, 1, 'output.ring.slots', 13332, 64), (24, 2, 'receive.data', 0, 4096), (25, 2, 'output.stream', 4096, 77840), (26, 2, 'output.slots', 81936, 32768), (27, 4, 'control_epoch', 304, 4), (28, 4, 'active_control_epoch', 308, 4), (29, 4, 'transport_epoch', 312, 4), (30, 4, 'active_transport_epoch', 316, 4), (31, 4, 'last_submission_id', 300, 4), (32, 4, 'opened', 356, 1), (33, 4, 'configuration_value', 360, 1), (34, 4, 'input_closed', 358, 1), (35, 4, 'fenced', 357, 1), (36, 4, 'prepared', 359, 1), (37, 4, 'busy', 354, 1), (38, 4, 'stack_active', 355, 1), (39, 4, 'delivering_live', 366, 1), (40, 4, 'response_owned', 365, 1), (41, 4, 'owners[0].state', 50, 1), (42, 4, 'owners[1].state', 90, 1), (43, 4, 'owners[2].state', 130, 1), (44, 4, 'owners[2].cookie.id', 100, 4), (45, 4, 'owners[2].cookie.epoch', 104, 4), (46, 4, 'owners[2].cookie.generation', 108, 4), (47, 4, 'owners[2].cookie.sequence', 112, 4), (48, 4, 'owners[2].cookie.endpoint', 116, 1), (49, 4, 'owners[2].buffer', 120, 4), (50, 4, 'owners[2].length', 128, 2), (51, 4, 'owners[2].actual', 124, 4), (52, 3, 'reset_active', 50, 1), (53, 3, 'reset_parts', 51, 1), (54, 3, 'last_recovery_id', 36, 4), (55, 3, 'current_request_id', 28, 4), (56, 3, 'reset_request_id', 40, 4), (57, 4, 'class_request_id', 332, 4), (58, 4, 'reset_transport_epoch', 328, 4), (59, 5, 'phase', 58, 1), (60, 5, 'buffer.cpu', 16, 4), (61, 5, 'buffer.dma', 20, 4), (62, 5, 'descriptor.cpu', 4, 4), (63, 5, 'descriptor.dma', 8, 4), (64, 5, 'cookie.id', 28, 4), (65, 5, 'cookie.epoch', 32, 4), (66, 5, 'cookie.generation', 36, 4), (67, 5, 'cookie.sequence', 40, 4), (68, 5, 'cookie.endpoint', 44, 1), (69, 7, 'slots[0].phase', 62, 1), (70, 7, 'slots[1].phase', 126, 1), (71, 10, 'failed', 83, 1), (72, 10, 'completed_mask', 84, 1), (73, 10, 'selection_mask', 85, 1), (74, 10, 'binding_ready', 86, 1), (75, 11, 'failed', 137, 1), (76, 11, 'prefix', 100, 4), (77, 12, 'failure_valid', 149, 1), (78, 12, 'last.prefix', 40, 4), (79, 9, 'last_sequence', 48, 4), (80, 9, 'last_admitted_sequence', 68, 4), (81, 9, 'pending_kind', 78, 1), (82, 13, 'bulk.live', 60, 1), (83, 13, 'closing', 114, 1), (84, 13, 'finished', 115, 1), (85, 13, 'bulk.original', 52, 4), (86, 13, 'bulk.requested', 56, 4), (87, 13, 'ep0.live', 28, 1), (88, 13, 'recovery.recovery_id', 64, 4), (89, 13, 'recovery.generation', 68, 4), (90, 13, 'steps', 100, 4), (91, 15, 'io', 16, 5760), (92, 15, 'ranges', 5792, 2340), (93, 15, 'binds', 8160, 504), (94, 15, 'device', 8688, 144), (95, 15, 'pixels', 8832, 64), (96, 15, 'documents', 8896, 40), (97, 16, 'WHOLE_ARRAY', 0, 16), (98, 14, 'words', 0, 1024), (99, 1, 'feeding', 13506, 1), (100, 13, 'callback_depth', 88, 4), (101, 9, 'capture.record', 16, 16))
 LAYOUT_WORDS = (0x4850554c,1,457,16,101)+tuple(v for i,n,z,a in OBJECTS for v in (i,z,a))+tuple(v for i,o,n,a,z in FIELDS for v in (i,o,a,z))
 FIXED = {
     '.WindowVectors.text': (0x10000000, 0x180, 1, 6),
@@ -419,7 +421,7 @@ class Elf:
              t[5] > 0 and r[5] > 0 and t[3] + t[5] <= r[3] and r[3] % 4 == 0 and
              r[3] + r[5] <= 0x1000ffe0, 'read-only code budget')
         b, d = self.alloc['.bss'], self.alloc['.data']
-        need(b[3] == 0x10010000 and 13496 <= b[5] <= 16352 and b[5]%4 == 0 and
+        need(b[3] == 0x10010000 and 13512 <= b[5] <= 16352 and b[5]%4 == 0 and
              (b[1],b[2]) == (8,3), 'actual bounded generic BSS extent')
         need(d[3] == 0x100164a0 and 0 < d[5] <= 96 and
              (d[1],d[2]) == (1,3), 'actual bounded generic initialized data')
@@ -721,7 +723,7 @@ UNITS = ('hp1020_usb_runtime','hp1020_usb_runtime_ram','hp1020_usb_runtime_layou
  'hp1020_udc_publish','hp1020_udc_program','hp1020_udc_ep0','hp1020_udc_out',
  'hp1020_udc_setup','hp1020_tusb_adapter','hp1020_usb_printer','hp1020_usb_receive',
  'hp1020_usb_document','hp1020_image','hp1020_image_page','hp1020_image_stream',
- 'hp1020_image_ring','hp1020_image_output','hp1020_semantic','hp1020_page_plan',
+ 'hp1020_image_ring','hp1020_image_output','hp1020_image_pump','hp1020_semantic','hp1020_page_plan',
  'target-memory','memory','jbig85','jbig_ar','tusb','usbd','tusb_fifo')
 ENTRY_NAMES = ('hp1020_usb_runtime_c','hp1020_usb_document_init',
  'hp1020_usb_document_init_documents','hp1020_tusb_adapter_init',
@@ -736,6 +738,12 @@ ENTRY_NAMES = ('hp1020_usb_runtime_c','hp1020_usb_document_init',
 
 def scalar(images, address, width=4):
     return int.from_bytes(part(images,address,width),'big')
+
+
+def check_legacy_document(images,address):
+    need(part(images,address+13488,12)==bytes(12) and
+         part(images,address+13507,2)==bytes(2),
+         'legacy entry profile keeps cooperative cursor and mode unused')
 
 
 def object_addresses(elf):
@@ -809,6 +817,7 @@ def check_live(images,addresses,stage,source):
     early=stage=='pre-close';held=stage in ('pre-close','pre-final-service')
     want=dynamic_memory_expectations(stage,addresses,source)
     mem=addresses['hp1020_usb_runtime_memory'];doc=addresses['hp1020_usb_runtime_document']
+    check_legacy_document(images,doc)
     adapter=addresses['hp1020_usb_runtime_adapter'];out=addresses['hp1020_usb_runtime_out']
     provider=addresses['hp1020_usb_runtime_provider'];acq=addresses['hp1020_usb_runtime_acquirer']
     need(part(images,mem,4096)==want['receive'],'full4096 actual receive allocation/padding/tails')
@@ -1255,12 +1264,12 @@ def check_sources(root,report,source_root):
     prefix='open-firmware/entry-usb-test/'
     fixed={prefix+'independent-literals.py':ORACLE_HASH,prefix+'literal-addendum.py':ADDENDUM_HASH,
         prefix+'expected-layout.json':LAYOUT_HASH,prefix+'hp1020_usb_runtime_contract.h':HEADER_HASH,
-        prefix+'CONTRACT.md':'18864eee6bb95581e99429da8d2fac039e635ef365ce02f91a8d1d122c17a123',
-        prefix+'layout-objects.tsv':'9eb91e5bc6565773758f9fad22498e639b64289a1a9060adb0a2456637dee012',
-        prefix+'layout-fields.tsv':'0a810d9c44f99f8507d2338e9a1fa0e0f307606361ee03f536ca0935fd4d2008',
+        prefix+'CONTRACT.md':'61f527c6f6cf8cf5d9359ac9526cc4b6e99bdf16585946b183595cf2d4ae4e45',
+        prefix+'layout-objects.tsv':'c1c49c7743960ae63fd22d7cb1fdf7d4dfd04904ba2d6e8a200e3a9068b8b681',
+        prefix+'layout-fields.tsv':'11aec456c976988eb039258b4d4e4ef163fc098f1e8eb19900817f6f3dcded3f',
         'scripts/hp1020_qemu_ram.py':BACKEND_HASH,
         'scripts/hp1020_entry_qemu.py':'4ef9ffcfac58a326b68df526c8ddec93868cf18cf85eae76682a30ab9cf9d080',
-        'scripts/hp1020_entry_machine.py':'46cc66fc2ac1c22201ef6a33ee13eba4a54087bb416ccc1b8726aae2d2c98b07',
+        'scripts/hp1020_entry_machine.py':'a125a4cbda453d7521ab8e57e0a17ebff7c2429187936725ed597515410079f3',
         'scripts/hp1020_xtensa_call0.py':'ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480',
         'scripts/hp1020_xtensa_properties.py':'8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280',
         'open-firmware/tinyusb-device/tusb_config.h':'895c6599700b09f84be46ce74ac75f3974ce3b277d98f233134a54aea637616a'}
@@ -1271,6 +1280,7 @@ def check_sources(root,report,source_root):
       'scripts/hp1020_entry_usb_machine.py','scripts/hp1020_entry_usb_qemu.py',
       'scripts/hp1020_entry_usb_audit.py',prefix+'startup.S',prefix+'runtime.ld',
       prefix+'hp1020_usb_runtime.c',prefix+'hp1020_usb_runtime_ram.c',prefix+'hp1020_usb_runtime_layout.c',
+      'open-firmware/image-pump/hp1020_image_pump.h',
       'open-firmware/udc-out/hp1020_udc_acquire.h',
       'open-firmware/tinyusb-device/patches/protocol-compatibility.patch')
     need(set(required)<=set(sources),'required runtime/audit/observer and original component closure')

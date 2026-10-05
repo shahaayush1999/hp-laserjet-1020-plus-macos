@@ -270,7 +270,7 @@ ASSERT(__hp1020_entry_state_start == 0x10010000 &&
        __hp1020_entry_state_end > __hp1020_entry_state_start &&
        __hp1020_entry_state_end <= __hp1020_entry_state_cap,
        "generic zero-state exceeds 16352-byte budget")
-ASSERT(__hp1020_runtime_document_end - __hp1020_runtime_document_start == 13496,
+ASSERT(__hp1020_runtime_document_end - __hp1020_runtime_document_start == 13512,
        "production document state size changed")
 ASSERT(hp1020_usb_runtime_document == __hp1020_runtime_document_start,
        "production document object displaced")

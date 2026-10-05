@@ -7,7 +7,7 @@ existing installed Mac driver and inert probe stages are separate.
 `hp1020_usb_receive` owns four stationary, 16-byte-aligned 1024-byte buffers.
 Reservations carry a generation and sequence. Completion can arrive in any
 order; consumption remains in reservation order. Full storage applies
-backpressure. A slot cannot be reused until its synchronous consumer releases
+backpressure. A slot cannot be reused until its consumer releases
 it. Duplicate, consumed and old-generation tickets cannot mutate new work.
 Both identity counters stop before wrap.
 
@@ -34,6 +34,14 @@ consumes every reservation. Missing END_DOC stays TRUNCATED even after complete
 page output. Short/ZLP transfers do not finish documents. Calling `receive_stop`
 instead prevents both pumping and finishing. The extended initializer attaches
 an optional document consumer; the original initializer remains a wrapper.
+
+`hp1020_usb_document_init_cooperative` instead performs one bounded input or
+decoder step per pump call. The outer loop advances the exposed pump ring through
+peek, acceptance and actual completion. Output waits retain the original receive
+ticket and byte cursor, compressed data and output storage. The PJL command pump
+can own that cursor instead; never mix both input owners. Document notifications
+keep the original receive generation. The synchronous initializer remains valid
+for existing callers; the entry experiments still use that mode.
 
 Stop/error fences all new work and retains input/output storage and ownership.
 Restart requires two distinct acknowledgements for the stopped generation:
@@ -65,8 +73,13 @@ pre-fault and pre-acknowledgement snapshots retain all memory and ownership;
 both acknowledgement orders are exercised with accepted output still present.
 Original stock execution remains a distinct category.
 
-The validated target state and fixed buffers use 128200 bytes, excluding code,
-stack and test captures. This includes receive storage and the document/image
-pipeline, not an operational USB stack. Copies remain metadata. Hardware boot,
+The receive/document state uses fixed storage, shared between the synchronous
+and cooperative decoder modes. The report records its compiled target size,
+excluding code, stack and test captures. Copies remain metadata. Hardware boot,
 actual USB, cache behavior, physical pixel packing, engine output and recovery
 remain unproved. Reports: `analysis/usb-path/receive-core/validation.json/.md`.
+The cooperative USB/PJL path is exercised separately by
+`scripts/validate-hp1020-cooperative-usb.py --target`, including a real TinyUSB
+control request during an output wait, cancellation with retained input/output
+and reply ownership, and exact pixels after gated recovery. Its controller and
+completion observations are supplied in RAM; it does not establish device I/O.

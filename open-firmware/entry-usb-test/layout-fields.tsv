@@ -6,11 +6,11 @@ id	object_id	member	target32_offset	width
 5	1	receive.stopped	88	1
 6	1	receive.quiescent	89	1
 7	1	receive.error	84	4
-8	1	finished	13492	1
+8	1	finished	13504	1
 9	1	output.finished	13469	1
 10	1	output.error	13464	4
-11	1	output_quiescent	13493	1
-12	1	payload_error	13488	4
+11	1	output_quiescent	13505	1
+12	1	payload_error	13500	4
 13	1	feed_generation	13484	4
 14	1	output.stream.parser.documents	4720	4
 15	1	output.stream.pages	13248	4
@@ -97,6 +97,6 @@ id	object_id	member	target32_offset	width
 96	15	documents	8896	40
 97	16	WHOLE_ARRAY	0	16
 98	14	words	0	1024
-99	1	feeding	13494	1
+99	1	feeding	13506	1
 100	13	callback_depth	88	4
 101	9	capture.record	16	16

@@ -17,7 +17,7 @@ import struct
 
 MAIN = 0x10003000
 ENTRY = 0x100167a8
-STATE = (0x1000e000, 13496)
+STATE = (0x1000e000, 13512)
 MEMORY = (0x10016800, 114704)
 MAILBOX = (0x10014040, 1024)
 STACK = (0x10012000, 8192)
@@ -45,8 +45,8 @@ SENTINEL = bytes.fromhex('31527394b5d6f718395a7b9cbddeff20') * 16
 BIE = bytes.fromhex('000001000000002000000008000000041000035cfd98ff02ff02')
 PIXELS = b'\xff' * 32
 BACKEND_HASH = '8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2'
-ORACLE_HASH = 'a5046eb1a84b67ef7f4461e9169cbd14c88024161d786fd1b7438677233718ee'
-LAYOUT_HASH = 'c37ba6986d6ed7cb2dceb647902873e04302e7eb55256eb73ebdf26ea1df6f35'
+ORACLE_HASH = 'c0497cc046055a75bd3de97afb706fc6498b880c73790e2cd89733654084315b'
+LAYOUT_HASH = '47cad9b636b9aa9631e1e6b358123e0b62ab0e9c4d8e4cedeadb8189b21718b5'
 SAMPLE_HASH = '8c6aa75a8c967897e72673e585c8ae862004e6e1c2b22118943ead4070e96206'
 PRIMARY = {
     'provenance.json': 'a207e83239270e8cd09763a9b96e80e733745e2e74d70cd44337ee27dc88f100',
@@ -56,10 +56,10 @@ PRIMARY = {
     'target/xtensa/core-test_kc705_be.c': '9113b65e67095cd0697788530c3c1ed9d64628645828b6ec06e575f43be07a97'}
 LAYOUT_RECORDS = (
     (1, 68, 4), (1, 72, 4), (1, 76, 4), (1, 80, 4), (1, 88, 1), (1, 89, 1),
-    (1, 13492, 1), (1, 4720, 4), (1, 13248, 4), (1, 13452, 4), (1, 13456, 4),
-    (1, 13493, 1), (1, 13488, 4), (1, 13484, 4), (1, 84, 4), (1, 13469, 1),
+    (1, 13504, 1), (1, 4720, 4), (1, 13248, 4), (1, 13452, 4), (1, 13456, 4),
+    (1, 13505, 1), (1, 13500, 4), (1, 13484, 4), (1, 84, 4), (1, 13469, 1),
     (1, 13464, 4), (2, 0, 4096), (2, 81936, 32768), (2, 4096, 77840))
-LAYOUT_WORDS = (1, 65, 20, 13496, 114704) + tuple(v for r in LAYOUT_RECORDS for v in r)
+LAYOUT_WORDS = (1, 65, 20, 13512, 114704) + tuple(v for r in LAYOUT_RECORDS for v in r)
 FIXED = {
     '.WindowVectors.text': (0x10000000, 0x180, 1, 6),
     '.KernelExceptionVector.literal': (0x10000180, 4, 1, 2),
@@ -170,7 +170,7 @@ def park_words(source):
             352, fnv(source), 352, 6, 6, 6, 6, 1, 1, 6, 6, 0, 1, 0, 1, 1, 1, 1,
             32, fnv(PIXELS), 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 8, 8, 8, 0, 1, 6,
             32, 1, 8, 4, 0, 0, 0, fnv(receive_literal(source)),
-            fnv(PIXELS + bytes(32736)), 13496, 114704, 0, 0, 0]
+            fnv(PIXELS + bytes(32736)), 13512, 114704, 0, 0, 0]
 
 
 class Elf:
@@ -374,6 +374,9 @@ def semantic_snapshots(rows, images, initial, supplied, checkpoints, source, qem
         if label == 'pre-c':
             need(all(part(actual, a, n) == bytes(n) for a, n in ZERO), 'all three BSS objects zero before C')
         if label in ('pre-finish', 'park', 'park-step-1', 'park-step-2'):
+            need(part(actual, STATE[0] + 13488, 12) == bytes(12) and
+                 part(actual, STATE[0] + 13507, 2) == bytes(2),
+                 'legacy entry profile keeps cooperative cursor and mode unused')
             values = [int.from_bytes(part(actual, STATE[0] + off, width), 'big') for base, off, width in LAYOUT_RECORDS[:17]]
             stopped = int(label != 'pre-finish')
             need(values == [1, 6, 6, 0, stopped, 0, stopped, 1, 1, 1, 1, 0, 0, 1, 0, stopped, 0], 'actual production boundary fields')
@@ -647,6 +650,7 @@ def check_capture(capture_root, source_root=None):
             'open-firmware/image-core/hp1020_image.c', 'open-firmware/image-core/hp1020_image_page.c',
             'open-firmware/image-core/hp1020_image_stream.c', 'open-firmware/image-core/hp1020_image_ring.c',
             'open-firmware/image-core/hp1020_image_output.c', 'open-firmware/image-core/target-memory.c',
+            'open-firmware/image-pump/hp1020_image_pump.c', 'open-firmware/image-pump/hp1020_image_pump.h',
             'open-firmware/semantic-core/hp1020_semantic.c', 'open-firmware/semantic-core/hp1020_page_plan.c',
             'open-firmware/semantic-core/freestanding/memory.c', 'vendor/jbigkit-2.1/libjbig/jbig85.c',
             'vendor/jbigkit-2.1/libjbig/jbig_ar.c')
@@ -693,7 +697,7 @@ def check_capture(capture_root, source_root=None):
         for data in tools['compiler_headers'].values():
             need(sha(raw(root, data['snapshot'])) == data['sha256'], 'actual compiler-header bytes')
         dep_files = [name for name in report['target_sha256'] if name.endswith('.d')]
-        need(len(dep_files) == 15, 'fifteen compiled C dependency captures')
+        need(len(dep_files) == 16, 'sixteen compiled C dependency captures')
         for name in dep_files:
             dependency_text = raw(root, 'target/' + name).decode().replace('\\\n', ' ')
             need(':' in dependency_text, 'dependency rule')

@@ -371,6 +371,7 @@ def main():
     sources.update(ROOT/'scripts'/n for n in ('validate-hp1020-usb-printer.py', 'build-hp1020-usb-printer-target.sh',
         'validate-hp1020-image-pages.py', 'validate-hp1020-image-core.py', 'check-hp1020-c-compiler-profile.py',
         'hp1020_qemu_ram.py', 'hp1020_xtensa_call0.py', 'hp1020_xtensa_properties.py'))
+    sources.update(ROOT/'open-firmware/image-pump'/('hp1020_image_pump'+ext) for ext in ('.c', '.h'))
     tested = {str(p.relative_to(ROOT)): core.sha(p.read_bytes()) for p in sorted(sources)}
     for name in tested:
         saved = temp/'source'/name
@@ -383,6 +384,7 @@ def main():
     implementation += [RX/'hp1020_usb_receive.c', RX/'hp1020_usb_document.c']
     implementation += [IMG/n for n in ('hp1020_image.c', 'hp1020_image_page.c', 'hp1020_image_stream.c',
                                       'hp1020_image_ring.c', 'hp1020_image_output.c')]
+    implementation += [ROOT/'open-firmware/image-pump/hp1020_image_pump.c']
     implementation += [SEM/'hp1020_semantic.c', SEM/'hp1020_page_plan.c',
                        core.VENDOR/'libjbig/jbig85.c', core.VENDOR/'libjbig/jbig_ar.c']
     core.command(flags + ['-I' + str(p) for p in (SRC, RX, IMG, SEM, core.VENDOR/'libjbig')]

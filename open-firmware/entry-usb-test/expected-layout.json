@@ -9,7 +9,7 @@
       "id": 1,
       "symbol": "hp1020_usb_runtime_document",
       "type": "struct hp1020_usb_document",
-      "size": 13496,
+      "size": 13512,
       "alignment": 4
     },
     {
@@ -172,7 +172,7 @@
       "id": 8,
       "object": 1,
       "member": "finished",
-      "offset": 13492,
+      "offset": 13504,
       "width": 1
     },
     {
@@ -193,14 +193,14 @@
       "id": 11,
       "object": 1,
       "member": "output_quiescent",
-      "offset": 13493,
+      "offset": 13505,
       "width": 1
     },
     {
       "id": 12,
       "object": 1,
       "member": "payload_error",
-      "offset": 13488,
+      "offset": 13500,
       "width": 4
     },
     {
@@ -809,7 +809,7 @@
       "id": 99,
       "object": 1,
       "member": "feeding",
-      "offset": 13494,
+      "offset": 13506,
       "width": 1
     },
     {

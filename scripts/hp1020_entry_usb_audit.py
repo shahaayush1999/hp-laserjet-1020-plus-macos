@@ -33,16 +33,16 @@ PRIVATE_PROOF_SHA256 = 'a304d09a141b9b5671dabeeb65ccd1de42393ed88ef2a747564b64bc
 INPUT_SHA256 = 'ad339333c0d37ee41da13849184caebec4b55d8f913eb30f9565e30cd33a062d'
 DATA_PATTERN = bytes.fromhex('31527394b5d6f718395a7b9cbddeff20') * 16
 SCRIPT_PINS = {
-    'hp1020_entry_audit.py': '2f990f9f57731c49d8931138d32ce100fecd1d2fed722354f6c01117e52042eb',
+    'hp1020_entry_audit.py': 'e7d47b1cb441e4d6c0972f37761dc8fffce81e8329c7a07005ce5fba7549070c',
     'hp1020_xtensa_call0.py': 'ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480',
     'hp1020_xtensa_properties.py': '8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280',
 }
 CONTRACT_PINS = {
-    'hp1020_usb_runtime_contract.h': '25f5e76cff3633d6e3ab85f4e9adfc2e94edcc02e2cfe0b7d7d2bafea2e82995',
-    'layout-objects.tsv': '9eb91e5bc6565773758f9fad22498e639b64289a1a9060adb0a2456637dee012',
-    'layout-fields.tsv': '0a810d9c44f99f8507d2338e9a1fa0e0f307606361ee03f536ca0935fd4d2008',
+    'hp1020_usb_runtime_contract.h': '7511e5493d89977630eb1493dc4f085f67e72caf38da95df961054bd88f5f55e',
+    'layout-objects.tsv': 'c1c49c7743960ae63fd22d7cb1fdf7d4dfd04904ba2d6e8a200e3a9068b8b681',
+    'layout-fields.tsv': '11aec456c976988eb039258b4d4e4ef163fc098f1e8eb19900817f6f3dcded3f',
     'startup.S': 'c8271bbea0fdc7ed4ffb4c18469a15d91170d26c948d41e3706e8ed95922bad6',
-    'runtime.ld': '235934f043f7b18741a1db960fd8a129d64e5075dad55b8aca87c2988348d74d',
+    'runtime.ld': 'a9da60d3538fcd92fdf7d1329092df2f9208fede69778b168661a3dcfee712a7',
 }
 REPO_PINS = {
     'vendor/tinyusb-0.21.0/PROVENANCE.json': '31ee172160e0c9e51cec7fa0e3e9348e4b20b92493743849fcba649542eae2e0',
@@ -55,7 +55,7 @@ C_UNITS = {
     'hp1020_udc_publish', 'hp1020_udc_program', 'hp1020_udc_ep0', 'hp1020_udc_out',
     'hp1020_udc_setup', 'hp1020_tusb_adapter', 'hp1020_usb_printer',
     'hp1020_usb_receive', 'hp1020_usb_document', 'hp1020_image', 'hp1020_image_page',
-    'hp1020_image_stream', 'hp1020_image_ring', 'hp1020_image_output',
+    'hp1020_image_stream', 'hp1020_image_ring', 'hp1020_image_output', 'hp1020_image_pump',
     'hp1020_semantic', 'hp1020_page_plan', 'target-memory', 'memory',
     'jbig85', 'jbig_ar', 'tusb', 'usbd', 'tusb_fifo',
 }
@@ -74,6 +74,7 @@ SOURCE_UNITS = {
     'hp1020_image_stream': 'open-firmware/image-core/hp1020_image_stream.c',
     'hp1020_image_ring': 'open-firmware/image-core/hp1020_image_ring.c',
     'hp1020_image_output': 'open-firmware/image-core/hp1020_image_output.c',
+    'hp1020_image_pump': 'open-firmware/image-pump/hp1020_image_pump.c',
     'hp1020_semantic': 'open-firmware/semantic-core/hp1020_semantic.c',
     'hp1020_page_plan': 'open-firmware/semantic-core/hp1020_page_plan.c',
     'target-memory': 'open-firmware/image-core/target-memory.c',
@@ -204,7 +205,7 @@ def check_layout(elf, data, objects):
     code_end = rodata['address'] + rodata['size']
     require(code_end <= 0x1000ffe0, 'code budget overflow', code_end)
     require((bss['address'], bss['type'], bss['flags']) == (0x10010000, 8, 3) and
-            13496 < bss['size'] <= 0x3fe0 and bss['size'] % 4 == 0, 'actual generic BSS profile', bss)
+            13512 < bss['size'] <= 0x3fe0 and bss['size'] % 4 == 0, 'actual generic BSS profile', bss)
     require((data_sec['address'], data_sec['type'], data_sec['flags']) == (0x100164a0, 1, 3) and
             0 < data_sec['size'] <= 96, 'actual initialized data profile', data_sec)
     merge([(s['address'], s['address'] + s['size']) for s in allocated.values()])
@@ -255,10 +256,10 @@ def check_layout(elf, data, objects):
                 symbols.get('__hp1020_entry_' + name + '_end') == b, 'exact span symbols', name)
     require(symbols.get('__hp1020_entry_text_end') == text['address'] + text['size'], 'text end')
     require(symbols.get('__hp1020_runtime_document_start') == 0x10010000 and
-            symbols.get('__hp1020_runtime_document_end') == 0x10010000 + 13496 and
-            symbols.get('__hp1020_runtime_other_bss_start') == 0x10010000 + 13496, 'document first in BSS')
+            symbols.get('__hp1020_runtime_document_end') == 0x10010000 + 13512 and
+            symbols.get('__hp1020_runtime_other_bss_start') == 0x10010000 + 13512, 'document first in BSS')
     bss_raw_end = symbols.get('__hp1020_runtime_bss_unaligned_end', -1)
-    require(0 <= pairs['state'][1] - bss_raw_end < 4 and bss_raw_end >= 0x10010000 + 13496,
+    require(0 <= pairs['state'][1] - bss_raw_end < 4 and bss_raw_end >= 0x10010000 + 13512,
             'generic BSS trailing alignment only')
     require(symbols.get('__hp1020_runtime_witness_unaligned_end') == 0x10032830 + 9216,
             'witness used end')

@@ -168,10 +168,36 @@ Use `open-firmware/image-core/README.md` and its current validators for details.
 inside an output callback. Its20 host and20 target cases produce independent exact
 pixels and retain compressed/band/ring ownership across waits, stop and errors.
 Input consumption is explicit; page/document events must be acknowledged.
-It is not yet integrated with USB. That integration must retain the original
-receive-generation cursor, yield between decoder steps, and rebuild only after
-the existing receive/output/transport quiescence gates. Do not connect the old
-synchronous command feed directly and claim cooperative behavior.
+The USB document's cooperative initializer and PJL command pump now retain the
+original receive-generation cursor, yield between decoder steps, and rebuild only
+after the existing receive/output/transport quiescence gates. Six scenarios with
+two fills passed host sanitizers and target QEMU in
+`analysis/usb-path/cooperative-validation.json`. They include full independent
+pixels, a real TinyUSB control round trip while output is blocked, retained IN
+reply/output ownership through supplied cancellation and gated restart, and late
+format/EOF/consumer errors. Ordinary document pumping also yields. No physical
+completion, cancellation, throughput or entry integration is established.
+
+The owner stopped work before broad integration validation. All four entry
+`--audit-only` builds passed after the document target32 state grew16 bytes to
+13512; fixed document memory remains114704. Their source/layout/observer gates
+are adapted, but reset/pages candidate-image pins intentionally remain old.
+Before execution, finish the linked callback/re-entry and stack review. New
+document frames are pump64 (was48), finish48 (was16), restart48 (was32); linked
+cooperative helpers add432 bytes to a conservative sum of individual frames.
+Excluding those branches requires proof that every legacy workload and callback
+preserves synchronous mode, plus bounded nesting; a static frame list alone
+does not establish a stack bound. The previous reset7968/pages7536 ceilings
+therefore cannot yet admit these builds. Static candidate hashes were reset
+`e51085f6363dc036074a5c569d79c71e6fab517c8666b7ff134d94d604da8aac`, pages
+`97713d4da09a082d759d83d9786404ee3e51a81eaeb415a0e77667145bdccb22`.
+Rebuild with `validate-hp1020-entry-usb-{reset,pages}.py --audit-only` if needed;
+update runner pins and the pages checker pin only after completed review. Existing
+accepted targets/reports were restored together; their capture archives preserve
+the exact older sources. Then run `scripts/validate.sh` sequentially and address
+measured layout/source-count regressions. Do not rewrite report hashes manually.
+The next missing implementation is a cooperative entry-owned loop joining the
+shared USB service, command pump and output progression, with supplied RAM I/O.
 
 Prefer software decoding and the stock raw-output route to recovering the custom
 compressed-image ISA. Original datastore32 has file-backed value1, suppressing the

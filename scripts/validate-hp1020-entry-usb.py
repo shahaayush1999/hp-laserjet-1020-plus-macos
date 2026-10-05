@@ -64,7 +64,7 @@ def command(args,log):
 
 def source_files(audit_only=False):
     selected=set()
-    for folder in ('entry-usb-test','usb-receive-core','image-core','semantic-core',
+    for folder in ('entry-usb-test','usb-receive-core','image-core','image-pump','semantic-core',
                    'usb-printer-class','tinyusb-printer-adapter','tinyusb-device',
                    'udc-out','udc-ep0','udc-setup','udc-program','udc-publish'):
         selected.update(p for p in (ROOT/'open-firmware'/folder).rglob('*')

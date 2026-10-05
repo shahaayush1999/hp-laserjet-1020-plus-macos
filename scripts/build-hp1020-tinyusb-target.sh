@@ -31,7 +31,7 @@ objects=()
 for source in "$SOURCE/fixture.c" "$PRINTER/hp1020_usb_printer.c" \
     "$RECEIVE/hp1020_usb_receive.c" "$RECEIVE/hp1020_usb_document.c" \
     "$IMAGE/hp1020_image.c" "$IMAGE/hp1020_image_page.c" "$IMAGE/hp1020_image_stream.c" \
-    "$IMAGE/hp1020_image_ring.c" "$IMAGE/hp1020_image_output.c" "$SEMANTIC/hp1020_semantic.c" \
+    "$IMAGE/hp1020_image_ring.c" "$IMAGE/hp1020_image_output.c" "$ROOT_DIR/open-firmware/image-pump/hp1020_image_pump.c" "$SEMANTIC/hp1020_semantic.c" \
     "$SEMANTIC/hp1020_page_plan.c" "$IMAGE/target-memory.c" "$SEMANTIC/freestanding/memory.c" \
     "$JBIG/jbig85.c" "$JBIG/jbig_ar.c" "$TINYUSB/tusb.c" "$TINYUSB/device/usbd.c" \
     "$TINYUSB/common/tusb_fifo.c"; do

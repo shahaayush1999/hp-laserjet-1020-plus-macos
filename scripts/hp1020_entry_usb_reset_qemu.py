@@ -42,7 +42,7 @@ CHECKPOINT_ROLES = (
 )
 CORE_NAMES = ('after-normalization', 'pre-c', 'pre-close',
               'pre-final-service', 'pre-finish', 'park')
-HEALTHY_OBSERVER_SHA256 = 'c92b92947955f1ba68ac20a941689af6421c50d389d7e3c02a40ff0642ff9a8c'
+HEALTHY_OBSERVER_SHA256 = '2b16ee504abebd6f184fe2f78c035b85f16df2e4c89102bd98735c6ddb197e59'
 
 
 class ObservedUSBResetQemu(healthy.ObservedUSBQemu):

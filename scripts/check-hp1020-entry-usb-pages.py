@@ -16,7 +16,7 @@ import posixpath
 import re
 import struct
 
-BASE_SHA256 = '77d10cf9f24db9776743613aeddb4c58640829257a8222346ef1b0fb23f13720'
+BASE_SHA256 = '81fd4e2d933285ce5039d451ceda56619dcdb3b52974486978bf46e5277447aa'
 _base_file = Path(__file__).with_name('check-hp1020-entry-usb.py')
 if hashlib.sha256(_base_file.read_bytes()).hexdigest() != BASE_SHA256:
     raise ValueError('neutral independent helper bytes changed')
@@ -222,9 +222,9 @@ Manual public target32 layout and source-derived stop contexts. No producer
 imports, files, result data, runtime implementation or entry point.
 """
 SEMANTIC_SHA256 = "b4f648a2c8a951a55a5bcd3e9f8aa19c9af695127945020f249d507d906ca545"
-PUBLIC_HEADER_SHA256 = "f173c03b72cc993382f65a36aabcb3de8ff59e947009a4bc4fd70e66b615a71b"
+PUBLIC_HEADER_SHA256 = "58b0921807073bd9dd1dda5c3f7b3366fd634e2d682c4d20e97b44388c5176eb"
 LAYOUT_HEADER = (0x4850554c,3,457,16,101)
-OBJECTS = ((1,13496,4),(2,114704,16),(3,56,4),(4,408,4),(5,64,4),
+OBJECTS = ((1,13512,4),(2,114704,16),(3,56,4),(4,408,4),(5,64,4),
     (6,16,16),(7,136,4),(8,160,16),(9,80,4),(10,88,4),(11,140,4),
     (12,152,4),(13,204,4),(14,1024,4),(15,9216,4),(16,16,1))
 REPLACED_FIELDS = ((91,15,16,4928),(92,15,4960,3060),
@@ -417,6 +417,7 @@ def production_parts(ram,a,elf):
 
 
 def check_live(ram,a,label,elf):
+    B.check_legacy_document(ram,obj(a,1))
     for name,want in PHASE_MAP[label].items():
         need(live_value(ram,a,name)==want,label+': original field '+name)
     context=(OUTPUT_CONTEXT if label=='pre-first-complete' else FEED_CONTEXT
@@ -691,7 +692,7 @@ class ApiContract:
             need(wanted is not None,'exact16 feeds; no final ZLP parser feed')
             gen,seq,value=wanted;slot=(seq-1)%4
             need(args[1:3]==[m+slot*1024,len(value)] and part(ram,args[1],len(value))==value and
-                 scalar(ram,d+13484)==gen and scalar(ram,d+13494,1)==1,
+                 scalar(ram,d+13484)==gen and scalar(ram,d+13506,1)==1,
                  'actual unmodified original-generation input including all PJL/partial chunks')
             self.feeds.append((gen,seq));data['result']=0
         if name=='hp1020_tusb_adapter_pump':
@@ -723,7 +724,7 @@ class ApiContract:
             data['result']=0
         if name=='document_out':
             need(ordinal==0 and args[1]==d and part(ram,args[0],12)==be_words((1,0,2)) and
-                 scalar(ram,d+13484)==2 and scalar(ram,d+13494,1)==1,
+                 scalar(ram,d+13484)==2 and scalar(ram,d+13506,1)==1,
                  'one original whole-document boundary during generation2 feed')
             data['result']=0
         if name=='document_event':
@@ -1192,26 +1193,26 @@ def check_libgcc(root,report,tools):
 # accepted as an independent semantic oracle.
 FROZEN_SOURCES = {
     'open-firmware/entry-usb-pages-test/independent-literals.py': 'b4f648a2c8a951a55a5bcd3e9f8aa19c9af695127945020f249d507d906ca545',
-    'open-firmware/entry-usb-pages-test/literal-addendum.py': 'cc5f92500db433a56a0ea7074fcb861ec13f0d29ab802acf44a2d25c9a7fac6c',
-    'open-firmware/entry-usb-pages-test/hp1020_usb_runtime_contract.h': 'f173c03b72cc993382f65a36aabcb3de8ff59e947009a4bc4fd70e66b615a71b',
+    'open-firmware/entry-usb-pages-test/literal-addendum.py': 'd03fb3f1b3953477f668619a499cfe3ec96a1added735e0f4c92f41bc77a524a',
+    'open-firmware/entry-usb-pages-test/hp1020_usb_runtime_contract.h': '58b0921807073bd9dd1dda5c3f7b3366fd634e2d682c4d20e97b44388c5176eb',
     'open-firmware/entry-usb-pages-test/CONTRACT.md': '0e78b90bf5cb3f453ac4760ecbecfd29e16e59b877b0f6f25bc07f5f56bd112e',
     'open-firmware/entry-usb-pages-test/LIBRARY_SELECTION.md': '344575b6e5123bd655d3b8e81420eaefccaf6bd54172144433ea348daf6e40db',
-    'open-firmware/entry-usb-pages-test/layout-objects.tsv': '9eb91e5bc6565773758f9fad22498e639b64289a1a9060adb0a2456637dee012',
-    'open-firmware/entry-usb-pages-test/layout-fields.tsv': '0e8ea9f24a52681c68e208789dcd3e22460856fc4ddbc061ecd684c61e8f5382',
+    'open-firmware/entry-usb-pages-test/layout-objects.tsv': 'c1c49c7743960ae63fd22d7cb1fdf7d4dfd04904ba2d6e8a200e3a9068b8b681',
+    'open-firmware/entry-usb-pages-test/layout-fields.tsv': '91bb103c8ff980e53d9edffec8c4da04e24d0d32497fa805141ef6289ca25a97',
     'open-firmware/entry-usb-pages-test/startup.S': 'c8271bbea0fdc7ed4ffb4c18469a15d91170d26c948d41e3706e8ed95922bad6',
-    'open-firmware/entry-usb-pages-test/runtime.ld': '235934f043f7b18741a1db960fd8a129d64e5075dad55b8aca87c2988348d74d',
-    'scripts/check-hp1020-entry-usb.py': '77d10cf9f24db9776743613aeddb4c58640829257a8222346ef1b0fb23f13720',
+    'open-firmware/entry-usb-pages-test/runtime.ld': 'a9da60d3538fcd92fdf7d1329092df2f9208fede69778b168661a3dcfee712a7',
+    'scripts/check-hp1020-entry-usb.py': '81fd4e2d933285ce5039d451ceda56619dcdb3b52974486978bf46e5277447aa',
     'scripts/hp1020_qemu_ram.py': '8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2',
     'scripts/hp1020_entry_qemu.py': '4ef9ffcfac58a326b68df526c8ddec93868cf18cf85eae76682a30ab9cf9d080',
-    'scripts/hp1020_entry_machine.py': '46cc66fc2ac1c22201ef6a33ee13eba4a54087bb416ccc1b8726aae2d2c98b07',
+    'scripts/hp1020_entry_machine.py': 'a125a4cbda453d7521ab8e57e0a17ebff7c2429187936725ed597515410079f3',
     'scripts/hp1020_entry_usb_machine.py': '377cdd771447a4d69040a5624ef1fafc7593fea50fc471ccd7f8a0ff1077466a',
-    'scripts/hp1020_entry_usb_qemu.py': 'c92b92947955f1ba68ac20a941689af6421c50d389d7e3c02a40ff0642ff9a8c',
-    'scripts/hp1020_entry_usb_audit.py': 'ee88268a55fcfedb2e49a6a0b52b1417aec5ed5181a0e701bfe2aabf9940c01e',
-    'scripts/hp1020_entry_audit.py': '2f990f9f57731c49d8931138d32ce100fecd1d2fed722354f6c01117e52042eb',
+    'scripts/hp1020_entry_usb_qemu.py': '2b16ee504abebd6f184fe2f78c035b85f16df2e4c89102bd98735c6ddb197e59',
+    'scripts/hp1020_entry_usb_audit.py': 'bf3e4dbe77b7f4b9c6c8f264d31c28186b40f65621d947468080bda9c984dc9d',
+    'scripts/hp1020_entry_audit.py': 'e7d47b1cb441e4d6c0972f37761dc8fffce81e8329c7a07005ce5fba7549070c',
     'scripts/hp1020_xtensa_call0.py': 'ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480',
     'scripts/hp1020_xtensa_properties.py': '8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280',
-    'scripts/validate-hp1020-entry-usb.py': 'ef7cd2ef5c0ee6618002d600efea1a6844ea627a288c3022e766297cda694e1d',
-    'scripts/build-hp1020-entry-usb-target.sh': '968ea53a29a09534b30e1db380a89e1883558f417eb3a6214c3d32e2f959781e',
+    'scripts/validate-hp1020-entry-usb.py': '3549e7d2ad5a9e9743f9ced1233dafce4592d786af373cf4a74f2e7d1ff25642',
+    'scripts/build-hp1020-entry-usb-target.sh': '263bd6de6acc4312289a9419e4ce259a0bd5597625f73da9e33a13a5b48d5365',
     'scripts/check-hp1020-c-compiler-profile.py': 'c9d5cce3591a402f1b3f0e4ad343fb1064747a4d9c256b4a61cea60eccdf8aa4',
     'scripts/prepare-hp1020-tinyusb.py': '5609cbf3c13156746cba4ddc1011ae45f4ffac4fd0f79142495290138b5c86df',
     'open-firmware/tinyusb-device/tusb_config.h': '895c6599700b09f84be46ce74ac75f3974ce3b277d98f233134a54aea637616a',
@@ -1224,7 +1225,10 @@ FROZEN_SOURCES = {
     'open-firmware/tinyusb-printer-adapter/hp1020_tusb_adapter.c': '472cab2bdf7c64e3394e8a05c4b598020efa54db2d1a7347b58498f122062ba2',
     'open-firmware/usb-printer-class/hp1020_usb_printer.c': 'c9daf663ae7eea5b9df6a6a68fffd86ec0d6c4b860ce17559250e65cf02361b9',
     'open-firmware/usb-receive-core/hp1020_usb_receive.c': '352413d1c3d5cd8dbe1aa1788ab27383d1c45bfc344842d3b9b08c7e64827a8e',
-    'open-firmware/usb-receive-core/hp1020_usb_document.c': '6df4c51a364b78a1d8e3bc9c81ce41f4daacddf383d13238e5f5407616575885',
+    'open-firmware/usb-receive-core/hp1020_usb_document.c': '9b40ec83818cfaeb27e8f688ee47163c9f437437f121002b433cb66eaf8edf6a',
+    'open-firmware/usb-receive-core/hp1020_usb_document.h': 'acc66f3820d800c8ee9d88ca8a75d34b4a30e2dce5d0a0b83429e32b56aa1dc0',
+    'open-firmware/image-pump/hp1020_image_pump.c': '91b13ce743749a0c901f04adc972d1d52faeda693baea0f5c95a912aa48237c6',
+    'open-firmware/image-pump/hp1020_image_pump.h': '03bc1f0dd580caee3a63468c6b10474a7e80bc364030d74268197ad7b0c34db9',
     'open-firmware/image-core/hp1020_image_output.c': 'ed469978829f1cc35b10062912db2fd88d030fb112b9ca35596bf115211c9728',
     'open-firmware/image-core/hp1020_image_ring.c': '9ee8f5955e8d6f30a3b12778553477835dc245eb3d928f6e81b467f8562d4e2b',
     'open-firmware/image-core/hp1020_image_stream.c': '772f9c2caa5a20091d3a4a38fb6c8454ad6329c035b9c35bd6ec45611dc319d3',
@@ -1246,6 +1250,7 @@ def check_sources(root,report,source_root):
       'scripts/hp1020_entry_usb_pages_machine.py','scripts/hp1020_entry_usb_pages_qemu.py',
       'scripts/hp1020_entry_usb_pages_audit.py',PREFIX+'hp1020_usb_runtime.c',
       PREFIX+'hp1020_usb_runtime_ram.c',PREFIX+'hp1020_usb_runtime_layout.c',
+      'open-firmware/image-pump/hp1020_image_pump.h',
       'open-firmware/tinyusb-device/patches/protocol-compatibility.patch')
     need(set(required)<=set(sources),'complete new runtime/audit/observer and production source closure')
     for unit in UNITS:need(any(n.endswith('/'+unit+'.c') for n in sources),'actual compiled C source: '+unit)

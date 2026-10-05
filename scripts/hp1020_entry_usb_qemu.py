@@ -114,7 +114,7 @@ def validate_policy(layout):
     require(isinstance(zero,(list,tuple)) and len(zero)==4,'four actual zero spans')
     zero=[tuple(x) for x in zero]
     require(all(len(x)==2 and all(type(v) is int for v in x) for x in zero),'integer zero ranges')
-    require(zero[0][0]==0x10010000 and 13496<=zero[0][1]<=16352 and not(zero[0][1]&3) and
+    require(zero[0][0]==0x10010000 and 13512<=zero[0][1]<=16352 and not(zero[0][1]&3) and
             zero[1:]==[(0x10016060,1024),(0x10016800,114704),(0x10032830,9216)],
             'exact bounded split-object zero policy')
     stack=tuple(layout['owned_stack']);data=tuple(layout['initialized_data_span'])

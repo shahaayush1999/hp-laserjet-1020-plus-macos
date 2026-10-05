@@ -56,6 +56,7 @@ def compile_host(temp, effective):
         base.RX/'hp1020_usb_receive.c', base.RX/'hp1020_usb_document.c']
     implementation += [base.IMG/name for name in ('hp1020_image.c','hp1020_image_page.c',
         'hp1020_image_stream.c','hp1020_image_ring.c','hp1020_image_output.c')]
+    implementation += [ROOT/'open-firmware/image-pump/hp1020_image_pump.c']
     implementation += [base.SEM/'hp1020_semantic.c',base.SEM/'hp1020_page_plan.c',
         core.VENDOR/'libjbig/jbig85.c',core.VENDOR/'libjbig/jbig_ar.c']
     implementation += [effective/'src'/name for name in ('tusb.c','device/usbd.c','common/tusb_fifo.c')]

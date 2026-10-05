@@ -16,9 +16,9 @@ from hp1020_entry_usb_audit import (
     classify_usb_code,check_private_getter,check_initialized_data,stack_usage,
 )
 SCRIPT_PINS = dict(usb.SCRIPT_PINS)
-SCRIPT_PINS['hp1020_entry_usb_audit.py'] = 'ee88268a55fcfedb2e49a6a0b52b1417aec5ed5181a0e701bfe2aabf9940c01e'
+SCRIPT_PINS['hp1020_entry_usb_audit.py'] = 'bf3e4dbe77b7f4b9c6c8f264d31c28186b40f65621d947468080bda9c984dc9d'
 INPUT_SHA256 = '8ccf8bc1391e9025e3bd0a196dd155a04b967271bbb2a896bfd185453c0ed669'
-CONTRACT_PINS = {'LIBRARY_SELECTION.md': '344575b6e5123bd655d3b8e81420eaefccaf6bd54172144433ea348daf6e40db', 'hp1020_usb_runtime_contract.h': 'f173c03b72cc993382f65a36aabcb3de8ff59e947009a4bc4fd70e66b615a71b', 'layout-objects.tsv': '9eb91e5bc6565773758f9fad22498e639b64289a1a9060adb0a2456637dee012', 'layout-fields.tsv': '0e8ea9f24a52681c68e208789dcd3e22460856fc4ddbc061ecd684c61e8f5382', 'startup.S': 'c8271bbea0fdc7ed4ffb4c18469a15d91170d26c948d41e3706e8ed95922bad6', 'runtime.ld': '235934f043f7b18741a1db960fd8a129d64e5075dad55b8aca87c2988348d74d'}
+CONTRACT_PINS = {'LIBRARY_SELECTION.md': '344575b6e5123bd655d3b8e81420eaefccaf6bd54172144433ea348daf6e40db', 'hp1020_usb_runtime_contract.h': '58b0921807073bd9dd1dda5c3f7b3366fd634e2d682c4d20e97b44388c5176eb', 'layout-objects.tsv': 'c1c49c7743960ae63fd22d7cb1fdf7d4dfd04904ba2d6e8a200e3a9068b8b681', 'layout-fields.tsv': '91bb103c8ff980e53d9edffec8c4da04e24d0d32497fa805141ef6289ca25a97', 'startup.S': 'c8271bbea0fdc7ed4ffb4c18469a15d91170d26c948d41e3706e8ed95922bad6', 'runtime.ld': 'a9da60d3538fcd92fdf7d1329092df2f9208fede69778b168661a3dcfee712a7'}
 
 # Frozen before a real-page build: the old %6 orchestration was removed, while
 # provider division remains. Unexpected map selection is an admission stop.

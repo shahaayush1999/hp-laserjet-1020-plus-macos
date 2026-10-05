@@ -7,7 +7,7 @@
 #include <stdint.h>
 #include "hp1020_usb_document.h"
 
-#define HP1020_ENTRY_STATE_BYTES 13496u
+#define HP1020_ENTRY_STATE_BYTES 13512u
 #define HP1020_ENTRY_MEMORY_BYTES 114704u
 #define HP1020_ENTRY_MAILBOX_BYTES 1024u
 #define HP1020_ENTRY_DATA_BYTES 256u

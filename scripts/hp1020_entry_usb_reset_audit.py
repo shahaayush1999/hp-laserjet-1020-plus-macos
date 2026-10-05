@@ -16,14 +16,14 @@ from hp1020_entry_usb_audit import (
     classify_usb_code,check_private_getter,check_initialized_data,stack_usage,
 )
 SCRIPT_PINS = dict(usb.SCRIPT_PINS)
-SCRIPT_PINS['hp1020_entry_usb_audit.py'] = 'ee88268a55fcfedb2e49a6a0b52b1417aec5ed5181a0e701bfe2aabf9940c01e'
+SCRIPT_PINS['hp1020_entry_usb_audit.py'] = 'bf3e4dbe77b7f4b9c6c8f264d31c28186b40f65621d947468080bda9c984dc9d'
 CONTRACT_PINS = {
  'LIBRARY_SELECTION.md':'e5d344e4afe2817186960ef3108a7f82baf0089f2e333e012f950994b7be7fdd',
- 'hp1020_usb_runtime_contract.h':'a73a3904b094126e811f6d26249ab93d3d71cae7f5e0c00cedd10e77addc4679',
- 'layout-objects.tsv':'eab95464e854493bade7fce68dbe645c4e6f9c4a899ac0a6b0a043118519d154',
- 'layout-fields.tsv':'c9b745359ce934e3b2b992f3bb5a0323e17d69a22eba30acf7586ecc8c384201',
+ 'hp1020_usb_runtime_contract.h':'0f7ead8a1af9b70a5acc5009cabc96cf67e0235d2b52a6fe470379d0bf74ae76',
+ 'layout-objects.tsv':'9ac344c7ad5dd0bcd500186af832aa08a704c6735a96889ab10955e4caceb274',
+ 'layout-fields.tsv':'843797d965a982000de947c0beccb215092c2f019cd0fa76eb8f7bf71aa21708',
  'startup.S':'c8271bbea0fdc7ed4ffb4c18469a15d91170d26c948d41e3706e8ed95922bad6',
- 'runtime.ld':'235934f043f7b18741a1db960fd8a129d64e5075dad55b8aca87c2988348d74d',
+ 'runtime.ld':'a9da60d3538fcd92fdf7d1329092df2f9208fede69778b168661a3dcfee712a7',
 }
 
 # Frozen before a reset build: the old %6 orchestration was removed, while

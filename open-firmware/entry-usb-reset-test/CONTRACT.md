@@ -18,7 +18,7 @@ The public header declares these separate objects:
 
 | Object | Section / placement | Exact bytes |
 |---|---|---:|
-|document|`.runtime_document`, first in generic BSS at10010000|13496|
+|document|`.runtime_document`, first in generic BSS at10010000|13512|
 |memory|`.runtime_memory` at10016800|114704|
 |mailbox|`.runtime_mailbox` at10016060|1024|
 |sentinel|file-backed `.runtime_sentinel` at10016500|256|

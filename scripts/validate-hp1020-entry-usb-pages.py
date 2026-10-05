@@ -34,7 +34,7 @@ def module(name,path):
     value=importlib.util.module_from_spec(spec);sys.modules[name]=value
     spec.loader.exec_module(value);return value
 
-BASE_RUNNER_SHA256 = 'ef7cd2ef5c0ee6618002d600efea1a6844ea627a288c3022e766297cda694e1d'
+BASE_RUNNER_SHA256 = '3549e7d2ad5a9e9743f9ced1233dafce4592d786af373cf4a74f2e7d1ff25642'
 need(sha((ROOT/'scripts/validate-hp1020-entry-usb.py').read_bytes())==BASE_RUNNER_SHA256,
      'unchanged neutral runner helpers required')
 base=module('entry_usb_neutral_runner',ROOT/'scripts/validate-hp1020-entry-usb.py')
@@ -62,7 +62,7 @@ check_snapshot=base.check_snapshot
 
 def source_files(audit_only=False):
     selected=set()
-    for folder in ('entry-usb-pages-test','entry-usb-test','usb-receive-core','image-core','semantic-core',
+    for folder in ('entry-usb-pages-test','entry-usb-test','usb-receive-core','image-core','image-pump','semantic-core',
                    'usb-printer-class','tinyusb-printer-adapter','tinyusb-device',
                    'udc-out','udc-ep0','udc-setup','udc-program','udc-publish'):
         selected.update(p for p in (ROOT/'open-firmware'/folder).rglob('*')

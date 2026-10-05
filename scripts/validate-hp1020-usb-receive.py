@@ -44,12 +44,14 @@ def main():
     sources.update(ROOT/'scripts'/n for n in ('validate-hp1020-usb-receive.py','build-hp1020-usb-receive-target.sh',
         'validate-hp1020-image-pages.py','validate-hp1020-image-core.py','check-hp1020-c-compiler-profile.py',
         'hp1020_qemu_ram.py','hp1020_xtensa_call0.py','hp1020_xtensa_properties.py'))
+    sources.update(ROOT/'open-firmware/image-pump'/('hp1020_image_pump'+ext) for ext in ('.c', '.h'))
     tested={str(p.relative_to(ROOT)):core.sha(p.read_bytes()) for p in sorted(sources)}
     for name in tested:
         saved=temp/'source'/name;saved.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(ROOT/name,saved)
     (temp/'source-sha256.json').write_text(json.dumps(tested,indent=2)+'\n')
     flags=['clang','-std=c11','-O1','-g','-fno-common','-Wall','-Wextra','-Werror','-fsanitize=address,undefined']
     implementation=[SRC/n for n in ('hp1020_usb_receive.c','hp1020_usb_document.c','fixture.c','host-check.c')]
+    implementation += [ROOT/'open-firmware/image-pump/hp1020_image_pump.c']
     implementation += [IMG/n for n in ('hp1020_image.c','hp1020_image_page.c','hp1020_image_stream.c',
         'hp1020_image_ring.c','hp1020_image_output.c')]
     implementation += [SEM/'hp1020_semantic.c',SEM/'hp1020_page_plan.c',

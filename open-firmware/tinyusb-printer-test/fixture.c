@@ -76,12 +76,16 @@ static int same_cookie(struct hp1020_tusb_cookie a,struct hp1020_tusb_cookie b) 
     return a.id==b.id && a.epoch==b.epoch && a.generation==b.generation &&
         a.sequence==b.sequence && a.endpoint==b.endpoint;
 }
+static const struct hp1020_image_ring *fixture_ring(void) {
+    return document.cooperative?&document.pump.ring:&document.output.ring;
+}
 static void check_owned(void) {
     for(uint32_t i=0;i<4;i++)if(packets[i].live && packets[i].length &&
         memcmp(packets[i].shadow,packets[i].buffer,packets[i].length))state.violations++;
-    for(uint32_t i=0;i<4;i++)if(document.output.ring.slots[i].state==2 &&
-        state.owned_hash[i]!=fnv(memory.data.output.slots+i*document.output.ring.slot_bytes,
-            document.output.ring.slots[i].rows*document.output.ring.stride))state.violations++;
+    const struct hp1020_image_ring *ring=fixture_ring();
+    for(uint32_t i=0;i<4;i++)if(ring->slots[i].state==2 &&
+        state.owned_hash[i]!=fnv(ring->storage+i*ring->slot_bytes,
+            ring->slots[i].rows*ring->stride))state.violations++;
 }
 static void request_cancel(void *context,struct hp1020_tusb_cookie cookie) {
     (void)context;
@@ -247,18 +251,21 @@ static void snapshot(uint32_t result) {
     o[48]=adapter.last_class_result;o[49]=adapter.last_receive_result;
     o[50]=state.pixel_bytes;o[51]=fnv(hp1020_bulk_fixture_pixels,state.pixel_bytes);
     o[52]=state.accepted;o[53]=state.completed;o[54]=state.inflight;o[55]=state.calls;
-    o[56]=document.output.stream.parser.documents;o[57]=document.output.stream.pages;o[58]=document.output.pages_drained;
+    if(document.cooperative) {
+        o[56]=document.pump.parser.documents;o[57]=document.pump.pages_completed;o[58]=document.pump.pages_completed;
+    } else { o[56]=document.output.stream.parser.documents;o[57]=document.output.stream.pages;o[58]=document.output.pages_drained; }
     o[59]=sizeof(document)+sizeof(printer)+sizeof(adapter)+sizeof(memory.data);
     o[60]=fnv(memory.data.receive.data[0],sizeof(memory.data.receive.data));
-    o[61]=fnv(memory.data.output.slots,sizeof(memory.data.output.slots));
+    o[61]=fnv(document.cooperative?memory.data.pump.slots:memory.data.output.slots,sizeof(memory.data.output.slots));
     o[62]=state.fail_submission;o[63]=tud_task_event_ready();o[64]=state.address;o[65]=state.pending_address;
     o[66]=state.cancel_requests;o[67]=state.dcd_writes;o[68]=tud_connected();
-    for(uint32_t i=0;i<4;i++) { o[69+i]=rx->slots[i].ready;o[73+i]=document.output.ring.slots[i].state; }
+    for(uint32_t i=0;i<4;i++) { o[69+i]=rx->slots[i].ready;o[73+i]=fixture_ring()->slots[i].state; }
     o[77]=adapter.response_owned;o[78]=adapter.response.kind;o[79]=adapter.response.length;o[80]=adapter.class_request_id;
     o[81]=usbd_edpt_busy(0,1);o[82]=usbd_edpt_stalled(0,1);
     o[83]=usbd_edpt_busy(0,0x81);o[84]=usbd_edpt_stalled(0,0x81);
     o[85]=adapter.prepared;o[86]=adapter.exhausted;
-    o[90]=state.document_calls;o[91]=state.documents_completed;o[92]=document.output.documents_completed;
+    o[90]=state.document_calls;o[91]=state.documents_completed;
+    o[92]=document.cooperative?document.pump.documents_completed:document.output.documents_completed;
     o[93]=state.document_calls?hp1020_bulk_fixture_documents[state.document_calls-1][0]:0;
     o[94]=state.document_fail_at;o[95]=state.document_calls?hp1020_bulk_fixture_documents[state.document_calls-1][1]:0;
     if(state.last_id) { o[87]=history[state.last_id].epoch;o[88]=history[state.last_id].generation;o[89]=history[state.last_id].sequence; }
@@ -284,7 +291,12 @@ uint32_t hp1020_bulk_fixture_reset(uint32_t fill,uint32_t capacity,uint32_t inte
     const uint8_t printer_interface[23]={9,4,(uint8_t)interface_number,0,2,7,1,2,0,
         7,5,1,2,64,0,0,7,5,0x81,2,64,0,0};
     memcpy(configuration+9+9*interface_number,printer_interface,23);
+#ifdef HP1020_DOCUMENT_COOPERATIVE
+    (void)progress;
+    uint32_t r=hp1020_usb_document_init_cooperative(&document,&memory.data,document_complete,NULL);
+#else
     uint32_t r=hp1020_usb_document_init_documents(&document,&memory.data,progress,NULL,document_complete,NULL);
+#endif
     const struct hp1020_printer_config pc={device_id,sizeof(device_id),(uint8_t)interface_number,0,0};
     if(!r)r=hp1020_usb_printer_init(&printer,&document,&pc);
     const struct hp1020_tusb_config ac={0,1,0x81,(uint16_t)capacity};
@@ -346,7 +358,7 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op,uint32_t a,uint32_t b,uint32_t c,u
         else { usbd_edpt_clear_stall(0,1);usbd_edpt_clear_stall(0,0x81);r=HP1020_TUSB_OK; }
     } else if(op==16) { state.fail_at=a;r=HP1020_TUSB_OK; }
     else if(op==17) { state.document_fail_at=a;r=HP1020_TUSB_OK; }
-    else if(op==18 && !document.receive.issued && !document.output.active && !state.document_calls) {
+    else if(op==18 && !document.cooperative && !document.receive.issued && !document.output.active && !state.document_calls) {
         /* Synthetic counter saturation only; no production restart/repair API. */
         document.output.stream.parser.documents=a;
         document.output.documents_completed=a;r=HP1020_TUSB_OK;
@@ -377,4 +389,4 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op,uint32_t a,uint32_t b,uint32_t c,u
     snapshot(r);return r;
 }
 uint8_t *hp1020_bulk_fixture_receive_storage(void) { return memory.data.receive.data[0]; }
-uint8_t *hp1020_bulk_fixture_output_storage(void) { return memory.data.output.slots; }
+uint8_t *hp1020_bulk_fixture_output_storage(void) { return document.cooperative?memory.data.pump.slots:memory.data.output.slots; }

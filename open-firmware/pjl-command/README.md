@@ -26,6 +26,12 @@ command lexer completely. Valid pages/documents retain the existing decoder,
 output consumer and original-generation notifications. A short OUT or ZLP
 neither finishes a document nor discards a partial command.
 
+With a cooperatively initialized document, each binary pump step returns to the
+outer loop. A busy output ring retains the receive ticket and exact consumed-byte
+cursor; pending decoder work is handled before reading more text or binary data.
+The outer loop services control traffic and advances output acceptance/completion.
+Reset retains the same receive, output and transport quiescence requirements.
+
 Initialize a zeroed stationary instance once. After normal controller-gated
 control service, call this pump instead of `hp1020_tusb_adapter_pump` or
 `hp1020_usb_document_pump`. Keep their existing OUT admission, completion and
@@ -64,3 +70,9 @@ The open path intentionally accepts only positive bounded arithmetic and a
 Boolean ONLINE. Original `%d` overflow and arbitrary nonzero ONLINE bytes are
 outside this profile. The current result is
 `analysis/usb-path/pjl-command-validation.json`.
+
+`scripts/validate-hp1020-cooperative-usb.py --target` exercises cooperative mode
+with full independent page pixels, control service during output pressure,
+retained replies across reset, gated restart and late stream/consumer failures.
+It uses the real software USB path with supplied controller observations; entry
+integration and physical USB/engine operation remain absent.

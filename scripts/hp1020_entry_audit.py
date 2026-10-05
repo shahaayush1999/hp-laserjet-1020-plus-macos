@@ -19,13 +19,13 @@ import subprocess
 STOCK_SHA256 = '2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d'
 ENTRY = 0x100167a8
 MAIN = (0x10003000, 0x100351e0)
-WRITE_RANGES = ((0x1000e000, 0x100114b8), (0x10012000, 0x10014000),
+WRITE_RANGES = ((0x1000e000, 0x100114c8), (0x10012000, 0x10014000),
                 (0x10014040, 0x10014440), (0x10016800, 0x10032810))
 DATA_PATTERN = bytes.fromhex('31527394b5d6f718395a7b9cbddeff20') * 16
 STACK_USAGE_NAMES = {
     'hp1020_entry_workload', 'hp1020_entry_layout', 'hp1020_usb_receive', 'hp1020_usb_document',
     'hp1020_image', 'hp1020_image_page', 'hp1020_image_stream',
-    'hp1020_image_ring', 'hp1020_image_output', 'hp1020_semantic',
+    'hp1020_image_ring', 'hp1020_image_output', 'hp1020_image_pump', 'hp1020_semantic',
     'hp1020_page_plan', 'target-memory', 'memory', 'jbig85', 'jbig_ar',
 }
 ORDINARY = set('''add add.n addi addi.n addmi addx2 addx4 addx8 and
@@ -54,7 +54,7 @@ FIXED_SECTIONS = {
     '.DoubleExceptionVector.text': (0x10000270, 0xe0, 1, 6),
     '.sys_interface_table': (0x10000370, 0x12c, 1, 2),
     '.entry_data': (0x1000d020, 0x100, 1, 3),
-    '.entry_state': (0x1000e000, 0x34b8, 8, 3),
+    '.entry_state': (0x1000e000, 0x34c8, 8, 3),
     '.entry_stack': (0x10012000, 0x2000, 8, 3),
     '.entry_mailbox': (0x10014040, 0x400, 8, 3),
     '.entry_island': (0x10016780, 0x60, 1, 6),
@@ -67,7 +67,7 @@ GUARDS = {
     'data_guard_lo': (0x1000d000, 0x1000d020),
     'data_guard_hi': (0x1000d120, 0x1000d140),
     'state_guard_lo': (0x1000dfe0, 0x1000e000),
-    'state_guard_hi': (0x100114b8, 0x100114e0),
+    'state_guard_hi': (0x100114c8, 0x100114f0),
     'stack_guard_lo': (0x10011fe0, 0x10012000),
     'stack_guard_hi': (0x10014000, 0x10014020),
     'mailbox_guard_lo': (0x10014020, 0x10014040),
@@ -217,7 +217,7 @@ def check_layout(elf, data):
         (0x10000000, 0x184, 0x184, 5), (0x10000200, 0x3c, 0x3c, 5),
         (0x10000270, 0xe0, 0xe0, 5), (0x10000370, 0x12c, 0x12c, 4),
         (0x10007000, end - 0x10007000, end - 0x10007000, 5),
-        (0x1000d020, 0x100, 0x100, 6), (0x1000e000, 0, 0x34b8, 6),
+        (0x1000d020, 0x100, 0x100, 6), (0x1000e000, 0, 0x34c8, 6),
         (0x10012000, 0, 0x2000, 6), (0x10014040, 0, 0x400, 6),
         (0x10016780, 0x60, 0x60, 5), (0x10016800, 0, 0x1c010, 6),
         (0x10100020, 0x2e4, 0x2e4, 5), (0x10100320, 0xc, 0xc, 5),
@@ -401,7 +401,7 @@ def check_startup(elf, data, instructions):
     normal, after, before, park, unexpected, c_entry = [symbols[n] for n in required]
     require(normal == 0x1000701c and normal < after < before < park < unexpected < c_entry,
             'startup checkpoint ordering', [hex(symbols[n]) for n in required])
-    pool_values = (0x10014000, 0x1000e000, 0x100114b8, 0x10014040,
+    pool_values = (0x10014000, 0x1000e000, 0x100114c8, 0x10014040,
                    0x10014440, 0x10016800, 0x10032810)
     require(file_bytes(data, sections, 0x10007000, 28) == struct.pack('>7I', *pool_values),
             'fixed startup literal pool')
@@ -685,7 +685,7 @@ def audit_target(path, prefix, stock_path):
         write_ranges=[[a, b] for a, b in program.write_ranges],
         immutable_initialized_data=[0x1000d020, 0x1000d120],
         footprint=dict(text_bytes=allocated['.text']['size'], rodata_bytes=allocated['.rodata']['size'],
-                       initialized_data_bytes=256, state_bytes=13496, memory_bytes=114704,
+                       initialized_data_bytes=256, state_bytes=13512, memory_bytes=114704,
                        mailbox_bytes=1024, owned_stack_bytes=8192,
                        file_backed_load_bytes=sum(p['filesz'] for p in elf['loads']),
                        load_memory_bytes=sum(p['memsz'] for p in elf['loads'])),

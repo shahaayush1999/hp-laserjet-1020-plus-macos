@@ -15,7 +15,7 @@ import posixpath
 import re
 import struct
 
-BASE_SHA256 = '77d10cf9f24db9776743613aeddb4c58640829257a8222346ef1b0fb23f13720'
+BASE_SHA256 = '81fd4e2d933285ce5039d451ceda56619dcdb3b52974486978bf46e5277447aa'
 _base_file = Path(__file__).with_name('check-hp1020-entry-usb.py')
 if hashlib.sha256(_base_file.read_bytes()).hexdigest() != BASE_SHA256:
     raise ValueError('neutral independent helper bytes changed')
@@ -278,11 +278,11 @@ the approved public schema, exact natural ordering and source-derived contexts.
 """
 
 SEMANTIC_V2_SHA256 = "aab93eba1de9c9123e9344d8bb5fc642b690e7ac4b02c2fc3fd5efa4d501b333"
-PUBLIC_HEADER_SHA256 = "a73a3904b094126e811f6d26249ab93d3d71cae7f5e0c00cedd10e77addc4679"
+PUBLIC_HEADER_SHA256 = "0f7ead8a1af9b70a5acc5009cabc96cf67e0235d2b52a6fe470379d0bf74ae76"
 PUBLIC_MANIFEST_SHA256 = "ac39294692cfdadbc35151facc3911d1fb42521b278e5a9d26f727cb3012f991"
 LAYOUT_HEADER = (0x4850554c, 2, 525, 16, 118)
 OBJECTS = (
-    (1,13496,4),(2,114704,16),(3,56,4),(4,408,4),(5,64,4),
+    (1,13512,4),(2,114704,16),(3,56,4),(4,408,4),(5,64,4),
     (6,16,16),(7,136,4),(8,160,16),(9,80,4),(10,88,4),(11,140,4),
     (12,152,4),(13,224,4),(14,1024,4),(15,9216,4),(16,16,1),
 )
@@ -649,6 +649,7 @@ def production_parts(ram,a,elf,allow_class=False):
 
 
 def check_live(ram,a,label,elf):
+    B.check_legacy_document(ram,obj(a,1))
     for name,want in PHASE_MAP[label].items():
         need(live_value(ram,a,name)==want,label+': original field '+name)
     context=RESTART_CONTEXT if label=='pre-restart' else OUTER_CONTEXT
@@ -917,7 +918,7 @@ class ApiContract:
             if scope==6:
                 need(scalar(ram,ad+357,1)==1 and scalar(ram,d+88,1)==1,
                      'late old delivery is fenced before any receive admission')
-                data['discard_before']=(part(ram,d,13496),part(ram,m,114704),len(self.complete),len(self.feeds))
+                data['discard_before']=(part(ram,d,13512),part(ram,m,114704),len(self.complete),len(self.feeds))
             self.driver.append(scope);data['result']=1
         if name=='hp1020_usb_receive_complete_data':
             wanted=SUCCESSFUL_RECEIVE_COMPLETIONS[len(self.complete)] if len(self.complete)<12 else None
@@ -932,7 +933,7 @@ class ApiContract:
             need(wanted is not None,'no old late bytes/ZLP invent extra parser feed')
             gen,seq,value=wanted;slot=(seq-1)%4
             need(args[1:3]==[m+slot*1024,len(value)] and part(ram,args[1],len(value))==value and
-                 scalar(ram,d+13484)==gen and scalar(ram,d+13494,1)==1,
+                 scalar(ram,d+13484)==gen and scalar(ram,d+13506,1)==1,
                  'actual bounded original-generation byte feed')
             self.feeds.append((gen,seq));data['result']=0
         if name=='hp1020_tusb_adapter_pump':
@@ -949,7 +950,7 @@ class ApiContract:
             data['result']=0
         if name=='document_out':
             need(ordinal==0 and args[1]==d and part(ram,args[0],12)==be_words((1,0,1)) and
-                 scalar(ram,d+13484)==3 and scalar(ram,d+13494,1)==1,
+                 scalar(ram,d+13484)==3 and scalar(ram,d+13506,1)==1,
                  'one original parser document boundary within fresh feed')
             data['result']=0
         if name=='document_event':
@@ -1008,7 +1009,7 @@ class ApiContract:
             self.awaiting=0
         if 'discard_before' in data:
             d,m,n,f=data['discard_before']
-            need(part(ram,obj(a,1),13496)==d and part(ram,obj(a,2),114704)==m and
+            need(part(ram,obj(a,1),13512)==d and part(ram,obj(a,2),114704)==m and
                  len(self.complete)==n and len(self.feeds)==f,
                  'late fenced SUCCESS callback discarded without receive admission/feed/output')
         self.returned[name]+=1
@@ -1368,26 +1369,26 @@ def check_sources(root,report,source_root):
     need(sources==report['source_sha256'],'original report/source manifest binding')
     seal_tree(root,'source',sources);seal_tree(root,'target',report['target_sha256'])
     fixed={PREFIX+'independent-literals.py':'aab93eba1de9c9123e9344d8bb5fc642b690e7ac4b02c2fc3fd5efa4d501b333',
-      PREFIX+'literal-addendum.py':'277d718f1ce3dab15ae0aeab1fb29cf1033d0f6151389b0333ae2fc242735682',
-      PREFIX+'hp1020_usb_runtime_contract.h':'a73a3904b094126e811f6d26249ab93d3d71cae7f5e0c00cedd10e77addc4679',
-      PREFIX+'CONTRACT.md':'18864eee6bb95581e99429da8d2fac039e635ef365ce02f91a8d1d122c17a123',
-      PREFIX+'AMENDMENT.md':'500b2e451e8eba1641fc0a1389bd1d44c9c3825de0a4ee61403ce794cec89c35',
+      PREFIX+'literal-addendum.py':'bc6fa3be7f0aed3233408f41f62bf773e97664df312cb2e85f7b5c37cbaa6424',
+      PREFIX+'hp1020_usb_runtime_contract.h':'0f7ead8a1af9b70a5acc5009cabc96cf67e0235d2b52a6fe470379d0bf74ae76',
+      PREFIX+'CONTRACT.md':'61f527c6f6cf8cf5d9359ac9526cc4b6e99bdf16585946b183595cf2d4ae4e45',
+      PREFIX+'AMENDMENT.md':'5d3c055f195d4ef23598c537cccbda7e128402fc7b8a37131accebaa9cf83a01',
       PREFIX+'ACCEPTANCE.md':'26c0fc71d2bfbf027f2298288970a86fb77676c925bc1e51ea76f9a0d2dd96e2',
       PREFIX+'ADDENDUM.md':'7f317b61e98080b4a42a3f2295367b7d1262d90a39412d2f9fca935a7f5a8439',
-      PREFIX+'layout-objects.tsv':'eab95464e854493bade7fce68dbe645c4e6f9c4a899ac0a6b0a043118519d154',
-      PREFIX+'layout-fields.tsv':'c9b745359ce934e3b2b992f3bb5a0323e17d69a22eba30acf7586ecc8c384201',
+      PREFIX+'layout-objects.tsv':'9ac344c7ad5dd0bcd500186af832aa08a704c6735a96889ab10955e4caceb274',
+      PREFIX+'layout-fields.tsv':'843797d965a982000de947c0beccb215092c2f019cd0fa76eb8f7bf71aa21708',
       PREFIX+'startup.S':'c8271bbea0fdc7ed4ffb4c18469a15d91170d26c948d41e3706e8ed95922bad6',
-      PREFIX+'runtime.ld':'235934f043f7b18741a1db960fd8a129d64e5075dad55b8aca87c2988348d74d',
+      PREFIX+'runtime.ld':'a9da60d3538fcd92fdf7d1329092df2f9208fede69778b168661a3dcfee712a7',
       PREFIX+'LIBRARY_SELECTION.md':'e5d344e4afe2817186960ef3108a7f82baf0089f2e333e012f950994b7be7fdd',
       'scripts/check-hp1020-entry-usb.py':BASE_SHA256,
       'scripts/check-hp1020-entry-usb-reset.py':sha(Path(__file__).read_bytes()),
       'scripts/hp1020_qemu_ram.py':BACKEND_HASH,
       'scripts/hp1020_entry_qemu.py':'4ef9ffcfac58a326b68df526c8ddec93868cf18cf85eae76682a30ab9cf9d080',
-      'scripts/hp1020_entry_machine.py':'46cc66fc2ac1c22201ef6a33ee13eba4a54087bb416ccc1b8726aae2d2c98b07',
+      'scripts/hp1020_entry_machine.py':'a125a4cbda453d7521ab8e57e0a17ebff7c2429187936725ed597515410079f3',
       'scripts/hp1020_entry_usb_machine.py':'377cdd771447a4d69040a5624ef1fafc7593fea50fc471ccd7f8a0ff1077466a',
-      'scripts/hp1020_entry_usb_qemu.py':'c92b92947955f1ba68ac20a941689af6421c50d389d7e3c02a40ff0642ff9a8c',
+      'scripts/hp1020_entry_usb_qemu.py':'2b16ee504abebd6f184fe2f78c035b85f16df2e4c89102bd98735c6ddb197e59',
       'scripts/hp1020_entry_usb_reset_machine.py':'416da967974ac555b6365f3ba52e46bdac32650426fb06856ba8ff0f9a20c083',
-      'scripts/hp1020_entry_usb_reset_qemu.py':'10784d56e54277919b788f83ef6195628b77667e804b869ac9bf69d99ec7a862',
+      'scripts/hp1020_entry_usb_reset_qemu.py':'74d5b42fc1fb160715d426d9eba3464473e37b924a66b97c257ab6764caf98fe',
       'scripts/hp1020_xtensa_call0.py':'ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480',
       'scripts/hp1020_xtensa_properties.py':'8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280',
       'open-firmware/tinyusb-device/tusb_config.h':'895c6599700b09f84be46ce74ac75f3974ce3b277d98f233134a54aea637616a'}
@@ -1400,7 +1401,10 @@ def check_sources(root,report,source_root):
       'open-firmware/tinyusb-printer-adapter/hp1020_tusb_adapter.c':'472cab2bdf7c64e3394e8a05c4b598020efa54db2d1a7347b58498f122062ba2',
       'open-firmware/usb-printer-class/hp1020_usb_printer.c':'c9daf663ae7eea5b9df6a6a68fffd86ec0d6c4b860ce17559250e65cf02361b9',
       'open-firmware/usb-receive-core/hp1020_usb_receive.c':'352413d1c3d5cd8dbe1aa1788ab27383d1c45bfc344842d3b9b08c7e64827a8e',
-      'open-firmware/usb-receive-core/hp1020_usb_document.c':'6df4c51a364b78a1d8e3bc9c81ce41f4daacddf383d13238e5f5407616575885',
+      'open-firmware/usb-receive-core/hp1020_usb_document.c':'9b40ec83818cfaeb27e8f688ee47163c9f437437f121002b433cb66eaf8edf6a',
+      'open-firmware/usb-receive-core/hp1020_usb_document.h':'acc66f3820d800c8ee9d88ca8a75d34b4a30e2dce5d0a0b83429e32b56aa1dc0',
+      'open-firmware/image-pump/hp1020_image_pump.c':'91b13ce743749a0c901f04adc972d1d52faeda693baea0f5c95a912aa48237c6',
+      'open-firmware/image-pump/hp1020_image_pump.h':'03bc1f0dd580caee3a63468c6b10474a7e80bc364030d74268197ad7b0c34db9',
       'open-firmware/image-core/hp1020_image_output.c':'ed469978829f1cc35b10062912db2fd88d030fb112b9ca35596bf115211c9728',
       'open-firmware/image-core/hp1020_image_ring.c':'9ee8f5955e8d6f30a3b12778553477835dc245eb3d928f6e81b467f8562d4e2b'})
     fixed.update({'open-firmware/entry-ram-test/references/qemu-primary/'+n:h for n,h in PRIMARY.items()})
@@ -1409,6 +1413,7 @@ def check_sources(root,report,source_root):
       'scripts/hp1020_entry_usb_reset_machine.py','scripts/hp1020_entry_usb_reset_qemu.py',
       'scripts/hp1020_entry_usb_reset_audit.py',PREFIX+'hp1020_usb_runtime.c',
       PREFIX+'hp1020_usb_runtime_ram.c',PREFIX+'hp1020_usb_runtime_layout.c',
+      'open-firmware/image-pump/hp1020_image_pump.h',
       'open-firmware/udc-out/hp1020_udc_acquire.h',
       'open-firmware/tinyusb-device/patches/protocol-compatibility.patch')
     need(set(required)<=set(sources),'complete new runtime/audit/observer and production source closure')

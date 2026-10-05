@@ -14,7 +14,7 @@ python3 "$ROOT_DIR/scripts/check-hp1020-c-compiler-profile.py" "${GCC_PREFIX}-gc
 objects=()
 for source in "$SOURCE/hp1020_usb_receive.c" "$SOURCE/hp1020_usb_document.c" "$SOURCE/fixture.c" \
     "$IMAGE/hp1020_image.c" "$IMAGE/hp1020_image_page.c" "$IMAGE/hp1020_image_stream.c" \
-    "$IMAGE/hp1020_image_ring.c" "$IMAGE/hp1020_image_output.c" "$SEMANTIC/hp1020_semantic.c" \
+    "$IMAGE/hp1020_image_ring.c" "$IMAGE/hp1020_image_output.c" "$ROOT_DIR/open-firmware/image-pump/hp1020_image_pump.c" "$SEMANTIC/hp1020_semantic.c" \
     "$SEMANTIC/hp1020_page_plan.c" "$IMAGE/target-memory.c" "$SEMANTIC/freestanding/memory.c" \
     "$JBIG/jbig85.c" "$JBIG/jbig_ar.c"; do
   obj="$OUT/$(basename "${source%.c}").o"

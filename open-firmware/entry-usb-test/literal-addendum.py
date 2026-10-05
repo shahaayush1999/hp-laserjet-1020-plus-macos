@@ -8,7 +8,7 @@ ELF symbol addresses. No helper was executed while preparing this draft.
 import hashlib
 
 ORIGINAL_ORACLE_SHA256 = "13194a8d608de407cf9c513f59cf5b1a80a1c3cdeac4ea08b71ebb9602272b95"
-PUBLIC_HEADER_SHA256 = "25f5e76cff3633d6e3ab85f4e9adfc2e94edcc02e2cfe0b7d7d2bafea2e82995"
+PUBLIC_HEADER_SHA256 = "7511e5493d89977630eb1493dc4f085f67e72caf38da95df961054bd88f5f55e"
 STREAM_SHA256 = "ad339333c0d37ee41da13849184caebec4b55d8f913eb30f9565e30cd33a062d"
 CHECKPOINTS = ("after-normalization", "pre-c", "pre-close",
                "pre-final-service", "pre-finish", "park")

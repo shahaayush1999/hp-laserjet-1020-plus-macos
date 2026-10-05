@@ -27,7 +27,7 @@ OUT = ROOT/'analysis/boot-handoff/entry-ram'
 PREFIX = os.environ.get('XTENSA_PREFIX', '/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf')
 GCC = os.environ.get('HP1020_GCC_PREFIX', '/tmp/hp1020-xtensa-gcc14/bin/xtensa-fsf-elf')+'-gcc'
 MAIN_START, MAIN_END = 0x10003000, 0x100351e0
-ZERO = ((0x1000e000,13496),(0x10016800,114704),(0x10014040,1024))
+ZERO = ((0x1000e000,13512),(0x10016800,114704),(0x10014040,1024))
 STACK = (0x10012000,8192)
 ISLANDS = ((0x10000000,0x184),(0x10000200,0x3c),(0x10000270,0xe0),
            (0x10000370,0x12c),(0x10100020,0x2e4),(0x10100320,0xc))
@@ -63,7 +63,7 @@ def command(args,log):
 
 def source_files(audit_only=False):
     selected=set()
-    for folder in ('entry-ram-test','usb-receive-core','image-core','semantic-core'):
+    for folder in ('entry-ram-test','usb-receive-core','image-core','image-pump','semantic-core'):
         selected.update(p for p in (ROOT/'open-firmware'/folder).rglob('*')
                         if p.is_file() and p.suffix in ('.c','.h','.S','.ld','.py','.json'))
     selected.update((ROOT/'vendor/jbigkit-2.1/libjbig').glob('*.[ch]'))

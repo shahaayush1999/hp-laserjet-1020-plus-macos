@@ -30,7 +30,7 @@ CPU cross-product is added. The startup still independently normalizes state and
 uses its own stack. This is not a reset/fault/malformed-request matrix.
 
 All production objects/APIs and full capacities remain unchanged. Fixed spans
-remain document13496 at10010000, memory114704 at10016800, mailbox1024 at10016060,
+remain document13512 at10010000, memory114704 at10016800, mailbox1024 at10016060,
 sentinel256 at10016500, witness9216 at10032830 and stack8192 at10014020..10016020.
 Generic BSS must still end no later than10013fe0; code/rodata cap remains53216
 bytes at10003000..1000ffe0; initialized data remains within96 bytes at100164a0.

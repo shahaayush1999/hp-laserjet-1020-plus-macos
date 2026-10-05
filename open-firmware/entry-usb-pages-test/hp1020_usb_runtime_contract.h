@@ -17,7 +17,7 @@
 
 #define HP1020_USB_RUNTIME_VERSION 3u
 #define HP1020_USB_RUNTIME_MAGIC UINT32_C(0x48505552)
-#define HP1020_USB_RUNTIME_DOCUMENT_BYTES 13496u
+#define HP1020_USB_RUNTIME_DOCUMENT_BYTES 13512u
 #define HP1020_USB_RUNTIME_MEMORY_BYTES 114704u
 #define HP1020_USB_RUNTIME_MAILBOX_BYTES 1024u
 #define HP1020_USB_RUNTIME_SENTINEL_BYTES 256u
@@ -341,7 +341,7 @@ _Static_assert(offsetof(struct hp1020_usb_runtime_witness_type,pixels) == 8864, 
 _Static_assert(offsetof(struct hp1020_usb_runtime_witness_type,documents) == 9056, "event offset");
 _Static_assert(offsetof(struct hp1020_usb_runtime_witness_type,reserved) == 9076, "reserved offset");
 #if UINTPTR_MAX == UINT32_MAX
-_Static_assert(sizeof(struct hp1020_usb_document) == 13496, "full target document");
+_Static_assert(sizeof(struct hp1020_usb_document) == 13512, "full target document");
 _Static_assert(sizeof(struct hp1020_usb_document_memory) == 114704, "full target memory");
 _Static_assert(sizeof(struct hp1020_usb_runtime_retained) == 32, "target retained owner");
 _Static_assert(sizeof(struct hp1020_usb_runtime_provider_type) == 204, "target provider state");
