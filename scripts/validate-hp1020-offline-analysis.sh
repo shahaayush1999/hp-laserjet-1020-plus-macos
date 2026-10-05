@@ -300,6 +300,9 @@ run_step "Recover original INFO STATUS and DEVICE reply bytes" \
 run_step "PJL ECHO and supplied INFO STATUS through incoming commands and bulk IN" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-pjl-command.py" --target
 
+run_step "Join controller, both bulk directions and command recovery gates" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-usb-service.py" --target
+
 run_step "Reject retained packet faults without manufacturing completion" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-tinyusb-packet-fault.py" --target
 

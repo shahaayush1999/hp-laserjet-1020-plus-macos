@@ -43,6 +43,12 @@ until the first reply's storage is released. This memory release is not host
 receipt; the IN publisher independently requires FIFO readiness for the next
 packet. A refusal before DCD binding gets at most one attempt per pump call.
 
+`hp1020_pjl_command_reap` collects a returned original reply without consuming
+input, sampling status or sending anything. Recovery may call it when controller
+failure gates prohibit pumping: otherwise the retained result could prevent the
+very cleanup needed to reopen those gates. It does not cause completion or
+release storage while a result remains absent.
+
 Run `python3 scripts/validate-hp1020-pjl-command.py --target`. Host sanitizers and
 audited BE QEMU execute the same real receive/adapter/staging/publication path.
 Literal replies, descriptor bytes and register traces are checked independently.

@@ -173,3 +173,9 @@ enum hp1020_rx_result hp1020_pjl_command_pump(struct hp1020_pjl_command *s) {
     if(r!=HP1020_RX_WAIT && r!=HP1020_RX_OK)return pjl_leave(s,r);
     return pjl_leave(s,d->receive.count || s->queued || s->inflight?HP1020_RX_WAIT:HP1020_RX_OK);
 }
+enum hp1020_rx_result hp1020_pjl_command_reap(struct hp1020_pjl_command *s) {
+    if(!s || !s->initialized || !s->adapter || s->terminal)return HP1020_RX_ORDER;
+    if(s->busy || s->adapter->busy || s->adapter->stack_active)return HP1020_RX_WAIT;
+    s->busy=1;pjl_sync(s);
+    return pjl_leave(s,pjl_collect(s));
+}

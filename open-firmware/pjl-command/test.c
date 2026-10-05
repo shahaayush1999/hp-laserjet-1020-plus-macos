@@ -241,6 +241,22 @@ uint32_t hp1020_pjl_command_check(uint32_t scenario,uint32_t fill,uint32_t job_l
         const uint8_t other[]="@PJL INFO STATUSX\r\n@PJL INFO STATUS \r\n@pjl info status\r\n";
         command_status_set(10001,1);TRY(command_write(other,sizeof(other)-1,7));
         CHECK(!status_feed.reads && !commands.queued && !commands.inflight);
+    } else if(scenario==32) {
+        const uint8_t twice[]="@PJL INFO STATUS\r\n@PJL INFO STATUS\r\n";
+        command_status_set(40021,0);TRY(command_write(twice,sizeof(twice)-1,64));
+        CHECK(status_feed.reads==1 && commands.have_input && document.receive.count==1);
+        uint32_t cursor=commands.offset,submissions=state.submissions;
+        CHECK(hp1020_pjl_command_reap(&commands)==HP1020_RX_OK && commands.inflight);
+        TRY(command_publish(status_offline,sizeof(status_offline)-1));
+        TRY(command_memory_done(commands.in_cookie,sizeof(status_offline)-1));
+        command_status_set(10001,1);
+        for(unsigned i=0;i<2;i++)CHECK(hp1020_pjl_command_reap(&commands)==HP1020_RX_OK);
+        CHECK(!commands.inflight && !commands.queued && commands.have_input);
+        CHECK(commands.offset==cursor && document.receive.count==1 && status_feed.reads==1);
+        CHECK(state.submissions==submissions && !adapter.in_result_pending);
+        CHECK(hp1020_pjl_command_pump(&commands)==HP1020_RX_WAIT);
+        CHECK(status_feed.reads==2 && commands.inflight);
+        TRY(command_reply(status_online,sizeof(status_online)-1));
     } else return __LINE__;
     CHECK(!commands.inflight && !commands.queued && !commands.have_input && !document.receive.count);
     CHECK(!state.violations && !document.receive.stopped);

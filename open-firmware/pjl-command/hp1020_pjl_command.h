@@ -51,4 +51,10 @@ enum hp1020_rx_result hp1020_pjl_command_init(struct hp1020_pjl_command *,
  * storage becomes available; later status changes cannot mutate borrowed data.
  * DISPLAY is empty in this profile, as in the original local initial buffer. */
 enum hp1020_rx_result hp1020_pjl_command_pump(struct hp1020_pjl_command *);
+/* Recovery-only collection is also allowed when controller gates prohibit
+ * pumping. Synchronizes the binding and collects only this command's original
+ * IN result, if available. Never consumes input, calls a status provider or
+ * submits another reply. OK may mean no result was available yet; inflight
+ * remains set until the actual matching result is collected. */
+enum hp1020_rx_result hp1020_pjl_command_reap(struct hp1020_pjl_command *);
 #endif

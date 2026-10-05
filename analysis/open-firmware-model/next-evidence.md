@@ -32,10 +32,17 @@ interval and independent readback before POLL. It accepts concurrent receive DMA
 without rewriting DEVCTL. Any failure after cache work retains the original
 owner and poisons the attempt through cancellation/cleanup. No IRQ observation
 or host receipt is invented; newer family FIFO-empty bits remain unproved on HP.
-Current host/target checks are in `udc-in-publish-validation.json`. Entry-loop
-integration must make its ready hook include existing program/ingress/OUT-failure
-gates, and block new programming/publication on its own failure. This integration
-and a physical backend remain absent.
+Current host/target checks are in `udc-in-publish-validation.json`.
+`open-firmware/usb-service/` now joins program/ingress/OUT/IN/command gates.
+Its ready hook includes the existing gates, and IN failure blocks new programming
+and OUT publication. Captured control input also blocks DCD submission; this
+callback-safe predicate permits adapter-busy callbacks without bypassing the
+ingress epoch/reset barriers. Real SET_INTERFACE selection can still complete
+from SERVICE-only permission. Original-result collection can run behind failed
+gates without pumping input/status or sending a new reply. Its focused
+`usb-service-validation.json` checks both directions, programming failures and
+reset drainage, plus exact two-page pixels. This is component coordination;
+entry-loop integration and a physical backend remain absent.
 
 Original IN1 construction evidence remains in `in1-construction.json` and
 `usb-bulk-callbacks-model.json`. Queue acceptance retains the original source and
@@ -67,7 +74,8 @@ ECHO and at most50 printable text bytes, plus exact uppercase INFO STATUS;
 unknown PJL lines are ignored, oversized
 ECHO is rejected, and a short OUT/ZLP is not EOF. It replaces the ordinary document
 pump and exclusively owns bulk-IN result collection. Do not run both pumps.
-Controller/entry integration remains absent. Numeric status conversion is now
+The shared service integrates controller permissions; entry integration remains
+absent. Numeric status conversion is now
 recovered from bytes and executed in `status-code-execution.json`; the existing
 `status-code-correlation.md` gives conditional CODE results for cataloged events.
 The old decompilation omitted the ordinary lookup entirely. Stock scans222 pairs
@@ -184,6 +192,10 @@ The remaining implementation questions are:
    construction only establishes a fixed byte in the tested cut; don't invent
    physical meanings from event numbers. Long output waits will need cooperative
    progress so cancellation/status remain responsive.
+   Next inspect the response producer and interrupt registration behind
+   `0x10015c68`'s command/wait helper. Existing polling tests supply that helper's
+   result; they do not establish when the captured response is current. Keep
+   any execution cut entirely outside engine MMIO and interrupt changes.
 
 ## Settled work and validation limits
 

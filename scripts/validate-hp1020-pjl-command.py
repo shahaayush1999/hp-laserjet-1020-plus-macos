@@ -25,7 +25,8 @@ CASES = ('echo-whole', 'echo-one-byte', 'echo-split-seven', 'magic-inside-echo',
          'status-stale-epoch', 'status-stale-generation', 'status-unavailable',
          'status-invalid-online', 'status-out-of-profile-code', 'status-no-provider',
          'status-sampled-after-backpressure', 'status-reset-retains-original-reply',
-         'status-one-byte-query', 'status-exact-command-profile', 'status-code-limit')
+         'status-one-byte-query', 'status-exact-command-profile', 'status-code-limit',
+         'reap-does-not-pump-or-resubmit')
 
 
 def main():

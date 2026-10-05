@@ -446,6 +446,9 @@ static enum hp1020_udc_out_result composed_publish(struct hp1020_tusb_cookie coo
 }
 static bool composed_bulk_xfer(uint8_t rhport, uint8_t endpoint, uint8_t *buffer,
     uint16_t length, bool in_isr) {
+#ifdef HP1020_COMPOSED_BULK_IN_XFER
+    if(endpoint==0x81)return HP1020_COMPOSED_BULK_IN_XFER(rhport,endpoint,buffer,length,in_isr);
+#endif
 #ifdef HP1020_COMPOSED_PUBLISH
     return publish_fixture_bulk_xfer(rhport, endpoint, buffer, length, in_isr);
 #else

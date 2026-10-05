@@ -25,6 +25,10 @@ STATUS now replies from a supplied current CODE/ONLINE observation, with empty
 DISPLAY; unavailable/stale observations give no reply. Original INFO bytes,
 including CODE0, agree with the open staged output. These components are not
 wired into an entry loop; physical status acquisition/output remain absent.
+A shared service now joins controller, IN/OUT and command gates. Its18 host and18
+target cases include exact two-page pixels, real software failure paths in both
+directions, programming failure, reset drainage and interface re-selection.
+Reply-result collection can proceed behind closed gates without new input or I/O.
 
 The original numeric PJL CODE converter is now recovered beyond the truncated
 decompilation. Its normal mappings and reads into following data were verified
@@ -41,7 +45,7 @@ corrected against measured builds; all136 consistency checks and the remaining
 JSON/probe checks passed sequentially. The top-level command itself exited at
 that cross-check; execution was not repeated after this checker-only correction.
 The additional publisher passed44 host and44 target cases; the extended command
-path passed64 of each. Reports retain exact tested source identities; never
+path passed66 of each. Reports retain exact tested source identities; never
 rewrite hashes after edits. The command profile is uppercase ECHO with at most50
 printable text bytes and exact INFO STATUS, CODE0..99999/ONLINE0..1/empty DISPLAY.
 
@@ -56,7 +60,10 @@ stock pool contains boot-SP/reset/debug addresses, so it is not a layout to copy
 
 ## Next useful work
 
-Connect command/reply handling with the controller service and failure gates.
+Recover the original engine reply interrupt and command-wait handshake so a
+future status provider can distinguish a current response from stale memory.
+Use original bytes and isolated RAM execution; omit all engine MMIO and IRQ
+changes. The shared service still needs an entry-owned runtime and real providers.
 Boot memory arithmetic and cache operands are settled; they do not establish
 installed capacity, physical mapping, cache-line leases or completed DMA visibility.
 Numeric conversion and reply formatting are settled. DISPLAY is initially empty
