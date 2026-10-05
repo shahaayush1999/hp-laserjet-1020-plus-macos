@@ -1,0 +1,46 @@
+# Bounded PJL ECHO in the input pipeline
+
+This component takes over the document input pump and bulk-IN reply ownership.
+It consumes actual completed OUT reservations, retains a ticket/cursor when
+reply storage is busy, and sends ECHO through the real TinyUSB adapter. DCD
+staging and recording-I/O publication remain separate, using the checked IN
+components. No physical USB backend or entry-loop integration is supplied.
+
+The first profile recognizes `@PJL ECHO ` followed by at most50 printable ASCII
+bytes, with CR or LF termination. It preserves that line and replies with
+CR/LF/form-feed. The maximum63-byte reply is a short USB packet, so this profile
+does not need an automatic trailing ZLP. An oversized ECHO stops the stream
+explicitly; it is never silently truncated. Other PJL lines are ignored. This
+implements the repository's existing non-printing ECHO query, not job/device
+status. No START, PAGE, END, ready or paper-state notification is invented.
+
+UEL and commands may split across receive packets. At an envelope line's start,
+JZJZ enters the existing binary parser; inside ECHO text it remains text. Binary
+header/payload spans are sized from that parser's current state and bypass the
+command lexer completely. Valid pages/documents retain the existing decoder,
+output consumer and original-generation notifications. A short OUT or ZLP
+neither finishes a document nor discards a partial command.
+
+Initialize a zeroed stationary instance once. After normal controller-gated
+control service, call this pump instead of `hp1020_tusb_adapter_pump` or
+`hp1020_usb_document_pump`. Keep their existing OUT admission, completion and
+printer reset APIs. This component must be the only bulk-IN producer/result
+consumer. It calls no controller hook itself and cannot grant a controller
+readiness/reset promise. All calls and callbacks remain serialized; output and
+document callbacks must not re-enter the pipeline or mutate its adapter.
+
+Reset discards partial text and unsent replies. A borrowed reply stays immutable
+until its exact original result is collected, including after a failed DCD bind,
+uncertain publication or late success. A second ECHO holds its receive cursor
+until the first reply's storage is released. This memory release is not host
+receipt; the IN publisher independently requires FIFO readiness for the next
+packet. A refusal before DCD binding gets at most one attempt per pump call.
+
+Run `python3 scripts/validate-hp1020-pjl-command.py --target`. Host sanitizers and
+audited BE QEMU execute the same real receive/adapter/staging/publication path.
+Literal replies, descriptor bytes and register traces are checked independently.
+Tests include one-byte fragments, text/binary separation, backpressure, reset
+and publication failure recovery. The mixed case decodes two existing JBIG
+fixtures to exact independent128-byte pixels between ECHOs; it is a synthetic
+ZjStream document, not a new stock lifecycle or physical printing test.
+The current source-bound result is `analysis/usb-path/pjl-command-validation.json`.

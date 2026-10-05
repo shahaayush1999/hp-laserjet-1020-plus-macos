@@ -5,7 +5,7 @@ event loop and different buffers from HP. JBIG-KIT already supplies software
 image decoding; TinyUSB supplies generic USB handling. Neither Linux nor an RTOS
 is a prerequisite. The installed foo2zjs Mac driver remains separate.
 
-## Next: connect commands to the checked reply path
+## Checked reply path and its remaining integration
 
 The TinyUSB adapter now borrows one immutable 0..64-byte IN packet, returns its
 original result/cookie and keeps late/cancelled replies separate from current
@@ -44,18 +44,25 @@ the tested arithmetic constructs only one last-marked descriptor and advances
 remaining/source. The numeric source+0x80000000 is not a proved DMA mapping.
 The stock queue skips zero remaining; replacement ZLP support is explicit policy.
 
-The first command response can be bounded PJL ECHO. Normal host jobs also request
+`open-firmware/pjl-command/` now implements the bounded PJL ECHO response through
+real incoming reservations, the decoder, TinyUSB and recorded IN publication.
+Its current source-bound host/target result is `pjl-command-validation.json`.
+Normal host jobs also request
 status, but do not emit JOB START/PAGE/END from decoded input: the Mac backend's
 START disables its eight-second no-status fallback and makes it wait for physical
 completion. Preserve exact job tokens for eventual truthful status. Its firmware
 recognition also requires the IEEE-1284 ID's `FWVER` field; a future replacement
 must identify itself truthfully so the host does not try to reload stock firmware.
-PJL parsing/replies and physical-status providers remain unimplemented. The
-current semantic parser scans for JZJZ outside binary framing; a command layer
-must not scan binary payload for PJL or mistake JZJZ inside ECHO text for a new
-document. A bounded command pump needs an original receive-ticket cursor and
-backpressure while its reply buffer is owned. Avoid changing public structure
-layouts solely to add an unused observer; integrate a real ECHO round trip.
+Physical-status providers and other PJL replies remain unimplemented. The
+command pump retains an original receive-ticket cursor under backpressure and
+owns one immutable short reply through original-result collection. It routes
+binary spans using the existing parser's framing state; PJL inside binary data
+and JZJZ inside ECHO text cannot switch modes. The first profile accepts uppercase
+ECHO and at most50 printable text bytes; unknown PJL lines are ignored, oversized
+ECHO is rejected, and a short OUT/ZLP is not EOF. It replaces the ordinary document
+pump and exclusively owns bulk-IN result collection. Do not run both pumps.
+Controller/entry integration remains absent; the next useful status work is to
+identify actual engine observations before implementing paper/error/job replies.
 
 ## USB hardware questions that remain
 
