@@ -372,19 +372,29 @@
       "offset": "+0x48"
     },
     {
-      "field": "secondary engine config pointer",
-      "meaning": "paired pointer written by preflight",
+      "field": "accepted config pointer",
+      "meaning": "updated from +0x48 only when the media-setting reply has bit0x8000 clear",
       "offset": "+0x4c"
     },
     {
-      "field": "preflight config scalar",
-      "meaning": "zeroed during successful preflight",
+      "field": "accepted scalar",
+      "meaning": "updated from +0x54 only when the scalar-setting reply has bit0x8000 clear",
+      "offset": "+0x50"
+    },
+    {
+      "field": "requested scalar",
+      "meaning": "full word is compared; low16 is shifted into command0x3300; physical meaning unresolved",
       "offset": "+0x54"
     },
     {
-      "field": "preflight byte flag",
-      "meaning": "set to 0xff during successful preflight",
+      "field": "density comparison byte",
+      "meaning": "set to0xff during preflight; configuration helper does not update it",
       "offset": "+0x58"
+    },
+    {
+      "field": "requested density byte",
+      "meaning": "density1..5 callback maps to0/16/32/48/63",
+      "offset": "+0x59"
     },
     {
       "field": "command latch",

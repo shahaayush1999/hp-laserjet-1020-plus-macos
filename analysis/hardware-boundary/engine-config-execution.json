@@ -1,0 +1,411 @@
+{
+  "status": "pass",
+  "source_sha256": {
+    "scripts/validate-hp1020-engine-config.py": "0571102af3b132b0aadb1db2332b76065b6d59b201644adef7fec9f0a1e4ccc9",
+    "analysis/sihp1020.elf": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+    "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
+    "scripts/hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
+    "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
+    "scripts/hp1020_qemu_task.py": "66ee5d13dc37d9036ff18a3721af5d26dc0a71ae95e56e7f432b3f41dbec3614",
+    "scripts/hp1020_qemu_stock_parser.py": "7609e45e586043460f37d6add11ad931b40361616af5f225cd53de2394b2b4fa",
+    "scripts/hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2"
+  },
+  "qemu_version": "QEMU emulator version 11.1.1",
+  "records": [
+    {
+      "key": "0x1",
+      "value": "0x0"
+    },
+    {
+      "key": "0x2",
+      "value": "0x2"
+    },
+    {
+      "key": "0x102",
+      "value": "0x9"
+    },
+    {
+      "key": "0x104",
+      "value": "0x1"
+    },
+    {
+      "key": "0x105",
+      "value": "0x3"
+    },
+    {
+      "key": "0x106",
+      "value": "0x1"
+    },
+    {
+      "key": "0x107",
+      "value": "0x1"
+    },
+    {
+      "key": "0x109",
+      "value": "0x1"
+    },
+    {
+      "key": "0x10b",
+      "value": "0x5"
+    },
+    {
+      "key": "0x111",
+      "value": "0x0"
+    },
+    {
+      "key": "0x200",
+      "value": "0x0"
+    },
+    {
+      "key": "0x201",
+      "value": "0x0"
+    },
+    {
+      "key": "0x202",
+      "value": "0x0"
+    },
+    {
+      "key": "0x203",
+      "value": "0x0"
+    },
+    {
+      "key": "0x204",
+      "value": "0x0"
+    }
+  ],
+  "cases": [
+    {
+      "case": "lookup-1",
+      "commands": [],
+      "result": "0x1001cd34",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "lookup-2",
+      "commands": [],
+      "result": "0x1001cd3c",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "lookup-102",
+      "commands": [],
+      "result": "0x1001cd44",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "lookup-104",
+      "commands": [],
+      "result": "0x1001cd4c",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "lookup-105",
+      "commands": [],
+      "result": "0x1001cd54",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "lookup-106",
+      "commands": [],
+      "result": "0x1001cd5c",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "lookup-107",
+      "commands": [],
+      "result": "0x1001cd64",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "lookup-109",
+      "commands": [],
+      "result": "0x1001cd6c",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "lookup-10b",
+      "commands": [],
+      "result": "0x1001cd74",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "lookup-111",
+      "commands": [],
+      "result": "0x1001cd7c",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "lookup-200",
+      "commands": [],
+      "result": "0x1001cd84",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "lookup-201",
+      "commands": [],
+      "result": "0x1001cd8c",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "lookup-202",
+      "commands": [],
+      "result": "0x1001cd94",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "lookup-203",
+      "commands": [],
+      "result": "0x1001cd9c",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "lookup-204",
+      "commands": [],
+      "result": "0x1001cda4",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "lookup-missing-0",
+      "commands": [],
+      "result": "0x0",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "lookup-missing-ffff",
+      "commands": [],
+      "result": "0x0",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "density-1",
+      "commands": [],
+      "result": "0xf",
+      "state_sha256": "b185910878b5006a3b4cdf72ffb8a5bd54f4a8eac97f8c0ff8ff3a904ca29d9d"
+    },
+    {
+      "case": "density-2",
+      "commands": [],
+      "result": "0xf",
+      "state_sha256": "35a29060fc9f7f86883cbf33f63e7abc143462ae697f4696aa75b826c4be98e3"
+    },
+    {
+      "case": "density-3",
+      "commands": [],
+      "result": "0xf",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "density-4",
+      "commands": [],
+      "result": "0xf",
+      "state_sha256": "4c11bd5a89c4f954a14324ed741e98e2527685759917265b5e41108a8945882f"
+    },
+    {
+      "case": "density-5",
+      "commands": [],
+      "result": "0xf",
+      "state_sha256": "1daf186c64ca327d82fe359d673254cd67d9147d78390753cb194657471177e4"
+    },
+    {
+      "case": "density-ignored-15-0",
+      "commands": [],
+      "result": "0xf",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "density-ignored-15-6",
+      "commands": [],
+      "result": "0xf",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "density-ignored-14-3",
+      "commands": [],
+      "result": "0xe",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "media-alias-16",
+      "commands": [],
+      "result": "0x0",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "media-alias-17",
+      "commands": [],
+      "result": "0x1",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "media-alias-18",
+      "commands": [],
+      "result": "0x2",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "media-alias-19",
+      "commands": [],
+      "result": "0x3",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "media-alias-20",
+      "commands": [],
+      "result": "0x4",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "config-all-accepted",
+      "commands": [
+        "0x1",
+        "0x5492",
+        "0x5340",
+        "0x3306"
+      ],
+      "result": "0x1",
+      "state_sha256": "be3f9ac5a1c93f12af9f4f1aae68f19cd441be15127bfafa465018a48722e73b"
+    },
+    {
+      "case": "config-media-rejected",
+      "commands": [
+        "0x1",
+        "0x5492",
+        "0x5340",
+        "0x3306"
+      ],
+      "result": "0x1",
+      "state_sha256": "a1dc7915963880f44300eacd401e1659b65e4df14af6ccab856950c11dd397f2"
+    },
+    {
+      "case": "config-scalar-rejected",
+      "commands": [
+        "0x1",
+        "0x5492",
+        "0x5340",
+        "0x3306"
+      ],
+      "result": "0x1",
+      "state_sha256": "c5d3504c6618228966272905ef2ec2227b7ba93efe2f044bead0a7fae2adb00b"
+    },
+    {
+      "case": "config-density-reply-not-cached",
+      "commands": [
+        "0x1",
+        "0x5492",
+        "0x5340",
+        "0x3306"
+      ],
+      "result": "0x1",
+      "state_sha256": "be3f9ac5a1c93f12af9f4f1aae68f19cd441be15127bfafa465018a48722e73b"
+    },
+    {
+      "case": "config-ineligible-0",
+      "commands": [
+        "0x1"
+      ],
+      "result": "0x1",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "config-ineligible-4400",
+      "commands": [
+        "0x1"
+      ],
+      "result": "0x1",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "config-ineligible-6000",
+      "commands": [
+        "0x1"
+      ],
+      "result": "0x1",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "config-ineligible-ffff",
+      "commands": [
+        "0x1"
+      ],
+      "result": "0x12345678",
+      "state_sha256": "3c486589c97c0b837373d5a292b50628c38c58e91bbbb80fc1ee4b28d3bd9278"
+    },
+    {
+      "case": "config-unchanged",
+      "commands": [
+        "0x1"
+      ],
+      "result": "0x1",
+      "state_sha256": "03827be3e337c0b1c0e906a6eddbc29be4e14fc6c98b20c55231ebd150110ad2"
+    },
+    {
+      "case": "config-full-word-compare-low16-command",
+      "commands": [
+        "0x1",
+        "0x5492",
+        "0x5340",
+        "0x3306"
+      ],
+      "result": "0x1",
+      "state_sha256": "255ef4c33c8166dfc146d2ad0aa60be1f3ba54bce79c636c0450d7364ed4d30e"
+    },
+    {
+      "case": "normal-page-start",
+      "commands": [
+        "0x1",
+        "0x5492",
+        "0x5340",
+        "0x3306",
+        "0x6012"
+      ],
+      "result": "0x0",
+      "state_sha256": "9fa506a054d63f8fb07e7a4f8f9f4bb7d033b37f587f416f7c1c034156fe3ac7"
+    },
+    {
+      "case": "message40-start",
+      "commands": [
+        "0x1",
+        "0x5492",
+        "0x5340",
+        "0x3306",
+        "0x3a13"
+      ],
+      "result": "0x0",
+      "state_sha256": "680317e34ce7f72d9af2974a16f7ea1cfc8f4f859c630cdf9bcd6838f6ea445e"
+    },
+    {
+      "case": "kind7-start",
+      "commands": [
+        "0x1",
+        "0x5492",
+        "0x5340",
+        "0x3306",
+        "0x3a13"
+      ],
+      "result": "0x0",
+      "state_sha256": "680317e34ce7f72d9af2974a16f7ea1cfc8f4f859c630cdf9bcd6838f6ea445e"
+    },
+    {
+      "case": "start-after-config-primary-timeout",
+      "commands": [
+        "0x1",
+        "0x6012"
+      ],
+      "result": "0x0",
+      "state_sha256": "c40cd81b2c8e45f0ae52b6834dc41e19bcd2ebafc0f2f9b0a702877693dc108c"
+    },
+    {
+      "case": "start-after-config-rejections",
+      "commands": [
+        "0x1",
+        "0x5492",
+        "0x5340",
+        "0x3306",
+        "0x6012"
+      ],
+      "result": "0x0",
+      "state_sha256": "c40cd81b2c8e45f0ae52b6834dc41e19bcd2ebafc0f2f9b0a702877693dc108c"
+    }
+  ],
+  "limits": "Original RAM lookup, callbacks, configuration and page-start dispatch only. Status polling, datastore reads and every engine command are intercepted. Reply values are supplied independently; there is no physical engine, command transmission, timing, status freshness, sensor calibration or successful printing."
+}

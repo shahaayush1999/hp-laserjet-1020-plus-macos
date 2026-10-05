@@ -100,9 +100,11 @@ This is a generated offline model. It does not contact the printer.
 | `+0x38` | video reset / page transition latch | can trigger hp1020_video_reset_dispatch_candidate |
 | `+0x3c` | deferred latch clear flag | cleared when primary status 0x2e00 mask clears |
 | `+0x48` | active engine config pointer | points at preflight config or page mode config |
-| `+0x4c` | secondary engine config pointer | paired pointer written by preflight |
-| `+0x54` | preflight config scalar | zeroed during successful preflight |
-| `+0x58` | preflight byte flag | set to 0xff during successful preflight |
+| `+0x4c` | accepted config pointer | updated from +0x48 only when the media-setting reply has bit0x8000 clear |
+| `+0x50` | accepted scalar | updated from +0x54 only when the scalar-setting reply has bit0x8000 clear |
+| `+0x54` | requested scalar | full word is compared; low16 is shifted into command0x3300; physical meaning unresolved |
+| `+0x58` | density comparison byte | set to0xff during preflight; configuration helper does not update it |
+| `+0x59` | requested density byte | density1..5 callback maps to0/16/32/48/63 |
 | `+0x5a` | command latch | 16-bit command argument staged before register write |
 | `+0x5c` | returned status value | 16-bit engine response returned by status IO helper |
 | `+0x60` | selected event/status word | last event word emitted as engine queue message 0x17 |
@@ -154,6 +156,42 @@ This is a generated offline model. It does not contact the printer.
 2. command 0x5043 is sent when the previous event family was e6100800 and the new event leaves that family
 3. state +0x60 is updated with the selected event and queue 1 message 0x17 is emitted when it changes
 4. primary status low16 is stored at state +0x64 after each successful poll
+
+## Page settings before start
+
+`scripts/validate-hp1020-engine-config.py` executes the original lookup,
+density/media callbacks, configuration helper and page-start dispatcher
+in the interpreter and QEMU. `engine-config-execution.json` retains
+the tested sources, file-backed records and command arguments. All engine
+operations, status polling and datastore reads are intercepted boundaries.
+
+Lookup0x100162b0 scans15 eight-byte records at0x1001cd34 and returns a
+matching address or zero. The ten fixed keys/values are1:0,2:2,0x102:9,
+0x104:1,0x105:3,0x106:1,0x107:1,0x109:1,0x10b:5,0x111:0.
+Five mutable keys0x200..0x204 initially hold zero. Datastore callbacks
+16..20 copy the selected record's full value into those respective aliases.
+These are internal media keys; host-to-selected-media translation remains
+a separate PrintMgr decision. Unknown keys are not a safe default.
+
+Configuration0x10015d14 first requests primary status1. Low16=0xffff
+returns immediately; otherwise settings require `(primary & 0x6400)==0x4000`.
+Using that same supplied primary word, it processes these in order:
+
+1. Changed media-record values: `low16(0x5480 | (value_low16 << 1))`.
+   Reply bit0x8000 clear updates the accepted pointer at state+0x4c.
+2. Different density bytes+0x59/+0x58: `low16(0x5300 | (signed_byte << 1))`.
+   The density callback maps1..5 to0/16/32/48/63. This helper neither
+   checks that reply nor updates the comparison byte.
+3. Different scalar words+0x54/+0x50: `low16(0x3300 | (requested_low16 << 1))`.
+   Reply bit0x8000 clear copies the full requested word into+0x50.
+
+The original dispatcher calls configuration before0x6012 or0x3a13, but
+does not gate page-start on configuration success. Supplied timeout or
+rejection responses still reach a start request in the RAM experiment.
+This is a conditional original-code result, not an observed device fault
+or permission to transmit anything. The replacement should validate
+settings and require fresh successful replies instead of copying that
+error handling or treating a cached table pointer as engine acceptance.
 
 ## Original reply interrupt and freshness boundary
 

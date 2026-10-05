@@ -1,96 +1,65 @@
 # Current handoff
 
 Updated: 2026-10-05. **The open firmware replacement cannot physically print.**
-Offline work is active. Preserve the installed HP-based Mac printing setup;
-do not enumerate/contact the printer or introduce print-driving MMIO.
+Work remains offline. Preserve the installed HP-based Mac driver; do not contact
+or enumerate the printer or introduce print-driving MMIO. Follow `AGENTS.md`.
 
-## Implemented and checked
+## Current capability
 
-The open path reuses JBIG-KIT and TinyUSB, consumes host ZjStream, decodes pages,
-and handles software ownership, document boundaries and supplied reset recovery.
-A single-entry RAM experiment consumes an original foo2zjs two-page job and
-produces exact pixels. Hardware observations and output consumption are supplied.
+The open path reuses JBIG-KIT and TinyUSB, parses host ZjStream and produces exact
+page pixels in RAM. Controller programming, incoming data, replies and reset
+ownership have checked software components with supplied hardware observations.
+`open-firmware/usb-service/` joins the existing IN/OUT/program/command gates;
+failure in either direction blocks new work while original results can drain.
+The bounded PJL path supports uppercase ECHO (50 printable bytes) and INFO STATUS
+from a supplied current CODE/ONLINE observation. It does not fabricate physical
+status or JOB/PAGE completion. These components still need entry integration
+and real platform providers.
 
-Bulk IN now has a separate original-cookie owner and polled result, independent
-of incoming pages. It handles late completion, failed submission, cancellation,
-reset, final replies and exhaustion. A second component copies one reply to owned
-staging and constructs a bounded normal descriptor. A recording-hook publisher
-now orders visibility, descriptor publication, interrupt unmasking, safe NAK
-release and Poll Demand. It retains failed attempts through cancellation and
-cleanup. Controller binding, mapping/cache, FIFO readiness and settlement remain
-supplied. A bounded command pump now handles split PJL ECHO, binary/text
-separation, backpressure and original reply ownership across resets. ECHOs around
-a two-page synthetic ZjStream decode exact pixels through the same path. INFO
-STATUS now replies from a supplied current CODE/ONLINE observation, with empty
-DISPLAY; unavailable/stale observations give no reply. Original INFO bytes,
-including CODE0, agree with the open staged output. These components are not
-wired into an entry loop; physical status acquisition/output remain absent.
-A shared service now joins controller, IN/OUT and command gates. Its18 host and18
-target cases include exact two-page pixels, real software failure paths in both
-directions, programming failure, reset drainage and interface re-selection.
-Reply-result collection can proceed behind closed gates without new input or I/O.
-Cooperative page decoding now yields across output waits, retains owned data and
-requires explicit page/document acknowledgement. Its20 host and20 target cases
-match independent full-decoder pixels, including delayed completion, stop and
-late errors. It is not yet integrated with USB; the old command path remains
-synchronous. Copies remain metadata, and no software event means paper printed.
+`open-firmware/image-pump/` now decodes cooperatively: output waits return with
+owned compressed/band/ring data intact. Its20 host and20 target cases match an
+independent full JBIG decoder, including held events, late errors and stop.
+It is not yet connected to USB; the existing command/document path is synchronous.
+Copies remain metadata. Software completion never means paper printed.
 
-The original numeric PJL CODE converter is now recovered beyond the truncated
-decompilation. Its normal mappings and reads into following data were verified
-in583 interpreter and20 QEMU cases. Original INFO/DEVICE builders also execute
-in14 interpreter and8 QEMU cases; DEVICE suppresses CODE0, INFO does not. These
-are supplied status observations, not sensors or proof of StatusMgr delivery.
+The original engine reply/command handshake and page-setting sequence are now
+recovered.29 isolated reply/event RAM cuts and45 configuration/lookup/dispatch
+cases agree with QEMU, with every engine/peripheral operation excluded. Supplied
+stale events can satisfy a later command; supplied setting failures can still
+be followed by a start request. These are conditional code findings, not observed
+printer faults. Require fresh, serialized replies and successful configuration
+in the replacement; do not reproduce those assumptions.
 
-Focused host/QEMU checks passed for bulk IN, descriptor staging, the existing
-adapter, continuous documents and affected controller code. All three affected
-entry profiles passed interpreter/QEMU execution and independent capture gates
-with their new actual layouts. The full offline execution run passed, then its
-cross-check stopped on seven old size/source-count expectations. Those were
-corrected against measured builds; all136 consistency checks and the remaining
-JSON/probe checks passed sequentially. The top-level command itself exited at
-that cross-check; execution was not repeated after this checker-only correction.
-The additional publisher passed44 host and44 target cases; the extended command
-path passed66 of each. Reports retain exact tested source identities; never
-rewrite hashes after edits. The command profile is uppercase ECHO with at most50
-printable text bytes and exact INFO STATUS, CODE0..99999/ONLINE0..1/empty DISPLAY.
-
-Bounded call0 cache writeback, clean-invalidate and discard-only invalidation reject invalid spans
-before operating. Original range operands and startup attribute operands were
-recovered;66 original interpreter cases,18 original QEMU cases and54 open paired
-cases passed. CPU/cache/line/mapping facts remain conditional, and these routines
-are not yet bound to the controller hooks. No physical visibility is claimed.
-Original boot capacity/stack/reservation/pool arithmetic also agrees in17 paired
-executions. It selects2/8/16/32MiB from a supplied register value. The computed
-stock pool contains boot-SP/reset/debug addresses, so it is not a layout to copy.
-
-The original engine reply handler and command/event handshake are now recovered;
-29 isolated RAM cuts agree with QEMU, excluding all peripheral and IRQ operations.
-An untagged pending reply can satisfy a later command under supplied stale-event
-conditions. This is not a device fault reproduction. A real status provider needs
-serialized requests and a justified drain/reset boundary after timeout.
+The256-word engine-interface startup table remains undecoded. An Agilent
+programmable-I/O patent is an architectural lead, not an opcode map or confirmed
+chip identity. The concrete loader/reference findings are in `next-evidence.md`.
+Boot memory arithmetic and cache operands are recovered, but installed capacity,
+physical mapping, cache visibility, interrupts and output timing remain unproved.
 
 ## Next useful work
 
-Recover the original page-configuration commands before engine start: the media
-lookup at0x100162b0 and helper0x10015d14 remain an actionable software boundary.
-Intercept command submission; do not execute engine/peripheral operations.
-The256-word table loaded by0x10016480 appears to be a separate startup program.
-An Agilent programmable-I/O patent is an architectural lead, not an opcode map
-or chip identification; the concrete loader/reference findings are in next-evidence.
-Do not build a speculative emulator or repeat the broad reference search.
-The shared service and cooperative image pump still need entry-owned integration
-and real providers, preserving original receive generation and all recovery gates.
-Boot memory arithmetic and cache operands are settled; they do not establish
-installed capacity, physical mapping, cache-line leases or completed DMA visibility.
-Numeric conversion and reply formatting are settled. DISPLAY is initially empty
-and no local writer was recovered; ONLINE remains a separate observation.
-Notification candidates can differ from cached status; details are in the existing
-next-evidence note. Physical status acquisition is still missing. Entry
-integration must include existing controller programming/ingress/failure gates;
-the IN publisher's ready hook cannot mean merely mounted. Exact contracts and useful stock
-addresses are in `analysis/open-firmware-model/next-evidence.md`. Do not repeat
-settled stock scheduling or cancellation investigations. Physical boot/RAM,
-cache, interrupts, page output and power-cycle recovery remain unproved.
+Connect cooperative decoding to the USB document/command owner so a busy output
+cannot block control and cancellation. Preserve the original receive-generation
+cursor, immutable replies and the existing receive/output/transport recovery
+gates. Avoid a second unrelated pipeline or speculative engine emulator.
 
-Keep work tied to the next missing capability with proportionate checks, as
-`AGENTS.md` requires. Root `README.md` owns the separate working Mac driver.
+For further original-code work, follow the selected media value from PrintMgr
+0x1000f84c to the recovered engine configuration. The scalar0x3300 command's
+physical meaning remains unknown; its comparison/encoding is already settled.
+Do not repeat lookup arithmetic, stock scheduling/cancellation, numeric CODE,
+reply formatting or broad controller-reference searches without a new lead.
+
+## Validation limits and recovery
+
+New cooperative decoding and original engine configuration passed their focused
+host/interpreter and QEMU checks. Reports retain exact tested sources. The latest
+shared USB service, PJL, publisher and affected controller checks also passed.
+The earlier complete offline run passed execution stages, then stopped on seven
+old consistency expectations. Those were corrected against measured builds;
+all136 checks and remaining JSON/probe checks passed sequentially. The top-level
+command itself was not rerun after that checker-only correction.
+
+Use `analysis/README.md` for the small evidence map and pinned tool recovery;
+`analysis/open-firmware-model/next-evidence.md` holds unresolved contracts.
+Run affected checks sequentially. Never rewrite report hashes after editing
+sources. Root `README.md` owns the separate working Mac driver.

@@ -215,6 +215,15 @@ The remaining implementation questions are:
    “read/clear” is permission to clear, not proof that reading clears a register.
    Neither source supplies this table's ISA or addresses. A bounded search found
    no authoritative opcode map; resume that search only with a more specific lead.
+
+   Original lookup/density/media/configuration/start dispatch now execute in
+   `engine-config-execution.json` (45 interpreter/QEMU cases). The existing
+   engine-command-status note records commands0x5480/0x5300/0x3300, exact value
+   encoding and acknowledgement rules. Configuration rejection/timeout can still
+   be followed by a start request in the supplied original RAM path; do not copy
+   that behavior. The selected internal media key comes from PrintMgr0x1000f84c,
+   not a proved direct ZjStream-item mapping. The scalar command's physical meaning
+   remains unknown. Next work here is that setting provenance, not more lookup tests.
 4. Connect actual status to paper/jam/cover/error replies. Original port-status
    construction only establishes a fixed byte in the tested cut; don't invent
    physical meanings from event numbers. Long output waits will need cooperative
