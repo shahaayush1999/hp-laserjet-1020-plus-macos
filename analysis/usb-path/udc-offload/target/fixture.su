@@ -66,8 +66,8 @@
 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/tinyusb-printer-test/fixture.c:224:6:dcd_edpt_clear_stall	16	static
 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/tinyusb-printer-test/fixture.c:267:10:hp1020_ep0_base_reset	128	static
 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/tinyusb-printer-test/fixture.c:298:10:hp1020_ep0_base_step	112	static
-/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/tinyusb-printer-test/fixture.c:377:10:hp1020_bulk_fixture_receive_storage	0	static
-/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/tinyusb-printer-test/fixture.c:378:10:hp1020_bulk_fixture_output_storage	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/tinyusb-printer-test/fixture.c:379:10:hp1020_bulk_fixture_receive_storage	0	static
+/Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/tinyusb-printer-test/fixture.c:380:10:hp1020_bulk_fixture_output_storage	0	static
 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-ep0-test/fixture.c:205:6:composed_ep0_xfer	160	static
 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-ep0-test/fixture.c:263:6:composed_ep0_set_address	16	static
 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/open-firmware/udc-ep0-test/fixture.c:361:10:composed_ep0_reset	96	static

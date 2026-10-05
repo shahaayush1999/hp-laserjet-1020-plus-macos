@@ -27,7 +27,7 @@ struct packet {
     uint16_t length;
     uint8_t live, cancel_requested;
 };
-static struct packet packets[3];
+static struct packet packets[4];
 static struct hp1020_tusb_cookie history[4096];
 static struct hp1020_tusb_adapter adapter;
 static struct hp1020_usb_document document;
@@ -58,17 +58,17 @@ static uint32_t fnv(const uint8_t *p,uint32_t n) {
     uint32_t h=2166136261u;while(n--)h=(h^*p++)*16777619u;return h;
 }
 static int packet_index(uint8_t ep) {
-    return ep==0?0:ep==0x80?1:ep==1?2:-1;
+    return ep==0?0:ep==0x80?1:ep==1?2:ep==0x81?3:-1;
 }
 static uint32_t endpoint_bit(uint8_t ep) { return 1u<<(2*(ep&15u)+(ep>>7)); }
 static uint32_t owned_mask(void) {
     uint32_t bits=0;
-    for(uint32_t i=0;i<3;i++)if(packets[i].live)bits|=endpoint_bit(packets[i].cookie.endpoint);
+    for(uint32_t i=0;i<4;i++)if(packets[i].live)bits|=endpoint_bit(packets[i].cookie.endpoint);
     return bits;
 }
 static uint32_t cancel_mask(void) {
     uint32_t bits=0;
-    for(uint32_t i=0;i<3;i++)if(packets[i].live && packets[i].cancel_requested)
+    for(uint32_t i=0;i<4;i++)if(packets[i].live && packets[i].cancel_requested)
         bits|=endpoint_bit(packets[i].cookie.endpoint);
     return bits;
 }
@@ -77,7 +77,7 @@ static int same_cookie(struct hp1020_tusb_cookie a,struct hp1020_tusb_cookie b) 
         a.sequence==b.sequence && a.endpoint==b.endpoint;
 }
 static void check_owned(void) {
-    for(uint32_t i=0;i<3;i++)if(packets[i].live && packets[i].length &&
+    for(uint32_t i=0;i<4;i++)if(packets[i].live && packets[i].length &&
         memcmp(packets[i].shadow,packets[i].buffer,packets[i].length))state.violations++;
     for(uint32_t i=0;i<4;i++)if(document.output.ring.slots[i].state==2 &&
         state.owned_hash[i]!=fnv(memory.data.output.slots+i*document.output.ring.slot_bytes,
@@ -184,7 +184,7 @@ void dcd_edpt_close(uint8_t rhport,uint8_t endpoint) {
     state.open_mask&=~endpoint_bit(endpoint);
 }
 void dcd_edpt_close_all(uint8_t rhport) {
-    (void)rhport;check_owned();if(packets[2].live)state.violations++;
+    (void)rhport;check_owned();if(packets[2].live || packets[3].live)state.violations++;
     state.open_mask&=3;state.stall_mask&=3;
 }
 bool dcd_edpt_xfer(uint8_t rhport,uint8_t endpoint,uint8_t *buffer,uint16_t length,bool in_isr) {
@@ -307,7 +307,9 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op,uint32_t a,uint32_t b,uint32_t c,u
     } else if(op==1)r=HP1020_FIXTURE_ADAPTER_SERVICE(&adapter);
     else if(op==2 && a>0 && a<4096 && history[a].id==a) {
         struct hp1020_tusb_cookie cookie=history[a];int i=packet_index(cookie.endpoint);
-        if(i>=0 && packets[i].live && same_cookie(packets[i].cookie,cookie) && b<=XFER_RESULT_ABORTED && c<=packets[i].length) {
+        if(i>=0 && packets[i].live && same_cookie(packets[i].cookie,cookie) &&
+            b<=XFER_RESULT_ABORTED && c<=packets[i].length &&
+            (i!=3 || b!=XFER_RESULT_SUCCESS || c==packets[i].length)) {
             packets[i].live=0;state.completions++;
         } else state.stale++;
         r=hp1020_tusb_adapter_complete(&adapter,cookie,(xfer_result_t)b,c);
@@ -340,7 +342,7 @@ uint32_t hp1020_bulk_fixture_step(uint32_t op,uint32_t a,uint32_t b,uint32_t c,u
     else if(op==15) {
         /* Synthetic controller promise: no reads/writes remain; clear the two
          * software endpoint states too. This is not a controller implementation. */
-        if(packets[2].live)r=HP1020_TUSB_WAIT;
+        if(packets[2].live || packets[3].live)r=HP1020_TUSB_WAIT;
         else { usbd_edpt_clear_stall(0,1);usbd_edpt_clear_stall(0,0x81);r=HP1020_TUSB_OK; }
     } else if(op==16) { state.fail_at=a;r=HP1020_TUSB_OK; }
     else if(op==17) { state.document_fail_at=a;r=HP1020_TUSB_OK; }

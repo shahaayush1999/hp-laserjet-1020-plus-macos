@@ -2,7 +2,7 @@ id	symbol	type_or_array	target32_size	type_alignment
 1	hp1020_usb_runtime_document	struct hp1020_usb_document	13496	4
 2	hp1020_usb_runtime_memory	struct hp1020_usb_document_memory	114704	16
 3	hp1020_usb_runtime_printer	struct hp1020_usb_printer	56	4
-4	hp1020_usb_runtime_adapter	struct hp1020_tusb_adapter	332	4
+4	hp1020_usb_runtime_adapter	struct hp1020_tusb_adapter	408	4
 5	hp1020_usb_runtime_out	struct hp1020_udc_out	64	4
 6	hp1020_usb_runtime_out_memory	struct hp1020_udc_out_memory	16	16
 7	hp1020_usb_runtime_ep0	struct hp1020_udc_ep0	136	4

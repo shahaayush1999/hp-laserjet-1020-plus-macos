@@ -5,7 +5,7 @@
 #include <string.h>
 
 enum { PENDING_NONE, PENDING_SETUP, PENDING_BUS_RESET, PENDING_OFFLOAD };
-enum { OWNER_EP0_OUT, OWNER_EP0_IN, OWNER_BULK_OUT };
+enum { OWNER_EP0_OUT, OWNER_EP0_IN, OWNER_BULK_OUT, OWNER_BULK_IN, OWNER_COUNT };
 enum { REASON_ADMISSION = 1, REASON_TRANSFER, REASON_CONTRACT, REASON_LIMIT };
 
 /* TinyUSB's class callbacks have no caller context and its device core has one
@@ -46,6 +46,7 @@ static struct hp1020_tusb_owner *owner_for(struct hp1020_tusb_adapter *s,
     if (ep == 0) return &s->owners[OWNER_EP0_OUT];
     if (ep == 0x80) return &s->owners[OWNER_EP0_IN];
     if (ep == s->config.ep_out) return &s->owners[OWNER_BULK_OUT];
+    if (ep == s->config.ep_in) return &s->owners[OWNER_BULK_IN];
     return NULL;
 }
 
@@ -53,9 +54,28 @@ static bool ep0_owned(const struct hp1020_tusb_adapter *s) {
     return s->owners[OWNER_EP0_OUT].state || s->owners[OWNER_EP0_IN].state;
 }
 
-static bool bulk_owned(const struct hp1020_tusb_adapter *s) {
+static bool out_owned(const struct hp1020_tusb_adapter *s) {
     return s->owners[OWNER_BULK_OUT].state || s->prepared ||
         (s->delivering_live && s->delivering.cookie.endpoint == s->config.ep_out);
+}
+
+static bool bulk_owned(const struct hp1020_tusb_adapter *s) {
+    return out_owned(s) || s->owners[OWNER_BULK_IN].state || s->in_prepared ||
+        (s->delivering_live && s->delivering.cookie.endpoint == s->config.ep_in);
+}
+
+static bool current_transport(const struct hp1020_tusb_adapter *s,
+    struct hp1020_tusb_cookie cookie) {
+    return cookie.epoch && cookie.epoch == s->active_transport_epoch &&
+        cookie.epoch == s->transport_epoch &&
+        cookie.generation == s->printer->document->receive.generation;
+}
+
+static bool in_binding_ready(const struct hp1020_tusb_adapter *s) {
+    return !s->exhausted && tud_inited() && tud_ready() && s->opened &&
+        !s->programming_dirty && !s->printer->reset_active &&
+        !s->binding_pending_epoch && !(s->pending_kind && s->pending_destructive) &&
+        s->active_transport_epoch == s->transport_epoch;
 }
 
 static void request_cancel(struct hp1020_tusb_adapter *s,
@@ -81,6 +101,7 @@ static void terminal(struct hp1020_tusb_adapter *s) {
     s->last_class_result = hp1020_usb_printer_fault(s->printer,
         s->printer->document->receive.generation, REASON_LIMIT);
     request_cancel(s, &s->owners[OWNER_BULK_OUT]);
+    request_cancel(s, &s->owners[OWNER_BULK_IN]);
     cancel_ep0(s);
 }
 
@@ -106,6 +127,7 @@ static enum hp1020_tusb_result fence(struct hp1020_tusb_adapter *s,
     s->last_class_result = hp1020_usb_printer_fault(s->printer, generation, reason);
     if (!advance(s, &s->transport_epoch)) return HP1020_TUSB_LIMIT;
     request_cancel(s, &s->owners[OWNER_BULK_OUT]);
+    request_cancel(s, &s->owners[OWNER_BULK_IN]);
     return HP1020_TUSB_OK;
 }
 
@@ -152,7 +174,8 @@ static bool driver_deinit(void) {
     /* Deinitialization is not a shortcut around pending DCD ownership. The
      * surrounding application must settle every owner before tusb_deinit. */
     if (!valid(bound)) return true;
-    if (ep0_owned(bound) || bulk_owned(bound) || bound->response_owned) return false;
+    if (ep0_owned(bound) || bulk_owned(bound) || bound->response_owned ||
+        bound->in_result_pending) return false;
     (void)fence(bound, bound->printer->document->receive.generation, REASON_ADMISSION);
     bound->opened = 0;
     return true;
@@ -341,7 +364,8 @@ static bool driver_xfer(uint8_t rhport, uint8_t endpoint, xfer_result_t result,
     uint32_t length) {
     struct hp1020_tusb_adapter *s = bound;
     if (!valid(s) || rhport != s->config.rhport) return false;
-    if (!s->delivering_live || s->delivered || endpoint != s->config.ep_out ||
+    if (!s->delivering_live || s->delivered ||
+        (endpoint != s->config.ep_out && endpoint != s->config.ep_in) ||
         s->delivering.cookie.endpoint != endpoint || s->delivering.actual != length ||
         s->delivering.result != (uint8_t)result) {
         (void)fence(s, s->printer->document->receive.generation, REASON_CONTRACT);
@@ -349,6 +373,17 @@ static bool driver_xfer(uint8_t rhport, uint8_t endpoint, xfer_result_t result,
     }
     s->delivered = 1;
     const struct hp1020_tusb_cookie cookie = s->delivering.cookie;
+    if (endpoint == s->config.ep_in) {
+        if (s->in_result_pending) {
+            (void)fence(s, cookie.generation, REASON_CONTRACT);
+            return false;
+        }
+        s->in_result = (struct hp1020_tusb_in_result){cookie, length, (uint8_t)result,
+            (uint8_t)(result == XFER_RESULT_SUCCESS && !s->delivering.cancel_requested &&
+                !s->delivering.packet_fault && current_transport(s, cookie) && in_binding_ready(s))};
+        s->in_result_pending = 1;
+        return true;
+    }
     /* A real cancelled completion passes through TinyUSB to clear its BUSY
      * state. It must not invent another fault and erase fresh reset promises. */
     if (s->delivering.expected_cancel || s->fenced ||
@@ -548,6 +583,12 @@ static enum hp1020_tusb_result bind_submission(
         next.epoch = s->active_transport_epoch;
         next.generation = s->prepared_ticket.generation;
         next.sequence = s->prepared_ticket.sequence;
+    } else if (endpoint == s->config.ep_in) {
+        if (!s->in_prepared || s->in_result_pending ||
+            buffer != s->in_prepared_buffer || length != s->in_prepared_length ||
+            !in_binding_ready(s)) return HP1020_TUSB_INVALID;
+        next.epoch = s->active_transport_epoch;
+        next.generation = s->printer->document->receive.generation;
     } else {
         if (length > 64 || !s->active_control_epoch ||
             s->active_control_epoch != s->control_epoch || s->pending_kind) {
@@ -651,11 +692,14 @@ static enum hp1020_tusb_result complete_locked(struct hp1020_tusb_adapter *s,
     struct hp1020_tusb_owner *p = owner_for(s, cookie.endpoint);
     if (!p || p->state != HP1020_TUSB_OWNER_DCD || !cookie.id ||
         !same_cookie(p->cookie, cookie)) return HP1020_TUSB_STALE;
+    const bool in = cookie.endpoint == s->config.ep_in;
     if ((unsigned)result >= (unsigned)XFER_RESULT_INVALID || length > p->length ||
+        (in && result == XFER_RESULT_SUCCESS && length != p->length) ||
         (p->auto_status && (result != XFER_RESULT_ABORTED || length))) {
         /* A prohibited late success for a superseded auto-status owner cannot
          * poison a newer request that still has the same receive generation. */
-        if (!p->auto_status || cookie.epoch == s->control_epoch)
+        if (in ? current_transport(s, cookie) :
+            (!p->auto_status || cookie.epoch == s->control_epoch))
             (void)fence(s, cookie.generation, REASON_CONTRACT);
         request_cancel(s, p);
         return HP1020_TUSB_INVALID; /* Retain ownership, including on overrun. */
@@ -667,7 +711,8 @@ static enum hp1020_tusb_result complete_locked(struct hp1020_tusb_adapter *s,
     if (result != XFER_RESULT_SUCCESS && !p->expected_cancel && !p->packet_fault) {
         /* Stop consumption at event admission, before a caller can pump READY
          * data. A failure from a superseded EP0 request cannot fault new work. */
-        if (cookie.endpoint == s->config.ep_out || cookie.epoch == s->control_epoch)
+        if (cookie.endpoint == s->config.ep_out ||
+            (in ? current_transport(s, cookie) : cookie.epoch == s->control_epoch))
             (void)fence(s, cookie.generation, REASON_TRANSFER);
     }
     return HP1020_TUSB_OK;
@@ -694,7 +739,9 @@ enum hp1020_tusb_result hp1020_tusb_adapter_packet_fault(struct hp1020_tusb_adap
         !same_cookie(p->cookie, cookie)) return leave(s, HP1020_TUSB_STALE);
     if (cookie.generation != s->printer->document->receive.generation)
         return leave(s, HP1020_TUSB_STALE);
-    if (cookie.endpoint == s->config.ep_out) {
+    if (cookie.endpoint == s->config.ep_in) {
+        if (!current_transport(s, cookie)) return leave(s, HP1020_TUSB_STALE);
+    } else if (cookie.endpoint == s->config.ep_out) {
         if (!cookie.epoch || cookie.epoch != s->active_transport_epoch)
             return leave(s, HP1020_TUSB_STALE);
     } else if (!cookie.epoch || cookie.epoch != s->control_epoch ||
@@ -741,7 +788,8 @@ static bool deliver(struct hp1020_tusb_adapter *s, struct hp1020_tusb_owner *p) 
     s->delivering_live = 1;
     s->delivered = 0;
     memset(p, 0, sizeof(*p));
-    const bool bulk = s->delivering.cookie.endpoint == s->config.ep_out;
+    const bool bulk = s->delivering.cookie.endpoint == s->config.ep_out ||
+        s->delivering.cookie.endpoint == s->config.ep_in;
     const uint32_t submission_generation = s->printer->document->receive.generation;
     /* A genuinely settled packet may still arrive as SUCCESS after its fault.
      * Retire that ownership, but never acknowledge or advance a faulted EP0
@@ -814,7 +862,7 @@ enum hp1020_tusb_result hp1020_tusb_adapter_service(struct hp1020_tusb_adapter *
     if (r) return r;
     if (!tud_inited()) return leave(s, HP1020_TUSB_INVALID);
     if (!drain_stack(s)) return leave(s, HP1020_TUSB_ERROR);
-    for (unsigned i = 0; i < 3; ++i)
+    for (unsigned i = 0; i < OWNER_COUNT; ++i)
         if (!deliver(s, &s->owners[i])) return leave(s, HP1020_TUSB_ERROR);
     if (s->exhausted) {
         if (!ep0_owned(s)) release_response(s);
@@ -904,7 +952,7 @@ enum hp1020_tusb_result hp1020_tusb_adapter_arm_out(struct hp1020_tusb_adapter *
     if (s->exhausted) return leave(s, HP1020_TUSB_LIMIT);
     if (!tud_inited() || !tud_ready() || !s->opened || s->fenced || s->input_closed ||
         s->printer->document->receive.stopped || s->printer->reset_active ||
-        (s->pending_kind && s->pending_destructive) || bulk_owned(s) ||
+        (s->pending_kind && s->pending_destructive) || out_owned(s) ||
         usbd_edpt_busy(s->config.rhport, s->config.ep_out) ||
         usbd_edpt_stalled(s->config.rhport, s->config.ep_out))
         return leave(s, HP1020_TUSB_WAIT);
@@ -934,6 +982,58 @@ enum hp1020_tusb_result hp1020_tusb_adapter_arm_out(struct hp1020_tusb_adapter *
     return leave(s, HP1020_TUSB_OK);
 }
 
+enum hp1020_tusb_result hp1020_tusb_adapter_send_in(struct hp1020_tusb_adapter *s,
+    const uint8_t *source, uint16_t length, struct hp1020_tusb_cookie *cookie) {
+    if (!cookie) return HP1020_TUSB_INVALID;
+    *cookie = (struct hp1020_tusb_cookie){0};
+    enum hp1020_tusb_result r = enter(s);
+    if (r) return r;
+    if (length > 64 || (length && !source) || (!length && source))
+        return leave(s, HP1020_TUSB_INVALID);
+    if (s->exhausted) return leave(s, HP1020_TUSB_LIMIT);
+    if (!in_binding_ready(s) || s->owners[OWNER_BULK_IN].state || s->in_result_pending ||
+        usbd_edpt_busy(s->config.rhport, s->config.ep_in) ||
+        usbd_edpt_stalled(s->config.rhport, s->config.ep_in))
+        return leave(s, HP1020_TUSB_WAIT);
+    if (!usbd_edpt_claim(s->config.rhport, s->config.ep_in))
+        return leave(s, HP1020_TUSB_WAIT);
+    s->in_prepared_buffer = source;
+    s->in_prepared_length = length;
+    s->in_prepared = 1;
+    s->stack_active = 1;
+    const bool submitted = usbd_edpt_xfer(s->config.rhport, s->config.ep_in,
+        (uint8_t *)source, length, false);
+    s->stack_active = 0;
+    s->in_prepared = 0;
+    s->in_prepared_buffer = NULL;
+    s->in_prepared_length = 0;
+    const struct hp1020_tusb_owner *p = &s->owners[OWNER_BULK_IN];
+    if (p->state) *cookie = p->cookie;
+    if (!submitted || p->state != HP1020_TUSB_OWNER_DCD) {
+        /* A refusal before binding borrowed nothing and can be retried. Once
+         * bound, even a false DCD return retains the exact original source. */
+        if (p->state || submitted)
+            (void)fence(s, s->printer->document->receive.generation, REASON_TRANSFER);
+        return leave(s, s->exhausted ? HP1020_TUSB_LIMIT : HP1020_TUSB_ERROR);
+    }
+    return leave(s, HP1020_TUSB_OK);
+}
+
+enum hp1020_tusb_result hp1020_tusb_adapter_take_in_result(
+    struct hp1020_tusb_adapter *s, struct hp1020_tusb_in_result *result) {
+    enum hp1020_tusb_result r = enter(s);
+    if (r) return r;
+    if (!result) return leave(s, HP1020_TUSB_INVALID);
+    if (!s->in_result_pending)
+        return leave(s, s->exhausted ? HP1020_TUSB_LIMIT : HP1020_TUSB_WAIT);
+    *result = s->in_result;
+    result->current = (uint8_t)(result->current &&
+        current_transport(s, result->cookie) && in_binding_ready(s));
+    memset(&s->in_result, 0, sizeof(s->in_result));
+    s->in_result_pending = 0;
+    return leave(s, HP1020_TUSB_OK);
+}
+
 enum hp1020_rx_result hp1020_tusb_adapter_pump(struct hp1020_tusb_adapter *s) {
     const enum hp1020_tusb_result r = enter(s);
     if (r) return r == HP1020_TUSB_WAIT ? HP1020_RX_WAIT : HP1020_RX_ORDER;
@@ -955,7 +1055,7 @@ enum hp1020_tusb_result hp1020_tusb_adapter_close_input(struct hp1020_tusb_adapt
 enum hp1020_rx_result hp1020_tusb_adapter_finish(struct hp1020_tusb_adapter *s) {
     const enum hp1020_tusb_result r = enter(s);
     if (r) return r == HP1020_TUSB_WAIT ? HP1020_RX_WAIT : HP1020_RX_ORDER;
-    if (!s->input_closed || bulk_owned(s)) {
+    if (!s->input_closed || out_owned(s)) {
         s->busy = 0;
         return HP1020_RX_WAIT;
     }
@@ -997,8 +1097,8 @@ enum hp1020_printer_result hp1020_tusb_adapter_ack_reset(struct hp1020_tusb_adap
     enum hp1020_printer_result result;
     if (s->exhausted) result = HP1020_PRINTER_LIMIT;
     else if (!same_reset(s, ticket)) result = HP1020_PRINTER_STALE;
-    else if ((part == HP1020_PRINTER_RECEIVE_QUIESCED ||
-        part == HP1020_PRINTER_TRANSPORT_RESET) && bulk_owned(s)) result = HP1020_PRINTER_WAIT;
+    else if ((part == HP1020_PRINTER_RECEIVE_QUIESCED && out_owned(s)) ||
+        (part == HP1020_PRINTER_TRANSPORT_RESET && bulk_owned(s))) result = HP1020_PRINTER_WAIT;
     else if (part == HP1020_PRINTER_TRANSPORT_RESET && !transport_ready(s))
         result = HP1020_PRINTER_WAIT;
     else result = hp1020_usb_printer_ack_reset(s->printer, ticket, part);

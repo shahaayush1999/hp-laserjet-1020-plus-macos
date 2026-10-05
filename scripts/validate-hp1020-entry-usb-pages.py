@@ -11,9 +11,10 @@ SOURCE=ROOT/'open-firmware/entry-usb-pages-test'
 OUT=ROOT/'analysis/boot-handoff/entry-usb-pages'
 PREFIX=os.environ.get('XTENSA_PREFIX','/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf')
 GCC=os.environ.get('HP1020_GCC_PREFIX','/tmp/hp1020-xtensa-gcc14/bin/xtensa-fsf-elf')+'-gcc'
-# Exact first linked image covered by the new source-bound acyclic callback and
-# 7472-byte conservative stack review. A changed image requires fresh review.
-REVIEWED_TARGET_SHA256='e907a88d58415e2fe7ee97711a738f203420fb162f016a25e9f299d6194aed9b'
+# Linked ABI/callback review retains the fixed OUT/page workload graph.
+# Changed linked frames add at most64 bytes to its7472-byte ceiling (7536/8192);
+# new helpers make only leaf/predicate calls. A changed image needs fresh review.
+REVIEWED_TARGET_SHA256='29147c8f911c422f484109f4096d6b70df94fbe57552b599a14e5d2e91c6d71d'
 MAIN_START,MAIN_END=0x10003000,0x100351e0
 STACK=(0x10014020,8192)
 CHECKPOINT_SYMBOLS=(('after-normalization', 'hp1020_entry_after_normalization'), ('pre-c', 'hp1020_entry_before_c'), ('pre-first-output', 'output'), ('pre-first-complete', 'hp1020_image_ring_complete'), ('pre-second-output', 'output'), ('pre-document-event', 'document_event'), ('pre-close', 'hp1020_tusb_adapter_close_input'), ('pre-final-service', 'hp1020_udc_publish_service'), ('pre-finish', 'hp1020_tusb_adapter_finish'), ('park', 'hp1020_entry_park'))

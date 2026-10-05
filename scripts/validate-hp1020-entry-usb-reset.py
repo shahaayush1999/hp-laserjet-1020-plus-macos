@@ -11,10 +11,10 @@ SOURCE=ROOT/'open-firmware/entry-usb-reset-test'
 OUT=ROOT/'analysis/boot-handoff/entry-usb-reset'
 PREFIX=os.environ.get('XTENSA_PREFIX','/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf')
 GCC=os.environ.get('HP1020_GCC_PREFIX','/tmp/hp1020-xtensa-gcc14/bin/xtensa-fsf-elf')+'-gcc'
-# Actual first linked image covered by the independent fixed-workload7904-byte
-# stack/callback review. Audit-only may investigate a new image; execution may
-# not silently reuse this review when any linked byte changes.
-REVIEWED_TARGET_SHA256='d2daf38cbff95b0a2b990c7fc99b0b5655ebfb1c8e12bc9f108c65bf5ed2fa8f'
+# Linked ABI/callback review retains the fixed OUT/reset workload graph.
+# Changed linked frames add at most64 bytes to its7904-byte ceiling (7968/8192);
+# new helpers make only leaf/predicate calls. A changed image needs fresh review.
+REVIEWED_TARGET_SHA256='1af7c631ca8e5cfc1ec5f4f80f44f1c98a19a6b131018ae40805540953e26c89'
 MAIN_START,MAIN_END=0x10003000,0x100351e0
 STACK=(0x10014020,8192)
 CHECKPOINT_SYMBOLS=(

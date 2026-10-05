@@ -16,7 +16,7 @@ import posixpath
 import re
 import struct
 
-BASE_SHA256 = '38f520c5d23834532806821d14ce9e5a8c3703d57935bcc923e453b43dece277'
+BASE_SHA256 = '77d10cf9f24db9776743613aeddb4c58640829257a8222346ef1b0fb23f13720'
 _base_file = Path(__file__).with_name('check-hp1020-entry-usb.py')
 if hashlib.sha256(_base_file.read_bytes()).hexdigest() != BASE_SHA256:
     raise ValueError('neutral independent helper bytes changed')
@@ -224,7 +224,7 @@ imports, files, result data, runtime implementation or entry point.
 SEMANTIC_SHA256 = "b4f648a2c8a951a55a5bcd3e9f8aa19c9af695127945020f249d507d906ca545"
 PUBLIC_HEADER_SHA256 = "f173c03b72cc993382f65a36aabcb3de8ff59e947009a4bc4fd70e66b615a71b"
 LAYOUT_HEADER = (0x4850554c,3,457,16,101)
-OBJECTS = ((1,13496,4),(2,114704,16),(3,56,4),(4,332,4),(5,64,4),
+OBJECTS = ((1,13496,4),(2,114704,16),(3,56,4),(4,408,4),(5,64,4),
     (6,16,16),(7,136,4),(8,160,16),(9,80,4),(10,88,4),(11,140,4),
     (12,152,4),(13,204,4),(14,1024,4),(15,9216,4),(16,16,1))
 REPLACED_FIELDS = ((91,15,16,4928),(92,15,4960,3060),
@@ -604,7 +604,7 @@ class ApiContract:
             need(ordinal==0 and args[1:5]==list(CONFIG_STATUS[:4]) and args[5]>>24==0x80 and
                  actual_cookie(ram,ad+60)==CONFIG_STATUS and scalar(ram,ad+80)==0 and scalar(ram,ad+88,2)==0,
                  'genuine NULL/zero EP0 status with original cookie')
-            need(scalar(ram,ad+314,1)==0 and scalar(ram,ad+315,1)==0 and scalar(ram,p+88)==0,
+            need(scalar(ram,ad+354,1)==0 and scalar(ram,ad+355,1)==0 and scalar(ram,p+88)==0,
                  'status take only after original callback/API unwind')
             data['result']=0
         if name=='hp1020_udc_ep0_observe':
@@ -624,7 +624,7 @@ class ApiContract:
                  'single initialization recovery after every distinct promise')
             data['result']=0
         if name=='hp1020_usb_document_restart':
-            need(ordinal==0 and scalar(ram,d+68)==1 and scalar(ram,ad+314,1)==1,
+            need(ordinal==0 and scalar(ram,d+68)==1 and scalar(ram,ad+354,1)==1,
                  'sole initial generation restart inside original recovery')
             data['result']=0;data['memory_before']=part(ram,m,114704)
         if name=='hp1020_udc_publish_arm_out':
@@ -661,7 +661,7 @@ class ApiContract:
                  'full isolated CPU poison and separate immutable source before visibility hooks')
             need(c['hp1020_tusb_adapter_close_input']==int(scope==17),'final success ZLP only after sole close')
             data.update(result=0,scope=scope,core_before=part(ram,a['_usbd_dev']+52,16),
-                        receive_before=part(ram,d,92),reset_before=part(ram,ad+276,44))
+                        receive_before=part(ram,d,92),reset_before=part(ram,ad+316,44))
             self.acquire_indices.append(e['instruction'])
         if name=='hp1020_udc_publish_service':
             self.services.append(e['instruction']);data['result']=0
@@ -674,8 +674,8 @@ class ApiContract:
         if name=='driver_xfer':
             scope=len(self.driver)+1;need(scope<=17,'exact actual bulk driver callbacks')
             _,cookie,slot,off,n=PACKETS[scope-1]
-            need(args[:4]==[0,1,0,n] and scalar(ram,ad+326,1)==1 and actual_cookie(ram,ad+140)==cookie and
-                 scalar(ram,ad+164)==n and scalar(ram,ad+173,1)==0,
+            need(args[:4]==[0,1,0,n] and scalar(ram,ad+366,1)==1 and actual_cookie(ram,ad+180)==cookie and
+                 scalar(ram,ad+204)==n and scalar(ram,ad+213,1)==0,
                  'real SUCCESS delivery retains original cookie and count')
             self.driver.append(scope);data['result']=1
         if name=='hp1020_usb_receive_complete_data':
@@ -710,7 +710,7 @@ class ApiContract:
         if name in ('hp1020_image_ring_accept','hp1020_image_ring_complete'):
             need(ordinal<2 and args[1]==0 and c['output']==ordinal+1 and self.returned['output']==ordinal and
                  scalar(ram,d+68)==2 and not c['hp1020_tusb_adapter_close_input'] and
-                 scalar(ram,p+88)==1 and scalar(ram,ad+314,1)==1,
+                 scalar(ram,p+88)==1 and scalar(ram,ad+354,1)==1,
                  'ring consumption only inside genuine page output callback')
             if name=='hp1020_image_ring_accept':
                 need(scalar(ram,d+13332)==1 and scalar(ram,d+13320)==0 and scalar(ram,d+13324)==0,
@@ -758,7 +758,7 @@ class ApiContract:
             scope=data['scope'];cookie=PACKETS[scope-1][1];n=PACKETS[scope-1][4];d=obj(a,1);ad=obj(a,4)
             need(actual_cookie(ram,ad+100)==cookie and scalar(ram,ad+130,1)==2 and scalar(ram,ad+124)==n and
                  scalar(ram,obj(a,5)+58,1)==0 and part(ram,d,92)==data['receive_before'] and
-                 part(ram,ad+276,44)==data['reset_before'] and part(ram,a['_usbd_dev']+52,16)==data['core_before'],
+                 part(ram,ad+316,44)==data['reset_before'] and part(ram,a['_usbd_dev']+52,16)==data['core_before'],
                  'acquisition queues exact original success without callback/core/recovery retirement')
             need(part(ram,obj(a,2),4096)==receive_memory(scope) and
                  part(ram,obj(a,6),16)==be_words(completed_descriptor(scope)),
@@ -830,7 +830,7 @@ def model_trace(folder,model,images,elf,cps,a,forbidden):
     need(B.jump_target(cps['park'],elf.instructions[cps['park']])==cps['park'],'actual terminal self jump')
     B.check_forbidden_entries(set(pcs),forbidden)
     # The adapter helper shares its local name with the provider callback.
-    # Initial bus reset and SET_CONFIGURATION each inspect all three empty
+    # Initial bus reset and SET_CONFIGURATION each inspect all four empty
     # owners. Source and these original ELF bytes prove an immediate return,
     # not a cancellation request. Bind the callback by the actual ops pointer.
     cancel_symbols={at for at,n,info,index in elf.symbols.get('request_cancel',[])
@@ -849,13 +849,13 @@ def model_trace(folder,model,images,elf,cps,a,forbidden):
                 need(not any(at<=pc<at+n for pc in visited),
                      'no provider/controller cancellation instruction executes: '+name)
     cancel_indices=[i for i,pc in enumerate(pcs) if pc==cancel_helper]
-    need(len(cancel_indices)==6 and all(
+    need(len(cancel_indices)==8 and all(
          pcs[i:i+4]==[cancel_helper,cancel_helper+3,cancel_helper+5,cancel_helper+33]
          and i<pcs.index(elf.symbol('hp1020_udc_publish_arm_out')) for i in cancel_indices),
-         'six empty-owner cancellation guards return before first bulk publication')
+         'eight empty-owner cancellation guards return before first bulk publication')
     cancel_reads=[r for r in struct.iter_unpack('>B3xIIII',access) if r[1]==cancel_helper]
     need(cancel_reads==[(1,cancel_helper,obj(a,4)+off,1,0)
-                        for off in (130,50,90,130,50,90)],
+                        for off in (130,170,50,90,130,170,50,90)],
          'each original cancellation guard reads only its expected empty owner')
     ram={at:bytearray(b) for at,b in images['initial'].items()}
     selected=selected_api_entries(elf);api=ApiContract(a,elf)
@@ -1012,7 +1012,7 @@ def model_trace(folder,model,images,elf,cps,a,forbidden):
             'exact one-shot CPU normalization encoding and value')
     return dict(api_entries=dict(api.count),api_returns=dict(api.returned),
                 wait_returns=0,stale_returns=0,provider_cancel_callbacks=0,
-                initial_empty_owner_cancel_guards=6)
+                initial_empty_owner_cancel_guards=8)
 
 
 # Immutable aliases of neutral reader constants; the imported module is never
@@ -1192,21 +1192,21 @@ def check_libgcc(root,report,tools):
 # accepted as an independent semantic oracle.
 FROZEN_SOURCES = {
     'open-firmware/entry-usb-pages-test/independent-literals.py': 'b4f648a2c8a951a55a5bcd3e9f8aa19c9af695127945020f249d507d906ca545',
-    'open-firmware/entry-usb-pages-test/literal-addendum.py': '5f3ff4167aff680a1f1b2ee0129039b10fbabd17bbfdff0291b62aa27ac77729',
+    'open-firmware/entry-usb-pages-test/literal-addendum.py': 'cc5f92500db433a56a0ea7074fcb861ec13f0d29ab802acf44a2d25c9a7fac6c',
     'open-firmware/entry-usb-pages-test/hp1020_usb_runtime_contract.h': 'f173c03b72cc993382f65a36aabcb3de8ff59e947009a4bc4fd70e66b615a71b',
     'open-firmware/entry-usb-pages-test/CONTRACT.md': '0e78b90bf5cb3f453ac4760ecbecfd29e16e59b877b0f6f25bc07f5f56bd112e',
     'open-firmware/entry-usb-pages-test/LIBRARY_SELECTION.md': '344575b6e5123bd655d3b8e81420eaefccaf6bd54172144433ea348daf6e40db',
-    'open-firmware/entry-usb-pages-test/layout-objects.tsv': '43076d743e4172646511884be5123a7bca648536fcde692a6a3ca2f37098c067',
-    'open-firmware/entry-usb-pages-test/layout-fields.tsv': '783d682401c892e0d297372b987f20ebeb4e6277089437d81e82d270c1c81ee5',
+    'open-firmware/entry-usb-pages-test/layout-objects.tsv': '9eb91e5bc6565773758f9fad22498e639b64289a1a9060adb0a2456637dee012',
+    'open-firmware/entry-usb-pages-test/layout-fields.tsv': '0e8ea9f24a52681c68e208789dcd3e22460856fc4ddbc061ecd684c61e8f5382',
     'open-firmware/entry-usb-pages-test/startup.S': 'c8271bbea0fdc7ed4ffb4c18469a15d91170d26c948d41e3706e8ed95922bad6',
     'open-firmware/entry-usb-pages-test/runtime.ld': '235934f043f7b18741a1db960fd8a129d64e5075dad55b8aca87c2988348d74d',
-    'scripts/check-hp1020-entry-usb.py': '38f520c5d23834532806821d14ce9e5a8c3703d57935bcc923e453b43dece277',
+    'scripts/check-hp1020-entry-usb.py': '77d10cf9f24db9776743613aeddb4c58640829257a8222346ef1b0fb23f13720',
     'scripts/hp1020_qemu_ram.py': '8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2',
     'scripts/hp1020_entry_qemu.py': '4ef9ffcfac58a326b68df526c8ddec93868cf18cf85eae76682a30ab9cf9d080',
     'scripts/hp1020_entry_machine.py': '46cc66fc2ac1c22201ef6a33ee13eba4a54087bb416ccc1b8726aae2d2c98b07',
     'scripts/hp1020_entry_usb_machine.py': '377cdd771447a4d69040a5624ef1fafc7593fea50fc471ccd7f8a0ff1077466a',
     'scripts/hp1020_entry_usb_qemu.py': 'c92b92947955f1ba68ac20a941689af6421c50d389d7e3c02a40ff0642ff9a8c',
-    'scripts/hp1020_entry_usb_audit.py': 'a1544c2e1b155dcb70b1b12b1d0be99f1558799a2e56b697a4477c9a7e259f22',
+    'scripts/hp1020_entry_usb_audit.py': 'ee88268a55fcfedb2e49a6a0b52b1417aec5ed5181a0e701bfe2aabf9940c01e',
     'scripts/hp1020_entry_audit.py': '2f990f9f57731c49d8931138d32ce100fecd1d2fed722354f6c01117e52042eb',
     'scripts/hp1020_xtensa_call0.py': 'ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480',
     'scripts/hp1020_xtensa_properties.py': '8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280',
@@ -1217,11 +1217,11 @@ FROZEN_SOURCES = {
     'open-firmware/tinyusb-device/tusb_config.h': '895c6599700b09f84be46ce74ac75f3974ce3b277d98f233134a54aea637616a',
     'open-firmware/udc-out/hp1020_udc_out.c': '63361d26de832654eeb75f3a87248d1badb08d074419ff870880127e6d7ba91c',
     'open-firmware/udc-out/hp1020_udc_acquire.h': 'e073d84e4f0223e07997a3cce5125a420591317681f80c7b80a5b2adc0bfc653',
-    'open-firmware/udc-publish/hp1020_udc_publish.c': 'f3608666e58b4b1e328d0166d3dbdce68d7bdebef7beca766d464c81a56f5f7a',
-    'open-firmware/udc-program/hp1020_udc_program.c': 'a0dbe512b4b4f7d045960800637f858165a3757f1e5c17096532616133f33cce',
+    'open-firmware/udc-publish/hp1020_udc_publish.c': 'd3cfe2bc668f6028990872bbfd6ad87065d0f989d433962025ba7bdb3456fc25',
+    'open-firmware/udc-program/hp1020_udc_program.c': '24d0cd6abef20a9962a293ff308605f972585ab760a5ed8762663d474f4c735c',
     'open-firmware/udc-ep0/hp1020_udc_ep0.c': '397c99e7b25239ae4dfb59179ea401f1e9e7d5befeb92aed853681ab90bcf140',
     'open-firmware/udc-setup/hp1020_udc_setup.c': 'f70322d734a8a2d26ed31befb275f61c5256e807389ca399a70707ce089508f3',
-    'open-firmware/tinyusb-printer-adapter/hp1020_tusb_adapter.c': 'a5bb1d281dd7226f9346e0dce3b13a475ac25320cf6b276f39d539d78584c3d7',
+    'open-firmware/tinyusb-printer-adapter/hp1020_tusb_adapter.c': '472cab2bdf7c64e3394e8a05c4b598020efa54db2d1a7347b58498f122062ba2',
     'open-firmware/usb-printer-class/hp1020_usb_printer.c': 'c9daf663ae7eea5b9df6a6a68fffd86ec0d6c4b860ce17559250e65cf02361b9',
     'open-firmware/usb-receive-core/hp1020_usb_receive.c': '352413d1c3d5cd8dbe1aa1788ab27383d1c45bfc344842d3b9b08c7e64827a8e',
     'open-firmware/usb-receive-core/hp1020_usb_document.c': '6df4c51a364b78a1d8e3bc9c81ce41f4daacddf383d13238e5f5407616575885',
@@ -1231,7 +1231,7 @@ FROZEN_SOURCES = {
     'open-firmware/semantic-core/hp1020_semantic.c': '183cd8351bc01725e46ec14a93f032830730e7c33d6a26028942f29751420c6a',
     'open-firmware/semantic-core/hp1020_page_plan.c': '16f6608918c620f437d09fe1f56c8f1043d9c60a4e6b8b3f2cd5220ff57e0517',
 }
-REVIEWED_TARGET_SHA256 = 'e907a88d58415e2fe7ee97711a738f203420fb162f016a25e9f299d6194aed9b'
+REVIEWED_TARGET_SHA256 = '29147c8f911c422f484109f4096d6b70df94fbe57552b599a14e5d2e91c6d71d'
 
 
 def check_sources(root,report,source_root):

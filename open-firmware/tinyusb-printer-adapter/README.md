@@ -5,8 +5,10 @@ The independent fixture compares exact pixels, USB reply proposals and final
 receive/output storage while checking borrowed buffers after every operation.
 Reports: `analysis/usb-path/tinyusb-printer/validation.{json,md}`. This is a
 synthetic DCD experiment; no physical controller or USB operation is implemented.
-Full integration is being validated separately. Target component state/fixed
-memory is 128588 bytes, excluding stack, code, TinyUSB core, ID and test captures.
+Target component state/fixed memory is 128664 bytes, excluding stack, code,
+TinyUSB core, ID and test captures. The separate bounded bulk-IN check exercises
+12 reply/cancellation/recovery scenarios with two memory fills on host and target;
+its current result is `analysis/usb-path/tinyusb-printer/bulk-in-validation.json`.
 
 `hp1020_tusb_adapter.c/.h` compose the pinned, separately patched TinyUSB device
 core with the existing printer class, four-slot receive queue and page decoder.
@@ -26,8 +28,10 @@ class reset does not write them.
 
 This profile accepts a full-speed printer interface 7/1/2, alternate zero, one
 64-byte bulk OUT endpoint followed by one 64-byte bulk IN endpoint. Bulk OUT
-reservations are a caller-selected multiple of 64, at most 1024 bytes. Bulk IN is
-opened for the bidirectional profile but has no payload producer in this profile.
+reservations are a caller-selected multiple of 64, at most 1024 bytes. Bulk IN
+can borrow one caller-supplied packet of up to 64 bytes through `send_in()`.
+`open-firmware/udc-in/` supplies separate descriptor/staging ownership. There is
+no PJL command/reply producer or physical IN publisher yet.
 The document starts stopped. A newly established configuration starts one
 internal recovery after its ordinary status packet is accepted for submission.
 Three explicit promises are required before input can resume; no wire SOFT_RESET
@@ -94,6 +98,22 @@ part of this first profile. Deinitialization also requires settling all owners;
 its class callback is not a cancellation implementation.
 
 ## Control and recovery
+
+`send_in()` binds through TinyUSB's real endpoint claim and DCD submission. A
+nonzero returned cookie means the source remains borrowed until its original
+result is collected with `take_in_result()`, including errors after binding.
+A zero cookie means no source was borrowed. Use NULL/0 for an explicit ZLP;
+there is no automatic termination packet. Success must settle the exact length.
+
+IN and OUT can progress independently. IN never creates or releases a receive
+reservation. Benign control requests leave the reply alone; destructive changes
+request cancellation and wait for both directions. Late settlement drains real
+TinyUSB BUSY state and returns the original count/result/cookie. The separate
+`current` flag is checked again when collected and is false after supersession,
+cancellation or fault. A settled result survives reset for collection and blocks
+another reply, while permitting controller reset after ownership has drained.
+Normal input close/finish permits final replies in the unchanged binding.
+Settlement is supplied by the DCD and is not proof that the host received bytes.
 
 The adapter retains original eight-byte SETUP wire data; it never recasts the
 host-endian TinyUSB request struct as bytes. A new SETUP immediately invalidates

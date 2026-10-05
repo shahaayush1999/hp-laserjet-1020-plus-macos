@@ -64,6 +64,7 @@ static bool mappings_valid(const struct hp1020_udc_out *out,
 }
 static bool no_owners(const struct hp1020_tusb_adapter *a) {
     return !a->owners[0].state && !a->owners[1].state && !a->owners[2].state &&
+        !a->owners[3].state && !a->in_prepared &&
         !a->prepared && !a->delivering_live && !a->response_owned;
 }
 static enum hp1020_udc_publish_result leave(struct hp1020_udc_publish *p,

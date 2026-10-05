@@ -30,7 +30,7 @@
       "id": 4,
       "symbol": "hp1020_usb_runtime_adapter",
       "type": "struct hp1020_tusb_adapter",
-      "size": 332,
+      "size": 408,
       "alignment": 4
     },
     {
@@ -305,98 +305,98 @@
       "id": 27,
       "object": 4,
       "member": "control_epoch",
-      "offset": 264,
+      "offset": 304,
       "width": 4
     },
     {
       "id": 28,
       "object": 4,
       "member": "active_control_epoch",
-      "offset": 268,
+      "offset": 308,
       "width": 4
     },
     {
       "id": 29,
       "object": 4,
       "member": "transport_epoch",
-      "offset": 272,
+      "offset": 312,
       "width": 4
     },
     {
       "id": 30,
       "object": 4,
       "member": "active_transport_epoch",
-      "offset": 276,
+      "offset": 316,
       "width": 4
     },
     {
       "id": 31,
       "object": 4,
       "member": "last_submission_id",
-      "offset": 260,
+      "offset": 300,
       "width": 4
     },
     {
       "id": 32,
       "object": 4,
       "member": "opened",
-      "offset": 316,
+      "offset": 356,
       "width": 1
     },
     {
       "id": 33,
       "object": 4,
       "member": "configuration_value",
-      "offset": 320,
+      "offset": 360,
       "width": 1
     },
     {
       "id": 34,
       "object": 4,
       "member": "input_closed",
-      "offset": 318,
+      "offset": 358,
       "width": 1
     },
     {
       "id": 35,
       "object": 4,
       "member": "fenced",
-      "offset": 317,
+      "offset": 357,
       "width": 1
     },
     {
       "id": 36,
       "object": 4,
       "member": "prepared",
-      "offset": 319,
+      "offset": 359,
       "width": 1
     },
     {
       "id": 37,
       "object": 4,
       "member": "busy",
-      "offset": 314,
+      "offset": 354,
       "width": 1
     },
     {
       "id": 38,
       "object": 4,
       "member": "stack_active",
-      "offset": 315,
+      "offset": 355,
       "width": 1
     },
     {
       "id": 39,
       "object": 4,
       "member": "delivering_live",
-      "offset": 326,
+      "offset": 366,
       "width": 1
     },
     {
       "id": 40,
       "object": 4,
       "member": "response_owned",
-      "offset": 325,
+      "offset": 365,
       "width": 1
     },
     {
@@ -515,14 +515,14 @@
       "id": 57,
       "object": 4,
       "member": "class_request_id",
-      "offset": 292,
+      "offset": 332,
       "width": 4
     },
     {
       "id": 58,
       "object": 4,
       "member": "reset_transport_epoch",
-      "offset": 288,
+      "offset": 328,
       "width": 4
     },
     {

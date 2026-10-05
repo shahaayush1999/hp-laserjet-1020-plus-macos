@@ -7,7 +7,7 @@ All platform observations, cache-copy behavior, settlement and output consumptio
 are explicitly supplied RAM inputs. No physical USB or printing is established.
 
 - Cases: 6; paired full checkpoints:42; actual QEMU park steps:12.
-- Concrete instructions across cases: 14587680; lowest observed SP: `0x10015cb0`.
+- Concrete instructions across cases: 14604732; lowest observed SP: `0x10015cb0`.
 - Two352-byte streams produce64 actual FF bytes and two original document events.
 - The final outstanding OUT owner is separately observed before close, after
   the supplied final zero-length acquisition, and after actual service/pump.

@@ -175,7 +175,7 @@ Discarded input sections
  .text.hp1020_udc_publish_pending_cleanup
                 0x0000000000000000       0x5b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
  .text.hp1020_udc_publish_ack_cleanup
-                0x0000000000000000      0x137 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
+                0x0000000000000000      0x143 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
  .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
  .literal.valid
                 0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
@@ -223,9 +223,9 @@ Discarded input sections
  .text.hp1020_udc_program_close_all
                 0x0000000000000000       0xfb /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
  .text.hp1020_udc_program_complete_selection
-                0x0000000000000000      0x22d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
+                0x0000000000000000      0x235 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
  .text.hp1020_udc_program_grant
-                0x0000000000000000      0x37a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
+                0x0000000000000000      0x376 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
  .text.hp1020_udc_program_pending_cleanup
                 0x0000000000000000       0x57 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
  .text.hp1020_udc_program_ack_cleanup
@@ -341,6 +341,8 @@ Discarded input sections
                 0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .literal.ep0_owned
                 0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ .literal.out_owned
+                0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .literal.bulk_owned
                 0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .literal.driver_init
@@ -348,6 +350,8 @@ Discarded input sections
  .literal.endpoint_descriptor
                 0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .literal.same_reset
+                0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ .literal.in_binding_ready
                 0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .literal.transport_ready
                 0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
@@ -362,8 +366,6 @@ Discarded input sections
  .literal.advance
                 0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .literal.fence
-                0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- .literal.driver_xfer
                 0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .literal.driver_reset
                 0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
@@ -380,6 +382,10 @@ Discarded input sections
  .literal.driver_control
                 0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .literal.drain_stack
+                0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ .literal.current_transport$isra$0
+                0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ .literal.driver_xfer
                 0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .literal.admit_control
                 0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
@@ -417,6 +423,10 @@ Discarded input sections
                 0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .literal.hp1020_tusb_adapter_arm_out
                 0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_send_in
+                0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ .literal.hp1020_tusb_adapter_take_in_result
+                0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .literal.hp1020_tusb_adapter_pump
                 0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .literal.hp1020_tusb_adapter_close_input
@@ -435,13 +445,17 @@ Discarded input sections
  .text.hp1020_tusb_adapter_bind_auto_status
                 0x0000000000000000       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .text.hp1020_tusb_adapter_take_auto_status
-                0x0000000000000000      0x1bf /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x0000000000000000      0x1bb /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .text.hp1020_tusb_adapter_pending_programming_cleanup
-                0x0000000000000000       0x51 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x0000000000000000       0x4f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .text.hp1020_tusb_adapter_ack_programming_cleanup
                 0x0000000000000000       0xda /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .text.hp1020_tusb_adapter_cancelled
                 0x0000000000000000       0x17 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ .text.hp1020_tusb_adapter_send_in
+                0x0000000000000000      0x122 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ .text.hp1020_tusb_adapter_take_in_result
+                0x0000000000000000       0x8e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .comment       0x0000000000000000       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .literal.invalidate_reset
                 0x0000000000000000        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
@@ -1135,7 +1149,7 @@ Linker script and memory map
                 0x0000000010000370                hp1020_entry_interface_table
                 0x000000001000049c                __hp1020_entry_interface_end = .
 
-.text           0x0000000010003000     0xb11c
+.text           0x0000000010003000     0xb344
                 0x0000000010003000                __hp1020_entry_code_start = .
  *(.entry.normalizer)
  .entry.normalizer
@@ -1406,880 +1420,887 @@ Linker script and memory map
                 0x00000000100074d4       0x26 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  *fill*         0x00000000100074fa        0x2 
  .text.terminal
-                0x00000000100074fc       0x53 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- *fill*         0x000000001000754f        0x1 
- .text.driver_xfer
-                0x0000000010007550       0xc7 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                                         0xcb (size before relaxing)
- *fill*         0x0000000010007617        0x1 
+                0x00000000100074fc       0x5d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x0000000010007559        0x3 
  .text.driver_reset
-                0x0000000010007618       0x6f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                                         0x73 (size before relaxing)
- *fill*         0x0000000010007687        0x1 
+                0x000000001000755c       0x6c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                                         0x70 (size before relaxing)
  .text.driver_deinit
-                0x0000000010007688       0x61 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x00000000100075c8       0x61 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
                                          0x65 (size before relaxing)
- *fill*         0x00000000100076e9        0x3 
+ *fill*         0x0000000010007629        0x3 
  .text.driver_open
-                0x00000000100076ec      0x10b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x000000001000762c      0x10b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
                                         0x10f (size before relaxing)
- *fill*         0x00000000100077f7        0x1 
+ *fill*         0x0000000010007737        0x1 
  .text.release_response
-                0x00000000100077f8       0x55 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- *fill*         0x000000001000784d        0x3 
+                0x0000000010007738       0x55 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000778d        0x3 
  .text.driver_control
-                0x0000000010007850      0x223 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x0000000010007790      0x223 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
                                         0x227 (size before relaxing)
- *fill*         0x0000000010007a73        0x1 
+ *fill*         0x00000000100079b3        0x1 
+ .text.driver_xfer
+                0x00000000100079b4      0x133 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                                        0x137 (size before relaxing)
+ *fill*         0x0000000010007ae7        0x1 
  .text.hp1020_tusb_adapter_driver
-                0x0000000010007a74        0x9 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                0x0000000010007a78                hp1020_tusb_adapter_driver
- *fill*         0x0000000010007a7d        0x3 
+                0x0000000010007ae8        0x9 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x0000000010007aec                hp1020_tusb_adapter_driver
+ *fill*         0x0000000010007af1        0x3 
  .text.hp1020_tusb_adapter_init
-                0x0000000010007a80       0xe7 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x0000000010007af4       0xe7 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
                                          0xeb (size before relaxing)
-                0x0000000010007a80                hp1020_tusb_adapter_init
- *fill*         0x0000000010007b67        0x1 
+                0x0000000010007af4                hp1020_tusb_adapter_init
+ *fill*         0x0000000010007bdb        0x1 
  .text.hp1020_tusb_adapter_route
-                0x0000000010007b68       0x87 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x0000000010007bdc       0x87 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
                                          0x8b (size before relaxing)
-                0x0000000010007b68                hp1020_tusb_adapter_route
- *fill*         0x0000000010007bef        0x1 
+                0x0000000010007bdc                hp1020_tusb_adapter_route
+ *fill*         0x0000000010007c63        0x1 
  .text.hp1020_tusb_adapter_bind_submission
-                0x0000000010007bf0       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                0x0000000010007bf4                hp1020_tusb_adapter_bind_submission
- *fill*         0x0000000010007c02        0x2 
+                0x0000000010007c64       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x0000000010007c68                hp1020_tusb_adapter_bind_submission
+ *fill*         0x0000000010007c76        0x2 
  .text.hp1020_tusb_adapter_complete
-                0x0000000010007c04      0x125 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                                        0x129 (size before relaxing)
-                0x0000000010007c04                hp1020_tusb_adapter_complete
- *fill*         0x0000000010007d29        0x3 
+                0x0000000010007c78      0x18a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                                        0x18e (size before relaxing)
+                0x0000000010007c78                hp1020_tusb_adapter_complete
+ *fill*         0x0000000010007e02        0x2 
  .text.hp1020_tusb_adapter_service
-                0x0000000010007d2c      0x5b4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                0x0000000010007d30                hp1020_tusb_adapter_service
+                0x0000000010007e04      0x5a8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                                        0x5ac (size before relaxing)
+                0x0000000010007e04                hp1020_tusb_adapter_service
  .text.hp1020_tusb_adapter_pending_reset
-                0x00000000100082e0       0x3d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                0x00000000100082e4                hp1020_tusb_adapter_pending_reset
- *fill*         0x000000001000831d        0x3 
+                0x00000000100083ac       0x3d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x00000000100083b0                hp1020_tusb_adapter_pending_reset
+ *fill*         0x00000000100083e9        0x3 
  .text.hp1020_usb_printer_setup
-                0x0000000010008320      0x176 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
-                0x0000000010008324                hp1020_usb_printer_setup
- *fill*         0x0000000010008496        0x2 
+                0x00000000100083ec      0x176 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
+                0x00000000100083f0                hp1020_usb_printer_setup
+ *fill*         0x0000000010008562        0x2 
  .text.hp1020_usb_document_init_documents
-                0x0000000010008498       0x6b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
-                0x000000001000849c                hp1020_usb_document_init_documents
- *fill*         0x0000000010008503        0x1 
+                0x0000000010008564       0x6b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
+                0x0000000010008568                hp1020_usb_document_init_documents
+ *fill*         0x00000000100085cf        0x1 
  .text.hp1020_usb_document_init
-                0x0000000010008504        0xe /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
-                0x0000000010008508                hp1020_usb_document_init
- *fill*         0x0000000010008512        0x2 
+                0x00000000100085d0        0xe /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
+                0x00000000100085d4                hp1020_usb_document_init
+ *fill*         0x00000000100085de        0x2 
  .text.hp1020_usb_document_restart
-                0x0000000010008514       0x61 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
+                0x00000000100085e0       0x61 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
                                          0x65 (size before relaxing)
-                0x0000000010008514                hp1020_usb_document_restart
- *fill*         0x0000000010008575        0x3 
+                0x00000000100085e0                hp1020_usb_document_restart
+ *fill*         0x0000000010008641        0x3 
  .text.hp1020_image_init
-                0x0000000010008578      0x18a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
-                0x000000001000857c                hp1020_image_init
- *fill*         0x0000000010008702        0x2 
+                0x0000000010008644      0x18a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
+                0x0000000010008648                hp1020_image_init
+ *fill*         0x00000000100087ce        0x2 
  .text.hp1020_image_feed
-                0x0000000010008704       0x83 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
-                0x0000000010008708                hp1020_image_feed
- *fill*         0x0000000010008787        0x1 
+                0x00000000100087d0       0x83 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
+                0x00000000100087d4                hp1020_image_feed
+ *fill*         0x0000000010008853        0x1 
  .text.band_out
-                0x0000000010008788       0x9b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
- *fill*         0x0000000010008823        0x1 
+                0x0000000010008854       0x9b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
+ *fill*         0x00000000100088ef        0x1 
  .text.chunk_in
-                0x0000000010008824      0x266 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
+                0x00000000100088f0      0x266 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
                                         0x26a (size before relaxing)
- *fill*         0x0000000010008a8a        0x2 
+ *fill*         0x0000000010008b56        0x2 
  .text.hp1020_image_stream_init_boundaries
-                0x0000000010008a8c       0x78 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
+                0x0000000010008b58       0x78 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
                                          0x7c (size before relaxing)
-                0x0000000010008a90                hp1020_image_stream_init_boundaries
+                0x0000000010008b5c                hp1020_image_stream_init_boundaries
  .text.hp1020_image_stream_feed
-                0x0000000010008b04        0xa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
-                0x0000000010008b08                hp1020_image_stream_feed
- *fill*         0x0000000010008b0e        0x2 
+                0x0000000010008bd0        0xa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
+                0x0000000010008bd4                hp1020_image_stream_feed
+ *fill*         0x0000000010008bda        0x2 
  .text.hp1020_image_stream_finish
-                0x0000000010008b10        0xa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
-                0x0000000010008b14                hp1020_image_stream_finish
- *fill*         0x0000000010008b1a        0x2 
- .text.consume  0x0000000010008b1c       0xca /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
+                0x0000000010008bdc        0xa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
+                0x0000000010008be0                hp1020_image_stream_finish
  *fill*         0x0000000010008be6        0x2 
+ .text.consume  0x0000000010008be8       0xca /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
+ *fill*         0x0000000010008cb2        0x2 
  .text.hp1020_image_output_init_documents
-                0x0000000010008be8       0x73 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
-                0x0000000010008bf0                hp1020_image_output_init_documents
- *fill*         0x0000000010008c5b        0x1 
- .text.items    0x0000000010008c5c      0x109 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
- *fill*         0x0000000010008d65        0x3 
+                0x0000000010008cb4       0x73 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
+                0x0000000010008cbc                hp1020_image_output_init_documents
+ *fill*         0x0000000010008d27        0x1 
+ .text.items    0x0000000010008d28      0x109 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
+ *fill*         0x0000000010008e31        0x3 
  .text.complete_chunk
-                0x0000000010008d68      0x279 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
- *fill*         0x0000000010008fe1        0x3 
+                0x0000000010008e34      0x279 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
+ *fill*         0x00000000100090ad        0x3 
  .text.hp1020_semantic_feed
-                0x0000000010008fe4      0x247 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
-                0x0000000010008fe8                hp1020_semantic_feed
- *fill*         0x000000001000922b        0x1 
+                0x00000000100090b0      0x247 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
+                0x00000000100090b4                hp1020_semantic_feed
+ *fill*         0x00000000100092f7        0x1 
  .text.hp1020_semantic_finish
-                0x000000001000922c       0x30 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
-                0x0000000010009230                hp1020_semantic_finish
+                0x00000000100092f8       0x30 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
+                0x00000000100092fc                hp1020_semantic_finish
  .text.hp1020_plan_page
-                0x000000001000925c       0xfd /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_page_plan.o
+                0x0000000010009328       0xfd /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_page_plan.o
                                         0x101 (size before relaxing)
-                0x0000000010009260                hp1020_plan_page
- *fill*         0x0000000010009359        0x3 
+                0x000000001000932c                hp1020_plan_page
+ *fill*         0x0000000010009425        0x3 
  .text.jbg85_dec_init
-                0x000000001000935c       0x4c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig85.o
-                0x0000000010009360                jbg85_dec_init
+                0x0000000010009428       0x4c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig85.o
+                0x000000001000942c                jbg85_dec_init
  .text.jbg85_dec_in
-                0x00000000100093a8      0x463 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig85.o
-                0x00000000100093b0                jbg85_dec_in
- *fill*         0x000000001000980b        0x1 
+                0x0000000010009474      0x463 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig85.o
+                0x000000001000947c                jbg85_dec_in
+ *fill*         0x00000000100098d7        0x1 
  .text.arith_decode
-                0x000000001000980c      0x145 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig_ar.o
-                0x0000000010009818                arith_decode
- *fill*         0x0000000010009951        0x3 
+                0x00000000100098d8      0x145 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig_ar.o
+                0x00000000100098e4                arith_decode
+ *fill*         0x0000000010009a1d        0x3 
  .text.tusb_rhport_init
-                0x0000000010009954       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb.o
-                0x000000001000995c                tusb_rhport_init
- *fill*         0x000000001000997f        0x1 
+                0x0000000010009a20       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb.o
+                0x0000000010009a28                tusb_rhport_init
+ *fill*         0x0000000010009a4b        0x1 
  .text.configuration_reset
-                0x0000000010009980       0x8b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
- *fill*         0x0000000010009a0b        0x1 
+                0x0000000010009a4c       0x8b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+ *fill*         0x0000000010009ad7        0x1 
  .text.usbd_int_set
-                0x0000000010009a0c       0x23 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
-                0x0000000010009a18                usbd_int_set
- *fill*         0x0000000010009a2f        0x1 
+                0x0000000010009ad8       0x23 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010009ae4                usbd_int_set
+ *fill*         0x0000000010009afb        0x1 
  .text.invoke_class_control$constprop$0$isra$0
-                0x0000000010009a30        0xc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010009afc        0xc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                          0x10 (size before relaxing)
  .text.tud_speed_get
-                0x0000000010009a3c        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010009b08        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                           0xc (size before relaxing)
-                0x0000000010009a3c                tud_speed_get
+                0x0000000010009b08                tud_speed_get
  .text.tud_mounted
-                0x0000000010009a44        0xd /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010009b10        0xd /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                          0x11 (size before relaxing)
-                0x0000000010009a44                tud_mounted
- *fill*         0x0000000010009a51        0x3 
+                0x0000000010009b10                tud_mounted
+ *fill*         0x0000000010009b1d        0x3 
  .text.tud_suspended
-                0x0000000010009a54       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010009b20       0x13 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                          0x17 (size before relaxing)
-                0x0000000010009a54                tud_suspended
- *fill*         0x0000000010009a67        0x1 
+                0x0000000010009b20                tud_suspended
+ *fill*         0x0000000010009b33        0x1 
  .text.tud_inited
-                0x0000000010009a68       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010009b34       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                          0x16 (size before relaxing)
-                0x0000000010009a68                tud_inited
- *fill*         0x0000000010009a7a        0x2 
+                0x0000000010009b34                tud_inited
+ *fill*         0x0000000010009b46        0x2 
  .text.tud_rhport_init
-                0x0000000010009a7c       0xb1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010009b48       0xb1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                          0xc1 (size before relaxing)
-                0x0000000010009a8c                tud_rhport_init
- *fill*         0x0000000010009b2d        0x3 
+                0x0000000010009b58                tud_rhport_init
+ *fill*         0x0000000010009bf9        0x3 
  .text.tud_task_event_ready
-                0x0000000010009b30       0x2f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010009bfc       0x2f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                          0x37 (size before relaxing)
-                0x0000000010009b30                tud_task_event_ready
- *fill*         0x0000000010009b5f        0x1 
+                0x0000000010009bfc                tud_task_event_ready
+ *fill*         0x0000000010009c2b        0x1 
  .text.dcd_event_handler
-                0x0000000010009b60      0x240 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010009c2c      0x240 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                         0x254 (size before relaxing)
-                0x0000000010009b68                dcd_event_handler
+                0x0000000010009c34                dcd_event_handler
  .text.usbd_edpt_open
-                0x0000000010009da0       0x34 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010009e6c       0x34 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                          0x38 (size before relaxing)
-                0x0000000010009da4                usbd_edpt_open
+                0x0000000010009e70                usbd_edpt_open
  .text.usbd_edpt_claim
-                0x0000000010009dd4       0x1d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010009ea0       0x1d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                          0x21 (size before relaxing)
-                0x0000000010009dd8                usbd_edpt_claim
- *fill*         0x0000000010009df1        0x3 
+                0x0000000010009ea4                usbd_edpt_claim
+ *fill*         0x0000000010009ebd        0x3 
  .text.usbd_edpt_release
-                0x0000000010009df4       0x1d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010009ec0       0x1d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                          0x21 (size before relaxing)
-                0x0000000010009df8                usbd_edpt_release
- *fill*         0x0000000010009e11        0x3 
+                0x0000000010009ec4                usbd_edpt_release
+ *fill*         0x0000000010009edd        0x3 
  .text.usbd_edpt_xfer
-                0x0000000010009e14       0x67 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010009ee0       0x67 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                          0x6f (size before relaxing)
-                0x0000000010009e14                usbd_edpt_xfer
- *fill*         0x0000000010009e7b        0x1 
+                0x0000000010009ee0                usbd_edpt_xfer
+ *fill*         0x0000000010009f47        0x1 
  .text.tud_control_status
-                0x0000000010009e7c       0x35 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010009f48       0x35 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                          0x39 (size before relaxing)
-                0x0000000010009e80                tud_control_status
- *fill*         0x0000000010009eb1        0x3 
- .text.data_stage_xact
-                0x0000000010009eb4       0x83 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
-                                         0x8b (size before relaxing)
- *fill*         0x0000000010009f37        0x1 
- .text.tud_control_xfer
-                0x0000000010009f38       0x45 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
-                                         0x4d (size before relaxing)
-                0x0000000010009f3c                tud_control_xfer
+                0x0000000010009f4c                tud_control_status
  *fill*         0x0000000010009f7d        0x3 
+ .text.data_stage_xact
+                0x0000000010009f80       0x83 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                                         0x8b (size before relaxing)
+ *fill*         0x000000001000a003        0x1 
+ .text.tud_control_xfer
+                0x000000001000a004       0x45 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                                         0x4d (size before relaxing)
+                0x000000001000a008                tud_control_xfer
+ *fill*         0x000000001000a049        0x3 
  .text.usbd_edpt_busy
-                0x0000000010009f80       0x19 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x000000001000a04c       0x19 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                          0x1d (size before relaxing)
-                0x0000000010009f80                usbd_edpt_busy
- *fill*         0x0000000010009f99        0x3 
+                0x000000001000a04c                usbd_edpt_busy
+ *fill*         0x000000001000a065        0x3 
  .text.usbd_edpt_stall
-                0x0000000010009f9c       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x000000001000a068       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                          0x48 (size before relaxing)
-                0x0000000010009f9c                usbd_edpt_stall
+                0x000000001000a068                usbd_edpt_stall
  .text.usbd_edpt_clear_stall
-                0x0000000010009fdc       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x000000001000a0a8       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                          0x48 (size before relaxing)
-                0x0000000010009fdc                usbd_edpt_clear_stall
+                0x000000001000a0a8                usbd_edpt_clear_stall
  .text.usbd_edpt_stalled
-                0x000000001000a01c       0x19 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x000000001000a0e8       0x19 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                          0x1d (size before relaxing)
-                0x000000001000a01c                usbd_edpt_stalled
- *fill*         0x000000001000a035        0x3 
+                0x000000001000a0e8                usbd_edpt_stalled
+ *fill*         0x000000001000a101        0x3 
  .text.tud_task_ext
-                0x000000001000a038      0x688 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x000000001000a104      0x688 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                         0x6ac (size before relaxing)
-                0x000000001000a048                tud_task_ext
- *fill*         0x000000001000a6c0        0x0 
+                0x000000001000a114                tud_task_ext
+ *fill*         0x000000001000a78c        0x0 
  .text.scan_zero
-                0x000000001000a6c0       0x23 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime.o
- *fill*         0x000000001000a6e3        0x0 
- *fill*         0x000000001000a6e3        0x0 
- *fill*         0x000000001000a6e3        0x0 
- *fill*         0x000000001000a6e3        0x0 
- *fill*         0x000000001000a6e3        0x0 
- *fill*         0x000000001000a6e3        0x0 
- *fill*         0x000000001000a6e3        0x0 
- *fill*         0x000000001000a6e3        0x0 
- *fill*         0x000000001000a6e3        0x0 
- *fill*         0x000000001000a6e3        0x0 
- *fill*         0x000000001000a6e3        0x0 
- *fill*         0x000000001000a6e3        0x1 
+                0x000000001000a78c       0x23 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime.o
+ *fill*         0x000000001000a7af        0x0 
+ *fill*         0x000000001000a7af        0x0 
+ *fill*         0x000000001000a7af        0x0 
+ *fill*         0x000000001000a7af        0x0 
+ *fill*         0x000000001000a7af        0x0 
+ *fill*         0x000000001000a7af        0x0 
+ *fill*         0x000000001000a7af        0x0 
+ *fill*         0x000000001000a7af        0x0 
+ *fill*         0x000000001000a7af        0x0 
+ *fill*         0x000000001000a7af        0x0 
+ *fill*         0x000000001000a7af        0x0 
+ *fill*         0x000000001000a7af        0x1 
  .text.load_word
-                0x000000001000a6e4        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- *fill*         0x000000001000a6e8        0x0 
- .text.valid    0x000000001000a6e8       0x3f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
- *fill*         0x000000001000a727        0x1 
- .text.order    0x000000001000a728       0x9f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
- *fill*         0x000000001000a7c7        0x1 
+                0x000000001000a7b0        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ *fill*         0x000000001000a7b4        0x0 
+ .text.valid    0x000000001000a7b4       0x3f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
+ *fill*         0x000000001000a7f3        0x1 
+ .text.order    0x000000001000a7f4       0x9f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
+ *fill*         0x000000001000a893        0x1 
  .text.preflight_read
-                0x000000001000a7c8       0x4f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
- *fill*         0x000000001000a817        0x1 
- .text.write32  0x000000001000a818       0xa7 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
- *fill*         0x000000001000a8bf        0x0 
- *fill*         0x000000001000a8bf        0x1 
+                0x000000001000a894       0x4f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
+ *fill*         0x000000001000a8e3        0x1 
+ .text.write32  0x000000001000a8e4       0xa7 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
+ *fill*         0x000000001000a98b        0x0 
+ *fill*         0x000000001000a98b        0x1 
  .text.hp1020_udc_publish_progress
-                0x000000001000a8c0       0x57 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
-                0x000000001000a8c0                hp1020_udc_publish_progress
- *fill*         0x000000001000a917        0x1 
+                0x000000001000a98c       0x57 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
+                0x000000001000a98c                hp1020_udc_publish_progress
+ *fill*         0x000000001000a9e3        0x1 
  .text.hp1020_udc_publish_submission_allowed
-                0x000000001000a918       0x30 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
-                0x000000001000a918                hp1020_udc_publish_submission_allowed
+                0x000000001000a9e4       0x30 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
+                0x000000001000a9e4                hp1020_udc_publish_submission_allowed
  .text.hp1020_udc_publish_service
-                0x000000001000a948       0x47 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
-                0x000000001000a948                hp1020_udc_publish_service
- *fill*         0x000000001000a98f        0x0 
- *fill*         0x000000001000a98f        0x1 
- .text.valid    0x000000001000a990       0x26 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
- *fill*         0x000000001000a9b6        0x2 
+                0x000000001000aa14       0x47 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
+                0x000000001000aa14                hp1020_udc_publish_service
+ *fill*         0x000000001000aa5b        0x0 
+ *fill*         0x000000001000aa5b        0x1 
+ .text.valid    0x000000001000aa5c       0x26 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
+ *fill*         0x000000001000aa82        0x2 
  .text.configuration_request
-                0x000000001000a9b8       0x52 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
- *fill*         0x000000001000aa0a        0x2 
+                0x000000001000aa84       0x52 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
+ *fill*         0x000000001000aad6        0x2 
  .text.no_owners
-                0x000000001000aa0c       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
- *fill*         0x000000001000aa37        0x1 
+                0x000000001000aad8       0x36 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
+ *fill*         0x000000001000ab0e        0x2 
  .text.fact_result
-                0x000000001000aa38       0x58 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
- .text.rd       0x000000001000aa90       0xaa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
- *fill*         0x000000001000ab3a        0x2 
- .text.wr       0x000000001000ab3c       0xbf /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
- *fill*         0x000000001000abfb        0x1 
- .text.order    0x000000001000abfc       0x57 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
- *fill*         0x000000001000ac53        0x1 
+                0x000000001000ab10       0x58 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
+ .text.rd       0x000000001000ab68       0xaa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
+ *fill*         0x000000001000ac12        0x2 
+ .text.wr       0x000000001000ac14       0xbf /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
+ *fill*         0x000000001000acd3        0x1 
+ .text.order    0x000000001000acd4       0x57 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
+ *fill*         0x000000001000ad2b        0x1 
  .text.callback_context
-                0x000000001000ac54       0x4a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
- *fill*         0x000000001000ac9e        0x2 
- .text.enter    0x000000001000aca0       0x30 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
+                0x000000001000ad2c       0x4a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
+ *fill*         0x000000001000ad76        0x2 
+ .text.enter    0x000000001000ad78       0x30 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
  .text.hp1020_udc_program_init
-                0x000000001000acd0      0x111 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
-                0x000000001000acd0                hp1020_udc_program_init
- *fill*         0x000000001000ade1        0x3 
+                0x000000001000ada8      0x111 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
+                0x000000001000ada8                hp1020_udc_program_init
+ *fill*         0x000000001000aeb9        0x3 
  .text.hp1020_udc_program_progress
-                0x000000001000ade4       0x53 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
-                0x000000001000ade4                hp1020_udc_program_progress
- *fill*         0x000000001000ae37        0x0 
- *fill*         0x000000001000ae37        0x1 
+                0x000000001000aebc       0x53 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
+                0x000000001000aebc                hp1020_udc_program_progress
+ *fill*         0x000000001000af0f        0x0 
+ *fill*         0x000000001000af0f        0x1 
  .text.hp1020_udc_program_service
-                0x000000001000ae38       0x99 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
-                0x000000001000ae38                hp1020_udc_program_service
- *fill*         0x000000001000aed1        0x3 
+                0x000000001000af10       0x9d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
+                0x000000001000af10                hp1020_udc_program_service
+ *fill*         0x000000001000afad        0x3 
  .text.hp1020_udc_program_open
-                0x000000001000aed4      0x1bf /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
-                0x000000001000aed4                hp1020_udc_program_open
- *fill*         0x000000001000b093        0x1 
- .text.be32     0x000000001000b094       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
+                0x000000001000afb0      0x1bf /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
+                0x000000001000afb0                hp1020_udc_program_open
+ *fill*         0x000000001000b16f        0x1 
+ .text.be32     0x000000001000b170       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
  .text.cpu_span_valid
-                0x000000001000b0b4       0x22 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
- *fill*         0x000000001000b0d6        0x2 
+                0x000000001000b190       0x22 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
+ *fill*         0x000000001000b1b2        0x2 
  .text.cpu_overlap
-                0x000000001000b0d8       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
- *fill*         0x000000001000b0f6        0x2 
+                0x000000001000b1b4       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
+ *fill*         0x000000001000b1d2        0x2 
  .text.report_fault
-                0x000000001000b0f8       0x47 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
- *fill*         0x000000001000b13f        0x1 
- .text.enter    0x000000001000b140       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
- *fill*         0x000000001000b15e        0x2 
+                0x000000001000b1d4       0x47 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
+ *fill*         0x000000001000b21b        0x1 
+ .text.enter    0x000000001000b21c       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
+ *fill*         0x000000001000b23a        0x2 
  .text.current$isra$0
-                0x000000001000b160       0x60 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
- *fill*         0x000000001000b1c0        0x0 
+                0x000000001000b23c       0x60 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
+ *fill*         0x000000001000b29c        0x0 
  .text.hp1020_udc_ep0_prepare
-                0x000000001000b1c0      0x1ae /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
-                0x000000001000b1c0                hp1020_udc_ep0_prepare
- *fill*         0x000000001000b36e        0x2 
+                0x000000001000b29c      0x1ae /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
+                0x000000001000b29c                hp1020_udc_ep0_prepare
+ *fill*         0x000000001000b44a        0x2 
  .text.hp1020_udc_ep0_take_submission
-                0x000000001000b370      0x102 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
-                0x000000001000b370                hp1020_udc_ep0_take_submission
- *fill*         0x000000001000b472        0x0 
- *fill*         0x000000001000b472        0x2 
- .text.be32     0x000000001000b474       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
+                0x000000001000b44c      0x102 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
+                0x000000001000b44c                hp1020_udc_ep0_take_submission
+ *fill*         0x000000001000b54e        0x0 
+ *fill*         0x000000001000b54e        0x2 
+ .text.be32     0x000000001000b550       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
  .text.cpu_span_valid
-                0x000000001000b494       0x22 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
- *fill*         0x000000001000b4b6        0x2 
+                0x000000001000b570       0x22 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
+ *fill*         0x000000001000b592        0x2 
  .text.cpu_overlap
-                0x000000001000b4b8       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
- *fill*         0x000000001000b4d6        0x2 
+                0x000000001000b594       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
+ *fill*         0x000000001000b5b2        0x2 
  .text.span_valid
-                0x000000001000b4d8       0x4d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
- *fill*         0x000000001000b525        0x3 
- .text.retire   0x000000001000b528       0x33 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
- *fill*         0x000000001000b55b        0x1 
+                0x000000001000b5b4       0x4d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
+ *fill*         0x000000001000b601        0x3 
+ .text.retire   0x000000001000b604       0x33 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
+ *fill*         0x000000001000b637        0x1 
  .text.report_fault
-                0x000000001000b55c       0x3f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
- *fill*         0x000000001000b59b        0x0 
- *fill*         0x000000001000b59b        0x1 
- .text.enter    0x000000001000b59c       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
- *fill*         0x000000001000b5ba        0x2 
+                0x000000001000b638       0x3f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
+ *fill*         0x000000001000b677        0x0 
+ *fill*         0x000000001000b677        0x1 
+ .text.enter    0x000000001000b678       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
+ *fill*         0x000000001000b696        0x2 
  .text.current$isra$0
-                0x000000001000b5bc       0x57 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
- *fill*         0x000000001000b613        0x0 
- *fill*         0x000000001000b613        0x1 
+                0x000000001000b698       0x57 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
+ *fill*         0x000000001000b6ef        0x0 
+ *fill*         0x000000001000b6ef        0x1 
  .text.hp1020_udc_out_init
-                0x000000001000b614       0xc7 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
-                0x000000001000b614                hp1020_udc_out_init
- *fill*         0x000000001000b6db        0x1 
+                0x000000001000b6f0       0xc7 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
+                0x000000001000b6f0                hp1020_udc_out_init
+ *fill*         0x000000001000b7b7        0x1 
  .text.hp1020_udc_out_prepare
-                0x000000001000b6dc      0x166 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
-                0x000000001000b6dc                hp1020_udc_out_prepare
- *fill*         0x000000001000b842        0x0 
- *fill*         0x000000001000b842        0x2 
+                0x000000001000b7b8      0x166 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
+                0x000000001000b7b8                hp1020_udc_out_prepare
+ *fill*         0x000000001000b91e        0x0 
+ *fill*         0x000000001000b91e        0x2 
  .text.hp1020_udc_out_request_cancel
-                0x000000001000b844       0x4b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
-                0x000000001000b844                hp1020_udc_out_request_cancel
- *fill*         0x000000001000b88f        0x1 
+                0x000000001000b920       0x4b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
+                0x000000001000b920                hp1020_udc_out_request_cancel
+ *fill*         0x000000001000b96b        0x1 
  .text.hp1020_udc_acquire_init
-                0x000000001000b890      0x167 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
-                0x000000001000b890                hp1020_udc_acquire_init
- *fill*         0x000000001000b9f7        0x0 
- *fill*         0x000000001000b9f7        0x1 
+                0x000000001000b96c      0x167 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
+                0x000000001000b96c                hp1020_udc_acquire_init
+ *fill*         0x000000001000bad3        0x0 
+ *fill*         0x000000001000bad3        0x1 
  .text.cpu_overlap
-                0x000000001000b9f8       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
- *fill*         0x000000001000ba16        0x2 
- .text.enter    0x000000001000ba18       0x30 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
+                0x000000001000bad4       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
+ *fill*         0x000000001000baf2        0x2 
+ .text.enter    0x000000001000baf4       0x30 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
  .text.adapter_result
-                0x000000001000ba48       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
- *fill*         0x000000001000ba7a        0x2 
+                0x000000001000bb24       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
+ *fill*         0x000000001000bb56        0x2 
  .text.hp1020_udc_setup_init
-                0x000000001000ba7c       0x85 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
-                0x000000001000ba7c                hp1020_udc_setup_init
- *fill*         0x000000001000bb01        0x3 
+                0x000000001000bb58       0x85 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
+                0x000000001000bb58                hp1020_udc_setup_init
+ *fill*         0x000000001000bbdd        0x3 
  .text.hp1020_udc_setup_offer
-                0x000000001000bb04       0xb3 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
-                0x000000001000bb04                hp1020_udc_setup_offer
- *fill*         0x000000001000bbb7        0x1 
+                0x000000001000bbe0       0xb3 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
+                0x000000001000bbe0                hp1020_udc_setup_offer
+ *fill*         0x000000001000bc93        0x1 
  .text.hp1020_udc_setup_dispatch
-                0x000000001000bbb8      0x104 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
-                0x000000001000bbb8                hp1020_udc_setup_dispatch
+                0x000000001000bc94      0x104 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
+                0x000000001000bc94                hp1020_udc_setup_dispatch
  .text.hp1020_udc_setup_bus_reset
-                0x000000001000bcbc       0x9a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
-                0x000000001000bcbc                hp1020_udc_setup_bus_reset
- *fill*         0x000000001000bd56        0x2 
+                0x000000001000bd98       0x9a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
+                0x000000001000bd98                hp1020_udc_setup_bus_reset
+ *fill*         0x000000001000be32        0x2 
  .text.hp1020_udc_setup_progress
-                0x000000001000bd58       0x48 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
-                0x000000001000bd58                hp1020_udc_setup_progress
- .text.enter    0x000000001000bda0       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- *fill*         0x000000001000bdcb        0x1 
+                0x000000001000be34       0x48 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
+                0x000000001000be34                hp1020_udc_setup_progress
+ .text.enter    0x000000001000be7c       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000bea7        0x1 
  .text.ep0_owned
-                0x000000001000bdcc       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- *fill*         0x000000001000bdde        0x2 
+                0x000000001000bea8       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000beba        0x2 
+ .text.out_owned
+                0x000000001000bebc       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .text.bulk_owned
-                0x000000001000bde0       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x000000001000bee4       0x3d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000bf21        0x3 
  .text.driver_init
-                0x000000001000be08        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- *fill*         0x000000001000be0a        0x2 
+                0x000000001000bf24        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000bf26        0x2 
  .text.endpoint_descriptor
-                0x000000001000be0c       0x3a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- *fill*         0x000000001000be46        0x2 
+                0x000000001000bf28       0x3a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000bf62        0x2 
  .text.same_reset
-                0x000000001000be48       0x39 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- *fill*         0x000000001000be81        0x3 
+                0x000000001000bf64       0x39 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000bf9d        0x3 
+ .text.in_binding_ready
+                0x000000001000bfa0       0x7c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .text.transport_ready
-                0x000000001000be84       0x65 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- *fill*         0x000000001000bee9        0x3 
+                0x000000001000c01c       0x65 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000c081        0x3 
  .text.owner_for
-                0x000000001000beec       0x1a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- *fill*         0x000000001000bf06        0x2 
+                0x000000001000c084       0x26 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000c0aa        0x2 
  .text.request_cancel
-                0x000000001000bf08       0x23 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- *fill*         0x000000001000bf2b        0x0 
- *fill*         0x000000001000bf2b        0x0 
- *fill*         0x000000001000bf2b        0x1 
- .text.advance  0x000000001000bf2c       0x2a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- *fill*         0x000000001000bf56        0x2 
- .text.fence    0x000000001000bf58       0x5b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- *fill*         0x000000001000bfb3        0x0 
- *fill*         0x000000001000bfb3        0x0 
- *fill*         0x000000001000bfb3        0x0 
- *fill*         0x000000001000bfb3        0x0 
- *fill*         0x000000001000bfb3        0x1 
+                0x000000001000c0ac       0x23 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000c0cf        0x0 
+ *fill*         0x000000001000c0cf        0x0 
+ *fill*         0x000000001000c0cf        0x1 
+ .text.advance  0x000000001000c0d0       0x2a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000c0fa        0x2 
+ .text.fence    0x000000001000c0fc       0x65 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000c161        0x0 
+ *fill*         0x000000001000c161        0x0 
+ *fill*         0x000000001000c161        0x3 
  .text.bind_submission
-                0x000000001000bfb4      0x1cb /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- *fill*         0x000000001000c17f        0x0 
- *fill*         0x000000001000c17f        0x1 
+                0x000000001000c164      0x20f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000c373        0x0 
+ *fill*         0x000000001000c373        0x1 
  .text.take_reply
-                0x000000001000c180       0xb6 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- *fill*         0x000000001000c236        0x0 
- *fill*         0x000000001000c236        0x2 
+                0x000000001000c374       0xb6 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000c42a        0x0 
+ *fill*         0x000000001000c42a        0x2 
  .text.drain_stack
-                0x000000001000c238       0x63 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- *fill*         0x000000001000c29b        0x1 
+                0x000000001000c42c       0x5f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000c48b        0x1 
+ .text.current_transport$isra$0
+                0x000000001000c48c       0x23 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000c4af        0x0 
+ *fill*         0x000000001000c4af        0x1 
  .text.admit_control
-                0x000000001000c29c      0x1b7 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- *fill*         0x000000001000c453        0x0 
- *fill*         0x000000001000c453        0x0 
- *fill*         0x000000001000c453        0x0 
- *fill*         0x000000001000c453        0x1 
+                0x000000001000c4b0      0x1ad /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000c65d        0x0 
+ *fill*         0x000000001000c65d        0x0 
+ *fill*         0x000000001000c65d        0x0 
+ *fill*         0x000000001000c65d        0x3 
  .text.hp1020_tusb_adapter_setup
-                0x000000001000c454       0x53 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                0x000000001000c454                hp1020_tusb_adapter_setup
- *fill*         0x000000001000c4a7        0x1 
+                0x000000001000c660       0x53 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x000000001000c660                hp1020_tusb_adapter_setup
+ *fill*         0x000000001000c6b3        0x1 
  .text.hp1020_tusb_adapter_bus_reset
-                0x000000001000c4a8       0x85 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                0x000000001000c4a8                hp1020_tusb_adapter_bus_reset
- *fill*         0x000000001000c52d        0x0 
- *fill*         0x000000001000c52d        0x0 
- *fill*         0x000000001000c52d        0x3 
+                0x000000001000c6b4       0x85 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x000000001000c6b4                hp1020_tusb_adapter_bus_reset
+ *fill*         0x000000001000c739        0x0 
+ *fill*         0x000000001000c739        0x0 
+ *fill*         0x000000001000c739        0x3 
  .text.hp1020_tusb_adapter_packet_fault
-                0x000000001000c530      0x122 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                0x000000001000c530                hp1020_tusb_adapter_packet_fault
- *fill*         0x000000001000c652        0x2 
+                0x000000001000c73c      0x149 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x000000001000c73c                hp1020_tusb_adapter_packet_fault
+ *fill*         0x000000001000c885        0x3 
  .text.hp1020_tusb_adapter_fault
-                0x000000001000c654       0x51 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                0x000000001000c654                hp1020_tusb_adapter_fault
- *fill*         0x000000001000c6a5        0x3 
+                0x000000001000c888       0x51 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x000000001000c888                hp1020_tusb_adapter_fault
+ *fill*         0x000000001000c8d9        0x3 
  .text.hp1020_tusb_adapter_arm_out
-                0x000000001000c6a8      0x145 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                0x000000001000c6a8                hp1020_tusb_adapter_arm_out
- *fill*         0x000000001000c7ed        0x3 
+                0x000000001000c8dc      0x145 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x000000001000c8dc                hp1020_tusb_adapter_arm_out
+ *fill*         0x000000001000ca21        0x3 
  .text.hp1020_tusb_adapter_pump
-                0x000000001000c7f0       0x4d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                0x000000001000c7f0                hp1020_tusb_adapter_pump
- *fill*         0x000000001000c83d        0x3 
+                0x000000001000ca24       0x4d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x000000001000ca24                hp1020_tusb_adapter_pump
+ *fill*         0x000000001000ca71        0x3 
  .text.hp1020_tusb_adapter_close_input
-                0x000000001000c840       0x2f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                0x000000001000c840                hp1020_tusb_adapter_close_input
- *fill*         0x000000001000c86f        0x1 
+                0x000000001000ca74       0x2f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x000000001000ca74                hp1020_tusb_adapter_close_input
+ *fill*         0x000000001000caa3        0x1 
  .text.hp1020_tusb_adapter_finish
-                0x000000001000c870       0x6f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                0x000000001000c870                hp1020_tusb_adapter_finish
- *fill*         0x000000001000c8df        0x0 
- *fill*         0x000000001000c8df        0x1 
+                0x000000001000caa4       0x6f /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x000000001000caa4                hp1020_tusb_adapter_finish
+ *fill*         0x000000001000cb13        0x0 
+ *fill*         0x000000001000cb13        0x1 
  .text.hp1020_tusb_adapter_ack_reset
-                0x000000001000c8e0       0x95 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                0x000000001000c8e0                hp1020_tusb_adapter_ack_reset
- *fill*         0x000000001000c975        0x3 
+                0x000000001000cb14       0x8b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x000000001000cb14                hp1020_tusb_adapter_ack_reset
+ *fill*         0x000000001000cb9f        0x1 
  .text.hp1020_tusb_adapter_finish_reset
-                0x000000001000c978       0xd3 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                0x000000001000c978                hp1020_tusb_adapter_finish_reset
- *fill*         0x000000001000ca4b        0x1 
+                0x000000001000cba0       0xd3 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x000000001000cba0                hp1020_tusb_adapter_finish_reset
+ *fill*         0x000000001000cc73        0x1 
  .text.invalidate_reset
-                0x000000001000ca4c       0x1c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
+                0x000000001000cc74       0x1c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
  .text.check_reset
-                0x000000001000ca68       0x63 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
- *fill*         0x000000001000cacb        0x1 
+                0x000000001000cc90       0x63 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
+ *fill*         0x000000001000ccf3        0x1 
  .text.exhaust$isra$0
-                0x000000001000cacc       0x2a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
- *fill*         0x000000001000caf6        0x2 
+                0x000000001000ccf4       0x2a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
+ *fill*         0x000000001000cd1e        0x2 
  .text.begin_recovery
-                0x000000001000caf8       0x69 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
- *fill*         0x000000001000cb61        0x3 
+                0x000000001000cd20       0x69 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
+ *fill*         0x000000001000cd89        0x3 
  .text.hp1020_usb_printer_init
-                0x000000001000cb64       0x74 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
-                0x000000001000cb64                hp1020_usb_printer_init
- *fill*         0x000000001000cbd8        0x0 
+                0x000000001000cd8c       0x74 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
+                0x000000001000cd8c                hp1020_usb_printer_init
+ *fill*         0x000000001000ce00        0x0 
  .text.hp1020_usb_printer_begin_transport_recovery
-                0x000000001000cbd8       0x43 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
-                0x000000001000cbd8                hp1020_usb_printer_begin_transport_recovery
- *fill*         0x000000001000cc1b        0x1 
+                0x000000001000ce00       0x43 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
+                0x000000001000ce00                hp1020_usb_printer_begin_transport_recovery
+ *fill*         0x000000001000ce43        0x1 
  .text.hp1020_usb_printer_pending_reset
-                0x000000001000cc1c       0x38 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
-                0x000000001000cc1c                hp1020_usb_printer_pending_reset
+                0x000000001000ce44       0x38 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
+                0x000000001000ce44                hp1020_usb_printer_pending_reset
  .text.hp1020_usb_printer_ack_reset
-                0x000000001000cc54       0x69 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
-                0x000000001000cc54                hp1020_usb_printer_ack_reset
- *fill*         0x000000001000ccbd        0x3 
+                0x000000001000ce7c       0x69 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
+                0x000000001000ce7c                hp1020_usb_printer_ack_reset
+ *fill*         0x000000001000cee5        0x3 
  .text.hp1020_usb_printer_finish_reset
-                0x000000001000ccc0       0x73 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
-                0x000000001000ccc0                hp1020_usb_printer_finish_reset
- *fill*         0x000000001000cd33        0x1 
+                0x000000001000cee8       0x73 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
+                0x000000001000cee8                hp1020_usb_printer_finish_reset
+ *fill*         0x000000001000cf5b        0x1 
  .text.hp1020_usb_printer_take_response
-                0x000000001000cd34       0xbe /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
-                0x000000001000cd34                hp1020_usb_printer_take_response
- *fill*         0x000000001000cdf2        0x2 
+                0x000000001000cf5c       0xbe /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
+                0x000000001000cf5c                hp1020_usb_printer_take_response
+ *fill*         0x000000001000d01a        0x2 
  .text.hp1020_usb_printer_ep0_quiesced
-                0x000000001000cdf4       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
-                0x000000001000cdf4                hp1020_usb_printer_ep0_quiesced
- *fill*         0x000000001000ce26        0x2 
+                0x000000001000d01c       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
+                0x000000001000d01c                hp1020_usb_printer_ep0_quiesced
+ *fill*         0x000000001000d04e        0x2 
  .text.hp1020_usb_printer_fault
-                0x000000001000ce28       0x4b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
-                0x000000001000ce28                hp1020_usb_printer_fault
- *fill*         0x000000001000ce73        0x1 
- .text.slot     0x000000001000ce74       0x49 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
- *fill*         0x000000001000cebd        0x3 
+                0x000000001000d050       0x4b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
+                0x000000001000d050                hp1020_usb_printer_fault
+ *fill*         0x000000001000d09b        0x1 
+ .text.slot     0x000000001000d09c       0x49 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
+ *fill*         0x000000001000d0e5        0x3 
  .text.hp1020_usb_receive_init
-                0x000000001000cec0       0x3c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
-                0x000000001000cec0                hp1020_usb_receive_init
+                0x000000001000d0e8       0x3c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
+                0x000000001000d0e8                hp1020_usb_receive_init
  .text.hp1020_usb_receive_reserve
-                0x000000001000cefc       0x78 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
-                0x000000001000cefc                hp1020_usb_receive_reserve
+                0x000000001000d124       0x78 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
+                0x000000001000d124                hp1020_usb_receive_reserve
  .text.hp1020_usb_receive_complete_data
-                0x000000001000cf74       0x57 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
-                0x000000001000cf74                hp1020_usb_receive_complete_data
- *fill*         0x000000001000cfcb        0x1 
+                0x000000001000d19c       0x57 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
+                0x000000001000d19c                hp1020_usb_receive_complete_data
+ *fill*         0x000000001000d1f3        0x1 
  .text.hp1020_usb_receive_fault
-                0x000000001000cfcc       0x2c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
-                0x000000001000cfcc                hp1020_usb_receive_fault
+                0x000000001000d1f4       0x2c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
+                0x000000001000d1f4                hp1020_usb_receive_fault
  .text.hp1020_usb_receive_peek
-                0x000000001000cff8       0x3e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
-                0x000000001000cff8                hp1020_usb_receive_peek
- *fill*         0x000000001000d036        0x2 
+                0x000000001000d220       0x3e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
+                0x000000001000d220                hp1020_usb_receive_peek
+ *fill*         0x000000001000d25e        0x2 
  .text.hp1020_usb_receive_release
-                0x000000001000d038       0x51 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
-                0x000000001000d038                hp1020_usb_receive_release
- *fill*         0x000000001000d089        0x3 
+                0x000000001000d260       0x51 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
+                0x000000001000d260                hp1020_usb_receive_release
+ *fill*         0x000000001000d2b1        0x3 
  .text.hp1020_usb_receive_stop
-                0x000000001000d08c        0x7 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
-                0x000000001000d08c                hp1020_usb_receive_stop
- *fill*         0x000000001000d093        0x1 
+                0x000000001000d2b4        0x7 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
+                0x000000001000d2b4                hp1020_usb_receive_stop
+ *fill*         0x000000001000d2bb        0x1 
  .text.hp1020_usb_receive_quiesced
-                0x000000001000d094       0x1a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
-                0x000000001000d094                hp1020_usb_receive_quiesced
- *fill*         0x000000001000d0ae        0x2 
+                0x000000001000d2bc       0x1a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
+                0x000000001000d2bc                hp1020_usb_receive_quiesced
+ *fill*         0x000000001000d2d6        0x2 
  .text.hp1020_usb_receive_restart
-                0x000000001000d0b0       0x64 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
-                0x000000001000d0b0                hp1020_usb_receive_restart
+                0x000000001000d2d8       0x64 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
+                0x000000001000d2d8                hp1020_usb_receive_restart
  .text.document_out
-                0x000000001000d114       0x45 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
- *fill*         0x000000001000d159        0x0 
- *fill*         0x000000001000d159        0x0 
- *fill*         0x000000001000d159        0x3 
+                0x000000001000d33c       0x45 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
+ *fill*         0x000000001000d381        0x0 
+ *fill*         0x000000001000d381        0x0 
+ *fill*         0x000000001000d381        0x3 
  .text.hp1020_usb_document_pump
-                0x000000001000d15c       0x86 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
-                0x000000001000d15c                hp1020_usb_document_pump
- *fill*         0x000000001000d1e2        0x2 
+                0x000000001000d384       0x86 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
+                0x000000001000d384                hp1020_usb_document_pump
+ *fill*         0x000000001000d40a        0x2 
  .text.hp1020_usb_document_finish
-                0x000000001000d1e4       0x49 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
-                0x000000001000d1e4                hp1020_usb_document_finish
- *fill*         0x000000001000d22d        0x3 
+                0x000000001000d40c       0x49 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
+                0x000000001000d40c                hp1020_usb_document_finish
+ *fill*         0x000000001000d455        0x3 
  .text.hp1020_usb_document_output_quiesced
-                0x000000001000d230       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
-                0x000000001000d230                hp1020_usb_document_output_quiesced
- *fill*         0x000000001000d24e        0x0 
- *fill*         0x000000001000d24e        0x2 
- .text.be32     0x000000001000d250       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
- .text.row_out  0x000000001000d270       0x74 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
+                0x000000001000d458       0x1e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
+                0x000000001000d458                hp1020_usb_document_output_quiesced
+ *fill*         0x000000001000d476        0x0 
+ *fill*         0x000000001000d476        0x2 
+ .text.be32     0x000000001000d478       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
+ .text.row_out  0x000000001000d498       0x74 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
  .text.result$part$0
-                0x000000001000d2e4       0x5a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
- *fill*         0x000000001000d33e        0x0 
- *fill*         0x000000001000d33e        0x0 
- *fill*         0x000000001000d33e        0x2 
+                0x000000001000d50c       0x5a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
+ *fill*         0x000000001000d566        0x0 
+ *fill*         0x000000001000d566        0x0 
+ *fill*         0x000000001000d566        0x2 
  .text.hp1020_image_release
-                0x000000001000d340       0x2a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
-                0x000000001000d340                hp1020_image_release
- *fill*         0x000000001000d36a        0x2 
+                0x000000001000d568       0x2a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
+                0x000000001000d568                hp1020_image_release
+ *fill*         0x000000001000d592        0x2 
  .text.hp1020_image_finish
-                0x000000001000d36c       0x64 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
-                0x000000001000d36c                hp1020_image_finish
+                0x000000001000d594       0x64 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
+                0x000000001000d594                hp1020_image_finish
  .text.image_error
-                0x000000001000d3d0       0x1a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
- *fill*         0x000000001000d3ea        0x2 
+                0x000000001000d5f8       0x1a /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
+ *fill*         0x000000001000d612        0x2 
  .text.boundary_out
-                0x000000001000d3ec       0x37 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
- *fill*         0x000000001000d423        0x0 
- *fill*         0x000000001000d423        0x0 
- *fill*         0x000000001000d423        0x0 
- *fill*         0x000000001000d423        0x0 
- *fill*         0x000000001000d423        0x1 
+                0x000000001000d614       0x37 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
+ *fill*         0x000000001000d64b        0x0 
+ *fill*         0x000000001000d64b        0x0 
+ *fill*         0x000000001000d64b        0x0 
+ *fill*         0x000000001000d64b        0x0 
+ *fill*         0x000000001000d64b        0x1 
  .text.hp1020_image_ring_init
-                0x000000001000d424       0x7b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_ring.o
-                0x000000001000d424                hp1020_image_ring_init
- *fill*         0x000000001000d49f        0x1 
+                0x000000001000d64c       0x7b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_ring.o
+                0x000000001000d64c                hp1020_image_ring_init
+ *fill*         0x000000001000d6c7        0x1 
  .text.hp1020_image_ring_push
-                0x000000001000d4a0       0xaf /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_ring.o
-                0x000000001000d4a0                hp1020_image_ring_push
- *fill*         0x000000001000d54f        0x1 
+                0x000000001000d6c8       0xaf /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_ring.o
+                0x000000001000d6c8                hp1020_image_ring_push
+ *fill*         0x000000001000d777        0x1 
  .text.hp1020_image_ring_peek
-                0x000000001000d550       0x4e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_ring.o
-                0x000000001000d550                hp1020_image_ring_peek
- *fill*         0x000000001000d59e        0x2 
+                0x000000001000d778       0x4e /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_ring.o
+                0x000000001000d778                hp1020_image_ring_peek
+ *fill*         0x000000001000d7c6        0x2 
  .text.hp1020_image_ring_accept
-                0x000000001000d5a0       0x50 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_ring.o
-                0x000000001000d5a0                hp1020_image_ring_accept
+                0x000000001000d7c8       0x50 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_ring.o
+                0x000000001000d7c8                hp1020_image_ring_accept
  .text.hp1020_image_ring_complete
-                0x000000001000d5f0       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_ring.o
-                0x000000001000d5f0                hp1020_image_ring_complete
- *fill*         0x000000001000d622        0x2 
+                0x000000001000d818       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_ring.o
+                0x000000001000d818                hp1020_image_ring_complete
+ *fill*         0x000000001000d84a        0x2 
  .text.hp1020_image_ring_drained
-                0x000000001000d624       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_ring.o
-                0x000000001000d624                hp1020_image_ring_drained
+                0x000000001000d84c       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_ring.o
+                0x000000001000d84c                hp1020_image_ring_drained
  .text.progress
-                0x000000001000d63c       0x59 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
- *fill*         0x000000001000d695        0x3 
- .text.drain    0x000000001000d698       0x63 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
- *fill*         0x000000001000d6fb        0x0 
- *fill*         0x000000001000d6fb        0x1 
+                0x000000001000d864       0x59 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
+ *fill*         0x000000001000d8bd        0x3 
+ .text.drain    0x000000001000d8c0       0x63 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
+ *fill*         0x000000001000d923        0x0 
+ *fill*         0x000000001000d923        0x1 
  .text.boundary
-                0x000000001000d6fc       0xaa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
- *fill*         0x000000001000d7a6        0x0 
- *fill*         0x000000001000d7a6        0x2 
+                0x000000001000d924       0xaa /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
+ *fill*         0x000000001000d9ce        0x0 
+ *fill*         0x000000001000d9ce        0x2 
  .text.hp1020_image_output_feed
-                0x000000001000d7a8       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
-                0x000000001000d7a8                hp1020_image_output_feed
- *fill*         0x000000001000d7d3        0x1 
+                0x000000001000d9d0       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
+                0x000000001000d9d0                hp1020_image_output_feed
+ *fill*         0x000000001000d9fb        0x1 
  .text.hp1020_image_output_finish
-                0x000000001000d7d4       0x61 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
-                0x000000001000d7d4                hp1020_image_output_finish
- *fill*         0x000000001000d835        0x3 
- .text.be32     0x000000001000d838       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
- *fill*         0x000000001000d858        0x0 
- *fill*         0x000000001000d858        0x0 
+                0x000000001000d9fc       0x61 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
+                0x000000001000d9fc                hp1020_image_output_finish
+ *fill*         0x000000001000da5d        0x3 
+ .text.be32     0x000000001000da60       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
+ *fill*         0x000000001000da80        0x0 
+ *fill*         0x000000001000da80        0x0 
  .text.hp1020_semantic_init
-                0x000000001000d858       0x39 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
-                0x000000001000d858                hp1020_semantic_init
- *fill*         0x000000001000d891        0x3 
+                0x000000001000da80       0x39 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
+                0x000000001000da80                hp1020_semantic_init
+ *fill*         0x000000001000dab9        0x3 
  .text.hp1020_semantic_init_streaming
-                0x000000001000d894       0x33 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
-                0x000000001000d894                hp1020_semantic_init_streaming
- *fill*         0x000000001000d8c7        0x0 
- *fill*         0x000000001000d8c7        0x0 
- *fill*         0x000000001000d8c7        0x1 
- .text.memcmp   0x000000001000d8c8       0x23 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/target-memory.o
-                0x000000001000d8c8                memcmp
- *fill*         0x000000001000d8eb        0x1 
- .text.memset   0x000000001000d8ec       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/memory.o
-                0x000000001000d8ec                memset
- *fill*         0x000000001000d8fe        0x2 
- .text.memcpy   0x000000001000d900       0x16 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/memory.o
-                0x000000001000d900                memcpy
- *fill*         0x000000001000d916        0x2 
+                0x000000001000dabc       0x33 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
+                0x000000001000dabc                hp1020_semantic_init_streaming
+ *fill*         0x000000001000daef        0x0 
+ *fill*         0x000000001000daef        0x0 
+ *fill*         0x000000001000daef        0x1 
+ .text.memcmp   0x000000001000daf0       0x23 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/target-memory.o
+                0x000000001000daf0                memcmp
+ *fill*         0x000000001000db13        0x1 
+ .text.memset   0x000000001000db14       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/memory.o
+                0x000000001000db14                memset
+ *fill*         0x000000001000db26        0x2 
+ .text.memcpy   0x000000001000db28       0x16 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/memory.o
+                0x000000001000db28                memcpy
+ *fill*         0x000000001000db3e        0x2 
  .text.decode_pscd
-                0x000000001000d918      0x3ef /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig85.o
- *fill*         0x000000001000dd07        0x1 
+                0x000000001000db40      0x3ef /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig85.o
+ *fill*         0x000000001000df2f        0x1 
  .text.finish_sde
-                0x000000001000dd08       0x85 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig85.o
- *fill*         0x000000001000dd8d        0x0 
- *fill*         0x000000001000dd8d        0x3 
+                0x000000001000df30       0x85 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig85.o
+ *fill*         0x000000001000dfb5        0x0 
+ *fill*         0x000000001000dfb5        0x3 
  .text.arith_decode_init
-                0x000000001000dd90       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig_ar.o
-                0x000000001000dd90                arith_decode_init
- *fill*         0x000000001000ddbb        0x0 
- *fill*         0x000000001000ddbb        0x0 
- *fill*         0x000000001000ddbb        0x1 
+                0x000000001000dfb8       0x2b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig_ar.o
+                0x000000001000dfb8                arith_decode_init
+ *fill*         0x000000001000dfe3        0x0 
+ *fill*         0x000000001000dfe3        0x0 
+ *fill*         0x000000001000dfe3        0x1 
  .text.tu_edpt_claim
-                0x000000001000ddbc       0x36 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb.o
-                0x000000001000ddbc                tu_edpt_claim
- *fill*         0x000000001000ddf2        0x2 
+                0x000000001000dfe4       0x36 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb.o
+                0x000000001000dfe4                tu_edpt_claim
+ *fill*         0x000000001000e01a        0x2 
  .text.tu_edpt_release
-                0x000000001000ddf4       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb.o
-                0x000000001000ddf4                tu_edpt_release
- *fill*         0x000000001000de26        0x2 
+                0x000000001000e01c       0x32 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb.o
+                0x000000001000e01c                tu_edpt_release
+ *fill*         0x000000001000e04e        0x2 
  .text.tu_bind_driver_to_ep_itf
-                0x000000001000de28       0x56 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb.o
-                0x000000001000de28                tu_bind_driver_to_ep_itf
- *fill*         0x000000001000de7e        0x2 
+                0x000000001000e050       0x56 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb.o
+                0x000000001000e050                tu_bind_driver_to_ep_itf
+ *fill*         0x000000001000e0a6        0x2 
  .text.tud_vendor_control_xfer_cb
-                0x000000001000de80        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
-                0x000000001000de80                tud_vendor_control_xfer_cb
- *fill*         0x000000001000de84        0x0 
- *fill*         0x000000001000de84        0x0 
+                0x000000001000e0a8        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x000000001000e0a8                tud_vendor_control_xfer_cb
+ *fill*         0x000000001000e0ac        0x0 
+ *fill*         0x000000001000e0ac        0x0 
  .text.tud_event_hook_cb
-                0x000000001000de84        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
-                0x000000001000de84                tud_event_hook_cb
- *fill*         0x000000001000de86        0x2 
+                0x000000001000e0ac        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x000000001000e0ac                tud_event_hook_cb
+ *fill*         0x000000001000e0ae        0x2 
  .text.tud_sof_cb
-                0x000000001000de88        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
-                0x000000001000de88                tud_sof_cb
- *fill*         0x000000001000de8a        0x2 
+                0x000000001000e0b0        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x000000001000e0b0                tud_sof_cb
+ *fill*         0x000000001000e0b2        0x2 
  .text.tud_descriptor_bos_cb
-                0x000000001000de8c        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
-                0x000000001000de8c                tud_descriptor_bos_cb
+                0x000000001000e0b4        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x000000001000e0b4                tud_descriptor_bos_cb
  .text.tud_descriptor_device_qualifier_cb
-                0x000000001000de90        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
-                0x000000001000de90                tud_descriptor_device_qualifier_cb
+                0x000000001000e0b8        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x000000001000e0b8                tud_descriptor_device_qualifier_cb
  .text.tud_descriptor_other_speed_configuration_cb
-                0x000000001000de94        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
-                0x000000001000de94                tud_descriptor_other_speed_configuration_cb
+                0x000000001000e0bc        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x000000001000e0bc                tud_descriptor_other_speed_configuration_cb
  .text.tud_mount_cb
-                0x000000001000de98        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
-                0x000000001000de98                tud_mount_cb
- *fill*         0x000000001000de9a        0x2 
+                0x000000001000e0c0        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x000000001000e0c0                tud_mount_cb
+ *fill*         0x000000001000e0c2        0x2 
  .text.tud_umount_cb
-                0x000000001000de9c        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
-                0x000000001000de9c                tud_umount_cb
- *fill*         0x000000001000de9e        0x2 
+                0x000000001000e0c4        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x000000001000e0c4                tud_umount_cb
+ *fill*         0x000000001000e0c6        0x2 
  .text.tud_suspend_cb
-                0x000000001000dea0        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
-                0x000000001000dea0                tud_suspend_cb
- *fill*         0x000000001000dea2        0x2 
+                0x000000001000e0c8        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x000000001000e0c8                tud_suspend_cb
+ *fill*         0x000000001000e0ca        0x2 
  .text.tud_resume_cb
-                0x000000001000dea4        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
-                0x000000001000dea4                tud_resume_cb
- *fill*         0x000000001000dea6        0x0 
- *fill*         0x000000001000dea6        0x0 
- *fill*         0x000000001000dea6        0x0 
- *fill*         0x000000001000dea6        0x0 
- *fill*         0x000000001000dea6        0x0 
- *fill*         0x000000001000dea6        0x0 
- *fill*         0x000000001000dea6        0x0 
- *fill*         0x000000001000dea6        0x0 
- *fill*         0x000000001000dea6        0x0 
- *fill*         0x000000001000dea6        0x0 
- *fill*         0x000000001000dea6        0x0 
- *fill*         0x000000001000dea6        0x0 
- *fill*         0x000000001000dea6        0x0 
- *fill*         0x000000001000dea6        0x2 
+                0x000000001000e0cc        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x000000001000e0cc                tud_resume_cb
+ *fill*         0x000000001000e0ce        0x0 
+ *fill*         0x000000001000e0ce        0x0 
+ *fill*         0x000000001000e0ce        0x0 
+ *fill*         0x000000001000e0ce        0x0 
+ *fill*         0x000000001000e0ce        0x0 
+ *fill*         0x000000001000e0ce        0x0 
+ *fill*         0x000000001000e0ce        0x0 
+ *fill*         0x000000001000e0ce        0x0 
+ *fill*         0x000000001000e0ce        0x0 
+ *fill*         0x000000001000e0ce        0x0 
+ *fill*         0x000000001000e0ce        0x0 
+ *fill*         0x000000001000e0ce        0x0 
+ *fill*         0x000000001000e0ce        0x0 
+ *fill*         0x000000001000e0ce        0x2 
  .text.advance_index
-                0x000000001000dea8       0x17 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb_fifo.o
- *fill*         0x000000001000debf        0x1 
+                0x000000001000e0d0       0x17 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb_fifo.o
+ *fill*         0x000000001000e0e7        0x1 
  .text.tu_fifo_clear
-                0x000000001000dec0       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb_fifo.o
-                0x000000001000dec0                tu_fifo_clear
+                0x000000001000e0e8       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb_fifo.o
+                0x000000001000e0e8                tu_fifo_clear
  .text.tu_fifo_peek_n_access_mode
-                0x000000001000ded0       0xa1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb_fifo.o
-                0x000000001000ded0                tu_fifo_peek_n_access_mode
- *fill*         0x000000001000df71        0x3 
+                0x000000001000e0f8       0xa1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb_fifo.o
+                0x000000001000e0f8                tu_fifo_peek_n_access_mode
+ *fill*         0x000000001000e199        0x3 
  .text.tu_fifo_read_n_access_mode
-                0x000000001000df74       0x4b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb_fifo.o
-                0x000000001000df74                tu_fifo_read_n_access_mode
- *fill*         0x000000001000dfbf        0x1 
+                0x000000001000e19c       0x4b /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb_fifo.o
+                0x000000001000e19c                tu_fifo_read_n_access_mode
+ *fill*         0x000000001000e1e7        0x1 
  .text.tu_fifo_write_n_access_mode
-                0x000000001000dfc0      0x10d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb_fifo.o
-                0x000000001000dfc0                tu_fifo_write_n_access_mode
- *fill*         0x000000001000e0cd        0x3 
- .text          0x000000001000e0d0       0x4c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
-                0x000000001000e0d0                __udivsi3
-                0x000000001000e11c                __hp1020_entry_text_end = .
+                0x000000001000e1e8      0x10d /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb_fifo.o
+                0x000000001000e1e8                tu_fifo_write_n_access_mode
+ *fill*         0x000000001000e2f5        0x3 
+ .text          0x000000001000e2f8       0x4c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+                0x000000001000e2f8                __udivsi3
+                0x000000001000e344                __hp1020_entry_text_end = .
 
-.rodata         0x000000001000e11c      0xe88
-                0x000000001000e11c                __hp1020_entry_rodata_start = .
+.rodata         0x000000001000e344      0xe88
+                0x000000001000e344                __hp1020_entry_rodata_start = .
  *(.rodata.hp1020_usb_runtime_layout)
  .rodata.hp1020_usb_runtime_layout
-                0x000000001000e11c      0x834 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_layout.o
-                0x000000001000e11c                hp1020_usb_runtime_layout
+                0x000000001000e344      0x834 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_layout.o
+                0x000000001000e344                hp1020_usb_runtime_layout
  *(.rodata .rodata.*)
- .rodata        0x000000001000e950       0x98 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
+ .rodata        0x000000001000eb78       0x98 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
  .rodata.layout$1
-                0x000000001000e9e8        0xc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
+                0x000000001000ec10        0xc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
  .rodata.desc$0
-                0x000000001000e9f4        0xc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
+                0x000000001000ec1c        0xc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
  .rodata.packet_reads
-                0x000000001000ea00       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
+                0x000000001000ec28       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
  .rodata.initial_reads
-                0x000000001000ea28       0x48 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
+                0x000000001000ec50       0x48 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
  .rodata.receive_dma
-                0x000000001000ea70       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
+                0x000000001000ec98       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
  .rodata.minimal_id
-                0x000000001000ea80        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
+                0x000000001000eca8        0x2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
  .rodata.language
-                0x000000001000ea82        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
+                0x000000001000ecaa        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
  .rodata.configuration
-                0x000000001000ea86       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
+                0x000000001000ecae       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
  .rodata.device_descriptor
-                0x000000001000eaa6       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
+                0x000000001000ecce       0x12 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
  .rodata.hp1020_usb_runtime_reset_record
-                0x000000001000eab8       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
-                0x000000001000eab8                hp1020_usb_runtime_reset_record
+                0x000000001000ece0       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
+                0x000000001000ece0                hp1020_usb_runtime_reset_record
  .rodata.hp1020_usb_runtime_setup_record
-                0x000000001000eac8       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
-                0x000000001000eac8                hp1020_usb_runtime_setup_record
+                0x000000001000ecf0       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
+                0x000000001000ecf0                hp1020_usb_runtime_setup_record
  .rodata.hp1020_usb_runtime_supplied
-                0x000000001000ead8       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
-                0x000000001000ead8                hp1020_usb_runtime_supplied
+                0x000000001000ed00       0x28 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
+                0x000000001000ed00                hp1020_usb_runtime_supplied
  .rodata.hp1020_usb_runtime_input
-                0x000000001000eb00      0x160 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
-                0x000000001000eb00                hp1020_usb_runtime_input
+                0x000000001000ed28      0x160 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
+                0x000000001000ed28                hp1020_usb_runtime_input
  .rodata.facts$0
-                0x000000001000ec60        0x3 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
- *fill*         0x000000001000ec63        0x1 
- .rodata        0x000000001000ec64       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
+                0x000000001000ee88        0x3 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
+ *fill*         0x000000001000ee8b        0x1 
+ .rodata        0x000000001000ee8c       0x10 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
  .rodata.visible$0
-                0x000000001000ec74        0x3 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
+                0x000000001000ee9c        0x3 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
  .rodata.str1.1
-                0x000000001000ec77       0x17 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- *fill*         0x000000001000ec8e        0x2 
+                0x000000001000ee9f       0x17 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ *fill*         0x000000001000eeb6        0x2 
  .rodata.class_driver
-                0x000000001000ec90       0x24 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                0x000000001000eeb8       0x24 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
  .rodata.chunk_in
-                0x000000001000ecb4       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
- .rodata.items  0x000000001000eccc       0x3c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
+                0x000000001000eedc       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
+ .rodata.items  0x000000001000eef4       0x3c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
  .rodata.complete_chunk
-                0x000000001000ed08       0x1c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
+                0x000000001000ef30       0x1c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
  .rodata.jbg85_dec_in
-                0x000000001000ed24       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig85.o
+                0x000000001000ef4c       0x20 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig85.o
  .rodata.nlpstab
-                0x000000001000ed44       0x71 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig_ar.o
+                0x000000001000ef6c       0x71 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig_ar.o
  .rodata.nmpstab
-                0x000000001000edb5       0x71 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig_ar.o
+                0x000000001000efdd       0x71 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig_ar.o
  .rodata.lsztab
-                0x000000001000ee26       0xe2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig_ar.o
+                0x000000001000f04e       0xe2 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig_ar.o
  .rodata.dcd_event_handler
-                0x000000001000ef08       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x000000001000f130       0x18 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
  .rodata.tud_task_ext
-                0x000000001000ef20       0x84 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
-                0x000000001000efa4                __hp1020_entry_rodata_end = .
-                0x000000001000efa4                __hp1020_entry_code_end = .
+                0x000000001000f148       0x84 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x000000001000f1cc                __hp1020_entry_rodata_end = .
+                0x000000001000f1cc                __hp1020_entry_code_end = .
 
-.bss            0x0000000010010000     0x3be4
+.bss            0x0000000010010000     0x3c30
                 0x0000000010010000                __hp1020_entry_state_start = .
                 0x0000000010010000                __hp1020_runtime_document_start = .
  *(.runtime_document)
@@ -2324,61 +2345,61 @@ Linker script and memory map
                 0x00000000100138c0       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
                 0x00000000100138c0                hp1020_usb_runtime_out
  .bss.hp1020_usb_runtime_adapter
-                0x0000000010013900      0x14c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
+                0x0000000010013900      0x198 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
                 0x0000000010013900                hp1020_usb_runtime_adapter
  .bss.hp1020_usb_runtime_printer
-                0x0000000010013a4c       0x38 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
-                0x0000000010013a4c                hp1020_usb_runtime_printer
- .bss           0x0000000010013a84        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_layout.o
- .bss           0x0000000010013a84        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
- .bss           0x0000000010013a84        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
- .bss           0x0000000010013a84        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
- .bss           0x0000000010013a84        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
- .bss           0x0000000010013a84        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
- .bss           0x0000000010013a84        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- .bss.bound     0x0000000010013a84        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
- .bss           0x0000000010013a88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
- .bss           0x0000000010013a88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
- .bss           0x0000000010013a88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
- .bss           0x0000000010013a88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
- .bss           0x0000000010013a88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_page.o
- .bss           0x0000000010013a88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
- .bss           0x0000000010013a88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_ring.o
- .bss           0x0000000010013a88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
- .bss           0x0000000010013a88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
- .bss           0x0000000010013a88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_page_plan.o
- .bss           0x0000000010013a88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/target-memory.o
- .bss           0x0000000010013a88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/memory.o
- .bss           0x0000000010013a88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig85.o
- .bss           0x0000000010013a88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig_ar.o
- .bss           0x0000000010013a88        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb.o
+                0x0000000010013a98       0x38 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
+                0x0000000010013a98                hp1020_usb_runtime_printer
+ .bss           0x0000000010013ad0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_layout.o
+ .bss           0x0000000010013ad0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_publish.o
+ .bss           0x0000000010013ad0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_program.o
+ .bss           0x0000000010013ad0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_ep0.o
+ .bss           0x0000000010013ad0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_out.o
+ .bss           0x0000000010013ad0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
+ .bss           0x0000000010013ad0        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ .bss.bound     0x0000000010013ad0        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+ .bss           0x0000000010013ad4        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
+ .bss           0x0000000010013ad4        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
+ .bss           0x0000000010013ad4        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
+ .bss           0x0000000010013ad4        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
+ .bss           0x0000000010013ad4        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_page.o
+ .bss           0x0000000010013ad4        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
+ .bss           0x0000000010013ad4        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_ring.o
+ .bss           0x0000000010013ad4        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
+ .bss           0x0000000010013ad4        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
+ .bss           0x0000000010013ad4        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_page_plan.o
+ .bss           0x0000000010013ad4        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/target-memory.o
+ .bss           0x0000000010013ad4        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/memory.o
+ .bss           0x0000000010013ad4        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig85.o
+ .bss           0x0000000010013ad4        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig_ar.o
+ .bss           0x0000000010013ad4        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb.o
  .bss._tusb_rhport_role
-                0x0000000010013a88        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb.o
-                0x0000000010013a88                _tusb_rhport_role
- .bss           0x0000000010013a90        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
- .bss._usbd_q   0x0000000010013a90        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010013ad4        0x8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb.o
+                0x0000000010013ad4                _tusb_rhport_role
+ .bss           0x0000000010013adc        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+ .bss._usbd_q   0x0000000010013adc        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
  .bss._usbd_qdef_buf
-                0x0000000010013a94       0xc0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
-                0x0000000010013a94                _usbd_qdef_buf
+                0x0000000010013ae0       0xc0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010013ae0                _usbd_qdef_buf
  .bss._app_driver_count
-                0x0000000010013b54        0x1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
- *fill*         0x0000000010013b55        0x3 
+                0x0000000010013ba0        0x1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+ *fill*         0x0000000010013ba1        0x3 
  .bss._app_driver
-                0x0000000010013b58        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010013ba4        0x4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
  .bss._ctrl_epbuf
-                0x0000000010013b5c       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+                0x0000000010013ba8       0x40 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
  .bss._usbd_queued_setup
-                0x0000000010013b9c        0x1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
- *fill*         0x0000000010013b9d        0x3 
+                0x0000000010013be8        0x1 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+ *fill*         0x0000000010013be9        0x3 
  .bss._usbd_dev
-                0x0000000010013ba0       0x44 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
- .bss           0x0000000010013be4        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb_fifo.o
- .bss           0x0000000010013be4        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/startup.o
- .bss           0x0000000010013be4        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+                0x0000000010013bec       0x44 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+ .bss           0x0000000010013c30        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb_fifo.o
+ .bss           0x0000000010013c30        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/startup.o
+ .bss           0x0000000010013c30        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
  *(COMMON)
-                0x0000000010013be4                __hp1020_runtime_bss_unaligned_end = .
-                0x0000000010013be4                . = ALIGN (0x4)
-                0x0000000010013be4                __hp1020_entry_state_end = .
+                0x0000000010013c30                __hp1020_runtime_bss_unaligned_end = .
+                0x0000000010013c30                . = ALIGN (0x4)
+                0x0000000010013c30                __hp1020_entry_state_end = .
 
 .runtime_stack  0x0000000010014020     0x2000
                 0x0000000010014020                __hp1020_entry_stack_start = .
@@ -2530,7 +2551,7 @@ Linker script and memory map
  .xtensa.info   0x0000000000000038        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/startup.o
  .xtensa.info   0x0000000000000038        0x0 /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
 
-.xt.prop        0x0000000000000000     0x7e90
+.xt.prop        0x0000000000000000     0x8034
  *(.xt.prop .xt.prop.*)
  .xt.prop       0x0000000000000000      0x528 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime.o
  .xt.prop       0x0000000000000528     0x114c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_runtime_ram.o
@@ -2546,37 +2567,37 @@ Linker script and memory map
                                         0x7a4 (size before relaxing)
  .xt.prop       0x0000000000002d00      0x384 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_udc_setup.o
                                         0x5f4 (size before relaxing)
- .xt.prop       0x0000000000003084     0x1488 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
-                                       0x1770 (size before relaxing)
- .xt.prop       0x000000000000450c      0x564 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
- .xt.prop       0x0000000000004a70      0x2dc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
+ .xt.prop       0x0000000000003084     0x162c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_tusb_adapter.o
+                                       0x1a58 (size before relaxing)
+ .xt.prop       0x00000000000046b0      0x564 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_printer.o
+ .xt.prop       0x0000000000004c14      0x2dc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_receive.o
                                         0x390 (size before relaxing)
- .xt.prop       0x0000000000004d4c      0x1bc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
- .xt.prop       0x0000000000004f08      0x30c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
- .xt.prop       0x0000000000005214        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_page.o
+ .xt.prop       0x0000000000004ef0      0x1bc /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_usb_document.o
+ .xt.prop       0x00000000000050ac      0x30c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image.o
+ .xt.prop       0x00000000000053b8        0x0 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_page.o
                                         0x24c (size before relaxing)
- .xt.prop       0x0000000000005214      0x378 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
+ .xt.prop       0x00000000000053b8      0x378 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_stream.o
                                         0x3a8 (size before relaxing)
- .xt.prop       0x000000000000558c      0x21c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_ring.o
- .xt.prop       0x00000000000057a8      0x2b8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
+ .xt.prop       0x0000000000005730      0x21c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_ring.o
+ .xt.prop       0x000000000000594c      0x2b8 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_image_output.o
                                         0x2e8 (size before relaxing)
- .xt.prop       0x0000000000005a60      0x7a4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
- .xt.prop       0x0000000000006204       0x60 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_page_plan.o
+ .xt.prop       0x0000000000005c04      0x7a4 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_semantic.o
+ .xt.prop       0x00000000000063a8       0x60 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/hp1020_page_plan.o
                                          0xd8 (size before relaxing)
- .xt.prop       0x0000000000006264       0x54 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/target-memory.o
- .xt.prop       0x00000000000062b8       0x78 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/memory.o
- .xt.prop       0x0000000000006330      0x690 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig85.o
+ .xt.prop       0x0000000000006408       0x54 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/target-memory.o
+ .xt.prop       0x000000000000645c       0x78 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/memory.o
+ .xt.prop       0x00000000000064d4      0x690 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig85.o
                                         0xb4c (size before relaxing)
- .xt.prop       0x00000000000069c0      0x144 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig_ar.o
+ .xt.prop       0x0000000000006b64      0x144 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/jbig_ar.o
                                         0x360 (size before relaxing)
- .xt.prop       0x0000000000006b04      0x150 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb.o
+ .xt.prop       0x0000000000006ca8      0x150 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb.o
                                         0x6cc (size before relaxing)
- .xt.prop       0x0000000000006c54      0xd98 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
+ .xt.prop       0x0000000000006df8      0xd98 /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/usbd.o
                                        0x1350 (size before relaxing)
- .xt.prop       0x00000000000079ec      0x1ec /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb_fifo.o
+ .xt.prop       0x0000000000007b90      0x1ec /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/tusb_fifo.o
                                         0x5a0 (size before relaxing)
- .xt.prop       0x0000000000007bd8      0x21c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/startup.o
- .xt.prop       0x0000000000007df4       0x9c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
+ .xt.prop       0x0000000000007d7c      0x21c /Users/aayush/Documents/shahaayush1999/hp-laserjet-1020-plus-macos/analysis/boot-handoff/entry-usb-reset/target/startup.o
+ .xt.prop       0x0000000000007f98       0x9c /private/tmp/hp1020-xtensa-gcc14/bin/../lib/gcc/xtensa-fsf-elf/14.3.0/libgcc.a(_udivsi3.o)
 
 .xt.lit         0x0000000000000000      0x278
  *(.xt.lit .xt.lit.*)
@@ -2645,9 +2666,9 @@ Linker script and memory map
 
 .unexpected     0x0000000000000000        0x0
  *(*)
-                0x000000001000efa4                __hp1020_entry_code_unused_start = __hp1020_entry_code_end
+                0x000000001000f1cc                __hp1020_entry_code_unused_start = __hp1020_entry_code_end
                 0x000000001000ffe0                __hp1020_entry_code_unused_end = __hp1020_entry_code_cap
-                0x0000000010013be4                __hp1020_entry_state_unused_start = __hp1020_entry_state_end
+                0x0000000010013c30                __hp1020_entry_state_unused_start = __hp1020_entry_state_end
                 0x0000000010013fe0                __hp1020_entry_state_unused_end = __hp1020_entry_state_cap
                 0x00000000100164bd                __hp1020_entry_data_unused_start = __hp1020_entry_data_end
                 0x0000000010016500                __hp1020_entry_data_unused_end = __hp1020_entry_data_cap

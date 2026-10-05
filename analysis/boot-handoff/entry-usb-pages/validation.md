@@ -6,7 +6,7 @@ Two distinct pages yield192 exact source pixel bytes and one document event.
 Final owned SUCCESS ZLP, next service, empty pump and sole finish precede park.
 No physical controller/cache/engine behavior or printing is established.
 
-Cases: 2; paired checkpoints: 22; observed instructions: 5192314.
+Cases: 2; paired checkpoints: 22; observed instructions: 5199182.
 Minimum SP: `0x10015cc0`; observed stack use: 864 bytes.
 
 Exact source and raw evidence seals are in validation.json and capture-manifest.json.

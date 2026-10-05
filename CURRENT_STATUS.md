@@ -1,38 +1,47 @@
 # Current handoff
 
 Updated: 2026-10-05. **The open firmware replacement cannot physically print.**
-Research execution is stopped. Work is offline only; preserve the installed
-HP-based Mac printing setup and do not contact the printer.
+Offline work is active. Preserve the installed HP-based Mac printing setup;
+do not enumerate/contact the printer or introduce print-driving MMIO.
 
 ## Implemented and checked
 
 The open path reuses JBIG-KIT and TinyUSB, consumes host ZjStream, decodes pages,
 and handles software ownership, document boundaries and supplied reset recovery.
-A single-entry RAM experiment consumes a complete original foo2zjs two-page job
-and produces exact pixels. Controller observations, cache/mapping, transfer
-settlement and output consumption are supplied by tests. PJL framing is scanned;
-PJL replies and physical engine output are not implemented.
+A single-entry RAM experiment consumes an original foo2zjs two-page job and
+produces exact pixels. Hardware observations and output consumption are supplied.
 
-Last complete full-suite baseline: `aaa72fb` (135 consistency checks, both offline
-suites). Subsequent original bulk-IN arithmetic passes focused interpreter/QEMU
-checks and the 136-check consistency gate. Its full run was interrupted at the
-owner's return during an unchanged native-pipeline test; this is not a full pass
-or a new target failure. Production firmware C has not changed since that baseline.
-Current results/captures are under `analysis/boot-handoff/entry-usb-pages/` and
-`analysis/usb-path/in1-construction.*`; earlier run histories remain in Git.
+Bulk IN now has a separate original-cookie owner and polled result, independent
+of incoming pages. It handles late completion, failed submission, cancellation,
+reset, final replies and exhaustion. A second component copies one reply to owned
+staging and constructs a bounded normal descriptor. A recording-hook publisher
+now orders visibility, descriptor publication, interrupt unmasking, safe NAK
+release and Poll Demand. It retains failed attempts through cancellation and
+cleanup. Controller binding, mapping/cache, FIFO readiness and settlement remain
+supplied. The publisher is not wired into the entry loop. PJL response production
+and physical output remain unimplemented.
+
+Focused host/QEMU checks passed for bulk IN, descriptor staging, the existing
+adapter, continuous documents and affected controller code. All three affected
+entry profiles passed interpreter/QEMU execution and independent capture gates
+with their new actual layouts. The full offline execution run passed, then its
+cross-check stopped on seven old size/source-count expectations. Those were
+corrected against measured builds; all136 consistency checks and the remaining
+JSON/probe checks passed sequentially. The top-level command itself exited at
+that cross-check; execution was not repeated after this checker-only correction.
+The additional publisher passed44 host and44 target cases. Reports retain exact
+tested source identities; never rewrite hashes after edits.
 
 ## Next useful work
 
-Implement one bounded bulk-IN reply through the existing TinyUSB adapter, with
-retained source ownership, cancellation and reset handling. The endpoint is
-opened but the adapter currently cannot send a payload through it. The concrete
-design and original-byte findings are in
-`analysis/open-firmware-model/next-evidence.md`. Validate affected code and its
-callers; do not repeat settled stock scheduler/cancellation investigations.
-Then address remaining output/engine contracts and truthful status. Physical
-boot/RAM, cache, interrupts, page output and power-cycle recovery remain unproved.
+Connect a truthful bounded PJL ECHO response to incoming command framing and the
+checked IN path, with backpressure and original reset identities. Keep command
+text separate from binary image bytes. Integrating the new publisher into an
+entry loop must include existing controller programming/ingress/failure gates;
+its ready hook cannot mean merely mounted. Exact contracts and useful stock
+addresses are in `analysis/open-firmware-model/next-evidence.md`. Do not repeat
+settled stock scheduling or cancellation investigations. Physical boot/RAM,
+cache, interrupts, page output and power-cycle recovery remain unproved.
 
-The owner's current priority is productive implementation with proportionate
-checks. Repeated audit histories and redundant archives were pruned; retain
-current evidence needed to reproduce results. See `AGENTS.md` for the workflow.
-Root `README.md` and `MANIFEST.md` own the separate installed Mac driver.
+Keep work tied to the next missing capability with proportionate checks, as
+`AGENTS.md` requires. Root `README.md` owns the separate working Mac driver.

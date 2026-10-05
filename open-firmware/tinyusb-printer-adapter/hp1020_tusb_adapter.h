@@ -19,10 +19,18 @@ enum hp1020_tusb_result {
 /* Copied by value at submission and retained beside the actual DCD transfer.
  * No field may be reconstructed from current state when a late event arrives.
  * EP0 epoch is a control identity; bulk epoch is a transport binding identity.
- * sequence is the original receive reservation, or zero for EP0. */
+ * sequence is the original receive reservation, or zero for EP0/bulk IN. */
 struct hp1020_tusb_cookie {
     uint32_t id, epoch, generation, sequence;
     uint8_t endpoint;
+};
+
+/* A settled packet result, not proof of host receipt. current is rechecked when
+ * collected and is false after cancellation, a fault or a superseding binding. */
+struct hp1020_tusb_in_result {
+    struct hp1020_tusb_cookie cookie;
+    uint32_t actual;
+    uint8_t result, current;
 };
 
 /* Reconstructed standard-request notification, not a raw SETUP record. The
@@ -81,13 +89,13 @@ struct hp1020_tusb_owner {
 };
 
 /* Public for allocation and read-only diagnostics; fields are adapter-owned.
- * Three records: EP0 OUT, EP0 IN and one bulk OUT. Completed receive slots stay
+ * Four records: EP0 OUT, EP0 IN, bulk OUT and bulk IN. Completed receive slots stay
  * in the existing four-slot receive core; service never consumes their bytes. */
 struct hp1020_tusb_adapter {
     struct hp1020_usb_printer *printer;
     struct hp1020_tusb_config config;
     struct hp1020_tusb_ops ops;
-    struct hp1020_tusb_owner owners[3];
+    struct hp1020_tusb_owner owners[4];
     struct hp1020_tusb_owner delivering;
     struct hp1020_rx_ticket prepared_ticket;
     uint8_t *prepared_buffer;
@@ -109,6 +117,10 @@ struct hp1020_tusb_adapter {
     uint8_t pending_kind, pending_speed, pending_destructive;
     uint8_t deferred, response_owned, delivering_live, delivered;
     uint8_t programming_dirty;
+    struct hp1020_tusb_in_result in_result;
+    const uint8_t *in_prepared_buffer;
+    uint16_t in_prepared_length;
+    uint8_t in_prepared, in_result_pending;
 };
 
 /* Bind before tusb_init. First-use only, never a recovery mechanism. The
@@ -232,6 +244,22 @@ enum hp1020_tusb_result hp1020_tusb_adapter_fault(struct hp1020_tusb_adapter *,
 enum hp1020_tusb_result hp1020_tusb_adapter_service(struct hp1020_tusb_adapter *);
 enum hp1020_tusb_result hp1020_tusb_adapter_arm_out(struct hp1020_tusb_adapter *);
 enum hp1020_rx_result hp1020_tusb_adapter_pump(struct hp1020_tusb_adapter *);
+
+/* Submit one immutable 0..64-byte IN packet through TinyUSB. NULL/0 explicitly
+ * requests a ZLP; no automatic packet/message framing is added. The source and
+ * output records must not alias adapter storage. A nonzero returned cookie means
+ * the source remains borrowed until take_in_result succeeds, even if send_in
+ * returns ERROR after DCD binding. A zero cookie means no source was borrowed.
+ * Normal input close/finish permits a final reply on the same healthy binding.
+ * Reset/fault fences both directions; settlement must use the original cookie.
+ * OUT progress is independent of IN ownership and an uncollected result. */
+enum hp1020_tusb_result hp1020_tusb_adapter_send_in(struct hp1020_tusb_adapter *,
+    const uint8_t *source, uint16_t length, struct hp1020_tusb_cookie *);
+/* Results survive reset but block a new IN send until collected. Their DCD and
+ * actual TinyUSB callback have already drained, so they do not block reset.
+ * Collection still works after identity exhaustion; it never fabricates success. */
+enum hp1020_tusb_result hp1020_tusb_adapter_take_in_result(
+    struct hp1020_tusb_adapter *, struct hp1020_tusb_in_result *);
 
 /* Explicit stream shutdown. A short packet or ZLP is never EOF. close stops
  * admission without stopping pumping; finish waits for all reservations and

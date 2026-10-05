@@ -4,8 +4,9 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 GCC_PREFIX="${HP1020_GCC_PREFIX:-/tmp/hp1020-xtensa-gcc14/bin/xtensa-fsf-elf}"
 BIN_PREFIX="${XTENSA_PREFIX:-/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf}"
-OUT="$ROOT_DIR/analysis/usb-path/tinyusb-printer/target"
+OUT="${HP1020_TUSB_TARGET_DIR:-$ROOT_DIR/analysis/usb-path/tinyusb-printer/target}"
 SOURCE="$ROOT_DIR/open-firmware/tinyusb-printer-test"
+FIXTURE="${HP1020_TUSB_FIXTURE:-$SOURCE/fixture.c}"
 ADAPTER="$ROOT_DIR/open-firmware/tinyusb-printer-adapter"
 PROTOCOL="$ROOT_DIR/open-firmware/tinyusb-device"
 PRINTER="$ROOT_DIR/open-firmware/usb-printer-class"
@@ -20,7 +21,7 @@ mkdir -p "$OUT"
 cp "$effective_source/effective-source.json" "$OUT/effective-source.json"
 python3 "$ROOT_DIR/scripts/check-hp1020-c-compiler-profile.py" "${GCC_PREFIX}-gcc"
 objects=()
-for source in "$SOURCE/fixture.c" "$ADAPTER/hp1020_tusb_adapter.c" "$PRINTER/hp1020_usb_printer.c" \
+for source in "$FIXTURE" "$ADAPTER/hp1020_tusb_adapter.c" "$PRINTER/hp1020_usb_printer.c" \
     "$RECEIVE/hp1020_usb_receive.c" "$RECEIVE/hp1020_usb_document.c" \
     "$IMAGE/hp1020_image.c" "$IMAGE/hp1020_image_page.c" "$IMAGE/hp1020_image_stream.c" \
     "$IMAGE/hp1020_image_ring.c" "$IMAGE/hp1020_image_output.c" "$SEMANTIC/hp1020_semantic.c" \

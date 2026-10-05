@@ -5,62 +5,57 @@ event loop and different buffers from HP. JBIG-KIT already supplies software
 image decoding; TinyUSB supplies generic USB handling. Neither Linux nor an RTOS
 is a prerequisite. The installed foo2zjs Mac driver remains separate.
 
-## Next: one outgoing reply packet
+## Next: connect commands to the checked reply path
 
-`open-firmware/tinyusb-printer-adapter/` opens IN1 but owns only EP0 OUT, EP0 IN
-and bulk OUT. `owner_for` cannot bind IN1 and `driver_xfer` rejects it. Implement
-one bounded packet through actual TinyUSB endpoint claim/transfer/callbacks before
-adding PJL formatting. This is the immediate missing software capability.
+The TinyUSB adapter now borrows one immutable 0..64-byte IN packet, returns its
+original result/cookie and keeps late/cancelled replies separate from current
+transport permission. Actual callbacks drain BUSY. Normal input finish permits
+final replies; destructive recovery waits for both bulk directions. See the
+adapter header and its focused `bulk-in-validation.json`.
 
-Original-byte evidence is in `analysis/usb-path/in1-construction.json` and
-`usb-bulk-callbacks-model.json`; the generator pins the original ELF and cut.
-The stock function at `0x10008bac` queues outgoing bytes, and `0x100081f4` is its
-send wrapper. Queue acceptance retains the source and returns before transmission;
-`0x10008b78` later frees done heads' original sources. It is not an RX completion.
+`open-firmware/udc-in/` adds one descriptor and a separate 64-byte staging buffer
+through that real DCD callback. Mode, CPU/DMA mappings, visibility and terminal
+memory access remain supplied. It does not publish registers. Memory release,
+FIFO retry/capacity and host receipt are distinct: do not require an invented
+wire-ACK counter to free a DMA source, or assume that freeing it empties the FIFO.
+The new component's latest tested source closure is `udc-in-validation.json`.
 
-The original construction cut `0x1000899f..0x10008b41` executes before publication.
-It writes one 16-byte BE descriptor, preserves its reserved word and the record's
-original-source/done fields, and adds `0x80000000` numerically to the source.
-For length <= cap it sets last|length, next=0 and remaining=0. For length > cap it
-still builds only one last-marked descriptor, sets next=descriptor+16 and advances
-current source/remaining by cap. No mapping, queue, cache or peripheral operation
-is established. Zero-length arithmetic does not prove stock ZLP behavior: the
-stock queue selector skips zero remaining. Focused interpreter/QEMU checks pass;
-the later full regression was intentionally interrupted, as CURRENT_STATUS records.
+`open-firmware/udc-in-publish/` now supplies the narrow recording-I/O publisher.
+Original bytes at `0x10008b41..0x10008b75` load the descriptor cell, write its
+value to `0xb3000034`, clear bit1 of `0xb3000418`, then OR8 into `0xb3000020`,
+with MEMW ordering. Literal words at `0x10005e00/7c/84/88` bind these addresses.
+The pinned Linux family header names control bit3 Poll Demand. This static
+sequence does not establish the preceding NAK/FIFO state. The implementation
+requires a stable binding, packet64/BE with transmit DMA already enabled and
+independent TX-idle/FIFO-empty evidence. It adds CNAK with supplied safe RX-empty
+interval and independent readback before POLL. It accepts concurrent receive DMA
+without rewriting DEVCTL. Any failure after cache work retains the original
+owner and poisons the attempt through cancellation/cleanup. No IRQ observation
+or host receipt is invented; newer family FIFO-empty bits remain unproved on HP.
+Current host/target checks are in `udc-in-publish-validation.json`. Entry-loop
+integration must make its ready hook include existing program/ingress/OUT-failure
+gates, and block new programming/publication on its own failure. This integration
+and a physical backend remain absent.
 
-Implement these bounded semantics:
+Original IN1 construction evidence remains in `in1-construction.json` and
+`usb-bulk-callbacks-model.json`. Queue acceptance retains the original source and
+returns before transmission; done-head cleanup frees it later. For length>cap,
+the tested arithmetic constructs only one last-marked descriptor and advances
+remaining/source. The numeric source+0x80000000 is not a proved DMA mapping.
+The stock queue skips zero remaining; replacement ZLP support is explicit policy.
 
-- Borrow one immutable 0..64-byte source with an original by-value cookie. Use
-  explicit NULL/0 for a requested ZLP; do not add automatic ZLPs or HP heap queues.
-  Bind only inside the synchronous DCD submission window. Admission failure takes
-  no ownership; failure after binding retains the exact source and cookie until
-  real settlement and callback drainage.
-- Add a separate IN owner/result. Split OUT admission/finish predicates from
-  combined bulk reset/cleanup predicates. Review `owner_for`, bind, complete,
-  fault, deliver and class callbacks, plus `no_owners` in `udc-program` and
-  `udc-publish`, which currently enumerate only three owners. IN must never call
-  `receive_complete_data` or release an OUT reservation.
-- Use the transport epoch, unique submission ID and sequence0 for IN. A benign
-  SETUP only supersedes EP0. Destructive reset/reselection must drain both bulk
-  directions. A late success releases its old owner without authorizing a reply
-  in a newer transport binding.
-- Return a polled completion with original result/count/cookie and a separate
-  current-binding permission. Recheck that permission when consumed. Settled
-  results may survive reset for the caller to collect; they block another IN send
-  but need not block endpoint reset after actual DCD/TinyUSB callback drainage.
-- Normal input close/finish may still allow a final reply when the active and
-  current transport epochs agree. A destructive fence invalidates that binding.
-  Require exact-length success for this bounded packet. Preserve result drainage
-  on identifier exhaustion; stale malformed cookies cannot erase fresh recovery.
-- Reuse EP0's owned staging, explicit DMA spans and cache/settlement seams for the
-  eventual IN publisher. TinyUSB BUSY must clear through its real callback.
-  Source release, FIFO settlement and host receipt remain distinct.
-
-Validate the changed adapter and affected controller/entry callers with exact
-payloads, retained failures, late callbacks and reset reuse. Production layout
-changes need fresh affected entry/layout/stack checks; never force old addresses
-or patch report hashes to keep old reports green. No production IN owner, PJL
-formatter or physical-status provider has been implemented yet.
+The first command response can be bounded PJL ECHO. Normal host jobs also request
+status, but do not emit JOB START/PAGE/END from decoded input: the Mac backend's
+START disables its eight-second no-status fallback and makes it wait for physical
+completion. Preserve exact job tokens for eventual truthful status. Its firmware
+recognition also requires the IEEE-1284 ID's `FWVER` field; a future replacement
+must identify itself truthfully so the host does not try to reload stock firmware.
+PJL parsing/replies and physical-status providers remain unimplemented. The
+current semantic parser scans for JZJZ outside binary framing; a command layer
+must not scan binary payload for PJL or mistake JZJZ inside ECHO text for a new
+document. A bounded command pump needs an original receive-ticket cursor and
+backpressure while its reply buffer is owned. Avoid changing public structure
+layouts solely to add an unused observer; integrate a real ECHO round trip.
 
 ## USB hardware questions that remain
 
@@ -116,6 +111,11 @@ The remaining implementation questions are:
    from the original byte-backed first-page sequence and engine topology. Determine
    what the existing engine controller already handles before rebuilding it.
    No print-driving operation is authorized during this offline work.
+   Original engine initialization `0x10016024..0x10016088` overwrites selector
+   `0x1001cdac` from command0x92's reply masked by0x7e00: 0x3400 selects1 (dual),
+   0x1a00/0x3200 select0, otherwise2. Both0/2 are single-output with different
+   format tables. The file-backed2 is not a live-mode guarantee. Existing byte
+   verification of this branch does not establish polarity or physical bit order.
 4. Connect actual status to paper/jam/cover/error replies. Original port-status
    construction only establishes a fixed byte in the tested cut; don't invent
    physical meanings from event numbers. Long output waits will need cooperative

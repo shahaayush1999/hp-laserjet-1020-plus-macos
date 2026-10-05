@@ -279,6 +279,15 @@ run_step "Verify corrected reusable USB protocol and control recovery" \
 run_step "Decode documents through the reusable USB printer adapter" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-tinyusb-printer.py" --target
 
+run_step "Bounded bulk-IN replies and recovery" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-bulk-in.py" --target
+
+run_step "Bulk-IN descriptor staging and settlement" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-udc-in.py" --target
+
+run_step "Bulk-IN publication through recording hooks" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-udc-in-publish.py" --target
+
 run_step "Reject retained packet faults without manufacturing completion" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-tinyusb-packet-fault.py" --target
 

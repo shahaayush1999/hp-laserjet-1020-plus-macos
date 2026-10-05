@@ -39,8 +39,8 @@ SCRIPT_PINS = {
 }
 CONTRACT_PINS = {
     'hp1020_usb_runtime_contract.h': '25f5e76cff3633d6e3ab85f4e9adfc2e94edcc02e2cfe0b7d7d2bafea2e82995',
-    'layout-objects.tsv': '43076d743e4172646511884be5123a7bca648536fcde692a6a3ca2f37098c067',
-    'layout-fields.tsv': '068358a3b3a3a2992b4df0aa56ac92971fa36ec41cd02b27162120f6bc96038a',
+    'layout-objects.tsv': '9eb91e5bc6565773758f9fad22498e639b64289a1a9060adb0a2456637dee012',
+    'layout-fields.tsv': '0a810d9c44f99f8507d2338e9a1fa0e0f307606361ee03f536ca0935fd4d2008',
     'startup.S': 'c8271bbea0fdc7ed4ffb4c18469a15d91170d26c948d41e3706e8ed95922bad6',
     'runtime.ld': '235934f043f7b18741a1db960fd8a129d64e5075dad55b8aca87c2988348d74d',
 }

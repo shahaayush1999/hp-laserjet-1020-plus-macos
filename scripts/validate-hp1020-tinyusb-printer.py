@@ -259,8 +259,8 @@ def sources(temp):
     return tested
 
 
-def compile_host(temp, effective):
-    implementation = [SRC/'fixture.c', SRC/'host-check.c', ADAPTER/'hp1020_tusb_adapter.c',
+def compile_host(temp, effective, fixture=None, main=None):
+    implementation = [fixture or SRC/'fixture.c', main or SRC/'host-check.c', ADAPTER/'hp1020_tusb_adapter.c',
         PRINTER/'hp1020_usb_printer.c', RX/'hp1020_usb_receive.c', RX/'hp1020_usb_document.c']
     implementation += [IMG/name for name in ('hp1020_image.c', 'hp1020_image_page.c', 'hp1020_image_stream.c',
         'hp1020_image_ring.c', 'hp1020_image_output.c')]

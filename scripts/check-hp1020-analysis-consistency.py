@@ -1678,11 +1678,11 @@ def usb_offload_consistency_gate(root, capture_root=None):
             'current-owner-success-rejected', 'same-config-recovers-fault',
             'old-generation-fault-and-success', 'sequence-exhaustion',
             'transport-identity-exhaustion'}
-        need(len(sources) == 127 and len(cases) == 58, 'frozen source and profile closure')
+        need(len(sources) == 129 and len(cases) == 58, 'frozen source and profile closure')
         seen = set()
         totals = dict(captures=0, binds=0, grants=0, cancellations=0)
         for case_index, (case, native) in enumerate(zip(cases, target['cases'])):
-            need(native['adapter_state_and_memory_bytes'] == 128588 and
+            need(native['adapter_state_and_memory_bytes'] == 128664 and
                  native['component_and_allocation_bytes'] == {'ep0':296, 'bulk':80, 'setup':96},
                  'measured target component sizes')
             key = (case['scenario'], case['fill'], case['interface'])
@@ -2166,7 +2166,7 @@ def usb_offload_consistency_gate(root, capture_root=None):
                 target_rows = [json.loads(line) for line in (directory/'target-steps.jsonl').read_text().splitlines()]
                 need(host_rows == rows and len(target_rows) == len(rows), 'complete raw host and target row streams')
                 for row, expected in zip(target_rows, (r+e+b+s+o for r,e,b,s,o in zip(rows,erows,brows,srows,orows))):
-                    need(len(row) == 368 and row[59] == 128588 and
+                    need(len(row) == 368 and row[59] == 128664 and
                          row[:59]+row[60:] == expected[:59]+expected[60:],
                          'all raw native words equal recorded host words except measured native footprint')
             guard = bytes([case['fill']])*16
@@ -4790,7 +4790,7 @@ def build_report() -> dict[str, Any]:
                         and len(composed_cases) == len(composed_target.get("cases", [])) == 132
                         and sum(c["scenario"].startswith("automatic/") for c in composed_cases) == 18
                         and sum(c["scenario"].startswith("initial-standard/") for c in composed_cases) == 16
-                        and len(composition["source_sha256"]) == 76
+                        and len(composition["source_sha256"]) == 78
                         and composition["effective_source"]["patched"] is True
                         and composition["effective_source"] == read_json(
                             "analysis/usb-path/tinyusb-printer/target/effective-source.json")
@@ -4800,7 +4800,7 @@ def build_report() -> dict[str, Any]:
                         and sum(c["scenario"] == "halt-owned-out/17" for c in composed_cases) == 2
                         and all(c["status"] == t["status"] == "pass" and c["case"] == t["case"]
                                 and t["all_steps_equal"] and t["all_pixels_wire_and_storage_equal"]
-                                and t["component_state_and_memory_bytes"] == 128588
+                                and t["component_state_and_memory_bytes"] == 128664
                                 and c["capture_sha256"] == t["capture_sha256"]
                                 and c["expected_pixels_sha256"] == c["capture_sha256"]["pixels"]
                                 and all(len(s) == 96 and s[15:17] == [0,1] for s in c["steps"])
@@ -4856,7 +4856,7 @@ def build_report() -> dict[str, Any]:
     checks.append(check("continuous_printer_document_boundaries_without_transport_eof",
                         continuous["status"] == continuous_target.get("status") == "pass"
                         and len(continuous_cases) == len(continuous_target.get("cases", [])) == 34
-                        and len(continuous["source_sha256"]) == 77
+                        and len(continuous["source_sha256"]) == 79
                         and continuous["effective_source"] == composition["effective_source"]
                         and continuous["completed_native_page_lifecycles"] == continuous["usb_transfers"] == 0
                         and {c["scenario"] for c in continuous_cases} >= {
@@ -4866,7 +4866,7 @@ def build_report() -> dict[str, Any]:
                             "failure/completion-counter-limit", "continuous/copies-still-metadata"}
                         and all(c["status"] == t["status"] == "pass" and c["case"] == t["case"]
                                 and t["all_steps_equal"] and t["all_pixels_wire_notifications_and_storage_equal"]
-                                and t["component_state_and_memory_bytes"] == 128588
+                                and t["component_state_and_memory_bytes"] == 128664
                                 and c["capture_sha256"] == t["capture_sha256"]
                                 and c["expected_pixels_sha256"] == c["capture_sha256"]["pixels"]
                                 and hashlib.sha256(b"".join(int(v).to_bytes(4,"big") for event in
@@ -4888,7 +4888,7 @@ def build_report() -> dict[str, Any]:
     checks.append(check("original_cookie_bulk_descriptor_to_document_pipeline",
                         udc["status"] == udc_target.get("status") == "pass"
                         and len(udc_cases) == len(udc_target.get("cases", [])) == 34
-                        and len(udc["source_sha256"]) == 98 and len(udc["fixture_sha256"]) == 6
+                        and len(udc["source_sha256"]) == 100 and len(udc["fixture_sha256"]) == 6
                         and "open-firmware/udc-out/hp1020_udc_acquire.h" in udc["source_sha256"]
                         and udc["effective_source"] == composition["effective_source"]
                         and udc["effective_source"] == read_json("analysis/usb-path/udc-out/target/effective-source.json")
@@ -4914,7 +4914,7 @@ def build_report() -> dict[str, Any]:
                         and sum(c["scenario"].startswith("status-owner/") for c in udc_cases) == 8
                         and all(c["status"] == t["status"] == "pass" and c["case"] == t["case"]
                                 and t["all_steps_equal"] and t["all_pixels_wire_notifications_descriptors_and_storage_equal"]
-                                and t["adapter_state_and_memory_bytes"] == 128588
+                                and t["adapter_state_and_memory_bytes"] == 128664
                                 and t["descriptor_component_bytes"] == 80
                                 and c["capture_sha256"] == t["capture_sha256"]
                                 and c["expected_pixels_sha256"] == c["capture_sha256"]["pixels"]
@@ -5348,12 +5348,12 @@ def build_report() -> dict[str, Any]:
                         and {(c["scenario"],c["fill"],c["capacity"],c["interface"]) for c in packet_fault["cases"]}
                             == {(name,fill,64,3) for name in packet_fault_names for fill in (0,204)}
                         and packet_fault["usb_transfers"] == packet_fault["completed_native_page_lifecycles"] == 0
-                        and len(packet_fault["source_sha256"]) == 77
+                        and len(packet_fault["source_sha256"]) == 79
                         and set(packet_fault["source_sha256"]) == set(composition["source_sha256"]) | {"scripts/validate-hp1020-tinyusb-packet-fault.py"}
                         and packet_fault["fixture_sha256"] == composition["fixture_sha256"] and len(packet_fault["fixture_sha256"]) == 6
                         and packet_fault["effective_source"] == composition["effective_source"] == read_json("analysis/usb-path/tinyusb-printer/target/effective-source.json")
                         and all(usb_packet_capture_equal(c,t) and t["all_pixels_wire_and_storage_equal"] is True
-                                and t["measured_target_state_and_memory_bytes"] == 128588
+                                and t["measured_target_state_and_memory_bytes"] == 128664
                                 for c,t in zip(packet_fault["cases"],packet_fault_target.get("cases",[])))
                         and packet_fault_target.get("elf_sha256") == packet_fault_target["captured_artifact_sha256"]["target-check.elf"]
                             == hashlib.sha256((ROOT_DIR/"analysis/usb-path/tinyusb-printer/target/target-check.elf").read_bytes()).hexdigest()
@@ -5414,11 +5414,11 @@ def build_report() -> dict[str, Any]:
                         and ep0_reference["report_sha256"] == hashlib.sha256((ROOT_DIR/ep0_reference["report"]).read_bytes()).hexdigest()
                         and ep0_reference["stock_sha256"] == ep0_stock_sha
                         and ep0_reference["original_descriptor_vectors"] == [dict(kind=c["input"]["kind"],length=c["input"]["length"],pointer=c["input"]["pointer"],bytes=c["interpreter"]["descriptor_hex"]) for c in ep0_construction["cases"] if c["input"]["effect"] == "descriptor"]
-                        and len(ep0["source_sha256"]) == 92 and set(ep0["source_sha256"]) == ep0_expected_sources
+                        and len(ep0["source_sha256"]) == 94 and set(ep0["source_sha256"]) == ep0_expected_sources
                         and ep0["fixture_sha256"] == packet_fault["fixture_sha256"] and len(ep0["fixture_sha256"]) == 6
                         and ep0["effective_source"] == packet_fault["effective_source"] == read_json("analysis/usb-path/udc-ep0/target/effective-source.json")
                         and all(usb_packet_capture_equal(c,t,True) and t["all_pixels_wire_notifications_descriptors_and_storage_equal"] is True
-                                and t["adapter_state_and_memory_bytes"] == 128588 and t["descriptor_component_bytes"] == 296
+                                and t["adapter_state_and_memory_bytes"] == 128664 and t["descriptor_component_bytes"] == 296
                                 and len(c["ep0_steps"]) == len(c["steps"])
                                 and all(len(row) == 104 and row[2:5] == [0,1,1] for row in c["ep0_steps"])
                                 for c,t in zip(ep0["cases"],ep0_target.get("cases",[])))
@@ -5429,7 +5429,7 @@ def build_report() -> dict[str, Any]:
                         "Two EP0 records preserve exact cookies, supplied DMA addresses, literal descriptor bytes and real NULL/zero original buffers. Prepared and published storage remains distinct; wire, pixels and document observations agree across both engines. Actual IN count, visibility, mapping and settlement remain supplied, with normalized bulk input and no physical DCD or printing.",
                         evidence="analysis/usb-path/udc-ep0/validation.json"))
 
-    EXPECTED_UDC_COMPOSED_SOURCE_COUNT = 118
+    EXPECTED_UDC_COMPOSED_SOURCE_COUNT = 120
     EXPECTED_UDC_SETUP_COMPONENT_BYTES = 96
     uc = read_json("analysis/usb-path/udc-composed/validation.json")
     uc_target, uc_ref = uc.get("target") or {}, uc["original_reference"]
@@ -5499,7 +5499,7 @@ def build_report() -> dict[str, Any]:
                                           if k not in ("bulk_descriptor","setup_record")})
         uc_need(usb_packet_capture_equal(small_c,small_t,True)
                 and t["all_pixels_wire_notifications_descriptors_and_storage_equal"] is True
-                and t["adapter_state_and_memory_bytes"] == 128588
+                and t["adapter_state_and_memory_bytes"] == 128664
                 and t["component_and_allocation_bytes"] == {
                     "ep0":296, "bulk":80, "setup":EXPECTED_UDC_SETUP_COMPONENT_BYTES},
                 "exact wire, pixels, notifications and measured target sizes")
