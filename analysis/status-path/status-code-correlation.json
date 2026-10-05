@@ -1,14 +1,17 @@
 {
+  "code_rows_before_media_table": 111,
   "converter_function": "0x1000a2a4 hp1020_status_word_to_pjl_code_candidate",
   "direct_converter_class_counts": {
-    "not a proven direct input to CODE converter": 21
+    "ordinary code table": 16,
+    "zero result": 5
   },
   "event_count": 21,
   "events": [
     {
       "# message_word0": "0x17",
       "confidence": "high",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 50021,
+      "direct_converter_class": "ordinary code table",
       "event_word1": "0xfe001401",
       "event_word_hex": "0xfe001401",
       "event_word_int": 4261417985,
@@ -17,12 +20,14 @@
       "low16_low_byte": "0x01",
       "note": "Sent when status I/O retry loop exhausts",
       "path_or_condition": "status command timeout/failure",
-      "source_function": "hp1020_engine_status_io_candidate"
+      "source_function": "hp1020_engine_status_io_candidate",
+      "table_match_index": 110
     },
     {
       "# message_word0": "0x17",
       "confidence": "high",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 50021,
+      "direct_converter_class": "ordinary code table",
       "event_word1": "0xfe001401",
       "event_word_hex": "0xfe001401",
       "event_word_int": 4261417985,
@@ -31,12 +36,14 @@
       "low16_low_byte": "0x01",
       "note": "Sent after preflight waits 0x1e iterations without expected hardware state",
       "path_or_condition": "preflight wait timeout/failure",
-      "source_function": "hp1020_engine_preflight_candidate"
+      "source_function": "hp1020_engine_preflight_candidate",
+      "table_match_index": 110
     },
     {
       "# message_word0": "0x17",
       "confidence": "medium",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 10003,
+      "direct_converter_class": "ordinary code table",
       "event_word1": "0xe6101100",
       "event_word_hex": "0xe6101100",
       "event_word_int": 3859812608,
@@ -45,12 +52,14 @@
       "low16_low_byte": "0x00",
       "note": "Sent before setting engine control bit and waiting",
       "path_or_condition": "preflight start/status transition",
-      "source_function": "hp1020_engine_preflight_candidate"
+      "source_function": "hp1020_engine_preflight_candidate",
+      "table_match_index": 0
     },
     {
       "# message_word0": "0x17",
       "confidence": "medium",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 0,
+      "direct_converter_class": "zero result",
       "event_word1": "0xe6100a01",
       "event_word_hex": "0xe6100a01",
       "event_word_int": 3859810817,
@@ -59,12 +68,14 @@
       "low16_low_byte": "0x01",
       "note": "Used when status checks settle into the apparent normal state",
       "path_or_condition": "ready/ok-looking status transition",
-      "source_function": "hp1020_engine_status_poll_candidate"
+      "source_function": "hp1020_engine_status_poll_candidate",
+      "table_match_index": null
     },
     {
       "# message_word0": "0x17",
       "confidence": "low",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 0,
+      "direct_converter_class": "zero result",
       "event_word1": "0xf6000300",
       "event_word_hex": "0xf6000300",
       "event_word_int": 4127195904,
@@ -73,12 +84,14 @@
       "low16_low_byte": "0x00",
       "note": "Selected when (DAT_10005ddc & status_0x20) is nonzero",
       "path_or_condition": "status register 0x20 path, bitmask branch",
-      "source_function": "hp1020_engine_status_poll_candidate"
+      "source_function": "hp1020_engine_status_poll_candidate",
+      "table_match_index": null
     },
     {
       "# message_word0": "0x17",
       "confidence": "low",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 0,
+      "direct_converter_class": "zero result",
       "event_word1": "0xf6000400",
       "event_word_hex": "0xf6000400",
       "event_word_int": 4127196160,
@@ -87,12 +100,14 @@
       "low16_low_byte": "0x00",
       "note": "Selected when status_0x20 has bit 0x400",
       "path_or_condition": "status register 0x20 path, bit 0x400 branch",
-      "source_function": "hp1020_engine_status_poll_candidate"
+      "source_function": "hp1020_engine_status_poll_candidate",
+      "table_match_index": null
     },
     {
       "# message_word0": "0x17",
       "confidence": "medium",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 40021,
+      "direct_converter_class": "ordinary code table",
       "event_word1": "0xe6100800",
       "event_word_hex": "0xe6100800",
       "event_word_int": 3859810304,
@@ -101,12 +116,14 @@
       "low16_low_byte": "0x00",
       "note": "Also used as mask/state compare for transition side effects",
       "path_or_condition": "engine status register 2 mask branch",
-      "source_function": "hp1020_engine_status_poll_candidate"
+      "source_function": "hp1020_engine_status_poll_candidate",
+      "table_match_index": 55
     },
     {
       "# message_word0": "0x17",
       "confidence": "low",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 10031,
+      "direct_converter_class": "ordinary code table",
       "event_word1": "0x20001607",
       "event_word_hex": "0x20001607",
       "event_word_int": 536876551,
@@ -115,12 +132,14 @@
       "low16_low_byte": "0x07",
       "note": "Selected on one status-bit family",
       "path_or_condition": "engine status register 2 bits 0x424 branch",
-      "source_function": "hp1020_engine_status_poll_candidate"
+      "source_function": "hp1020_engine_status_poll_candidate",
+      "table_match_index": 5
     },
     {
       "# message_word0": "0x17",
       "confidence": "medium",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 10003,
+      "direct_converter_class": "ordinary code table",
       "event_word1": "0xe6101100",
       "event_word_hex": "0xe6101100",
       "event_word_int": 3859812608,
@@ -129,12 +148,14 @@
       "low16_low_byte": "0x00",
       "note": "Same code as preflight start/status transition",
       "path_or_condition": "engine status register 2 DAT_1000605c branch",
-      "source_function": "hp1020_engine_status_poll_candidate"
+      "source_function": "hp1020_engine_status_poll_candidate",
+      "table_match_index": 0
     },
     {
       "# message_word0": "0x17",
       "confidence": "low",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 40600,
+      "direct_converter_class": "ordinary code table",
       "event_word1": "0xe6100e00",
       "event_word_hex": "0xe6100e00",
       "event_word_int": 3859811840,
@@ -143,12 +164,14 @@
       "low16_low_byte": "0x00",
       "note": "Selected on another status-bit family",
       "path_or_condition": "engine status register 2 DAT_10005dc8 branch",
-      "source_function": "hp1020_engine_status_poll_candidate"
+      "source_function": "hp1020_engine_status_poll_candidate",
+      "table_match_index": 61
     },
     {
       "# message_word0": "0x17",
       "confidence": "low",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 0,
+      "direct_converter_class": "zero result",
       "event_word1": "0x80000000",
       "event_word_hex": "0x80000000",
       "event_word_int": 2147483648,
@@ -157,12 +180,14 @@
       "low16_low_byte": "0x00",
       "note": "Loaded from DAT_10005e34; likely generic/error/fallback state",
       "path_or_condition": "status fallback under uVar4/uVar5 condition",
-      "source_function": "hp1020_engine_status_poll_candidate"
+      "source_function": "hp1020_engine_status_poll_candidate",
+      "table_match_index": 111
     },
     {
       "# message_word0": "0x17",
       "confidence": "low",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 30201,
+      "direct_converter_class": "ordinary code table",
       "event_word1": "0xe6000d03",
       "event_word_hex": "0xe6000d03",
       "event_word_int": 3858763011,
@@ -171,12 +196,14 @@
       "low16_low_byte": "0x03",
       "note": "Selected when substatus is not 0x40 and bit 0x10 is set/cleared path",
       "path_or_condition": "engine substatus 0x16 bit 0x10 branch",
-      "source_function": "hp1020_engine_status_poll_candidate"
+      "source_function": "hp1020_engine_status_poll_candidate",
+      "table_match_index": 42
     },
     {
       "# message_word0": "0x17",
       "confidence": "low",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 0,
+      "direct_converter_class": "zero result",
       "event_word1": "0xe6000d06",
       "event_word_hex": "0xe6000d06",
       "event_word_int": 3858763014,
@@ -185,12 +212,14 @@
       "low16_low_byte": "0x06",
       "note": "Selected from nested substatus bit test",
       "path_or_condition": "engine substatus 0x16 bit 0x08 branch",
-      "source_function": "hp1020_engine_status_poll_candidate"
+      "source_function": "hp1020_engine_status_poll_candidate",
+      "table_match_index": null
     },
     {
       "# message_word0": "0x17",
       "confidence": "low",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 30096,
+      "direct_converter_class": "ordinary code table",
       "event_word1": "0xe6000d04",
       "event_word_hex": "0xe6000d04",
       "event_word_int": 3858763012,
@@ -199,12 +228,14 @@
       "low16_low_byte": "0x04",
       "note": "Selected from nested substatus bit test",
       "path_or_condition": "engine substatus 0x16 bit 0x04 branch",
-      "source_function": "hp1020_engine_status_poll_candidate"
+      "source_function": "hp1020_engine_status_poll_candidate",
+      "table_match_index": 39
     },
     {
       "# message_word0": "0x17",
       "confidence": "low",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 42000,
+      "direct_converter_class": "ordinary code table",
       "event_word1": "0xe6100b0a",
       "event_word_hex": "0xe6100b0a",
       "event_word_int": 3859811082,
@@ -213,12 +244,14 @@
       "low16_low_byte": "0x0a",
       "note": "Default for switch(status_0x13 >> 1 & 0x3f)",
       "path_or_condition": "engine register 0x13 default subcase",
-      "source_function": "hp1020_engine_status_poll_candidate"
+      "source_function": "hp1020_engine_status_poll_candidate",
+      "table_match_index": 87
     },
     {
       "# message_word0": "0x17",
       "confidence": "medium",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 42001,
+      "direct_converter_class": "ordinary code table",
       "event_word1": "0xe6100b0b",
       "event_word_hex": "0xe6100b0b",
       "event_word_int": 3859811083,
@@ -227,12 +260,14 @@
       "low16_low_byte": "0x0b",
       "note": "Selected for recognized status subcases",
       "path_or_condition": "engine register 0x13 cases 0x10/0x14/0x18",
-      "source_function": "hp1020_engine_status_poll_candidate"
+      "source_function": "hp1020_engine_status_poll_candidate",
+      "table_match_index": 88
     },
     {
       "# message_word0": "0x17",
       "confidence": "medium",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 30017,
+      "direct_converter_class": "ordinary code table",
       "event_word1": "0xe6e01201",
       "event_word_hex": "0xe6e01201",
       "event_word_int": 3873444353,
@@ -241,12 +276,14 @@
       "low16_low_byte": "0x01",
       "note": "Sent to engine queue from video reset dispatch",
       "path_or_condition": "video reset case 3",
-      "source_function": "hp1020_video_reset_dispatch_candidate"
+      "source_function": "hp1020_video_reset_dispatch_candidate",
+      "table_match_index": 34
     },
     {
       "# message_word0": "0x17",
       "confidence": "medium",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 30017,
+      "direct_converter_class": "ordinary code table",
       "event_word1": "0xe6e01202",
       "event_word_hex": "0xe6e01202",
       "event_word_int": 3873444354,
@@ -255,12 +292,14 @@
       "low16_low_byte": "0x02",
       "note": "Sent to engine queue from video reset dispatch",
       "path_or_condition": "video reset case 4",
-      "source_function": "hp1020_video_reset_dispatch_candidate"
+      "source_function": "hp1020_video_reset_dispatch_candidate",
+      "table_match_index": 35
     },
     {
       "# message_word0": "0x17",
       "confidence": "medium",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 30022,
+      "direct_converter_class": "ordinary code table",
       "event_word1": "0xeee01b02",
       "event_word_hex": "0xeee01b02",
       "event_word_int": 4007664386,
@@ -269,12 +308,14 @@
       "low16_low_byte": "0x02",
       "note": "Sent to engine queue from video reset dispatch",
       "path_or_condition": "video reset case 5",
-      "source_function": "hp1020_video_reset_dispatch_candidate"
+      "source_function": "hp1020_video_reset_dispatch_candidate",
+      "table_match_index": 38
     },
     {
       "# message_word0": "0x17",
       "confidence": "medium",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 30021,
+      "direct_converter_class": "ordinary code table",
       "event_word1": "0xeee01b04",
       "event_word_hex": "0xeee01b04",
       "event_word_int": 4007664388,
@@ -283,12 +324,14 @@
       "low16_low_byte": "0x04",
       "note": "Sent to engine queue from video reset dispatch",
       "path_or_condition": "video reset case 6",
-      "source_function": "hp1020_video_reset_dispatch_candidate"
+      "source_function": "hp1020_video_reset_dispatch_candidate",
+      "table_match_index": 37
     },
     {
       "# message_word0": "0x17",
       "confidence": "medium",
-      "direct_converter_class": "not a proven direct input to CODE converter",
+      "direct_code": 30020,
+      "direct_converter_class": "ordinary code table",
       "event_word1": "0xeee01b01",
       "event_word_hex": "0xeee01b01",
       "event_word_int": 4007664385,
@@ -297,9 +340,12 @@
       "low16_low_byte": "0x01",
       "note": "Sent to engine queue from video reset dispatch",
       "path_or_condition": "video reset cases 2 and 7",
-      "source_function": "hp1020_video_reset_dispatch_candidate"
+      "source_function": "hp1020_video_reset_dispatch_candidate",
+      "table_match_index": 36
     }
   ],
+  "execution_sha256": "ccaeb6ffbef4fa3a07b3cf407317a96a9f9e4fc2d5f84ea4c2aca4f9658aa194",
+  "media_rows_before_following_data": 20,
   "pjl_410xx_table": [
     {
       "entry_address": "1001be40",
@@ -445,5 +491,7 @@
   "pjl_code_default": 10001,
   "pjl_code_table_base": 41000,
   "status_update_bridge": "0x10010838 hp1020_status_state_update_candidate",
-  "summary": "Conservative correlation between engine queue 0x17 event words and PJL CODE generation."
+  "stock_code_scan_rows": 222,
+  "stock_media_scan_rows": 40,
+  "summary": "Byte-backed, executed numeric conversion; event delivery and physical meaning remain separate."
 }

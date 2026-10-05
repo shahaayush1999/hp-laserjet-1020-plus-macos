@@ -447,6 +447,9 @@ run_step "Regenerate USB bulk/parser host model" \
 run_step "Regenerate minimal print-only replacement scope" \
   "$ROOT_DIR/scripts/model-hp1020-minimal-print-scope.py"
 
+run_step "Recover original numeric PJL CODE conversion" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-pjl-status-code.py"
+
 run_step "Regenerate status CODE correlation model" \
   "$ROOT_DIR/scripts/model-hp1020-status-code-correlation.py"
 

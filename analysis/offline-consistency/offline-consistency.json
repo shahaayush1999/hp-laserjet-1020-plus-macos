@@ -116,9 +116,9 @@
       "severity": "watch"
     },
     {
-      "detail": "Raw engine event words must not be mislabeled as final PJL CODE values.",
+      "detail": "Original numeric lookup and its adjacent-data aliases are executed findings. Event delivery, notification filtering and physical sensor meaning remain separate.",
       "evidence": "analysis/status-path/status-code-correlation.json",
-      "name": "engine_events_are_not_direct_pjl_codes",
+      "name": "engine_events_have_conditional_executed_pjl_codes",
       "severity": "watch"
     },
     {

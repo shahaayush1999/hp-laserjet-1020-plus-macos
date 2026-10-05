@@ -61,8 +61,18 @@ and JZJZ inside ECHO text cannot switch modes. The first profile accepts upperca
 ECHO and at most50 printable text bytes; unknown PJL lines are ignored, oversized
 ECHO is rejected, and a short OUT/ZLP is not EOF. It replaces the ordinary document
 pump and exclusively owns bulk-IN result collection. Do not run both pumps.
-Controller/entry integration remains absent; the next useful status work is to
-identify actual engine observations before implementing paper/error/job replies.
+Controller/entry integration remains absent. Numeric status conversion is now
+recovered from bytes and executed in `status-code-execution.json`; the existing
+`status-code-correlation.md` gives conditional CODE results for cataloged events.
+The old decompilation omitted the ordinary lookup entirely. Stock scans222 pairs
+at0x1001bc84, past111 code pairs into the separate media table and strings; media
+lookup scans40 pairs at0x1001be40 although following data begins after20. Do not
+copy these adjacent-data aliases into a replacement. E.g. the numeric engine
+event0xe6100800 converts to40021 and timeout0xfe001401 to50021, but those facts
+alone do not prove sensor meaning, event publication or physical calibration.
+Recover DISPLAY/ONLINE provenance and the builder's actual notification gates
+before implementing paper/error/job replies. Existing StatusMgr publication and
+priority tests need not be repeated just to reconnect their documented boundary.
 
 ## USB hardware questions that remain
 

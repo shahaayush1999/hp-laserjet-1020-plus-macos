@@ -23,6 +23,12 @@ separation, backpressure and original reply ownership across resets. ECHOs aroun
 a two-page synthetic ZjStream decode exact pixels through the same path. Neither
 new component is wired into an entry loop; physical status/output remain absent.
 
+The original numeric PJL CODE converter is now recovered beyond the truncated
+decompilation. Its normal mappings and reads into following data were verified
+in583 interpreter and20 QEMU cases. This is conditional numeric conversion, not
+physical status or proof that a notification is emitted. See the existing status
+correlation note and its source-bound execution report.
+
 Focused host/QEMU checks passed for bulk IN, descriptor staging, the existing
 adapter, continuous documents and affected controller code. All three affected
 entry profiles passed interpreter/QEMU execution and independent capture gates
@@ -38,8 +44,9 @@ at most50 printable text bytes, no generated physical/job status.
 
 ## Next useful work
 
-Use the existing engine/status evidence to recover the concrete observations a
-physical-status provider will need; ECHO is not a substitute for status. Entry
+Recover DISPLAY text and notification-argument provenance to connect the known
+engine decisions to truthful status replies; numeric conversion is now settled.
+Existing StatusMgr publication/priority tests need not be repeated. Entry
 integration must include existing controller programming/ingress/failure gates;
 the IN publisher's ready hook cannot mean merely mounted. Exact contracts and useful stock
 addresses are in `analysis/open-firmware-model/next-evidence.md`. Do not repeat

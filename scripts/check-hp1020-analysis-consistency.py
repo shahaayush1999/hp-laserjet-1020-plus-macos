@@ -2332,6 +2332,7 @@ def build_report() -> dict[str, Any]:
     event_rows = read_tsv("analysis/engine-events/engine-0x17-events.tsv")
     status_corr = read_json("analysis/status-path/status-code-correlation.json")
     direct_counts = status_corr.get("direct_converter_class_counts", {})
+    status_code_execution = read_json("analysis/status-path/status-code-execution.json")
     checks.append(
         check(
             "status_correlation_event_count_matches_source",
@@ -2342,9 +2343,18 @@ def build_report() -> dict[str, Any]:
     )
     checks.append(
         check(
-            "engine_events_are_not_direct_pjl_codes",
-            direct_counts == {"not a proven direct input to CODE converter": 21},
-            "Raw engine event words must not be mislabeled as final PJL CODE values.",
+            "engine_events_have_conditional_executed_pjl_codes",
+            direct_counts == {"ordinary code table": 16, "zero result": 5}
+            and status_code_execution["status"] == "pass"
+            and status_code_execution["code_loop_entries"] == 222
+            and status_code_execution["offset_loop_entries"] == 40
+            and len(status_code_execution["ordinary_code_rows"]) == 111
+            and len(status_code_execution["ordinary_offset_rows"]) == 20
+            and status_code_execution["elf_sha256"] == hashlib.sha256((ROOT_DIR/"analysis/sihp1020.elf").read_bytes()).hexdigest()
+            and status_corr["execution_sha256"] == hashlib.sha256((ROOT_DIR/"analysis/status-path/status-code-execution.json").read_bytes()).hexdigest()
+            and all(hashlib.sha256((ROOT_DIR/n).read_bytes()).hexdigest() == h
+                    for n,h in status_code_execution["source_sha256"].items()),
+            "Original numeric lookup and its adjacent-data aliases are executed findings. Event delivery, notification filtering and physical sensor meaning remain separate.",
             evidence="analysis/status-path/status-code-correlation.json",
         )
     )
