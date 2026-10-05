@@ -150,13 +150,44 @@ Direct references found from the reset vector and ELF entry candidates:
 | `0x10100020` `hp1020_reset_vector_candidate` |  |
 | `0x100167a8` `hp1020_elf_entry_candidate` | program `0x10006a14` block `.text`<br>program `0x10006cd0` `hp1020_cpu_tlb_init_candidate` |
 
-## Interpretation
+## Executed memory-boundary arithmetic
 
-Current boot/runtime ABI read:
+`scripts/validate-hp1020-boot-memory.py` checks original byte-backed instruction
+slices against independent QEMU execution; the compact result is
+`analysis/boot-handoff/memory-contract.json`. It does not boot, touch MMIO or
+execute cache/TLB, interrupt, timer or semaphore setup.
 
-- The ELF is not a freestanding flat binary. It carries Xtensa vectors, a reset vector section, a system interface table, `.data`, and `.bss`.
-- `.sys_interface_table` is likely part of the boot ROM / firmware ABI boundary. It contains the queue primitives and task/runtime services used throughout the firmware.
-- A custom firmware experiment needs to preserve enough of this ABI shape for the boot ROM to load and jump correctly.
-- The immediate next unknown is whether the boot ROM uses only the ELF program headers and entry point, or also validates/uses HP-specific interface table slots.
+The entry at `0x100167a8` uses the inherited stack before jumping to CPU setup
+`0x10006cd0`. That setup ends by jumping through literal `0x10005cdc` to
+`0x10006bb0`. Early boot and the separate getter `0x10012208` both select RAM
+capacity from bits30–31 of the value read at `0xb0800008`. The executed cuts
+start **after** that read, with a supplied word: selectors0/1/2/3 give2/8/16/32MiB.
+The early-boot arithmetic sets SP to `0x10000000 + capacity - 0x50`. These are
+conditional computations, not a read of this printer's capacity or a RAM probe.
 
-Practical implication: the safest prototype target is a minimal ELF that keeps the same section/header/interface-table shape and changes behavior only after early startup is understood.
+Kernel setup `0x1001b718` saves its current SP and reserves16KiB after the
+original BSS end `0x100351e0`; it writes `0x100391e0` to `0x10034ec4`. Its other
+stores supply base/size to the timer-thread creation at `0x1001765c`.
+Kernel entry loads that first-unused pointer and passes it to `0x10011ffc`.
+The latter saves it at `0x1002c6f4` and stores
+`capacity - (first_unused - 0x10000000)` at `0x1002c6ec`. Later startup passes
+those values to pool constructor `0x100130d0` at `0x10012084`.
+For these aligned inputs the constructor installs the first12-byte header,
+payload size `pool_bytes - 12`, and terminal/free flags before semaphore setup.
+All four capacity cases and the reservation slice agree in17 paired executions.
+
+The numeric pool extent includes the initial boot SP and reset/debug section
+addresses. It is **not** an independently safe replacement allocation map;
+do not adopt its full extent or copy HP's allocator/reservations. A replacement
+must protect its own live image, stacks, vectors and DMA storage explicitly.
+CPU bit31 pointer arithmetic elsewhere does not prove a bus alias, and startup
+attribute writes do not supply installed capacity or physical address mapping.
+
+## Loader boundary still unresolved
+
+The original image carries vectors, an entry point and a75-slot runtime service
+table. The table's existence does not prove that the loader calls or requires it.
+Whether the loader uses only program headers/entry or additional HP-specific
+state remains unresolved, as do inherited stack validity, CPU configuration and
+physical memory attributes. The RAM experiments preserve the original envelopes
+as a restriction, not as proof of loader compatibility or physical ownership.

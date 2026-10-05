@@ -135,6 +135,16 @@ The open routines reject nonempty unaligned/wrapping/out-of-profile spans before
 any operation. DMA acquire, actual full-line leases, mapping and hardware effects
 remain separate. Do not repeat these operand tests to claim physical visibility.
 
+Original boot memory arithmetic is now executed in `memory-contract.json`;
+`analysis/boot-abi/boot-abi.md` records the exact chain. Supplied bits30–31 of
+`0xb0800008` select2/8/16/32MiB. Stock reserves16KiB after BSS, then gives the
+allocator `0x100391e0` through `0x10000000 + capacity`. That numeric extent also
+contains boot-SP/reset/debug addresses; it cannot be copied as a safe replacement
+layout. The replacement must reserve its own live objects. Installed capacity,
+loader handoff and physical aliases remain unknown. More arithmetic tests will
+not resolve those physical facts; proceed with the missing controller/reply
+integration while retaining explicit supplied mapping and memory limits.
+
 ## Pixels, engine and status
 
 The open stream/image path produces packed rows with bounded storage. Its narrow

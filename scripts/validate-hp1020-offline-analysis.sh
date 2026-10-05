@@ -288,6 +288,9 @@ run_step "Bulk-IN descriptor staging and settlement" \
 run_step "Original cache operands and bounded CPU cache maintenance" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-xtensa-cache.py"
 
+run_step "Original boot memory arithmetic without hardware reads" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-boot-memory.py"
+
 run_step "Bulk-IN publication through recording hooks" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-udc-in-publish.py" --target
 

@@ -50,12 +50,15 @@ before operating. Original range operands and startup attribute operands were
 recovered;44 original interpreter cases,12 original QEMU cases and36 open paired
 cases passed. CPU/cache/line/mapping facts remain conditional, and these routines
 are not yet bound to the controller hooks. No physical visibility is claimed.
+Original boot capacity/stack/reservation/pool arithmetic also agrees in17 paired
+executions. It selects2/8/16/32MiB from a supplied register value. The computed
+stock pool contains boot-SP/reset/debug addresses, so it is not a layout to copy.
 
 ## Next useful work
 
-Recover the actual boot memory/allocator handoff and how cached/uncached aliases
-are established. Cache instruction operands are settled; they do not supply
-memory capacity, physical mapping, cache-line leases or a DMA acquire operation.
+Connect command/reply handling with the controller service and failure gates.
+Boot memory arithmetic and cache operands are settled; they do not establish
+installed capacity, physical mapping, cache-line leases or a DMA acquire operation.
 Numeric conversion and reply formatting are settled. DISPLAY is initially empty
 and no local writer was recovered; ONLINE remains a separate observation.
 Notification candidates can differ from cached status; details are in the existing

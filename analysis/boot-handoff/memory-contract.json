@@ -1,0 +1,50 @@
+{
+  "stock_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "sources": {
+    "scripts/validate-hp1020-boot-memory.py": "78011c6f5a2e390a0eda18fc6eb3c82d7d0ef2d17724137ed1c8f5a678db84cd",
+    "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
+    "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
+    "scripts/hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
+    "scripts/hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2"
+  },
+  "qemu": "QEMU emulator version 11.1.1",
+  "paired_slices": 17,
+  "first_pool_address": "0x100391e0",
+  "reserved_after_bss": 16384,
+  "cases": [
+    {
+      "selector": 0,
+      "capacity": 2097152,
+      "boot_sp": "0x101fffb0",
+      "pool_bytes": 1863200,
+      "first_payload_bytes": 1863188
+    },
+    {
+      "selector": 1,
+      "capacity": 8388608,
+      "boot_sp": "0x107fffb0",
+      "pool_bytes": 8154656,
+      "first_payload_bytes": 8154644
+    },
+    {
+      "selector": 2,
+      "capacity": 16777216,
+      "boot_sp": "0x10ffffb0",
+      "pool_bytes": 16543264,
+      "first_payload_bytes": 16543252
+    },
+    {
+      "selector": 3,
+      "capacity": 33554432,
+      "boot_sp": "0x11ffffb0",
+      "pool_bytes": 33320480,
+      "first_payload_bytes": 33320468
+    }
+  ],
+  "limits": [
+    "Register 0xb0800008 is supplied, never read.",
+    "No boot, MMIO, cache, TLB, interrupt or semaphore operation executes.",
+    "Installed capacity, physical mapping and loader ABI remain unproved.",
+    "Stock pool extent includes the boot SP and reset/debug sections; it is not a safe replacement allocator layout."
+  ]
+}
