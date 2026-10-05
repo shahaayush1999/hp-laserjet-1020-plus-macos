@@ -285,6 +285,9 @@ run_step "Bounded bulk-IN replies and recovery" \
 run_step "Bulk-IN descriptor staging and settlement" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-udc-in.py" --target
 
+run_step "Original cache operands and bounded CPU cache maintenance" \
+  python3 "$ROOT_DIR/scripts/validate-hp1020-xtensa-cache.py"
+
 run_step "Bulk-IN publication through recording hooks" \
   python3 "$ROOT_DIR/scripts/validate-hp1020-udc-in-publish.py" --target
 

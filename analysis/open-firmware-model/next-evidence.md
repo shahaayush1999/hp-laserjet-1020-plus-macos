@@ -126,6 +126,15 @@ The existing software and original-code tests already resolve ordinary
 configuration/reset bookkeeping, SETUP byte order and conditional cancellation
 ordering. Reopen them only for a specific new hardware-facing question.
 
+`open-firmware/xtensa-cache/` now supplies checked call0 writeback and
+clean-invalidate routines for already owned cached spans. They are not linked
+into a controller backend. Original16-byte stepping, DSYNC and initial/final
+attribute operands are recovered in `cache-contract.json`; its README explains
+why this does not establish line geometry, available RAM or a bit31 mapping.
+The open routines reject nonempty unaligned/wrapping/out-of-profile spans before
+any operation. DMA acquire, actual full-line leases, mapping and hardware effects
+remain separate. Do not repeat these operand tests to claim physical visibility.
+
 ## Pixels, engine and status
 
 The open stream/image path produces packed rows with bounded storage. Its narrow

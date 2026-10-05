@@ -44,13 +44,18 @@ The additional publisher passed44 host and44 target cases; the extended command
 path passed64 of each. Reports retain exact tested source identities; never
 rewrite hashes after edits. The command profile is uppercase ECHO with at most50
 printable text bytes and exact INFO STATUS, CODE0..99999/ONLINE0..1/empty DISPLAY.
-The first target build introduced a remainder helper outside its audited profile;
-bounded decimal formatting removed it and the focused checks then passed.
+
+Bounded call0 cache writeback/clean-invalidate routines now reject invalid spans
+before operating. Original range operands and startup attribute operands were
+recovered;44 original interpreter cases,12 original QEMU cases and36 open paired
+cases passed. CPU/cache/line/mapping facts remain conditional, and these routines
+are not yet bound to the controller hooks. No physical visibility is claimed.
 
 ## Next useful work
 
-Recover the original cache-publication helper and startup memory attributes to
-replace supplied USB visibility facts with an understood hardware contract.
+Recover the actual boot memory/allocator handoff and how cached/uncached aliases
+are established. Cache instruction operands are settled; they do not supply
+memory capacity, physical mapping, cache-line leases or a DMA acquire operation.
 Numeric conversion and reply formatting are settled. DISPLAY is initially empty
 and no local writer was recovered; ONLINE remains a separate observation.
 Notification candidates can differ from cached status; details are in the existing

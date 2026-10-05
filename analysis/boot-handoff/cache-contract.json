@@ -1,0 +1,96 @@
+{
+  "interpreted_stock_cases": 44,
+  "limits": "Cache/TLB effects are not modeled. Original TLB operand computation runs only with record-only writes; QEMU uses a different processor profile. Original/open cache instructions execute in QEMU with every operand constrained to synthetic RAM. No actual dirty cache, bus alias, CPU/DMA mapping, line geometry, MMIO, USB, boot, physical visibility or printer is established. The open routines are not linked to a hardware/entry backend.",
+  "native_stock_cases": 12,
+  "observations_sha256": "78398809514e2e4fca97dce5a0033efd5efcc3a729c243106b583a74452b5254",
+  "open_cases": 36,
+  "qemu_version": "QEMU emulator version 11.1.1",
+  "source_sha256": {
+    "open-firmware/xtensa-cache/hp1020_dcache.S": "f7733a8ffaa74f323c49ff503773bf62b97a4a649e963fd507fe6cf8bf3a42a2",
+    "open-firmware/xtensa-cache/hp1020_dcache.h": "b40444a63be8bca3d851756fd7b0d1043f2a2479f17c4baa236e8a0eca0750f7",
+    "scripts/hp1020_qemu_ram.py": "8fe170ab6161d47d17ef93eb6c25622878e00dc2d4747cfd70073a0fd777b5e2",
+    "scripts/hp1020_xtensa_call0.py": "ed2924d8e46c0e553fe079a5ecdfff77dc40f1aa228588d9a86c39ce98769480",
+    "scripts/hp1020_xtensa_properties.py": "8a98e5ba3ead469cd431a06260e78c836993348d878ae96595d0b622538d0280",
+    "scripts/hp1020_xtensa_stock.py": "04fd9edbb5d745cf87567dfc6f4f8fe0b145c319bd1a84db09164cf13188d86f",
+    "scripts/validate-hp1020-xtensa-cache.py": "493d1885707aab98f1600126adc9b31d59aa3d11e328bad4688a4fc15dd653d6"
+  },
+  "startup_operand_traces": [
+    {
+      "data_attributes": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "dsync_count": 1,
+      "instruction_attributes": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "isync_count": 2,
+      "regions": [
+        0,
+        536870912,
+        1073741824,
+        1610612736,
+        2147483648,
+        2684354560,
+        3221225472,
+        3758096384
+      ],
+      "start": "0x10006d4a",
+      "stop": "0x10006da2"
+    },
+    {
+      "data_attributes": [
+        4,
+        4,
+        2,
+        2,
+        2,
+        2,
+        15,
+        15
+      ],
+      "dsync_count": 1,
+      "instruction_attributes": [
+        4,
+        4,
+        2,
+        2,
+        2,
+        2,
+        15,
+        15
+      ],
+      "isync_count": 2,
+      "regions": [
+        0,
+        536870912,
+        1073741824,
+        1610612736,
+        2147483648,
+        2684354560,
+        3221225472,
+        3758096384
+      ],
+      "start": "0x10006def",
+      "stop": "0x10006e52"
+    }
+  ],
+  "status": "pass",
+  "stock_elf_sha256": "2111560068db47ceca21fa550db4c7c34f5595b5a5d137ae4a19631e40e3601d",
+  "stock_length_overflow": "Address0x2200000f,length0xfffffff0 wraps the rounded count to zero; only DSYNC runs. The open API rejects this request before any operation.",
+  "stock_unaligned_zero_bytes": "A nonaligned zero-length request still issues one cache operation.",
+  "target_elf_sha256": "9f5ae30e029a7b960043e657e613a8c9e2a3c79ec9e5ef160709936687c967af"
+}
