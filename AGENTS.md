@@ -1,5 +1,23 @@
 # Agent instructions
 
+## Hard rule: paid effort must advance reverse engineering
+
+Aayush is paying for reverse engineering that leads to a working replacement.
+Nothing that does not contribute to that goal is welcome. This is a binding
+project rule for every session, continuation and delegated agent until he
+explicitly changes it.
+
+Before spending effort, identify the concrete unknown, missing capability or
+relevant regression the work will resolve. If there is no direct contribution,
+skip it. Make that decision internally; do not create another justification
+document or ask the owner to manage priorities. Necessary tooling, tests and
+notes must be the minimum useful support for the implementation. No cosmetic
+polish, speculative infrastructure, audit bureaucracy or repeated proof of
+settled facts. Reports, test counts and commits are not progress by themselves.
+Prefer the next missing capability; stop investigating once there is enough
+evidence to implement or reject an approach. Treat time, tokens and agent usage
+as the owner's money, not a budget to exhaust.
+
 ## Goal and working style
 
 Build a practical open firmware replacement for the HP LaserJet 1020 Plus.
@@ -12,12 +30,6 @@ Aayush delegates technical decisions and repository maintenance. He will not
 read reports or maintain context. Give brief plain-language updates; distinguish
 offline findings from working physical printing. Do not invent percentages or
 dates. Tests passing does not mean the replacement is complete.
-
-The owner wants waste removed. Every investigation, test or document must serve
-an unresolved implementation decision, verify useful behavior or prevent a known
-regression. Prefer implementing the next missing capability to enlarging models
-of already-understood HP internals. State the question before investigating;
-stop when enough evidence exists to implement or reject that approach.
 
 - Keep working across useful checkpoints when asked to continue; stop when asked.
 - Make routine decisions autonomously. Ask only for missing physical actions or
