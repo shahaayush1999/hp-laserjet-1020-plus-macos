@@ -126,13 +126,16 @@ The existing software and original-code tests already resolve ordinary
 configuration/reset bookkeeping, SETUP byte order and conditional cancellation
 ordering. Reopen them only for a specific new hardware-facing question.
 
-`open-firmware/xtensa-cache/` now supplies checked call0 writeback and
-clean-invalidate routines for already owned cached spans. They are not linked
+`open-firmware/xtensa-cache/` now supplies checked call0 writeback,
+clean-invalidate and discard-only invalidation for already owned cached spans. They are not linked
 into a controller backend. Original16-byte stepping, DSYNC and initial/final
 attribute operands are recovered in `cache-contract.json`; its README explains
 why this does not establish line geometry, available RAM or a bit31 mapping.
 The open routines reject nonempty unaligned/wrapping/out-of-profile spans before
-any operation. DMA acquire, actual full-line leases, mapping and hardware effects
+any operation. DHI supplies the CPU invalidation part of an eventual acquire;
+it cannot establish completed/visible device writes. All touched lines must be
+unlocked, and discard-only invalidation must not lose CPU changes anywhere in
+those lines. Actual full-line leases, mapping and hardware effects
 remain separate. Do not repeat these operand tests to claim physical visibility.
 
 Original boot memory arithmetic is now executed in `memory-contract.json`;

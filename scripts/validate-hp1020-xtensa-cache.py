@@ -20,7 +20,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT/'open-firmware/xtensa-cache'
 PREFIX = os.environ.get('XTENSA_PREFIX','/tmp/hp1020-xtensa-manual-systemz/bin/xtensa-fsf-elf')
 OPERATIONS = {'dhwb':(0x100173c8,0x100173e6,'hp1020_dcache_clean_owned','242700'),
-              'dhwbi':(0x10017414,0x10017432,'hp1020_dcache_clean_invalidate_owned','252700')}
+              'dhwbi':(0x10017414,0x10017432,'hp1020_dcache_clean_invalidate_owned','252700'),
+              'dhi':(0x1001733c,0x1001735a,'hp1020_dcache_invalidate_owned','262700')}
 
 
 def sha(path):
@@ -124,7 +125,7 @@ def main():
                         temp/'cache.o','-o',temp/'cache.elf'],check=True)
         program = Program(temp/'cache.elf',PREFIX)
         # Hand assembly does not produce GCC's instruction-property table.
-        # Bound both complete functions by their ELF symbol sizes and require
+        # Bound the complete functions by their ELF symbol sizes and require
         # contiguous decoding; no alignment padding is admitted as code.
         names={item[2] for item in OPERATIONS.values()}
         listing=subprocess.check_output([PREFIX+'-nm','-n','-S',program.path],text=True)
@@ -134,7 +135,7 @@ def main():
             if len(fields)==4 and fields[3] in names:
                 start,size=int(fields[0],16),int(fields[1],16)
                 ranges.append((start,start+size))
-        assert len(ranges)==2
+        assert len(ranges)==len(OPERATIONS)
         program.instructions={}
         for start,end in ranges:
             listing=subprocess.check_output([PREFIX+'-objdump','-d',f'--start-address={start}',
@@ -198,7 +199,8 @@ def main():
             observations_sha256=hashlib.sha256(json.dumps(observations,sort_keys=True).encode()).hexdigest(),
             stock_unaligned_zero_bytes='A nonaligned zero-length request still issues one cache operation.',
             stock_length_overflow='Address0x2200000f,length0xfffffff0 wraps the rounded count to zero; only DSYNC runs. The open API rejects this request before any operation.',
-            interpreted_stock_cases=44,native_stock_cases=12,open_cases=36,
+            interpreted_stock_cases=22*len(OPERATIONS),native_stock_cases=6*len(OPERATIONS),
+            open_cases=len(cases)*len(OPERATIONS),
             limits='Cache/TLB effects are not modeled. Original TLB operand computation runs only with record-only writes; QEMU uses a different processor profile. Original/open cache instructions execute in QEMU with every operand constrained to synthetic RAM. No actual dirty cache, bus alias, CPU/DMA mapping, line geometry, MMIO, USB, boot, physical visibility or printer is established. The open routines are not linked to a hardware/entry backend.')
         (ROOT/'analysis/boot-handoff/cache-contract.json').write_text(json.dumps(report,indent=2,sort_keys=True)+'\n')
 

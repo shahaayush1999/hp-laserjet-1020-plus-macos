@@ -45,9 +45,9 @@ path passed64 of each. Reports retain exact tested source identities; never
 rewrite hashes after edits. The command profile is uppercase ECHO with at most50
 printable text bytes and exact INFO STATUS, CODE0..99999/ONLINE0..1/empty DISPLAY.
 
-Bounded call0 cache writeback/clean-invalidate routines now reject invalid spans
+Bounded call0 cache writeback, clean-invalidate and discard-only invalidation reject invalid spans
 before operating. Original range operands and startup attribute operands were
-recovered;44 original interpreter cases,12 original QEMU cases and36 open paired
+recovered;66 original interpreter cases,18 original QEMU cases and54 open paired
 cases passed. CPU/cache/line/mapping facts remain conditional, and these routines
 are not yet bound to the controller hooks. No physical visibility is claimed.
 Original boot capacity/stack/reservation/pool arithmetic also agrees in17 paired
@@ -58,7 +58,7 @@ stock pool contains boot-SP/reset/debug addresses, so it is not a layout to copy
 
 Connect command/reply handling with the controller service and failure gates.
 Boot memory arithmetic and cache operands are settled; they do not establish
-installed capacity, physical mapping, cache-line leases or a DMA acquire operation.
+installed capacity, physical mapping, cache-line leases or completed DMA visibility.
 Numeric conversion and reply formatting are settled. DISPLAY is initially empty
 and no local writer was recovered; ONLINE remains a separate observation.
 Notification candidates can differ from cached status; details are in the existing

@@ -37,4 +37,5 @@
 
     cache_range hp1020_dcache_clean_owned, dhwb
     cache_range hp1020_dcache_clean_invalidate_owned, dhwbi
+    cache_range hp1020_dcache_invalidate_owned, dhi
     .end no-transform

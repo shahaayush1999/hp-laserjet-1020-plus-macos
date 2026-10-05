@@ -10,7 +10,8 @@
  * That numeric window is a restriction, NOT evidence that memory exists there.
  *
  * The caller must own a valid stationary cached CPU RAM span including every
- * ACTUAL cache line touched, exclude all CPU/IRQ/DMA alias accesses, and supply
+ * ACTUAL cache line touched, ensure those lines are unlocked, exclude all
+ * CPU/IRQ/DMA alias accesses, and supply
  * a compatible cache/privilege profile. The16-byte step comes from original
  * firmware; it alone does not prove the physical cache-line size. Never round
  * an arbitrary USB buffer into someone else's line or pass an uncached/DMA
@@ -21,8 +22,15 @@
  * exclusively owned storage BEFORE permitting device writes. It is NOT an
  * acquire-after-DMA primitive: writing back stale dirty data then could destroy
  * device output. Existing controller/ownership/settlement gates still apply.
+ * invalidate discards cached copies WITHOUT writeback. Use it after independently
+ * established device-write completion and visibility, before CPU reads, only
+ * when there are no CPU modifications to preserve anywhere in the touched
+ * lines. It does not wait for device writes, repair a dirty alias or replace
+ * the preparation/ownership discipline before DMA. Locked lines may silently
+ * resist invalidation; these functions neither inspect nor unlock them.
  * A target exception is not converted into a successful/clean result.
  */
 uint32_t hp1020_dcache_clean_owned(void *cpu_base,uint32_t bytes);
 uint32_t hp1020_dcache_clean_invalidate_owned(void *cpu_base,uint32_t bytes);
+uint32_t hp1020_dcache_invalidate_owned(void *cpu_base,uint32_t bytes);
 #endif
